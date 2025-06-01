@@ -1,2 +1,1 @@
-# Bloonlatro
-Bloons mod for Balatro
+# Bloonlatro v0.1.5
