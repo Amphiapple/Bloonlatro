@@ -26,7 +26,7 @@ SMODS.Back { --Quincy Deck
 		return { vars = { G.GAME.probabilities.normal or 1 } }
 	end,
 	calculate = function(self, card, context)
-		if context.final_scoring_step and not self.config.missed then
+		if context.final_scoring_step then
 			local crit_poll = pseudorandom(pseudoseed("cry_critical"))
 			crit_poll = crit_poll / (G.GAME.probabilities.normal or 1)
 			if crit_poll < self.config.miss_rate then
@@ -76,9 +76,9 @@ SMODS.Back { --Striker Deck
 	loc_txt = {
         name = 'Striker Deck',
         text = {
-            'Start run with no',
-            '{C:spades}Spades{} in your deck',
-            '{C:inactive}unimplemented{}',
+            '{C:green}1 in 2{} chance for',
+            'each card in your deck',
+            'to start as {C:spades}Spades{}',
         }
     },
 	order = 19,
@@ -86,7 +86,24 @@ SMODS.Back { --Striker Deck
 	pos = { x = 2, y = 0 },
     unlocked = true,
     
-    config = { remove_spades = true },
+    config = { spade_rate = 1 / 3.0 },
+    loc_vars = function(self, info_queue, center)
+		return { vars = { G.GAME.probabilities.normal or 1 } }
+	end,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for k, v in pairs(G.playing_cards) do
+                    local suit_poll = pseudorandom(pseudoseed("erratic"))
+			        suit_poll = suit_poll / (G.GAME.probabilities.normal or 1)
+			        if suit_poll < self.config.spade_rate then
+                        v:change_suit('Spades')
+                    end
+                end
+            return true
+            end
+        }))
+    end
 }
 
 SMODS.Back { --Obyn Deck

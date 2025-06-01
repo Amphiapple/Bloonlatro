@@ -61,7 +61,7 @@ SMODS.Joker { --Dart
             return {
                 message = '+' .. card.ability.extra.mult,
                 mult_mod = card.ability.extra.mult,
-                colour = G.C.MULT,
+                colour = G.C.MULT
             }
         end
     end,
@@ -96,7 +96,7 @@ SMODS.Joker { --Boomer
                 if (next(context.card_effects[1]) or #context.card_effects > 1) then
                     return {
                         message = "Again!",
-                        repetitions = card.ability.extra,
+                        repetitions = card.ability.extra
                     }
                 end
             end
@@ -132,7 +132,7 @@ SMODS.Joker { --Bomb
 				return {
                     message = '+' .. card.ability.extra.chips,
 					chip_mod = card.ability.extra.chips,
-					colour = G.C.CHIPS,
+					colour = G.C.CHIPS
 				}
 			end
 		end
@@ -158,7 +158,7 @@ SMODS.Joker { --Tack
 	blueprint_compat = true,
     unlocked = true,
 
-    config = { extra = { chips = 25, mult = 2} },
+    config = { extra = { chips = 40, mult = 2} },
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.chips, center.ability.extra.mult} }
     end,
@@ -171,7 +171,7 @@ SMODS.Joker { --Tack
 				return {
                     message = '+' .. card.ability.extra.mult,
 					mult_mod = card.ability.extra.mult,
-					colour = G.C.MULT,
+					colour = G.C.MULT
 				}
 			end
 		end
@@ -192,7 +192,7 @@ SMODS.Joker { --Sniper
 	atlas = "Joker",
 	pos = { x = 6, y = 0 },
     rarity = 1,
-	cost = 5,
+	cost = 4,
 	order = 157,
 	blueprint_compat = true,
     unlocked = true,
@@ -213,7 +213,7 @@ SMODS.Joker { --Sniper
 			vars = {
 				center.ability.extra.mult,
 				center.ability.limit,
-                process_var(center.ability.counter, center.ability.limit),
+                process_var(center.ability.counter, center.ability.limit)
 			},
 		}
     end,
@@ -231,7 +231,7 @@ SMODS.Joker { --Sniper
                 return {
                     message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
                     mult_mod = card.ability.extra.mult,
-                    colour = G.C.MULT,
+                    colour = G.C.MULT
                 }
             end
         end
@@ -267,16 +267,54 @@ SMODS.Joker { --Sub
                 if context.other_card.debuff then
                     return {
                         message = localize('k_debuffed'),
-                        colour = G.C.RED,
+                        colour = G.C.RED
                     }
                 else
                     return {
-                        h_mult = card.ability.extra.mult,
+                        h_mult = card.ability.extra.mult
                     }
                 end
 			end
 		end
     end,
+}
+
+SMODS.Joker { --Boat
+    name = "Monkey Buccaneer",
+	key = "boat",
+	loc_txt = {
+        name = 'Monkey Buccaneer',
+        text = {
+            'Earn {C:money}$#1#{} for every {C:money}$#2#{} of',
+            'sell value of all other owned',
+            '{C:attention}Jokers{} at end of round',
+            '{C:inactive}(Currently {C:money}$#3#{C:inactive}){}',
+        }
+    },
+	atlas = "Joker",
+	pos = { x = 7, y = 0 },
+    rarity = 1,
+	cost = 4,
+	order = 159,
+	blueprint_compat = false,
+    unlocked = true,
+
+    config = { extra = { money = 1, rate = 3, current = 0 } },
+    loc_vars = function(self, info_queue, center)
+        if G.STAGE == G.STAGES.RUN then
+            local sell_cost = 0
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] ~= center and (G.jokers.cards[i].area == G.jokers) then
+                    sell_cost = sell_cost + G.jokers.cards[i].sell_cost
+                end
+            end
+            center.ability.extra.current = center.ability.extra.money * math.floor(sell_cost / center.ability.extra.rate)
+        end
+        return { vars = { center.ability.extra.money, center.ability.extra.rate, center.ability.extra.current } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.current
+    end
 }
 
 SMODS.Joker { --Ace
@@ -308,11 +346,11 @@ SMODS.Joker { --Ace
                 if context.other_card.debuff then
                     return {
                         message = localize('k_debuffed'),
-                        colour = G.C.RED,
+                        colour = G.C.RED
                     }
                 else
                     return {
-                        h_chips = card.ability.extra.chips,
+                        h_chips = card.ability.extra.chips
                     }
                 end
 			end
@@ -351,13 +389,13 @@ SMODS.Joker { --Heli
                     if context.scoring_hand[i]:get_id() >= 0 and
                         (context.scoring_hand[i]:get_id() <= 10 or
                         context.scoring_hand[i]:get_id() == 14) then
-                        last_number = context.scoring_hand[i];
+                        last_number = context.scoring_hand[i]
                     end
                 end
                 if context.other_card == last_number then
                     return {
                         x_mult = card.ability.extra.Xmult,
-                        colour = G.C.MULT,
+                        colour = G.C.MULT
                     }
                 end
             end
@@ -397,7 +435,7 @@ SMODS.Joker { --Mortar
                     return {
                         message = '+' .. card.ability.extra.mult,
                         mult_mod = card.ability.extra.mult,
-                        colour = G.C.MULT,
+                        colour = G.C.MULT
                     }
                 end
 			end
@@ -434,23 +472,23 @@ SMODS.Joker { --Dartling
     end,
 }
 
-SMODS.Joker { --Wizard
+SMODS.Joker { --Wiz
     name = "Wizard Monkey",
 	key = "wiz",
 	loc_txt = {
         name = 'Wizard Monkey',
         text = {
-            'First played {C:attention}number{}',
-            'card gains',
-            'when scored',
+            'Add a random ',
+            '{C:attention}Enhancement{} to first played',
+            'card when scored',
         }
     },
 	atlas = "Joker",
-	pos = { x = 0, y = 1 },
-    rarity = 2,
-	cost = 6,
-	order = 161,
-	blueprint_compat = true,
+	pos = { x = 3, y = 1 },
+    rarity = 1,
+	cost = 4,
+	order = 164,
+	blueprint_compat = false,
     unlocked = true,
 
     config = { extra = { Xmult = 2} },
@@ -458,14 +496,20 @@ SMODS.Joker { --Wizard
         return { vars = { center.ability.extra.Xmult} }
     end,
     calculate = function(self, card, context)
-        if context.individual then
-			if context.cardarea == G.play then
-                if context.other_card == context.scoring_hand[#context.scoring_hand] then
-                    return {
-                        x_mult = card.ability.extra.Xmult,
-                        colour = G.C.MULT,
-                    }
-                end
+        if context.before then
+            if not context.blueprint and not context.scoring_hand[1].debuff then
+                local enhancement = pseudorandom_element({ 'm_bonus', 'm_mult', 'm_wild', 'm_glass', 'm_steel', 'm_stone', 'm_gold', 'm_lucky' }, pseudoseed("cry_brittle"))
+                context.scoring_hand[1]:set_ability(G.P_CENTERS[enhancement], nil, true)
+                G.E_MANAGER:add_event(Event({
+                        func = function()
+                            context.scoring_hand[1]:juice_up()
+                            return true
+                        end
+                    })) 
+                return {
+                    message = 'Magic',
+                    colour = G.C.MONEY
+                }
             end
 		end
     end,
@@ -524,7 +568,7 @@ SMODS.Joker { --Dprec
                 return {
                     message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
                     Xmult_mod = card.ability.extra.Xmult,
-                    colour = G.C.MULT,
+                    colour = G.C.MULT
                 }
             end
         end
@@ -556,6 +600,51 @@ SMODS.Joker { --Buckshot
                 message = localize{type='variable',key='a_xmult',vars={temp_Xmult}},
                 Xmult_mod = temp_Xmult
             }
+		end
+    end,
+}
+
+SMODS.Joker { --GMN
+    name = "Grandmaster Ninja",
+	key = "gmn",
+	loc_txt = {
+        name = 'Grandmaster Ninja',
+        text = {
+            '{C:mult}+{X:mult,C:white}X#1#{} Mult for every',
+            'played card with {C:diamonds}Diamond{}',
+            'suit that scores',
+        }
+    },
+	atlas = "Joker",
+	pos = { x = 9, y = 4 },
+    rarity = 3,
+	cost = 9,
+	order = 215,
+	blueprint_compat = true,
+    unlocked = true,
+
+    config = { extra = { Xmult = 0.5 } },
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.Xmult} }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local total = 1
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name ~= 'Wild Card' then
+                    if context.scoring_hand[i]:is_suit('Diamonds', true) then
+                        total = total + card.ability.extra.Xmult
+                    end
+                else
+                    total = total + card.ability.extra.Xmult
+                end
+            end
+            if total > 1 then
+                return {
+                    message = localize{type='variable',key='a_xmult',vars={total}},
+                    Xmult_mod = total
+                }
+            end
 		end
     end,
 }
