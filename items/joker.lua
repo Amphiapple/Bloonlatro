@@ -611,8 +611,8 @@ SMODS.Joker { --GMN
         name = 'Grandmaster Ninja',
         text = {
             '{C:mult}+{X:mult,C:white}X#1#{} Mult for every',
-            'played card with {C:diamonds}Diamond{}',
-            'suit that scores',
+            'scoring {C:diamonds}Diamond{}',
+            'in played poker hand',
         }
     },
 	atlas = "Joker",
