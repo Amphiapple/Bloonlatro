@@ -409,9 +409,9 @@ SMODS.Joker { --Mortar
 	loc_txt = {
         name = 'Mortar Monkey',
         text = {
-            '{C:green}1 in 3{} chance for',
+            '{C:green}#1# in #2#{} chance for',
             'played cards to give',
-            '{C:mult}+#1#{} Mult when scored',
+            '{C:mult}+#3#{} Mult when scored',
         }
     },
 	atlas = "Joker",
@@ -422,16 +422,14 @@ SMODS.Joker { --Mortar
 	blueprint_compat = true,
     unlocked = true,
 
-    config = { extra = { mult = 8 }, hit_rate = 0.333 },
+    config = { extra = { odds = 2, mult = 5 }, },
     loc_vars = function(self, info_queue, center)
-        return { vars = { center.ability.extra.mult} }
+        return { vars = { G.GAME.probabilities.normal or 1, center.ability.extra.odds, center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.individual then
 			if context.cardarea == G.play then
-                local crit_poll = pseudorandom(pseudoseed("cry_critical"))
-			    crit_poll = crit_poll / (G.GAME.probabilities.normal or 1)
-			    if crit_poll < self.config.hit_rate then
+                if pseudorandom('bloodstone') < G.GAME.probabilities.normal/card.ability.extra.odds then
                     return {
                         message = '+' .. card.ability.extra.mult,
                         mult_mod = card.ability.extra.mult,
@@ -460,7 +458,7 @@ SMODS.Joker { --Dartling
 	blueprint_compat = true,
     unlocked = true,
 
-    config = { extra = { max = 123, min = 0 } },
+    config = { extra = { max = 150, min = 0 } },
     calculate = function(self, card, context)
         if context.joker_main then
             local temp_Chips = pseudorandom('misprint', card.ability.extra.min, card.ability.extra.max)
@@ -610,9 +608,9 @@ SMODS.Joker { --GMN
 	loc_txt = {
         name = 'Grandmaster Ninja',
         text = {
-            '{C:mult}+{X:mult,C:white}X#1#{} Mult for every',
-            'played card with {C:diamonds}Diamond{}',
-            'suit that scores',
+            'Has {C:mult}+{X:mult,C:white}X#1#{} Mult for',
+            'every scoring {C:diamonds}Diamond{}',
+            'in played {C:attention}poker hand{}',
         }
     },
 	atlas = "Joker",

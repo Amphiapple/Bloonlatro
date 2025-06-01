@@ -11,9 +11,9 @@ SMODS.Back { --Quincy Deck
 	loc_txt = {
         name = 'Quincy Deck',
         text = {
-            '{C:green}1 in 4{} chance to',
+            '{C:green}#1# in #2#{} chance to',
             'halve Chips',
-            '{C:mult}X0.75{} base Blind size',
+            '{C:mult}X#3#{} base Blind size',
         }
     },
 	order = 17,
@@ -21,15 +21,13 @@ SMODS.Back { --Quincy Deck
 	pos = { x = 0, y = 0 },
     unlocked = true,
 
-    config = { ante_scaling = 0.75 , miss_rate = 0.25 },
+    config = { extra = { odds = 4}, ante_scaling = 0.75 },
     loc_vars = function(self, info_queue, center)
-		return { vars = { G.GAME.probabilities.normal or 1 } }
+		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds, self.config.ante_scaling } }
 	end,
 	calculate = function(self, card, context)
 		if context.final_scoring_step then
-			local crit_poll = pseudorandom(pseudoseed("cry_critical"))
-			crit_poll = crit_poll / (G.GAME.probabilities.normal or 1)
-			if crit_poll < self.config.miss_rate then
+			if pseudorandom('cry_critical') < G.GAME.probabilities.normal/self.config.extra.odds then
                 hand_chips = mod_chips(hand_chips / 2.0)
                 update_hand_text( { delay = 0 }, { chips = hand_chips } )
 				G.E_MANAGER:add_event(Event({
@@ -76,7 +74,7 @@ SMODS.Back { --Striker Deck
 	loc_txt = {
         name = 'Striker Deck',
         text = {
-            '{C:green}1 in 2{} chance for',
+            '{C:green}#1# in #2#{} chance for',
             'each card in your deck',
             'to start as {C:spades}Spades{}',
         }
@@ -86,17 +84,15 @@ SMODS.Back { --Striker Deck
 	pos = { x = 2, y = 0 },
     unlocked = true,
     
-    config = { spade_rate = 1 / 3.0 },
+    config = { extra = {odds = 3} },
     loc_vars = function(self, info_queue, center)
-		return { vars = { G.GAME.probabilities.normal or 1 } }
+		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds - 1 } }
 	end,
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
                 for k, v in pairs(G.playing_cards) do
-                    local suit_poll = pseudorandom(pseudoseed("erratic"))
-			        suit_poll = suit_poll / (G.GAME.probabilities.normal or 1)
-			        if suit_poll < self.config.spade_rate then
+                    if pseudorandom('erratic') < G.GAME.probabilities.normal/self.config.extra.odds then
                         v:change_suit('Spades')
                     end
                 end
@@ -172,8 +168,8 @@ SMODS.Back { --Ben Deck
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            '{C:money}+$1{} Blind reward',
-            '{C:money}+$2 {C:attention}Boss Blind{} reward',
+            '{C:money}+$#1#{} Blind reward',
+            '{C:money}+$#2# {C:attention}Boss Blind{} reward',
             '{C:inactive}unimplemented{}',
         }
     },
@@ -182,8 +178,16 @@ SMODS.Back { --Ben Deck
 	pos = { x = 0, y = 1 },
     unlocked = true,
 
-    config = { },
-    calculate = function(self, card, context)
+    config = { extra = {money = 1, boss_money = 2} },
+    loc_vars = function(self, info_queue, center)
+		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
+	end,
+    calc_dollar_bonus = function(self, card)
+        if G.GAME.blind.boss then
+            return self.config.extra.boss_money
+        else
+            return self.config.extra.money
+        end
     end,
 }
 
@@ -206,6 +210,7 @@ SMODS.Back { --Ezili Deck
     unlocked = true,
     
     config = { consumables = {'c_hex'} },
+
 }
 
 SMODS.Back { --Pat Deck
@@ -242,7 +247,19 @@ SMODS.Back { --Adora Deck
 	pos = { x = 3, y = 1 },
     unlocked = true,
 
-    config = { },
+    config = {  },
+    calculate = function(self, card, context)
+        if context.selling_card then
+            local visible = {}
+            for k, v in pairs(G.handlist) do
+                if G.GAME.hands[v].visible then
+				    table.insert(visible, v)
+                end
+			end
+            level_up_hand(self, pseudorandom_element(visible, pseudoseed('')), true)
+            
+        end
+    end,
 }
 
 SMODS.Back { --Brick Deck
@@ -260,7 +277,12 @@ SMODS.Back { --Brick Deck
 	pos = { x = 4, y = 1 },
     unlocked = true,
 
-    config = { voucher = 'v_petroglyph', hands = 1, discards = -3 },
+    config = { extra = { ante = 0 }, hands = 1, discards = -3 },
+    apply = function(self)
+        ease_ante(self.config.extra.ante - 1)
+        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+        G.GAME.round_resets.blind_ante = self.config.extra.ante
+    end
 }
 
 SMODS.Back { --French Deck
@@ -269,8 +291,7 @@ SMODS.Back { --French Deck
 	loc_txt = {
         name = 'Etienne Deck',
         text = {
-            '{C:attention}+1{} Booster Pack slot',
-            '{C:inactive}unimplemented{}',
+            '{C:attention}+#1#{} Booster Pack slot',
         }
     },
 	order = 27,
@@ -278,7 +299,13 @@ SMODS.Back { --French Deck
 	pos = { x = 0, y = 2 },
     unlocked = true,
 
-    config = { },
+    config = { extra = {booster_slots = 1} },
+    loc_vars = function(self, info_queue, center)
+        return { vars = {self.config.extra.booster_slots} }
+    end,
+    apply = function(self)
+        SMODS.change_booster_limit(self.config.extra.booster_slots)
+    end,
 }
 
 SMODS.Back { --Sauda Deck
@@ -287,8 +314,8 @@ SMODS.Back { --Sauda Deck
 	loc_txt = {
         name = 'Sauda Deck',
         text = {
-            'Start run with a',
-            '{C:spectral}Black Hole{} card',
+            'Start run with all',
+            '{C:attention}poker hands{} leveled up',
         }
     },
 	order = 28,
@@ -296,7 +323,12 @@ SMODS.Back { --Sauda Deck
 	pos = { x = 1, y = 2 },
     unlocked = true,
 
-    config = { consumables = {'c_black_hole'} },
+    config = { },
+    apply = function(self)
+        for k, v in pairs(G.GAME.hands) do
+            level_up_hand(self, k, true)
+        end
+    end,
 }
 
 SMODS.Back { --Psi Deck
