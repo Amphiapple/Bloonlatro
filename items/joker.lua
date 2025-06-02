@@ -525,10 +525,10 @@ SMODS.Joker { --Dprec
         }
     },
 	atlas = "Joker",
-	pos = { x = 0, y = 3 },
+	pos = { x = 6, y = 3 },
     rarity = 2,
 	cost = 7,
-	order = 206,
+	order = 187,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -583,10 +583,10 @@ SMODS.Joker { --Buckshot
         }
     },
 	atlas = "Joker",
-	pos = { x = 6, y = 3 },
+	pos = { x = 2, y = 4 },
     rarity = 2,
 	cost = 8,
-	order = 212,
+	order = 192,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -614,7 +614,7 @@ SMODS.Joker { --GMN
         }
     },
 	atlas = "Joker",
-	pos = { x = 9, y = 4 },
+	pos = { x = 5, y = 4 },
     rarity = 3,
 	cost = 9,
 	order = 215,
