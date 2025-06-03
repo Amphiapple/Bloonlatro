@@ -137,26 +137,24 @@ SMODS.Back { --Church Deck
 
     config = { extra = { Xmult = 2 } },
     calculate = function(self, card, context)
-		if G.GAME.blind.boss then
-            if context.final_scoring_step then
-                mult = mod_mult(mult * 2)
-                update_hand_text( { delay = 0 }, { mult = mult } )
-                G.E_MANAGER:add_event(Event({
-					func = function()
-						play_sound("multhit2", 1)
-                        attention_text({
-							scale = 1.4,
-							text = "Try This!",
-                            color = G.C.MULT,
-							hold = 2,
-							align = "cm",
-							offset = { x = 0, y = -2.7 },
-							major = G.play,
-						})
-						return true
-					end,
-				}))
-		    end
+		if G.GAME.blind.boss and context.final_scoring_step then
+            mult = mod_mult(mult * 2)
+            update_hand_text( { delay = 0 }, { mult = mult } )
+            G.E_MANAGER:add_event(Event({
+				func = function()
+					play_sound("multhit2", 1)
+                    attention_text({
+						scale = 1.4,
+						text = "Try This!",
+                        color = G.C.MULT,
+						hold = 2,
+						align = "cm",
+						offset = { x = 0, y = -2.7 },
+						major = G.play,
+					})
+					return true
+				end,
+			}))
         end
 	end,
 }
@@ -367,9 +365,9 @@ SMODS.Back { --Psi Deck
         local get_boss_old = get_new_boss
         get_new_boss = function()
             local ret = get_boss_old()
-            if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+            if G.GAME.selected_back.name ~= 'Psi Deck' or G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
                 return ret
-            else 
+            else
                 return "bl_psychic"
             end
         end

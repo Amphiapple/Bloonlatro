@@ -25,14 +25,14 @@ SMODS.Joker { --Dart
 
     config = { extra = { chips = 30, mult = 3} },
     loc_vars = function(self, info_queue, center)
+        --Variables: chips = +chips, mult = +mult
         return { vars = { center.ability.extra.chips, center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
                 h_chips = card.ability.extra.chips,
-                message = '+' .. card.ability.extra.mult,
-                mult_mod = card.ability.extra.mult,
+                h_mult = card.ability.extra.mult,
                 colour = G.C.MULT
             }
         end
@@ -60,6 +60,7 @@ SMODS.Joker { --Boomer
 
     config = { extra = 2 },
     loc_vars = function(self, info_queue, center)
+        --Variables: extra = retrigger amount
         return { vars = { center.ability.extra} }
     end,
     calculate = function(self, card, context)
@@ -96,6 +97,7 @@ SMODS.Joker { --Bomb
 
     config = { extra = { Xmult = 1.5 } },
     loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = Xmult
         return { vars = { center.ability.extra.Xmult} }
     end,
     calculate = function(self, card, context)
@@ -130,6 +132,7 @@ SMODS.Joker { --Tack
 
     config = { extra = { chips = 40, mult = 4} },
     loc_vars = function(self, info_queue, center)
+        --Variables: chips = +chips, mult = +mult
         return { vars = { center.ability.extra.chips, center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
@@ -175,6 +178,7 @@ SMODS.Joker { --Sniper
 			end
 			return cap - count%cap - 1 .. " remaining"
 		end
+        --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
 		return {
 			vars = {
 				center.ability.extra.mult,
@@ -224,6 +228,7 @@ SMODS.Joker { --Sub
     unlocked = true,
 
     config = { extra = { mult = 2 } },
+    --Variables: mult = +mult
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.mult } }
     end,
@@ -265,7 +270,7 @@ SMODS.Joker { --Boat
 	blueprint_compat = false,
     unlocked = true,
 
-    config = { extra = { money = 1, rate = 2, current = 0 } },
+    config = { extra = { money = 1, rate = 3, current = 0 } },
     loc_vars = function(self, info_queue, center)
         if G.STAGE == G.STAGES.RUN then
             local sell_cost = 0
@@ -276,6 +281,7 @@ SMODS.Joker { --Boat
             end
             center.ability.extra.current = center.ability.extra.money * math.floor(sell_cost / center.ability.extra.rate)
         end
+        --Variables: money = end of round dollars oer rate, rate = sell cost required for money, current = current end of round dollars
         return { vars = { center.ability.extra.money, center.ability.extra.rate, center.ability.extra.current } }
     end,
     calc_dollar_bonus = function(self, card)
@@ -304,6 +310,7 @@ SMODS.Joker { --Ace
 
     config = { extra = { chips = 80 } },
     loc_vars = function(self, info_queue, center)
+        --Variables: chips = +chips
         return { vars = { center.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
@@ -345,6 +352,7 @@ SMODS.Joker { --Heli
 
     config = { extra = { Xmult = 2 } },
     loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = Xmult
         return { vars = { center.ability.extra.Xmult} }
     end,
     calculate = function(self, card, context)
@@ -389,6 +397,7 @@ SMODS.Joker { --Mortar
 
     config = { extra = { odds = 2, mult = 8 }, },
     loc_vars = function(self, info_queue, center)
+        --Variables: odds = probability cases, mult = +mult
         return { vars = { G.GAME.probabilities.normal or 1, center.ability.extra.odds, center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
@@ -424,6 +433,7 @@ SMODS.Joker { --Dartling
     unlocked = true,
 
     config = { extra = { max = 150, min = 0 } },
+    --Variables: max = max possible +chips, min = min possible +chips
     calculate = function(self, card, context)
         if context.joker_main then
             local temp_Chips = pseudorandom('misprint', card.ability.extra.min, card.ability.extra.max)
@@ -454,27 +464,23 @@ SMODS.Joker { --Wiz
 	blueprint_compat = false,
     unlocked = true,
 
-    config = { extra = { Xmult = 2} },
-    loc_vars = function(self, info_queue, center)
-        return { vars = { center.ability.extra.Xmult } }
-    end,
+    config = { },
+    --Variables:
     calculate = function(self, card, context)
-        if context.before then
-            if not context.blueprint and not context.scoring_hand[1].debuff then
-                local enhancement = pseudorandom_element({ 'm_bonus', 'm_mult', 'm_wild', 'm_glass', 'm_steel', 'm_stone', 'm_gold', 'm_lucky' }, pseudoseed("cry_brittle"))
-                context.scoring_hand[1]:set_ability(G.P_CENTERS[enhancement], nil, true)
-                G.E_MANAGER:add_event(Event({
-                        func = function()
-                            context.scoring_hand[1]:juice_up()
-                            return true
-                        end
-                    })) 
-                return {
-                    message = 'Magic',
-                    colour = G.C.MONEY
-                }
-            end
-		end
+        if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
+            local enhancement = pseudorandom_element({ 'm_bonus', 'm_mult', 'm_wild', 'm_glass', 'm_steel', 'm_stone', 'm_gold', 'm_lucky' }, pseudoseed("cry_brittle"))
+            context.scoring_hand[1]:set_ability(G.P_CENTERS[enhancement], nil, true)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.scoring_hand[1]:juice_up()
+                    return true
+                end
+            })) 
+            return {
+                message = 'Magic',
+                colour = G.C.MONEY
+            }
+        end
     end,
 }
 
@@ -545,6 +551,7 @@ SMODS.Joker { --Dprec
 			end
 			return cap - count%cap - 1 .. " remaining"
 		end
+        --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 		return {
 			vars = {
 				center.ability.extra.Xmult,
@@ -592,6 +599,7 @@ SMODS.Joker { --Buckshot
     unlocked = true,
 
     config = { extra = { max = 33, min = 10 } },
+    --Variables: max = max possible Xmult *10, min = min possible Xmult *10
     calculate = function(self, card, context)
         if context.joker_main then
             local temp_Xmult = pseudorandom('misprint', card.ability.extra.min, card.ability.extra.max) / 10.0
@@ -623,18 +631,15 @@ SMODS.Joker { --Amast
 
     config = { extra = 1},
     loc_vars = function(self, info_queue, center)
+        --Variables: extra = retrigger amount
         return { vars = { center.ability.extra } }
     end,
     calculate = function(self, card, context)
-        if context.repetition then
-            if context.cardarea == G.play then
-                if context.other_card.config.center ~= G.P_CENTERS.c_base then
-                    return {
-                        message = localize('k_again_ex'),
-                        repetitions = card.ability.extra
-                    }
-                end
-            end
+        if context.repetition and context.cardarea == G.play and context.other_card.config.center ~= G.P_CENTERS.c_base then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra
+            }
         end
     end,
 }
@@ -654,13 +659,14 @@ SMODS.Joker { --DoW
 	atlas = "Joker",
 	pos = { x = 7, y = 4 },
     rarity = 2,
-	cost = 7,
+	cost = 6,
 	order = 197,
 	blueprint_compat = true,
     unlocked = true,
 
     config = { extra = { Xmult = 0.5, current = 1 } },
     loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = Xmult gain for each hand, current = current Xmult
         return { vars = { center.ability.extra.Xmult, center.ability.extra.current } }
     end,
     calculate = function(self, card, context)
@@ -708,17 +714,14 @@ SMODS.Joker { --GMN
 
     config = { extra = { Xmult = 0.5 } },
     loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = +Xmult
         return { vars = { center.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             local total = 1
             for i = 1, #context.scoring_hand do
-                if context.scoring_hand[i].ability.name ~= 'Wild Card' then
-                    if context.scoring_hand[i]:is_suit('Diamonds', true) then
-                        total = total + card.ability.extra.Xmult
-                    end
-                else
+                if context.scoring_hand[i].ability.name == 'Wild Card' or context.scoring_hand[i]:is_suit('Diamonds', true) then
                     total = total + card.ability.extra.Xmult
                 end
             end
