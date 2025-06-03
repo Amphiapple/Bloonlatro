@@ -118,7 +118,6 @@ SMODS.Back { --Obyn Deck
     unlocked = true,
 
     config = { vouchers = {'v_seed_money','v_money_tree'}},
-    
 }
 
 SMODS.Back { --Church Deck
@@ -182,12 +181,18 @@ SMODS.Back { --Ben Deck
     loc_vars = function(self, info_queue, center)
 		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
 	end,
-    calc_dollar_bonus = function(self, card)
-        if G.GAME.blind.boss then
-            return self.config.extra.boss_money
-        else
-            return self.config.extra.money
+    apply = function(self)
+        --[[
+        local set_blind_old = Blind.set_blind
+        Blind.set_blind = function(blind, reset, silent)
+            set_blind_old(blind, reset, silent)
+            if Blind.boss then
+                G.GAME.blind.dollars = self.config.extra.boss_money
+            else
+                G.GAME.blind.dollars = self.config.extra.money
+            end
         end
+        ]]
     end,
 }
 
@@ -239,7 +244,6 @@ SMODS.Back { --Adora Deck
             'Selling cards sacrifices',
             'them to level up a random',
             '{C:attention}poker hand{} instead',
-            '{C:inactive}unimplemented{}',
         }
     },
 	order = 25,
@@ -250,14 +254,26 @@ SMODS.Back { --Adora Deck
     config = {  },
     calculate = function(self, card, context)
         if context.selling_card then
+            context.card.sell_cost = 0
             local visible = {}
             for k, v in pairs(G.handlist) do
                 if G.GAME.hands[v].visible then
 				    table.insert(visible, v)
                 end
 			end
-            level_up_hand(self, pseudorandom_element(visible, pseudoseed('')), true)
-            
+            local hand = pseudorandom_element(visible, pseudoseed(''))
+            update_hand_text(
+                { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
+                { handname = localize(hand, 'poker_hands'),
+                    chips = G.GAME.hands[hand].chips,
+                    mult = G.GAME.hands[hand].mult,
+                    level = G.GAME.hands[hand].level
+                }
+            )
+            level_up_hand(context.card, hand)
+            update_hand_text(
+                {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
+            )
         end
     end,
 }
@@ -299,9 +315,9 @@ SMODS.Back { --French Deck
 	pos = { x = 0, y = 2 },
     unlocked = true,
 
-    config = { extra = {booster_slots = 1} },
+    config = { extra = { booster_slots = 1} },
     loc_vars = function(self, info_queue, center)
-        return { vars = {self.config.extra.booster_slots} }
+        return { vars = { self.config.extra.booster_slots } }
     end,
     apply = function(self)
         SMODS.change_booster_limit(self.config.extra.booster_slots)
@@ -347,6 +363,17 @@ SMODS.Back { --Psi Deck
     unlocked = true,
 
     config = { },
+    apply = function(self)
+        local get_boss_old = get_new_boss
+        get_new_boss = function()
+            local ret = get_boss_old()
+            if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+                return ret
+            else 
+                return "bl_psychic"
+            end
+        end
+    end,
 }
 
 SMODS.Back { --Gerry Deck
@@ -392,8 +419,9 @@ SMODS.Back { --Rose Deck
 	loc_txt = {
         name = 'Rosalia Deck',
         text = {
-            '{C:tarot}Tarot{} cards and',
-            '{C:attention}Arcana{} packs cost {C:money}$1{} less',
+            'Switch between {X:mult,C:white}X#1#{} Mult and',
+            'retriggering {C:attention}first{} played',
+            'card each hand',
             '{C:inactive}unimplemented{}',
         }
     },
@@ -402,5 +430,8 @@ SMODS.Back { --Rose Deck
 	pos = { x = 0, y = 3 },
     unlocked = true,
 
-    config = { },
+    config = { extra = { discount = 1 } },
+    loc_vars = function(self, info_queue, center)
+        return { vars = { self.config.extra.discount } }
+    end,
 }
