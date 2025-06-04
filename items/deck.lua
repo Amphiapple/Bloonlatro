@@ -21,8 +21,9 @@ SMODS.Back { --Quincy Deck
 	pos = { x = 0, y = 0 },
     unlocked = true,
 
-    config = { extra = { odds = 4}, ante_scaling = 0.75 },
+    config = { extra = { odds = 4 }, ante_scaling = 0.75 },
     loc_vars = function(self, info_queue, center)
+        --Variables: odds = probability cases, scaling = ante score requirement
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds, self.config.ante_scaling } }
 	end,
 	calculate = function(self, card, context)
@@ -57,7 +58,7 @@ SMODS.Back { --Gwen Deck
         text = {
             'Start run with',
             'an {C:spectral}Immolate{} card',
-            '{C:attention}-1{} hand size',
+            '{C:attention}#1#{} hand size',
         }
     },
 	order = 18,
@@ -65,7 +66,11 @@ SMODS.Back { --Gwen Deck
 	pos = { x = 1, y = 0 },
     unlocked = true,
 
-    config = { consumables = {'c_immolate'}, hand_size = -1 },
+    config = { hand_size = -1, consumables = {'c_immolate'} },
+    loc_vars = function(self, info_queue, center)
+        --Variables: hand_size = change in hand size
+		return { vars = { self.config.hand_size } }
+	end,
 }
 
 SMODS.Back { --Striker Deck
@@ -86,6 +91,7 @@ SMODS.Back { --Striker Deck
     
     config = { extra = {odds = 3} },
     loc_vars = function(self, info_queue, center)
+        --Variables: odds = probability cases
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds - 1 } }
 	end,
     apply = function(self)
@@ -126,7 +132,7 @@ SMODS.Back { --Church Deck
 	loc_txt = {
         name = 'Churchill Deck',
         text = {
-            '{X:mult,C:white}X2{} Mult against',
+            '{X:mult,C:white}X#1#{} Mult against',
             '{C:attention}Boss Blinds{}',
         }
     },
@@ -136,6 +142,10 @@ SMODS.Back { --Church Deck
     unlocked = true,
 
     config = { extra = { Xmult = 2 } },
+    loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = Xmult
+		return { vars = { self.config.extra.Xmult } }
+	end,
     calculate = function(self, card, context)
 		if G.GAME.blind.boss and context.final_scoring_step then
             mult = mod_mult(mult * 2)
@@ -155,6 +165,7 @@ SMODS.Back { --Church Deck
 					return true
 				end,
 			}))
+            delay(0.6)
         end
 	end,
 }
@@ -177,18 +188,29 @@ SMODS.Back { --Ben Deck
 
     config = { extra = {money = 1, boss_money = 2} },
     loc_vars = function(self, info_queue, center)
+        --Variables: money = extra small/big blind reward, boss_money = extra boss blind reward
 		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
 	end,
     apply = function(self)
         --[[
-        local set_blind_old = Blind.set_blind
-        Blind.set_blind = function(blind, reset, silent)
-            set_blind_old(blind, reset, silent)
-            if Blind.boss then
-                G.GAME.blind.dollars = self.config.extra.boss_money
-            else
-                G.GAME.blind.dollars = self.config.extra.money
+        local start_run_old = Game.start_run
+        Game.start_run = function()
+            for k, v in pairs(G.P_BLINDS) do
+                if G.GAME.selected_back.name == 'Benjamin Deck' then
+                    if v.boss then
+                        v.dollars = v.dollars + self.config.extra.boss_money
+                    else
+                        v.dollars = v.dollars + self.config.extra.money
+                    end
+                else
+                    if v.boss then
+                        v.dollars = v.dollars - self.config.extra.boss_money
+                    else
+                        v.dollars = v.dollars - self.config.extra.money
+                    end
+                end
             end
+            start_run_old()
         end
         ]]
     end,
@@ -222,7 +244,7 @@ SMODS.Back { --Pat Deck
 	loc_txt = {
         name = 'Pat Fusty Deck',
         text = {
-            '{C:attention}+1{} hand size',
+            '{C:attention}+#1#{} hand size',
         }
     },
 	order = 24,
@@ -231,6 +253,10 @@ SMODS.Back { --Pat Deck
     unlocked = true,
 
     config = { hand_size = 1 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: hand_size = change in hand size
+		return { vars = { self.config.hand_size } }
+	end,
 }
 
 SMODS.Back { --Adora Deck
@@ -282,8 +308,8 @@ SMODS.Back { --Brick Deck
 	loc_txt = {
         name = 'Brickell Deck',
         text = {
-            'Start on Ante {C:attention}0{} with',
-            '{C:blue}+1{} hand and {C:red}0{} discards',
+            'Start on Ante {C:attention}#1#{} with',
+            '{C:blue}+#2#{} hand and {C:red}#3#{} discards',
         }
     },
 	order = 26,
@@ -292,6 +318,10 @@ SMODS.Back { --Brick Deck
     unlocked = true,
 
     config = { extra = { ante = 0 }, hands = 1, discards = -3 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: ante = starting ante, hands = change in hands, discards = number of discards
+		return { vars = { self.config.extra.ante, self.config.hands, self.config.discards + 3 } }
+	end,
     apply = function(self)
         ease_ante(self.config.extra.ante - 1)
         G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
@@ -315,6 +345,7 @@ SMODS.Back { --French Deck
 
     config = { extra = { booster_slots = 1} },
     loc_vars = function(self, info_queue, center)
+        --Variables: booster_slots = extra booster slots
         return { vars = { self.config.extra.booster_slots } }
     end,
     apply = function(self)
