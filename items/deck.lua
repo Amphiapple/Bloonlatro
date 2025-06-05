@@ -343,7 +343,7 @@ SMODS.Back { --French Deck
 	pos = { x = 0, y = 2 },
     unlocked = true,
 
-    config = { extra = { booster_slots = 1} },
+    config = { extra = { booster_slots = 1 } },
     loc_vars = function(self, info_queue, center)
         --Variables: booster_slots = extra booster slots
         return { vars = { self.config.extra.booster_slots } }
@@ -383,7 +383,6 @@ SMODS.Back { --Psi Deck
         name = 'Psi Deck',
         text = {
             'All {C:attention}Boss Blinds{} are {C:attention}The Psychic{}',
-            '{C:inactive}unimplemented{}',
         }
     },
 	order = 29,

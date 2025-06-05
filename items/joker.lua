@@ -83,7 +83,7 @@ SMODS.Joker { --Bomb
 	loc_txt = {
         name = 'Bomb Shooter',
         text = {
-            '{C:gray}Steel{} cards give',
+            'Played {C:attention}Steel{} cards give',
             '{X:mult,C:white}X#1#{} Mult when scored',
         }
     },
