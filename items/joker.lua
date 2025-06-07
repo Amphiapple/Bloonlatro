@@ -83,7 +83,7 @@ SMODS.Joker { --Bomb
 	loc_txt = {
         name = 'Bomb Shooter',
         text = {
-            'Played {C:attention}Steel{} cards give',
+            '{C:gray}Steel{} cards give',
             '{X:mult,C:white}X#1#{} Mult when scored',
         }
     },
@@ -417,7 +417,7 @@ SMODS.Joker { --Dartling
         }
     },
 	atlas = "Joker",
-	pos = { x = 2, y = 4 },
+	pos = { x = 2, y = 1 },
     rarity = 1,
 	cost = 5,
 	order = 163,
