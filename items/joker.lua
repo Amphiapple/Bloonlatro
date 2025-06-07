@@ -190,18 +190,10 @@ SMODS.Joker { --Sniper
     calculate = function(self, card, context)
         if context.joker_main then
             card.ability.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.limit) + 1
-            if context.blueprint then
-                if card.ability.counter == card.ability.limit then
-                    return {
-                        message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                        mult_mod = card.ability.extra.mult
-                    }
-                end
-            elseif card.ability.counter == card.ability.limit then
+            if card.ability.counter == card.ability.limit then
                 return {
                     message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
                     mult_mod = card.ability.extra.mult,
-                    colour = G.C.MULT
                 }
             end
         end
@@ -263,9 +255,9 @@ SMODS.Joker { --Boat
         }
     },
 	atlas = "Joker",
-	pos = { x = 7, y = 0 },
+	pos = { x = 8, y = 0 },
     rarity = 1,
-	cost = 5,
+	cost = 4,
 	order = 159,
 	blueprint_compat = false,
     unlocked = true,
@@ -495,10 +487,10 @@ SMODS.Joker { --Jugg
         }
     },
 	atlas = "Joker",
-	pos = { x = 0, y = 0 },
+	pos = { x = 0, y = 3 },
     rarity = 2,
 	cost = 7,
-	order = 151,
+	order = 181,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -563,18 +555,10 @@ SMODS.Joker { --Dprec
     calculate = function(self, card, context)
         if context.joker_main then
             card.ability.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.limit) + 1
-            if context.blueprint then
-                if card.ability.counter == card.ability.limit then
-                    return {
-                        message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
-                        Xmult_mod = card.ability.extra.Xmult
-                    }
-                end
-            elseif card.ability.counter == card.ability.limit then
+            if card.ability.counter == card.ability.limit then
                 return {
                     message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
                     Xmult_mod = card.ability.extra.Xmult,
-                    colour = G.C.MULT
                 }
             end
         end
@@ -593,8 +577,8 @@ SMODS.Joker { --Buckshot
 	atlas = "Joker",
 	pos = { x = 2, y = 4 },
     rarity = 2,
-	cost = 8,
-	order = 192,
+	cost = 7,
+	order = 193,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -622,10 +606,10 @@ SMODS.Joker { --Amast
         }
     },
 	atlas = "Joker",
-	pos = { x = 3, y = 1 },
+	pos = { x = 3, y = 4 },
     rarity = 2,
 	cost = 7,
-	order = 193,
+	order = 194,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -660,7 +644,7 @@ SMODS.Joker { --DoW
 	pos = { x = 7, y = 4 },
     rarity = 2,
 	cost = 6,
-	order = 197,
+	order = 198,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -693,6 +677,94 @@ SMODS.Joker { --DoW
     end,
 }
 
+SMODS.Joker { --XBM
+    name = "Crossbow Master",
+	key = "xbm",
+	loc_txt = {
+        name = 'Crossbow Master',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult Every',
+            '{C:attention}#2#{} cards scored',
+            '{C:inactive}#3#',
+        }
+    },
+	atlas = "Joker",
+	pos = { x = 0, y = 9 },
+    rarity = 2,
+	cost = 8,
+	order = 241,
+	blueprint_compat = false,
+    unlocked = true,
+
+    config = { 
+        extra = { Xmult = 2 },
+        limit = 5,
+        counter = 1,
+    },
+    loc_vars = function(self, info_queue, center)
+        local function process_var(count, cap)
+			if count == cap then
+				return "Active!"
+			end
+			return cap - count%cap .. " remaining"
+		end
+        --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+		return {
+			vars = {
+				center.ability.extra.Xmult,
+				center.ability.limit,
+                process_var(center.ability.counter, center.ability.limit),
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            if card.ability.counter == card.ability.limit then
+                card.ability.counter = 1
+                return {
+                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
+                    Xmult_mod = card.ability.extra.Xmult,
+                }
+            else
+                card.ability.counter = card.ability.counter + 1
+            end
+        end
+    end,
+}
+
+SMODS.Joker { --Cin
+    name = "Blooncineration",
+	key = "cin",
+	loc_txt = {
+        name = 'Blooncineration',
+        text = {
+            'Destroy all played',
+            'cards with {C:attention}Enhancements{}',
+        }
+    },
+	atlas = "Joker",
+	pos = { x = 1, y = 10 },
+    rarity = 3,
+	cost = 9,
+	order = 252,
+	blueprint_compat = false,
+    unlocked = true,
+
+    config = { },
+    calculate = function(self, card, context)
+        if context.destroying_card and context.destroying_card.config.center ~= G.P_CENTERS.c_base and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card:juice_up(0.3, 0.4)
+                    return true
+                end
+            }))
+            return true
+        end
+    end,
+}
+
 SMODS.Joker { --GMN
     name = "Grandmaster Ninja",
 	key = "gmn",
@@ -705,10 +777,10 @@ SMODS.Joker { --GMN
         }
     },
 	atlas = "Joker",
-	pos = { x = 5, y = 4 },
+	pos = { x = 5, y = 10 },
     rarity = 3,
-	cost = 9,
-	order = 215,
+	cost = 8,
+	order = 256,
 	blueprint_compat = true,
     unlocked = true,
 
