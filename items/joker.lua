@@ -6,8 +6,8 @@ SMODS.Atlas{
 }
 
 SMODS.Joker { --Dart
-    name = "Dart Monkey",
-	key = "dart",
+    key = 'j_dart',
+    name = 'Dart Monkey',
 	loc_txt = {
         name = 'Dart Monkey',
         text = {
@@ -15,7 +15,7 @@ SMODS.Joker { --Dart
             '{C:mult}+#2#{} Mult',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 0, y = 0 },
     rarity = 1,
 	cost = 2,
@@ -40,8 +40,8 @@ SMODS.Joker { --Dart
 }
 
 SMODS.Joker { --Boomer
-    name = "Boomerang Monkey",
-	key = "boomer",
+    key = 'j_boomer',
+    name = 'Boomerang Monkey',
 	loc_txt = {
         name = 'Boomerang Monkey',
         text = {
@@ -50,7 +50,7 @@ SMODS.Joker { --Boomer
             '{C:attention}#1#{} additional times',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 1, y = 0 },
     rarity = 1,
 	cost = 4,
@@ -78,8 +78,8 @@ SMODS.Joker { --Boomer
 }
 
 SMODS.Joker { --Bomb
-    name = "Bomb Shooter",
-	key = "bomb",
+    key = 'j_bomb',
+    name = 'Bomb Shooter',
 	loc_txt = {
         name = 'Bomb Shooter',
         text = {
@@ -87,12 +87,13 @@ SMODS.Joker { --Bomb
             '{X:mult,C:white}X#1#{} Mult when scored',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 2, y = 0 },
     rarity = 1,
 	cost = 5,
 	order = 153,
 	blueprint_compat = true,
+    enhancement_gate = 'm_steel',
     unlocked = true,
 
     config = { extra = { Xmult = 1.5 } },
@@ -112,8 +113,8 @@ SMODS.Joker { --Bomb
 }
 
 SMODS.Joker { --Tack
-    name = "Tack Shooter",
-	key = "tack",
+    key = 'j_tack',
+    name = 'Tack Shooter',
 	loc_txt = {
         name = 'Tack Shooter',
         text = {
@@ -122,7 +123,7 @@ SMODS.Joker { --Tack
             '{C:mult}+#2#{} Mult when scored',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 3, y = 0 },
     rarity = 1,
 	cost = 4,
@@ -148,8 +149,8 @@ SMODS.Joker { --Tack
 }
 
 SMODS.Joker { --Sniper
-    name = "Sniper Monkey",
-	key = "sniper",
+    key = 'j_sniper',
+    name = 'Sniper Monkey',
 	loc_txt = {
         name = 'Sniper Monkey',
         text = {
@@ -158,7 +159,7 @@ SMODS.Joker { --Sniper
             '{C:inactive}#3#',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 6, y = 0 },
     rarity = 1,
 	cost = 4,
@@ -174,9 +175,9 @@ SMODS.Joker { --Sniper
     loc_vars = function(self, info_queue, center)
         local function process_var(count, cap)
 			if count == cap - 1 then
-				return "Active!"
+				return 'Active!'
 			end
-			return cap - count%cap - 1 .. " remaining"
+			return cap - count%cap - 1 .. ' remaining'
 		end
         --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
 		return {
@@ -201,8 +202,8 @@ SMODS.Joker { --Sniper
 }
 
 SMODS.Joker { --Sub
-    name = "Monkey Sub",
-	key = "sub",
+    key = 'j_sub',
+    name = 'Monkey Sub',
 	loc_txt = {
         name = 'Monkey Sub',
         text = {
@@ -211,7 +212,7 @@ SMODS.Joker { --Sub
             'gives {C:mult}+#1#{} Mult',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 7, y = 0 },
     rarity = 1,
 	cost = 4,
@@ -243,8 +244,8 @@ SMODS.Joker { --Sub
 }
 
 SMODS.Joker { --Boat
-    name = "Monkey Buccaneer",
-	key = "boat",
+    key = 'j_boat',
+    name = 'Monkey Buccaneer',
 	loc_txt = {
         name = 'Monkey Buccaneer',
         text = {
@@ -254,7 +255,7 @@ SMODS.Joker { --Boat
             '{C:inactive}(Currently {C:money}$#3#{C:inactive}){}',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 8, y = 0 },
     rarity = 1,
 	cost = 4,
@@ -282,8 +283,8 @@ SMODS.Joker { --Boat
 }
 
 SMODS.Joker { --Ace
-    name = "Monkey Ace",
-	key = "ace",
+    key = 'j_ace',
+    name = 'Monkey Ace',
 	loc_txt = {
         name = 'Monkey Ace',
         text = {
@@ -292,7 +293,7 @@ SMODS.Joker { --Ace
             'gives {C:chips}+#1#{} Chips',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 9, y = 0 },
     rarity = 2,
 	cost = 6,
@@ -324,8 +325,8 @@ SMODS.Joker { --Ace
 }
 
 SMODS.Joker { --Heli
-    name = "Heli Pilot",
-	key = "heli",
+    key = 'j_heli',
+    name = 'Heli Pilot',
 	loc_txt = {
         name = 'Heli Pilot',
         text = {
@@ -334,7 +335,7 @@ SMODS.Joker { --Heli
             'when scored',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 0, y = 1 },
     rarity = 2,
 	cost = 6,
@@ -369,8 +370,8 @@ SMODS.Joker { --Heli
 }
 
 SMODS.Joker { --Mortar
-    name = "Mortar Monkey",
-	key = "mortar",
+    key = 'j_mortar',
+    name = 'Mortar Monkey',
 	loc_txt = {
         name = 'Mortar Monkey',
         text = {
@@ -379,7 +380,7 @@ SMODS.Joker { --Mortar
             '{C:mult}+#3#{} Mult when scored',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 1, y = 1 },
     rarity = 1,
 	cost = 5,
@@ -408,15 +409,15 @@ SMODS.Joker { --Mortar
 }
 
 SMODS.Joker { --Dartling
-    name = "Dartling Gunner",
-	key = "dartling",
+    key = 'j_dartling',
+    name = 'Dartling Gunner',
 	loc_txt = {
         name = 'Dartling Gunner',
         text = {
             '{C:chips}+???{} Chips',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 2, y = 1 },
     rarity = 1,
 	cost = 5,
@@ -438,8 +439,8 @@ SMODS.Joker { --Dartling
 }
 
 SMODS.Joker { --Wiz
-    name = "Wizard Monkey",
-	key = "wiz",
+    key = 'j_wiz',
+    name = 'Wizard Monkey',
 	loc_txt = {
         name = 'Wizard Monkey',
         text = {
@@ -448,7 +449,7 @@ SMODS.Joker { --Wiz
             'card when scored',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 3, y = 1 },
     rarity = 1,
 	cost = 4,
@@ -460,7 +461,7 @@ SMODS.Joker { --Wiz
     --Variables:
     calculate = function(self, card, context)
         if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
-            local enhancement = pseudorandom_element({ 'm_bonus', 'm_mult', 'm_wild', 'm_glass', 'm_steel', 'm_stone', 'm_gold', 'm_lucky' }, pseudoseed("cry_brittle"))
+            local enhancement = pseudorandom_element({ 'm_bonus', 'm_mult', 'm_wild', 'm_glass', 'm_steel', 'm_stone', 'm_gold', 'm_lucky' }, pseudoseed('cry_brittle'))
             context.scoring_hand[1]:set_ability(G.P_CENTERS[enhancement], nil, true)
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -477,8 +478,8 @@ SMODS.Joker { --Wiz
 }
 
 SMODS.Joker { --Jugg
-    name = "Juggernaut",
-	key = "jugg",
+    key = 'j_jugg',
+    name = 'Juggernaut',
 	loc_txt = {
         name = 'Juggernaut',
         text = {
@@ -486,7 +487,7 @@ SMODS.Joker { --Jugg
             '{C:mult}+#1#{} more Mult when scored',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 0, y = 3 },
     rarity = 2,
 	cost = 7,
@@ -513,8 +514,8 @@ SMODS.Joker { --Jugg
 }   
 
 SMODS.Joker { --Dprec
-    name = "Deadly Precision",
-	key = "dprec",
+    key = 'j_dprec',
+    name = 'Deadly Precision',
 	loc_txt = {
         name = 'Deadly Precision',
         text = {
@@ -523,7 +524,7 @@ SMODS.Joker { --Dprec
             '{C:inactive}#3#',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 6, y = 3 },
     rarity = 2,
 	cost = 7,
@@ -539,9 +540,9 @@ SMODS.Joker { --Dprec
     loc_vars = function(self, info_queue, center)
         local function process_var(count, cap)
 			if count == cap - 1 then
-				return "Active!"
+				return 'Active!'
 			end
-			return cap - count%cap - 1 .. " remaining"
+			return cap - count%cap - 1 .. ' remaining'
 		end
         --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 		return {
@@ -566,15 +567,15 @@ SMODS.Joker { --Dprec
 }
 
 SMODS.Joker { --Buckshot
-    name = "Buckshot",
-	key = "buckshot",
+    key = 'j_buckshot',
+    name = 'Buckshot',
 	loc_txt = {
         name = 'Buckshot',
         text = {
             '{X:mult,C:white}X?.?{} Mult',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 2, y = 4 },
     rarity = 2,
 	cost = 7,
@@ -596,8 +597,8 @@ SMODS.Joker { --Buckshot
 }
 
 SMODS.Joker { --Amast
-    name = "Arcane Mastery",
-	key = "amast",
+    key = 'j_amast',
+    name = 'Arcane Mastery',
 	loc_txt = {
         name = 'Arcane Mastery',
         text = {
@@ -605,7 +606,7 @@ SMODS.Joker { --Amast
             'cards with {C:attention}Enhancements{}',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 3, y = 4 },
     rarity = 2,
 	cost = 7,
@@ -629,8 +630,8 @@ SMODS.Joker { --Amast
 }
 
 SMODS.Joker { --DoW
-    name = "Druid of Wrath",
-	key = "dow",
+    key = 'j_dow',    
+    name = 'Druid of Wrath',
 	loc_txt = {
         name = 'Druid of Wrath',
         text = {
@@ -640,7 +641,7 @@ SMODS.Joker { --DoW
             '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 7, y = 4 },
     rarity = 2,
 	cost = 6,
@@ -666,7 +667,7 @@ SMODS.Joker { --DoW
                 delay = 0.45
             }
         elseif context.end_of_round then
-            if card.ability.set == "Joker" and card.ability.extra.current > 1 then
+            if card.ability.set == 'Joker' and card.ability.extra.current > 1 then
                 card.ability.extra.current = 1
                 return {
                     message = localize('k_reset'),
@@ -678,8 +679,8 @@ SMODS.Joker { --DoW
 }
 
 SMODS.Joker { --XBM
-    name = "Crossbow Master",
-	key = "xbm",
+    key = 'j_xbm',
+    name = 'Crossbow Master',
 	loc_txt = {
         name = 'Crossbow Master',
         text = {
@@ -688,7 +689,7 @@ SMODS.Joker { --XBM
             '{C:inactive}#3#',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 0, y = 9 },
     rarity = 2,
 	cost = 8,
@@ -704,11 +705,11 @@ SMODS.Joker { --XBM
     loc_vars = function(self, info_queue, center)
         local function process_var(count, cap)
 			if count == cap then
-				return "Active!"
+				return 'Active!'
 			end
-			return cap - count%cap .. " remaining"
+			return cap - count%cap .. ' remaining'
 		end
-        --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+        --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
 		return {
 			vars = {
 				center.ability.extra.Xmult,
@@ -733,8 +734,8 @@ SMODS.Joker { --XBM
 }
 
 SMODS.Joker { --Cin
-    name = "Blooncineration",
-	key = "cin",
+    key = 'j_cin',
+    name = 'Blooncineration',
 	loc_txt = {
         name = 'Blooncineration',
         text = {
@@ -742,7 +743,7 @@ SMODS.Joker { --Cin
             'cards with {C:attention}Enhancements{}',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 1, y = 10 },
     rarity = 3,
 	cost = 9,
@@ -751,6 +752,7 @@ SMODS.Joker { --Cin
     unlocked = true,
 
     config = { },
+    --Variables:
     calculate = function(self, card, context)
         if context.destroying_card and context.destroying_card.config.center ~= G.P_CENTERS.c_base and not context.blueprint then
             G.E_MANAGER:add_event(Event({
@@ -760,23 +762,25 @@ SMODS.Joker { --Cin
                     return true
                 end
             }))
-            return true
+            return {
+                true
+            }
         end
     end,
 }
 
 SMODS.Joker { --GMN
-    name = "Grandmaster Ninja",
-	key = "gmn",
+    key = 'j_gmn',
+    name = 'Grandmaster Ninja',
 	loc_txt = {
         name = 'Grandmaster Ninja',
         text = {
-            'Has {C:mult}+{X:mult,C:white}X#1#{} Mult for',
+            'Gives {X:mult,C:white}X#1#{} Mult for',
             'each scoring {C:diamonds}Diamond{}',
             'in played {C:attention}poker hand{}',
         }
     },
-	atlas = "Joker",
+	atlas = 'Joker',
 	pos = { x = 5, y = 10 },
     rarity = 3,
 	cost = 8,
