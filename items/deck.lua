@@ -21,7 +21,7 @@ SMODS.Back { --Quincy Deck
 	pos = { x = 0, y = 0 },
     unlocked = true,
 
-    config = { extra = { odds = 4}, ante_scaling = 0.75 },
+    config = { extra = { odds = 4 }, ante_scaling = 0.75 },
     loc_vars = function(self, info_queue, center)
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds, self.config.ante_scaling } }
 	end,
