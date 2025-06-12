@@ -597,7 +597,7 @@ SMODS.Joker { --Druid
 	pos = { x = 7, y = 1 },
     rarity = 1,
 	cost = 4,
-	order = 169,
+	order = 168,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -630,7 +630,7 @@ SMODS.Joker { --Merm
 	pos = { x = 8, y = 1 },
     rarity = 1,
 	cost = 4,
-	order = 170,
+	order = 169,
 	blueprint_compat = true,
     unlocked = true,
 
@@ -897,6 +897,58 @@ SMODS.Joker { --Dprec
     end
 }
 
+SMODS.Joker { --Trip guns
+    key = 'j_tripguns',
+    name = 'Triple Guns',
+    loc_txt = {
+        name = 'Triple Guns',
+        text = {
+            'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} ',
+            'Mult if a {C:attention}Three of a Kind{}',
+            'is held in hand',
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 6 },
+    rarity = 2,
+	cost = 6,
+	order = 218,
+	blueprint_compat = true,
+    unlocked = true,
+
+    config = { extra = { Xmult = 0.1, current = 1 } },
+    loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = Xmult gain for each 3oak held, current = current Xmult
+        return { vars = { center.ability.extra.Xmult, center.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local ranks = {}
+            for i, j in ipairs(G.hand.cards) do
+                local new = true
+                local id = j:get_id()
+                for k, v in pairs(ranks) do
+                    if id == k then
+                        ranks[k] = v + 1
+                        if ranks[k] % 3 == 0 then
+                            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+                        end
+                        new = false
+                    end
+                end
+                if new then
+                    ranks[id] = 1
+                end
+            end
+        elseif context.joker_main then
+            return {
+                x_mult = card.ability.extra.current
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Draft
     key = 'j_draft',
     name = 'Downdraft',
@@ -989,7 +1041,7 @@ SMODS.Joker { --DoW
             'This Joker gains {X:mult,C:white}X#1#{}',
             'Mult for every hand',
             'played this round',
-            '{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)'
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
         }
     },
 	atlas = 'Joker',
@@ -1201,6 +1253,28 @@ SMODS.Joker { --Abatt
 		end
     end
 }
+--[[
+SMODS.Joker { --Arctic Knight
+    key = 'j_aknight',
+    name = 'Arctic Knight',
+    loc_txt = {
+        name = 'Crossbow Master',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult Every',
+            '{C:attention}#2#{} cards scored',
+            '{C:inactive}#3#'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 10 },
+    rarity = 2,
+	cost = 7,
+	order = 259,
+	blueprint_compat = false,
+    unlocked = true,
+
+}
+]]
 
 SMODS.Joker { --XBM
     key = 'j_xbm',
