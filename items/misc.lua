@@ -26,18 +26,18 @@ SMODS.Enhancement ({ --Frozen
     force_no_face = true,
     unlocked = true,
     config = { },
-})
 
+})
+]]
+--[[
 SMODS.Enhancement ({ --Glued
     key = 'm_glued',
     name = 'Glued Card',
     loc_txt = {
         name = 'Glued Card',
         text = {
-            "Can't be discarded",
-            'played card that scores',
-            'Enables Corvus\' {C:spectral}Spellbook{}',
-            '{C:inactive}unimplemented{}',
+            'Lose {C:money}$#1#{} when discarded',
+            'Wears off when played'
         }
     },
     order = 11,
@@ -45,18 +45,26 @@ SMODS.Enhancement ({ --Glued
 	pos = { x = 1, y = 0 },
     unlocked = true,
 
-    config = { },
+    config = { cost = 1 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: cost = money loss when discarded
+        return { vars = { self.config.cost } }
+    end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.main_scoring then
-            card.config.center = G.P_CENTERS.c_base
-            return {
-				Emult_mod = card.ability.extra.Emult,
-				colour = G.C.DARK_EDITION,
-            }
+        if context.cardarea == G.play then
+            for k, v in ipairs(context.scoring_hand) do
+                if true then
+                    v.config.center = G.P_CENTERS.c_base
+                end
+            end
+        elseif context.cardarea == G.discard then
+            ease_dollars(-1*card.ability.cost)
+        
         end
     end
 })
-
+]]
+--[[
 SMODS.Enhancement ({ --Stunned
     key = 'm_stunned',
     name = 'Stunned Card',
