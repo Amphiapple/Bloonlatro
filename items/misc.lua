@@ -8,7 +8,7 @@ SMODS.Atlas {
 }
 --[[
 SMODS.Enhancement ({ --Frozen
-    key = 'm_frozen',
+    key = 'frozen',
     name = 'Frozen Card',
     loc_txt = {
         name = 'Frozen Card',
@@ -29,9 +29,9 @@ SMODS.Enhancement ({ --Frozen
 
 })
 ]]
---[[
+
 SMODS.Enhancement ({ --Glued
-    key = 'm_glued',
+    key = 'glued',
     name = 'Glued Card',
     loc_txt = {
         name = 'Glued Card',
@@ -51,22 +51,21 @@ SMODS.Enhancement ({ --Glued
         return { vars = { self.config.cost } }
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play then
-            for k, v in ipairs(context.scoring_hand) do
-                if true then
-                    v.config.center = G.P_CENTERS.c_base
+        if context.before then
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name == 'Glued Card' and not card.debuff then
+                    context.scoring_hand[i]:set_ability(G.P_CENTERS.c_base, nil, true)
                 end
             end
-        elseif context.cardarea == G.discard then
+        elseif context.discard and context.other_card == card then
             ease_dollars(-1*card.ability.cost)
-        
         end
     end
 })
-]]
+
 --[[
 SMODS.Enhancement ({ --Stunned
-    key = 'm_stunned',
+    key = 'stunned',
     name = 'Stunned Card',
     loc_txt = {
         name = 'Stunned Card',
@@ -85,3 +84,40 @@ SMODS.Enhancement ({ --Stunned
     end
 })
 ]]
+
+SMODS.Enhancement ({ --Meteor
+    key = 'meteor',
+    name = 'Meteor Card',
+    loc_txt = {
+        name = 'Meteor Card',
+        text = {
+            '',
+            '{X:mult,C:white}X#1#{} Mult',
+            'destroys card',
+            'no rank or suit'
+        }
+    },
+    order = 13,
+	atlas = "Misc",
+	pos = { x = 3, y = 0 },
+	replace_base_card = true,
+    no_rank = true,
+    no_suit = true,
+    always_scores = true,
+    unlocked = true,
+
+    config = { Xmult = 3 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: x_mult = Xmult
+        return { vars = { self.config.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.play and context.individual then
+            return {
+                x_mult = card.ability.Xmult
+            }
+        elseif context.destroying_card then
+            return { remove = context.destroying_card.ability.name == 'Meteor Card' }
+        end
+    end,
+})

@@ -327,7 +327,7 @@ SMODS.Back { --French
 	pos = { x = 0, y = 2 },
     unlocked = true,
 
-    config = { extra = { booster_slots = 1} },
+    config = { extra = { booster_slots = 1 } },
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.extra.booster_slots } }
     end,
@@ -374,9 +374,6 @@ SMODS.Back { --Psi
     unlocked = true,
 
     config = { },
-    apply = function(self)
-        
-    end,
 }
 
 SMODS.Back { --Gerry
