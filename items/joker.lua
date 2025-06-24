@@ -1816,7 +1816,7 @@ SMODS.Joker { --Cin
             'Destroy all played',
             'cards with {C:enhanced}Enhancements{},',
             '{C:dark_edition}Editions{} or {C:attention}Seals{}',
-            '{X:mult,C:white}X#2#{} Mult for each one'
+            '{X:mult,C:white}X#1#{} Mult for each one'
         }
     },
 	atlas = 'Joker',
@@ -1827,7 +1827,7 @@ SMODS.Joker { --Cin
 	blueprint_compat = false,
     unlocked = true,
 
-    config = { extra = { Xmult = 2 } },
+    config = { extra = { Xmult = 1.5 } },
     loc_vars = function(self, info_queue, center)
         --Variables: Xmult = Xmult
         return { vars = { center.ability.extra.Xmult } }
