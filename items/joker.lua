@@ -1,4 +1,4 @@
---Ninja buy when full slots function
+--Ninja full slots functions
 local check_for_buy_space_old = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
     if card.ability.set == 'Joker' and card.ability.name == 'Ninja Monkey' then
@@ -8,6 +8,32 @@ G.FUNCS.check_for_buy_space = function(card)
         return ret
     end
 end
+
+local can_select_card_old = G.FUNCS.can_select_card
+G.FUNCS.can_select_card = function(e)
+    if e.config.ref_table.ability.name == 'Ninja Monkey' then 
+        e.config.colour = G.C.GREEN
+        e.config.button = 'use_card'
+    else
+        local ret = can_select_card_old(e)
+        return ret
+    end
+  end
+
+--[[
+--Shinobi multiple appear function
+local get_current_pool_old = get_current_pool
+get_current_pool = function(self, ...)
+    local ret, ret_key = get_current_pool_old(self, ...)
+    if #find_joker('Shinobi Tactics') > 0 and ret[1].ability.set == 'Joker' then
+        if ret[1].ability.rarity == 1 then
+            ret[#ret+1] = 'ninja'
+        elseif ret[1].ability.rarity == 2 then
+            ret[#ret+1] = 'shinobi'
+        end
+    end
+end
+]]
 
 --Pex common cost to 0 function
 local set_cost_old = Card.set_cost
@@ -27,7 +53,7 @@ SMODS.Atlas {
 }
 
 SMODS.Joker { --Dart
-    key = 'j_dart',
+    key = 'dart',
     name = 'Dart Monkey',
 	loc_txt = {
         name = 'Dart Monkey',
@@ -60,7 +86,7 @@ SMODS.Joker { --Dart
 }
 
 SMODS.Joker { --Boomer
-    key = 'j_boomer',
+    key = 'boomer',
     name = 'Boomerang Monkey',
 	loc_txt = {
         name = 'Boomerang Monkey',
@@ -94,7 +120,7 @@ SMODS.Joker { --Boomer
 }
 
 SMODS.Joker { --Bomb
-    key = 'j_bomb',
+    key = 'bomb',
     name = 'Bomb Shooter',
 	loc_txt = {
         name = 'Bomb Shooter',
@@ -127,7 +153,7 @@ SMODS.Joker { --Bomb
 }
 
 SMODS.Joker { --Tack
-    key = 'j_tack',
+    key = 'tack',
     name = 'Tack Shooter',
 	loc_txt = {
         name = 'Tack Shooter',
@@ -161,7 +187,7 @@ SMODS.Joker { --Tack
 }
 
 SMODS.Joker { --Sniper
-    key = 'j_sniper',
+    key = 'sniper',
     name = 'Sniper Monkey',
 	loc_txt = {
         name = 'Sniper Monkey',
@@ -213,7 +239,7 @@ SMODS.Joker { --Sniper
 }
 
 SMODS.Joker { --Sub
-    key = 'j_sub',
+    key = 'sub',
     name = 'Monkey Sub',
 	loc_txt = {
         name = 'Monkey Sub',
@@ -253,7 +279,7 @@ SMODS.Joker { --Sub
 }
 
 SMODS.Joker { --Boat
-    key = 'j_boat',
+    key = 'boat',
     name = 'Monkey Buccaneer',
 	loc_txt = {
         name = 'Monkey Buccaneer',
@@ -292,7 +318,7 @@ SMODS.Joker { --Boat
 }
 
 SMODS.Joker { --Ace
-    key = 'j_ace',
+    key = 'ace',
     name = 'Monkey Ace',
 	loc_txt = {
         name = 'Monkey Ace',
@@ -332,7 +358,7 @@ SMODS.Joker { --Ace
 }
 
 SMODS.Joker { --Heli
-    key = 'j_heli',
+    key = 'heli',
     name = 'Heli Pilot',
 	loc_txt = {
         name = 'Heli Pilot',
@@ -375,7 +401,7 @@ SMODS.Joker { --Heli
 }
 
 SMODS.Joker { --Mortar
-    key = 'j_mortar',
+    key = 'mortar',
     name = 'Mortar Monkey',
 	loc_txt = {
         name = 'Mortar Monkey',
@@ -410,7 +436,7 @@ SMODS.Joker { --Mortar
 }
 
 SMODS.Joker { --Dartling
-    key = 'j_dartling',
+    key = 'dartling',
     name = 'Dartling Gunner',
 	loc_txt = {
         name = 'Dartling Gunner',
@@ -439,7 +465,7 @@ SMODS.Joker { --Dartling
 }
 
 SMODS.Joker { --Wiz
-    key = 'j_wiz',
+    key = 'wiz',
     name = 'Wizard Monkey',
 	loc_txt = {
         name = 'Wizard Monkey',
@@ -478,7 +504,7 @@ SMODS.Joker { --Wiz
 }
 
 SMODS.Joker { --Ninja
-    key = 'j_ninja',
+    key = 'ninja',
     name = 'Ninja Monkey',
 	loc_txt = {
         name = 'Ninja Monkey',
@@ -501,18 +527,10 @@ SMODS.Joker { --Ninja
         return { vars = { center.ability.extra.mult, center.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        if from_debuff then 
-            self.ability.queue_negative_removal = nil
-        else
-            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-        end
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        if from_debuff then 
-            self.ability.queue_negative_removal = nil
-        else
-            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        end
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -524,7 +542,7 @@ SMODS.Joker { --Ninja
 }
 
 SMODS.Joker { --Alch
-    key = 'j_alch',
+    key = 'alch',
     name = 'Alchemist',
 	loc_txt = {
         name = 'Alchemist',
@@ -557,9 +575,9 @@ SMODS.Joker { --Alch
                     delay = 0.0,
                     func = (function()
                         local card = create_card('Spectral',G.consumeables, nil, nil, nil, nil, nil, 'alch')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                            G.GAME.consumeable_buffer = 0
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
                         return true
                     end)
                 }))
@@ -570,12 +588,12 @@ SMODS.Joker { --Alch
                     delay = 0.0,
                     func = (function()
                         local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'alch')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                            G.GAME.consumeable_buffer = 0
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
                         return true
-                    end
-                )}))
+                    end)
+                }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
             end
         end
@@ -583,7 +601,7 @@ SMODS.Joker { --Alch
 }
 
 SMODS.Joker { --Druid
-    key = 'j_druid',
+    key = 'druid',
     name = 'Druid',
     loc_txt = {
         name = 'Druid',
@@ -616,7 +634,7 @@ SMODS.Joker { --Druid
 }
 
 SMODS.Joker { --Merm
-    key = 'j_merm',
+    key = 'merm',
     name = 'Mermonkey',
 	loc_txt = {
         name = 'Mermonkey',
@@ -632,6 +650,7 @@ SMODS.Joker { --Merm
 	cost = 4,
 	order = 169,
 	blueprint_compat = true,
+    enhancement_gate = 'm_bonus',
     unlocked = true,
 
         config = { extra = { chips = 90 } },
@@ -653,7 +672,7 @@ SMODS.Joker { --Merm
 }
 
 SMODS.Joker { --Farm
-    key = 'j_farm',
+    key = 'farm',
     name = 'Banana Farm',
 	loc_txt = {
         name = 'Banana Farm',
@@ -685,7 +704,7 @@ SMODS.Joker { --Farm
 }
 
 SMODS.Joker {--Spac
-    key = 'j_spac',
+    key = 'spac',
     name = 'Spike Factory',
     loc_txt = {
         name = 'Spike Factory',
@@ -717,13 +736,11 @@ SMODS.Joker {--Spac
                 colour = G.C.CHIPS,
                 delay = 0.45,
             }
-        end
-        if context.joker_main then
+        elseif context.joker_main then
             return {
                 h_chips = card.ability.extra.current,
             }
-        end
-        if context.end_of_round and card.ability.extra.current > 0 and not context.blueprint then
+        elseif context.end_of_round and card.ability.name == 'Spike Factory' and card.ability.extra.current > 0 and not context.blueprint then
             card.ability.extra.current = 0
             return {
                 message = localize('k_reset'),
@@ -734,7 +751,7 @@ SMODS.Joker {--Spac
 }
 
 SMODS.Joker {--Village
-    key = 'j_village',
+    key = 'village',
     name = 'Monkey Village',
     loc_txt = {
         name = 'Monkey Village',
@@ -772,7 +789,7 @@ SMODS.Joker {--Village
 }
 
 SMODS.Joker { --Engi
-    key = 'j_engi',
+    key = 'engi',
     name = 'Engineer Monkey',
 	loc_txt = {
         name = 'Engineer Monkey',
@@ -813,7 +830,7 @@ SMODS.Joker { --Engi
 }
 
 SMODS.Joker { --Beast
-    key = 'j_beast',
+    key = 'beast',
     name = 'Beast Handler',
 	loc_txt = {
         name = 'Beast Handler',
@@ -829,6 +846,7 @@ SMODS.Joker { --Beast
 	cost = 4,
 	order = 174,
 	blueprint_compat = true,
+    enhancement_gate = 'm_mult',
     unlocked = true,
 
         config = { extra = { mult = 12 } },
@@ -849,8 +867,200 @@ SMODS.Joker { --Beast
     end
 }
 
+SMODS.Joker { --Enetwork
+    key = 'enetwork',
+    name = 'Echosense Network',
+    loc_txt = {
+        name = 'Echosense Network',
+        text = {
+            'Create a random {C:planet}Planet{}',
+            'card if {C:attention}played hand{}',
+            'contains {C:attention}#1# Bonus Cards{}'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 8, y = 4 },
+    rarity = 1,
+	cost = 5,
+	order = 199,
+	blueprint_compat = true,
+    enhancement_gate = 'm_bonus',
+    unlocked = true,
+
+    config = { extra = 2 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: extra = required bonus cards for planet
+        return { vars = { center.ability.extra } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            local count = 0
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name == 'Bonus' then
+                    count = count + 1
+                end
+            end
+            if count >= card.ability.extra then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Owl
+    key = 'owl',
+    name = 'Horned Owl',
+    loc_txt = {
+        name = 'Horned Owl',
+        text = {
+            'Create a random {C:tarot}Tarot{}',
+            'card if {C:attention}played hand{}',
+            'contains {C:attention}#1# Mult Cards{}'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 3, y = 5 },
+    rarity = 1,
+	cost = 5,
+	order = 204,
+	blueprint_compat = true,
+    enhancement_gate = 'm_mult',
+    unlocked = true,
+
+    config = { extra = 2 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: extra = required bonus cards for planet
+        return { vars = { center.ability.extra } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            local count = 0
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i].ability.name == 'Mult' then
+                    count = count + 1
+                end
+            end
+            if count >= card.ability.extra then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Trip shot
+    key = 'tripshot',
+    name = 'Triple Shot',
+	loc_txt = {
+        name = 'Triple Shot',
+        text = {
+            'Create {C:attention}#1# {C:spectral}Tarot{} cards',
+            'if {C:attention}played hand{} is a',
+            '{C:attention}Three of a Kind #2#{} times',
+            '{C:inactive}#3# remaining{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 0, y = 6 },
+    rarity = 1,
+	cost = 5,
+	order = 211,
+	blueprint_compat = true,
+    unlocked = true,
+
+    config = { tarots = 3, limit = 3, counter = 3 },
+    loc_vars = function(self, info_queue, center)
+        --Variables: tarots = nnumber of tarots, limit = number of 3oaks for tarots, counter = current count index
+		return { vars = { center.ability.tarots, center.ability.limit, center.ability.counter } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and next(context.poker_hands['Three of a Kind']) and not 
+                next(context.poker_hands['Flush']) and not
+                next(context.poker_hands['Full House']) and not
+                next(context.poker_hands['Four of a Kind']) then
+            if not context.blueprint then
+                card.ability.counter = card.ability.counter - 1
+            end
+            if card.ability.counter == 0 then
+                card.ability.counter = card.ability.limit
+                for i = 1, card.ability.tarots do
+                    if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'before',
+                            delay = 0.0,
+                            func = (function()
+                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'tripshot')
+                                card:add_to_deck()
+                                G.consumeables:emplace(card)
+                                G.GAME.consumeable_buffer = 0
+                                return true
+                            end)
+                        }))
+                    end
+                end
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+3 Tarots', colour = G.C.PURPLE})
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Mauler
+    key = 'mauler',
+    name = 'MOAB Mauler',
+	loc_txt = {
+        name = 'MOAB Mauler',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult against',
+            '{C:attention}Boss Blinds{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 6 },
+    rarity = 2,
+	cost = 5,
+	order = 213,
+	blueprint_compat = true,
+    unlocked = true,
+    config = { extra = { Xmult = 3 } },
+    loc_vars = function(self, info_queue, center)
+        --Variables: tarots = nnumber of tarots, limit = number of 3oaks for tarots, counter = current count index
+		return { vars = { center.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.blind.boss then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Dprec
-    key = 'j_dprec',
+    key = 'dprec',
     name = 'Deadly Precision',
 	loc_txt = {
         name = 'Deadly Precision',
@@ -898,7 +1108,7 @@ SMODS.Joker { --Dprec
 }
 
 SMODS.Joker { --Trip guns
-    key = 'j_tripguns',
+    key = 'tripguns',
     name = 'Triple Guns',
     loc_txt = {
         name = 'Triple Guns',
@@ -915,6 +1125,7 @@ SMODS.Joker { --Trip guns
 	cost = 6,
 	order = 218,
 	blueprint_compat = true,
+    perishable_compat = false,
     unlocked = true,
 
     config = { extra = { Xmult = 0.1, current = 1 } },
@@ -950,7 +1161,7 @@ SMODS.Joker { --Trip guns
 }
 
 SMODS.Joker { --Draft
-    key = 'j_draft',
+    key = 'draft',
     name = 'Downdraft',
     loc_txt = {
         name = 'Downdraft',
@@ -980,8 +1191,7 @@ SMODS.Joker { --Draft
                 ease_hands_played(card.ability.extra.hands)
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
             return true end }))
-        end
-        if context.final_scoring_step and card.ability.extra.counter > 0 then
+        elseif context.final_scoring_step and card.ability.extra.counter > 0 then
             hand_chips = mod_chips(card.ability.extra.scored_chips)
             card.ability.extra.counter = card.ability.extra.counter - 1
             update_hand_text( { delay = 0 }, { chips = hand_chips } )
@@ -999,12 +1209,14 @@ SMODS.Joker { --Draft
 					return true
 				end,
 			}))
-		end
+        elseif context.end_of_round then
+            card.ability.extra.counter = card.ability.extra.hands
+        end
     end
 }
 
 SMODS.Joker { --Buckshot
-    key = 'j_buckshot',
+    key = 'buckshot',
     name = 'Buckshot',
 	loc_txt = {
         name = 'Buckshot',
@@ -1032,8 +1244,52 @@ SMODS.Joker { --Buckshot
     end
 }
 
+--[[
+SMODS.Joker { --Shinobi
+    key = 'shinobi',    
+    name = 'Shinobi Tactics',
+	loc_txt = {
+        name = 'Shinobi Tactics',
+        text = {
+            'All {C:attention}Ninjas{} may appear multiple times',
+            'Gives {X:mult,C:white}X#1#{} Mult for each one',
+            '{C:inactive}Currently {X:mult,C:white}X#2#{C:inactive} Mult{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 7 },
+    rarity = 2,
+	cost = 5,
+	order = 226,
+	blueprint_compat = true,
+    unlocked = true,
+
+    config = { extra = { Xmult = 0.5, current = 1 } },
+    loc_vars = function(self, info_queue, center)
+        if G.STAGE == G.STAGES.RUN then
+            local ninjas = 0
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i].ability.name == 'Ninja Monkey' or G.jokers.cards[i].ability.name == 'Shinobi Tactics' then
+                    ninjas = ninjas + 1
+                end
+            end
+            center.ability.extra.current = ninjas * center.ability.extra.Xmult + 1
+        end
+        --Variables = Xmult = Xmult for each ninja, current = current Xmult
+        return { vars = { center.ability.extra.Xmult, center.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.current
+            }
+        end
+    end
+}
+]]
+
 SMODS.Joker { --DoW
-    key = 'j_dow',    
+    key = 'dow',    
     name = 'Druid of Wrath',
 	loc_txt = {
         name = 'Druid of Wrath',
@@ -1047,7 +1303,7 @@ SMODS.Joker { --DoW
 	atlas = 'Joker',
 	pos = { x = 7, y = 7 },
     rarity = 2,
-	cost = 6,
+	cost = 5,
 	order = 228,
 	blueprint_compat = true,
     unlocked = true,
@@ -1069,20 +1325,70 @@ SMODS.Joker { --DoW
                 colour = G.C.RED,
                 delay = 0.45
             }
-        elseif context.end_of_round and not context.blueprint then
-            if card.ability.set == 'Joker' and card.ability.extra.current > 1 then
-                card.ability.extra.current = 1
-                return {
-                    message = localize('k_reset'),
-                    colour = G.C.RED
-                }
+        elseif context.end_of_round and card.ability.name == 'Druid of Wrath' and card.ability.extra.current > 1 and not context.blueprint then
+            card.ability.extra.current = 1
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
+SMODS.Joker { --LLS
+    key = 'lls',
+    name = 'Long Life Spikes',
+	loc_txt = {
+        name = 'Long Life Spikes',
+        text = {
+            'This joker gains {C:mult}+#1#{} Mult',
+            'for every discarded {C:spades}Spade',
+            '{C:mult}-#2#{} Mult at end of round',
+            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 0, y = 8 },
+    rarity = 2,
+	cost = 6,
+	order = 231,
+	blueprint_compat = true,
+    unlocked = true,
+
+    config = { extra = { mult = 1, loss = 4, current = 0 } },
+    loc_vars = function(self, info_queue, center)
+        --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+        return { vars = { center.ability.extra.mult, center.ability.extra.loss, center.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card:is_suit('Spades', true) and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+            return {
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                colour = G.C.MULT,
+                delay = 0.45,
+            }
+        elseif context.joker_main and card.ability.extra.current > 0 then
+            return {
+                h_mult = card.ability.extra.current,
+            }
+        end
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            if card.ability.extra.current > card.ability.extra.loss then
+                card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
+            else
+                card.ability.extra.current = 0
             end
+            return {
+                message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.loss}},
+                colour = G.C.MULT
+            }
         end
     end
 }
 
 SMODS.Joker { --Jugg
-    key = 'j_jugg',
+    key = 'jugg',
     name = 'Juggernaut',
 	loc_txt = {
         name = 'Juggernaut',
@@ -1119,7 +1425,7 @@ SMODS.Joker { --Jugg
 }
 
 SMODS.Joker { --Od
-    key = 'j_od',
+    key = 'od',
     name = 'Overdrive',
     loc_txt = {
         name = 'Overdrive',
@@ -1154,20 +1460,18 @@ SMODS.Joker { --Od
             return {
                 x_mult = card.ability.extra.current,
             }
-        elseif context.end_of_round and not context.blueprint then
-            if card.ability.set == 'Joker' and card.ability.extra.current > 1 then
-                card.ability.extra.current = 1
-                return {
-                    message = localize('k_reset'),
-                    colour = G.C.RED
-                }
-            end
+        elseif context.end_of_round and card.ability.name == 'Overdrive' and card.ability.extra.current > 1 and not context.blueprint then
+            card.ability.extra.current = 1
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
     end
 }
 
 SMODS.Joker { --GZ   
-    key = 'j_gz',
+    key = 'gz',
     name = 'Ground Zero',
 	loc_txt = {
         name = 'Ground Zero',
@@ -1199,7 +1503,7 @@ SMODS.Joker { --GZ
 }
 
 SMODS.Joker { --Abatt
-    key = 'j_abatt',
+    key = 'abatt',
     name = 'Artillery Battery',
 	loc_txt = {
         name = 'Artillery Battery',
@@ -1253,31 +1557,9 @@ SMODS.Joker { --Abatt
 		end
     end
 }
---[[
-SMODS.Joker { --Arctic Knight
-    key = 'j_aknight',
-    name = 'Arctic Knight',
-    loc_txt = {
-        name = 'Crossbow Master',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult Every',
-            '{C:attention}#2#{} cards scored',
-            '{C:inactive}#3#'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 8, y = 10 },
-    rarity = 2,
-	cost = 7,
-	order = 259,
-	blueprint_compat = false,
-    unlocked = true,
-
-}
-]]
 
 SMODS.Joker { --XBM
-    key = 'j_xbm',
+    key = 'xbm',
     name = 'Crossbow Master',
 	loc_txt = {
         name = 'Crossbow Master',
@@ -1331,7 +1613,7 @@ SMODS.Joker { --XBM
 }
 
 SMODS.Joker { --Blitz
-    key = 'j_blitz',
+    key = 'blitz',
     name = 'Bomb Blitz',
 	loc_txt = {
         name = 'Bomb Blitz',
@@ -1348,6 +1630,7 @@ SMODS.Joker { --Blitz
 	cost = 8,
 	order = 273,
 	blueprint_compat = false,
+    eternal_compat = false,
     unlocked = true,
 
     config = { },
@@ -1392,13 +1675,61 @@ SMODS.Joker { --Blitz
     end
 }
 
+SMODS.Joker { --Iring
+    key = 'iring',
+    name = 'Inferno Ring',
+	loc_txt = {
+        name = 'Inferno Ring',
+        text = {
+            "Adds one {C:attention}Meteor{} card",
+            "to deck when",
+            "{C:attention}Blind{} is selected",
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 3, y = 12 },
+    rarity = 3,
+	cost = 9,
+	order = 274,
+	blueprint_compat = true,
+    unlocked = true,
+
+    config = {},
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    local front = pseudorandom_element(G.P_CARDS, pseudoseed('marb_fr'))
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.m_bloons_meteor, {playing_card = G.playing_card})
+                    card:start_materialize({G.C.SECONDARY_SET.Enhanced})
+                    G.play:emplace(card)
+                    table.insert(G.playing_cards, card)
+                    return true
+                end}))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Meteor', colour = G.C.SECONDARY_SET.Enhanced})
+
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    return true
+                end
+            }))
+            draw_card(G.play,G.deck, 90,'up', nil)
+            playing_card_joker_effects({true})
+        end
+    end
+
+}
+
 SMODS.Joker { --Solver
-    key = 'j_solver',
+    key = 'solver',
     name = 'The Bloon Solver',
 	loc_txt = {
         name = 'The Bloon Solver',
         text = {
             'Every played {C:attention}card{}',
+            'becomes {C:money}Glued{} and',
             'permanently gains {C:mult}+#1#{}',
             'Mult when scored'
         }
@@ -1418,8 +1749,9 @@ SMODS.Joker { --Solver
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 0
-            context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.mult
+            context.other_card:set_ability('m_bloons_glued', nil, true)
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult
             return {
                 extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
                 colour = G.C.CMULT,
@@ -1429,14 +1761,14 @@ SMODS.Joker { --Solver
 }
 
 SMODS.Joker { --Edef
-    key = 'j_edef',
+    key = 'edef',
     name = 'Elite Defender',
     loc_txt = {
         name = 'Elite Defender',
         text = {
             '{X:mult,C:white}X#1#{} after {C:attention}first hand{} of round',
             '{X:mult,C:white}X#2#{} on {C:attention}final hand{} of round,',
-            '{X:mult,C:white}X#3#{} on {C:attentionfinal hand{} of round if',
+            '{X:mult,C:white}X#3#{} on {C:attention}final hand{} of round if',
             'chips scored are under',
             '{C:attention}25%{} of required chips'
         }
@@ -1476,14 +1808,15 @@ SMODS.Joker { --Edef
 }
 
 SMODS.Joker { --Cin
-    key = 'j_cin',
+    key = 'cin',
     name = 'Blooncineration',
 	loc_txt = {
         name = 'Blooncineration',
         text = {
             'Destroy all played',
             'cards with {C:enhanced}Enhancements{},',
-            '{C:dark_edition}Editions{} or {C:attention}Seals{}'
+            '{C:dark_edition}Editions{} or {C:attention}Seals{}',
+            '{X:mult,C:white}X#1#{} Mult for each one'
         }
     },
 	atlas = 'Joker',
@@ -1494,8 +1827,11 @@ SMODS.Joker { --Cin
 	blueprint_compat = false,
     unlocked = true,
 
-    config = { },
-    --Variables:
+    config = { extra = { Xmult = 1.5 } },
+    loc_vars = function(self, info_queue, center)
+        --Variables: Xmult = Xmult
+        return { vars = { center.ability.extra.Xmult } }
+    end,
     calculate = function(self, card, context)
         if context.destroying_card and
                 (context.destroying_card.config.center ~= G.P_CENTERS.c_base or
@@ -1509,18 +1845,22 @@ SMODS.Joker { --Cin
                     return true
                 end
             }))
-            return true
+            return {
+                xmult = card.ability.extra.Xmult,
+                remove = true
+            }
         end
     end
 }
 
 SMODS.Joker { --Rod
-    key = 'j_rod',
+    key = 'rod',
     name = 'Ray of Doom',
 	loc_txt = {
         name = 'Ray of Doom',
         text = {
-            'Each repeated card rank gives',
+            'Each repeated card rank',
+            'in {C:attention}played hand{} gives',
             '{X:mult,C:white}X?.?{} Mult when scored'
         }
     },
@@ -1546,11 +1886,14 @@ SMODS.Joker { --Rod
             end
             card.ability.ranks[#card.ability.ranks+1] = context.other_card:get_id()
         end
+        if context.after then
+            card.ability.ranks = {}
+        end
     end
 }
 
 SMODS.Joker { --Arch
-    key = 'j_archt',
+    key = 'archt',
     name = 'Archmage',
 	loc_txt = {
         name = 'Archmage',
@@ -1583,7 +1926,7 @@ SMODS.Joker { --Arch
 }
 
 SMODS.Joker { --GMN
-    key = 'j_gmn',
+    key = 'gmn',
     name = 'Grandmaster Ninja',
 	loc_txt = {
         name = 'Grandmaster Ninja',
@@ -1624,14 +1967,14 @@ SMODS.Joker { --GMN
 }
 
 SMODS.Joker {--Pex
-    key = 'j_pex',
+    key = 'pex',
     name = 'Primary Expertise',
     loc_txt = {
         name = 'Primary Expertise',
         text = {
             '{C:blue}Common{} Jokers are free',
             '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#3#{} Mult,',
-            '{C:green}probability{} increases for',
+            '{C:green}Probability{} increases for',
             'each {C:blue}Common{} Joker'
         }
     },
@@ -1670,7 +2013,7 @@ SMODS.Joker {--Pex
 
 --[[
 SMODS.Joker {--Uboost
-    key = 'j_uboost',
+    key = 'uboost',
     name = 'Ultraboost',
     loc_txt = {
         name = 'Ultraboost',

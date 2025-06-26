@@ -24,7 +24,7 @@ SMODS.Back { --Quincy
         text = {
             '{C:green}#1# in #2#{} chance to',
             'halve Chips',
-            '{C:mult}X#3#{} base Blind size',
+            '{C:mult}X#3#{} base Blind size'
         }
     },
 	order = 17,
@@ -68,7 +68,7 @@ SMODS.Back { --Gwen
         text = {
             'Start run with',
             'an {C:spectral}Immolate{} card',
-            '{C:attention}-1{} hand size',
+            '{C:attention}-1{} hand size'
         }
     },
 	order = 18,
@@ -87,7 +87,7 @@ SMODS.Back { --Striker
         text = {
             '{C:green}#1# in #2#{} chance for',
             'each card in your deck',
-            'to start as {C:spades}Spades{}',
+            'to start as {C:spades}Spades{}'
         }
     },
 	order = 19,
@@ -95,7 +95,7 @@ SMODS.Back { --Striker
 	pos = { x = 2, y = 0 },
     unlocked = true,
     
-    config = { extra = {odds = 3} },
+    config = { extra = { odds = 3 } },
     loc_vars = function(self, info_queue, center)
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds - 1 } }
 	end,
@@ -120,7 +120,7 @@ SMODS.Back { --Obyn
         name = 'Obyn Deck',
         text = {
             'Start run with {C:money}Seed Money{}',
-            'and {C:money}Money Tree{}',
+            'and {C:money}Money Tree{}'
         }
     },
 	order = 20,
@@ -137,8 +137,8 @@ SMODS.Back { --Church
 	loc_txt = {
         name = 'Churchill Deck',
         text = {
-            '{X:mult,C:white}X2{} Mult against',
-            '{C:attention}Boss Blinds{}',
+            '{X:mult,C:white}X#1#{} Mult against',
+            '{C:attention}Boss Blinds{}'
         }
     },
 	order = 21,
@@ -147,9 +147,12 @@ SMODS.Back { --Church
     unlocked = true,
 
     config = { extra = { Xmult = 2 } },
+    loc_vars = function(self, info_queue, center)
+		return { vars = { self.config.extra.Xmult } }
+	end,
     calculate = function(self, card, context)
 		if G.GAME.blind.boss and context.final_scoring_step then
-            mult = mod_mult(mult * 2)
+            mult = mod_mult(mult * self.config.extra.Xmult)
             update_hand_text( { delay = 0 }, { mult = mult } )
             G.E_MANAGER:add_event(Event({
 				func = function()
@@ -176,9 +179,9 @@ SMODS.Back { --Ben
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            '{C:money}+$#1#{} Blind reward',
-            '{C:money}+$#2# {C:attention}Boss Blind{} reward',
-            '{C:inactive}unimplemented{}',
+            '{C:money}+$#1#{} each round',
+            '{C:money}+$#2# on {C:attention}Boss Blinds{}',
+            '{C:inactive}unimplemented{}'
         }
     },
 	order = 22,
@@ -190,20 +193,13 @@ SMODS.Back { --Ben
     loc_vars = function(self, info_queue, center)
 		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
 	end,
-    apply = function(self)
-        local set_blind_old = Blind.set_blind
-        Blind.set_blind = function(self, blind, reset, silent)
-            local ret = set_blind_old(self, blind, reset, silent)
-            if G.GAME.selected_back.name == 'Ben Deck' then
-                if self.boss then
-                    self.dollars = self.dollars + G.GAME.selected_back.ability.extra.boss_money
-                else
-                    self.dollars = self.dollars + G.GAME.selected_back.ability.extra.money
-                end
-            end
-            return ret
+    calc_dollar_bonus = function(self, card)
+        if G.GAME.blind.boss then
+            return self.config.extra.boss_money
+        else
+            return self.config.extra.money
         end
-    end,
+    end
 }
 
 SMODS.Back { --Ezili
@@ -216,7 +212,7 @@ SMODS.Back { --Ezili
             '{C:attention}2x{} more frequently',
             'in the shop',
             'Start run with a {C:spectral}Hex{} card',
-            '{C:inactive}unimplemented{}',
+            '{C:inactive}unimplemented{}'
         }
     },
 	order = 23,
@@ -234,7 +230,7 @@ SMODS.Back { --Pat
 	loc_txt = {
         name = 'Pat Fusty Deck',
         text = {
-            '{C:attention}+1{} hand size',
+            '{C:attention}+#1#{} hand size'
         }
     },
 	order = 24,
@@ -243,6 +239,9 @@ SMODS.Back { --Pat
     unlocked = true,
 
     config = { hand_size = 1 },
+    loc_vars = function(self, info_queue, center)
+        return { vars = { self.config.hand_size } }
+    end
 }
 
 SMODS.Back { --Adora
@@ -253,7 +252,7 @@ SMODS.Back { --Adora
         text = {
             'Selling cards sacrifices',
             'them to level up a random',
-            '{C:attention}poker hand{} instead',
+            '{C:attention}poker hand{} instead'
         }
     },
 	order = 25,
@@ -294,8 +293,8 @@ SMODS.Back { --Brick
 	loc_txt = {
         name = 'Brickell Deck',
         text = {
-            'Start on Ante {C:attention}0{} with',
-            '{C:blue}+1{} hand and {C:red}0{} discards',
+            'Start on Ante {C:attention}#1#{} with',
+            '{C:blue}+#2#{} hand and {C:red}#3#{} discards'
         }
     },
 	order = 26,
@@ -304,6 +303,9 @@ SMODS.Back { --Brick
     unlocked = true,
 
     config = { extra = { ante = 0 }, hands = 1, discards = -3 },
+    loc_vars = function(self, info_queue, center)
+        return { vars = { self.config.extra.ante, self.config.hands, 3 + self.config.discards } }
+    end,
     apply = function(self)
         ease_ante(self.config.extra.ante - 1)
         G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
@@ -317,7 +319,7 @@ SMODS.Back { --French
 	loc_txt = {
         name = 'Etienne Deck',
         text = {
-            '{C:attention}+#1#{} Booster Pack slot',
+            '{C:attention}+#1#{} Booster Pack slot'
         }
     },
 	order = 27,
@@ -325,7 +327,7 @@ SMODS.Back { --French
 	pos = { x = 0, y = 2 },
     unlocked = true,
 
-    config = { extra = { booster_slots = 1} },
+    config = { extra = { booster_slots = 1 } },
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.extra.booster_slots } }
     end,
@@ -341,7 +343,7 @@ SMODS.Back { --Sauda
         name = 'Sauda Deck',
         text = {
             'Start run with all',
-            '{C:attention}poker hands{} leveled up',
+            '{C:attention}poker hands{} leveled up'
         }
     },
 	order = 28,
@@ -363,7 +365,7 @@ SMODS.Back { --Psi
 	loc_txt = {
         name = 'Psi Deck',
         text = {
-            'All {C:attention}Boss Blinds{} are {C:attention}The Psychic{}',
+            'All {C:attention}Boss Blinds{} are {C:attention}The Psychic{}'
         }
     },
 	order = 29,
@@ -372,9 +374,6 @@ SMODS.Back { --Psi
     unlocked = true,
 
     config = { },
-    apply = function(self)
-        
-    end,
 }
 
 SMODS.Back { --Gerry
@@ -383,7 +382,7 @@ SMODS.Back { --Gerry
 	loc_txt = {
         name = 'Geraldo Deck',
         text = {
-            '{C:red}G{C:green}a{C:blue}y{}',
+            '{C:red}G{C:green}a{C:blue}y{}'
         }
     },
 	order = 30,
@@ -403,7 +402,7 @@ SMODS.Back { --Corvus
             'Earn {C:attention}1{} mana for each',
             'played card that scores',
             "Enables Corvus' {C:spectral}Spellbook{}",
-            '{C:inactive}unimplemented{}',
+            '{C:inactive}unimplemented{}'
         }
     },
 	order = 31,
@@ -423,7 +422,7 @@ SMODS.Back { --Rose
             'Switch between {X:mult,C:white}X#1#{} Mult and',
             'retriggering {C:attention}first{} played',
             'card each hand',
-            '{C:inactive}unimplemented{}',
+            '{C:inactive}unimplemented{}'
         }
     },
 	order = 32,
