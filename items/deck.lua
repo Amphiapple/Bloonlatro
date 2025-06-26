@@ -27,37 +27,34 @@ SMODS.Back { --Quincy
             '{C:mult}X#3#{} base Blind size'
         }
     },
-	order = 17,
 	atlas = "Back",
 	pos = { x = 0, y = 0 },
-    unlocked = true,
-
+    order = 17,
     config = { extra = { odds = 4 }, ante_scaling = 0.75 },
+
     loc_vars = function(self, info_queue, center)
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds, self.config.ante_scaling } }
 	end,
 	calculate = function(self, card, context)
-		if context.final_scoring_step then
-			if pseudorandom('cry_critical') < G.GAME.probabilities.normal/self.config.extra.odds then
-                hand_chips = mod_chips(hand_chips / 2.0)
-                update_hand_text( { delay = 0 }, { chips = hand_chips } )
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						play_sound("timpani", 1)
-						attention_text({
-							scale = 1.4,
-							text = "MISS",
-							hold = 2,
-							align = "cm",
-							offset = { x = 0, y = -2.7 },
-							major = G.play,
-						})
-						return true
-					end,
-				}))
-            end
-		end
-	end,
+		if context.final_scoring_step and pseudorandom('cry_critical') < G.GAME.probabilities.normal/self.config.extra.odds then
+            hand_chips = mod_chips(hand_chips / 2.0)
+            update_hand_text( { delay = 0 }, { chips = hand_chips } )
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound("timpani", 1)
+                    attention_text({
+                        scale = 1.4,
+                        text = "MISS",
+                        hold = 2,
+                        align = "cm",
+                        offset = { x = 0, y = -2.7 },
+                        major = G.play,
+                    })
+                    return true
+                end,
+            }))
+        end
+	end
 }
 
 SMODS.Back { --Gwen
@@ -71,12 +68,10 @@ SMODS.Back { --Gwen
             '{C:attention}-1{} hand size'
         }
     },
-	order = 18,
 	atlas = "Back",
 	pos = { x = 1, y = 0 },
-    unlocked = true,
-
-    config = { consumables = {'c_immolate'}, hand_size = -1 },
+    order = 18,
+    config = { consumables = {'c_immolate'}, hand_size = -1 }
 }
 
 SMODS.Back { --Striker
@@ -90,12 +85,11 @@ SMODS.Back { --Striker
             'to start as {C:spades}Spades{}'
         }
     },
-	order = 19,
 	atlas = "Back",
 	pos = { x = 2, y = 0 },
-    unlocked = true,
-    
+	order = 19,
     config = { extra = { odds = 3 } },
+
     loc_vars = function(self, info_queue, center)
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds - 1 } }
 	end,
@@ -123,12 +117,10 @@ SMODS.Back { --Obyn
             'and {C:money}Money Tree{}'
         }
     },
-	order = 20,
 	atlas = "Back",
 	pos = { x = 3, y = 0 },
-    unlocked = true,
-
-    config = { vouchers = {'v_seed_money','v_money_tree'}},
+    order = 20,
+    config = { vouchers = {'v_seed_money','v_money_tree'}}
 }
 
 SMODS.Back { --Church
@@ -141,12 +133,11 @@ SMODS.Back { --Church
             '{C:attention}Boss Blinds{}'
         }
     },
-	order = 21,
 	atlas = "Back",
 	pos = { x = 4, y = 0 },
-    unlocked = true,
-
+    order = 21,
     config = { extra = { Xmult = 2 } },
+
     loc_vars = function(self, info_queue, center)
 		return { vars = { self.config.extra.Xmult } }
 	end,
@@ -161,7 +152,7 @@ SMODS.Back { --Church
 						scale = 1.4,
 						text = "Try This!",
                         color = G.C.MULT,
-						hold = 2,
+						hold = 0.45,
 						align = "cm",
 						offset = { x = 0, y = -2.7 },
 						major = G.play,
@@ -170,7 +161,7 @@ SMODS.Back { --Church
 				end,
 			}))
         end
-	end,
+	end
 }
 
 SMODS.Back { --Ben
@@ -184,22 +175,14 @@ SMODS.Back { --Ben
             '{C:inactive}unimplemented{}'
         }
     },
-	order = 22,
 	atlas = "Back",
 	pos = { x = 0, y = 1 },
-    unlocked = true,
-
+    order = 22,
     config = { extra = { money = 1, boss_money = 2 } },
+
     loc_vars = function(self, info_queue, center)
 		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
-	end,
-    calc_dollar_bonus = function(self, card)
-        if G.GAME.blind.boss then
-            return self.config.extra.boss_money
-        else
-            return self.config.extra.money
-        end
-    end
+	end
 }
 
 SMODS.Back { --Ezili
@@ -215,13 +198,10 @@ SMODS.Back { --Ezili
             '{C:inactive}unimplemented{}'
         }
     },
-	order = 23,
 	atlas = "Back",
 	pos = { x = 1, y = 1 },
-    unlocked = true,
-    
-    config = { consumables = {'c_hex'} },
-
+    order = 23,
+    config = { consumables = {'c_hex'} }
 }
 
 SMODS.Back { --Pat
@@ -233,12 +213,11 @@ SMODS.Back { --Pat
             '{C:attention}+#1#{} hand size'
         }
     },
-	order = 24,
 	atlas = "Back",
 	pos = { x = 2, y = 1 },
-    unlocked = true,
-
+    order = 24,
     config = { hand_size = 1 },
+
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.hand_size } }
     end
@@ -255,12 +234,10 @@ SMODS.Back { --Adora
             '{C:attention}poker hand{} instead'
         }
     },
-	order = 25,
 	atlas = "Back",
 	pos = { x = 3, y = 1 },
-    unlocked = true,
+    order = 25,
 
-    config = {  },
     calculate = function(self, card, context)
         if context.selling_card then
             context.card.sell_cost = 0
@@ -284,7 +261,7 @@ SMODS.Back { --Adora
                 {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
             )
         end
-    end,
+    end
 }
 
 SMODS.Back { --Brick
@@ -297,12 +274,11 @@ SMODS.Back { --Brick
             '{C:blue}+#2#{} hand and {C:red}#3#{} discards'
         }
     },
-	order = 26,
 	atlas = "Back",
 	pos = { x = 4, y = 1 },
-    unlocked = true,
-
+    order = 26,
     config = { extra = { ante = 0 }, hands = 1, discards = -3 },
+
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.extra.ante, self.config.hands, 3 + self.config.discards } }
     end,
@@ -322,18 +298,17 @@ SMODS.Back { --French
             '{C:attention}+#1#{} Booster Pack slot'
         }
     },
-	order = 27,
 	atlas = "Back",
 	pos = { x = 0, y = 2 },
-    unlocked = true,
-
+    order = 27,
     config = { extra = { booster_slots = 1 } },
+
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.extra.booster_slots } }
     end,
     apply = function(self)
         SMODS.change_booster_limit(self.config.extra.booster_slots)
-    end,
+    end
 }
 
 SMODS.Back { --Sauda
@@ -346,17 +321,15 @@ SMODS.Back { --Sauda
             '{C:attention}poker hands{} leveled up'
         }
     },
-	order = 28,
 	atlas = "Back",
 	pos = { x = 1, y = 2 },
-    unlocked = true,
+    order = 28,
 
-    config = { },
     apply = function(self)
         for k, v in pairs(G.GAME.hands) do
             level_up_hand(self, k, true)
         end
-    end,
+    end
 }
 
 SMODS.Back { --Psi
@@ -368,12 +341,9 @@ SMODS.Back { --Psi
             'All {C:attention}Boss Blinds{} are {C:attention}The Psychic{}'
         }
     },
-	order = 29,
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
-    unlocked = true,
-
-    config = { },
+    order = 29
 }
 
 SMODS.Back { --Gerry
@@ -385,12 +355,9 @@ SMODS.Back { --Gerry
             '{C:red}G{C:green}a{C:blue}y{}'
         }
     },
-	order = 30,
 	atlas = "Back",
 	pos = { x = 3, y = 2 },
-    unlocked = true,
-
-    config = { },
+    order = 30
 }
 
 SMODS.Back { --Corvus
@@ -405,12 +372,9 @@ SMODS.Back { --Corvus
             '{C:inactive}unimplemented{}'
         }
     },
-	order = 31,
 	atlas = "Back",
 	pos = { x = 4, y = 2 },
-    unlocked = true,
-
-    config = { },
+    order = 31
 }
 
 SMODS.Back { --Rose
@@ -425,13 +389,7 @@ SMODS.Back { --Rose
             '{C:inactive}unimplemented{}'
         }
     },
-	order = 32,
 	atlas = "Back",
 	pos = { x = 0, y = 3 },
-    unlocked = true,
-
-    config = { extra = { discount = 1 } },
-    loc_vars = function(self, info_queue, center)
-        return { vars = { self.config.extra.discount } }
-    end,
+    order = 32
 }

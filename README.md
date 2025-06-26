@@ -1,25 +1,22 @@
-# Bloonlatro v0.1.9
+# Bloonlatro v0.2.0
 
 Added Jokers:
-- Echosense Network
-- Horned Owl
-- Triple Shot
-- MOAB Mauler
-- Long Life Spikes
-- Inferno Ring
+- Enhanced Eyesight
+- Glue Gunner
+- Corrosive Glue
+- Glue Hose
+- Relentless Glue
 
-Added Enhancements:
-- Glued Card
-- Meteor Card
+Added Consumables:
+- Glue Trap
 
 Balance Changes:
-- MOAB Mauler XMult X2 -> X3
-- Blooncineration now gives X1.5 Mult for each card it destroys
+- Meteor Cards can't appear unless you have Inferno Ring
 
 Fixes:
-- Ninja Monkey can now be selected even if all Joker slots are filled
-- Triple Shot should no longer create Tarots that exceed consumable slots
-- Downdraft now correctly scores 0 chips on the first 2 hands
-- Ray of Doom should no longer save played ranks from previous hands
+- Triple Shot text no longer uses Spectral coloring
+- Downdraft should no longer count down 2 times with Blueprint effects
+- Downdraft extra hands should score 0 even when copied by Blueprint effects
+- Downdraft text fixes
 
 Added temporary visuals for all decks
