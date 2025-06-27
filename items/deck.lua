@@ -383,7 +383,7 @@ SMODS.Back { --Rose
 	loc_txt = {
         name = 'Rosalia Deck',
         text = {
-            'Switch between {X:mult,C:white}X#1#{} Mult and',
+            'Switch between {X:mult,C:white}X1{} Mult and',
             'retriggering {C:attention}first{} played',
             'card each hand',
             '{C:inactive}unimplemented{}'
