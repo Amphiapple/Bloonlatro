@@ -185,7 +185,7 @@ SMODS.Joker { --Glue
 	order = 156,
 	blueprint_compat = true,
     unlocked = true,
-    config = { extra = { mult = 10 } }, --Variables: mult = +mult
+    config = { extra = { mult = 15 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.mult } }
@@ -1724,8 +1724,8 @@ SMODS.Joker { --Necro
 	loc_txt = {
         name = 'Necromancer: Unpopped Army',
         text = {
-            'Whenever a card is',
-            'destroyed create a ',
+            'Whenever cards are',
+            'destroyed, create a ',
             'copy of the rightmost',
             '{C:attention}card{} held in hand'
         }
@@ -1735,7 +1735,7 @@ SMODS.Joker { --Necro
     rarity = 2,
 	cost = 6,
 	order = 259,
-	blueprint_compat = false,
+	blueprint_compat = true,
     unlocked = true,
 
     calculate = function(self, card, context)
@@ -1763,14 +1763,15 @@ SMODS.Joker { --Necro
     end
 }
 
-SMODS.Joker { --Rubber to Gold
-    key = 'arknight',
-    name = 'Arctic Knight',
+SMODS.Joker { --R2g
+    key = 'r2g',
+    name = 'Rubber to Gold',
 	loc_txt = {
-        name = 'Arctic Knight',
+        name = 'Rubber to Gold',
         text = {
-            'If first hand of round contains ',
-            '{C:attention}Bonus{} cards {C:attention}#1#{} times'
+            'If {C:attention}last discard{} of',
+            'round has only {C:attention}1{} card,',
+            'add a {C:attention}Gold Seal{} to it'
         }
     },
 	atlas = 'Joker',
@@ -1780,8 +1781,20 @@ SMODS.Joker { --Rubber to Gold
 	order = 257,
 	blueprint_compat = false,
     unlocked = true,
-    config = { extra = { } }, --Variables: 
 
+    calculate = function(self, card, context)
+        if context.discard and G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    context.full_hand[1]:set_seal('Gold', nil, true)
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
+    end
 }
 
 SMODS.Joker { --Arknight
@@ -1799,7 +1812,8 @@ SMODS.Joker { --Arknight
     rarity = 2,
 	cost = 7,
 	order = 259,
-	blueprint_compat = false,
+	blueprint_compat = true,
+    enhancement_gate = 'm_bonus',
     unlocked = true,
     config = { extra = 2 }, --Variables: extra = retrigger amount
 
@@ -2141,8 +2155,9 @@ SMODS.Joker { --Rod
     end
 }
 
+--[[
 SMODS.Joker { --Arch
-    key = 'archt',
+    key = 'arch',
     name = 'Archmage',
 	loc_txt = {
         name = 'Archmage',
@@ -2172,6 +2187,7 @@ SMODS.Joker { --Arch
         end
     end
 }
+]]
 
 SMODS.Joker { --GMN
     key = 'gmn',

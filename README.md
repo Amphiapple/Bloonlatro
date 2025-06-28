@@ -10,6 +10,7 @@ Added Jokers:
 - Relentless Glue
 - Necromancer: Unpopped Army
 - Arctic Knight
+- Rubber to Gold
 
 Added Consumables:
 - Glue Trap
