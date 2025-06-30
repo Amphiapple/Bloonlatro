@@ -1,7 +1,7 @@
 {
 	"id": "bloonlatro",
 	"name": "Bloonlatro",
-	"author": ["Amphiapple"],
+	"author": ["Amphibirdzcicle"],
 	"description": "Adds BTD6 into Balatro",
 	"prefix": "bloons",
 	"main_file": "main.lua",
@@ -9,7 +9,7 @@
 	"badge_colour": "EF5050",
 	"badge_text_colour": "F0F0F0",
 	"display_name": "Bloons",
-	"version": "0.1.10",
+	"version": "0.2.0",
 	"dependencies": [
 		"Steamodded (>=1.*)",
 		"Lovely (>=0.6)"

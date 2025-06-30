@@ -4,27 +4,44 @@ SMODS.Atlas {
     px = 71,
     py = 95,
 }
---[[
+
 SMODS.Enhancement ({ --Frozen
     key = 'frozen',
     name = 'Frozen Card',
     loc_txt = {
         name = 'Frozen Card',
         text = {
-            '',
-            '{C:inactive}unimplemented{}',
+            '{C:chips}+#1#{} Chips and',
+            'thaws when held in hand',
+            'no rank or suit'
         }
     },
 	atlas = "Enhancement",
 	pos = { x = 0, y = 0 },
     order = 10,
-    overrides_base_rank = true,
-	replace_base_card = true,
+    no_rank = true,
+    no_suit = true,
     shatters = true,
-    force_no_face = true,
     unlocked = true,
+    config = { h_chips = 40 },
+    
+    loc_vars = function(self, info_queue, center)
+        --Variables: cost = money loss when discarded
+        return { vars = { self.config.h_chips } }
+    end,
+    calculate = function(self, card, context)
+        if context.after and context.cardarea == G.hand then
+            card:set_ability(G.P_CENTERS.c_base, nil, true)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                    return true
+                end
+            })) 
+        end
+    end
 })
-]]
+
 
 SMODS.Enhancement ({ --Glued
     key = 'glued',
@@ -32,19 +49,21 @@ SMODS.Enhancement ({ --Glued
     loc_txt = {
         name = 'Glued Card',
         text = {
-            'Lose {C:money}$#1#{} when discarded',
-            'Wears off when played'
+            '{C:mult}+#1#{} Mult and',
+            'wears off when scored',
+            'Lose {C:money}$#2#{} when discarded'
+            
         }
     },
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
     unlocked = true,
-    config = { cost = 1 },
+    config = { mult = 5, cost = 1 },
     
     loc_vars = function(self, info_queue, center)
         --Variables: cost = money loss when discarded
-        return { vars = { self.config.cost } }
+        return { vars = { self.config.mult, self.config.cost } }
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
