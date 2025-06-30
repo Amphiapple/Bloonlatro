@@ -1499,7 +1499,7 @@ SMODS.Joker { --Brew
 	atlas = 'Joker',
 	pos = { x = 6, y = 7 },
     rarity = 2,
-	cost = 5,
+	cost = 6,
 	order = 227,
 	blueprint_compat = true,
     config = { eligible_jokers = {} }, --Variables: eligible_jokers = possible jokers to give polychrome
@@ -1587,7 +1587,7 @@ SMODS.Joker { --LLS
 	atlas = 'Joker',
 	pos = { x = 0, y = 8 },
     rarity = 2,
-	cost = 5,
+	cost = 6,
 	order = 231,
 	blueprint_compat = true,
     config = { extra = { mult = 1, loss = 5, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
@@ -2411,9 +2411,8 @@ SMODS.Joker { --Fortress
 	loc_txt = {
         name = 'Flying Fortress',
         text = {
-            'Apply the effects of all',
-            '{C:dark_edition}Editions{} and {C:attention}Seals{} to {C:attention}Aces{}',
-            '{C:inactive,s:0.8}({C:dark_edition,s:0.8}Negative{C:inactive,s:0.9} excluded){}'
+            'Apply the effects',
+            'of all {C:attention}Seals{} to {C:attention}Aces{}',
         }
     },
 	atlas = 'Joker',
@@ -2430,17 +2429,9 @@ SMODS.Joker { --Fortress
         if context.individual and context.other_card:get_id() == 14 then
             if context.cardarea == G.play then
                 return {
-                    chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult,
-                    x_mult = card.ability.extra.Xmult,
                     p_dollars = card.ability.extra.money
                 }
             end
-        elseif context.repetition and context.cardarea == G.play and context.other_card:get_id() == 14 then
-            return {
-                message = localize('k_again_ex'),
-                repetitions = card.ability.extra.reps
-            }
         elseif context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
@@ -2456,27 +2447,34 @@ SMODS.Joker { --Fortress
             }))
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
         elseif context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                    if G.GAME.last_hand_played then
-                        local _planet = 0
-                        for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                            if v.config.hand_type == G.GAME.last_hand_played then
-                                _planet = v.key
+            for i = 0, card.ability.extra.reps do
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        if G.GAME.last_hand_played then
+                            local _planet = 0
+                            for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                                if v.config.hand_type == G.GAME.last_hand_played then
+                                    _planet = v.key
+                                end
                             end
+                            local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
+                            card:add_to_deck()
+                            G.consumeables:emplace(card)
+                            G.GAME.consumeable_buffer = 0
                         end
-                        local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        G.GAME.consumeable_buffer = 0
-                    end
-                    return true
-                end)
-            }))
-            card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+                        return true
+                    end)
+                }))
+                card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+            end
+            elseif context.repetition and context.other_card:get_id() == 14 and (context.cardarea == G.play or context.cardarea == G.hand) then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.reps
+            }
         end
     end
 }
