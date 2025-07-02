@@ -22,7 +22,6 @@ SMODS.Enhancement ({ --Frozen
     no_rank = true,
     no_suit = true,
     shatters = true,
-    unlocked = true,
     config = { h_chips = 40 },
     
     loc_vars = function(self, info_queue, center)
@@ -58,7 +57,6 @@ SMODS.Enhancement ({ --Glued
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
-    unlocked = true,
     config = { mult = 5, cost = 1 },
     
     loc_vars = function(self, info_queue, center)
@@ -87,7 +85,6 @@ SMODS.Enhancement ({ --Stunned
 	atlas = "Enhancement",
 	pos = { x = 2, y = 0 },
     order = 12,
-    unlocked = true,
 
     calculate = function(self, card, context)
 
@@ -114,7 +111,6 @@ SMODS.Enhancement ({ --Meteor
     no_rank = true,
     no_suit = true,
     always_scores = true,
-    unlocked = true,
     config = { Xmult = 3 },
 
     in_pool = function()

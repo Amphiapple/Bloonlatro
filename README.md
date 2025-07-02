@@ -29,6 +29,7 @@ General Changes:
 - Blueprinting Downdraft no longer scores for the extra hand
 - Archmage renamed back to Arcane Mastery to fit the art
 - Meteor Cards can't appear unless you have Inferno Ring
+- Unfinished Decks (and Striker Deck) removed
 
 Balance Changes:
 - Glued Cards now give +5 Mult when scored

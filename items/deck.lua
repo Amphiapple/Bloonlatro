@@ -74,6 +74,7 @@ SMODS.Back { --Gwen
     config = { consumables = {'c_immolate'}, hand_size = -1 }
 }
 
+--[[
 SMODS.Back { --Striker
     key = "striker",    
     name = "Striker Deck",
@@ -106,6 +107,7 @@ SMODS.Back { --Striker
         }))
     end
 }
+]]
 
 SMODS.Back { --Obyn
     key = "obyn",
@@ -164,6 +166,7 @@ SMODS.Back { --Church
 	end
 }
 
+--[[
 SMODS.Back { --Ben
     key = "ben",
     name = "Benjamin Deck",
@@ -203,6 +206,7 @@ SMODS.Back { --Ezili
     order = 23,
     config = { consumables = {'c_hex'} }
 }
+]]
 
 SMODS.Back { --Pat
     key = "pat",
@@ -346,6 +350,7 @@ SMODS.Back { --Psi
     order = 29
 }
 
+--[[
 SMODS.Back { --Gerry
     key = "gerry",
     name = "Geraldo Deck",
@@ -393,3 +398,4 @@ SMODS.Back { --Rose
 	pos = { x = 0, y = 3 },
     order = 32
 }
+]]

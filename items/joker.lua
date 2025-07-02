@@ -275,7 +275,12 @@ SMODS.Joker { --Sniper
     calculate = function(self, card, context)
         if context.joker_main then
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
-            if card.ability.extra.counter == card.ability.extra.limit then
+            if card.ability.extra.counter == card.ability.extra.limit - 1 then
+                local eval = function()
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1)
+                end
+                juice_card_until(card, eval, true)
+            elseif card.ability.extra.counter == card.ability.extra.limit then
                 return {
                     mult = card.ability.extra.mult,
                 }
@@ -1123,22 +1128,27 @@ SMODS.Joker { --Trip shot
 	cost = 5,
 	order = 211,
 	blueprint_compat = true,
-    config = { tarots = 3, limit = 3, counter = 3 }, --Variables: tarots = number of tarots, limit = number of 3oaks for tarots, counter = current count index
+    config = { extra = { tarots = 3, limit = 3, counter = 3 } }, --Variables: tarots = number of tarots, limit = number of 3oaks for tarots, counter = current count index
 
     loc_vars = function(self, info_queue, center)
-		return { vars = { center.ability.tarots, center.ability.limit, center.ability.counter } }
+		return { vars = { center.ability.extra.tarots, center.ability.extra.limit, center.ability.extra.counter } }
     end,
     calculate = function(self, card, context)
-        if context.before and next(context.poker_hands['Three of a Kind']) and not 
+        if context.before and next(context.poker_hands['Three of a Kind']) and not
                 next(context.poker_hands['Flush']) and not
                 next(context.poker_hands['Full House']) and not
                 next(context.poker_hands['Four of a Kind']) then
             if not context.blueprint then
-                card.ability.counter = card.ability.counter - 1
+                card.ability.extra.counter = card.ability.extra.counter - 1
             end
-            if card.ability.counter == 0 then
-                card.ability.counter = card.ability.limit
-                for i = 1, card.ability.tarots do
+            if card.ability.extra.counter == 1 then
+                local eval = function()
+                    return (card.ability.extra.counter == 1)
+                end
+                juice_card_until(card, eval, true)
+            elseif card.ability.extra.counter == 0 then
+                card.ability.extra.counter = card.ability.extra.limit
+                for i = 1, card.ability.extra.tarots do
                     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
@@ -1197,8 +1207,8 @@ SMODS.Joker { --Shards
         name = 'Ice Shards',
         text = {
             'This {C:attention}Joker{} gains {C:mult}+#1#{} ',
-            'Mult every time a',
-            '{C:attention}Frozen Card{} thaws out',
+            'Mult whenever a {C:attention}Frozen Card{}',
+            'thaws out or is destroyed',
             '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
         }
     },
@@ -1220,10 +1230,67 @@ SMODS.Joker { --Shards
                 mult = card.ability.extra.current
             }
         elseif context.after and not context.blueprint then
+            local frozens = 0
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.name == 'Frozen Card' then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                    frozens = frozens + 1
                 end
+            end
+            if frozens > 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult*frozens
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.mult*frozens}}})
+                        return true
+                    end
+                }))
+            end
+        elseif context.cards_destroyed and not context.blueprint then
+            local frozens = 0
+            for k, v in ipairs(context.glass_shattered) do
+                if v.ability.name == 'Frozen Card' then
+                    frozens = frozens + 1
+                end
+            end
+            if frozens > 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult*frozens
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.mult*frozens}}})
+                        return true
+                    end
+                }))
+            end
+        elseif context.remove_playing_cards and not context.blueprint then
+            local frozens = 0
+            for k, v in ipairs(context.removed) do
+                if v.ability.name == 'Frozen Card' then
+                    frozens = frozens + 1
+                end
+            end
+            if frozens > 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult*frozens
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.mult*frozens}}})
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -1309,7 +1376,12 @@ SMODS.Joker { --Dprec
     calculate = function(self, card, context)
         if context.joker_main then
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
-            if card.ability.extra.counter == card.ability.extra.limit then
+            if card.ability.extra.counter == card.ability.extra.limit - 1 then
+                local eval = function()
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1)
+                end
+                juice_card_until(card, eval, true)
+            elseif card.ability.extra.counter == card.ability.extra.limit then
                 return {
                     x_mult = card.ability.extra.Xmult,
                 }
@@ -1501,11 +1573,12 @@ SMODS.Joker { --Brew
     rarity = 2,
 	cost = 6,
 	order = 227,
-	blueprint_compat = true,
+	blueprint_compat = false,
+    eternal_compat = false,
     config = { eligible_jokers = {} }, --Variables: eligible_jokers = possible jokers to give polychrome
     
     calculate = function(self, card, context)
-        if context.selling_self then
+        if context.selling_self and not context.blueprint then
             card.eligible_jokers = EMPTY(card.eligible_jokers)
             for k, v in pairs(G.jokers.cards) do
                 if v.ability.set == 'Joker' and not v.edition and v ~= card then
@@ -1918,16 +1991,23 @@ SMODS.Joker { --R2g
 	blueprint_compat = false,
 
     calculate = function(self, card, context)
-        if context.discard and G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    context.full_hand[1]:set_seal('Gold', nil, true)
-                    return true
+        if context.discard then
+            if G.GAME.current_round.discards_left == 2 then
+                local eval = function()
+                    return (G.GAME.current_round.discards_left == 1)
                 end
-            }))
-            delay(0.5)
+                juice_card_until(card, eval, true)
+            elseif G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        context.full_hand[1]:set_seal('Gold', nil, true)
+                        return true
+                    end
+                }))
+                delay(0.5)
+            end
         end
     end
 }
@@ -2024,6 +2104,7 @@ SMODS.Joker { --Blitz
 	loc_txt = {
         name = 'Bomb Blitz',
         text = {
+            --'{X:mult,C:white}X#1#{} Mult',
             'Prevents Death if chips scored',
             'are at least {C:attention}50%{} of required chips',
             'and destroy all cards held in hand',
@@ -2037,9 +2118,19 @@ SMODS.Joker { --Blitz
 	order = 273,
 	blueprint_compat = false,
     eternal_compat = false,
+    --config = { extra = { Xmult = 1.5 } }, --Variables: Xmult = Xmult
 
+    --[[
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.Xmult } }
+    end,
+    ]]
     calculate = function(self, card, context)
-        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not context.blueprint then
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand_text_area.blind_chips:juice_up()
@@ -2263,20 +2354,21 @@ SMODS.Joker { --Rod
 	cost = 10,
 	order = 283,
 	blueprint_compat = true,
-    config = { extra = { max = 43, min = 20 } }, --Variables: max = max possible Xmult *20, min = min possible Xmult *20
+    config = { extra = { max = 43, min = 20, ranks = {} } }, --Variables: max = max possible Xmult *20, min = min possible Xmult *20
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            local ranks = {}
-            for i = 1, #ranks do
-                if context.other_card:get_id() == ranks[i] then
+            for i = 1, #card.ability.extra.ranks do
+                if context.other_card:get_id() == card.ability.extra.ranks[i] then
                     local temp_Xmult = pseudorandom('misprint', card.ability.extra.min, card.ability.extra.max) / 20.0
                     return {
                         x_mult = temp_Xmult
                     }
                 end
             end
-            ranks[#ranks+1] = context.other_card:get_id()
+            card.ability.extra.ranks[#card.ability.extra.ranks+1] = context.other_card:get_id()
+        elseif context.after and not context.blueprint then
+            card.ability.extra.ranks = {}
         end
     end
 }
@@ -2378,10 +2470,10 @@ SMODS.Joker { --Uboost
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 11 },
+	pos = { x = 2, y = 114 },
     rarity = 3,
 	cost = 10,
-	order = 263,
+	order = 293,
 	blueprint_compat = true,
     config = { extra = { Xmult = 0.1 } }, --Variables: Xmult = permanent Xmult
 
@@ -2420,19 +2512,19 @@ SMODS.Joker { --Fortress
     soul_pos = { x = 5, y = 14 },
     rarity = 4,
 	cost = 20,
-	order = 301,
+	order = 296,
 	blueprint_compat = false,
     config = { extra = { chips = 50, mult = 10, Xmult = 1.5, reps = 1, money = 3 } },
     --Variables: chips = +chips (foil), mult = +mult (holographic), Xmult = Xmult (polychrome), reps = retrigger amount (red), money = dollars (gold)
 
     calculate = function(self, card, context)
-        if context.individual and context.other_card:get_id() == 14 then
+        if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
             if context.cardarea == G.play then
                 return {
                     p_dollars = card.ability.extra.money
                 }
             end
-        elseif context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        elseif context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.blueprint then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -2446,31 +2538,33 @@ SMODS.Joker { --Fortress
                 end)
             }))
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
-        elseif context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        elseif context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
             for i = 0, card.ability.extra.reps do
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
-                    func = (function()
-                        if G.GAME.last_hand_played then
-                            local _planet = 0
-                            for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                                if v.config.hand_type == G.GAME.last_hand_played then
-                                    _planet = v.key
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 0.0,
+                        func = (function()
+                            if G.GAME.last_hand_played then
+                                local _planet = 0
+                                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                                    if v.config.hand_type == G.GAME.last_hand_played then
+                                        _planet = v.key
+                                    end
                                 end
+                                local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
+                                card:add_to_deck()
+                                G.consumeables:emplace(card)
+                                G.GAME.consumeable_buffer = 0
                             end
-                            local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
-                            card:add_to_deck()
-                            G.consumeables:emplace(card)
-                            G.GAME.consumeable_buffer = 0
-                        end
-                        return true
-                    end)
-                }))
-                card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+                            return true
+                        end)
+                    }))
+                    card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+                end
             end
-            elseif context.repetition and context.other_card:get_id() == 14 and (context.cardarea == G.play or context.cardarea == G.hand) then
+        elseif context.repetition and context.other_card:get_id() == 14 and (context.cardarea == G.play or context.cardarea == G.hand) and not context.blueprint then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.reps
