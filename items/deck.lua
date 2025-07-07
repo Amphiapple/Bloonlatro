@@ -74,41 +74,6 @@ SMODS.Back { --Gwen
     config = { consumables = {'c_immolate'}, hand_size = -1 }
 }
 
---[[
-SMODS.Back { --Striker
-    key = "striker",    
-    name = "Striker Deck",
-	loc_txt = {
-        name = 'Striker Deck',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'each card in your deck',
-            'to start as {C:spades}Spades{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 2, y = 0 },
-	order = 19,
-    config = { extra = { odds = 3 } },
-
-    loc_vars = function(self, info_queue, center)
-		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds - 1 } }
-	end,
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                for k, v in pairs(G.playing_cards) do
-                    if pseudorandom('erratic') < G.GAME.probabilities.normal/self.config.extra.odds then
-                        v:change_suit('Spades')
-                    end
-                end
-            return true
-            end
-        }))
-    end
-}
-]]
-
 SMODS.Back { --Obyn
     key = "obyn",
     name = "Obyn Deck",
@@ -165,48 +130,6 @@ SMODS.Back { --Church
         end
 	end
 }
-
---[[
-SMODS.Back { --Ben
-    key = "ben",
-    name = "Benjamin Deck",
-	loc_txt = {
-        name = 'Benjamin Deck',
-        text = {
-            '{C:money}+$#1#{} each round',
-            '{C:money}+$#2# on {C:attention}Boss Blinds{}',
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 0, y = 1 },
-    order = 22,
-    config = { extra = { money = 1, boss_money = 2 } },
-
-    loc_vars = function(self, info_queue, center)
-		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
-	end
-}
-
-SMODS.Back { --Ezili
-    key = "ezili",
-    name = "Ezili Deck",
-	loc_txt = {
-        name = 'Ezili Deck',
-        text = {
-            '{C:spectral}Spectral{} packs appear ',
-            '{C:attention}2x{} more frequently',
-            'in the shop',
-            'Start run with a {C:spectral}Hex{} card',
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 1, y = 1 },
-    order = 23,
-    config = { consumables = {'c_hex'} }
-}
-]]
 
 SMODS.Back { --Pat
     key = "pat",
@@ -349,53 +272,3 @@ SMODS.Back { --Psi
 	pos = { x = 2, y = 2 },
     order = 29
 }
-
---[[
-SMODS.Back { --Gerry
-    key = "gerry",
-    name = "Geraldo Deck",
-	loc_txt = {
-        name = 'Geraldo Deck',
-        text = {
-            '{C:red}G{C:green}a{C:blue}y{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 3, y = 2 },
-    order = 30
-}
-
-SMODS.Back { --Corvus
-    key = "corvus",
-    name = "Corvus Deck",
-	loc_txt = {
-        name = 'Corvus Deck',
-        text = {
-            'Earn {C:attention}1{} mana for each',
-            'played card that scores',
-            "Enables Corvus' {C:spectral}Spellbook{}",
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 4, y = 2 },
-    order = 31
-}
-
-SMODS.Back { --Rose
-    key = "rose",
-    name = "Rosalia Deck",
-	loc_txt = {
-        name = 'Rosalia Deck',
-        text = {
-            'Switch between {X:mult,C:white}X1{} Mult and',
-            'retriggering {C:attention}first{} played',
-            'card each hand',
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 0, y = 3 },
-    order = 32
-}
-]]

@@ -2446,47 +2446,6 @@ SMODS.Joker { --Pex
     end
 }
 
---[[
-SMODS.Joker { --Uboost
-    key = 'uboost',
-    name = 'Ultraboost',
-    loc_txt = {
-        name = 'Ultraboost',
-        text = {
-            '{C:attention}Joker{} to the left',
-            'becomes {C:cark_edition}Overclocked{} and',
-            'permanently gains {X:mult,C:white}X#1#{} Mult',
-            '{C:inactive}unimplemented{}'
-        }
-    },
-    atlas = 'Joker',
-	pos = { x = 2, y = 114 },
-    rarity = 3,
-	cost = 10,
-	order = 293,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 0.1 } }, --Variables: Xmult = permanent Xmult
-
-    loc_vars = function(self, info_queue, center)
-        return { vars = { center.ability.extra.Xmult } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main and card ~= G.jokers.cards[1] then
-            local other_joker
-            for i = 2, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    other_joker = G.jokers.cards[i-1]
-                end
-            end
-            return {
-                extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
-                colour = G.C.CMULT,
-            }
-        end
-    end
-}
-]]
-
 SMODS.Joker { --Fortress
     key = 'fortress',
     name = 'Flying Fortress',
