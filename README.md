@@ -39,6 +39,7 @@ Balance Changes:
 - Triple Guns no longer scales multiple times for multiple 3 of a kinds
 - Downdraft blowback hands +2 -> +1
 - Long Life Spikes Mult loss -4 -> -5
+- Bomb Blitz shouldn't crash
 
 Fixes:
 - Triple Shot text no longer uses Spectral coloring

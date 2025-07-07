@@ -580,6 +580,7 @@ SMODS.Joker { --Ninja
     },
 	atlas = 'Joker',
 	pos = { x = 5, y = 1 },
+    soul_pos = { x = 6, y = 14 },
     rarity = 1,
 	cost = 4,
 	order = 166,
@@ -928,7 +929,7 @@ SMODS.Joker { --Eyesight
     rarity = 1,
 	cost = 4,
 	order = 181,
-	blueprint_compat = true,
+	blueprint_compat = false,
     config = { extra = { slots = 1 } }, --Variables: extra = required bonus cards for planet
 
     loc_vars = function(self, info_queue, center)
@@ -1930,9 +1931,9 @@ SMODS.Joker { --Abatt
 
 SMODS.Joker { --Necro
     key = 'necro',
-    name = 'Necromancer: Unpopped Army',
+    name = 'Necromancer',
 	loc_txt = {
-        name = 'Necromancer: Unpopped Army',
+        name = 'Necromancer',
         text = {
             'Whenever cards are',
             'destroyed, create a ',
@@ -2104,7 +2105,6 @@ SMODS.Joker { --Blitz
 	loc_txt = {
         name = 'Bomb Blitz',
         text = {
-            --'{X:mult,C:white}X#1#{} Mult',
             'Prevents Death if chips scored',
             'are at least {C:attention}50%{} of required chips',
             'and destroy all cards held in hand',
@@ -2118,19 +2118,9 @@ SMODS.Joker { --Blitz
 	order = 273,
 	blueprint_compat = false,
     eternal_compat = false,
-    --config = { extra = { Xmult = 1.5 } }, --Variables: Xmult = Xmult
 
-    --[[
-    loc_vars = function(self, info_queue, center)
-        return { vars = { center.ability.extra.Xmult } }
-    end,
-    ]]
     calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                x_mult = card.ability.extra.Xmult
-            }
-        elseif context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not context.blueprint then
+        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand_text_area.blind_chips:juice_up()
@@ -2512,7 +2502,7 @@ SMODS.Joker { --Fortress
     soul_pos = { x = 5, y = 14 },
     rarity = 4,
 	cost = 20,
-	order = 296,
+	order = 297,
 	blueprint_compat = false,
     config = { extra = { chips = 50, mult = 10, Xmult = 1.5, reps = 1, money = 3 } },
     --Variables: chips = +chips (foil), mult = +mult (holographic), Xmult = Xmult (polychrome), reps = retrigger amount (red), money = dollars (gold)
