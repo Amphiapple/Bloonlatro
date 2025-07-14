@@ -1092,7 +1092,7 @@ SMODS.Joker { --Owl
                     count = count + 1
                 end
             end
-            if count >= card.ability.extra then
+            if count >= card.ability.extra.number then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
@@ -1802,11 +1802,9 @@ SMODS.Joker { --Icicles
             return{
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.discard then
-            for k, v in pairs(context.full_hand) do
-                if pseudorandom('cry_critical') < G.GAME.probabilities.normal/card.ability.extra.odds then
-                    v:set_ability('m_bloons_frozen', nil, true)
-                end
+        elseif context.discard and not context.other_card.debuff then
+            if pseudorandom('cry_critical') < G.GAME.probabilities.normal/card.ability.extra.odds then
+                context.other_card:set_ability('m_bloons_frozen', nil, true)
             end
         end
     end
