@@ -183,6 +183,7 @@ SMODS.Joker { --Ice
     config = { extra = { chips = 50 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { center.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
@@ -226,6 +227,7 @@ SMODS.Joker { --Glue
     config = { extra = { mult = 10 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
@@ -714,6 +716,7 @@ SMODS.Joker { --Merm
     config = { extra = { chips = 90 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return { vars = { center.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
@@ -900,6 +903,7 @@ SMODS.Joker { --Beast
     config = { extra = { mult = 12 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         return { vars = { center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
@@ -962,6 +966,9 @@ SMODS.Joker { --Refreeze
     enhancement_gate = 'm_bloons_frozen',
     config = { extra = 1 },
 
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' then
             return {
@@ -994,6 +1001,7 @@ SMODS.Joker { --Corrosive
     config = { extra = { chips = 10, current = 0 } }, --Variables: chips = +chip gain for each glued card, current = current +chips
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { center.ability.extra.chips, center.ability.extra.current } }
     end,
     calculate = function(self, card, context)
@@ -1032,6 +1040,7 @@ SMODS.Joker { --Enetwork
     config = { extra = { number = 2 } }, --Variables: required = required bonus cards for planet
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return { vars = { center.ability.extra.number } }
     end,
     calculate = function(self, card, context)
@@ -1082,6 +1091,7 @@ SMODS.Joker { --Owl
     config = { extra = { number = 2 } }, --Variables: number = required bonus cards for planet
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         return { vars = { center.ability.extra.number } }
     end,
     calculate = function(self, card, context)
@@ -1223,6 +1233,7 @@ SMODS.Joker { --Shards
     config = { extra = { mult = 2, current = 0 } },
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { center.ability.extra.mult, center.ability.extra.current } }
     end,
     calculate = function(self, card, context)
@@ -1317,6 +1328,7 @@ SMODS.Joker { --Glose
     config = { extra = { Xmult = 2, number = 2, active = false } }, --Variables: Xmult = Xmult, number = required glued cards for Xmult, active = is giving Xmult
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
 		return { vars = { center.ability.extra.Xmult, center.ability.extra.number } }
     end,
     calculate = function(self, card, context)
@@ -1578,6 +1590,9 @@ SMODS.Joker { --Brew
     eternal_compat = false,
     config = { eligible_jokers = {} }, --Variables: eligible_jokers = possible jokers to give polychrome
     
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+    end,
     calculate = function(self, card, context)
         if context.selling_self and not context.blueprint then
             card.eligible_jokers = EMPTY(card.eligible_jokers)
@@ -1795,6 +1810,7 @@ SMODS.Joker { --Icicles
 
     config = { extra = { Xmult = 2, odds = 2 } }, --Variables: Xmult = Xmult, odds = probability cases
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { center.ability.extra.Xmult, G.GAME.probabilities.normal or 1, center.ability.extra.odds } }
     end,
     calculate = function(self, card, context)
@@ -1831,6 +1847,7 @@ SMODS.Joker { --Relentless
     config = { extra = 1 }, --Variables: extra = retrigger amount
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { center.ability.extra } }
     end,
     calculate = function(self, card, context)
@@ -1989,6 +2006,9 @@ SMODS.Joker { --R2g
 	order = 257,
 	blueprint_compat = false,
 
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_SEALS.Gold
+    end,
     calculate = function(self, card, context)
         if context.discard then
             if G.GAME.current_round.discards_left == 2 then
@@ -2031,6 +2051,7 @@ SMODS.Joker { --Arknight
     config = { extra = 2 }, --Variables: extra = retrigger amount
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return { vars = { center.ability.extra } }
     end,
     calculate = function(self, card, context)
@@ -2174,6 +2195,9 @@ SMODS.Joker { --Iring
 	order = 274,
 	blueprint_compat = true,
 
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
+    end,
     calculate = function(self, card, context)
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
@@ -2221,6 +2245,7 @@ SMODS.Joker { --Solver
     config = { extra = { mult = 2 } }, --Variables: mult = permanent +mult
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { center.ability.extra.mult } }
     end,
     calculate = function(self, card, context)

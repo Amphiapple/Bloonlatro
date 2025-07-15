@@ -41,7 +41,6 @@ SMODS.Enhancement ({ --Frozen
     end
 })
 
-
 SMODS.Enhancement ({ --Glued
     key = 'glued',
     name = 'Glued Card',
@@ -51,7 +50,6 @@ SMODS.Enhancement ({ --Glued
             '{C:mult}+#1#{} Mult and',
             'wears off when scored',
             'Lose {C:money}$#2#{} when discarded'
-            
         }
     },
 	atlas = 'Enhancement',
