@@ -1802,7 +1802,7 @@ SMODS.Joker { --Icicles
             return{
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.discard and notcontext.other_card.debuff then
+        elseif context.discard and not context.other_card.debuff then
             if pseudorandom('cry_critical') < G.GAME.probabilities.normal/card.ability.extra.odds then
                 context.other_card:set_ability('m_bloons_frozen', nil, true)
             end
