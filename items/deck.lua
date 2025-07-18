@@ -270,5 +270,6 @@ SMODS.Back { --Psi
     },
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
+    soul_pos = { x = 2, y = 3 },
     order = 29
 }
