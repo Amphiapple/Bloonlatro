@@ -40,6 +40,7 @@ Balance Changes:
 - Downdraft blowback hands +2 -> +1
 - Long Life Spikes Mult loss -4 -> -5
 - Bomb Blitz shouldn't crash
+- Blooncineration now adds X1 Mult instead of retriggering X1.5 Mult for each destroyed card
 
 Fixes:
 - Triple Shot text no longer uses Spectral coloring
