@@ -35,6 +35,7 @@ Balance Changes:
 - Glued Cards now give +5 Mult when scored
 - Glue Gunner +Mult +15 -> +10
 - Monkey Sub cost 4 -> 3
+- Monkey Ace +Chips +80 -> +50
 - MOAB Mauler XMult X3 -> X2.5
 - Triple Guns no longer scales multiple times for multiple 3 of a kinds
 - Downdraft blowback hands +2 -> +1
@@ -47,3 +48,4 @@ Fixes:
 - Downdraft should no longer count down 2 times with Blueprint effects
 - Downdraft extra hands should score 0 even when copied by Blueprint effects
 - Downdraft text fixes
+- Some Jokers should update values without needing to hover over them
