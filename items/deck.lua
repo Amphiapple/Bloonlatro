@@ -109,7 +109,7 @@ SMODS.Back { --Church
     loc_vars = function(self, info_queue, center)
 		return { vars = { self.config.extra.Xmult } }
 	end,
-    calculate = function(self, card, context)
+    calculate = function(self, back, context)
 		if G.GAME.blind.boss and context.final_scoring_step then
             mult = mod_mult(mult * self.config.extra.Xmult)
             update_hand_text( { delay = 0 }, { mult = mult } )
@@ -166,7 +166,7 @@ SMODS.Back { --Adora
 	pos = { x = 3, y = 1 },
     order = 25,
 
-    calculate = function(self, card, context)
+    calculate = function(self, back, context)
         if context.selling_card then
             context.card.sell_cost = 0
             local visible = {}
