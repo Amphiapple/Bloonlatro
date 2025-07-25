@@ -45,5 +45,5 @@ Fixes:
 - Triple Shot text no longer uses Spectral coloring
 - Downdraft should no longer count down 2 times with Blueprint effects
 - Downdraft extra hands should score 0 even when copied by Blueprint effects
-- Downdraft text fixes
+- Various text fixes
 - Some Jokers should update values without needing to hover over them
