@@ -20,10 +20,11 @@ G.FUNCS.can_select_card = function(e)
     end
 end
 
---Pex common cost to 0 function
+--Pex and Salvage cost function
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
+    self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
         self.cost = 0
     end
@@ -634,14 +635,14 @@ SMODS.Joker { --Alch
         return { vars = { G.GAME.probabilities.normal or 1, center.ability.extra.odds } }
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             if pseudorandom('halu') < G.GAME.probabilities.normal/card.ability.extra.odds then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Spectral',G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        local card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -654,7 +655,7 @@ SMODS.Joker { --Alch
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -924,6 +925,48 @@ SMODS.Joker { --Beast
     end
 }
 
+SMODS.Joker { --Desp
+    key = 'desp',
+    name = 'Desperado',
+    loc_txt = {
+        name = 'Desperado',
+        text = {
+            '{C:attention}First #1#{} played',
+            'cards give {C:chips}+#2#{}',
+            'Chips when scored'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 4, y = 2 },
+    rarity = 1,
+	cost = 3,
+	order = 175,
+	blueprint_compat = false,
+    config = { extra = { number = 2, chips = 20 } }, --Variables: number = number of cards, chips = +chips
+
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.number, center.ability.extra.chips } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            for i = 1, card.ability.extra.number do
+                if context.other_card == context.scoring_hand[i] then
+                    if context.other_card.debuff then
+                        return {
+                            message = localize('k_debuffed'),
+                            colour = G.C.RED
+                        }
+                    else
+                        return {
+                            chips = card.ability.extra.chips
+                        }
+                    end
+                end
+            end
+		end
+    end
+}
+
 SMODS.Joker { --Eyesight
     key = 'eyesight',
     name = 'Enhanced Eyesight',
@@ -1062,7 +1105,7 @@ SMODS.Joker { --Enetwork
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -1073,6 +1116,66 @@ SMODS.Joker { --Enetwork
             end
         end
     end
+}
+
+SMODS.Joker { --Salvage
+    key = 'salvage',
+    name = 'Banana Salvage',
+    loc_txt = {
+        name = 'Banana Salvage',
+        text = {
+            'All cards sell for {C:money}$#1#{} more'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 9, y = 4 },
+    rarity = 1,
+	cost = 5,
+	order = 200,
+	blueprint_compat = false,
+    config = { extra = { cost = 2 } }, --Variables: cost = extra sell price
+
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.cost } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.0,
+            func = (function()
+                for k, v in ipairs(G.jokers.cards) do
+                    if v.set_cost then 
+                        v:set_cost()
+                    end
+                end
+                for k, v in ipairs(G.consumeables.cards) do
+                    if v.set_cost then
+                        v:set_cost()
+                    end
+                end
+                return true
+            end)
+        }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.0,
+            func = (function()
+                for k, v in ipairs(G.jokers.cards) do
+                    if v.set_cost then 
+                        v:set_cost()
+                    end
+                end
+                for k, v in ipairs(G.consumeables.cards) do
+                    if v.set_cost then
+                        v:set_cost()
+                    end
+                end
+                return true
+            end)
+        }))
+    end,
 }
 
 SMODS.Joker { --Owl
@@ -1870,6 +1973,63 @@ SMODS.Joker { --Relentless
     end
 }
 
+SMODS.Joker { --Supply Drop
+    key = 'supply',
+    name = 'Supply Drop',
+    loc_txt = {
+        name = 'Supply Drop',
+        text = {
+            'Create a {C:dark_edition}Negative {C:tarot}Tarot{}',
+            'card every {C:attention}#1#{} hands played',
+            '{C:inactive}(#2#)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 6, y = 9 },
+    rarity = 2,
+	cost = 7,
+	order = 247,
+	blueprint_compat = true,
+    config = { extra = { limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+
+    loc_vars = function(self, info_queue, center)
+        local function process_var(count, cap)
+			if count == cap - 1 then
+				return 'Active!'
+			end
+			return cap - count%cap - 1 .. ' remaining'
+		end
+		return {
+			vars = {
+				center.ability.extra.limit,
+                process_var(center.ability.extra.counter, center.ability.extra.limit),
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
+            if not context.blueprint then
+                local eval = function()
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1)
+                end
+                juice_card_until(card, eval, true)
+            end
+            if card.ability.extra.counter == card.ability.extra.limit then
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'supply')
+                        card:set_edition({negative = true}, true)
+                        card:add_to_deck()
+                        G.consumeables:emplace(card) 
+                        return true
+                    end}))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+            end
+        end
+    end
+}
+
 SMODS.Joker { --GZ   
     key = 'gz',
     name = 'Ground Zero',
@@ -1951,6 +2111,50 @@ SMODS.Joker { --Abatt
                 }
             end
 		end
+    end
+}
+
+SMODS.Joker { --Rorm
+    key = 'rorm',
+    name = 'Rocket Storm',
+	loc_txt = {
+        name = 'Rocket Storm',
+        text = {
+            'This Joker gains {X:mult,C:white}X0.??{}',
+            'Mult per {C:attention}consecutive{} hand',
+            'played containing a {C:attention}Pair{}',
+            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 10 },
+    rarity = 2,
+	cost = 7,
+	order = 253,
+	blueprint_compat = true,
+    config = { extra = { max = 11, min = 0, current = 1 } }, --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
+    
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.poker_hands then
+            if next(context.poker_hands['Pair']) then
+                local temp_Xmult = pseudorandom('misprint', card.ability.extra.min, card.ability.extra.max) / 100.0
+                card.ability.extra.current = card.ability.extra.current + temp_Xmult
+            else
+                if card.ability.extra.current > 1 then
+                    card.ability.extra.current = 1
+                    return {
+                        message = localize('k_reset')
+                    }
+                end
+            end
+        elseif context.joker_main then
+            return {
+                x_mult = card.ability.extra.current
+            }
+        end
     end
 }
 
@@ -2229,6 +2433,46 @@ SMODS.Joker { --Iring
             }))
             draw_card(G.play,G.deck, 90,'up', nil)
             playing_card_joker_effects({true})
+        end
+    end
+}
+
+SMODS.Joker { --AZ
+    key = 'az',
+    name = 'Absolute Zero',
+	loc_txt = {
+        name = 'Absolute Zero',
+        text = {
+            'If {C:attention}first hand{} of round',
+            'has {C:attention}#1#{} cards, score no chips,',
+            '{C:attention}Freeze{} all played cards, and',
+            'create a {C:spectral}Spectral{} card'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 4, y = 12 },
+    rarity = 2,
+	cost = 7,
+	order = 275,
+	blueprint_compat = true,
+    config = { extra = { number = 5 } }, --Variables: number = required cards for spectral
+
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.number } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and #context.full_hand == 5 then
+            for k, v in pairs(context.full_hand) do
+                if not v.debuff then
+                    v:set_ability('m_bloons_frozen', nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            v:juice_up()
+                            return true
+                        end
+                    })) 
+                end
+            end
         end
     end
 }
