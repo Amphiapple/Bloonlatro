@@ -30,13 +30,14 @@ SMODS.Back { --Quincy
 	atlas = "Back",
 	pos = { x = 0, y = 0 },
     order = 17,
-    config = { extra = { odds = 4 }, ante_scaling = 0.75 },
+    config = { extra = { num = 1, denom = 4 }, ante_scaling = 0.75 }, --Variables: num/denom = probability fraction, ante_scaling = score requirement multiplier
 
-    loc_vars = function(self, info_queue, center)
-		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds, self.config.ante_scaling } }
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(self, self.config.extra.num, self.config.extra.denom, 'quincy')
+		return { vars = { n, d, self.config.ante_scaling } }
 	end,
-	calculate = function(self, card, context)
-		if context.final_scoring_step and pseudorandom('cry_critical') < G.GAME.probabilities.normal/self.config.extra.odds then
+	calculate = function(self, back, context)
+		if context.final_scoring_step and SMODS.pseudorandom_probability(back, 'quincy', back.ability.extra.num, back.ability.extra.denom, 'quincy') then
             hand_chips = mod_chips(hand_chips / 2.0)
             update_hand_text( { delay = 0 }, { chips = hand_chips } )
             G.E_MANAGER:add_event(Event({
@@ -77,9 +78,9 @@ SMODS.Back { --Gwen
 --[[
 SMODS.Back { --Striker
     key = "striker",    
-    name = "Striker Deck",
+    name = "Striker Jones Deck",
 	loc_txt = {
-        name = 'Striker Deck',
+        name = 'Striker Jones Deck',
         text = {
             '{C:green}#1# in #2#{} chance for',
             'each card in your deck',
@@ -91,14 +92,15 @@ SMODS.Back { --Striker
 	order = 19,
     config = { extra = { odds = 3 } },
 
-    loc_vars = function(self, info_queue, center)
-		return { vars = { G.GAME.probabilities.normal or 1, self.config.extra.odds - 1 } }
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(self, self.config.extra.num, self.config.extra.denom, 'quincy')
+		return { vars = { n, d - 1 }
 	end,
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
                 for k, v in pairs(G.playing_cards) do
-                    if pseudorandom('erratic') < G.GAME.probabilities.normal/self.config.extra.odds then
+                    if SMODS.pseudorandom_probability(back, 'striker', back.ability.extra.num, back.ability.extra.denom, 'striker') then
                         v:change_suit('Spades')
                     end
                 end
@@ -140,7 +142,7 @@ SMODS.Back { --Church
     order = 21,
     config = { extra = { Xmult = 2 } },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.extra.Xmult } }
 	end,
     calculate = function(self, card, context)
@@ -183,7 +185,7 @@ SMODS.Back { --Ben
     order = 22,
     config = { extra = { money = 1, boss_money = 2 } },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
 	end
 }
@@ -222,7 +224,7 @@ SMODS.Back { --Pat
     order = 24,
     config = { hand_size = 1 },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         return { vars = { self.config.hand_size } }
     end
 }
@@ -283,7 +285,7 @@ SMODS.Back { --Brick
     order = 26,
     config = { extra = { ante = 0 }, hands = 1, discards = -3 },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.ante, self.config.hands, 3 + self.config.discards } }
     end,
     apply = function(self)
@@ -307,7 +309,7 @@ SMODS.Back { --French
     order = 27,
     config = { extra = { booster_slots = 1 } },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.booster_slots } }
     end,
     apply = function(self)

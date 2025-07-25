@@ -11,8 +11,8 @@
 	"display_name": "Bloons",
 	"version": "0.2.1",
 	"dependencies": [
-		"Steamodded (>=1.*)",
-		"Lovely (>=0.6)"
+		"Steamodded (>=1.*.*-0711a)",
+		"Lovely (>=0.8)"
 	],
 	"conflicts": [],
 	"provides": [],
