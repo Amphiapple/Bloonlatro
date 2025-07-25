@@ -25,7 +25,7 @@ local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
-            self.cost = 0
+        self.cost = 0
     end
     return ret
 end
@@ -148,7 +148,7 @@ SMODS.Joker { --Tack
 	cost = 3,
 	order = 154,
 	blueprint_compat = true,
-    config = { extra = { chips = 40, mult = 4} }, --Variables: chips = +chips, mult = +mult
+    config = { extra = { chips = 40, mult = 4 } }, --Variables: chips = +chips, mult = +mult
 
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.chips, center.ability.extra.mult } }
@@ -351,16 +351,18 @@ SMODS.Joker { --Boat
     config = { extra = { money = 1, rate = 3, current = 0 } }, --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
 
     loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.money, center.ability.extra.rate, center.ability.extra.current } }
+    end,
+    update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             local sell_cost = 0
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] ~= center and (G.jokers.cards[i].area == G.jokers) then
+                if G.jokers.cards[i] ~= card and (G.jokers.cards[i].area == G.jokers) then
                     sell_cost = sell_cost + G.jokers.cards[i].sell_cost
                 end
             end
-            center.ability.extra.current = center.ability.extra.money * math.floor(sell_cost / center.ability.extra.rate)
+            card.ability.extra.current = card.ability.extra.money * math.floor(sell_cost / card.ability.extra.rate)
         end
-        return { vars = { center.ability.extra.money, center.ability.extra.rate, center.ability.extra.current } }
     end,
     calc_dollar_bonus = function(self, card)
         return card.ability.extra.current
@@ -384,7 +386,7 @@ SMODS.Joker { --Ace
 	cost = 5,
 	order = 160,
 	blueprint_compat = true,
-    config = { extra = { chips = 80 } }, --Variables: chips = +chips
+    config = { extra = { chips = 50 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.chips } }
@@ -753,10 +755,12 @@ SMODS.Joker { --Farm
     config = { extra = { money = 1, current = 0 } }, --Variables: money = dollars per joker, current = current end of round dollars
 
     loc_vars = function(self, info_queue, center)
-        if G.STAGE == G.STAGES.RUN then
-            center.ability.extra.current = #G.jokers.cards
-        end
         return { vars = { center.ability.extra.money, center.ability.extra.current } }
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            card.ability.extra.current = #G.jokers.cards
+        end
     end,
     calc_dollar_bonus = function(self, card)
         return card.ability.extra.current
@@ -935,7 +939,7 @@ SMODS.Joker { --Eyesight
 	cost = 4,
 	order = 181,
 	blueprint_compat = false,
-    config = { extra = { slots = 1 } }, --Variables: extra = required bonus cards for planet
+    config = { extra = { slots = 1 } }, --Variables: slots = extra consumable slots
 
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.slots } }
@@ -1966,7 +1970,7 @@ SMODS.Joker { --Necro
 	pos = { x = 3, y = 10 },
     rarity = 2,
 	cost = 6,
-	order = 259,
+	order = 254,
 	blueprint_compat = true,
 
     calculate = function(self, card, context)
@@ -2453,23 +2457,25 @@ SMODS.Joker { --Pex
 	cost = 8,
 	order = 291,
 	blueprint_compat = true,
-    config = { extra = { commons = 1, odds = 5, Xmult = 4 } }, --Variables: commons = extra commons +1, odds = probability cases, Xmult = Xmult
+    config = { extra = { prob = 1, odds = 5, Xmult = 4 } }, --Variables: prob = probability based on commons, odds = probability cases, Xmult = Xmult
     
     loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.prob*(G.GAME.probabilities.normal or 1), center.ability.extra.odds, center.ability.extra.Xmult } }
+    end,
+    update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
-            local commons = 1
+            local commons = 0
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i].config.center.rarity == 1 then
                     commons = commons + 1
                 end
             end
-            center.ability.extra.commons = commons
+            card.ability.extra.prob = commons + 1
         end
-        return { vars = { center.ability.extra.commons*(G.GAME.probabilities.normal or 1), center.ability.extra.odds, center.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            if pseudorandom('cry_critical') < card.ability.extra.commons*G.GAME.probabilities.normal/card.ability.extra.odds then
+            if pseudorandom('cry_critical') < card.ability.extra.prob*G.GAME.probabilities.normal/card.ability.extra.odds then
                 return {
                     x_mult = card.ability.extra.Xmult
                 }
