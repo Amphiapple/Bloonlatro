@@ -51,7 +51,6 @@ SMODS.Enhancement ({ --Glued
             '{C:mult}+#1#{} Mult and',
             'wears off when scored',
             'Lose {C:money}$#2#{} when discarded'
-            
         }
     },
 	atlas = 'Enhancement',
@@ -98,7 +97,6 @@ SMODS.Enhancement ({ --Meteor
     loc_txt = {
         name = 'Meteor Card',
         text = {
-            '',
             '{X:mult,C:white}X#1#{} Mult',
             'destroys card',
             'no rank or suit'
@@ -114,7 +112,7 @@ SMODS.Enhancement ({ --Meteor
     config = { Xmult = 3 },
 
     in_pool = function()
-        return #find_joker('Inferno Ring') > 0
+        return #find_joker('Inferno Ring') > 0 or #find_joker('Wizard Lord Phoenix') > 0
     end,
     loc_vars = function(self, info_queue, center)
         --Variables: x_mult = Xmult
