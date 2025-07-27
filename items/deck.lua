@@ -276,22 +276,33 @@ SMODS.Back { --Brick
 	loc_txt = {
         name = 'Brickell Deck',
         text = {
-            'Start on Ante {C:attention}#1#{} with',
-            '{C:blue}+#2#{} hand and {C:red}#3#{} discards'
+            'Start on Ante {C:attention}#1#{}',
+            'with {C:blue}+#2#{} hand',
+            '{C:red}#3#{} discards'
         }
     },
 	atlas = "Back",
 	pos = { x = 4, y = 1 },
     order = 26,
-    config = { extra = { ante = 0 }, hands = 1, discards = -3 },
+    config = { extra = { ante = 0, discards = 0 }, hands = 1, },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { self.config.extra.ante, self.config.hands, 3 + self.config.discards } }
+        return { vars = { self.config.extra.ante, self.config.hands, self.config.extra.discards } }
     end,
     apply = function(self)
         ease_ante(self.config.extra.ante - 1)
         G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
         G.GAME.round_resets.blind_ante = self.config.extra.ante
+    end,
+    calculate = function(self, back, context)
+        if context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_discard(-G.GAME.current_round.discards_left, nil, true)
+                    return true
+                end 
+            }))
+        end
     end
 }
 

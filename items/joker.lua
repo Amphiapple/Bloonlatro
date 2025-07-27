@@ -1178,6 +1178,27 @@ SMODS.Joker { --Salvage
             end)
         }))
     end,
+    calculate = function(self, card, context)
+        if context.buying_card then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.0,
+                func = (function()
+                    for k, v in ipairs(G.jokers.cards) do
+                        if v.set_cost then 
+                            v:set_cost()
+                        end
+                    end
+                    for k, v in ipairs(G.consumeables.cards) do
+                        if v.set_cost then
+                            v:set_cost()
+                        end
+                    end
+                    return true
+                end)
+            }))
+        end
+    end
 }
 
 SMODS.Joker { --Owl
@@ -2091,10 +2112,11 @@ SMODS.Joker { --Abatt
     config = { extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 }, }, --Variables: num/denom = probabiltiy fraction, chips = +chips, mult = +mult, Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'abatt')
         return {
             vars = {
-                card.ability.extra.num,
-                card.ability.extra.denom,
+                n,
+                d,
                 card.ability.extra.chips,
                 card.ability.extra.mult,
                 card.ability.extra.Xmult

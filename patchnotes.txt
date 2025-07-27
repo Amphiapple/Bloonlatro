@@ -21,7 +21,14 @@ General Changes:
 - Druid of Wrath replaced wtih Avatar of Wrath
 
 Balance Changes:
-- Multiple T5 joker costs reduced
+- Heli Pilot Mult X2 -> X1.5
+- Heli Pilot price 6 -> 5
+- Crossbow Master cost 8 -> 7
+- Bomb Blitz cost 8 -> 7
+- The Bloon Solver cost 8 -> 7
+- Elite Defender cost 8 -> 7
+- Brickell Deck now sets your discards to 0 at the start of each round
 
 Fixes:
+- Artillery Battery now shows correct probability if changed
 - Jokers with end of round effects use correct logic
