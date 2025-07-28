@@ -2091,6 +2091,37 @@ SMODS.Joker { --GZ
     end
 }
 
+--[[
+SMODS.Joker { --Comdef
+    key = 'comdef',
+    name = 'Comanche Defense',
+	loc_txt = {
+        name = 'Comanche Defense',
+        text = {
+            '{C:chips}+#1#{} Chips',
+            'This Joker gains {C:chips}+#2#{} Chips',
+            'each round, resets when',
+            '{C:attention}Boss Blind{} is defeated'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 1, y = 10 },
+    rarity = 2,
+	cost = 7,
+	order = 252,
+	blueprint_compat = true,
+    config = { extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 }, }, --Variables: num/denom = probabiltiy fraction, chips = +chips, mult = +mult, Xmult = Xmult
+
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'abatt')
+        return { vars = {            } }
+    end,
+    calculate = function(self, card, context)
+
+    end
+}
+]]
+
 SMODS.Joker { --Abatt
     key = 'abatt',
     name = 'Artillery Battery',
@@ -2526,7 +2557,7 @@ SMODS.Joker { --Iring
 	atlas = 'Joker',
 	pos = { x = 3, y = 12 },
     rarity = 3,
-	cost = 9,
+	cost = 8,
 	order = 274,
 	blueprint_compat = true,
 
@@ -2784,7 +2815,7 @@ SMODS.Joker { --Cin
 	atlas = 'Joker',
 	pos = { x = 1, y = 13 },
     rarity = 3,
-	cost = 9,
+	cost = 8,
 	order = 282,
 	blueprint_compat = false,
     config = { extra = { Xmult = 1 } }, --Variables: Xmult = Xmult
@@ -2866,7 +2897,7 @@ SMODS.Joker { --WLP
 	atlas = 'Joker',
 	pos = { x = 3, y = 13 },
     rarity = 3,
-	cost = 9,
+	cost = 8,
 	order = 284,
 	blueprint_compat = true,
 
@@ -2943,7 +2974,7 @@ SMODS.Joker { --AoW
 	atlas = 'Joker',
 	pos = { x = 7, y = 13 },
     rarity = 3,
-	cost = 9,
+	cost = 8,
 	order = 288,
 	blueprint_compat = true,
     config = { extra = { Xmult = 3, current = 3, loss = 0.01 } }, --Variables: Xmult = starting Xmult, current = current Xmult, loss = Xmult loss per percent, 

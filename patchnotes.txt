@@ -27,6 +27,9 @@ Balance Changes:
 - Bomb Blitz cost 8 -> 7
 - The Bloon Solver cost 8 -> 7
 - Elite Defender cost 8 -> 7
+- Inferno Ring cost 9 -> 8
+- Blooncineration cost 9 -> 8
+- Avatar of Wrath cost 9 -> 8
 - Brickell Deck now sets your discards to 0 at the start of each round
 
 Fixes:
