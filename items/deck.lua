@@ -168,28 +168,27 @@ SMODS.Back { --Church
 	end
 }
 
---[[
 SMODS.Back { --Ben
     key = "ben",
     name = "Benjamin Deck",
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            '{C:money}+$#1#{} each round',
-            '{C:money}+$#2# on {C:attention}Boss Blinds{}',
-            '{C:inactive}unimplemented{}'
+            'Start with {C:attention}Monkey Bank{}',
+            'and extra {C:money}$#1#'
         }
     },
 	atlas = "Back",
 	pos = { x = 0, y = 1 },
     order = 22,
-    config = { extra = { money = 1, boss_money = 2 } },
+    config = { jokers = {'j_bloons_bank'}, dollars = 1 },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.extra.money, self.config.extra.boss_money } }
+		return { vars = { self.config.dollars } }
 	end
 }
 
+--[[
 SMODS.Back { --Ezili
     key = "ezili",
     name = "Ezili Deck",

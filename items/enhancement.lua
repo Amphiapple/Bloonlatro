@@ -22,10 +22,9 @@ SMODS.Enhancement ({ --Frozen
     no_rank = true,
     no_suit = true,
     shatters = true,
-    config = { h_chips = 40 },
+    config = { h_chips = 40 }, --Variables: h_chips = +chips when held in hand
     
     loc_vars = function(self, info_queue, center)
-        --Variables: cost = money loss when discarded
         return { vars = { self.config.h_chips } }
     end,
     calculate = function(self, card, context)
@@ -56,10 +55,9 @@ SMODS.Enhancement ({ --Glued
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
-    config = { mult = 5, cost = 1 },
+    config = { mult = 5, cost = 1 }, --Variables: mult = +mult, cost = money loss when discarded
     
     loc_vars = function(self, info_queue, center)
-        --Variables: cost = money loss when discarded
         return { vars = { self.config.mult, self.config.cost } }
     end,
     calculate = function(self, card, context)
@@ -109,13 +107,12 @@ SMODS.Enhancement ({ --Meteor
     no_rank = true,
     no_suit = true,
     always_scores = true,
-    config = { Xmult = 3 },
+    config = { Xmult = 3 }, --Variables: x_mult = Xmult
 
     in_pool = function()
         return #find_joker('Inferno Ring') > 0 or #find_joker('Wizard Lord Phoenix') > 0
     end,
     loc_vars = function(self, info_queue, center)
-        --Variables: x_mult = Xmult
         return { vars = { self.config.Xmult } }
     end,
     calculate = function(self, card, context)
