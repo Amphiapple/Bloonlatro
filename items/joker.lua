@@ -2926,9 +2926,9 @@ SMODS.Joker { --AZ
                 return (G.GAME.current_round.hands_played == 0)
             end
             juice_card_until(card, eval, true)
-        elseif context.before and #context.scoring == 5 and G.GAME.current_round.hands_played == 0 then
+        elseif context.before and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 then
             if not context.blueprint then
-                for k, v in pairs(context.full_hand) do
+                for k, v in pairs(context.scoring_hand) do
                     if not v.debuff then
                         v:set_ability('m_bloons_frozen', nil, true)
                         G.E_MANAGER:add_event(Event({
@@ -2955,7 +2955,7 @@ SMODS.Joker { --AZ
                 }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
             end
-        elseif context.final_scoring_step and #context.full_hand == 5 and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+        elseif context.final_scoring_step and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             hand_chips = mod_chips(0)
             hand_mult = mod_mult(0)
             update_hand_text( { delay = 0 }, { chips = hand_chips, mult = hand_mult } )
