@@ -2902,8 +2902,8 @@ SMODS.Joker { --AZ
 	loc_txt = {
         name = 'Absolute Zero',
         text = {
-            'If {C:attention}first hand{} of round',
-            'has {C:attention}#1#{} cards, score no chips,',
+            'If {C:attention}first hand{} of round has ',
+            '{C:attention}#1#{} scoring cards, score no chips,',
             '{C:attention}Freeze{} all played cards, and',
             'create a {C:spectral}Spectral{} card'
         }
@@ -2926,7 +2926,7 @@ SMODS.Joker { --AZ
                 return (G.GAME.current_round.hands_played == 0)
             end
             juice_card_until(card, eval, true)
-        elseif context.before and #context.full_hand == 5 and G.GAME.current_round.hands_played == 0 then
+        elseif context.before and #context.scoring == 5 and G.GAME.current_round.hands_played == 0 then
             if not context.blueprint then
                 for k, v in pairs(context.full_hand) do
                     if not v.debuff then
