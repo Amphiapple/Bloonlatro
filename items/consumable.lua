@@ -63,7 +63,7 @@ SMODS.Consumable { --Volcano
         }
     },
     atlas = 'Consumable',
-	pos = { x = 1, y = 2 },
+	pos = { x = 0, y = 2 },
     cost = 4,
 	order = 51,
     config = { max_highlighted = 1 },
