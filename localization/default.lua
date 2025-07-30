@@ -5,10 +5,16 @@ return {
                 "All vanilla Jokers are banned."
             },
             ch_c_bloonarius = {
-                "Face bloonarius in ante 8"
+                "Face Bloonarius in ante 8"
             },
             ch_c_phayze = {
-                "Face phayze in ante 8"
+                "Face Phayze in ante 8"
+            },
+            ch_c_dreadbloon = {
+                "Face Dreadbloon in ante 8"
+            },
+            ch_c_vortex = {
+                "Face Vortex in ante 6"
             }
         },
     },
