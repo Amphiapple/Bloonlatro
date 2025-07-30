@@ -40,6 +40,7 @@ SMODS.Enhancement ({ --Frozen
     end
 })
 
+
 SMODS.Enhancement ({ --Glued
     key = 'glued',
     name = 'Glued Card',
@@ -67,6 +68,26 @@ SMODS.Enhancement ({ --Glued
         end
     end
 })
+
+--[[
+SMODS.Enhancement ({ --Stunned
+    key = 'stunned',
+    name = 'Stunned Card',
+    loc_txt = {
+        name = 'Stunned Card',
+        text = {
+            '{C:inactive}unimplemented{}',
+        }
+    },
+	atlas = "Enhancement",
+	pos = { x = 2, y = 0 },
+    order = 12,
+
+    calculate = function(self, card, context)
+
+    end
+})
+]]
 
 SMODS.Enhancement ({ --Meteor
     key = 'meteor',
