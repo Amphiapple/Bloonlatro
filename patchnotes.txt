@@ -27,7 +27,7 @@ Added Enhancements:
 
 General Changes:
 - Druid of Wrath replaced wtih Avatar of Wrath
-- Added 4 new challenges, which include 2 high idfficulty Boss Batles
+- Added 4 new challenges, which include 2 high difficulty Boss Battles
 
 Balance Changes:
 - Mermonkey now gives +15 Mult instead of +90 Chips
