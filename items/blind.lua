@@ -6,6 +6,7 @@ SMODS.Atlas {
     atlas_table = 'ANIMATION_ATLAS',
     frames = 21,
 }
+
 function Blind:bloons_cap_score(score)
     if not self.disabled then
         local obj = self.config and self.config.blind or self
@@ -180,6 +181,8 @@ SMODS.Blind {
         }
     },
     key = 'vortex',
+    atlas = 'Blind',
+    pos = { y = 5 },
     dollars = 8,
     mult = 25, -- 25x base score (500k)
     boss = { showdown = true },
