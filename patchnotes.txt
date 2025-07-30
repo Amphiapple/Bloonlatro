@@ -23,11 +23,8 @@ Added Enhancements:
 - Frozen Card
 
 General Changes:
-- Glue Hose should no longer appear unless you have glued cards
-- Blueprinting Downdraft no longer scores for the extra hand
-- Archmage renamed back to Arcane Mastery to fit the art
-- Meteor Cards can't appear unless you have Inferno Ring
-- Unfinished Decks (and Striker Deck) removed
+- Druid of Wrath replaced wtih Avatar of Wrath
+- Added 6 new challenges, which include 4 high idfficulty Boss Batles
 
 Balance Changes:
 - Glued Cards now give +5 Mult when scored
