@@ -31,6 +31,7 @@ SMODS.Back { --Quincy
 	pos = { x = 0, y = 0 },
     order = 17,
     config = { extra = { num = 1, denom = 4 }, ante_scaling = 0.75 }, --Variables: num/denom = probability fraction, ante_scaling = score requirement multiplier
+    config = { extra = { num = 1, denom = 4 }, ante_scaling = 0.75 }, --Variables: num/denom = probability fraction, ante_scaling = score requirement multiplier
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(self, self.config.extra.num, self.config.extra.denom, 'quincy')
@@ -146,6 +147,7 @@ SMODS.Back { --Church
 		return { vars = { self.config.extra.Xmult } }
 	end,
     calculate = function(self, back, context)
+    calculate = function(self, back, context)
 		if G.GAME.blind.boss and context.final_scoring_step then
             mult = mod_mult(mult * self.config.extra.Xmult)
             update_hand_text( { delay = 0 }, { mult = mult } )
@@ -243,6 +245,7 @@ SMODS.Back { --Adora
 	pos = { x = 3, y = 1 },
     order = 25,
 
+    calculate = function(self, back, context)
     calculate = function(self, back, context)
         if context.selling_card then
             context.card.sell_cost = 0
@@ -359,55 +362,6 @@ SMODS.Back { --Psi
     },
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
+    soul_pos = { x = 2, y = 3 },
     order = 29
 }
-
---[[
-SMODS.Back { --Gerry
-    key = "gerry",
-    name = "Geraldo Deck",
-	loc_txt = {
-        name = 'Geraldo Deck',
-        text = {
-            '{C:red}G{C:green}a{C:blue}y{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 3, y = 2 },
-    order = 30
-}
-
-SMODS.Back { --Corvus
-    key = "corvus",
-    name = "Corvus Deck",
-	loc_txt = {
-        name = 'Corvus Deck',
-        text = {
-            'Earn {C:attention}1{} mana for each',
-            'played card that scores',
-            "Enables Corvus' {C:spectral}Spellbook{}",
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 4, y = 2 },
-    order = 31
-}
-
-SMODS.Back { --Rose
-    key = "rose",
-    name = "Rosalia Deck",
-	loc_txt = {
-        name = 'Rosalia Deck',
-        text = {
-            'Switch between {X:mult,C:white}X1{} Mult and',
-            'retriggering {C:attention}first{} played',
-            'card each hand',
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 0, y = 3 },
-    order = 32
-}
-]]

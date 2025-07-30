@@ -21,11 +21,14 @@ G.FUNCS.can_select_card = function(e)
 end
 
 --Pex and Salvage cost function
+--Pex and Salvage cost function
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
     self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+    self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
+        self.cost = 0
         self.cost = 0
     end
     return ret
@@ -237,6 +240,8 @@ SMODS.Joker { --Dart
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -267,6 +272,8 @@ SMODS.Joker { --Boomer
 	blueprint_compat = true,
     config = { extra = 2 }, --Variables: extra = retrigger amount
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra} }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra} }
     end,
@@ -301,6 +308,8 @@ SMODS.Joker { --Bomb
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult} }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult} }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Steel Card' then
@@ -329,7 +338,10 @@ SMODS.Joker { --Tack
 	order = 154,
 	blueprint_compat = true,
     config = { extra = { chips = 40, mult = 4 } }, --Variables: chips = +chips, mult = +mult
+    config = { extra = { chips = 40, mult = 4 } }, --Variables: chips = +chips, mult = +mult
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
@@ -362,6 +374,9 @@ SMODS.Joker { --Ice
 	blueprint_compat = true,
     config = { extra = { chips = 50 } }, --Variables: chips = +chips
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        return { vars = { card.ability.extra.chips } }
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { card.ability.extra.chips } }
@@ -409,6 +424,9 @@ SMODS.Joker { --Glue
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { card.ability.extra.mult } }
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and not context.other_card.debuff then
@@ -440,6 +458,7 @@ SMODS.Joker { --Sniper
     config = { extra = { mult = 20, limit = 2, counter = 2 } }, --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'
@@ -451,6 +470,9 @@ SMODS.Joker { --Sniper
 				card.ability.extra.mult,
 				card.ability.extra.limit,
                 process_var(card.ability.extra.counter, card.ability.extra.limit)
+				card.ability.extra.mult,
+				card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit)
 			},
 		}
     end,
@@ -458,10 +480,13 @@ SMODS.Joker { --Sniper
         if context.joker_main then
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
+            if not context.blueprint then
                 local eval = function()
                     return (card.ability.extra.counter == card.ability.extra.limit - 1)
                 end
                 juice_card_until(card, eval, true)
+            end
+            if card.ability.extra.counter == card.ability.extra.limit then
             end
             if card.ability.extra.counter == card.ability.extra.limit then
                 return {
@@ -491,6 +516,8 @@ SMODS.Joker { --Sub
 	blueprint_compat = true,
     config = { extra = { mult = 2 } }, --Variables: mult = +mult
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
@@ -534,6 +561,10 @@ SMODS.Joker { --Boat
         return { vars = { card.ability.extra.money, card.ability.extra.rate, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money, card.ability.extra.rate, card.ability.extra.current } }
+    end,
+    update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             local sell_cost = 0
             for k, v in ipairs(G.jokers.cards) do
@@ -541,6 +572,7 @@ SMODS.Joker { --Boat
                     sell_cost = sell_cost + v.sell_cost
                 end
             end
+            card.ability.extra.current = card.ability.extra.money * math.floor(sell_cost / card.ability.extra.rate)
             card.ability.extra.current = card.ability.extra.money * math.floor(sell_cost / card.ability.extra.rate)
         end
     end,
@@ -567,7 +599,10 @@ SMODS.Joker { --Ace
 	order = 160,
 	blueprint_compat = true,
     config = { extra = { chips = 50 } }, --Variables: chips = +chips
+    config = { extra = { chips = 50 } }, --Variables: chips = +chips
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips } }
     end,
@@ -608,6 +643,8 @@ SMODS.Joker { --Heli
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult} }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult} }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -646,13 +683,18 @@ SMODS.Joker { --Mortar
 	order = 162,
 	blueprint_compat = true,
     config = { extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction, mult = +mult
+    config = { extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction, mult = +mult
 
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mortar')
+        return { vars = { n, d, card.ability.extra.mult } }
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mortar')
         return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
+            if SMODS.pseudorandom_probability(card, 'mortar', card.ability.extra.num, card.ability.extra.denom, 'mortar') then
             if SMODS.pseudorandom_probability(card, 'mortar', card.ability.extra.num, card.ability.extra.denom, 'mortar') then
                 return {
                     mult = card.ability.extra.mult,
@@ -744,6 +786,8 @@ SMODS.Joker { --Super
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -767,12 +811,15 @@ SMODS.Joker { --Ninja
 	atlas = 'Joker',
 	pos = { x = 5, y = 1 },
     soul_pos = { x = 0, y = 15 },
+    soul_pos = { x = 0, y = 15 },
     rarity = 1,
 	cost = 4,
 	order = 166,
 	blueprint_compat = true,
     config = { extra = { mult = 4, slots = 1} }, --Variables: mult = +mult, slots = extra joker slots
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
     end,
@@ -810,19 +857,26 @@ SMODS.Joker { --Alch
 	order = 167,
 	blueprint_compat = true,
     config = { extra = { num = 1, denom = 2 } }, --Variables: num/denom = probability fraction
+    config = { extra = { num = 1, denom = 2 } }, --Variables: num/denom = probability fraction
 
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'alch')
+        return { vars = { n, d } }
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'alch')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            if SMODS.pseudorandom_probability(card, 'alch', card.ability.extra.num, card.ability.extra.denom, 'alch') then
             if SMODS.pseudorandom_probability(card, 'alch', card.ability.extra.num, card.ability.extra.denom, 'alch') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
+                        local card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         local card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
@@ -836,6 +890,7 @@ SMODS.Joker { --Alch
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
+                        local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
@@ -868,6 +923,8 @@ SMODS.Joker { --Druid
 	blueprint_compat = true,
     config = { extra = { mult = 20 } }, --Variables: mult = +mult
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
@@ -940,7 +997,12 @@ SMODS.Joker { --Farm
         return { vars = { card.ability.extra.money, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money, card.ability.extra.current } }
+    end,
+    update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
+            card.ability.extra.current = #G.jokers.cards
             card.ability.extra.current = #G.jokers.cards
         end
     end,
@@ -969,6 +1031,8 @@ SMODS.Joker { --Spac
 	blueprint_compat = true,
     config = { extra = { chips = 25, current = 0 } }, --Variables: chips = +chips for each discard used, current = current +chips
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     end,
@@ -1014,6 +1078,8 @@ SMODS.Joker { --Village
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.other_joker and context.other_joker.config.center.rarity == 1 then
@@ -1049,6 +1115,8 @@ SMODS.Joker { --Engi
 	blueprint_compat = true,
     config = { extra = { money = 3 } }, --Variables: money = dollars
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money } }
     end,
@@ -1164,7 +1232,10 @@ SMODS.Joker { --Eyesight
 	order = 181,
 	blueprint_compat = false,
     config = { extra = { slots = 1 } }, --Variables: slots = extra consumable slots
+    config = { extra = { slots = 1 } }, --Variables: slots = extra consumable slots
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.slots } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.slots } }
     end,
@@ -1195,6 +1266,9 @@ SMODS.Joker { --Refreeze
     enhancement_gate = 'm_bloons_frozen',
     config = { extra = 1 },
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
     end,
@@ -1229,6 +1303,9 @@ SMODS.Joker { --Corrosive
     enhancement_gate = 'm_bloons_glued',
     config = { extra = { chips = 10, current = 0 } }, --Variables: chips = +chip gain for each glued card, current = current +chips
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { card.ability.extra.chips, card.ability.extra.current } }
@@ -1271,6 +1348,9 @@ SMODS.Joker { --Enetwork
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return { vars = { card.ability.extra.number } }
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
+        return { vars = { card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.before and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -1286,6 +1366,7 @@ SMODS.Joker { --Enetwork
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'alch')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
@@ -1403,6 +1484,9 @@ SMODS.Joker { --Owl
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         return { vars = { card.ability.extra.number } }
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
+        return { vars = { card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.before and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -1412,6 +1496,7 @@ SMODS.Joker { --Owl
                     count = count + 1
                 end
             end
+            if count >= card.ability.extra.number then
             if count >= card.ability.extra.number then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
@@ -1453,6 +1538,8 @@ SMODS.Joker { --Trip shot
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.tarots, card.ability.extra.limit, card.ability.extra.counter } }
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.tarots, card.ability.extra.limit, card.ability.extra.counter } }
     end,
     calculate = function(self, card, context)
         if context.before and next(context.poker_hands['Three of a Kind']) and not
@@ -1465,6 +1552,8 @@ SMODS.Joker { --Trip shot
                     return (card.ability.extra.counter == 1)
                 end
                 juice_card_until(card, eval, true)
+            end
+            if card.ability.extra.counter == 0 then
             end
             if card.ability.extra.counter == 0 then
                 card.ability.extra.counter = card.ability.extra.limit
@@ -1510,6 +1599,8 @@ SMODS.Joker { --Mauler
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.Xmult } }
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.blind.boss then
@@ -1541,6 +1632,9 @@ SMODS.Joker { --Shards
     enhancement_gate = 'm_bloons_frozen',
     config = { extra = { mult = 2, current = 0 } },
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { card.ability.extra.mult, card.ability.extra.current } }
@@ -1639,6 +1733,9 @@ SMODS.Joker { --Glose
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
 		return { vars = { card.ability.extra.Xmult, card.ability.extra.number } }
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+		return { vars = { card.ability.extra.Xmult, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -1681,6 +1778,7 @@ SMODS.Joker { --Dprec
     config = { extra = { Xmult = 3, limit = 3, counter = 3 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'
@@ -1692,6 +1790,9 @@ SMODS.Joker { --Dprec
 				card.ability.extra.Xmult,
 				card.ability.extra.limit,
                 process_var(card.ability.extra.counter, card.ability.extra.limit),
+				card.ability.extra.Xmult,
+				card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit),
 			},
 		}
     end,
@@ -1699,10 +1800,13 @@ SMODS.Joker { --Dprec
         if context.joker_main then
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
+            if not context.blueprint then
                 local eval = function()
                     return (card.ability.extra.counter == card.ability.extra.limit - 1)
                 end
                 juice_card_until(card, eval, true)
+            end
+            if card.ability.extra.counter == card.ability.extra.limit then
             end
             if card.ability.extra.counter == card.ability.extra.limit then
                 return {
@@ -1734,6 +1838,8 @@ SMODS.Joker { --Trip guns
     perishable_compat = false,
     config = { extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain for each 3oak held, current = current Xmult
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
@@ -1807,7 +1913,14 @@ SMODS.Joker { --Draft
                 return (card.ability.extra.counter > 0)
             end
             juice_card_until(card, eval, true)
+        elseif context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (card.ability.extra.counter > 0)
+            end
+            juice_card_until(card, eval, true)
         elseif context.final_scoring_step and card.ability.extra.counter > 0 and not context.blueprint then
+            hand_chips = mod_chips(0)
+            hand_mult = mod_mult(0)
             hand_chips = mod_chips(0)
             hand_mult = mod_mult(0)
             card.ability.extra.counter = card.ability.extra.counter - 1
@@ -1878,6 +1991,8 @@ SMODS.Joker { --Amast
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra } }
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card.config.center ~= G.P_CENTERS.c_base then
@@ -1909,6 +2024,9 @@ SMODS.Joker { --Brew
     eternal_compat = false,
     config = { eligible_jokers = {} }, --Variables: eligible_jokers = possible jokers to give polychrome
     
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
     end,
@@ -2006,6 +2124,8 @@ SMODS.Joker { --LLS
 	blueprint_compat = true,
     config = { extra = { mult = 1, loss = 5, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.loss, card.ability.extra.current } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.loss, card.ability.extra.current } }
     end,
@@ -2109,6 +2229,8 @@ SMODS.Joker { --Jugg
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
         if context.individual then
@@ -2144,6 +2266,8 @@ SMODS.Joker { --Od
 	blueprint_compat = true,
     config = { extra = { Xmult = 0.5, current = 1 } }, --Variables: Xmult = Xmult gain for each 8, current = current Xmult
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
@@ -2191,12 +2315,20 @@ SMODS.Joker { --Icicles
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'icicles')
         return { vars = { card.ability.extra.Xmult, n, d } }
+    config = { extra = { Xmult = 2, num = 1, denom = 2 } }, --Variables: Xmult = Xmult, num/denom = probability fraction
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'icicles')
+        return { vars = { card.ability.extra.Xmult, n, d } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             return{
                 x_mult = card.ability.extra.Xmult
             }
+        elseif context.discard and not context.other_card.debuff then
+            if SMODS.pseudorandom_probability(card, 'icicles', card.ability.extra.num, card.ability.extra.denom, 'icicles') then
+                context.other_card:set_ability('m_bloons_frozen', nil, true)
         elseif context.discard and not context.other_card.debuff then
             if SMODS.pseudorandom_probability(card, 'icicles', card.ability.extra.num, card.ability.extra.denom, 'icicles') then
                 context.other_card:set_ability('m_bloons_frozen', nil, true)
@@ -2225,6 +2357,9 @@ SMODS.Joker { --Relentless
     enhancement_gate = 'm_bloons_glued',
     config = { extra = 1 }, --Variables: extra = retrigger amount
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card.ability.extra } }
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { card.ability.extra } }
@@ -2314,6 +2449,8 @@ SMODS.Joker { --GZ
 	blueprint_compat = true,
     config = { extra = { chips = 350 } }, --Variables: chips = +chips
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
@@ -2406,11 +2543,14 @@ SMODS.Joker { --Abatt
         if context.individual and context.cardarea == G.play then
             local temp_chips, temp_mult, temp_Xmult = 0, 0, 1
             if SMODS.pseudorandom_probability(card, 'abatt1', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
+            if SMODS.pseudorandom_probability(card, 'abatt1', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
                 temp_chips = card.ability.extra.chips
             end
             if SMODS.pseudorandom_probability(card, 'abatt2', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
+            if SMODS.pseudorandom_probability(card, 'abatt2', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
                 temp_mult = card.ability.extra.mult
             end
+            if SMODS.pseudorandom_probability(card, 'abatt3', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
             if SMODS.pseudorandom_probability(card, 'abatt3', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
                 temp_Xmult = card.ability.extra.Xmult
             end
@@ -2484,6 +2624,7 @@ SMODS.Joker { --Necro
 	pos = { x = 3, y = 10 },
     rarity = 2,
 	cost = 6,
+	order = 254,
 	order = 254,
 	blueprint_compat = true,
 
@@ -2590,7 +2731,16 @@ SMODS.Joker { --R2g
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Gold
     end,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS.Gold
+    end,
     calculate = function(self, card, context)
+        if context.discard and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_left == 1 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+            if G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
         if context.discard and not context.blueprint then
             local eval = function()
                 return (G.GAME.current_round.discards_left == 1 and not G.RESET_JIGGLES)
@@ -2630,6 +2780,9 @@ SMODS.Joker { --Arknight
     enhancement_gate = 'm_bonus',
     config = { extra = 2 }, --Variables: extra = retrigger amount
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
+        return { vars = { card.ability.extra } }
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return { vars = { card.ability.extra } }
@@ -2762,6 +2915,7 @@ SMODS.Joker { --XBM
     config = { extra = { Xmult = 2, limit = 5, counter = 1 } }, --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
 
     loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
 			if count == cap then
 				return 'Next!'
@@ -2770,6 +2924,9 @@ SMODS.Joker { --XBM
 		end
 		return {
 			vars = {
+				card.ability.extra.Xmult,
+				card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit),
 				card.ability.extra.Xmult,
 				card.ability.extra.limit,
                 process_var(card.ability.extra.counter, card.ability.extra.limit),
@@ -2867,6 +3024,9 @@ SMODS.Joker { --Iring
 	order = 274,
 	blueprint_compat = true,
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
     end,
@@ -3001,6 +3161,9 @@ SMODS.Joker { --Solver
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
         return { vars = { card.ability.extra.mult } }
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -3036,6 +3199,8 @@ SMODS.Joker { --Edef
 	blueprint_compat = true,
     config = { extra = { Xmult1 = 1.5, Xmult2 = 2, Xmult3 = 4 } }, --Variables: Xmult1 = Xmult after first hand, Xmult2 = Xmult on final hand, Xmult3 = XMult if under 25%
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3 } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3 } }
     end,
@@ -3116,6 +3281,7 @@ SMODS.Joker { --Cin
             'cards with {C:enhanced}Enhancements{},',
             '{C:dark_edition}Editions{} or {C:attention}Seals{}',
             'Gives {X:mult,C:white}X#1#{} Mult for each'
+            'Gives {X:mult,C:white}X#1#{} Mult for each'
         }
     },
 	atlas = 'Joker',
@@ -3125,7 +3291,10 @@ SMODS.Joker { --Cin
 	order = 282,
 	blueprint_compat = false,
     config = { extra = { Xmult = 1 } }, --Variables: Xmult = Xmult
+    config = { extra = { Xmult = 1 } }, --Variables: Xmult = Xmult
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
@@ -3149,6 +3318,7 @@ SMODS.Joker { --Cin
                 context.destroying_card.edition or
                 context.destroying_card.seal) and
                 not context.blueprint then
+            return true
             return true
         end
     end
@@ -3246,7 +3416,9 @@ SMODS.Joker { --GMN
     config = { extra = { Xmult = 0.5 } },
 
     loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         --Variables: Xmult = Xmult
+        return { vars = { card.ability.extra.Xmult } }
         return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
@@ -3313,6 +3485,7 @@ SMODS.Joker { --Pex
             '{C:blue}Common{} Jokers are free',
             '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#3#{} Mult,',
             '{C:green,E:1,S:1.1}Probability{} increases for',
+            '{C:green,E:1,S:1.1}Probability{} increases for',
             'each {C:blue}Common{} Joker'
         }
     },
@@ -3323,7 +3496,13 @@ SMODS.Joker { --Pex
 	order = 291,
 	blueprint_compat = true,
     config = { extra = { num = 1, denom = 5, Xmult = 4 } }, --Variables: num/denom = probability fraction, Xmult = Xmult
+    config = { extra = { num = 1, denom = 5, Xmult = 4 } }, --Variables: num/denom = probability fraction, Xmult = Xmult
     
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
+        return { vars = { n, d, card.ability.extra.Xmult } }
+    end,
+    update = function(self, card, dt)
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
         return { vars = { n, d, card.ability.extra.Xmult } }
@@ -3331,16 +3510,19 @@ SMODS.Joker { --Pex
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             local commons = 0
+            local commons = 0
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i].config.center.rarity == 1 then
                     commons = commons + 1
                 end
             end
             card.ability.extra.num = commons + 1
+            card.ability.extra.num = commons + 1
         end
     end,
     calculate = function(self, card, context)
         if context.joker_main then
+            if SMODS.pseudorandom_probability(card, 'pex', card.ability.extra.num, card.ability.extra.denom, 'pex') then
             if SMODS.pseudorandom_probability(card, 'pex', card.ability.extra.num, card.ability.extra.denom, 'pex') then
                 return {
                     x_mult = card.ability.extra.Xmult
