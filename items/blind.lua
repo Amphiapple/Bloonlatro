@@ -1,3 +1,12 @@
+SMODS.Atlas {
+    key = 'Blind',
+    path = 'blind.png',
+    px = 34,
+    py = 34,
+    atlas_table = 'ANIMATION_ATLAS',
+    frames = 21,
+}
+
 SMODS.Blind {
     loc_txt = {
         name = 'Bloonarius',
@@ -8,6 +17,8 @@ SMODS.Blind {
         }
     },
     key = 'bloonarius',
+    atlas = 'Blind',
+    pos = { y = 10 },
     dollars = 8,
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
@@ -41,6 +52,8 @@ SMODS.Blind {
         }
     },
     key = 'phayze',
+    atlas = 'Blind',
+    pos = { y = 8 },
     dollars = 8,
     mult = 6, -- 6x base score (300k)
     boss = { showdown = true },

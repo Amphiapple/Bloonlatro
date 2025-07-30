@@ -3493,8 +3493,8 @@ SMODS.Joker { --Fortress
 	cost = 20,
 	order = 297,
 	blueprint_compat = false,
-    config = { extra = { chips = 50, mult = 10, Xmult = 1.5, reps = 1, money = 3 } },
-    --Variables: chips = +chips (foil), mult = +mult (holographic), Xmult = Xmult (polychrome), reps = retrigger amount (red), money = dollars (gold)
+    config = { extra = { reps = 1, money = 3 } },
+    --Variables: reps = retrigger amount (red), money = dollars (gold)
 
     calculate = function(self, card, context)
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
