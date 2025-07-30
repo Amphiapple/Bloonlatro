@@ -75,6 +75,42 @@ SMODS.Back { --Gwen
     config = { consumables = {'c_immolate'}, hand_size = -1 }
 }
 
+--[[
+SMODS.Back { --Striker
+    key = "striker",    
+    name = "Striker Jones Deck",
+	loc_txt = {
+        name = 'Striker Jones Deck',
+        text = {
+            '{C:green}#1# in #2#{} chance for',
+            'each card in your deck',
+            'to start as {C:spades}Spades{}'
+        }
+    },
+	atlas = "Back",
+	pos = { x = 2, y = 0 },
+	order = 19,
+    config = { extra = { odds = 3 } },
+
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(self, self.config.extra.num, self.config.extra.denom, 'quincy')
+		return { vars = { n, d - 1 }
+	end,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for k, v in pairs(G.playing_cards) do
+                    if SMODS.pseudorandom_probability(back, 'striker', back.ability.extra.num, back.ability.extra.denom, 'striker') then
+                        v:change_suit('Spades')
+                    end
+                end
+            return true
+            end
+        }))
+    end
+}
+]]
+
 SMODS.Back { --Obyn
     key = "obyn",
     name = "Obyn Deck",
@@ -106,7 +142,7 @@ SMODS.Back { --Church
     order = 21,
     config = { extra = { Xmult = 2 } },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.extra.Xmult } }
 	end,
     calculate = function(self, back, context)
@@ -132,6 +168,47 @@ SMODS.Back { --Church
 	end
 }
 
+SMODS.Back { --Ben
+    key = "ben",
+    name = "Benjamin Deck",
+	loc_txt = {
+        name = 'Benjamin Deck',
+        text = {
+            'Start with {C:attention}Monkey Bank{}',
+            'and extra {C:money}$#1#'
+        }
+    },
+	atlas = "Back",
+	pos = { x = 0, y = 1 },
+    order = 22,
+    config = { jokers = {'j_bloons_bank'}, dollars = 1 },
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { self.config.dollars } }
+	end
+}
+
+--[[
+SMODS.Back { --Ezili
+    key = "ezili",
+    name = "Ezili Deck",
+	loc_txt = {
+        name = 'Ezili Deck',
+        text = {
+            '{C:spectral}Spectral{} packs appear ',
+            '{C:attention}2x{} more frequently',
+            'in the shop',
+            'Start run with a {C:spectral}Hex{} card',
+            '{C:inactive}unimplemented{}'
+        }
+    },
+	atlas = "Back",
+	pos = { x = 1, y = 1 },
+    order = 23,
+    config = { consumables = {'c_hex'} }
+}
+]]
+
 SMODS.Back { --Pat
     key = "pat",
     name = "Pat Fusty Deck",
@@ -146,7 +223,7 @@ SMODS.Back { --Pat
     order = 24,
     config = { hand_size = 1 },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         return { vars = { self.config.hand_size } }
     end
 }
@@ -198,22 +275,33 @@ SMODS.Back { --Brick
 	loc_txt = {
         name = 'Brickell Deck',
         text = {
-            'Start on Ante {C:attention}#1#{} with',
-            '{C:blue}+#2#{} hand and {C:red}#3#{} discards'
+            'Start on Ante {C:attention}#1#{}',
+            'with {C:blue}+#2#{} hand',
+            '{C:red}#3#{} discards'
         }
     },
 	atlas = "Back",
 	pos = { x = 4, y = 1 },
     order = 26,
-    config = { extra = { ante = 0 }, hands = 1, discards = -3 },
+    config = { extra = { ante = 0, discards = 0 }, hands = 1, },
 
-    loc_vars = function(self, info_queue, center)
-        return { vars = { self.config.extra.ante, self.config.hands, 3 + self.config.discards } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra.ante, self.config.hands, self.config.extra.discards } }
     end,
     apply = function(self)
         ease_ante(self.config.extra.ante - 1)
         G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
         G.GAME.round_resets.blind_ante = self.config.extra.ante
+    end,
+    calculate = function(self, back, context)
+        if context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_discard(-G.GAME.current_round.discards_left, nil, true)
+                    return true
+                end 
+            }))
+        end
     end
 }
 
@@ -231,7 +319,7 @@ SMODS.Back { --French
     order = 27,
     config = { extra = { booster_slots = 1 } },
 
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.booster_slots } }
     end,
     apply = function(self)
@@ -271,6 +359,55 @@ SMODS.Back { --Psi
     },
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
-    soul_pos = { x = 2, y = 3 },
     order = 29
 }
+
+--[[
+SMODS.Back { --Gerry
+    key = "gerry",
+    name = "Geraldo Deck",
+	loc_txt = {
+        name = 'Geraldo Deck',
+        text = {
+            '{C:red}G{C:green}a{C:blue}y{}'
+        }
+    },
+	atlas = "Back",
+	pos = { x = 3, y = 2 },
+    order = 30
+}
+
+SMODS.Back { --Corvus
+    key = "corvus",
+    name = "Corvus Deck",
+	loc_txt = {
+        name = 'Corvus Deck',
+        text = {
+            'Earn {C:attention}1{} mana for each',
+            'played card that scores',
+            "Enables Corvus' {C:spectral}Spellbook{}",
+            '{C:inactive}unimplemented{}'
+        }
+    },
+	atlas = "Back",
+	pos = { x = 4, y = 2 },
+    order = 31
+}
+
+SMODS.Back { --Rose
+    key = "rose",
+    name = "Rosalia Deck",
+	loc_txt = {
+        name = 'Rosalia Deck',
+        text = {
+            'Switch between {X:mult,C:white}X1{} Mult and',
+            'retriggering {C:attention}first{} played',
+            'card each hand',
+            '{C:inactive}unimplemented{}'
+        }
+    },
+	atlas = "Back",
+	pos = { x = 0, y = 3 },
+    order = 32
+}
+]]
