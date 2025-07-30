@@ -901,7 +901,7 @@ SMODS.Joker { --Merm
     config = { extra = { mult = 15 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
@@ -1090,7 +1090,7 @@ SMODS.Joker { --Beast
     config = { extra = { chips = 90 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         return { vars = { card.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
