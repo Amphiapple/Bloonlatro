@@ -2664,7 +2664,7 @@ SMODS.Joker { --City
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 11 },
+	pos = { x = 1, y = 11 },
     rarity = 2,
 	cost = 7,
 	order = 262,
