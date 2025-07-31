@@ -2528,7 +2528,7 @@ SMODS.Joker { --Sabo
         name = 'Bloon Sabotage',
         text = {
             --'{C:green}#1# in #2#{} chance to',
-            'Gain {C:red}+#3#{} discard if',
+            'Gain {C:red}+#1#{} discard if',
             'played hand has a scoring',
             '{C:hearts}Heart{} and a scoring',
             'card of any other {C:attention}suit{}'
