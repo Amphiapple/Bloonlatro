@@ -77,7 +77,10 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'bloonarius' }
+            { id = 'bloonarius1' },
+            { id = 'bloonarius2' },
+            { id = 'bloonarius3' },
+            { id = 'bloonarius4' },
         }
     },
     jokers = {},
@@ -109,7 +112,10 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'phayze' }
+            { id = 'phayze1' },
+            { id = 'phayze2' },
+            { id = 'phayze3' },
+            { id = 'phayze4' },
         }
     },
     jokers = {},
@@ -144,7 +150,10 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'dreadbloon' }
+            { id = 'dreadbloon1' },
+            { id = 'dreadbloon2' },
+            { id = 'dreadbloon3' },
+            { id = 'dreadbloon4' },
         }
     },
     jokers = {},
@@ -181,7 +190,10 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'vortex' },
+            { id = 'vortex1' },
+            { id = 'vortex2' },
+            { id = 'vortex3' },
+            { id = 'vortex4' },
         },
         modifiers = {
             win_ante = 6
