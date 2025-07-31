@@ -367,7 +367,12 @@ SMODS.Joker { --Ice
         return { vars = { card.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.hands_played == 0)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.before and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             for k, v in ipairs(context.scoring_hand) do
                 if not v.debuff then
                     v:set_ability('m_bloons_frozen', nil, true)
@@ -1777,7 +1782,7 @@ SMODS.Joker { --Draft
             '{C:blue}+#1#{} hand',
             '{C:blue}+2#{} hands on {C:attention}Boss Blinds{}',
             'Extra hands score no chips',
-            '{C:inactive}(#3# remaining{})'
+            '{C:inactive}(#3# remaining{C:inactive})'
         }
     },
 	atlas = 'Joker',
@@ -2318,7 +2323,12 @@ SMODS.Joker { --GZ
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.current_round.hands_played == 0 then
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.hands_played == 0)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.joker_main and G.GAME.current_round.hands_played == 0 then
             return {
                 chips = card.ability.extra.chips,
             }
