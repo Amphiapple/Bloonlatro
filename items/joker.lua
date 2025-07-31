@@ -20,6 +20,32 @@ G.FUNCS.can_select_card = function(e)
     end
 end
 
+--Recalculate cost function
+function recalc_all_costs()
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.0,
+        func = (function()
+            for k, v in ipairs(G.shop_jokers.cards) do
+                if v.set_cost then 
+                    v:set_cost()
+                end
+            end
+            for k, v in ipairs(G.jokers.cards) do
+                if v.set_cost then 
+                    v:set_cost()
+                end
+            end
+            for k, v in ipairs(G.consumeables.cards) do
+                if v.set_cost then
+                    v:set_cost()
+                end
+            end
+            return true
+        end)
+    }))
+end
+
 --Pex and Salvage cost function
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
@@ -268,7 +294,7 @@ SMODS.Joker { --Boomer
     config = { extra = 2 }, --Variables: extra = retrigger amount
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra} }
+        return { vars = { card.ability.extra } }
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and (next(context.card_effects[1]) or #context.card_effects > 1) then
@@ -1325,42 +1351,10 @@ SMODS.Joker { --Salvage
         return { vars = { card.ability.extra.cost } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.0,
-            func = (function()
-                for k, v in ipairs(G.jokers.cards) do
-                    if v.set_cost then 
-                        v:set_cost()
-                    end
-                end
-                for k, v in ipairs(G.consumeables.cards) do
-                    if v.set_cost then
-                        v:set_cost()
-                    end
-                end
-                return true
-            end)
-        }))
+        recalc_all_costs()
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.0,
-            func = (function()
-                for k, v in ipairs(G.jokers.cards) do
-                    if v.set_cost then 
-                        v:set_cost()
-                    end
-                end
-                for k, v in ipairs(G.consumeables.cards) do
-                    if v.set_cost then
-                        v:set_cost()
-                    end
-                end
-                return true
-            end)
-        }))
+        recalc_all_costs()
     end,
     calculate = function(self, card, context)
         if context.buying_card then
@@ -1798,15 +1792,20 @@ SMODS.Joker { --Draft
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced then
+            local hands
             if G.GAME.blind.boss then
-                card.ability.extra.counter = card.ability.extra.counter + card.ability.extra.boss_hands
+                hands = card.ability.extra.boss_hands
             else
-                card.ability.extra.counter = card.ability.extra.counter + card.ability.extra.hands
+                hands = card.ability.extra.hands
             end
-            G.E_MANAGER:add_event(Event({func = function()
-                ease_hands_played(card.ability.extra.hands)
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
-            return true end }))
+            card.ability.extra.counter = card.ability.extra.counter + hands
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_hands_played(hands)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {hands}}})
+                    return true 
+                end 
+            }))
         elseif context.first_hand_drawn and not context.blueprint then
             local eval = function()
                 return (card.ability.extra.counter > 0)
@@ -2528,6 +2527,7 @@ SMODS.Joker { --Sabo
 	loc_txt = {
         name = 'Bloon Sabotage',
         text = {
+            --'{C:green}#1# in #2#{} chance to',
             'Gain {C:red}+#1#{} discard if',
             'played hand has a scoring',
             '{C:hearts}Heart{} and a scoring',
@@ -3349,6 +3349,12 @@ SMODS.Joker { --Pex
             card.ability.extra.num = commons + 1
         end
     end,
+    add_to_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
             if SMODS.pseudorandom_probability(card, 'pex', card.ability.extra.num, card.ability.extra.denom, 'pex') then
@@ -3506,6 +3512,14 @@ SMODS.Joker { --Fortress
     config = { extra = { reps = 1, money = 3 } },
     --Variables: reps = retrigger amount (red), money = dollars (gold)
 
+    in_pool = function(self, args)
+        for k, v in ipairs(G.playing_cards) do
+            if v.ability.name == 'Mult' or v.ability.name == 'Bonus' then
+                return true
+            end
+        end
+        return false
+    end,
     calculate = function(self, card, context)
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
             if context.cardarea == G.play then
