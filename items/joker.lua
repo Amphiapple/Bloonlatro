@@ -3429,7 +3429,15 @@ SMODS.Joker { --Meg
 	order = 294,
 	blueprint_compat = true,
     config = { extra = { chips = 30, mult = 4, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
-
+    
+    in_pool = function(self, args)
+        for k, v in pairs(G.playing_cards) do
+            if v.ability.name == 'Mult' or v.ability.name == 'Bonus' then
+                return true
+            end
+        end
+        return false
+    end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.current_chips, card.ability.extra.current_mult } }
     end,
@@ -3509,17 +3517,8 @@ SMODS.Joker { --Fortress
 	cost = 20,
 	order = 297,
 	blueprint_compat = false,
-    config = { extra = { reps = 1, money = 3 } },
-    --Variables: reps = retrigger amount (red), money = dollars (gold)
+    config = { extra = { reps = 1, money = 3 } }, --Variables: reps = retrigger amount (red), money = dollars (gold)
 
-    in_pool = function(self, args)
-        for k, v in ipairs(G.playing_cards) do
-            if v.ability.name == 'Mult' or v.ability.name == 'Bonus' then
-                return true
-            end
-        end
-        return false
-    end,
     calculate = function(self, card, context)
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
             if context.cardarea == G.play then
