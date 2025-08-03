@@ -1,4 +1,4 @@
-# Bloonlatro v0.2.1
+# Bloonlatro v0.2.2
 
 A Balatro mod that incorporates Bloons Tower Defense into the base game
 
