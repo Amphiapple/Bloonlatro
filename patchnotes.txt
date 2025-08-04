@@ -22,6 +22,7 @@ Added Enhancements:
 
 General Changes:
 - Icicles now has text when freezing discarded cards
+- Added Blastapopoulos and Lych bosses
 
 Balance Changes:
 - Tack Shooter +chips 40 -> 24

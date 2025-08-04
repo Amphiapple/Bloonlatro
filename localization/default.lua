@@ -51,7 +51,31 @@ return {
             },
             ch_c_vortex4 = {
                 "Face Vortex, Deadly Master of Air in Ante {C:attention}6{}"
-            }
+            },
+            ch_c_lych1 = {
+                "Lych returns from the grave once"
+            },
+            ch_c_lych2 = {
+                "Revival restores all hands played this round"
+            },
+            ch_c_lych3 = {
+                "Removes enhancements, healing back scored chips"
+            },
+            ch_c_lych4 = {
+                "Face Gravelord Lych in Ante {C:attention}8{}"
+            },
+            ch_c_blastapopoulos1 = {
+                "Blastapopoulos heats up, adding meteor cards to the deck"
+            },
+            ch_c_blastapopoulos2 = {
+                "Played scoring cards build heat, reducing score of played hand"
+            },
+            ch_c_blastapopoulos3 = {
+                "Meteor cards raise heat more, while frozen cards reduce it"
+            },
+            ch_c_blastapopoulos4 = {
+                "Face Blastapopoulos, Demon of the Core in Ante {C:attention}8{}"
+            },
         },
     },
 }
