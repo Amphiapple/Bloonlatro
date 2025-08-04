@@ -69,25 +69,37 @@ SMODS.Enhancement ({ --Glued
     end
 })
 
---[[
 SMODS.Enhancement ({ --Stunned
     key = 'stunned',
     name = 'Stunned Card',
     loc_txt = {
         name = 'Stunned Card',
         text = {
-            '{C:inactive}unimplemented{}',
+            'Discarded if held in hand',
         }
     },
 	atlas = "Enhancement",
 	pos = { x = 2, y = 0 },
     order = 12,
+    
 
+    in_pool = function()
+        return false
+    end,
     calculate = function(self, card, context)
-
+        if context.before and context.cardarea == G.hand then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.hand:add_to_highlighted(card, true)
+                    play_sound('card1', 1)
+                    G.FUNCS.discard_cards_from_highlighted(nil, true)
+                    return true
+                end
+            }))
+            card:set_ability(G.P_CENTERS.c_base, nil, true)
+        end
     end
 })
-]]
 
 SMODS.Enhancement ({ --Meteor
     key = 'meteor',

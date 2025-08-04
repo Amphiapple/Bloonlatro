@@ -1,4 +1,13 @@
 Added Jokers:
+- Cave Monkey
+- Red Hot Rangs
+- More Tacks
+- Burny Stuff
+- Bionic Boomerang
+- Neva-Miss Targeting
+- MOAB Press
+- Favored Trades
+- Jungle's Bounty
 - Bloonprint
 
 Added Decks:
@@ -8,12 +17,13 @@ Added Consumables:
 - 
 
 Added Enhancements:
-- 
+- Stunned Card
 
 General Changes:
 - Icicles now has text when freezing discarded cards
 
 Balance Changes:
+- Tack Shooter +chips 40 -> 24
 - Rocket Storm maximum Xmult increase X0.23 -> X0.15
 - Bloon Sabotage now has a 1 in 2 chance of triggering
 
