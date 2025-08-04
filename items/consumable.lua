@@ -49,6 +49,28 @@ SMODS.Consumable { --Freezing Trap
 	end,
 }
 
+SMODS.Consumable { --Thunderbolt
+    key = 'thunder',
+    set = 'Tarot',
+    name = 'Thunderbolt',
+    loc_txt = {
+        name = 'Thunderbolt',
+        text = {
+            '{C:attention}Stuns #1#{}',
+            'selected cards'
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 2, y = 0 },
+	order = 24,
+    config = { mod_conv = "m_bloons_frozen", max_highlighted = 2 },
+
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
+		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+	end,
+}
+
 SMODS.Consumable { --Volcano
     key = 'volcano',
     set = 'Spectral',

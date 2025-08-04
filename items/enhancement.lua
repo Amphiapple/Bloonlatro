@@ -81,7 +81,6 @@ SMODS.Enhancement ({ --Stunned
 	atlas = "Enhancement",
 	pos = { x = 2, y = 0 },
     order = 12,
-    
 
     in_pool = function()
         return false
