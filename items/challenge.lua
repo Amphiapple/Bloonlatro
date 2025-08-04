@@ -195,10 +195,77 @@ SMODS.Challenge {
             { id = 'vortex3' },
             { id = 'vortex4' },
         },
-        modifiers = {
-            win_ante = 6
-        }
     },
+    jokers = {},
+    vouchers = {},
+    restrictions = {
+        banned_cards = {
+            { id = 'j_luchador' },
+            { id = 'j_chicot' },
+            { id = 'j_mr_bones' },
+            { id = 'j_bloons_blitz' },
+        },
+        banned_other = {
+            { id = 'bl_final_bell', type = 'blind' },
+            { id = 'bl_final_vessel', type = 'blind' },
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_final_heart', type = 'blind' },
+            { id = 'bl_final_acorn', type = 'blind' },
+        },
+    },
+    deck = {
+        type = 'Challenge Deck'
+    },
+}
+
+SMODS.Challenge {
+    key = 'lych',
+    loc_txt = {
+        name = 'Lych',
+    },
+    rules = {
+        custom = {
+            { id = 'lych1' },
+            { id = 'lych2' },
+            { id = 'lych3' },
+            { id = 'lych4' },
+        },
+    },
+    jokers = {},
+    vouchers = {},
+    restrictions = {
+        banned_cards = {
+            { id = 'j_luchador' },
+            { id = 'j_chicot' },
+            { id = 'j_mr_bones' },
+            { id = 'j_bloons_blitz' },
+        },
+        banned_other = {
+            { id = 'bl_final_bell', type = 'blind' },
+            { id = 'bl_final_vessel', type = 'blind' },
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_final_heart', type = 'blind' },
+            { id = 'bl_final_acorn', type = 'blind' },
+        },
+    },
+    deck = {
+        type = 'Challenge Deck'
+    },
+}
+
+SMODS.Challenge {
+    key = 'blastapopoulos',
+    loc_txt = {
+        name = 'Blastapopoulos',
+    },
+    rules = {
+        custom = {
+            { id = 'blastapopoulos1' },
+            { id = 'blastapopoulos2' },
+            { id = 'blastapopoulos3' },
+            { id = 'blastapopoulos4' },
+        },
+     },
     jokers = {},
     vouchers = {},
     restrictions = {
