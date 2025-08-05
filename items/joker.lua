@@ -2561,10 +2561,12 @@ SMODS.Joker { --Blimpact
                     v:juice_up()
                 end
             end
-            return {
-                message = 'Stunned!',
-                colour = G.C.RED
-            }
+            if context.other_card == context.full_hand[1] then
+                return {
+                    message = 'Stunned!',
+                    colour = G.C.RED
+                }
+            end
         end
     end
 }

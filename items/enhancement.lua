@@ -87,15 +87,60 @@ SMODS.Enhancement ({ --Stunned
     end,
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.hand then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.hand:add_to_highlighted(card, true)
-                    play_sound('card1', 1)
-                    G.FUNCS.discard_cards_from_highlighted(nil, true)
-                    return true
+            stop_use()
+            G.CONTROLLER.interrupt.focus = true
+            G.CONTROLLER:save_cardarea_focus('hand')
+            for k, v in ipairs(G.playing_cards) do
+                v.ability.forced_selection = nil
+            end
+            local stunned = {}
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Stunned Card' then
+                    stunned[#stunned+1] = v
+                    v:set_ability(G.P_CENTERS.c_base, nil, true)
                 end
-            }))
-            card:set_ability(G.P_CENTERS.c_base, nil, true)
+            end
+            if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
+            local count = math.min(#stunned, G.discard.config.card_limit - #G.play.cards)
+            if count > 0 then 
+                update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+                table.sort(stunned, function(a,b) return a.T.x < b.T.x end)
+                inc_career_stat('c_cards_discarded', count)
+                for j = 1, #G.jokers.cards do
+                    G.jokers.cards[j]:calculate_joker({pre_discard = true, full_hand = stunned, hook = hook})
+                end
+                local cards = {}
+                local destroyed_cards = {}
+                for i=1, count do
+                    stunned[i]:calculate_seal({discard = true})
+                    local removed = false
+                    for j = 1, #G.jokers.cards do
+                        local eval = nil
+                        eval = G.jokers.cards[j]:calculate_joker({discard = true, other_card =  stunned[i], full_hand = stunned})
+                        if eval then
+                            if eval.remove then removed = true end
+                            card_eval_status_text(G.jokers.cards[j], 'jokers', nil, 1, nil, eval)
+                        end
+                    end
+                    table.insert(cards, stunned[i])
+                    if removed then
+                        destroyed_cards[#destroyed_cards + 1] = stunned[i]
+                        stunned[i]:start_dissolve()
+                    else 
+                        stunned[i].ability.discarded = true
+                        draw_card(G.hand, G.discard, i*100/count, 'down', false, stunned[i])
+                    end
+                end
+
+                if destroyed_cards[1] then 
+                    for j=1, #G.jokers.cards do
+                        eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = destroyed_cards})
+                    end
+                end
+
+                G.GAME.round_scores.cards_discarded.amt = G.GAME.round_scores.cards_discarded.amt + #cards
+                check_for_unlock({type = 'discard_custom', cards = cards})
+            end
         end
     end
 })
