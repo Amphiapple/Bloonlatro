@@ -2327,7 +2327,7 @@ SMODS.Joker { --Bank
         return { vars = { card.ability.extra.sell_limit } }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        if context.end_of_round and G.GAME.dollars > 5 and not context.individual and not context.repetition and not context.blueprint then
             if G.GAME.dollars >= G.GAME.interest_cap then
                 card.ability.extra_value = card.ability.extra_value + math.floor(G.GAME.interest_cap / 5)
             else 
@@ -3293,7 +3293,8 @@ SMODS.Joker { --Bloonprint
         text = {
             'Copies ability of',
             '{C:attention}Joker{} in position {C:attention}#1#{}',
-            '{S:0.8}position changes every hand',
+            '{S:0.8}position changes{}',
+            '{S:0.8}at end of round{}'
         }
     },
 	atlas = 'Joker',
@@ -3302,32 +3303,46 @@ SMODS.Joker { --Bloonprint
 	cost = 10,
 	order = 270,
 	blueprint_compat = true,
-    config = { extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position
+    config = { extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current } }
+        if card.area and card.area == G.jokers then
+			local other_joker = G.jokers.cards[card.ability.extra.current]
+			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+			main_end = {{
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {{
+                    n = G.UIT.C,
+                    config = {
+                        ref_table = card,
+                        align = "m",
+                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
+                        r = 0.05,
+                        padding = 0.06,
+                    },
+                    nodes = {{
+                        n = G.UIT.T,
+                        config = {
+                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
+                            colour = G.C.UI.TEXT_LIGHT,
+                            scale = 0.32 * 0.8,
+                        }
+                    }}
+                }}
+			}}
+		end
+        return { vars = { card.ability.extra.current }, main_end = main_end }
     end,
     calculate = function(self, card, context)
-        if context.after and not context.blueprint then
+        if context.blind_defeated and not context.blueprint then
             local max = card.ability.extra.max
             if #G.jokers.cards < card.ability.extra.max then
                 max = #G.jokers.cards
             end
             card.ability.extra.current = pseudorandom('bloonprint', card.ability.extra.min, max)
         end
-        local other_joker = nil
-        other_joker = G.jokers.cards[card.ability.extra.current]
-        if other_joker and other_joker ~= card then
-            context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
-            context.blueprint_card = context.blueprint_card or card
-            if context.blueprint > #G.jokers.cards + 1 then return end
-            local other_joker_ret = other_joker:calculate_joker(context)
-            if other_joker_ret then
-                other_joker_ret.card = context.blueprint_card or card
-                other_joker_ret.colour = G.C.BLUE
-                return other_joker_ret
-            end
-        end
+        return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
     end
 }
 
@@ -4091,7 +4106,7 @@ SMODS.Joker { --Gustice
         elseif context.after and not context.blueprint then
             local gold = 0
             for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Gold Card' and not v.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
+                if v.ability.name == 'Gold Card' and not v.shattered and not v.removed and not v.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
                     gold = gold + 1
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
@@ -4102,10 +4117,6 @@ SMODS.Joker { --Gustice
                     }))
                 end
             end
-            if gold > 0 then
-                ease_dollars(card.ability.extra.destroy_dollars*gold)
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_dollars*gold,colour = G.C.MONEY, delay = 0.45})
-            end
         elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
             ease_dollars(card.ability.extra.gold_dollars)
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_dollars,colour = G.C.MONEY, delay = 0.45})
@@ -4113,7 +4124,7 @@ SMODS.Joker { --Gustice
         elseif context.cards_destroyed and not context.blueprint then
             local glass = 0
             for k, v in ipairs(context.glass_shattered) do
-                if v.ability.name == 'Glass Card' then
+                if v.ability.name == 'Glass Card' or v.ability.name == 'Gold Card' then
                     glass = glass + 1
                 end
             end
@@ -4124,7 +4135,7 @@ SMODS.Joker { --Gustice
         elseif context.remove_playing_cards and not context.blueprint then
             local glass = 0
             for k, v in ipairs(context.removed) do
-                if v.ability.name == 'Glass Card' then
+                if v.ability.name == 'Glass Card' or v.ability.name == 'Gold Card' then
                     glass = glass + 1
                 end
             end

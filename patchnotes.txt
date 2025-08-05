@@ -14,7 +14,7 @@ Added Jokers:
 - Bloonprint
 
 Added Decks:
-- 
+- Striker Deck
 
 Added Enhancements:
 - Stunned Card
@@ -29,6 +29,7 @@ Balance Changes:
 - Bloon Sabotage now has a 1 in 2 chance of triggering
 
 Fixes:
+- Monkey Bank no longer triggers if no interest is earned
 - MIB now works with unique rarities
 - Avatar of Wrath no longer shows negative Xmult
 - Tooltips added to certain Jokers
