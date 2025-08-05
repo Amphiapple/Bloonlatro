@@ -106,23 +106,55 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = 'phayze',
+    key = 'lych',
     loc_txt = {
-        name = 'Phayze',
+        name = 'Lych',
     },
     rules = {
         custom = {
-            { id = 'phayze1' },
-            { id = 'phayze2' },
-            { id = 'phayze3' },
-            { id = 'phayze4' },
-        }
+            { id = 'lych1' },
+            { id = 'lych2' },
+            { id = 'lych3' },
+            { id = 'lych4' },
+        },
     },
     jokers = {},
-    vouchers = {
-        { id = 'v_hone' },
-        { id = 'v_glow_up' }
+    vouchers = {},
+    restrictions = {
+        banned_cards = {
+            { id = 'j_luchador' },
+            { id = 'j_chicot' },
+            { id = 'j_mr_bones' },
+            { id = 'j_bloons_blitz' },
+        },
+        banned_other = {
+            { id = 'bl_final_bell', type = 'blind' },
+            { id = 'bl_final_vessel', type = 'blind' },
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_final_heart', type = 'blind' },
+            { id = 'bl_final_acorn', type = 'blind' },
+        },
     },
+    deck = {
+        type = 'Challenge Deck'
+    },
+}
+
+SMODS.Challenge {
+    key = 'vortex',
+    loc_txt = {
+        name = 'Vortex',
+    },
+    rules = {
+        custom = {
+            { id = 'vortex1' },
+            { id = 'vortex2' },
+            { id = 'vortex3' },
+            { id = 'vortex4' },
+        },
+    },
+    jokers = {},
+    vouchers = {},
     restrictions = {
         banned_cards = {
             { id = 'j_luchador' },
@@ -184,55 +216,23 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = 'vortex',
+    key = 'phayze',
     loc_txt = {
-        name = 'Vortex',
+        name = 'Phayze',
     },
     rules = {
         custom = {
-            { id = 'vortex1' },
-            { id = 'vortex2' },
-            { id = 'vortex3' },
-            { id = 'vortex4' },
-        },
+            { id = 'phayze1' },
+            { id = 'phayze2' },
+            { id = 'phayze3' },
+            { id = 'phayze4' },
+        }
     },
     jokers = {},
-    vouchers = {},
-    restrictions = {
-        banned_cards = {
-            { id = 'j_luchador' },
-            { id = 'j_chicot' },
-            { id = 'j_mr_bones' },
-            { id = 'j_bloons_blitz' },
-        },
-        banned_other = {
-            { id = 'bl_final_bell', type = 'blind' },
-            { id = 'bl_final_vessel', type = 'blind' },
-            { id = 'bl_final_leaf', type = 'blind' },
-            { id = 'bl_final_heart', type = 'blind' },
-            { id = 'bl_final_acorn', type = 'blind' },
-        },
+    vouchers = {
+        { id = 'v_hone' },
+        { id = 'v_glow_up' }
     },
-    deck = {
-        type = 'Challenge Deck'
-    },
-}
-
-SMODS.Challenge {
-    key = 'lych',
-    loc_txt = {
-        name = 'Lych',
-    },
-    rules = {
-        custom = {
-            { id = 'lych1' },
-            { id = 'lych2' },
-            { id = 'lych3' },
-            { id = 'lych4' },
-        },
-    },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = {
             { id = 'j_luchador' },
