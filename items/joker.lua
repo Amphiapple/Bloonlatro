@@ -26,7 +26,7 @@ function recalc_all_costs()
         trigger = 'after',
         delay = 0.0,
         func = (function()
-            if G.shop_jokers.cards then
+            if G.shop_jokers and G.shop_jokers.cards then
                 for k, v in pairs(G.shop_jokers.cards) do
                     if v.set_cost then 
                         v:set_cost()
