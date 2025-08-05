@@ -37,7 +37,7 @@ SMODS.Back { --Quincy
 		return { vars = { n, d, self.config.ante_scaling } }
 	end,
 	calculate = function(self, back, context)
-		if context.final_scoring_step and SMODS.pseudorandom_probability(back, 'quincy', back.ability.extra.num, back.ability.extra.denom, 'quincy') then
+		if context.final_scoring_step and SMODS.pseudorandom_probability(self, 'quincy', self.config.extra.num, self.config.extra.denom, 'quincy') then
             hand_chips = mod_chips(hand_chips / 2.0)
             update_hand_text( { delay = 0 }, { chips = hand_chips } )
             G.E_MANAGER:add_event(Event({
