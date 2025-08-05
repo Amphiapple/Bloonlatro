@@ -367,6 +367,14 @@ SMODS.Blind {
             skip_materialize = false,
         })
         card:set_ability(G.P_CENTERS.m_bloons_meteor, nil, true)
+
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                return true
+            end
+        }))
+        draw_card(G.play,G.deck, 90,'up', nil)
     end,
 
     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)

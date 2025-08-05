@@ -26,7 +26,7 @@ function recalc_all_costs()
         trigger = 'after',
         delay = 0.0,
         func = (function()
-            if G.shop_jokers.cards then
+            if G.shop_jokers and G.shop_jokers.cards then
                 for k, v in pairs(G.shop_jokers.cards) do
                     if v.set_cost then 
                         v:set_cost()
@@ -48,11 +48,18 @@ function recalc_all_costs()
     }))
 end
 
---Pex and Salvage cost function
+--Cost changing function
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
     self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+    if #find_joker('Monkey Commerce') > 0 then
+        if #find_joker('Monkey Commerce') > self.cost then
+            self.cost = 0
+        else
+            self.cost = self.cost - #find_joker('Monkey Commerce')
+        end
+    end
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
         self.cost = 0
     end
@@ -1519,6 +1526,34 @@ SMODS.Joker { --Salvage
     end
 }
 
+SMODS.Joker { --Discount
+    key = 'discount',
+    name = 'Monkey Commerce',
+    loc_txt = {
+        name = 'Monkey Commerce',
+        text = {
+            'Shop items cost {C:attention}$#1#{} less'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 2, y = 5 },
+    rarity = 1,
+	cost = 5,
+	order = 203,
+	blueprint_compat = false,
+    config = { extra = { cost = 1 } }, --Variables: cost = discount amount
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cost } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+}
+
 SMODS.Joker { --Owl
     key = 'owl',
     name = 'Horned Owl',
@@ -2166,7 +2201,6 @@ SMODS.Joker { --Flash
             'all scoring {C:spades}Spades{}',
             'every {C:attention}#2#{} hands',
             '{C:inactive}(#3#)'
-
         }
     },
 	atlas = 'Joker',
@@ -2179,6 +2213,7 @@ SMODS.Joker { --Flash
     config = { extra = { mult = 30, limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'
@@ -2498,6 +2533,42 @@ SMODS.Joker { --Press
     end
 }
 
+SMODS.Joker { --Blimpact
+    key = 'blimpact',
+    name = 'Bloon Impact',
+    loc_txt = {
+        name = 'Bloon Impact',
+        text = {
+            '{C:attention}Stun{} all cards on',
+            '{C:attention}first discard{} of round'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 9 },
+    rarity = 2,
+	cost = 6,
+	order = 244,
+	blueprint_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+    end,
+    calculate = function(self, card, context)
+        if context.discard and G.GAME.current_round.discards_used == 0 then
+            for k, v in pairs(context.full_hand) do
+                if not v.debuff then
+                    v:set_ability('m_bloons_stunned', nil, true)
+                    v:juice_up()
+                end
+            end
+            return {
+                message = 'Stunned!',
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Od
     key = 'od',
     name = 'Overdrive',
@@ -2683,10 +2754,10 @@ SMODS.Joker { --Flavored
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 9 },
-    rarity = 3,
+	pos = { x = 8, y = 9 },
+    rarity = 2,
 	cost = 7,
-	order = 250,
+	order = 249,
 	blueprint_compat = false,
     enhancement_gate = 'm_gold',
 
@@ -3816,7 +3887,11 @@ SMODS.Joker { --AoW
     end,
     update = function(self, card, dt)
         if G.GAME.blind and G.GAME.blind.chips > 0 then
-            card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
+            if G.GAME.chips/G.GAME.blind.chips > 1 then
+                card.ability.extra.current = 1
+            else
+                card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
+            end
         else
             card.ability.extra.current = card.ability.extra.Xmult
         end
@@ -3969,6 +4044,92 @@ SMODS.Joker { --Meg
                 chips = card.ability.extra.current_chips,
                 mult = card.ability.extra.current_mult
             }
+        end
+    end
+}
+
+SMODS.Joker { --Gustice
+    key = 'gustice',
+    name = 'Golden Justice',
+	loc_txt = {
+        name = 'Golden Justice',
+        text = {
+            '{C;attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult when scored,',
+            '{C:green}#2# in #3#{} chance to destroy card',
+            '{C:attention}Glass{} cards give {C:money}$#4#{} if',
+            'held in hand at end of round',
+            'Both give {C:money}$#5#{} when destroyed',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 4, y = 14 },
+    rarity = 3,
+	cost = 8,
+	order = 295,
+	blueprint_compat = false,
+    config = { extra = { Xmult = 2, num = 1, denom = 4, gold_dollars = 3, destroy_dollars = 15 } }, --Variables = Xmult = glass Xmult, num/denom = probability fraction, gold_dollars = gold dollars, destroy dollars = dollars when destroyed
+
+    in_pool = function(self, args)
+        for k, v in pairs(G.playing_cards) do
+            if v.ability.name == 'Gold Card' or v.ability.name == 'Glass Card' then
+                return true
+            end
+        end
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gustice')
+        return { vars = { card.ability.extra.Xmult, n, d, card.ability.extra.gold_dollars, card.ability.extra.destroy_dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Gold Card' and not context.other_card.debuff and not context.blueprint then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.after and not context.blueprint then
+            local gold = 0
+            for k, v in ipairs(context.scoring_hand) do
+                if v.ability.name == 'Gold Card' and not v.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
+                    gold = gold + 1
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        func = function()
+                            v:shatter()
+                            return true
+                        end
+                    }))
+                end
+            end
+            if gold > 0 then
+                ease_dollars(card.ability.extra.destroy_dollars*gold)
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_dollars*gold,colour = G.C.MONEY, delay = 0.45})
+            end
+        elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
+            ease_dollars(card.ability.extra.gold_dollars)
+            card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_dollars,colour = G.C.MONEY, delay = 0.45})
+            delay(0.3)
+        elseif context.cards_destroyed and not context.blueprint then
+            local glass = 0
+            for k, v in ipairs(context.glass_shattered) do
+                if v.ability.name == 'Glass Card' then
+                    glass = glass + 1
+                end
+            end
+            if glass > 0 then
+                ease_dollars(card.ability.extra.destroy_dollars*glass)
+                card_eval_status_text(create_dynatext_pips, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_dollars*glass,colour = G.C.MONEY, delay = 0.45})
+            end
+        elseif context.remove_playing_cards and not context.blueprint then
+            local glass = 0
+            for k, v in ipairs(context.removed) do
+                if v.ability.name == 'Glass Card' then
+                    glass = glass + 1
+                end
+            end
+            if glass > 0 then
+                ease_dollars(card.ability.extra.destroy_dollars*glass)
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_dollars*glass,colour = G.C.MONEY, delay = 0.45})
+            end
         end
     end
 }

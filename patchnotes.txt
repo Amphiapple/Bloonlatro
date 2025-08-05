@@ -6,15 +6,14 @@ Added Jokers:
 - Bionic Boomerang
 - Neva-Miss Targeting
 - Shell Shock
+- Flash Bomb
 - MOAB Press
+- Bloon Impact
 - Favored Trades
 - Jungle's Bounty
 - Bloonprint
 
 Added Decks:
-- 
-
-Added Consumables:
 - 
 
 Added Enhancements:
@@ -30,4 +29,6 @@ Balance Changes:
 - Bloon Sabotage now has a 1 in 2 chance of triggering
 
 Fixes:
-- 
+- MIB now works with unique rarities
+- Avatar of Wrath no longer shows negative Xmult
+- Tooltips added to certain Jokers
