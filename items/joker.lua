@@ -2539,8 +2539,8 @@ SMODS.Joker { --Blimpact
     loc_txt = {
         name = 'Bloon Impact',
         text = {
-            '{C:attention}Stun{} all cards on',
-            '{C:attention}first discard{} of round'
+            '{C:attention}Stun{} all scoring cards on',
+            '{C:attention}first hand{} of round'
         }
     },
 	atlas = 'Joker',
@@ -2554,14 +2554,14 @@ SMODS.Joker { --Blimpact
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
     end,
     calculate = function(self, card, context)
-        if context.discard and G.GAME.current_round.discards_used == 0 then
-            for k, v in pairs(context.full_hand) do
+        if context.before and G.GAME.current_round.hands_played == 0 then
+            for k, v in pairs(context.scoring_hand) do
                 if not v.debuff then
                     v:set_ability('m_bloons_stunned', nil, true)
                     v:juice_up()
                 end
             end
-            if context.other_card == context.full_hand[1] then
+            if context.other_card == context.scoring_hand[1] then
                 return {
                     message = 'Stunned!',
                     colour = G.C.RED
