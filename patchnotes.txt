@@ -3,6 +3,7 @@ Added Jokers:
 - Red Hot Rangs
 - More Tacks
 - Burny Stuff
+- Monkey Commerce
 - Bionic Boomerang
 - Neva-Miss Targeting
 - Shell Shock
@@ -12,6 +13,7 @@ Added Jokers:
 - Favored Trades
 - Jungle's Bounty
 - Bloonprint
+- Golden Justice
 
 Added Decks:
 - Striker Deck
@@ -25,6 +27,7 @@ General Changes:
 
 Balance Changes:
 - Tack Shooter +chips 40 -> 24
+- Glue Hose effect changed -> Glue all discarded cards
 - Rocket Storm maximum Xmult increase X0.23 -> X0.15
 - Bloon Sabotage now has a 1 in 2 chance of triggering
 
@@ -32,4 +35,5 @@ Fixes:
 - Monkey Bank no longer triggers if no interest is earned
 - MIB now works with unique rarities
 - Avatar of Wrath no longer shows negative Xmult
+- Quincy deck works again
 - Tooltips added to certain Jokers

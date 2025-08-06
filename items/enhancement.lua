@@ -63,7 +63,7 @@ SMODS.Enhancement ({ --Glued
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
             card:set_ability(G.P_CENTERS.c_base, nil, true)
-        elseif context.discard and context.other_card == card then
+        elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
             ease_dollars(-1*card.ability.cost)
         end
     end
@@ -104,7 +104,6 @@ SMODS.Enhancement ({ --Stunned
             if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
             local count = math.min(#stunned, G.discard.config.card_limit - #G.play.cards)
             if count > 0 then 
-                update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
                 table.sort(stunned, function(a,b) return a.T.x < b.T.x end)
                 inc_career_stat('c_cards_discarded', count)
                 for j = 1, #G.jokers.cards do

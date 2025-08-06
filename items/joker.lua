@@ -26,19 +26,7 @@ function recalc_all_costs()
         trigger = 'after',
         delay = 0.0,
         func = (function()
-            if G.shop_jokers and G.shop_jokers.cards then
-                for k, v in pairs(G.shop_jokers.cards) do
-                    if v.set_cost then 
-                        v:set_cost()
-                    end
-                end
-            end
-            for k, v in ipairs(G.jokers.cards) do
-                if v.set_cost then 
-                    v:set_cost()
-                end
-            end
-            for k, v in ipairs(G.consumeables.cards) do
+            for k, v in pairs(G.I.CARD) do
                 if v.set_cost then
                     v:set_cost()
                 end
@@ -1419,7 +1407,7 @@ SMODS.Joker { --Burny
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.destroying_card and context.destroying_card == G.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
+        if context.destroying_card and context.destroying_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
             return true
         end
     end
@@ -1536,7 +1524,7 @@ SMODS.Joker { --Discount
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 5 },
+	pos = { x = 1, y = 5 },
     rarity = 1,
 	cost = 5,
 	order = 203,
@@ -1844,8 +1832,9 @@ SMODS.Joker { --Glose
 	loc_txt = {
         name = 'Glue Hose',
         text = {
-            '{X:mult,C:white}X#1#{} Mult if {C:attention}scoring hand{}',
-            'contains {C:attention}#2# Glued{} cards'
+            '{C:attention}Glue{} all discarded cards',
+            '{C:attention}Glued{} cards no longer',
+            'lose money when discarded'
         }
     },
 	atlas = 'Joker',
@@ -1855,29 +1844,17 @@ SMODS.Joker { --Glose
 	order = 216,
 	blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
-    config = { extra = { Xmult = 2, number = 2, active = false } }, --Variables: Xmult = Xmult, number = required glued cards for Xmult, active = is giving Xmult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
-		return { vars = { card.ability.extra.Xmult, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            local count = 0
-            for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Glued Card' then
-                    count = count + 1
-                end
-            end
-            if count >= card.ability.extra.number then
-                card.ability.extra.active = true
-            end
-        elseif context.joker_main and card.ability.extra.active then
+        if context.discard and not context.other_card.debuff then
+            context.other_card:set_ability('m_bloons_glued', nil, true)
             return {
-                x_mult = card.ability.extra.Xmult
+                message = 'Glued!',
+                colour = G.C.MONEY
             }
-        elseif context.after and card.ability.extra.active and not context.blueprint then
-            card.ability.extra.active = false
         end
     end
 }
