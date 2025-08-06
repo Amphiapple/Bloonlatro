@@ -1003,7 +1003,7 @@ SMODS.Joker { --Spac
         if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current + card.ability.extra.chips}},
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current}},
                 colour = G.C.CHIPS,
                 delay = 0.45,
             }
@@ -2357,7 +2357,7 @@ SMODS.Joker { --LLS
         if context.discard and context.other_card:is_suit('Spades', true) and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.current}},
                 colour = G.C.MULT,
                 delay = 0.45,
             }
@@ -2412,12 +2412,12 @@ SMODS.Joker { --MIB
                     local rarity = G.jokers.cards[i].config.center.rarity
                     local new_rarity = true
                     for k, v in pairs(rarity_list) do
-                        if rarity == k then
+                        if rarity == v then
                             new_rarity = false
                         end
                     end
                     if new_rarity then
-                        rarity_list[rarity] = true
+                        rarity_list[#rarity_list+1] = rarity
                     end
                 end
             end
@@ -2829,7 +2829,7 @@ SMODS.Joker { --Comdef
         elseif context.after and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mini_chips
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current + card.ability.extra.mini_chips}},
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current}},
                 colour = G.C.CHIPS,
             }
         elseif context.end_of_round and context.beat_boss and card.ability.extra.current > card.ability.extra.chips and not context.individual and not context.repetition and not context.blueprint then
