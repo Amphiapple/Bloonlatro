@@ -62,152 +62,6 @@ SMODS.Blind {
 
 SMODS.Blind {
     loc_txt = {
-        name = 'Phayze',
-        text = {
-            'Moves a random Joker to the leftmost',
-            'position when a hand is played',
-            'Debuffs all Jokers and cards',
-            'without an edition.'
-        }
-    },
-    key = 'phayze',
-    atlas = 'Blind',
-    pos = { y = 8 },
-    dollars = 8,
-    mult = 20, -- 20x base score (1 million)
-    boss = { showdown = true },
-    boss_colour = HEX("000000"),
-    discovered = true,
-
-    in_pool = function()
-        return G.GAME.challenge == 'c_bloons_phayze'
-    end,
-    press_play = function(self)
-        if #G.jokers.cards > 1 then
-            local random_index = pseudorandom(2, #G.jokers.cards, pseudoseed('phayze'))
-            local selected = G.jokers.cards[random_index]
-            for i = random_index, 2, -1 do
-                G.jokers.cards[i] = G.jokers.cards[i-1]
-            end
-            G.jokers.cards[1] = selected
-        end
-        for _, joker in ipairs(G.jokers.cards) do
-            SMODS.recalc_debuff(joker)
-        end
-    end,
-
-    recalc_debuff = function(self, card, from_blind)
-        return not card.edition
-    end
-}
-
-SMODS.Blind {
-    loc_txt = {
-        name = 'Dreadbloon',
-        text = {
-            'Score is capped at #1#',
-            'Halves base chips and mult',
-            'Debuffs Jokers by rarity',
-            'Debuffed rarity increases',
-            'after each hand played'
-        }
-    },
-
-    loc_vars = function(self)
-		return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { '30% of blind size' } }
-    end,
-
-    key = 'dreadbloon',
-    atlas = 'Blind',
-    pos = { y = 12 },
-    dollars = 8,
-    mult = 8, -- 8x base score (400k)
-    boss = { showdown = true },
-    boss_colour = HEX("FFDC3F"),
-    discovered = true,
-
-    in_pool = function()
-        return G.GAME.challenge == 'c_bloons_dreadbloon'
-    end,
-
-    set_blind = function(self)
-        self.debuff_rarity = 1
-        for _,joker in ipairs(G.jokers.cards) do
-            SMODS.recalc_debuff(joker)
-        end
-    end,
-
-    press_play = function(self)
-        self.prepped = true
-    end,
-
-    drawn_to_hand = function(self)
-        if self.prepped == true then
-            self.prepped = false
-            self.debuff_rarity = self.debuff_rarity + 1
-            for _,joker in ipairs(G.jokers.cards) do
-                SMODS.recalc_debuff(joker)
-            end
-        end
-    end,
-
-    recalc_debuff = function(self, card, from_blind)
-        if card.area == G.jokers then
-            return card.config.center.rarity == self.debuff_rarity
-        end
-    end,
-
-    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        return math.max(math.floor(mult * 0.5 + 0.5), 1),
-               math.max(math.floor(hand_chips * 0.5 + 0.5), 0),
-               true
-    end,
-
-    bloons_modify_score = function(self, score)
-		return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
-	end,
-}
-
-SMODS.Blind {
-    loc_txt = {
-        name = 'Vortex',
-        text = {
-            '-#1# hand'
-        }
-    },
-    key = 'vortex',
-    atlas = 'Blind',
-    pos = { y = 5 },
-    dollars = 8,
-    mult = 25, -- 25x base score (500k)
-    boss = { showdown = true },
-    boss_colour = HEX("63E0FF"),
-    discovered = true,
-
-    loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-
-    in_pool = function()
-        return G.GAME.challenge == 'c_bloons_vortex'
-    end,
-
-    set_blind = function(self)
-        self.hands_removed = 1
-        ease_hands_played(-self.hands_removed)
-    end
-}
-
-SMODS.Blind {
-    loc_txt = {
         name = 'Lych',
         text = {
             'Revives and resets hands once',
@@ -315,6 +169,162 @@ SMODS.Blind {
             end
         end
     end,
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Vortex',
+        text = {
+            'Cards are stunned',
+            'when drawn to hand',
+            '-#1# hand'
+        }
+    },
+    key = 'vortex',
+    atlas = 'Blind',
+    pos = { y = 5 },
+    dollars = 8,
+    mult = 25, -- 25x base score (500k)
+    boss = { showdown = true },
+    boss_colour = HEX("63E0FF"),
+    discovered = true,
+
+    loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_vortex'
+    end,
+
+    set_blind = function(self)
+        ease_hands_played(-1)
+    end,
+
+    drawn_to_hand = function(self)
+        for _, card in ipairs(G.hand.cards) do
+            if card.config.center ~= G.P_CENTERS.m_bloons_stunned then
+                card:juice_up()
+                card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Dreadbloon',
+        text = {
+            'Score is capped at #1#',
+            'Halves base chips and mult',
+            'Debuffs Jokers by rarity',
+            'Debuffed rarity increases',
+            'after each hand played'
+        }
+    },
+
+    loc_vars = function(self)
+		return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { '30% of blind size' } }
+    end,
+
+    key = 'dreadbloon',
+    atlas = 'Blind',
+    pos = { y = 12 },
+    dollars = 8,
+    mult = 8, -- 8x base score (400k)
+    boss = { showdown = true },
+    boss_colour = HEX("FFDC3F"),
+    discovered = true,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_dreadbloon'
+    end,
+
+    set_blind = function(self)
+        self.debuff_rarity = 1
+        for _,joker in ipairs(G.jokers.cards) do
+            SMODS.recalc_debuff(joker)
+        end
+    end,
+
+    press_play = function(self)
+        self.prepped = true
+    end,
+
+    drawn_to_hand = function(self)
+        if self.prepped == true then
+            self.prepped = false
+            self.debuff_rarity = self.debuff_rarity + 1
+            for _,joker in ipairs(G.jokers.cards) do
+                SMODS.recalc_debuff(joker)
+            end
+        end
+    end,
+
+    recalc_debuff = function(self, card, from_blind)
+        if card.area == G.jokers then
+            return card.config.center.rarity == self.debuff_rarity
+        end
+    end,
+
+    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+        return math.max(math.floor(mult * 0.5 + 0.5), 1),
+               math.max(math.floor(hand_chips * 0.5 + 0.5), 0),
+               true
+    end,
+
+    bloons_modify_score = function(self, score)
+		return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
+	end,
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Phayze',
+        text = {
+            'Moves a random Joker to the leftmost',
+            'position when a hand is played',
+            'Debuffs all Jokers and cards',
+            'without an edition.'
+        }
+    },
+    key = 'phayze',
+    atlas = 'Blind',
+    pos = { y = 8 },
+    dollars = 8,
+    mult = 20, -- 20x base score (1 million)
+    boss = { showdown = true },
+    boss_colour = HEX("000000"),
+    discovered = true,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_phayze'
+    end,
+    press_play = function(self)
+        if #G.jokers.cards > 1 then
+            local random_index = pseudorandom(2, #G.jokers.cards, pseudoseed('phayze'))
+            local selected = G.jokers.cards[random_index]
+            for i = random_index, 2, -1 do
+                G.jokers.cards[i] = G.jokers.cards[i-1]
+            end
+            G.jokers.cards[1] = selected
+        end
+        for _, joker in ipairs(G.jokers.cards) do
+            SMODS.recalc_debuff(joker)
+        end
+    end,
+
+    recalc_debuff = function(self, card, from_blind)
+        return not card.edition
+    end
 }
 
 SMODS.Blind {
