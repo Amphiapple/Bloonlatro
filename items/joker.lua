@@ -1361,6 +1361,7 @@ SMODS.Joker { --Corrosive
 	cost = 4,
 	order = 186,
 	blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = { extra = { chips = 10, current = 0 } }, --Variables: chips = +chip gain for each glued card, current = current +chips
 
@@ -1407,7 +1408,7 @@ SMODS.Joker { --Burny
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.destroying_card and context.destroying_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
+        if context.destroying_card and context.scoring_hand[1] and context.destroying_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
             return true
         end
     end
@@ -1671,6 +1672,7 @@ SMODS.Joker { --Bioboomer
 	cost = 6,
 	order = 212,
 	blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_steel',
     config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult gain if steel is held, current = current +mult
 
@@ -1747,6 +1749,7 @@ SMODS.Joker { --Shards
 	cost = 6,
 	order = 215,
 	blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = { extra = { mult = 2, current = 0 } },
 
@@ -2099,7 +2102,7 @@ SMODS.Joker { --Shell Shock
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'burny')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'shock')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
@@ -2348,6 +2351,7 @@ SMODS.Joker { --LLS
 	cost = 6,
 	order = 231,
 	blueprint_compat = true,
+    perishable_compat = false,
     config = { extra = { mult = 1, loss = 5, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
 
     loc_vars = function(self, info_queue, card)
@@ -2913,6 +2917,7 @@ SMODS.Joker { --Rorm
 	cost = 7,
 	order = 253,
 	blueprint_compat = true,
+    perishable_compat = false,
     config = { extra = { max = 15, min = 0, current = 1 } }, --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
     
     loc_vars = function(self, info_queue, card)
@@ -4011,6 +4016,7 @@ SMODS.Joker { --Meg
 	cost = 9,
 	order = 294,
 	blueprint_compat = true,
+    perishable_compat = false,
     config = { extra = { chips = 30, mult = 4, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
     
     in_pool = function(self, args)

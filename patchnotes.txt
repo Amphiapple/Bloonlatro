@@ -30,6 +30,7 @@ Balance Changes:
 - Glue Hose effect changed -> Glue all discarded cards
 - Rocket Storm maximum Xmult increase X0.23 -> X0.15
 - Bloon Sabotage now has a 1 in 2 chance of triggering
+- Scaling Jokers that do not automatically reset can no longer be perishable
 
 Fixes:
 - Monkey Bank no longer triggers if no interest is earned
