@@ -75,41 +75,31 @@ SMODS.Back { --Gwen
     config = { consumables = {'c_immolate'}, hand_size = -1 }
 }
 
---[[
 SMODS.Back { --Striker
     key = "striker",    
     name = "Striker Jones Deck",
 	loc_txt = {
         name = 'Striker Jones Deck',
         text = {
-            '{C:green}#1# in #2#{} chance for',
-            'each card in your deck',
-            'to start as {C:spades}Spades{}'
+            '{C:attention}Stun{} all {C:spades}Spades{}',
+            'when drawn to hand'
         }
     },
 	atlas = "Back",
 	pos = { x = 2, y = 0 },
 	order = 19,
-    config = { extra = { odds = 3 } },
 
-    loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(self, self.config.extra.num, self.config.extra.denom, 'quincy')
-		return { vars = { n, d - 1 }
-	end,
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                for k, v in pairs(G.playing_cards) do
-                    if SMODS.pseudorandom_probability(back, 'striker', back.ability.extra.num, back.ability.extra.denom, 'striker') then
-                        v:change_suit('Spades')
-                    end
+    calculate = function(self, back, context)
+        if context.hand_drawn then
+            for k, v in pairs(G.hand.cards) do
+                if v:is_suit('Spades') and v.ability.name ~= 'Stunned Card' then
+                    v:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
+                    v:juice_up()
                 end
-            return true
             end
-        }))
+        end
     end
 }
-]]
 
 SMODS.Back { --Obyn
     key = "obyn",

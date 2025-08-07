@@ -26,19 +26,7 @@ function recalc_all_costs()
         trigger = 'after',
         delay = 0.0,
         func = (function()
-            if G.shop_jokers and G.shop_jokers.cards then
-                for k, v in pairs(G.shop_jokers.cards) do
-                    if v.set_cost then 
-                        v:set_cost()
-                    end
-                end
-            end
-            for k, v in ipairs(G.jokers.cards) do
-                if v.set_cost then 
-                    v:set_cost()
-                end
-            end
-            for k, v in ipairs(G.consumeables.cards) do
+            for k, v in pairs(G.I.CARD) do
                 if v.set_cost then
                     v:set_cost()
                 end
@@ -48,11 +36,18 @@ function recalc_all_costs()
     }))
 end
 
---Pex and Salvage cost function
+--Cost changing function
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
     self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+    if #find_joker('Monkey Commerce') > 0 then
+        if #find_joker('Monkey Commerce') > self.cost then
+            self.cost = 0
+        else
+            self.cost = self.cost - #find_joker('Monkey Commerce')
+        end
+    end
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
         self.cost = 0
     end
@@ -293,16 +288,16 @@ SMODS.Joker { --Boomer
 	cost = 4,
 	order = 152,
 	blueprint_compat = true,
-    config = { extra = 2 }, --Variables: extra = retrigger amount
+    config = { extra = { retrigger = 2 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra } }
+        return { vars = { card.ability.extra.retrigger } }
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and (next(context.card_effects[1]) or #context.card_effects > 1) then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra
+                repetitions = card.ability.extra.retrigger
             }
         end
     end
@@ -356,7 +351,7 @@ SMODS.Joker { --Tack
 	cost = 3,
 	order = 154,
 	blueprint_compat = true,
-    config = { extra = { chips = 40, mult = 4 } }, --Variables: chips = +chips, mult = +mult
+    config = { extra = { chips = 24, mult = 4 } }, --Variables: chips = +chips, mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
@@ -397,7 +392,7 @@ SMODS.Joker { --Ice
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
             local eval = function()
-                return (G.GAME.current_round.hands_played == 0)
+                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
         elseif context.before and G.GAME.current_round.hands_played == 0 and not context.blueprint then
@@ -409,7 +404,7 @@ SMODS.Joker { --Ice
                             v:juice_up()
                             return true
                         end
-                    })) 
+                    }))
                 end
             end
         elseif context.joker_main and G.GAME.current_round.hands_played == 0 then
@@ -492,7 +487,7 @@ SMODS.Joker { --Sniper
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1)
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
                 end
                 juice_card_until(card, eval, true)
             end
@@ -685,12 +680,10 @@ SMODS.Joker { --Mortar
         return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if SMODS.pseudorandom_probability(card, 'mortar', card.ability.extra.num, card.ability.extra.denom, 'mortar') then
-                return {
-                    mult = card.ability.extra.mult,
-                }
-            end
+        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'mortar', card.ability.extra.num, card.ability.extra.denom, 'mortar') then
+            return {
+                mult = card.ability.extra.mult,
+            }
 		end
     end
 }
@@ -833,7 +826,8 @@ SMODS.Joker { --Alch
             'Create a {C:tarot}Tarot{} card',
             'on {C:attention}final hand{} of round',
             '{C:green}#1# in #2#{} chance to create',
-            'a {C:spectral}Spectral{} card instead'
+            'a {C:spectral}Spectral{} card instead',
+            '{C:inactive}(Must have room){}'
         }
     },
 	atlas = 'Joker',
@@ -1009,7 +1003,7 @@ SMODS.Joker { --Spac
         if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current + card.ability.extra.chips}},
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current}},
                 colour = G.C.CHIPS,
                 delay = 0.45,
             }
@@ -1181,6 +1175,50 @@ SMODS.Joker { --Desp
     end
 }
 
+SMODS.Joker { --Cave
+    key = 'cave',
+    name = 'Cave Monkey',
+    loc_txt = {
+        name = 'Cave Monkey',
+        text = {
+            'Me Hit {C:attention}Rock{}'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 5, y = 2 },
+    rarity = 1,
+	cost = 1,
+	order = 176,
+	blueprint_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave'))
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.m_stone, {playing_card = G.playing_card})
+                card:start_materialize({G.C.SECONDARY_SET.Enhanced})
+                G.play:emplace(card)
+                table.insert(G.playing_cards, card)
+                return true
+            end
+        }))
+        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
+
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                return true
+            end
+        }))
+        draw_card(G.play,G.deck, 90,'up', nil)
+        playing_card_joker_effects({true})
+    end,
+}
+
 SMODS.Joker { --Eyesight
     key = 'eyesight',
     name = 'Enhanced Eyesight',
@@ -1209,6 +1247,70 @@ SMODS.Joker { --Eyesight
     end,
 }
 
+SMODS.Joker { --Red Hot
+    key = 'redhot',
+    name = 'Red Hot Rangs',
+    loc_txt = {
+        name = 'Red Hot Rangs',
+        text = {
+            'Retrigger {C:attention}last{} scored card',
+            '{C:attention}#1#{} times if scoring hand',
+            'contains {C:attention}#2#{} or more cards'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 1, y = 3 },
+    rarity = 1,
+	cost = 4,
+	order = 182,
+	blueprint_compat = true,
+    config = { extra = { retrigger = 2, number = 3 } }, --Variables: retrigger = retrigger amount, number = cards required for retrigger
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.retrigger, card.ability.extra.number } }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and #context.scoring_hand >= card.ability.extra.number and context.other_card == context.scoring_hand[#context.scoring_hand] then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger,
+            }
+        end
+    end
+}
+
+SMODS.Joker { --More Tacks
+    key = 'moretacks',
+    name = 'More Tacks',
+	loc_txt = {
+        name = 'More Tacks',
+        text = {
+            'Each played {C:attention}10{} gives',
+            '{C:chips}+#1#{} Chips and',
+            '{C:mult}+#2#{} Mult when scored'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 3, y = 3 },
+    rarity = 1,
+	cost = 4,
+	order = 184,
+	blueprint_compat = true,
+    config = { extra = { chips = 20, mult = 5 } }, --Variables: chips = +chips, mult = +mult
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 8 then
+            return {
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult,
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Refreeze
     key = 'refreeze',
     name = 'Re-Freeze',
@@ -1223,10 +1325,10 @@ SMODS.Joker { --Refreeze
 	pos = { x = 4, y = 3 },
     rarity = 1,
 	cost = 4,
-	order = 198,
+	order = 185,
 	blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
-    config = { extra = 1 },
+    config = { extra = { retrigger = 1 } }, --Variables = retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
@@ -1235,7 +1337,7 @@ SMODS.Joker { --Refreeze
         if context.repetition and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra
+                repetitions = card.ability.extra.retrigger
             }
         end
     end
@@ -1257,8 +1359,9 @@ SMODS.Joker { --Corrosive
 	pos = { x = 5, y = 3 },
     rarity = 1,
 	cost = 4,
-	order = 199,
+	order = 186,
 	blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = { extra = { chips = 10, current = 0 } }, --Variables: chips = +chip gain for each glued card, current = current +chips
 
@@ -1281,6 +1384,36 @@ SMODS.Joker { --Corrosive
     end
 }
 
+SMODS.Joker { --Burny
+    key = 'burny',
+    name = 'Burny Stuff',
+    loc_txt = {
+        name = 'Burny Stuff',
+        text = {
+            '{C:green}#1# in #2#{} chance to',
+            'destroy {C:attention}first{} played',
+            'card that scores'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 1, y = 4 },
+    rarity = 1,
+	cost = 5,
+	order = 192,
+	blueprint_compat = true,
+    config = { extra = { num = 1, denom = 4 } }, --Variables: num/denom = probability fraction 
+
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'burny')
+        return { vars = { n, d } }
+    end,
+    calculate = function(self, card, context)
+        if context.destroying_card and context.scoring_hand[1] and context.destroying_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
+            return true
+        end
+    end
+}
+
 SMODS.Joker { --Enetwork
     key = 'enetwork',
     name = 'Echosense Network',
@@ -1289,7 +1422,8 @@ SMODS.Joker { --Enetwork
         text = {
             'Create a random {C:planet}Planet{}',
             'card if {C:attention}scoring hand{}',
-            'contains {C:attention}#1# Bonus Cards{}'
+            'contains {C:attention}#1# Bonus Cards{}',
+            '{C:inactive}(Must have room){}'
         }
     },
     atlas = 'Joker',
@@ -1319,7 +1453,7 @@ SMODS.Joker { --Enetwork
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'enetwork')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -1381,6 +1515,34 @@ SMODS.Joker { --Salvage
     end
 }
 
+SMODS.Joker { --Discount
+    key = 'discount',
+    name = 'Monkey Commerce',
+    loc_txt = {
+        name = 'Monkey Commerce',
+        text = {
+            'Shop items cost {C:attention}$#1#{} less'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 1, y = 5 },
+    rarity = 1,
+	cost = 5,
+	order = 203,
+	blueprint_compat = false,
+    config = { extra = { cost = 1 } }, --Variables: cost = discount amount
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cost } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+}
+
 SMODS.Joker { --Owl
     key = 'owl',
     name = 'Horned Owl',
@@ -1389,7 +1551,8 @@ SMODS.Joker { --Owl
         text = {
             'Create a random {C:tarot}Tarot{}',
             'card if {C:attention}scoring hand{}',
-            'contains {C:attention}#1# Mult Cards{}'
+            'contains {C:attention}#1# Mult Cards{}',
+            '{C:inactive}(Must have room){}'
         }
     },
     atlas = 'Joker',
@@ -1419,7 +1582,7 @@ SMODS.Joker { --Owl
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'owl')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -1463,7 +1626,7 @@ SMODS.Joker { --Trip shot
             if not context.blueprint then
                 card.ability.extra.counter = card.ability.extra.counter - 1
                 local eval = function()
-                    return (card.ability.extra.counter == 1)
+                    return (card.ability.extra.counter == 1 and not G.RESET_JIGGLES)
                 end
                 juice_card_until(card, eval, true)
             end
@@ -1491,6 +1654,52 @@ SMODS.Joker { --Trip shot
     end
 }
 
+SMODS.Joker { --Bioboomer
+    key = 'bioboomer',
+    name = 'Bionic Boomerang',
+	loc_txt = {
+        name = 'Bionic Boomerang',
+        text = {
+            'This {C:attention}Joker{} gains {C:mult}+#1#{}',
+            'Mult if a {C:attention}Steel{} card',
+            'is held in hand',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 1, y = 6 },
+    rarity = 1,
+	cost = 6,
+	order = 212,
+	blueprint_compat = true,
+    perishable_compat = false,
+    enhancement_gate = 'm_steel',
+    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult gain if steel is held, current = current +mult
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local has_steel = false
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Steel Card' then
+                    has_steel = true
+                    break
+                end
+            end
+            if has_steel then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+            end
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Mauler
     key = 'mauler',
     name = 'MOAB Mauler',
@@ -1510,6 +1719,7 @@ SMODS.Joker { --Mauler
     config = { extra = { Xmult = 2.5 } }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
+        
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
@@ -1539,6 +1749,7 @@ SMODS.Joker { --Shards
 	cost = 6,
 	order = 215,
 	blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = { extra = { mult = 2, current = 0 } },
 
@@ -1624,8 +1835,9 @@ SMODS.Joker { --Glose
 	loc_txt = {
         name = 'Glue Hose',
         text = {
-            '{X:mult,C:white}X#1#{} Mult if {C:attention}scoring hand{}',
-            'contains {C:attention}#2# Glued{} cards'
+            '{C:attention}Glue{} all discarded cards',
+            '{C:attention}Glued{} cards no longer',
+            'lose money when discarded'
         }
     },
 	atlas = 'Joker',
@@ -1635,29 +1847,17 @@ SMODS.Joker { --Glose
 	order = 216,
 	blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
-    config = { extra = { Xmult = 2, number = 2, active = false } }, --Variables: Xmult = Xmult, number = required glued cards for Xmult, active = is giving Xmult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
-		return { vars = { card.ability.extra.Xmult, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            local count = 0
-            for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Glued Card' then
-                    count = count + 1
-                end
-            end
-            if count >= card.ability.extra.number then
-                card.ability.extra.active = true
-            end
-        elseif context.joker_main and card.ability.extra.active then
+        if context.discard and not context.other_card.debuff then
+            context.other_card:set_ability('m_bloons_glued', nil, true)
             return {
-                x_mult = card.ability.extra.Xmult
+                message = 'Glued!',
+                colour = G.C.MONEY
             }
-        elseif context.after and card.ability.extra.active and not context.blueprint then
-            card.ability.extra.active = false
         end
     end
 }
@@ -1701,7 +1901,7 @@ SMODS.Joker { --Dprec
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1)
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
                 end
                 juice_card_until(card, eval, true)
             end
@@ -1769,6 +1969,50 @@ SMODS.Joker { --Trip guns
     end
 }
 
+SMODS.Joker { --Nevamiss
+    key = 'nevamiss',
+    name = 'Neva-Miss Targeting',
+    loc_txt = {
+        name = 'Neva-Miss Targeting',
+        text = {
+            'Create a {C:tarot}Tarot{} card',
+            'if chips scored are',
+            'between {C:attention}#1#%{} and {C:attention}#2#%{}',
+            'of required chips'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 6 },
+    rarity = 2,
+	cost = 6,
+	order = 221,
+	blueprint_compat = true,
+    config = { extra = { scored_percent_min = 90, scored_percent_max = 110 } }, --Variables: scored_percent_min = minimum percent of required chips scored, scored_percent_max = maximum percent of required chips scored
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.scored_percent_min, card.ability.extra.scored_percent_max } }
+    end,
+    calculate = function(self, card, context)
+        if context.after and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and
+                (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips >= card.ability.extra.scored_percent_min / 100.0 and
+                (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips <= card.ability.extra.scored_percent_max / 100.0 then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                    local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'nevamiss')
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end)
+            }))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+        end
+    end
+}
+
 SMODS.Joker { --Draft
     key = 'draft',
     name = 'Downdraft',
@@ -1776,7 +2020,7 @@ SMODS.Joker { --Draft
         name = 'Downdraft',
         text = {
             '{C:blue}+#1#{} hand',
-            '{C:blue}+2#{} hands on {C:attention}Boss Blinds{}',
+            '{C:blue}+2#{} hands against {C:attention}Boss Blinds{}',
             'Extra hands score no chips',
             '{C:inactive}(#3# remaining{C:inactive})'
         }
@@ -1810,7 +2054,7 @@ SMODS.Joker { --Draft
             }))
         elseif context.first_hand_drawn and not context.blueprint then
             local eval = function()
-                return (card.ability.extra.counter > 0)
+                return (card.ability.extra.counter > 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
         elseif context.final_scoring_step and card.ability.extra.counter > 0 and not context.blueprint then
@@ -1833,6 +2077,41 @@ SMODS.Joker { --Draft
 				end,
 			}))
             delay(0.6)
+        end
+    end
+}
+
+SMODS.Joker { --Shell Shock
+    key = 'shock',
+    name = 'Shell Shock',
+    loc_txt = {
+        name = 'Shell Shock',
+        text = {
+            '{C:green}#1# in #2#{} chance to',
+            '{C:attention}stun{} and retrigger',
+            'each scoring card'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 1, y = 7 },
+    rarity = 1,
+	cost = 5,
+	order = 222,
+	blueprint_compat = true,
+    config = { extra = { num = 1, denom = 2, retrigger = 1 } }, --Variables: num/denom = probability fraction 
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'shock')
+        return { vars = { n, d } }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'shock', card.ability.extra.num, card.ability.extra.denom, 'shock') then
+            context.other_card:set_ability('m_bloons_stunned', nil, true)
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger
+            }
         end
     end
 }
@@ -1870,7 +2149,7 @@ SMODS.Joker { --Amast
 	loc_txt = {
         name = 'Arcane Mastery',
         text = {
-            'Retrigger all played',
+            'Retrigger all scoring',
             'cards with {C:enhanced}Enhancements{}'
         }
     },
@@ -1880,16 +2159,78 @@ SMODS.Joker { --Amast
 	cost = 7,
 	order = 284,
 	blueprint_compat = true,
-    config = { extra = 1 }, --Variables: extra = retrigger amount
+    config = { extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
 
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra } }
-    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card.config.center ~= G.P_CENTERS.c_base then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra
+                repetitions = card.ability.extra.retrigger
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Flash
+    key = 'flash',    
+    name = 'Flash Bomb',
+	loc_txt = {
+        name = 'Flash Bomb',
+        text = {
+            '{C:mult}+#1#{} Mult and {C:attention}Stun{}',
+            'all scoring {C:spades}Spades{}',
+            'every {C:attention}#2#{} hands',
+            '{C:inactive}(#3#)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 7 },
+    rarity = 2,
+	cost = 6,
+	order = 286,
+	blueprint_compat = false,
+    eternal_compat = false,
+    config = { extra = { mult = 30, limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+        local function process_var(count, cap)
+			if count == cap - 1 then
+				return 'Active!'
+			end
+			return cap - count%cap - 1 .. ' remaining'
+		end
+		return {
+			vars = {
+				card.ability.extra.mult,
+				card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit),
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
+            local eval = function()
+                return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+            if card.ability.extra.counter == card.ability.extra.limit then
+                for k, v in ipairs(context.scoring_hand) do
+                    if v:is_suit('Spades', true) then
+                        v:set_ability(G.P_CENTERS.m_bloons_stunned)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                v:juice_up()
+                                return true
+                            end
+                        }))
+                    end
+                end
+            end
+        elseif context.joker_main and card.ability.extra.counter == card.ability.extra.limit then
+            return {
+                x_mult = card.ability.extra.mult,
             }
         end
     end
@@ -1966,7 +2307,7 @@ SMODS.Joker { --Bank
         return { vars = { card.ability.extra.sell_limit } }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        if context.end_of_round and G.GAME.dollars > 5 and not context.individual and not context.repetition and not context.blueprint then
             if G.GAME.dollars >= G.GAME.interest_cap then
                 card.ability.extra_value = card.ability.extra_value + math.floor(G.GAME.interest_cap / 5)
             else 
@@ -2010,6 +2351,7 @@ SMODS.Joker { --LLS
 	cost = 6,
 	order = 231,
 	blueprint_compat = true,
+    perishable_compat = false,
     config = { extra = { mult = 1, loss = 5, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
 
     loc_vars = function(self, info_queue, card)
@@ -2019,7 +2361,7 @@ SMODS.Joker { --LLS
         if context.discard and context.other_card:is_suit('Spades', true) and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.current}},
                 colour = G.C.MULT,
                 delay = 0.45,
             }
@@ -2068,22 +2410,22 @@ SMODS.Joker { --MIB
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             local probability = 0
-            local rarity_list = {false, false, false, false}
+            local rarity_list = {}
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] ~= card then
-                    rarity_list[G.jokers.cards[i].config.center.rarity] = true
+                    local rarity = G.jokers.cards[i].config.center.rarity
+                    local new_rarity = true
+                    for k, v in pairs(rarity_list) do
+                        if rarity == v then
+                            new_rarity = false
+                        end
+                    end
+                    if new_rarity then
+                        rarity_list[#rarity_list+1] = rarity
+                    end
                 end
             end
-            for i = 1, #rarity_list do
-                if rarity_list[i] then
-                    probability = probability + 1
-                end
-            end
-            card.ability.extra.num = probability
-
-            --for k, v in pairs(G.GAME.probabilities) do
-                --G.GAME.probabilities[k] = card.ability.extra.odds
-            --end
+            card.ability.extra.num = #rarity_list
         end
     end,
     calculate = function(self, card, context)
@@ -2126,6 +2468,86 @@ SMODS.Joker { --Jugg
             end
 		elseif context.after then
             card.ability.extra.current = 0
+        end
+    end
+}
+
+SMODS.Joker { --Press
+    key = 'Press',
+    name = 'MOAB Press',
+    loc_txt = {
+        name = 'MOAB Press',
+        text = {
+            'Add a {C:attention}Red Seal{} to',
+            '{C:attention}first{} card held in hand',
+            'on {C:attention}first hand{} of round',
+            'against {C:attention}Boss Blinds{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 1, y = 9 },
+    rarity = 2,
+	cost = 5,
+	order = 242,
+	blueprint_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS.Red
+    end,
+    calculate = function(self, card, context)
+        if context.first_hand_drawn and G.GAME.blind.boss and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.before and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 and G.hand.cards[1] and not G.hand.cards[1].debuff and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    G.hand.cards[1]:set_seal('Red', nil, true)
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
+    end
+}
+
+SMODS.Joker { --Blimpact
+    key = 'blimpact',
+    name = 'Bloon Impact',
+    loc_txt = {
+        name = 'Bloon Impact',
+        text = {
+            '{C:attention}Stun{} all scoring cards on',
+            '{C:attention}first hand{} of round'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 9 },
+    rarity = 2,
+	cost = 6,
+	order = 244,
+	blueprint_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+    end,
+    calculate = function(self, card, context)
+        if context.before and G.GAME.current_round.hands_played == 0 then
+            for k, v in pairs(context.scoring_hand) do
+                if not v.debuff then
+                    v:set_ability('m_bloons_stunned', nil, true)
+                    v:juice_up()
+                end
+            end
+            if context.other_card == context.scoring_hand[1] then
+                return {
+                    message = 'Stunned!',
+                    colour = G.C.RED
+                }
+            end
         end
     end
 }
@@ -2203,10 +2625,12 @@ SMODS.Joker { --Icicles
             return{
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.discard and not context.other_card.debuff then
-            if SMODS.pseudorandom_probability(card, 'icicles', card.ability.extra.num, card.ability.extra.denom, 'icicles') then
-                context.other_card:set_ability('m_bloons_frozen', nil, true)
-            end
+        elseif context.discard and not context.other_card.debuff and SMODS.pseudorandom_probability(card, 'icicles', card.ability.extra.num, card.ability.extra.denom, 'icicles') then
+            context.other_card:set_ability('m_bloons_frozen', nil, true)
+            return {
+                message = 'Freeze!',
+                colour = G.C.CHIPS
+            }
         end
     end
 }
@@ -2229,17 +2653,16 @@ SMODS.Joker { --Relentless
 	order = 246,
 	blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
-    config = { extra = 1 }, --Variables: extra = retrigger amount
+    config = { extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
-        return { vars = { card.ability.extra } }
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card.ability.name == 'Glued Card' then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra
+                repetitions = card.ability.extra.retrigger
             }
         end
     end
@@ -2283,7 +2706,7 @@ SMODS.Joker { --Supply Drop
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1)
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
                 end
                 juice_card_until(card, eval, true)
             end
@@ -2298,6 +2721,48 @@ SMODS.Joker { --Supply Drop
                     end}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
             end
+        end
+    end
+}
+
+SMODS.Joker { --Flavored
+    key = 'flavored',
+    name = 'Favored Trades',
+	loc_txt = {
+        name = 'Favored Trades',
+        text = {
+            'If {C:attention}first hand{} of round',
+            'is a single {C:attention}Gold Card{}',
+            'add a {C:attention}Purple Seal{} to it',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 9 },
+    rarity = 2,
+	cost = 7,
+	order = 249,
+	blueprint_compat = false,
+    enhancement_gate = 'm_gold',
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS.Purple
+    end,
+    calculate = function(self, card, context)
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1].ability.name == 'Gold Card' and not context.full_hand[1].debuff and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    context.full_hand[1]:set_seal('Purple', nil, true)
+                    return true
+                end
+            }))
+            delay(0.5)
         end
     end
 }
@@ -2326,7 +2791,7 @@ SMODS.Joker { --GZ
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
             local eval = function()
-                return (G.GAME.current_round.hands_played == 0)
+                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
         elseif context.joker_main and G.GAME.current_round.hands_played == 0 then
@@ -2368,7 +2833,7 @@ SMODS.Joker { --Comdef
         elseif context.after and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mini_chips
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current + card.ability.extra.mini_chips}},
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.current}},
                 colour = G.C.CHIPS,
             }
         elseif context.end_of_round and context.beat_boss and card.ability.extra.current > card.ability.extra.chips and not context.individual and not context.repetition and not context.blueprint then
@@ -2388,7 +2853,7 @@ SMODS.Joker { --Abatt
         name = 'Artillery Battery',
         text = {
             '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
+            'scoring cards to give',
             '{C:chips}+#3#{} Chips, {C:mult}+#4#{} Mult, and',
             '{X:mult,C:white}X#5#{} Mult independently'
         }
@@ -2452,7 +2917,8 @@ SMODS.Joker { --Rorm
 	cost = 7,
 	order = 253,
 	blueprint_compat = true,
-    config = { extra = { max = 23, min = 0, current = 1 } }, --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
+    perishable_compat = false,
+    config = { extra = { max = 15, min = 0, current = 1 } }, --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
     
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current } }
@@ -2487,8 +2953,8 @@ SMODS.Joker { --Necro
         text = {
             'Whenever cards are',
             'destroyed, create a ',
-            'copy of the rightmost',
-            '{C:attention}card{} held in hand'
+            'copy of the {C:attention}last{}',
+            'card held in hand'
         }
     },
 	atlas = 'Joker',
@@ -2529,8 +2995,8 @@ SMODS.Joker { --Sabo
 	loc_txt = {
         name = 'Bloon Sabotage',
         text = {
-            --'{C:green}#1# in #2#{} chance to',
-            'Gain {C:red}+#1#{} discard if',
+            '{C:green}#1# in #2#{} chance to',
+            'gain {C:red}+#3#{} discard if',
             'played hand has a scoring',
             '{C:hearts}Heart{} and a scoring',
             'card of any other {C:attention}suit{}'
@@ -2542,13 +3008,15 @@ SMODS.Joker { --Sabo
 	cost = 6,
 	order = 256,
 	blueprint_compat = true,
-    config = { extra = { discards = 1 } }, --Variables: discards = number of discards gained
+    config = { extra = { num = 1, denom = 2, discards = 1 } }, --Variables: num/denom = probability fraction, discards = number of discards gained
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.discards } }
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
+        return { vars = { n, d, card.ability.extra.discards } }
     end,
+
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and SMODS.pseudorandom_probability(card, 'sabo', card.ability.extra.num, card.ability.extra.denom, 'sabo') then
             local suits = {
                 ['Hearts'] = 0,
                 ['Diamonds'] = 0,
@@ -2576,6 +3044,9 @@ SMODS.Joker { --Sabo
             suits["Spades"] > 0 or
             suits["Clubs"] > 0) then
                 ease_discard(card.ability.extra.discards)
+                return {
+                    message = '+1 Discard'
+                }
             end
         end
     end
@@ -2623,13 +3094,55 @@ SMODS.Joker { --R2g
     end
 }
 
+SMODS.Joker { --Jbounty
+    key = 'jbounty',
+    name = "Jungle's Bounty",
+	loc_txt = {
+        name = "Jungle's Bounty",
+        text = {
+            'If {C:attention}first discard{} of',
+            'round is a single {C:attention}2{},',
+            'add a {C:attention}Blue Seal{} to it',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 10 },
+    rarity = 2,
+	cost = 7,
+	order = 258,
+	blueprint_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS.Blue
+    end,
+    calculate = function(self, card, context)
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 and context.full_hand[1]:get_id() == 2 and not context.full_hand[1].debuff and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    context.full_hand[1]:set_seal('Blue', nil, true)
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
+    end
+}
+
 SMODS.Joker { --Arknight
     key = 'arknight',
     name = 'Arctic Knight',
 	loc_txt = {
         name = 'Arctic Knight',
         text = {
-            'Retrigger cards adjacent to',
+            'Retrigger played',
+            'cards adjacent to',
             '{C:attention}Bonus{} cards {C:attention}#1#{} times'
         }
     },
@@ -2754,6 +3267,67 @@ SMODS.Joker { --Twix
     end
 }
 
+SMODS.Joker { --Bloonprint
+    key = 'bloonprint',
+    name = 'Bloonprint',
+	loc_txt = {
+        name = 'Bloonprint',
+        text = {
+            'Copies ability of',
+            '{C:attention}Joker{} in position {C:attention}#1#{}',
+            '{S:0.8}position changes{}',
+            '{S:0.8}at end of round{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 11 },
+    rarity = 3,
+	cost = 10,
+	order = 270,
+	blueprint_compat = true,
+    config = { extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
+
+    loc_vars = function(self, info_queue, card)
+        if card.area and card.area == G.jokers then
+			local other_joker = G.jokers.cards[card.ability.extra.current]
+			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+			main_end = {{
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {{
+                    n = G.UIT.C,
+                    config = {
+                        ref_table = card,
+                        align = "m",
+                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
+                        r = 0.05,
+                        padding = 0.06,
+                    },
+                    nodes = {{
+                        n = G.UIT.T,
+                        config = {
+                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
+                            colour = G.C.UI.TEXT_LIGHT,
+                            scale = 0.32 * 0.8,
+                        }
+                    }}
+                }}
+			}}
+		end
+        return { vars = { card.ability.extra.current }, main_end = main_end }
+    end,
+    calculate = function(self, card, context)
+        if context.blind_defeated and not context.blueprint then
+            local max = card.ability.extra.max
+            if #G.jokers.cards < card.ability.extra.max then
+                max = #G.jokers.cards
+            end
+            card.ability.extra.current = pseudorandom('bloonprint', card.ability.extra.min, max)
+        end
+        return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
+    end
+}
+
 SMODS.Joker { --XBM
     key = 'xbm',
     name = 'Crossbow Master',
@@ -2809,7 +3383,7 @@ SMODS.Joker { --Blitz
         name = 'Bomb Blitz',
         text = {
             'Prevents Death if chips scored',
-            'are at least {C:attention}50%{} of required chips',
+            'are at least {C:attention}#1#%{} of required chips',
             'and destroy all cards held in hand',
             '{S:1.1,C:red,E:2}self destructs{}'
         }
@@ -2821,9 +3395,13 @@ SMODS.Joker { --Blitz
 	order = 273,
 	blueprint_compat = false,
     eternal_compat = false,
+    config = { extra = { scored_percent = 50 } }, --Variables: scored_percent = percent of required chips scored
 
+    loc_vars = function (self, info_queue, card)
+        return { vars = { card.ability.extra.scored_percent } }
+    end,
     calculate = function(self, card, context)
-        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not context.blueprint then
+        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= card.ability.extra.scored_percent / 100.0 and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand_text_area.blind_chips:juice_up()
@@ -2893,7 +3471,8 @@ SMODS.Joker { --Iring
                     G.play:emplace(card)
                     table.insert(G.playing_cards, card)
                     return true
-                end}))
+                end
+            }))
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Meteor', colour = G.C.SECONDARY_SET.Enhanced})
 
             G.E_MANAGER:add_event(Event({
@@ -2916,8 +3495,9 @@ SMODS.Joker { --AZ
         text = {
             'If {C:attention}first hand{} of round has ',
             '{C:attention}#1#{} scoring cards, score no chips,',
-            '{C:attention}Freeze{} all played cards, and',
-            'create a {C:spectral}Spectral{} card'
+            '{C:attention}Freeze{} all scoring cards, and',
+            'create a {C:spectral}Spectral{} card',
+            '{C:inactive}(Must have room){}'
         }
     },
 	atlas = 'Joker',
@@ -2935,7 +3515,7 @@ SMODS.Joker { --AZ
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
             local eval = function()
-                return (G.GAME.current_round.hands_played == 0)
+                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
         elseif context.before and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 then
@@ -2948,7 +3528,7 @@ SMODS.Joker { --AZ
                                 v:juice_up()
                                 return true
                             end
-                        })) 
+                        }))
                     end
                 end
             end
@@ -2996,9 +3576,9 @@ SMODS.Joker { --Solver
 	loc_txt = {
         name = 'The Bloon Solver',
         text = {
-            'Every played {C:attention}card{}',
-            'becomes {C:attention}Glued{} and',
-            'permanently gains {C:mult}+#1#{}',
+            'Played {C:attention}cards{}',
+            'become {C:attention}Glued{} and',
+            'permanently gain {C:mult}+#1#{}',
             'Mult when scored'
         }
     },
@@ -3209,7 +3789,8 @@ SMODS.Joker { --WLP
         name = 'Wizard Lord Phoenix',
         text = {
             'After defeating each {C:attention}Boss Blind{},',
-            'create a {C:spectral}Volcano{} card'
+            'create a {C:spectral}Volcano{} card',
+            '{C:inactive}(Must have room){}'
         }
     },
 	atlas = 'Joker',
@@ -3219,6 +3800,9 @@ SMODS.Joker { --WLP
 	order = 284,
 	blueprint_compat = true,
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_bloons_volcano
+    end,
     calculate = function(self, card, context)
         if context.end_of_round and context.beat_boss and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.individual and not context.repetition then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
@@ -3265,7 +3849,7 @@ SMODS.Joker { --GMN
         if context.joker_main then
             local total = 1
             for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Wild Card' or v:is_suit('Diamonds', true) then
+                if v:is_suit('Diamonds', true) then
                     total = total + card.ability.extra.Xmult
                 end
             end
@@ -3302,7 +3886,11 @@ SMODS.Joker { --AoW
     end,
     update = function(self, card, dt)
         if G.GAME.blind and G.GAME.blind.chips > 0 then
-            card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
+            if G.GAME.chips/G.GAME.blind.chips > 1 then
+                card.ability.extra.current = 1
+            else
+                card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
+            end
         else
             card.ability.extra.current = card.ability.extra.Xmult
         end
@@ -3358,12 +3946,10 @@ SMODS.Joker { --Pex
         recalc_all_costs()
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            if SMODS.pseudorandom_probability(card, 'pex', card.ability.extra.num, card.ability.extra.denom, 'pex') then
-                return {
-                    x_mult = card.ability.extra.Xmult
-                }
-            end
+        if context.joker_main and SMODS.pseudorandom_probability(card, 'pex', card.ability.extra.num, card.ability.extra.denom, 'pex') then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
         end
     end
 }
@@ -3430,6 +4016,7 @@ SMODS.Joker { --Meg
 	cost = 9,
 	order = 294,
 	blueprint_compat = true,
+    perishable_compat = false,
     config = { extra = { chips = 30, mult = 4, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
     
     in_pool = function(self, args)
@@ -3457,6 +4044,88 @@ SMODS.Joker { --Meg
                 chips = card.ability.extra.current_chips,
                 mult = card.ability.extra.current_mult
             }
+        end
+    end
+}
+
+SMODS.Joker { --Gustice
+    key = 'gustice',
+    name = 'Golden Justice',
+	loc_txt = {
+        name = 'Golden Justice',
+        text = {
+            '{C;attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult when scored,',
+            '{C:green}#2# in #3#{} chance to destroy card',
+            '{C:attention}Glass{} cards give {C:money}$#4#{} if',
+            'held in hand at end of round',
+            'Both give {C:money}$#5#{} when destroyed',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 4, y = 14 },
+    rarity = 3,
+	cost = 8,
+	order = 295,
+	blueprint_compat = false,
+    config = { extra = { Xmult = 2, num = 1, denom = 4, gold_dollars = 3, destroy_dollars = 15 } }, --Variables = Xmult = glass Xmult, num/denom = probability fraction, gold_dollars = gold dollars, destroy dollars = dollars when destroyed
+
+    in_pool = function(self, args)
+        for k, v in pairs(G.playing_cards) do
+            if v.ability.name == 'Gold Card' or v.ability.name == 'Glass Card' then
+                return true
+            end
+        end
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gustice')
+        return { vars = { card.ability.extra.Xmult, n, d, card.ability.extra.gold_dollars, card.ability.extra.destroy_dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Gold Card' and not context.other_card.debuff and not context.blueprint then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.after and not context.blueprint then
+            local gold = 0
+            for k, v in ipairs(context.scoring_hand) do
+                if v.ability.name == 'Gold Card' and not v.shattered and not v.removed and not v.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
+                    gold = gold + 1
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        func = function()
+                            v:shatter()
+                            return true
+                        end
+                    }))
+                end
+            end
+        elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
+            ease_dollars(card.ability.extra.gold_dollars)
+            card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_dollars,colour = G.C.MONEY, delay = 0.45})
+            delay(0.3)
+        elseif context.cards_destroyed and not context.blueprint then
+            local glass = 0
+            for k, v in ipairs(context.glass_shattered) do
+                if v.ability.name == 'Glass Card' or v.ability.name == 'Gold Card' then
+                    glass = glass + 1
+                end
+            end
+            if glass > 0 then
+                ease_dollars(card.ability.extra.destroy_dollars*glass)
+                card_eval_status_text(create_dynatext_pips, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_dollars*glass,colour = G.C.MONEY, delay = 0.45})
+            end
+        elseif context.remove_playing_cards and not context.blueprint then
+            local glass = 0
+            for k, v in ipairs(context.removed) do
+                if v.ability.name == 'Glass Card' or v.ability.name == 'Gold Card' then
+                    glass = glass + 1
+                end
+            end
+            if glass > 0 then
+                ease_dollars(card.ability.extra.destroy_dollars*glass)
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_dollars*glass,colour = G.C.MONEY, delay = 0.45})
+            end
         end
     end
 }

@@ -1,47 +1,40 @@
 Added Jokers:
-- Desperado
-- Banana Salvage
-- Monkey Bank
-- Monkey Intelligence Bureau
-- Supply Drop
-- Comanche Defense
-- Rocket Storm
-- Bloon Sabotage
-- Monkey City
-- Twin Sixes
-- Absolute Zero
-- Apache Prime
-- Wizard Lord Phoenix
-- Avatar of Wrath
-- Megalodon
-- ???
+- Cave Monkey
+- Red Hot Rangs
+- More Tacks
+- Burny Stuff
+- Monkey Commerce
+- Bionic Boomerang
+- Neva-Miss Targeting
+- Shell Shock
+- Flash Bomb
+- MOAB Press
+- Bloon Impact
+- Favored Trades
+- Jungle's Bounty
+- Bloonprint
+- Golden Justice
 
 Added Decks:
-- Benjamin Deck
-
-Added Consumables:
-- Volcano
+- Striker Deck
 
 Added Enhancements:
-- Boosted
+- Stunned Card
 
 General Changes:
-- Druid of Wrath replaced with Avatar of Wrath
-- Added 6 new challenges, which include 4 high difficulty Boss Battles
+- Icicles now has text when freezing discarded cards
+- Added Blastapopoulos and Lych bosses
 
 Balance Changes:
-- Mermonkey now gives +15 Mult instead of +90 Chips
-- Beast Handler now gives +90 Chips instead of +12 Mult
-- Downdraft gives +2 hands on Boss Blinds
-- Crossbow Master cost 8 -> 7
-- Bomb Blitz cost 8 -> 7
-- The Bloon Solver cost 8 -> 7
-- Elite Defender cost 8 -> 7
-- Inferno Ring cost 9 -> 8
-- Blooncineration cost 9 -> 8
-- Avatar of Wrath cost 9 -> 8
-- Brickell Deck now sets your discards to 0 at the start of each round
+- Tack Shooter +chips 40 -> 24
+- Glue Hose effect changed -> Glue all discarded cards
+- Rocket Storm maximum Xmult increase X0.23 -> X0.15
+- Bloon Sabotage now has a 1 in 2 chance of triggering
+- Scaling Jokers that do not automatically reset can no longer be perishable
 
 Fixes:
-- Artillery Battery now shows correct probability if changed
-- Jokers with end of round effects use correct logic
+- Monkey Bank no longer triggers if no interest is earned
+- MIB now works with unique rarities
+- Avatar of Wrath no longer shows negative Xmult
+- Quincy deck works again
+- Tooltips added to certain Jokers

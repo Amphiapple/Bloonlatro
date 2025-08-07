@@ -7,11 +7,11 @@ SMODS.Atlas {
     frames = 21,
 }
 
-function Blind:bloons_cap_score(score)
+function Blind:bloons_modify_score(score)
     if not self.disabled then
         local obj = self.config and self.config.blind or self
-        if obj.bloons_cap_score and type(obj.bloons_cap_score) == "function" then
-            return obj:bloons_cap_score(score)
+        if obj.bloons_modify_score and type(obj.bloons_modify_score) == "function" then
+            return obj:bloons_modify_score(score)
         end
     end
     return score
@@ -62,6 +62,232 @@ SMODS.Blind {
 
 SMODS.Blind {
     loc_txt = {
+        name = 'Lych',
+        text = {
+            'Revives and resets hands once',
+            'Removes enhancements from all',
+            'played and held in hand cards',
+            'Heals back #2#',
+            '#3# enhancement removed'
+        }
+    },
+    key = 'lych',
+    atlas = 'Blind',
+    pos = { y = 9 },
+    dollars = 8,
+    mult = 40, -- 40x base score (2 million)
+    boss = { showdown = true },
+    boss_colour = HEX("BA58BD"),
+    discovered = true,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_lych'
+    end,
+
+    loc_vars = function(self)
+        return { vars = { 0, 0.05 * get_blind_amount(G.GAME.round_resets.ante) * 40 * G.GAME.starting_params.ante_scaling .. ' chips for', 'each' } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { 0, '5% of total blind size', 'for each' } }
+    end,
+
+    set_blind = function(self)
+        self.revive = true
+    end,
+
+    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+        local removal_count = 0
+        local played_cards = {}
+
+        for _, card in ipairs(cards) do
+            played_cards[card] = true
+            if card.config.center ~= G.P_CENTERS.c_base then
+                card:set_ability(G.P_CENTERS.c_base, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:juice_up()
+                        play_sound('cancel', 0.9, 0.6)
+                        return true
+                    end
+                }))
+                removal_count = removal_count + 1
+            end
+        end
+
+        for _, card in ipairs(G.hand.cards) do
+            if not played_cards[card] then
+                if card.config.center ~= G.P_CENTERS.c_base then
+                    card:set_ability(G.P_CENTERS.c_base, nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            card:juice_up()
+                            play_sound('cancel', 0.9, 0.6)
+                            return true
+                        end,
+                    }))
+                    removal_count = removal_count + 1
+                end
+            end
+        end
+
+        local penalty = math.floor(G.GAME.blind.chips / 20 * removal_count)
+        if penalty > 0 then
+            local new_total = math.max(0, G.GAME.chips - penalty)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'ease',
+                blocking = false,
+                ref_table = G.GAME,
+                ref_value = 'chips',
+                ease_to = new_total,
+                delay = 0.5,
+                func = function(t) return math.floor(t) end
+            }))
+            G.GAME.chips = new_total
+        end
+
+        return mult, hand_chips, false
+    end,
+
+    calculate = function(self, blind, context)
+        if context.after and (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips >= 1 then
+            if self.revive then
+                self.revive = false
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'ease',
+                    blocking = false,
+                    ref_table = G.GAME,
+                    ref_value = 'chips',
+                    ease_to = 0,
+                    delay = 0.5,
+                    func = (function(t)
+                        return math.floor(t)
+                    end)
+                }))
+                local FINAL_HAND = 1
+                ease_hands_played(G.GAME.current_round.hands_played + FINAL_HAND)
+            end
+        end
+    end,
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Vortex',
+        text = {
+            'Cards are stunned',
+            'when drawn to hand',
+            '-#1# hand'
+        }
+    },
+    key = 'vortex',
+    atlas = 'Blind',
+    pos = { y = 5 },
+    dollars = 8,
+    mult = 25, -- 25x base score (500k)
+    boss = { showdown = true },
+    boss_colour = HEX("63E0FF"),
+    discovered = true,
+
+    loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_vortex'
+    end,
+
+    set_blind = function(self)
+        ease_hands_played(-1)
+    end,
+
+    drawn_to_hand = function(self)
+        for _, card in ipairs(G.hand.cards) do
+            if card.config.center ~= G.P_CENTERS.m_bloons_stunned then
+                card:juice_up()
+                card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Dreadbloon',
+        text = {
+            'Score is capped at #1#',
+            'Halves base chips and mult',
+            'Debuffs Jokers by rarity',
+            'Debuffed rarity increases',
+            'after each hand played'
+        }
+    },
+
+    loc_vars = function(self)
+		return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { '30% of blind size' } }
+    end,
+
+    key = 'dreadbloon',
+    atlas = 'Blind',
+    pos = { y = 12 },
+    dollars = 8,
+    mult = 8, -- 8x base score (400k)
+    boss = { showdown = true },
+    boss_colour = HEX("FFDC3F"),
+    discovered = true,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_dreadbloon'
+    end,
+
+    set_blind = function(self)
+        self.debuff_rarity = 1
+        for _,joker in ipairs(G.jokers.cards) do
+            SMODS.recalc_debuff(joker)
+        end
+    end,
+
+    press_play = function(self)
+        self.prepped = true
+    end,
+
+    drawn_to_hand = function(self)
+        if self.prepped == true then
+            self.prepped = false
+            self.debuff_rarity = self.debuff_rarity + 1
+            for _,joker in ipairs(G.jokers.cards) do
+                SMODS.recalc_debuff(joker)
+            end
+        end
+    end,
+
+    recalc_debuff = function(self, card, from_blind)
+        if card.area == G.jokers then
+            return card.config.center.rarity == self.debuff_rarity
+        end
+    end,
+
+    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+        return math.max(math.floor(mult * 0.5 + 0.5), 1),
+               math.max(math.floor(hand_chips * 0.5 + 0.5), 0),
+               true
+    end,
+
+    bloons_modify_score = function(self, score)
+		return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
+	end,
+}
+
+SMODS.Blind {
+    loc_txt = {
         name = 'Phayze',
         text = {
             'Moves a random Joker to the leftmost',
@@ -103,106 +329,94 @@ SMODS.Blind {
 
 SMODS.Blind {
     loc_txt = {
-        name = 'Dreadbloon',
+        name = 'Blastapopoulos',
         text = {
-            'Score is capped at #1#',
-            'Halves base chips and mult',
-            'Debuffs common jokers',
-            'Debuffed rarity is increased',
-            'after a hand is scored',
+            'Card draw adds a Meteor card to deck',
+            'Score is reduced by #1#% per heat point',
+            'Played scoring cards increase heat by #2#',
+            'Scoring Meteor cards increase heat by #3#',
+            'Held Frozen cards decrease heat by #4#'
         }
     },
-
-    loc_vars = function(self)
-		return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { '30% of blind size' } }
-    end,
-
-    key = 'dreadbloon',
+    key = 'blastapopoulos',
     atlas = 'Blind',
     pos = { y = 24 },
     dollars = 8,
-    mult = 8, -- 8x base score (400k)
+    mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },
-    boss_colour = HEX("FFDC3F"),
+    boss_colour = HEX("FF862E"),
     discovered = true,
 
-    in_pool = function()
-        return G.GAME.challenge == 'c_bloons_dreadbloon'
+    loc_vars = function(self)
+        return {
+            vars = { 10, 1, 3, 3 }
+        }
     end,
 
-    set_blind = function(self) 
-        self.debuff_rarity = 1
-        for _,joker in ipairs(G.jokers.cards) do
-            SMODS.recalc_debuff(joker)
-        end
+    collection_loc_vars = function(self)
+        return {
+            vars = { 10, 1, 3, 3 }
+        }
+    end,
+
+    in_pool = function()
+        return G.GAME.challenge == 'c_bloons_blastapopoulos'
     end,
 
     press_play = function(self)
-        self.prepped = true
+        self.checked = {}
     end,
 
     drawn_to_hand = function(self)
-        if self.prepped == true then
-            self.prepped = false
-            self.debuff_rarity = self.debuff_rarity + 1
-            for _,joker in ipairs(G.jokers.cards) do
-                SMODS.recalc_debuff(joker)
+        self.heat = 0
+        local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('blastapopoulos'))
+        local card = SMODS.add_card({
+            set = 'Playing Card',
+            front = card_front,
+            area = G.deck,
+            skip_materialize = false,
+        })
+        card:set_ability(G.P_CENTERS.m_bloons_meteor, nil, true)
+
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                return true
+            end
+        }))
+        draw_card(G.play,G.deck, 90,'up', nil)
+    end,
+
+    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+        for _, card in ipairs(G.hand.cards) do
+            if not self.checked[card] and card.config.center == G.P_CENTERS.m_bloons_frozen then
+                self.checked[card] = true
+                self.heat = self.heat - 3
+                return  mult, hand_chips, true
+            end
+        end
+        return mult, hand_chips, false
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if not self.checked[context.other_card] then
+                self.checked[context.other_card] = true
+                if context.other_card.ability.name == 'Meteor Card' then
+                    self.heat = self.heat + 5
+                else
+                    self.heat = self.heat + 1
+                end
             end
         end
     end,
 
-    recalc_debuff = function(self, card, from_blind)
-        if card.area == G.jokers then
-            return card.config.center.rarity == self.debuff_rarity
+    bloons_modify_score = function(self, score)
+        if self.heat <= 0 then
+            return score
         end
+        local reduction = 1 - math.min(self.heat * 0.05, 1)
+        local reduced_score = math.floor(score * reduction + 0.5)
+        return reduced_score
     end,
-
-    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        return math.max(math.floor(mult * 0.5 + 0.5), 1),
-               math.max(math.floor(hand_chips * 0.5 + 0.5), 0),
-               true
-    end,
-
-    bloons_cap_score = function(self, score)
-		return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
-	end,
-}
-
-SMODS.Blind {
-    loc_txt = {
-        name = 'Vortex',
-        text = {
-            'Appears in ante #1#',
-            '-#2# hand'
-        }
-    },
-    key = 'vortex',
-    atlas = 'Blind',
-    pos = { y = 5 },
-    dollars = 8,
-    mult = 25, -- 25x base score (500k)
-    boss = { showdown = true },
-    boss_colour = HEX("63E0FF"),
-    discovered = true,
-
-    loc_vars = function(self)
-        return { vars = { 6, 1 } }
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { 6, 1 } }
-    end,
-
-    in_pool = function()
-        return G.GAME.challenge == 'c_bloons_vortex'
-    end,
-
-    set_blind = function(self)
-        self.hands_removed = 1
-        ease_hands_played(-self.hands_removed)
-    end
 }
