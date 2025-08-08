@@ -1,47 +1,18 @@
 Added Jokers:
-- Desperado
-- Banana Salvage
-- Monkey Bank
-- Monkey Intelligence Bureau
-- Supply Drop
-- Comanche Defense
-- Rocket Storm
-- Bloon Sabotage
-- Monkey City
-- Twin Sixes
-- Absolute Zero
-- Apache Prime
-- Wizard Lord Phoenix
-- Avatar of Wrath
-- Megalodon
-- ???
+
 
 Added Decks:
-- Benjamin Deck
 
-Added Consumables:
-- Volcano
 
 Added Enhancements:
-- Boosted
+
 
 General Changes:
-- Druid of Wrath replaced wtih Avatar of Wrath
-- Added 6 new challenges, which include 4 high idfficulty Boss Batles
+- Glue Trap, Freezing Trap moved to Power Card
 
 Balance Changes:
-- Mermonkey now gives +15 Mult instead of +90 Chips
-- Beast Handler now gives +90 Chips instead of +12 Mult
-- Downdraft gives +2 hands on Boss Blinds
-- Crossbow Master cost 8 -> 7
-- Bomb Blitz cost 8 -> 7
-- The Bloon Solver cost 8 -> 7
-- Elite Defender cost 8 -> 7
-- Inferno Ring cost 9 -> 8
-- Blooncineration cost 9 -> 8
-- Avatar of Wrath cost 9 -> 8
-- Brickell Deck now sets your discards to 0 at the start of each round
+- Neva-Miss Targeting score range increased 90%~110% > 80%~120%
+- Favored Trades first hand of round Gold card > Diamond
+- Megalodon +Mult 4 > 2, +Chips 30 > 10
 
 Fixes:
-- Artillery Battery now shows correct probability if changed
-- Jokers with end of round effects use correct logic

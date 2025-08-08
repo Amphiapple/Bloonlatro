@@ -40,7 +40,6 @@ SMODS.Enhancement ({ --Frozen
     end
 })
 
-
 SMODS.Enhancement ({ --Glued
     key = 'glued',
     name = 'Glued Card',
@@ -63,31 +62,87 @@ SMODS.Enhancement ({ --Glued
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
             card:set_ability(G.P_CENTERS.c_base, nil, true)
-        elseif context.discard and context.other_card == card then
+        elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
             ease_dollars(-1*card.ability.cost)
         end
     end
 })
 
---[[
 SMODS.Enhancement ({ --Stunned
     key = 'stunned',
     name = 'Stunned Card',
     loc_txt = {
         name = 'Stunned Card',
         text = {
-            '{C:inactive}unimplemented{}',
+            'Wears off and is',
+            'discarded if held in hand'
         }
     },
 	atlas = "Enhancement",
 	pos = { x = 2, y = 0 },
     order = 12,
 
+    in_pool = function()
+        return false
+    end,
     calculate = function(self, card, context)
+        if context.before and context.cardarea == G.hand then
+            stop_use()
+            G.CONTROLLER.interrupt.focus = true
+            G.CONTROLLER:save_cardarea_focus('hand')
+            for k, v in ipairs(G.playing_cards) do
+                v.ability.forced_selection = nil
+            end
+            local stunned = {}
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Stunned Card' then
+                    stunned[#stunned+1] = v
+                    v:set_ability(G.P_CENTERS.c_base, nil, true)
+                end
+            end
+            if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
+            local count = math.min(#stunned, G.discard.config.card_limit - #G.play.cards)
+            if count > 0 then 
+                table.sort(stunned, function(a,b) return a.T.x < b.T.x end)
+                inc_career_stat('c_cards_discarded', count)
+                for j = 1, #G.jokers.cards do
+                    G.jokers.cards[j]:calculate_joker({pre_discard = true, full_hand = stunned, hook = hook})
+                end
+                local cards = {}
+                local destroyed_cards = {}
+                for i=1, count do
+                    stunned[i]:calculate_seal({discard = true})
+                    local removed = false
+                    for j = 1, #G.jokers.cards do
+                        local eval = nil
+                        eval = G.jokers.cards[j]:calculate_joker({discard = true, other_card =  stunned[i], full_hand = stunned})
+                        if eval then
+                            if eval.remove then removed = true end
+                            card_eval_status_text(G.jokers.cards[j], 'jokers', nil, 1, nil, eval)
+                        end
+                    end
+                    table.insert(cards, stunned[i])
+                    if removed then
+                        destroyed_cards[#destroyed_cards + 1] = stunned[i]
+                        stunned[i]:start_dissolve()
+                    else 
+                        stunned[i].ability.discarded = true
+                        draw_card(G.hand, G.discard, i*100/count, 'down', false, stunned[i])
+                    end
+                end
 
+                if destroyed_cards[1] then 
+                    for j=1, #G.jokers.cards do
+                        eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = destroyed_cards})
+                    end
+                end
+
+                G.GAME.round_scores.cards_discarded.amt = G.GAME.round_scores.cards_discarded.amt + #cards
+                check_for_unlock({type = 'discard_custom', cards = cards})
+            end
+        end
     end
 })
-]]
 
 SMODS.Enhancement ({ --Meteor
     key = 'meteor',
