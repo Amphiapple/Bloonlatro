@@ -1302,7 +1302,7 @@ SMODS.Joker { --More Tacks
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 8 then
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 10 then
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult,
