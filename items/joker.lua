@@ -2230,7 +2230,7 @@ SMODS.Joker { --Flash
             end
         elseif context.joker_main and card.ability.extra.counter == card.ability.extra.limit then
             return {
-                x_mult = card.ability.extra.mult,
+                mult = card.ability.extra.mult,
             }
         end
     end
