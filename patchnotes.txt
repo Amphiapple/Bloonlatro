@@ -4,14 +4,18 @@ Added Jokers:
 Added Decks:
 
 
-Added Enhancements:
-
+Added Consumables:
+- Super Monkey Storm
+- Time Stop
+- Cash Drop
+- Psychic Blast
 
 General Changes:
-- Glue Trap, Freezing Trap moved to Power Card
+- Glue Trap, Freezing Trap are now Power Cards
 
 Balance Changes:
 - Neva-Miss Targeting score range increased 90%~110% > 80%~120%
+- MOAB Press first hand of round -> single face card
 - Favored Trades first hand of round Gold card > Diamond
 - Megalodon +Mult 4 > 2, +Chips 30 > 10
 

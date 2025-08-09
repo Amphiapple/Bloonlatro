@@ -116,7 +116,7 @@ SMODS.Consumable { --SMS
     atlas = 'Consumable',
 	pos = { x = 0, y = 0 },
 	order = 1,
-    config = { percent = 50, max = 20000 },
+    config = { percent = 50, max = 10000 },
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.percent, card.ability.max } }
@@ -146,11 +146,54 @@ SMODS.Consumable { --SMS
             end
         }))
         if G.GAME.chips >= G.GAME.blind.chips then
-            G.STATE = G.STATES.HAND_PLAYED
-            G.STATE_COMPLETE = true
-            delay(0.3)
-            end_round()
+            G.E_MANAGER:add_event(
+                Event({
+                    trigger = "immediate",
+                    func = function()
+                        if G.STATE ~= G.STATES.SELECTING_HAND then
+                            return false
+                        end
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end,
+                }),
+                "other"
+            )
         end
+    end,
+    can_use = function(self, card)
+        if G.GAME.blind and G.GAME.blind.chips > 0 then
+            return true
+        end
+    end
+}
+
+SMODS.Consumable { --Time Stop
+    key = 'time',
+    set = 'Power',
+    name = 'Time Stop',
+    loc_txt = {
+        name = 'Time Stop',
+        text = {
+            'Gain {C:blue}+#1#{} hand and {C:red}+#2#{} discards',
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 3, y = 0 },
+	order = 4,
+    config = { hands = 1, discards = 2 },
+
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.hands, card.ability.discards } }
+	end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({func = function()
+            ease_hands_played(card.ability.hands)
+            ease_discard(card.ability.discards, nil, true)
+        return true end }))
     end,
     can_use = function(self, card)
         if G.GAME.blind and G.GAME.blind.chips > 0 then

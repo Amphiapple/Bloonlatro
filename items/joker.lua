@@ -2478,10 +2478,10 @@ SMODS.Joker { --Press
     loc_txt = {
         name = 'MOAB Press',
         text = {
-            'Add a {C:attention}Red Seal{} to',
-            '{C:attention}first{} card held in hand',
-            'on {C:attention}first hand{} of round',
-            'against {C:attention}Boss Blinds{}'
+            'If played hand is a',
+            'single {C:attention}face{} card',
+            'on the {C:attention}Boss Blind{},',
+            'add a {C:attention}Red Seal{} to it',
         }
     },
 	atlas = 'Joker',
@@ -2495,17 +2495,12 @@ SMODS.Joker { --Press
         info_queue[#info_queue + 1] = G.P_SEALS.Red
     end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn and G.GAME.blind.boss and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.before and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 and G.hand.cards[1] and not G.hand.cards[1].debuff and not context.blueprint then
+        if context.before and G.GAME.blind.boss and #context.full_hand == 1 and not context.full_hand[1].debuff and context.full_hand[1]:is_face() and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.cards[1]:set_seal('Red', nil, true)
+                    context.full_hand[1]:set_seal('Red', nil, true)
                     return true
                 end
             }))
@@ -2732,7 +2727,7 @@ SMODS.Joker { --Flavored
         name = 'Favored Trades',
         text = {
             'If {C:attention}first hand{} of round',
-            'is a single {C:attention}face{} card,',
+            'is a single {C:diamond}Diamond{},',
             'add a {C:attention}Purple Seal{} to it',
         }
     },
@@ -2752,7 +2747,7 @@ SMODS.Joker { --Flavored
                 return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
-        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1]:is_face() and not context.full_hand[1].debuff and not context.blueprint then
+        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1]:is_suit('Diamonds') and not context.full_hand[1].debuff and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
