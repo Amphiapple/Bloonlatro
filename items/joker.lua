@@ -54,6 +54,16 @@ Card.set_cost = function(self, ...)
     return ret
 end
 
+--Energizer reroll function
+local calculate_reroll_cost_old = calculate_reroll_cost
+calculate_reroll_cost = function(skip_increment)
+    local ret = calculate_reroll_cost_old(skip_increment)
+    if #find_joker('Energizer') > 0 then
+        G.GAME.current_round.reroll_cost = math.floor(G.GAME.current_round.reroll_cost / 2.0)
+    end
+    return ret
+end
+
 --New end_round if Mdom is active
 function end_round_new(mdoms)
     G.E_MANAGER:add_event(Event({
@@ -1384,6 +1394,52 @@ SMODS.Joker { --Corrosive
     end
 }
 
+SMODS.Joker { --Quad
+    key = 'quad',
+    name = 'Quad Darts',
+    loc_txt = {
+        name = 'Quad Darts',
+        text = {
+            '{C:mult}+#1#{} Mult per played hand',
+            'with exactly {C:attention}#2#{} cards',
+            '{C:mult}-#1#{} Mult otherwise',
+            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 0, y = 4 },
+    rarity = 1,
+	cost = 6,
+	order = 191,
+	blueprint_compat = true,
+    perishable_compat = false,
+    config = { extra = { mult = 1, number = 4, current = 0 } }, --Variables: mult = +mult gain or loss, current = current +mult
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.mult, card.ability.extra.number, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            if #context.full_hand == card.ability.extra.number then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                return {
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+                }
+            elseif card.ability.extra.current > 0 then
+                card.ability.extra.current = card.ability.extra.current - card.ability.extra.mult
+                return {
+                    message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.mult}},
+                    colour = G.C.RED,   
+                }
+            end
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Burny
     key = 'burny',
     name = 'Burny Stuff',
@@ -1515,6 +1571,43 @@ SMODS.Joker { --Salvage
     end
 }
 
+SMODS.Joker { --Smart
+    key = 'smart',
+    name = 'Smart Spikes',
+    loc_txt = {
+        name = 'Smart Spikes',
+        text = {
+            'This Joker gains {C:mult}+#1#{}',
+            'Mult per unused hand',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 0, y = 5 },
+    rarity = 1,
+	cost = 5,
+	order = 201,
+	blueprint_compat = true,
+    perishable_compat = false,
+    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult per unused hand, current = current +mult
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.current
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + G.GAME.current_round.hands_left
+            return {
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Discount
     key = 'discount',
     name = 'Monkey Commerce',
@@ -1528,7 +1621,7 @@ SMODS.Joker { --Discount
 	pos = { x = 1, y = 5 },
     rarity = 1,
 	cost = 5,
-	order = 203,
+	order = 202,
 	blueprint_compat = false,
     config = { extra = { cost = 1 } }, --Variables: cost = discount amount
 
@@ -1691,6 +1784,9 @@ SMODS.Joker { --Bioboomer
             end
             if has_steel then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                return {
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+                }
             end
         elseif context.joker_main then
             return {
@@ -1729,6 +1825,53 @@ SMODS.Joker { --Mauler
             }
         end
     end
+}
+
+SMODS.Joker { --Blade
+    key = 'blade',
+    name = 'Blade Sooter',
+	loc_txt = {
+        name = 'Blade Shooter',
+        text = {
+            'This {C:attention}Joker{} gains {C:mult}+#1#{} ',
+            'Mult if scoring hand',
+            'contains a {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 3, y = 6 },
+    rarity = 1,
+	cost = 5,
+	order = 214,
+	blueprint_compat = true,
+    perishable_compat = false,
+    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult gain if scoring hand contains 7, 8, 9, current = current +mult
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local has_789 = false
+            for k, v in ipairs(context.scoring_hand) do
+                if v:get_id() == 7 or v:get_id() == 8 or v:get_id() == 9 then
+                    has_789 = true
+                    break
+                end
+            end
+            if has_789 then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                return {
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+                }
+            end
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current
+            }
+        end
+    end  
 }
 
 SMODS.Joker { --Shards
@@ -1960,6 +2103,9 @@ SMODS.Joker { --Trip guns
             end
             if has_3oak then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+                return {
+                    message = localize{type='variable',key='a_x_mult',vars={card.ability.extra.Xmult}}
+                }
             end
         elseif context.joker_main then
             return {
@@ -2230,7 +2376,7 @@ SMODS.Joker { --Flash
             end
         elseif context.joker_main and card.ability.extra.counter == card.ability.extra.limit then
             return {
-                x_mult = card.ability.extra.mult,
+                mult = card.ability.extra.mult,
             }
         end
     end
@@ -3646,6 +3792,37 @@ SMODS.Joker { --Edef
     end
 }
 
+SMODS.Joker { --Gizer
+    key = 'gizer',
+    name = 'Energizer',
+	loc_txt = {
+        name = 'Energizer',
+        text = {
+            '{C:green}Rerolls{} cost half',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 12 },
+    rarity = 3,
+	cost = 8,
+	order = 278,
+	blueprint_compat = false,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.0,
+        func = (function()
+            calculate_reroll_cost(true)
+            return true
+        end)
+    }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        calculate_reroll_cost(true)
+    end,
+}
+
 SMODS.Joker { --Aprime
     key = 'aprime',
     name = 'Apache Prime',
@@ -4048,7 +4225,7 @@ SMODS.Joker { --Gustice
 	loc_txt = {
         name = 'Golden Justice',
         text = {
-            '{C;attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult when scored,',
+            '{C:attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult when scored,',
             '{C:green}#2# in #3#{} chance to destroy card',
             '{C:attention}Glass{} cards give {C:money}$#4#{} if',
             'held in hand at end of round',
@@ -4080,20 +4257,15 @@ SMODS.Joker { --Gustice
             return {
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.after and not context.blueprint then
-            local gold = 0
-            for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Gold Card' and not v.shattered and not v.removed and not v.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
-                    gold = gold + 1
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        func = function()
-                            v:shatter()
-                            return true
-                        end
-                    }))
+        elseif context.destroying_card and context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    context.destroying_card:shatter()
+                    return true
                 end
-            end
+            }))
+            return true
         elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
             ease_dollars(card.ability.extra.gold_dollars)
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_dollars,colour = G.C.MONEY, delay = 0.45})

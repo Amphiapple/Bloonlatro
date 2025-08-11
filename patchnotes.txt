@@ -1,5 +1,7 @@
 Added Jokers:
-
+- Quad Darts
+- Smart Spikes
+- Blade Shooter
 
 Added Decks:
 
@@ -20,3 +22,5 @@ Balance Changes:
 - Megalodon +Mult 4 > 2, +Chips 30 > 10
 
 Fixes:
+- Flash Bomb gives +mult instead of Xmult
+- Golden Justice actually removes destroyed Gold cards
