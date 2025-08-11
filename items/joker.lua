@@ -4086,20 +4086,15 @@ SMODS.Joker { --Gustice
             return {
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.after and not context.blueprint then
-            local gold = 0
-            for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Gold Card' and not v.shattered and not v.removed and not v.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
-                    gold = gold + 1
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        func = function()
-                            v:shatter()
-                            return true
-                        end
-                    }))
+        elseif context.destroying_card and context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    context.destroying_card:shatter()
+                    return true
                 end
-            end
+            }))
+            return true
         elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
             ease_dollars(card.ability.extra.gold_dollars)
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_dollars,colour = G.C.MONEY, delay = 0.45})
