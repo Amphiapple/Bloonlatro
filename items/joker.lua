@@ -1753,10 +1753,10 @@ SMODS.Joker { --Bioboomer
 	loc_txt = {
         name = 'Bionic Boomerang',
         text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{}',
-            'Mult if a {C:attention}Steel{} card',
+            'This {C:attention}Joker{} gains {C:chips}+#1#{}',
+            'Chips if a {C:attention}Steel{} card',
             'is held in hand',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
         }
     },
 	atlas = 'Joker',
@@ -1767,11 +1767,11 @@ SMODS.Joker { --Bioboomer
 	blueprint_compat = true,
     perishable_compat = false,
     enhancement_gate = 'm_steel',
-    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult gain if steel is held, current = current +mult
+    config = { extra = { chips = 5, current = 0 } }, --Variables: chips = +chips gain if steel is held, current = current +chips
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
-		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+		return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -1783,14 +1783,14 @@ SMODS.Joker { --Bioboomer
                 end
             end
             if has_steel then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
                 return {
-                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+                    message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}}
                 }
             end
         elseif context.joker_main then
             return {
-                mult = card.ability.extra.current
+                chips = card.ability.extra.current
             }
         end
     end
@@ -2661,8 +2661,8 @@ SMODS.Joker { --Blimpact
     loc_txt = {
         name = 'Bloon Impact',
         text = {
-            '{C:attention}Stun{} all scoring cards on',
-            '{C:attention}first hand{} of round'
+            '{C:attention}Stun{} all cards in',
+            '{C:attention}first discard{} of round'
         }
     },
 	atlas = 'Joker',
@@ -2676,19 +2676,17 @@ SMODS.Joker { --Blimpact
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_played == 0 then
-            for k, v in pairs(context.scoring_hand) do
-                if not v.debuff then
-                    v:set_ability('m_bloons_stunned', nil, true)
-                    v:juice_up()
-                end
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
             end
-            if context.other_card == context.scoring_hand[1] then
-                return {
-                    message = 'Stunned!',
-                    colour = G.C.RED
-                }
-            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff then
+            context.other_card:set_ability('m_bloons_stunned', nil, true)
+            return {
+                message = 'Stunned!',
+                colour = G.C.RED
+            }
         end
     end
 }
@@ -3324,7 +3322,7 @@ SMODS.Joker { --City
             'Create a free {C:attention}Dart Monkey{}',
             'card at start of round',
             'Earn {C:money}$#1#{} for each {C:attention}Dart Monkey{}',
-            'card at end of round',
+            'created at end of round',
             '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
         }
     },
@@ -3334,15 +3332,10 @@ SMODS.Joker { --City
 	cost = 7,
 	order = 262,
 	blueprint_compat = true,
-    config = { extra = { money = 2, current = 0 } },
+    config = { extra = { money = 1, current = 0 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money, card.ability.extra.current } } --Variables: money = dollars per dart, current = current end of round dollars
-    end,
-    update = function(self, card, dt)
-        if G.STAGE == G.STAGES.RUN then
-            card.ability.extra.current = #find_joker('Dart Monkey') * card.ability.extra.money
-        end
     end,
     calc_dollar_bonus = function(self, card)
         return card.ability.extra.current
@@ -3360,8 +3353,9 @@ SMODS.Joker { --City
                     G.GAME.joker_buffer = 0
                     return true
                 end
-            }))   
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE}) 
+            }))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.money
         end
     end
 }
@@ -4412,3 +4406,77 @@ SMODS.Joker { --Fortress
     end
 }
 
+SMODS.Joker { --Smines
+    key = 'smines',
+    name = 'Super Mines',
+	loc_txt = {
+        name = 'Super Mines',
+        text = {
+            'Creates a {C:attention}Mine{} every {C:attention}#1#{C:inactive}#2#{} hands',
+            'If chips scored is below required',
+            'chips on {C:attention}final hand{} of round,',
+            'spend a mine to give {X:mult,C:white}X#3#{} Mult',
+            '{C:inactive}(Currently {C:attention}#4#{C:inactive} mines){}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 14 },
+    soul_pos = { x = 8, y = 15 },
+    rarity = 4,
+	cost = 20,
+	order = 299,
+	blueprint_compat = true,
+    config = { extra = { limit = 3, counter = 3, Xmult = 3, mines = 0 } }, --Variables = 
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(count, cap)
+			if count == cap then
+				return ''
+			end
+			return ' [' .. count .. ']'
+		end
+		return {
+			vars = {
+				card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit),
+                card.ability.extra.Xmult,
+                card.ability.extra.mines
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
+            if not context.blueprint then
+                local eval = function()
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+                end
+                juice_card_until(card, eval, true)
+            end
+            if card.ability.extra.counter == card.ability.extra.limit then
+                card.ability.extra.mines = card.ability.extra.mines + 1
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Mine', colour = G.C.RED})
+            end
+        elseif context.final_scoring_step and G.GAME.current_round.hands_left == 0 and not context.blueprint then
+            while (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < 1 and card.ability.extra.mines > 0 do
+                mult = mod_mult(mult * card.ability.extra.Xmult)
+                update_hand_text( { delay = 0 }, { mult = mult } )
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('multhit2')
+                        delay(0.5)
+                        return true
+                    end
+                }))
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = localize{
+                        type = 'variable',
+                        key = 'a_xmult',
+                        vars = {card.ability.extra.Xmult}
+                    }
+                })
+                card.ability.extra.mines = card.ability.extra.mines - 1
+            end
+        end
+    end
+}

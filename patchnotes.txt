@@ -2,6 +2,8 @@ Added Jokers:
 - Quad Darts
 - Smart Spikes
 - Blade Shooter
+- Energizer
+- ???
 
 Added Decks:
 
@@ -16,9 +18,12 @@ General Changes:
 - Glue Trap, Freezing Trap are now Power Cards
 
 Balance Changes:
+- Bionic Boomerang gains +5 chips instead of +1 Mult
 - Neva-Miss Targeting score range increased 90%~110% > 80%~120%
-- MOAB Press first hand of round -> single face card
+- MOAB Press first hand of round > single face card
+- Bloon Impact now stuns on first discard instead of first hand
 - Favored Trades first hand of round Gold card > Diamond
+- Monkey City +$2 for each current dart > +$1 for each dart created
 - Megalodon +Mult 4 > 2, +Chips 30 > 10
 
 Fixes:
