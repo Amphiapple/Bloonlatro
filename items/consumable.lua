@@ -101,6 +101,11 @@ SMODS.Consumable { --SMS
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.percent, card.ability.max } }
 	end,
+    can_use = function(self, card)
+        if G.GAME.blind and G.GAME.blind.chips > 0 then
+            return true
+        end
+    end,
     use = function(self, card, area, copier)
         local score = G.GAME.blind.chips * card.ability.percent / 100.0
         if score > card.ability.max then
@@ -143,15 +148,73 @@ SMODS.Consumable { --SMS
                 "other"
             )
         end
-    end,
+    end
+}
+
+SMODS.Consumable { --Mboost
+    key = 'mboost',
+    set = 'Power',
+    name = 'Monkey Boost',
+    loc_txt = {
+        name = 'Monkey Boost',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult next hand',
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 1, y = 0 },
+	order = 2,
+    config = { Xmult = 3, active = false },
+
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.Xmult } }
+	end,
     can_use = function(self, card)
-        if G.GAME.blind and G.GAME.blind.chips > 0 then
-            return true
+        return not card.ability.active
+    end,
+    use = function(self, card, area, copier)
+        if not card.ability.active then
+			G.GAME.DESTROY_CARD = copy_card(card)
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
+            local eval = function()
+                return (not G.RESET_JIGGLES)
+            end
+            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+		end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.active then
+            return {
+                x_mult = card.ability.Xmult
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and card.ability.active then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
         end
     end
 }
 
-SMODS.Consumable { --Time Stop
+SMODS.Consumable { --Time
     key = 'time',
     set = 'Power',
     name = 'Time Stop',
@@ -169,17 +232,17 @@ SMODS.Consumable { --Time Stop
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.hands, card.ability.discards } }
 	end,
+    can_use = function(self, card)
+        if G.GAME.blind and G.GAME.blind.chips > 0 then
+            return true
+        end
+    end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({func = function()
             ease_hands_played(card.ability.hands)
             ease_discard(card.ability.discards, nil, true)
         return true end }))
     end,
-    can_use = function(self, card)
-        if G.GAME.blind and G.GAME.blind.chips > 0 then
-            return true
-        end
-    end
 }
 
 SMODS.Consumable { --Cash Drop
@@ -189,7 +252,7 @@ SMODS.Consumable { --Cash Drop
     loc_txt = {
         name = 'Cash Drop',
         text = {
-            'Gives {C:money}$#1#{}',
+            'Gives {C:money}$#1#{} during blinds',
         }
     },
     atlas = 'Consumable',
@@ -200,6 +263,11 @@ SMODS.Consumable { --Cash Drop
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.dollars } }
 	end,
+    can_use = function(self, card)
+        if G.GAME.blind and G.GAME.blind.chips > 0 then
+            return true
+        end
+    end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -212,9 +280,6 @@ SMODS.Consumable { --Cash Drop
             end
         }))
         delay(0.6)
-    end,
-    can_use = function(self, card)
-        return true
     end
 }
 
@@ -298,14 +363,13 @@ SMODS.Consumable { --Energizing Totem
         }
     },
     atlas = 'Consumable',
-	pos = { x = 0, y = 2 },
-	order = 11,
+	pos = { x = 1, y = 2 },
+	order = 12,
     config = { Xmult = 1.5, rounds = 5, current = 5 },
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.Xmult, card.ability.current } }
 	end,
-
     calculate = function(self, card, context)
         if context.joker_main then
             return {

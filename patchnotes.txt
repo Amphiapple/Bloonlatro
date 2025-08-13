@@ -17,6 +17,7 @@ Added Boosters:
 
 Added Consumables:
 - Super Monkey Storm
+- Monkey Boost
 - Time Stop
 - Cash Drop
 - Psychic Blast
