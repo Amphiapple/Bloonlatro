@@ -807,7 +807,7 @@ SMODS.Joker { --Ninja
 	cost = 4,
 	order = 166,
 	blueprint_compat = true,
-    config = { extra = { mult = 4, slots = 1} }, --Variables: mult = +mult, slots = extra joker slots
+    config = { extra = { mult = 4, slots = 1 } }, --Variables: mult = +mult, slots = extra joker slots
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
@@ -1394,6 +1394,45 @@ SMODS.Joker { --Corrosive
     end
 }
 
+SMODS.Joker { --Intel
+    key = 'intel',
+    name = 'Advanced Intel',
+    loc_txt = {
+        name = 'Advanced Intel',
+        text = {
+            '{C:attention}+#1#{} card slot',
+            'available in shop',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 7, y = 3 },
+    rarity = 1,
+	cost = 5,
+	order = 188,
+	blueprint_compat = false,
+    config = { extra = { slots = 1 } }, --Variables: mult = +mult, slots = extra shop slots
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.slots } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(card.ability.extra.slots)
+                return true
+            end
+        }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(-card.ability.extra.slots)
+                return true
+            end
+        }))
+    end
+}
+
 SMODS.Joker { --Quad
     key = 'quad',
     name = 'Quad Darts',
@@ -1467,6 +1506,55 @@ SMODS.Joker { --Burny
         if context.destroying_card and context.scoring_hand[1] and context.destroying_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
             return true
         end
+    end
+}
+
+SMODS.Joker { --Laser Shock
+    key = 'lshock',
+    name = 'Laser Shock',
+    loc_txt = {
+        name = 'Laser Shock',
+        text = {
+            '{C:mult}+??{} Mult for current and',
+            'next hand if scoring hand',
+            'contains a {C:attention}face{} card',
+            '{C:inactive}Shock damage {C:mult}+#1#{C:inactive} Mult{}'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 2, y = 4 },
+    rarity = 1,
+	cost = 6,
+	order = 193,
+	blueprint_compat = true,
+
+    config = { extra = { max = 23, min = 0, mult = 0 } }, --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local has_face = false
+            for k, v in ipairs(context.scoring_hand) do
+                if v:is_face() then
+                    has_face = true
+                end
+            end
+            local temp_mult = card.ability.extra.mult
+            if has_face then
+                local rand_mult = pseudorandom('lshock', card.ability.extra.min, card.ability.extra.max)
+                temp_mult = temp_mult + rand_mult
+                card.ability.extra.mult = rand_mult
+            else
+                card.ability.extra.mult = 0
+            end
+            if temp_mult > 0 then
+                return {
+                    mult = temp_mult
+                }
+            end
+		end
     end
 }
 
@@ -1871,7 +1959,7 @@ SMODS.Joker { --Blade
                 mult = card.ability.extra.current
             }
         end
-    end  
+    end
 }
 
 SMODS.Joker { --Shards
@@ -2228,7 +2316,7 @@ SMODS.Joker { --Draft
 }
 
 SMODS.Joker { --Shell Shock
-    key = 'shock',
+    key = 'sshock',
     name = 'Shell Shock',
     loc_txt = {
         name = 'Shell Shock',
@@ -2248,11 +2336,11 @@ SMODS.Joker { --Shell Shock
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'shock')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sshock')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'shock', card.ability.extra.num, card.ability.extra.denom, 'shock') then
+        if context.repetition and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'sshock', card.ability.extra.num, card.ability.extra.denom, 'sshock') then
             context.other_card:set_ability('m_bloons_stunned', nil, true)
             return {
                 message = localize('k_again_ex'),
@@ -2428,6 +2516,44 @@ SMODS.Joker { --Brew
     end
 }
 
+SMODS.Joker { --Melody
+    key = 'melody',
+    name = 'Alluring Melody',
+	loc_txt = {
+        name = 'Alluring Melody',
+        text = {
+            '{C:enhanced}Enhanced{} cards become',
+            '{C:attention}Bonus{} cards when scored',
+            '{C:attention}Bonus{} cards give {C:chips}+#1#{} Chips'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 7 },
+    rarity = 2,
+	cost = 6,
+	order = 229,
+	blueprint_compat = true,
+    config = { extra = { chips = 30 } }, --Variables: chips = +chips if bonus card
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
+        return { vars = { card.ability.extra.chips } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            for k, v in ipairs(context.scoring_hand) do
+                if v.config.center ~= G.P_CENTERS.c_base and v.ability.name ~= 'Bonus' and not v.debuff then
+                    v:set_ability('m_bonus', nil, true)
+                end
+            end
+        elseif context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Bonus' and not context.other_card.debuff then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Bank
     key = 'bank',
     name = 'Monkey Bank',
@@ -2578,6 +2704,40 @@ SMODS.Joker { --MIB
         if context.mod_probability and not context.blueprint then
             return {
                 numerator = context.numerator * card.ability.extra.num
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Velo
+    key = 'velo',
+    name = 'Velociraptor',
+	loc_txt = {
+        name = 'Velociraptor',
+        text = {
+            '{C:attention}First{} played card',
+            'becomes {C:attention}Mult{} when scored',
+            '{C:attention}Mult{} cards give {C:mult}+#1#{} Mult'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 3, y = 8 },
+    rarity = 2,
+	cost = 5,
+	order = 234,
+	blueprint_compat = true,
+    config = { extra = { mult = 4 } }, --Variables: mult = +mult if mult card
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.scoring_hand[1].debuff and not context.blueprint then
+            context.scoring_hand[1]:set_ability('m_mult', nil, true)
+        elseif context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Mult' and not context.other_card.debuff then
+            return {
+                mult = card.ability.extra.mult
             }
         end
     end
@@ -4024,6 +4184,63 @@ SMODS.Joker { --GMN
                 }
             end
 		end
+    end
+}
+
+SMODS.Joker { --TT5
+    key = 'tt5',
+    name = 'Total Transformation',
+	loc_txt = {
+        name = 'Total Transformation',
+        text = {
+            'Sell this card to {C:attention}Transform{}',
+            'the {C:attention}Joker{} to the {C:attention}left{} into ',
+            'the {C:attention}Joker{} to the {C:attention}right{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 6, y = 13 },
+    rarity = 3,
+	cost = 8,
+	order = 287,
+	blueprint_compat = false,
+
+    calculate = function(self, card, context)
+        if context.selling_self and card ~= G.jokers.cards[1] and card ~= G.jokers.cards[#G.jokers.cards] then
+            local left, right
+            for k, v in ipairs(G.jokers.cards) do
+                if v == card then
+                    left = G.jokers.cards[k-1]
+                    right = G.jokers.cards[k+1]
+                end
+            end
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = 'Transformed!'})
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    left:flip()
+                    right:flip()
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    copy_card(right, left, nil, nil, right.edition and right.edition.negative)
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    left:flip()
+                    right:flip()
+                    return true
+                end
+            }))
+        end
     end
 }
 

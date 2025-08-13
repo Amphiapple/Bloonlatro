@@ -6,35 +6,15 @@ SMODS.ConsumableType { --Power Cards
         name = 'Power',
         collection = 'Power Cards',
     },
-    shop_rate = 1,
+    shop_rate = 0,
 }
 
 SMODS.Atlas {
     key = 'Consumable',
-    path = 'consumable.png',
+    path = 'consumables.png',
     px = 71,
     py = 95,
 }
-
---[[
-SMODS.Booster {
-    key = "power1",
-    loc_txt = {
-        name = 'Power Pack',
-        text = {
-            'Choose {C:attention}#1#{} of {C:attention}#2#{}',
-            '{C:power}Power cards to save',
-        }
-    },
-    atlas = 'Booster',
-	pos = { x = 0, y = 0 },
-	config = { extra = 2, choose = 1 },
-	cost = 4,
-	weight = 0,
-    kind = 'Power',
-    select_card = 'consumables',
-}
-]]
 
 SMODS.Consumable { --Volcano
     key = 'volcano',
@@ -302,4 +282,64 @@ SMODS.Consumable { --Freezing Trap
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
 		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
 	end,
+}
+
+SMODS.Consumable { --Energizing Totem
+    key = 'etotem',
+    set = 'Power',
+    name = 'Energizing Totem',
+    loc_txt = {
+        name = 'Energizing Totem',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult while in your',
+            '{C:attention}consumable{} area',
+            'Lasts {C:attention}#2#{} rounds',
+
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 0, y = 2 },
+	order = 11,
+    config = { Xmult = 1.5, rounds = 5, current = 5 },
+
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.Xmult, card.ability.current } }
+	end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.Xmult
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition then
+            card.ability.current = card.ability.current - 1
+            if card.ability.current <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        })) 
+                        return true
+                    end
+                }))
+                return {
+                    message = 'Used!',
+                    colour = G.C.FILTER
+                }
+            end
+        end
+    end
 }

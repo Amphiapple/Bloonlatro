@@ -1,6 +1,6 @@
 SMODS.Atlas {
     key = 'Blind',
-    path = 'blind.png',
+    path = 'blinds.png',
     px = 34,
     py = 34,
     atlas_table = 'ANIMATION_ATLAS',

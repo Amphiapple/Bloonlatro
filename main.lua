@@ -1,4 +1,5 @@
 assert(SMODS.load_file('items/blind.lua'))()
+assert(SMODS.load_file('items/booster.lua'))()
 assert(SMODS.load_file('items/challenge.lua'))()
 assert(SMODS.load_file('items/consumable.lua'))()
 assert(SMODS.load_file('items/deck.lua'))()

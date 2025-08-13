@@ -1,18 +1,26 @@
 Added Jokers:
 - Quad Darts
+- Advanced Intel
+- Laser Shock
 - Smart Spikes
 - Blade Shooter
+- Alluring Melody
+- Velociraptor
 - Energizer
+- Total Transformation
 - ???
 
-Added Decks:
-
+Added Boosters:
+- 2 Power Packs
+- Jumbo Power Pack
+- Mega Power Pack
 
 Added Consumables:
 - Super Monkey Storm
 - Time Stop
 - Cash Drop
 - Psychic Blast
+- Energizing Totem
 
 General Changes:
 - Glue Trap, Freezing Trap are now Power Cards
