@@ -36,5 +36,8 @@ Balance Changes:
 - Megalodon +Mult 4 > 2, +Chips 30 > 10
 
 Fixes:
+- Mermonkey activates on Bonus cards
+- Beast Handler activates on Mult cards
 - Flash Bomb gives +mult instead of Xmult
-- Golden Justice actually removes destroyed Gold cards
+- Monkey Bank increases sell price if you have exactly $5
+- Golden Justice removes destroyed Gold cards

@@ -402,7 +402,7 @@ SMODS.Joker { --Ice
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
             local eval = function()
-                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
+                return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES
             end
             juice_card_until(card, eval, true)
         elseif context.before and G.GAME.current_round.hands_played == 0 and not context.blueprint then
@@ -497,7 +497,7 @@ SMODS.Joker { --Sniper
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+                    return card.ability.extra.counter == card.ability.extra.limit - 1
                 end
                 juice_card_until(card, eval, true)
             end
@@ -944,7 +944,7 @@ SMODS.Joker { --Merm
     calculate = function(self, card, context)
         if context.joker_main then
             for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Mult' then
+                if v.ability.name == 'Bonus' then
                     return {
                         mult = card.ability.extra.mult,
                     }
@@ -1133,7 +1133,7 @@ SMODS.Joker { --Beast
     calculate = function(self, card, context)
         if context.joker_main then
             for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Bonus' then
+                if v.ability.name == 'Mult' then
                     return {
                         chips = card.ability.extra.chips,
                     }
@@ -1424,12 +1424,13 @@ SMODS.Joker { --Intel
         }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                change_shop_size(-card.ability.extra.slots)
-                return true
-            end
-        }))
+        if not G.GAME.shop then return end
+        G.GAME.shop.joker_max = G.GAME.shop.joker_max - card.ability.extra.slots
+        if G.shop_jokers and G.shop_jokers.cards then
+            G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
+            G.shop_jokers.T.w = G.GAME.shop.joker_max*1.01*G.CARD_W
+            G.shop:recalculate()
+        end
     end
 }
 
@@ -1677,7 +1678,7 @@ SMODS.Joker { --Smart
 	order = 201,
 	blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult per unused hand, current = current +mult
+    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult per unused hand, current = current +mult, hands = unused hands
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
@@ -1687,10 +1688,10 @@ SMODS.Joker { --Smart
             return {
                 mult = card.ability.extra.current
             }
-        elseif context.end_of_round and not context.individual and not context.repetition and context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + G.GAME.current_round.hands_left
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult * G.GAME.current_round.hands_left
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult * G.GAME.current_round.hands_left}}
             }
         end
     end
@@ -1807,7 +1808,7 @@ SMODS.Joker { --Trip shot
             if not context.blueprint then
                 card.ability.extra.counter = card.ability.extra.counter - 1
                 local eval = function()
-                    return (card.ability.extra.counter == 1 and not G.RESET_JIGGLES)
+                    return card.ability.extra.counter == 1
                 end
                 juice_card_until(card, eval, true)
             end
@@ -2132,7 +2133,7 @@ SMODS.Joker { --Dprec
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+                    return card.ability.extra.counter == card.ability.extra.limit - 1
                 end
                 juice_card_until(card, eval, true)
             end
@@ -2192,7 +2193,7 @@ SMODS.Joker { --Trip guns
             if has_3oak then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
                 return {
-                    message = localize{type='variable',key='a_x_mult',vars={card.ability.extra.Xmult}}
+                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}}
                 }
             end
         elseif context.joker_main then
@@ -2423,7 +2424,6 @@ SMODS.Joker { --Flash
 	cost = 6,
 	order = 286,
 	blueprint_compat = false,
-    eternal_compat = false,
     config = { extra = { mult = 30, limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
@@ -2446,7 +2446,7 @@ SMODS.Joker { --Flash
         if context.before and not context.blueprint then
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             local eval = function()
-                return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+                return card.ability.extra.counter == card.ability.extra.limit - 1
             end
             juice_card_until(card, eval, true)
             if card.ability.extra.counter == card.ability.extra.limit then
@@ -2524,7 +2524,7 @@ SMODS.Joker { --Melody
         text = {
             '{C:enhanced}Enhanced{} cards become',
             '{C:attention}Bonus{} cards when scored',
-            '{C:attention}Bonus{} cards give {C:chips}+#1#{} Chips'
+            '{C:attention}Bonus{} cards give {C:chips}+#1#{} more Chips'
         }
     },
 	atlas = 'Joker',
@@ -2579,7 +2579,7 @@ SMODS.Joker { --Bank
         return { vars = { card.ability.extra.sell_limit } }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.dollars > 5 and not context.individual and not context.repetition and not context.blueprint then
+        if context.end_of_round and G.GAME.dollars >= 5 and not context.individual and not context.repetition and not context.blueprint then
             if G.GAME.dollars >= G.GAME.interest_cap then
                 card.ability.extra_value = card.ability.extra_value + math.floor(G.GAME.interest_cap / 5)
             else 
@@ -2717,7 +2717,7 @@ SMODS.Joker { --Velo
         text = {
             '{C:attention}First{} played card',
             'becomes {C:attention}Mult{} when scored',
-            '{C:attention}Mult{} cards give {C:mult}+#1#{} Mult'
+            '{C:attention}Mult{} cards give {C:mult}+#1#{} more Mult'
         }
     },
 	atlas = 'Joker',
@@ -3005,7 +3005,7 @@ SMODS.Joker { --Supply Drop
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+                    return card.ability.extra.counter == card.ability.extra.limit - 1
                 end
                 juice_card_until(card, eval, true)
             end
@@ -3046,12 +3046,7 @@ SMODS.Joker { --Flavored
         info_queue[#info_queue + 1] = G.P_SEALS.Purple
     end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1]:is_suit('Diamonds') and not context.full_hand[1].debuff and not context.blueprint then
+        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1]:is_suit('Diamonds') and not context.full_hand[1].debuff and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
@@ -3372,22 +3367,16 @@ SMODS.Joker { --R2g
         info_queue[#info_queue + 1] = G.P_SEALS.Gold
     end,
     calculate = function(self, card, context)
-        if context.discard and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.discards_left == 1 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-            if G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        context.full_hand[1]:set_seal('Gold', nil, true)
-                        return true
-                    end
-                }))
-                delay(0.5)
-            end
+        if context.discard and G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    context.full_hand[1]:set_seal('Gold', nil, true)
+                    return true
+                end
+            }))
+            delay(0.5)
         end
     end
 }
@@ -3414,12 +3403,7 @@ SMODS.Joker { --Jbounty
         info_queue[#info_queue + 1] = G.P_SEALS.Blue
     end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 and context.full_hand[1]:get_id() == 2 and not context.full_hand[1].debuff and not context.blueprint then
+        if context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 and context.full_hand[1]:get_id() == 2 and not context.full_hand[1].debuff and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
@@ -4193,9 +4177,11 @@ SMODS.Joker { --TT5
 	loc_txt = {
         name = 'Total Transformation',
         text = {
-            'Sell this card to {C:attention}Transform{}',
+            'After {C:attention}#1#{} rounds,',
+            'sell this card to {C:attention}Transform{}',
             'the {C:attention}Joker{} to the {C:attention}left{} into ',
-            'the {C:attention}Joker{} to the {C:attention}right{}'
+            'the {C:attention}Joker{} to the {C:attention}right{}',
+            '{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)'
         }
     },
 	atlas = 'Joker',
@@ -4204,9 +4190,14 @@ SMODS.Joker { --TT5
 	cost = 8,
 	order = 287,
 	blueprint_compat = false,
+    eternal_compat = false,
+    config = { extra = { rounds = 2, current = 0 } },
 
+    loc_vars = function (self, info_queue, card)
+        return { vars = { card.ability.extra.rounds, card.ability.extra.current } }
+    end,
     calculate = function(self, card, context)
-        if context.selling_self and card ~= G.jokers.cards[1] and card ~= G.jokers.cards[#G.jokers.cards] then
+        if context.selling_self and card.ability.extra.current >= card.ability.extra.rounds and card ~= G.jokers.cards[1] and card ~= G.jokers.cards[#G.jokers.cards] and not context.blueprint then
             local left, right
             for k, v in ipairs(G.jokers.cards) do
                 if v == card then
@@ -4240,6 +4231,14 @@ SMODS.Joker { --TT5
                     return true
                 end
             }))
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + 1
+            if card.ability.extra.current >= card.ability.extra.rounds then
+                local eval = function()
+                    return not card.REMOVED
+                end
+                juice_card_until(card, eval, true)
+            end
         end
     end
 }
@@ -4666,7 +4665,7 @@ SMODS.Joker { --Smines
             card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and not G.RESET_JIGGLES)
+                    return card.ability.extra.counter == card.ability.extra.limit - 1
                 end
                 juice_card_until(card, eval, true)
             end

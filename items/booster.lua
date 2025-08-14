@@ -9,6 +9,7 @@ SMODS.Booster {
     key = "power1",
     loc_txt = {
         name = 'Power Pack',
+        group_name = 'Power Pack',
         text = {
             'Choose {C:attention}#1#{} of {C:attention}#2#{}',
             '{C:power}Power{} cards to add',
@@ -17,7 +18,6 @@ SMODS.Booster {
     },
     atlas = 'Booster',
 	pos = { x = 0, y = 0 },
-    group_key = "k_bloons_power",
 	cost = 4,
 	weight = 1.2,
     kind = 'power',
@@ -41,6 +41,7 @@ SMODS.Booster {
     key = "power2",
     loc_txt = {
         name = 'Power Pack',
+        group_name = 'Power Pack',
         text = {
             'Choose {C:attention}#1#{} of {C:attention}#2#{}',
             '{C:power}Power{} cards to add',
@@ -49,9 +50,8 @@ SMODS.Booster {
     },
     atlas = 'Booster',
 	pos = { x = 1, y = 0 },
-    group_key = "k_bloons_power",
 	cost = 4,
-	weight = 2,
+	weight = 1.2,
     kind = 'power',
     select_card = 'consumeables',
     config = { choose = 1, extra = 2 },
@@ -74,6 +74,7 @@ SMODS.Booster {
     key = "jumbopower",
     loc_txt = {
         name = 'Jumbo Power Pack',
+        group_name = 'Power Pack',
         text = {
             'Choose {C:attention}#1#{} of {C:attention}#2#{}',
             '{C:power}Power{} cards to add',
@@ -82,9 +83,8 @@ SMODS.Booster {
     },
     atlas = 'Booster',
 	pos = { x = 2, y = 0 },
-    group_key = "k_bloons_power",
 	cost = 6,
-	weight = 1,
+	weight = 0.6,
     kind = 'power',
     select_card = 'consumeables',
     config = { choose = 1, extra = 4 },
@@ -107,6 +107,7 @@ SMODS.Booster {
     key = "megapower",
     loc_txt = {
         name = 'Mega Power Pack',
+        group_name = 'Power Pack',
         text = {
             'Choose {C:attention}#1#{} of {C:attention}#2#{}',
             '{C:power}Power{} cards to add',
@@ -115,9 +116,8 @@ SMODS.Booster {
     },
     atlas = 'Booster',
 	pos = { x = 3, y = 0 },
-    group_key = "k_bloons_power",
 	cost = 8,
-	weight = 0.25,
+	weight = 0.15,
     kind = 'power',
     select_card = 'consumeables',
     config = { choose = 2, extra = 4 },

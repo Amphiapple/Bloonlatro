@@ -75,11 +75,11 @@ SMODS.Back { --Gwen
     config = { consumables = {'c_immolate'}, hand_size = -1 }
 }
 
-SMODS.Back { --Striker
-    key = "striker",    
-    name = "Striker Jones Deck",
+SMODS.Back { --Jones
+    key = "jones",
+    name = "Jones Deck",
 	loc_txt = {
-        name = 'Striker Jones Deck',
+        name = 'Jones Deck',
         text = {
             '{C:attention}Stun{} all {C:spades}Spades{}',
             'when drawn to hand'

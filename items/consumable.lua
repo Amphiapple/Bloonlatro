@@ -164,7 +164,7 @@ SMODS.Consumable { --Mboost
     atlas = 'Consumable',
 	pos = { x = 1, y = 0 },
 	order = 2,
-    config = { Xmult = 3, active = false },
+    config = { Xmult = 2, active = false },
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.Xmult } }
@@ -365,7 +365,7 @@ SMODS.Consumable { --Energizing Totem
     atlas = 'Consumable',
 	pos = { x = 1, y = 2 },
 	order = 12,
-    config = { Xmult = 1.5, rounds = 5, current = 5 },
+    config = { Xmult = 1.25, rounds = 5, current = 5 },
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.Xmult, card.ability.current } }
