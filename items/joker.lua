@@ -1897,7 +1897,7 @@ SMODS.Joker { --Mauler
     },
 	atlas = 'Joker',
 	pos = { x = 2, y = 6 },
-    rarity = 2,
+    rarity = 1,
 	cost = 5,
 	order = 213,
 	blueprint_compat = true,
@@ -2323,8 +2323,8 @@ SMODS.Joker { --Shell Shock
         name = 'Shell Shock',
         text = {
             '{C:green}#1# in #2#{} chance to',
-            '{C:attention}stun{} and retrigger',
-            'each scoring card'
+            '{C:attention}stun{} each scoring card',
+            'and give {C:mult}+#3#{} Mult'
         }
     },
     atlas = 'Joker',
@@ -2333,19 +2333,18 @@ SMODS.Joker { --Shell Shock
 	cost = 5,
 	order = 222,
 	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2, retrigger = 1 } }, --Variables: num/denom = probability fraction 
+    config = { extra = { num = 1, denom = 2, mult = 6 } }, --Variables: num/denom = probability fraction 
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sshock')
-        return { vars = { n, d } }
+        return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'sshock', card.ability.extra.num, card.ability.extra.denom, 'sshock') then
+        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'sshock', card.ability.extra.num, card.ability.extra.denom, 'sshock') and not context.other_card.debuff then
             context.other_card:set_ability('m_bloons_stunned', nil, true)
             return {
-                message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                mult = card.ability.extra.mult
             }
         end
     end
@@ -2412,19 +2411,19 @@ SMODS.Joker { --Flash
 	loc_txt = {
         name = 'Flash Bomb',
         text = {
-            '{C:mult}+#1#{} Mult and {C:attention}Stun{}',
-            'all scoring {C:spades}Spades{}',
+            '{C:mult}+#1#{} Mult and',
+            '{C:attention}Stun{} all scoring {C:spades}Spades{}',
             'every {C:attention}#2#{} hands',
             '{C:inactive}(#3#)'
         }
     },
 	atlas = 'Joker',
 	pos = { x = 5, y = 7 },
-    rarity = 2,
+    rarity = 1,
 	cost = 6,
 	order = 286,
 	blueprint_compat = false,
-    config = { extra = { mult = 30, limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+    config = { extra = { mult = 30, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
