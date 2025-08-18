@@ -102,7 +102,7 @@ SMODS.Consumable { --SMS
 		return { vars = { card.ability.percent, card.ability.max } }
 	end,
     can_use = function(self, card)
-        if G.GAME.blind and G.GAME.blind.chips > 0 then
+        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
             return true
         end
     end,
@@ -130,7 +130,7 @@ SMODS.Consumable { --SMS
                 return true
             end
         }))
-        if G.GAME.chips >= G.GAME.blind.chips then
+        if G.GAME.chips/G.GAME.blind.chips >= to_big(1) then
             G.E_MANAGER:add_event(
                 Event({
                     trigger = "immediate",
@@ -233,7 +233,7 @@ SMODS.Consumable { --Time
 		return { vars = { card.ability.hands, card.ability.discards } }
 	end,
     can_use = function(self, card)
-        if G.GAME.blind and G.GAME.blind.chips > 0 then
+        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
             return true
         end
     end,
@@ -264,7 +264,7 @@ SMODS.Consumable { --Cash Drop
 		return { vars = { card.ability.dollars } }
 	end,
     can_use = function(self, card)
-        if G.GAME.blind and G.GAME.blind.chips > 0 then
+        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
             return true
         end
     end,

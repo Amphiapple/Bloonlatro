@@ -25,10 +25,15 @@ Added Consumables:
 
 General Changes:
 - Glue Trap, Freezing Trap are now Power Cards
+- Power Packs added, power cards will not appear in the standard shop
 
 Balance Changes:
-- Bionic Boomerang gains +5 chips instead of +1 Mult
+- Bionic Boomerang gains +5 chips instead of +1 Mult=
+- MOAB Mauler rarity Uncommon > Common
 - Neva-Miss Targeting score range increased 90%~110% > 80%~120%
+- Shell Shock gives +6 Mult instead of retriggering stunned card
+- Flash Bomb hands for effect 4 > 3
+- Monkey Bank capped at $20 sell price without external price changes
 - MOAB Press first hand of round > single face card
 - Bloon Impact now stuns on first discard instead of first hand
 - Favored Trades first hand of round Gold card > Diamond
@@ -41,3 +46,4 @@ Fixes:
 - Flash Bomb gives +mult instead of Xmult
 - Monkey Bank increases sell price if you have exactly $5
 - Golden Justice removes destroyed Gold cards
+- Added Talisman big num compatability

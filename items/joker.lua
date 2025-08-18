@@ -74,7 +74,7 @@ function end_round_new(mdoms)
             local game_won = false
             G.RESET_BLIND_STATES = true
             G.RESET_JIGGLES = true
-            if G.GAME.chips - G.GAME.blind.chips >= 0 then
+            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) then
                 game_over = false
             end
             for i = 1, #G.jokers.cards do
@@ -2229,8 +2229,8 @@ SMODS.Joker { --Nevamiss
     end,
     calculate = function(self, card, context)
         if context.after and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and
-                (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips >= card.ability.extra.percent_min / 100.0 and
-                (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips <= card.ability.extra.percent_max / 100.0 then
+                (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips >= to_big(card.ability.extra.percent_min / 100.0) and
+                (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips <= to_big(card.ability.extra.percent_max / 100.0) then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -2419,7 +2419,7 @@ SMODS.Joker { --Flash
     },
 	atlas = 'Joker',
 	pos = { x = 5, y = 7 },
-    rarity = 1,
+    rarity = 2,
 	cost = 6,
 	order = 286,
 	blueprint_compat = false,
@@ -2562,7 +2562,8 @@ SMODS.Joker { --Bank
             'Gain sell value equal to',
             'interest at end of round',
             'Sell this Joker for {C:money}$#1#{} or more',
-            'to create a {C:attention}Monkey Bank{}'
+            'to create a {C:attention}Monkey Bank{}',
+            '{C:inactive}(Max capacity of {C:money}$#2#{C:inactive})'
         }
     },
 	atlas = 'Joker',
@@ -2572,24 +2573,29 @@ SMODS.Joker { --Bank
 	order = 230,
 	blueprint_compat = false,
     eternal_compat = false,
-    config = { extra = { sell_limit = 10 } }, --Variables: money = required sell price to create bank
+    config = { extra = { sell_limit = 10, capacity = 20 } }, --Variables: sell_limit = required sell price to create bank, capacity = max sell price from interest
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.sell_limit } }
+        return { vars = { card.ability.extra.sell_limit, card.ability.extra.capacity } }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.dollars >= 5 and not context.individual and not context.repetition and not context.blueprint then
-            if G.GAME.dollars >= G.GAME.interest_cap then
-                card.ability.extra_value = card.ability.extra_value + math.floor(G.GAME.interest_cap / 5)
-            else 
-                card.ability.extra_value = card.ability.extra_value + math.floor(G.GAME.dollars / 5)
+        if context.end_of_round and G.GAME.dollars >= to_big(5) and not context.individual and not context.repetition and not context.blueprint then
+            local dollars = to_big(math.floor(G.GAME.dollars / 5))
+            if G.GAME.dollars >= to_big(G.GAME.interest_cap) then
+                dollars = to_big(math.floor(G.GAME.interest_cap / 5))
             end
-            card:set_cost()
-            return {
-                message = localize('k_val_up'),
-                colour = G.C.MONEY
-            }
-        elseif context.selling_self and card.sell_cost >= card.ability.extra.sell_limit and not context.blueprint then
+            if dollars > to_big(card.ability.extra.capacity - card.sell_cost) then
+                dollars = to_big(card.ability.extra.capacity - card.sell_cost)
+            end
+            if dollars > to_big(0) then
+                card.ability.extra_value = card.ability.extra_value + dollars
+                card:set_cost()
+                return {
+                    message = localize('k_val_up'),
+                    colour = G.C.MONEY
+                }
+            end
+        elseif context.selling_self and card.sell_cost >= to_big(card.ability.extra.sell_limit) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local card = create_card('j_bloons_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_bank', 'bank')
@@ -2732,12 +2738,15 @@ SMODS.Joker { --Velo
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.before and not context.scoring_hand[1].debuff and not context.blueprint then
-            context.scoring_hand[1]:set_ability('m_mult', nil, true)
-        elseif context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Mult' and not context.other_card.debuff then
-            return {
-                mult = card.ability.extra.mult
-            }
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if context.other_card == context.scoring_hand[1] and not context.blueprint then
+                context.scoring_hand[1]:set_ability('m_mult', nil, true)
+            end
+            if context.other_card.ability.name == 'Mult' then
+                return {
+                    mult = card.ability.extra.mult
+                }
+            end
         end
     end
 }
@@ -3424,7 +3433,7 @@ SMODS.Joker { --Arknight
         text = {
             'Retrigger played',
             'cards adjacent to',
-            '{C:attention}Bonus{} cards {C:attention}#1#{} times'
+            '{C:attention}Bonus{} cards'
         }
     },
 	atlas = 'Joker',
@@ -3434,7 +3443,7 @@ SMODS.Joker { --Arknight
 	order = 259,
 	blueprint_compat = true,
     enhancement_gate = 'm_bonus',
-    config = { extra = 2 }, --Variables: extra = retrigger amount
+    config = { extra = 1 }, --Variables: extra = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -3678,7 +3687,7 @@ SMODS.Joker { --Blitz
         return { vars = { card.ability.extra.scored_percent } }
     end,
     calculate = function(self, card, context)
-        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= card.ability.extra.scored_percent / 100.0 and not context.blueprint then
+        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= to_big(card.ability.extra.scored_percent / 100.0) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand_text_area.blind_chips:juice_up()
@@ -3911,7 +3920,7 @@ SMODS.Joker { --Edef
     calculate = function(self, card, context)
         if context.joker_main then
             if G.GAME.current_round.hands_left == 0 then
-                if G.GAME.chips/G.GAME.blind.chips <= 0.25 then
+                if G.GAME.chips/G.GAME.blind.chips <= to_big(0.25) then
                     return {
                         x_mult = card.ability.extra.Xmult3
                     }
@@ -4265,8 +4274,8 @@ SMODS.Joker { --AoW
         return { vars = { card.ability.extra.current, card.ability.extra.loss } }
     end,
     update = function(self, card, dt)
-        if G.GAME.blind and G.GAME.blind.chips > 0 then
-            if G.GAME.chips/G.GAME.blind.chips > 1 then
+        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
+            if G.GAME.chips/G.GAME.blind.chips > to_big(1) then
                 card.ability.extra.current = 1
             else
                 card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
@@ -4673,7 +4682,7 @@ SMODS.Joker { --Smines
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Mine', colour = G.C.RED})
             end
         elseif context.final_scoring_step and G.GAME.current_round.hands_left == 0 and not context.blueprint then
-            while (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < 1 and card.ability.extra.mines > 0 do
+            while (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < to_big(1) and card.ability.extra.mines > 0 do
                 mult = mod_mult(mult * card.ability.extra.Xmult)
                 update_hand_text( { delay = 0 }, { mult = mult } )
                 G.E_MANAGER:add_event(Event({
