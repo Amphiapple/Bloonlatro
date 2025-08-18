@@ -2595,7 +2595,7 @@ SMODS.Joker { --Bank
                     colour = G.C.MONEY
                 }
             end
-        elseif context.selling_self and card.sell_cost >= to_big(card.ability.extra.sell_limit) and not context.blueprint then
+        elseif context.selling_self and to_big(card.sell_cost) >= to_big(card.ability.extra.sell_limit) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local card = create_card('j_bloons_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_bank', 'bank')
@@ -2738,15 +2738,12 @@ SMODS.Joker { --Velo
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
-            if context.other_card == context.scoring_hand[1] and not context.blueprint then
-                context.scoring_hand[1]:set_ability('m_mult', nil, true)
-            end
-            if context.other_card.ability.name == 'Mult' then
-                return {
-                    mult = card.ability.extra.mult
-                }
-            end
+        if context.before and not context.scoring_hand[1].debuff and not context.blueprint then
+            context.scoring_hand[1]:set_ability('m_mult', nil, true)
+        elseif context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Mult' then
+            return {
+                mult = card.ability.extra.mult
+            }
         end
     end
 }

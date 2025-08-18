@@ -96,7 +96,7 @@ SMODS.Consumable { --SMS
     atlas = 'Consumable',
 	pos = { x = 0, y = 0 },
 	order = 1,
-    config = { percent = 50, max = 10000 },
+    config = { percent = 50, max = 20000 },
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.percent, card.ability.max } }
@@ -108,8 +108,8 @@ SMODS.Consumable { --SMS
     end,
     use = function(self, card, area, copier)
         local score = G.GAME.blind.chips * card.ability.percent / 100.0
-        if score > card.ability.max then
-            score = card.ability.max
+        if score > to_big(card.ability.max) then
+            score = to_big(card.ability.max)
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -188,7 +188,7 @@ SMODS.Consumable { --Mboost
             return {
                 x_mult = card.ability.Xmult
             }
-        elseif context.end_of_round and not context.individual and not context.repetition and card.ability.active then
+        elseif context.after and card.ability.active then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound('tarot1')
