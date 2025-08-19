@@ -37,6 +37,7 @@ Balance Changes:
 - MOAB Press first hand of round > single face card
 - Bloon Impact now stuns on first discard instead of first hand
 - Favored Trades first hand of round Gold card > Diamond
+- Arctic Knight retrigger count 2 > 1
 - Monkey City +$2 for each current dart > +$1 for each dart created
 - Megalodon +Mult 4 > 2, +Chips 30 > 10
 
