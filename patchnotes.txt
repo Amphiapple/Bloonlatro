@@ -39,7 +39,7 @@ Balance Changes:
 - Favored Trades first hand of round Gold card > Diamond
 - Arctic Knight retrigger count 2 > 1
 - Monkey City +$2 for each current dart > +$1 for each dart created
-- Megalodon +Mult 4 > 2, +Chips 30 > 10
+- Megalodon +Mult 4 > 2, +Chips 30 > 15
 
 Fixes:
 - Mermonkey activates on Bonus cards
