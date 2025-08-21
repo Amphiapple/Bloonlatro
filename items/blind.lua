@@ -228,7 +228,7 @@ SMODS.Blind {
     },
 
     loc_vars = function(self)
-		return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
+        return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
     end,
 
     collection_loc_vars = function(self)
@@ -248,30 +248,15 @@ SMODS.Blind {
         return G.GAME.challenge == 'c_bloons_dreadbloon'
     end,
 
-    set_blind = function(self)
-        self.debuff_rarity = 1
+    drawn_to_hand = function(self)
         for _,joker in ipairs(G.jokers.cards) do
             SMODS.recalc_debuff(joker)
         end
     end,
 
-    press_play = function(self)
-        self.prepped = true
-    end,
-
-    drawn_to_hand = function(self)
-        if self.prepped == true then
-            self.prepped = false
-            self.debuff_rarity = self.debuff_rarity + 1
-            for _,joker in ipairs(G.jokers.cards) do
-                SMODS.recalc_debuff(joker)
-            end
-        end
-    end,
-
     recalc_debuff = function(self, card, from_blind)
         if card.area == G.jokers then
-            return card.config.center.rarity == self.debuff_rarity
+            return card.config.center.rarity == G.GAME.current_round.hands_played + 1
         end
     end,
 
@@ -282,8 +267,8 @@ SMODS.Blind {
     end,
 
     bloons_modify_score = function(self, score)
-		return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
-	end,
+        return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
+    end,
 }
 
 SMODS.Blind {
