@@ -200,7 +200,8 @@ SMODS.Challenge {
             { id = 'j_bloons_blitz' },
             { id = 'v_grabber' },
             { id = 'v_nacho_tong' },
-            { id = 'v_hieroglyph' }
+            { id = 'v_hieroglyph' },
+            { id = 'c_bloons_time' }
         },
         banned_other = {
             { id = 'bl_final_bell', type = 'blind' },

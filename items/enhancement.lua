@@ -1,6 +1,6 @@
 SMODS.Atlas {
     key = 'Enhancement',
-    path = 'enhancement.png',
+    path = 'enhancements.png',
     px = 71,
     py = 95,
 }
@@ -39,7 +39,6 @@ SMODS.Enhancement ({ --Frozen
         end
     end
 })
-
 
 SMODS.Enhancement ({ --Glued
     key = 'glued',
