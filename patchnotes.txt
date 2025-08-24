@@ -47,4 +47,5 @@ Fixes:
 - Flash Bomb gives +mult instead of Xmult
 - Monkey Bank increases sell price if you have exactly $5
 - Golden Justice removes destroyed Gold cards
+- Dreadbloon should debuff jokers in the correct order
 - Added Talisman big num compatability
