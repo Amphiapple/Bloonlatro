@@ -734,6 +734,9 @@ SMODS.Joker { --Farm
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             card.ability.extra.current = #G.jokers.cards
+            if #find_joker('Banana Farm') > 0 then
+                card.ability.extra.current = #G.jokers.cards - 1
+            end
         end
     end,
     calc_dollar_bonus = function(self, card)
@@ -2791,8 +2794,10 @@ SMODS.Joker { --Flavored
         name = 'Favored Trades',
         text = {
             'If {C:attention}first hand{} of round',
-            'is a single {C:diamond}Diamond{},',
+            'has only {C:attention}1{} card, destroy',
+            '{C:attention}Joker{} to the right to',
             'add a {C:attention}Purple Seal{} to it',
+            
         }
     },
 	atlas = 'Joker',
@@ -2806,16 +2811,27 @@ SMODS.Joker { --Flavored
         info_queue[#info_queue + 1] = G.P_SEALS.Purple
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1]:is_suit('Diamonds') and not context.full_hand[1].debuff and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    context.full_hand[1]:set_seal('Purple', nil, true)
-                    return true
-                end
-            }))
-            delay(0.5)
+        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and not context.full_hand[1].debuff and not context.blueprint then
+            local my_pos = nil
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then my_pos = i; break end
+            end
+            if my_pos and G.jokers.cards[my_pos+1] and not G.jokers.cards[my_pos+1].ability.eternal then
+                local sliced_card = G.jokers.cards[my_pos+1]
+                sliced_card.getting_sliced = true
+                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.joker_buffer = 0
+                        context.full_hand[1]:set_seal('Purple', nil, true)
+                        card:juice_up(0.8, 0.8)
+                        sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                        play_sound('coin6', 0.96+math.random()*0.08)
+                        return true
+                    end
+                }))
+                delay(0.5)
+            end
         end
     end
 }
@@ -3149,7 +3165,8 @@ SMODS.Joker { --Jbounty
         text = {
             'If {C:attention}first discard{} of',
             'round is a single {C:attention}2{},',
-            'add a {C:attention}Blue Seal{} to it',
+            'spend {C:money}$#1#{} and add a',
+            '{C:attention}Purple Seal{} to it',
         }
     },
 	atlas = 'Joker',
@@ -3158,17 +3175,20 @@ SMODS.Joker { --Jbounty
 	cost = 7,
 	order = 258,
 	blueprint_compat = false,
+    config = { extra = { money = 8 } },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Blue
+        return { vars = { card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 and context.full_hand[1]:get_id() == 2 and not context.full_hand[1].debuff and not context.blueprint then
+        if context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 and not context.full_hand[1].debuff and context.full_hand[1]:get_id() == 2 and G.GAME.dollars >= to_big(card.ability.extra.money) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
                     context.full_hand[1]:set_seal('Blue', nil, true)
+                    ease_dollars(-card.ability.extra.money)
                     return true
                 end
             }))

@@ -1,51 +1,20 @@
 Added Jokers:
-- Quad Darts
-- Advanced Intel
-- Laser Shock
-- Smart Spikes
-- Blade Shooter
-- Alluring Melody
-- Velociraptor
-- Energizer
-- Total Transformation
-- ???
+
 
 Added Boosters:
-- 2 Power Packs
-- Jumbo Power Pack
-- Mega Power Pack
+
 
 Added Consumables:
-- Super Monkey Storm
-- Monkey Boost
-- Time Stop
-- Cash Drop
-- Psychic Blast
-- Energizing Totem
+- Banana Farmer
 
 General Changes:
-- Glue Trap, Freezing Trap are now Power Cards
-- Power Packs added, power cards will not appear in the standard shop
+
 
 Balance Changes:
-- Bionic Boomerang gains +5 chips instead of +1 Mult=
-- MOAB Mauler rarity Uncommon > Common
-- Neva-Miss Targeting score range increased 90%~110% > 80%~120%
-- Shell Shock gives +6 Mult instead of retriggering stunned card
-- Flash Bomb hands for effect 4 > 3
-- Monkey Bank capped at $20 sell price without external price changes
-- MOAB Press first hand of round > single face card
-- Bloon Impact now stuns on first discard instead of first hand
-- Favored Trades first hand of round Gold card > Diamond
-- Arctic Knight retrigger count 2 > 1
-- Monkey City +$2 for each current dart > +$1 for each dart created
-- Megalodon +Mult 4 > 2, +Chips 30 > 15
+- Banana Farm no longer counts itself
+- Favored Trades purple seal requirement diamond card > destroy joker to the right
+- Jungle's Bounty costs $8 to apply seal
+- Time Stop +1 hand +2 discards > +3 hands
+- Psychic Blast also gives +2 discards when used
 
 Fixes:
-- Mermonkey activates on Bonus cards
-- Beast Handler activates on Mult cards
-- Flash Bomb gives +mult instead of Xmult
-- Monkey Bank increases sell price if you have exactly $5
-- Golden Justice removes destroyed Gold cards
-- Dreadbloon should debuff jokers in the correct order
-- Added Talisman big num compatability
