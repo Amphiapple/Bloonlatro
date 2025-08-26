@@ -97,7 +97,6 @@ SMODS.Enhancement ({ --Stunned
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.name == 'Stunned Card' then
                     stunned[#stunned+1] = v
-                    v:set_ability(G.P_CENTERS.c_base, nil, true)
                 end
             end
             if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
@@ -127,6 +126,7 @@ SMODS.Enhancement ({ --Stunned
                         stunned[i]:start_dissolve()
                     else 
                         stunned[i].ability.discarded = true
+                        stunned[i]:set_ability(G.P_CENTERS.c_base, nil, true)
                         draw_card(G.hand, G.discard, i*100/count, 'down', false, stunned[i])
                     end
                 end

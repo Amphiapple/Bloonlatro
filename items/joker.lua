@@ -2376,7 +2376,7 @@ SMODS.Joker { --LLS
         text = {
             'This joker gains {C:mult}+#1#{} Mult',
             'for every discarded {C:spades}Spade',
-            '{C:mult}-#2#{} Mult at end of round',
+            'Halves Mult at end of round',
             '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
         }
     },
@@ -2387,7 +2387,7 @@ SMODS.Joker { --LLS
 	order = 231,
 	blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { mult = 1, loss = 5, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+    config = { extra = { mult = 2, loss = 5, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.loss, card.ability.extra.current } }
@@ -2406,11 +2406,7 @@ SMODS.Joker { --LLS
             }
         end
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if card.ability.extra.current > card.ability.extra.loss then
-                card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
-            else
-                card.ability.extra.current = 0
-            end
+            card.ability.extra.current = math.ceil(card.ability.extra.current / 2.0)
             return {
                 message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.loss}},
                 colour = G.C.MULT
@@ -2585,7 +2581,10 @@ SMODS.Joker { --Blimpact
         name = 'Bloon Impact',
         text = {
             '{C:attention}Stun{} all cards in',
-            '{C:attention}first discard{} of round'
+            '{C:attention}first discard{} of round',
+            'Gain {C:mult}+#1#{} Mult when a',  
+            '{C;attention}Stunned{} card wears off',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
         }
     },
 	atlas = 'Joker',
@@ -2594,9 +2593,11 @@ SMODS.Joker { --Blimpact
 	cost = 6,
 	order = 244,
 	blueprint_compat = true,
+    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult for each stunned, current = current +mult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
@@ -2604,11 +2605,19 @@ SMODS.Joker { --Blimpact
                 return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
-        elseif context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff then
-            context.other_card:set_ability('m_bloons_stunned', nil, true)
+        elseif context.discard and not context.other_card.debuff then
+            if context.other_card.ability.name == 'Stunned Card' then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+            elseif G.GAME.current_round.discards_used == 0 then
+                context.other_card:set_ability('m_bloons_stunned', nil, true)
+                return {
+                    message = 'Stunned!',
+                    colour = G.C.RED
+                }
+            end
+        elseif context.joker_main then
             return {
-                message = 'Stunned!',
-                colour = G.C.RED
+                mult = card.ability.extra.current
             }
         end
     end
@@ -3215,11 +3224,11 @@ SMODS.Joker { --Arknight
 	order = 259,
 	blueprint_compat = true,
     enhancement_gate = 'm_bonus',
-    config = { extra = 1 }, --Variables: extra = retrigger amount
+    config = { extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
-        return { vars = { card.ability.extra } }
+        return { vars = { card.ability.extra.retrigger } }
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
@@ -3229,7 +3238,7 @@ SMODS.Joker { --Arknight
                 (i < #context.scoring_hand and context.scoring_hand[i+1].ability.name == 'Bonus')) then
                     return {
                         message = localize('k_again_ex'),
-                        repetitions = card.ability.extra
+                        repetitions = card.ability.extra.retrigger
                     }
                 end
             end
@@ -4215,8 +4224,8 @@ SMODS.Joker { --Gustice
 	loc_txt = {
         name = 'Golden Justice',
         text = {
-            '{C:attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult when scored,',
-            '{C:green}#2# in #3#{} chance to destroy card',
+            '{C:attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult and',
+            '{C:green}#2# in #3#{} chance to be destroyed',
             '{C:attention}Glass{} cards give {C:money}$#4#{} if',
             'held in hand at end of round',
             'Both give {C:money}$#5#{} when destroyed',
@@ -4344,7 +4353,7 @@ SMODS.Joker { --Fortress
 	cost = 20,
 	order = 297,
 	blueprint_compat = false,
-    config = { extra = { reps = 1, money = 3 } }, --Variables: reps = retrigger amount (red), money = dollars (gold)
+    config = { extra = { retrigger = 1, money = 3 } }, --Variables: retrigger = retrigger amount (red), money = dollars (gold)
 
     calculate = function(self, card, context)
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
@@ -4368,7 +4377,7 @@ SMODS.Joker { --Fortress
             }))
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
         elseif context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
-            for i = 0, card.ability.extra.reps do
+            for i = 0, card.ability.extra.retrigger do
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
@@ -4396,7 +4405,7 @@ SMODS.Joker { --Fortress
         elseif context.repetition and context.other_card:get_id() == 14 and (context.cardarea == G.play or context.cardarea == G.hand) and not context.blueprint then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.reps
+                repetitions = card.ability.extra.retrigger
             }
         end
     end
