@@ -943,6 +943,7 @@ SMODS.Joker { --Desp
     end
 }
 
+--[[
 SMODS.Joker { --Cave
     key = 'cave',
     name = 'Cave Monkey',
@@ -986,6 +987,7 @@ SMODS.Joker { --Cave
         playing_card_joker_effects({true})
     end,
 }
+]]
 
 SMODS.Joker { --Eyesight
     key = 'eyesight',
@@ -1043,6 +1045,51 @@ SMODS.Joker { --Red Hot
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,
             }
+        end
+    end
+}
+
+SMODS.Joker { --Frags
+    key = 'frags',
+    name = 'Frag Bombs',
+	loc_txt = {
+        name = 'Frag Bombs',
+        text = {
+            '{C:green}#1# in #2#{} chance to',
+            'create a {C:planet}Planet{} card',
+            'for each discarded {C:attention}4{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 3 },
+    rarity = 1,
+	cost = 4,
+	order = 183,
+	blueprint_compat = true,
+    config = { extra = { num = 1, denom = 3 } }, --Variables: num/denom = probability fraction
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'frags')
+        return { vars = { n, d } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card:get_id() == 4 and not context.other_card.debuff and
+                SMODS.pseudorandom_probability(card, 'frags', card.ability.extra.num, card.ability.extra.denom, 'frags') and
+                #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                    local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'frags')
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end)
+            }))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
         end
     end
 }
@@ -1192,6 +1239,127 @@ SMODS.Joker { --Intel
     end
 }
 
+SMODS.Joker { --Grape Shot
+    key = 'grape',
+    name = 'Grape Shot',
+    loc_txt = {
+        name = 'Grape Shot',
+        text = {
+            'Earn {C:money}$#1#{} at end of round',
+            '{C:money}-$#2#{} each round',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 8, y = 3 },
+    rarity = 1,
+	cost = 5,
+	order = 189,
+	blueprint_compat = true,
+    eternal_compat = false,
+    config = { extra = { money = 5, loss = 1 } }, --Variables: money = dollars, loss = money reduction
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.money, card.ability.extra.loss } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.money
+    end,
+    calculate = function(self, card, context)
+        if context.starting_shop and not context.blueprint then
+            if card.ability.extra.money - card.ability.extra.loss <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        })) 
+                        return true
+                    end
+                })) 
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.RED
+                }
+            else
+                card.ability.extra.money = card.ability.extra.money - card.ability.extra.loss
+                return {
+                    message = localize{type='variable',key='a_chips_minus',vars={card.ability.extra.loss}},
+                    colour = G.C.YELLOW
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Pineapple
+    key = 'pineapple',
+    name = 'Exploding Pineapple',
+    loc_txt = {
+        name = 'Exploding Pineapple',
+        text = {
+            'Destroy all played',
+            'cards in {C:attention}#1#{} hands',
+            '{S:1.1,C:red,E:2}self destructs{}'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 9, y = 3 },
+    rarity = 1,
+	cost = 5,
+	order = 190,
+	blueprint_compat = false,
+    eternal_compat = false,
+    config = { extra = { hands = 3 } }, --Variables: hands = hands remaining
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.hands } }
+    end,
+    calculate = function(self, card, context)
+        if context.destroying_card and card.ability.extra.hands <= 1 and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.jokers:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    })) 
+                    return true
+                end
+            }))
+            return true
+        elseif context.after and card.ability.extra.hands > 1 and not context.blueprint then
+            card.ability.extra.hands = card.ability.extra.hands - 1
+            return {
+                message = localize{type='variable',key='a_chips_minus',vars={1}},
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Quad
     key = 'quad',
     name = 'Quad Darts',
@@ -1315,6 +1483,35 @@ SMODS.Joker { --Laser Shock
             end
 		end
     end
+}
+
+SMODS.Joker { --UV
+    key = 'uv',
+    name = 'Ultravision',
+    loc_txt = {
+        name = 'Ultravision',
+        text = {
+            '{C:attention}+#1#{} consumable slots',
+            '{C:red}#2#{} discard'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 4, y = 4 },
+    rarity = 2,
+	cost = 6,
+	order = 195,
+	blueprint_compat = false,
+    config = { extra = { slots = 2 }, d_size = -1 }, --Variables: slots = extra consumable slots, d_size = discard change
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.slots, card.ability.d_size } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+    end,
 }
 
 SMODS.Joker { --Enetwork
@@ -1535,6 +1732,47 @@ SMODS.Joker { --Owl
     end
 }
 
+SMODS.Joker { --Nomad
+    key = 'nomad',
+    name = 'Nomad',
+	loc_txt = {
+        name = 'Nomad',
+        text = {
+            'This {C:attention}Joker{} gains {C:chips}+#1#{} Chips ',
+            'if {C:attention}poker hand{} is different from',
+            'the previous {C:attention}poker hand {C:inactive}[#3#]{}',
+            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 4, y = 5 },
+    rarity = 1,
+	cost = 4,
+	order = 205,
+	blueprint_compat = true,
+    perishable_compat = false,
+    config = { extra = { chips = 4, current = 0, poker_hand = nil } }, --Variables: chips = +chips gain, current = current +chips, poker_hand = previous poker hand
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.chips, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            if context.scoring_name ~= card.ability.extra.poker_hand then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
+                return {
+                    message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}}
+                }
+            end
+            card.ability.extra.poker_hand = context.scoring_name
+        elseif context.joker_main then
+            return {
+                chips = card.ability.extra.current
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Trip shot
     key = 'tripshot',
     name = 'Triple Shot',
@@ -1542,7 +1780,7 @@ SMODS.Joker { --Trip shot
         name = 'Triple Shot',
         text = {
             'Create {C:attention}#1# {C:tarot}Tarot{} cards',
-            'if {C:attention}played hand{} is a',
+            'if {C:attention}poker hand{} is a',
             '{C:attention}Three of a Kind #2#{} times',
             '{C:inactive}(#3# remaining){}'
         }
@@ -1559,10 +1797,7 @@ SMODS.Joker { --Trip shot
 		return { vars = { card.ability.extra.tarots, card.ability.extra.limit, card.ability.extra.counter } }
     end,
     calculate = function(self, card, context)
-        if context.before and next(context.poker_hands['Three of a Kind']) and not
-                next(context.poker_hands['Flush']) and not
-                next(context.poker_hands['Full House']) and not
-                next(context.poker_hands['Four of a Kind']) then
+        if context.before and context.scoring_name == 'Three of a Kind' then
             if not context.blueprint then
                 card.ability.extra.counter = card.ability.extra.counter - 1
                 local eval = function()
@@ -2468,6 +2703,61 @@ SMODS.Joker { --MIB
     end
 }
 
+SMODS.Joker { --Doublegun
+    key = 'doublegun',
+    name = 'Double Gun',
+	loc_txt = {
+        name = 'Double Gun',
+        text = {
+            'Earn {C:money}$#1#{} for each',
+            '{C:attention}Pair{} held in hand',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 8 },
+    rarity = 1,
+	cost = 5,
+	order = 233,
+	blueprint_compat = true,
+    perishable_compat = false,
+    config = { extra = { money = 1, ranks = {} } }, --Variables: money = money per held pair, ranks = card ranks held in hand
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and not context.other_card.debuff then
+            local new = true
+            local id = context.other_card:get_id()
+            for k, v in pairs(card.ability.extra.ranks) do
+                if id == k then
+                    new = false
+                    if not context.blueprint then
+                        card.ability.extra.ranks[k] = v + 1
+                    end
+                    if card.ability.extra.ranks[k] % 2 == 0 then
+                        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
+                        G.E_MANAGER:add_event(Event({
+                            func = (function()
+                                G.GAME.dollar_buffer = 0;
+                                return true
+                            end)
+                        }))
+                        return {
+                            dollars = card.ability.extra.money,
+                        }
+                    end
+                end
+            end
+            if new then
+                card.ability.extra.ranks[id] = 1
+            end
+        elseif context.after and not context.blueprint then
+            card.ability.extra.ranks = {}
+        end
+    end
+}
+
 SMODS.Joker { --Velo
     key = 'velo',
     name = 'Velociraptor',
@@ -3002,7 +3292,7 @@ SMODS.Joker { --Rorm
         return { vars = { card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.poker_hands then
+        if context.before and context.poker_hands and not context.blueprint then
             if next(context.poker_hands['Pair']) then
                 local temp_Xmult = pseudorandom('rorm', card.ability.extra.min, card.ability.extra.max) / 100.0
                 card.ability.extra.current = card.ability.extra.current + temp_Xmult
@@ -3246,6 +3536,33 @@ SMODS.Joker { --Arknight
     end
 }
 
+--[[
+SMODS.Joker { --Sporm
+    key = 'sporm',
+    name = 'Spike Storm',
+	loc_txt = {
+        name = 'Spike Storm',
+        text = {
+            ''
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 1, y = 11 },
+    rarity = 2,
+	cost = 7,
+	order = 262,
+	blueprint_compat = true,
+    config = { extra = { money = 1, current = 0 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money, card.ability.extra.current } } --Variables: money = dollars per dart, current = current end of round dollars
+    end,
+    calculate = function(self, card, context)
+
+    end
+}
+]]
+
 SMODS.Joker { --City
     key = 'city',
     name = 'Monkey City',
@@ -3293,6 +3610,42 @@ SMODS.Joker { --City
     end
 }
 
+SMODS.Joker { --Sexpert
+    key = 'sexpert',
+    name = 'Sentry Expert',
+	loc_txt = {
+        name = 'Sentry Expert',
+        text = {
+            'When {C:attention}Blind{} is selected,',
+            'create a random {C:attention}Sentry{}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 11 },
+    rarity = 2,
+	cost = 5,
+	order = 263,
+	blueprint_compat = true,
+    config = { extra = { sentries = { 'j_bloons_crushing_sentry', 'j_bloons_boom_sentry', 'j_bloons_cold_sentry', 'j_bloons_energy_sentry' } } },
+
+    calculate = function(self, card, context)
+        if context.setting_blind and not context.getting_sliced then
+            local sentry = pseudorandom_element(card.ability.extra.sentries, pseudoseed('sexpert'))
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local card = create_card(sentry, G.jokers, nil, 0, nil, nil, sentry, 'sexpert')
+                    card:add_to_deck()
+                    G.jokers:emplace(card)
+                    card:start_materialize()
+                    G.GAME.joker_buffer = 0
+                    return true
+                end
+            }))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+        end
+    end
+}
+
 SMODS.Joker { --Twix
     key = 'twix',
     name = 'Twin Sixes',
@@ -3329,6 +3682,269 @@ SMODS.Joker { --Twix
                 return {
                     x_mult = card.ability.extra.Xmult
                 }
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Crushing Sentry
+    key = 'crushing_sentry',
+    name = 'Crushing Sentry',
+	loc_txt = {
+        name = 'Crushing Sentry',
+        text = {
+            'Played cards give',
+            '{C:mult}+#1#{} Mult when scored',
+            '{C:dark_edition}+#2#{} Joker Slot',
+            'Lasts {C:attention}#3#{} rounds'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 11 },
+    rarity = 2,
+	cost = 1,
+	order = 266,
+	blueprint_compat = true,
+    config = { extra = { mult = 2, slots = 1, rounds = 3 } }, --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            return {
+                mult = card.ability.extra.mult
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds - 1
+            if card.ability.extra.rounds <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        })) 
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Boom Sentry
+    key = 'boom_sentry',
+    name = 'Boom Sentry',
+	loc_txt = {
+        name = 'Boom Sentry',
+        text = {
+            'First card held',
+            'in hand gives {X:mult,C:white}X#1#{} Mult',
+            '{C:dark_edition}+#2#{} Joker Slot',
+            'Lasts {C:attention}#3#{} rounds'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 6, y = 11 },
+    rarity = 2,
+	cost = 1,
+	order = 267,
+	blueprint_compat = true,
+    config = { extra = { Xmult = 1.5, slots = 1, rounds = 3 } }, --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.other_card.debuff then
+            return {
+                x_mult = card.ability.extra.Xmult,
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds - 1
+            if card.ability.extra.rounds <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        })) 
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Cold Sentry
+    key = 'cold_sentry',
+    name = 'Cold Sentry',
+	loc_txt = {
+        name = 'Cold Sentry',
+        text = {
+            '{C:attention}Freeze{} last card',
+            'held in hand',
+            '{C:dark_edition}+#1#{} Joker Slot',
+            'Lasts {C:attention}#2#{} rounds'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 11 },
+    rarity = 2,
+	cost = 1,
+	order = 268,
+	blueprint_compat = true,
+    config = { extra = { slots = 1, rounds = 3 } }, --Variables: slots = joker slots, rounds = rounds remaining
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.slots, card.ability.extra.rounds } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.after and #G.hand.cards >= 1 and not G.hand.cards[#G.hand.cards].debuff and not context.blueprint then
+            G.hand.cards[#G.hand.cards]:set_ability('m_bloons_frozen', nil, true)
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds - 1
+            if card.ability.extra.rounds <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        })) 
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Energy Sentry
+    key = 'energy_sentry',
+    name = 'Energy Sentry',
+	loc_txt = {
+        name = 'Energy Sentry',
+        text = {
+            '{C:chips}+#1#{} Chips',
+            '{C:mult}+#2#{} Mult',
+            '{C:dark_edition}+#3#{} Joker Slot',
+            'Lasts {C:attention}#4#{} rounds'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 11 },
+    rarity = 2,
+	cost = 1,
+	order = 269,
+	blueprint_compat = true,
+    config = { extra = { chips = 30, mult = 4, slots = 1, rounds = 3 } }, --Variables: slots = joker slots, rounds = rounds remaining
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds - 1
+            if card.ability.extra.rounds <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        })) 
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -3851,7 +4467,7 @@ SMODS.Joker { --Rod
         name = 'Ray of Doom',
         text = {
             'Each repeated card rank',
-            'in {C:attention}played hand{} gives',
+            'in played hand gives',
             '{X:mult,C:white}X?.?{} Mult when scored'
         }
     },
@@ -3861,7 +4477,7 @@ SMODS.Joker { --Rod
 	cost = 10,
 	order = 283,
 	blueprint_compat = true,
-    config = { extra = { max = 43, min = 20, ranks = {} } }, --Variables: max = max possible Xmult *20, min = min possible Xmult *20
+    config = { extra = { max = 43, min = 20, ranks = {} } }, --Variables: max = max possible Xmult *20, min = min possible Xmult *20, ranks = card ranks played
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -4123,49 +4739,6 @@ SMODS.Joker { --Pex
         end
     end
 }
-
---[[
-SMODS.Joker { --Uboost
-    key = 'uboost',
-    name = 'Ultraboost',
-    loc_txt = {
-        name = 'Ultraboost',
-        text = {
-            '{C:cark_edition}Boost{} {C:attention}Joker{} to the left',
-            'by {X:mult,C:white}X#1#{} Mult every hand played'
-        }
-    },
-    atlas = 'Joker',
-	pos = { x = 2, y = 14 },
-    rarity = 3,
-	cost = 9,
-	order = 293,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 0.1 } }, --Variables: Xmult = Xmult per boost
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
-    end,
-    calculate = function(self, card, context)
-        if context.before and card ~= G.jokers.cards[1] then
-            local other_joker
-            for k, v in ipairs(G.jokers.cards) do
-                if v == card then
-                    other_joker = G.jokers.cards[k-1]
-                end
-            end
-            if not other_joker.edition then
-                other_joker:set_edition('e_bloons_boosted', true)
-                other_joker.edition.boost = true
-                other_joker.edition.type = 'bloons_boosted'
-            end
-            if other_joker.edition.boost then
-                other_joker.edition.Xmult = other_joker.edition.Xmult + card.ability.extra.Xmult
-            end
-        end
-    end
-}
-]]
 
 SMODS.Joker { --Meg
     key = 'meg',
