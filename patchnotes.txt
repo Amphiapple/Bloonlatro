@@ -13,12 +13,16 @@ Added Jokers:
 Added Consumables:
 - Thrive
 - Banana Farmer
+- Portable Lake
 - Road Spikes
+- Pontoon
 - Tech Bot
+- Cave Monkey
 
 General Changes:
 - Text changes to some things
 - Stunned Cards remove stun status after being discarded instead of before
+- Cave Monkey changed from a Joker to a power
 
 Balance Changes:
 - Banana Farm no longer counts itself
@@ -34,10 +38,3 @@ Balance Changes:
 Fixes:
 - Rocket Storm scaling no longer gets copied by Blueprint effects
 - Golden Justice no longer crashes if a Gold Card is played but doesn't score
-
-In Progress:
-- Add Spike Storm
-- Change Cave Monkey to power
-- Add Portable Lake + Pontoon
-- add Ezili deck
-- Add Silas deck

@@ -943,52 +943,6 @@ SMODS.Joker { --Desp
     end
 }
 
---[[
-SMODS.Joker { --Cave
-    key = 'cave',
-    name = 'Cave Monkey',
-    loc_txt = {
-        name = 'Cave Monkey',
-        text = {
-            'Me Hit {C:attention}Rock{}'
-        }
-    },
-    atlas = 'Joker',
-	pos = { x = 5, y = 2 },
-    rarity = 1,
-	cost = 1,
-	order = 176,
-	blueprint_compat = false,
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function() 
-                local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave'))
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.m_stone, {playing_card = G.playing_card})
-                card:start_materialize({G.C.SECONDARY_SET.Enhanced})
-                G.play:emplace(card)
-                table.insert(G.playing_cards, card)
-                return true
-            end
-        }))
-        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
-
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                return true
-            end
-        }))
-        draw_card(G.play,G.deck, 90,'up', nil)
-        playing_card_joker_effects({true})
-    end,
-}
-]]
-
 SMODS.Joker { --Eyesight
     key = 'eyesight',
     name = 'Enhanced Eyesight',
@@ -3232,7 +3186,7 @@ SMODS.Joker { --Abatt
 	cost = 7,
 	order = 252,
 	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 } }, --Variables: num/denom = probabiltiy fraction, chips = +chips, mult = +mult, Xmult = Xmult
+    config = { extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 } }, --Variables: num/denom = probability fraction, chips = +chips, mult = +mult, Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'abatt')
@@ -3542,22 +3496,41 @@ SMODS.Joker { --Sporm
 	loc_txt = {
         name = 'Spike Storm',
         text = {
-            'Does nothing'
+            '{C:chips}+#1#{} Chips',
+            '{C:chips}-#2#{} Chips for every',
+            'hand played, resets when',
+            '{C:attention}Boss Blind{} is defeated'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 11 },
+	pos = { x = 0, y = 11 },
     rarity = 2,
 	cost = 7,
-	order = 262,
+	order = 261,
 	blueprint_compat = true,
-    config = { extra = {  } },
+    config = { extra = { chips = 150, current = 150, loss = 25 } }, --Variables: chips = initial +chips, current = current +chips, loss = chip loss per hand
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {  } } --Variables:
+        return { vars = { card.ability.extra.current, card.ability.extra.loss } }
     end,
     calculate = function(self, card, context)
-
+        if context.joker_main and card.ability.extra.current > 0 then
+            return {
+                chips = card.ability.extra.current
+            }
+        elseif context.after and not context.blueprint then
+            if card.ability.extra.current - card.ability.extra.loss < 0 then
+                card.ability.extra.current = 0
+            else
+                card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
+            end
+        elseif context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.chips
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
     end
 }
 
@@ -4771,10 +4744,10 @@ SMODS.Joker { --Lota
     loc_txt = {
         name = 'Lord of the Abyss',
         text = {
-            '{C:mult}+88{} Mult if',
-            '{C:attention}full deck{} contains',
-            '{C:attention}8 Bonus{} cards',
-            'C:inactive}(Currently {C:attention}#2#{C:inactive})'
+            '{C:mult}+88{} Mult if you have',
+            'at least {C:attention}8 Bonus{}',
+            'cards in your full deck',
+            '{C:inactive}(Currently {C:attention}#2#{C:inactive})'
         }
     },
     atlas = 'Joker',
@@ -4787,6 +4760,7 @@ SMODS.Joker { --Lota
     config = { extra = { mult = 88, number = 0 } }, --Variables: mult = +mult, number = number of bonus cards in deck
     
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
         return { vars = { card.ability.extra.mult, card.ability.extra.number } }
     end,
     update = function(self, card, dt)

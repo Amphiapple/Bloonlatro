@@ -6,6 +6,7 @@ SMODS.ConsumableType { --Power Cards
         name = 'Power',
         collection = 'Power Cards',
     },
+    collection_rows = {4, 5},
     shop_rate = 0,
 }
 
@@ -96,7 +97,7 @@ SMODS.Consumable { --SMS
     atlas = 'Consumable',
 	pos = { x = 0, y = 0 },
 	order = 1,
-    config = { percent = 50, max = 20000 },
+    config = { percent = 50, max = 20000 }, --Variables: percent = cercent of required chips scored, max = maximum chips cap
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.percent, card.ability.max } }
@@ -164,7 +165,7 @@ SMODS.Consumable { --Mboost
     atlas = 'Consumable',
 	pos = { x = 1, y = 0 },
 	order = 2,
-    config = { Xmult = 2, active = false },
+    config = { Xmult = 2, active = false }, --Variables: Xmult = Xmult
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.Xmult } }
@@ -230,7 +231,7 @@ SMODS.Consumable { --Thrive
     atlas = 'Consumable',
 	pos = { x = 2, y = 0 },
 	order = 3,
-    config = { retrigger = 1, active = false },
+    config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
         return not card.ability.active
@@ -292,7 +293,7 @@ SMODS.Consumable { --Time
     atlas = 'Consumable',
 	pos = { x = 3, y = 0 },
 	order = 4,
-    config = { hands = 3 },
+    config = { hands = 3 }, --Variables: hands = extra hands
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.hands, card.ability.discards } }
@@ -322,15 +323,13 @@ SMODS.Consumable { --Cash
     atlas = 'Consumable',
 	pos = { x = 4, y = 0 },
 	order = 5,
-    config = { money = 15 },
+    config = { money = 10 }, --Variables: money = dollars
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.money } }
 	end,
     can_use = function(self, card)
-        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
-            return true
-        end
+        return true
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -362,7 +361,7 @@ SMODS.Consumable { --Farmer
     atlas = 'Consumable',
 	pos = { x = 0, y = 1 },
 	order = 6,
-    config = { money = 4, rounds = 5, current = 5 },
+    config = { money = 4, rounds = 5, current = 5 }, --Variables: money = dollars, rounds = total lifespan, current = lifespan remaining
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.money, card.ability.current } }
@@ -404,6 +403,50 @@ SMODS.Consumable { --Farmer
     end
 }
 
+SMODS.Consumable { --Lake
+    key = 'lake',
+    set = 'Power',
+    name = 'Portable Lake',
+    loc_txt = {
+        name = 'Portable Lake',
+        text = {
+            '{C:dark_edition}#1#{}#2#'
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 1, y = 1 },
+	order = 7,
+    config = { slots = 1, active = false }, --Variables: slots = extra joker slots
+
+    loc_vars = function(self, info_queue, card)
+        local function process_num(active)
+            if active then
+				return '+' .. card.ability.slots
+            else
+			    return ''
+            end
+        end
+        local function process_var(active)
+			if active then
+				return ' Joker slot'
+            else
+			    return 'Does nothing?'
+            end
+		end
+		return { vars = { process_num(card.ability.active), process_var(card.ability.active) } }
+	end,
+    add_to_deck = function (self, card, from_debuff)
+        if card.ability.active then
+            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
+        end
+    end,
+    remove_from_deck = function (self, card, from_debuff)
+        if card.ability.active then
+            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.slots
+        end
+    end
+}
+
 SMODS.Consumable { --Spikes
     key = 'spikes',
     set = 'Power',
@@ -418,7 +461,7 @@ SMODS.Consumable { --Spikes
     atlas = 'Consumable',
 	pos = { x = 2, y = 1 },
 	order = 8,
-    config = { retrigger = 1, spikes = 10 },
+    config = { retrigger = 1, spikes = 10 }, --Variables: retrigger = retrigger count, spikes = number of uses
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.spikes } }
@@ -494,7 +537,7 @@ SMODS.Consumable { --Psychic
     atlas = 'Consumable',
 	pos = { x = 4, y = 1 },
 	order = 10,
-    config = { max_highlighted = 5, discards = 2 },
+    config = { max_highlighted = 5, discards = 2 }, --Variables: discards = extra discards
 
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
@@ -579,6 +622,45 @@ SMODS.Consumable { --Freezing
 	end,
 }
 
+SMODS.Consumable { --Pontoon
+    key = 'pontoon',
+    set = 'Power',
+    name = 'Pontoon',
+    loc_txt = {
+        name = 'Pontoon',
+        text = {
+            'Use with a {C:attention}Portable Lake{} to',
+            'gain {C:dark_edition}+1{} Joker Slot'
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 1, y = 2 },
+	order = 12,
+    config = { slots = 1 }, --Variables: slots = extra joker slots
+
+    in_pool = function (self, args)
+        if #find_joker('Portable Lake') > 0 then
+            return true
+        end
+        return false
+    end,
+    can_use = function(self, card)
+        if #find_joker('Portable Lake') > 0 then
+            return true
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        local lakes = find_joker('Portable Lake')
+        for k, v in pairs(lakes) do
+            if not v.ability.active then
+                v.ability.active = true
+                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
+            end
+        end
+    end,
+}
+
 SMODS.Consumable { --Tech
     key = 'tech',
     set = 'Power',
@@ -594,7 +676,7 @@ SMODS.Consumable { --Tech
     atlas = 'Consumable',
 	pos = { x = 2, y = 2 },
 	order = 13,
-    config = { retrigger = 1, active = false },
+    config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
         return not card.ability.active
@@ -656,7 +738,7 @@ SMODS.Consumable { --Totem
     atlas = 'Consumable',
 	pos = { x = 3, y = 2 },
 	order = 14,
-    config = { Xmult = 1.5, rounds = 5, current = 5 },
+    config = { Xmult = 1.5, rounds = 5, current = 5 }, --Variables: Xmult = Xmult, rounds = total lifespan, current = lifespan remaining
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.Xmult, card.ability.current } }
@@ -696,5 +778,47 @@ SMODS.Consumable { --Totem
                 }
             end
         end
+    end
+}
+
+SMODS.Consumable { --Cave Monkey
+    key = 'cave',
+    set = 'Power',
+    name = 'Cave Monkey',
+    loc_txt = {
+        name = 'Cave Monkey',
+        text = {
+            'Add a {C:attention}Stone{} card with',
+            'an {C:dark_edition}Edition{} to your deck'
+        }
+    },
+    atlas = 'Consumable',
+	pos = { x = 4, y = 2 },
+	order = 15,
+
+    can_use = function(self, card)
+        return true
+    end,
+    use = function (self, card, area, copier)
+        local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave'))
+        local stone = SMODS.add_card({
+            set = 'Playing Card',
+            front = front,
+            area = G.deck,
+            skip_materialize = false,
+        })
+        stone:set_ability(G.P_CENTERS.m_stone, nil, true)
+        local edition = poll_edition('cave', nil, true, true)
+        stone:set_edition(edition, true)
+        card_eval_status_text(stone, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
+
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                return true
+            end
+        }))
+        draw_card(G.play,G.deck, 90,'up', nil)
+        playing_card_joker_effects({true})
     end
 }
