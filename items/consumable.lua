@@ -323,13 +323,15 @@ SMODS.Consumable { --Cash
     atlas = 'Consumable',
 	pos = { x = 4, y = 0 },
 	order = 5,
-    config = { money = 10 }, --Variables: money = dollars
+    config = { money = 15 }, --Variables: money = dollars
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.money } }
 	end,
     can_use = function(self, card)
-        return true
+        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
+            return true
+        end
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
