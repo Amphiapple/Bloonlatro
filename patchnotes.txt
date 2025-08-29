@@ -1,9 +1,11 @@
 Added Jokers:
 - Frag Bombs
+- Nomad
 - Grape Shot
 - Exploding Pineapple
-- Nomad
+- Ultravision
 - Double Gun
+- Spike Storm
 - Sentry Expert + 4 sentries
 - Glaive Lord
 - Lord of the Abyss

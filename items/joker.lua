@@ -4795,10 +4795,10 @@ SMODS.Joker { --Wall Street
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 14 },
+	pos = { x = 9, y = 13 },
     rarity = 3,
 	cost = 10,
-	order = 291,
+	order = 290,
 	blueprint_compat = false,
     config = { extra = { slots = 1 } }, --Variables: slots = extra booster slots, cost_multiplier = pack cost multiplier
 
