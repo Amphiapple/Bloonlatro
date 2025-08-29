@@ -41,11 +41,24 @@ local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
     self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+    if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
+        self.cost = math.floor(self.cost / 2.0)
+    end
     if #find_joker('Monkey Commerce') > 0 then
         if #find_joker('Monkey Commerce') > self.cost then
             self.cost = 0
         else
             self.cost = self.cost - #find_joker('Monkey Commerce')
+        end
+    end
+    local lotas = find_joker('Lord of the Abyss')
+    if self.ability.set == 'Booster' and #lotas > 0 then
+        for k, v in pairs(lotas) do
+            if self.cost - v.ability.extra.number < 0 then
+                self.cost = 0
+            else
+                self.cost = self.cost - v.ability.extra.number
+            end
         end
     end
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
@@ -62,6 +75,34 @@ calculate_reroll_cost = function(skip_increment)
         G.GAME.current_round.reroll_cost = math.floor(G.GAME.current_round.reroll_cost / 2.0)
     end
     return ret
+end
+
+--Monkey Wall Street pack changing function
+local get_pack_old = get_pack
+get_pack = function(_key, _type)
+    local center = nil
+    if #find_joker('Monkey Wall Street') > 0 then
+        local mega_packs = {}
+        for k, v in ipairs(G.P_CENTER_POOLS['Booster']) do
+            if v.key:sub(1,2) == 'p_' and v.key:find('mega') then
+                mega_packs[#mega_packs+1] = v
+            end
+        end
+        local cume, it = 0, 0
+        for k, v in ipairs(mega_packs) do
+            if (not _type or _type == v.kind) and not G.GAME.banned_keys[v.key] then cume = cume + (v.weight or 1 ) end
+        end
+        local poll = pseudorandom(pseudoseed((_key or 'pack_generic')..G.GAME.round_resets.ante))*cume
+        for k, v in ipairs(mega_packs) do
+            if not G.GAME.banned_keys[v.key] then
+                if not _type or _type == v.kind then it = it + (v.weight or 1) end
+                if it >= poll and it - (v.weight or 1) <= poll then center = v; break end
+            end
+        end
+    else
+        center = get_pack_old(_key, _type)
+    end
+    return center
 end
 
 --New end_round if Mdom is active

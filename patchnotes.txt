@@ -5,6 +5,10 @@ Added Jokers:
 - Nomad
 - Double Gun
 - Sentry Expert + 4 sentries
+- Glaive Lord
+- Lord of the Abyss
+- Monkey Wall Street
+- Perma-Spike
 
 Added Consumables:
 - Thrive
@@ -22,19 +26,17 @@ Balance Changes:
 - Bloon Impact gains +1 Mult whenever a Stunned card wears off, can still be perishable due to stunning effect
 - Favored Trades purple seal requirement diamond card > destroy joker to the right
 - Jungle's Bounty costs $8 to apply seal
+- Primary Expertise XMult X4 > X3
 - Time Stop +1 hand +2 discards > +3 hands
 - Psychic Blast also gives +2 discards when used
 - Energizing Totem Xmult 1.25 > 1.5
 
 Fixes:
 - Rocket Storm scaling no longer gets copied by Blueprint effects
+- Golden Justice no longer crashes if a Gold Card is played but doesn't score
 
 In Progress:
 - Add Spike Storm
-- Add Lord of the Abyss
-- Add Glaive Lord
-- Add Perma-spike
-- Add Monkey Wall Street
 - Change Cave Monkey to power
 - Add Portable Lake + Pontoon
 - add Ezili deck
