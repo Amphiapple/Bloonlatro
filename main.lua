@@ -1,5 +1,6 @@
 local functions = {
     'hook',
+    'function',
     'talisman',
 }
 

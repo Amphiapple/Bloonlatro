@@ -1,3 +1,7 @@
+Added Decks:
+- Ezili Deck
+- Silas Deck (may change in the future)
+
 Added Jokers:
 - Frag Bombs
 - Nomad
