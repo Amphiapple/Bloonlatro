@@ -715,8 +715,8 @@ SMODS.Joker { --Farm
 	loc_txt = {
         name = 'Banana Farm',
         text = {
-            'Earn {C:money}$#1#{} for each {C:attention}Joker{}',
-            'card at end of round',
+            'Earn {C:money}$#1#{} for each other',
+            '{C:attention}Joker{} card at end of round',
             '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
         }
     },
@@ -1712,7 +1712,7 @@ SMODS.Joker { --Nomad
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
-            if context.scoring_name ~= card.ability.extra.poker_hand then
+            if '[' .. context.scoring_name .. ']' ~= card.ability.extra.poker_hand then
                 card.ability.extra.poker_hand = '[' .. context.scoring_name .. ']'
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
                 return {
@@ -2673,7 +2673,6 @@ SMODS.Joker { --Doublegun
 	cost = 5,
 	order = 233,
 	blueprint_compat = true,
-    perishable_compat = false,
     config = { extra = { money = 1, ranks = {} } }, --Variables: money = money per held pair, ranks = card ranks held in hand
 
     loc_vars = function(self, info_queue, card)
@@ -4796,7 +4795,6 @@ SMODS.Joker { --Wall Street
     loc_txt = {
         name = 'Monkey Wall Street',
         text = {
-            '{C:attention}+#1#{} Booster pack slot',
             'All Booster Packs become',
             '{C:attention}MEGA{} and cost half',
         }
@@ -4813,21 +4811,9 @@ SMODS.Joker { --Wall Street
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
-        if G.shop then
-            local mega_packs = {}
-            for k, v in ipairs(G.P_CENTER_POOLS['Booster']) do
-                if v.key:sub(1,2) == 'p_' and v.key:find('mega') then
-                    mega_packs[#mega_packs+1] = v
-                end
-            end
-            local pack = pseudorandom_element(mega_packs, pseudoseed('wallstreet'))
-            SMODS.add_booster_to_shop(pack.key)
-        end
         recalc_all_costs()
     end,
     remove_from_deck = function(self, card, from_debuff)
-        SMODS.change_booster_limit(-card.ability.extra.slots)
         recalc_all_costs()
     end,
 }
@@ -4849,14 +4835,14 @@ SMODS.Joker { --Pspike
     rarity = 3,
 	cost = 8,
 	order = 291,
-	blueprint_compat = true,
-    config = { extra = { hands = 5, current = 0 } }, --Variables: hands = max carryover hands, current = current hands
+	blueprint_compat = false,
+    config = { extra = { hands = 10, current = 0 } }, --Variables: hands = max carryover hands, current = current hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not (context.blueprint_card or card).getting_sliced then
+        if context.setting_blind and not card.getting_sliced and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     ease_hands_played(card.ability.extra.current)

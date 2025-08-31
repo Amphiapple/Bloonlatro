@@ -438,9 +438,7 @@ SMODS.Consumable { --Lake
 		return { vars = { process_num(card.ability.active), process_var(card.ability.active) } }
 	end,
     add_to_deck = function (self, card, from_debuff)
-        if card.ability.active then
-            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
-        end
+        card.ability.active = false
     end,
     remove_from_deck = function (self, card, from_debuff)
         if card.ability.active then
@@ -653,12 +651,10 @@ SMODS.Consumable { --Pontoon
         return false
     end,
     use = function(self, card, area, copier)
-        local lakes = find_joker('Portable Lake')
-        for k, v in pairs(lakes) do
-            if not v.ability.active then
-                v.ability.active = true
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
-            end
+        local lake = find_joker('Portable Lake')[1]
+        if lake and not lake.ability.active then
+            lake.ability.active = true
+            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
         end
     end,
 }

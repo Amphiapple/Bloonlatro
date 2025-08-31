@@ -265,20 +265,17 @@ SMODS.Back { --Brick
         return { vars = { self.config.extra.ante, self.config.hands, self.config.extra.discards } }
     end,
     apply = function(self)
-        ease_ante(self.config.extra.ante - 1)
-        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
-        G.GAME.round_resets.blind_ante = self.config.extra.ante
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                ease_ante(-1)
+                ease_discard(-G.GAME.round_resets.discards)
+                G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+                G.GAME.round_resets.blind_ante = self.config.extra.ante
+                G.GAME.round_resets.discards = self.config.extra.discards
+                return true
+            end 
+        }))
     end,
-    calculate = function(self, back, context)
-        if context.setting_blind then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    ease_discard(-G.GAME.current_round.discards_left, nil, true)
-                    return true
-                end 
-            }))
-        end
-    end
 }
 
 SMODS.Back { --French

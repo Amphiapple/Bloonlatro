@@ -42,5 +42,7 @@ Balance Changes:
 - Energizing Totem Xmult 1.25 > 1.5
 
 Fixes:
+- Brickell Deck no longer crashes the game
+- Brickell Deck can gain discards again
 - Rocket Storm scaling no longer gets copied by Blueprint effects
 - Golden Justice no longer crashes if a Gold Card is played but doesn't score
