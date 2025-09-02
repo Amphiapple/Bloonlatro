@@ -2339,10 +2339,10 @@ SMODS.Joker { --Amast
 	atlas = 'Joker',
 	pos = { x = 3, y = 7 },
     rarity = 2,
-	cost = 7,
+	cost = 6,
 	order = 224,
 	blueprint_compat = false,
-    config = { extra = { money = 5 } }, --Variables: retrigger = retrigger amount
+    config = { extra = { money = 8 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Purple
