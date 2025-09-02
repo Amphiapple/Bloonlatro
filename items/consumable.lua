@@ -5,6 +5,15 @@ SMODS.ConsumableType { --Power Cards
     loc_txt = {
         name = 'Power',
         collection = 'Power Cards',
+        undiscovered = { -- description for undiscovered cards in the collection
+ 			name = 'Not Discovered',
+ 			text = { 
+                'Purchase or use',
+                'this card in an',
+                'unseeded run to',
+                'learn what it does',
+            },
+ 		},
     },
     collection_rows = {4, 5},
     shop_rate = 0,
@@ -639,22 +648,34 @@ SMODS.Consumable { --Pontoon
     config = { slots = 1 }, --Variables: slots = extra joker slots
 
     in_pool = function (self, args)
-        if #find_joker('Portable Lake') > 0 then
-            return true
+        local lakes = find_joker('Portable Lake')
+        for k, v in pairs(lakes) do
+            if not v.ability.active then
+                return true
+            end
         end
         return false
     end,
     can_use = function(self, card)
-        if #find_joker('Portable Lake') > 0 then
-            return true
+        local lakes = find_joker('Portable Lake')
+        for k, v in pairs(lakes) do
+            if not v.ability.active then
+                return true
+            end
         end
         return false
     end,
     use = function(self, card, area, copier)
-        local lake = find_joker('Portable Lake')[1]
-        if lake and not lake.ability.active then
-            lake.ability.active = true
-            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
+        local lakes = find_joker('Portable Lake')
+        for k, v in pairs(lakes) do
+            if not v.ability.active then
+                v.ability.active = true
+                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
+                v:juice_up()
+                play_sound('negative', 1.5, 0.4)
+                
+                break
+            end
         end
     end,
 }

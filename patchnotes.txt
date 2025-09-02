@@ -32,10 +32,11 @@ General Changes:
 
 Balance Changes:
 - Banana Farm no longer counts itself
+- Arcane Mastery effect changed
 - Long Life Spikes Mult per Spade +1 > +2, halves at end of round
 - Bloon Impact gains +1 Mult whenever a Stunned card wears off, can still be perishable due to stunning effect
-- Favored Trades purple seal requirement diamond card > destroy joker to the right
-- Jungle's Bounty costs $8 to apply seal
+- Favored Trades effect changes
+- Jungle's Bounty effect changed
 - Primary Expertise XMult X4 > X3
 - Time Stop +1 hand +2 discards > +3 hands
 - Psychic Blast also gives +2 discards when used
@@ -45,4 +46,5 @@ Fixes:
 - Brickell Deck no longer crashes the game
 - Brickell Deck can gain discards again
 - Rocket Storm scaling no longer gets copied by Blueprint effects
+- Total Transformation removes all stickers from left Joker, no longer stacks Eternal and Perishable
 - Golden Justice no longer crashes if a Gold Card is played but doesn't score
