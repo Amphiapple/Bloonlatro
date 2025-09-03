@@ -10,7 +10,7 @@ target = "card.lua"
 pattern = "function Card:get_end_of_round_effect(context)"
 position = "after"
 payload = '''
-if G.GAME.modifiers.glorious_gold then
+if G.GAME.modifiers.disable_gold_card_money then
     if self.debuff then return {} end
     local ret = {}
     if self.ability.h_dollars > 0 and self.ability.name ~= 'Gold Card' then

@@ -469,7 +469,6 @@ SMODS.Challenge {
     rules = {
         custom = {
             { id = 'all_eternal' },
-            { id = 'double_blind_size' }
         },
         modifiers = {
             {id = 'joker_slots', value = 4},
@@ -503,7 +502,7 @@ SMODS.Challenge {
             { id = 'no_shop_tarots' },
         },
         modifiers = {
-                {id = 'hands', value = 1},
+            { id = 'hands', value = 1 },
         }
     },
     jokers = {
@@ -525,10 +524,16 @@ SMODS.Challenge {
 SMODS.Challenge {
     key = 'joshs_constant',
     loc_txt = {
-        name = 'Josh\'s Constant (Not implemented)'
+        name = 'Josh\'s Constant'
     },
-    rules = {},
-    jokers = {},
+    rules = {
+        modifiers = {
+            { id = 'hands', value = 2 }
+        },
+    },
+    jokers = {
+        { id = 'j_bloons_pspike', eternal = true }
+    },
     vouchers = {},
     restrictions = {},
     deck = {
