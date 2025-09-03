@@ -1,0 +1,68 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.FUNCS.evaluate_play()
+'''
+position = "before"
+payload = '''
+if G.GAME.modifiers.crash_of_the_titans then
+    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+    local pures = {}
+    for i=1, #G.play.cards do
+        if next(find_joker('Splash')) then
+            scoring_hand[i] = G.play.cards[i]
+        else
+            if G.play.cards[i].ability.effect == 'Stone Card' or G.play.cards[i].ability.name == 'Meteor Card' then
+                local inside = false
+                for j=1, #scoring_hand do
+                    if scoring_hand[j] == G.play.cards[i] then
+                        inside = true
+                    end
+                end
+            if not inside then table.insert(pures, G.play.cards[i]) end
+            end
+        end
+    end
+    for i=1, #pures do
+        table.insert(scoring_hand, pures[i])
+    end
+    table.sort(scoring_hand, function (a, b) return a.T.x < b.T.x end )
+    if #scoring_hand ~= 5 then
+        mult = mod_mult(0)
+        hand_chips = mod_chips(0)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                        play_sound('tarot2', 0.76, 0.4);return true end}))
+                    play_sound('tarot2', 1, 0.4)
+                    return true
+                end)
+        }))
+
+        play_area_status_text("Not Allowed!")--localize('k_not_allowed_ex'), true)
+        --+++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+        --Joker Debuff Effects
+        --+++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+        for i=1, #G.jokers.cards do
+                
+            --calculate the joker effects
+            local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, debuffed_hand = true})
+
+            --Any Joker effects
+            if effects.jokers then
+                card_eval_status_text(G.jokers.cards[i], 'jokers', nil, percent, nil, effects.jokers)
+                percent = percent+percent_delta
+            end
+        end
+        return true
+    end
+end
+'''
+match_indent = true

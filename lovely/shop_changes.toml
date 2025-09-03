@@ -1,0 +1,45 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+elseif v.id == 'no_shop_jokers' then 
+    self.GAME.joker_rate = 0
+'''
+position = "after"
+payload = '''
+elseif v.id == 'no_shop_tarots' then
+    self.GAME.tarot_rate = 0
+elseif v.id == 'shop_spectrals' then
+    self.GAME.spectral_rate = 2
+elseif v.id == 'no_shop_slots' then
+    change_shop_size(-2)
+elseif v.id == 'condensed_no_extra_money' then
+    self.GAME.modifiers.no_extra_hand_money = true
+    self.GAME.modifiers.no_interest = true
+    self.GAME.modifiers.no_blind_reward = self.GAME.modifiers.no_blind_reward or {}
+    self.GAME.modifiers.no_blind_reward.Small = true
+    self.GAME.modifiers.no_blind_reward.Big = true
+    self.GAME.modifiers.no_blind_reward.Boss = true
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if G.GAME.modifiers.all_eternal then
+    card:set_eternal(true)
+end
+'''
+position = "after"
+payload = '''
+if G.GAME.modifiers.all_perishable then
+    card:set_perishable(true)
+end
+'''
+match_indent = true

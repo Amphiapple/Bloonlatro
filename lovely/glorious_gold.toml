@@ -1,0 +1,47 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Disable gold cards
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:get_end_of_round_effect(context)"
+position = "after"
+payload = '''
+if G.GAME.modifiers.glorious_gold then
+    if self.debuff then return {} end
+    local ret = {}
+    if self.ability.h_dollars > 0 and self.ability.name ~= 'Gold Card' then
+        ret.h_dollars = self.ability.h_dollars
+        ret.card = self
+    end
+    if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        local card_type = 'Planet'
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.0,
+            func = (function()
+                if G.GAME.last_hand_played then
+                    local _planet = 0
+                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                        if v.config.hand_type == G.GAME.last_hand_played then
+                            _planet = v.key
+                        end
+                    end
+                    local card = create_card(card_type,G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                    G.GAME.consumeable_buffer = 0
+                end
+                return true
+            end)}))
+        card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+        ret.effect = true
+    end
+    return ret
+end
+'''
+match_indent = true

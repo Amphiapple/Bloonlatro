@@ -2,6 +2,7 @@ local functions = {
     'hook',
     'function',
     'talisman',
+    'blind'
 }
 
 local items = {

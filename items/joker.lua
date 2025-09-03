@@ -500,7 +500,19 @@ SMODS.Joker { --Wiz
 
     calculate = function(self, card, context)
         if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
-            local enhancement = pseudorandom_element(G.P_CENTER_POOLS['Enhanced'], pseudoseed('wiz'))
+            local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
+            if G.GAME.modifiers.abracadabmonkey then
+                local i = 1
+                while i <= #enhancement_pool do
+                    local enhancement = enhancement_pool[i]
+                    if enhancement.key == 'm_bloons_frozen' or enhancement.key == 'm_bloons_glued' or enhancement.key == 'm_bloons_stunned' then
+                        table.remove(enhancement_pool, i)
+                    else
+                        i = i + 1
+                    end
+                end
+            end
+            local enhancement = pseudorandom_element(enhancement_pool, pseudoseed('wiz'))
             context.scoring_hand[1]:set_ability(enhancement, nil, true)
             G.E_MANAGER:add_event(Event({
                 func = function()
