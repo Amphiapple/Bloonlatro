@@ -62,8 +62,6 @@ SMODS.Enhancement ({ --Glued
                 cost = 0
             elseif G.GAME.modifiers.sticky_situation then
                 cost = 5
-            else
-                cost = 1
             end
             return cost
 		end
@@ -73,7 +71,11 @@ SMODS.Enhancement ({ --Glued
         if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
             card:set_ability(G.P_CENTERS.c_base, nil, true)
         elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
-            ease_dollars(-1*card.ability.cost)
+            if G.GAME.modifiers.sticky_situation then
+                ease_dollars(-5*card.ability.cost)
+            else
+                ease_dollars(-1*card.ability.cost)
+            end
             delay(0.3)
         end
     end
