@@ -16,6 +16,13 @@ elseif v.id == 'no_shop_tarots' then
     self.GAME.tarot_rate = 0
 elseif v.id == 'shop_spectrals' then
     self.GAME.spectral_rate = 2
+elseif v.id == 'condensed_no_extra_money' then
+    self.GAME.modifiers.no_extra_hand_money = true
+    self.GAME.modifiers.no_interest = true
+    self.GAME.modifiers.no_blind_reward = self.GAME.modifiers.no_blind_reward or {}
+    self.GAME.modifiers.no_blind_reward.Small = true
+    self.GAME.modifiers.no_blind_reward.Big = true
+    self.GAME.modifiers.no_blind_reward.Boss = true
 '''
 match_indent = true
 

@@ -130,6 +130,7 @@ local income_jokers = {
     {id = 'j_rough_gem'},
     {id = 'j_matador'},
     {id = 'j_satellite'},
+    {id = 'j_to_the_moon'},
     {id = 'j_bloons_farm'},
     {id = 'j_bloons_engi'},
     {id = 'j_bloons_doublegun'},
@@ -291,6 +292,7 @@ SMODS.Challenge {
             {id = 'c_wraith'},
             {id = 'c_soul'},
             {id = 'c_bloons_cash'},
+            {id = 'c_bloons_farmer'},
             {id = 'v_antimatter'},
             {id = 'p_buffoon_normal_1', ids = {
                 'p_buffoon_normal_1','p_buffoon_normal_2','p_buffoon_jumbo_1','p_buffoon_mega_1',
@@ -330,16 +332,13 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'no_reward' },
-            { id = 'no_extra_hand_money' },
-            { id = 'no_interest' },
-            { id = 'glorious_gold' },
-            { id = 'triple_blind_size' }
+            { id = 'condensed_no_extra_money' },
+            { id = 'disable_gold_card_money' },
+            { id = 'scored_cards_become_gold' },
+            { id = 'triple_blind_size' },
         }
     },
     jokers = {
-        { id = 'j_midas_mask', eternal = true, edition = 'negative' },
-        { id = 'j_pareidolia', eternal = true, edition = 'negative' },
         { id = 'j_bloons_gustice', eternal = true }
     },
     vouchers = {},
@@ -347,6 +346,22 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+
+    calculate = function(self, context)
+        if context.before and not context.blueprint then
+            for i, card in ipairs(context.scoring_hand) do
+                if not card.debuff then
+                    card:set_ability('m_gold', nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            context.scoring_hand[i]:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+        end
+    end
 }
 
 SMODS.Challenge {
@@ -501,6 +516,12 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+
+    calculate = function(self, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            context.other_card:set_ability('m_bloons_glued', nil, true)
+        end
+    end
 }
 
 SMODS.Challenge {

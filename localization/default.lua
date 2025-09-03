@@ -13,8 +13,8 @@ return {
             ch_c_abracadabmonkey = {
                 "Entire deck must be enhanced at the end of ante {C:attention}8{}"
             },
-            ch_c_glorious_gold = {
-                "Gold cards no longer give money at end of round"
+            ch_c_disable_gold_card_money = {
+                "{C:gold}Gold{} cards no longer give money at end of round"
             },
             ch_c_no_shop_tarots = {
                 "{C:tarot}Tarot{} cards no longer appear in the {C:attention}shop{}"
@@ -39,6 +39,12 @@ return {
             },
             ch_c_shop_spectrals = {
                 "{C:spectral}Spectral{} cards can appear in the {C:attention}shop{}"
+            },
+            ch_c_condensed_no_extra_money = {
+                "Gain no money from {C:attention}Blinds{}, {C:attention}Interest{} or extra {C:blue}Hands{}"
+            },
+            ch_c_scored_cards_become_gold = {
+                "Scored cards are turned into {C:gold}Gold{} cards"
             },
             ch_c_bloonarius1 = {
                 "Bloonarius is VERY LARGE"
