@@ -1455,16 +1455,20 @@ SMODS.Joker { --UV
 	cost = 6,
 	order = 195,
 	blueprint_compat = false,
-    config = { extra = { slots = 2 }, d_size = -1 }, --Variables: slots = extra consumable slots, d_size = discard change
+    config = { extra = { slots = 2 , discards = -1 } }, --Variables: slots = extra consumable slots, d_size = discard change
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.slots, card.ability.d_size } }
+        return { vars = { card.ability.extra.slots, card.ability.extra.discards } }
     end,
     add_to_deck = function(self, card, from_debuff)
         G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_discard(card.ability.extra.discards)
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
+        ease_discard(-card.ability.extra.discards)
     end,
 }
 
@@ -2678,7 +2682,7 @@ SMODS.Joker { --Doublegun
 	loc_txt = {
         name = 'Double Gun',
         text = {
-            'Earn {C:attention}Pair{}',
+            'Each {C:attention}Pair{}',
             'held in hand',
             'gives {C:money}$#1#{}'
         }
