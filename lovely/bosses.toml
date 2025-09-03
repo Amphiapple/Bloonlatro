@@ -34,6 +34,7 @@ end
 '''
 match_indent = true
 
+# Change the blind's local debuffed text
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
@@ -52,8 +53,9 @@ then
         if self.disabled then
             self.loc_name = self.name == '' and self.name or localize{type ='name_text', key = self.config.blind.key, set = 'Blind'}
             self.loc_debuff_text = ''
-            self.loc_debuff_lines[1] = ''
-            self.loc_debuff_lines[2] = ''
+            for i = 1, #self.loc_debuff_lines do
+                self.loc_debuff_lines[i] = ''
+            end
         else
             local loc_vars = nil
 

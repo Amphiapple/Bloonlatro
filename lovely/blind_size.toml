@@ -3,7 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-    # Boss ex mult
 [[patches]]
 [patches.pattern]
 target = "blind.lua"

@@ -13,7 +13,7 @@ local banned_tarot_cards = {
     { id = 'j_bloons_owl' },
     { id = 'j_bloons_tripshot' },
     { id = 'j_bloons_supply' },
-    { id = 'j_bloons_flavored' },
+    { id = 'j_bloons_amast' },
     { id = 'j_bloons_fortress' },
     { id = 'p_arcana_normal_1', ids = {
         'p_arcana_normal_1', 'p_arcana_normal_2',
@@ -60,6 +60,7 @@ local banned_enhancement_cards = {
 
 local banned_hand_cards = {
     { id = 'j_bloons_draft' },
+    { id = 'j_bloons_pspike' },
     { id = 'j_burglar' },
     { id = 'v_grabber' },
     { id = 'v_nacho_tong' },
@@ -131,9 +132,12 @@ local income_jokers = {
     {id = 'j_satellite'},
     {id = 'j_bloons_farm'},
     {id = 'j_bloons_engi'},
+    {id = 'j_bloons_doublegun'},
+    {id = 'j_bloons_jbounty'},
     {id = 'j_bloons_bank'},
     {id = 'j_bloons_r2g'},
     {id = 'j_bloons_city'},
+    {id = 'j_bloons_gustice'},
     {id = 'j_bloons_fortress'}
 }
 
@@ -195,6 +199,7 @@ local sticky_situation_bans = {
 
 local dreadbloon_cards = {
     { id = 'v_hieroglyph' },
+    { id = 'j_troubadour' },
 }
 for _, joker in ipairs(boss_jokers) do
     table.insert(dreadbloon_cards, joker)
@@ -458,8 +463,8 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_dart', eternal = true, edition = 'negative' },
-        { id = 'j_bloons_tt5' },
+        { id = 'j_bloons_tt5', pinned = true },
+        { id = 'j_bloons_dart', eternal = true, pinned = true, edition = 'negative' },
     },
     vouchers = {},
     restrictions = {
