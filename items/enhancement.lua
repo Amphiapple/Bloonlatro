@@ -54,23 +54,27 @@ SMODS.Enhancement ({ --Glued
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
-    config = { mult = 5 }, --Variables: mult = +mult
-
-    loc_vars = function(self, info_queue, center) -- cost = money loss when discarded
-        if G.GAME.modifiers.sticky_situation then
-            self.cost = 5
-        elseif #find_joker('Glue Hose') ~= 0 then
-            self.cost = 0
-        else
-            self.cost = 1
-        end
-        return { vars = { self.config.mult, self.cost } }
+    config = { mult = 5, cost = 1 }, --Variables: mult = +mult, cost = money loss when discarded
+    
+    loc_vars = function(self, info_queue, center)
+        local function process_var(cost)
+			if #find_joker('Glue Hose') > 0 then
+                cost = 0
+            elseif G.GAME.modifiers.sticky_situation then
+                cost = 5
+            else
+                cost = 1
+            end
+            return cost
+		end
+        return { vars = { self.config.mult, process_var(self.config.cost) } }
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
             card:set_ability(G.P_CENTERS.c_base, nil, true)
-        elseif context.discard and context.other_card == card and self.cost > 0 then
-            ease_dollars(-1*self.cost)
+        elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
+            ease_dollars(-1*card.ability.cost)
+            delay(0.3)
         end
     end
 })
@@ -104,7 +108,6 @@ SMODS.Enhancement ({ --Stunned
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.name == 'Stunned Card' then
                     stunned[#stunned+1] = v
-                    v:set_ability(G.P_CENTERS.c_base, nil, true)
                 end
             end
             if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
@@ -134,6 +137,7 @@ SMODS.Enhancement ({ --Stunned
                         stunned[i]:start_dissolve()
                     else 
                         stunned[i].ability.discarded = true
+                        stunned[i]:set_ability(G.P_CENTERS.c_base, nil, true)
                         draw_card(G.hand, G.discard, i*100/count, 'down', false, stunned[i])
                     end
                 end

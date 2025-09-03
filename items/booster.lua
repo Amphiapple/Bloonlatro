@@ -6,7 +6,7 @@ SMODS.Atlas {
 }
 
 SMODS.Booster {
-    key = "power1",
+    key = "power_normal_1",
     loc_txt = {
         name = 'Power Pack',
         group_name = 'Power Pack',
@@ -32,13 +32,13 @@ SMODS.Booster {
             set = 'Power',
             area = G.pack_cards,
             skip_materialize = true,
-            key_append = 'p_bloons_power_mega'
+            key_append = 'p_bloons_power_normal_1'
         }
     end
 }
 
 SMODS.Booster {
-    key = "power2",
+    key = "power_normal_2",
     loc_txt = {
         name = 'Power Pack',
         group_name = 'Power Pack',
@@ -65,13 +65,13 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = 'p_bloons_power_mega'
+            key_append = 'p_bloons_power_normal_2'
         }
     end
 }
 
 SMODS.Booster {
-    key = "jumbopower",
+    key = "power_jumbo_1",
     loc_txt = {
         name = 'Jumbo Power Pack',
         group_name = 'Power Pack',
@@ -98,13 +98,13 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = 'p_bloons_power_mega'
+            key_append = 'p_bloons_power_jumbo_1'
         }
     end
 }
 
 SMODS.Booster {
-    key = "megapower",
+    key = "power_mega_1",
     loc_txt = {
         name = 'Mega Power Pack',
         group_name = 'Power Pack',
@@ -131,7 +131,7 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = 'p_bloons_power_mega'
+            key_append = 'p_bloons_power_mega_2'
         }
     end
 }

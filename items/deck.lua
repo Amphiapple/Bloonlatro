@@ -1,14 +1,3 @@
---Psi function
-local get_boss_old = get_new_boss
-get_new_boss = function()
-    local ret = get_boss_old()
-    if G.GAME.selected_back.name ~= 'Psi Deck' or G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-        return ret
-    else
-        return "bl_psychic"
-    end
-end
-
 SMODS.Atlas {
     key = 'Back',
     path = 'decks.png',
@@ -114,7 +103,7 @@ SMODS.Back { --Obyn
 	atlas = "Back",
 	pos = { x = 3, y = 0 },
     order = 20,
-    config = { vouchers = {'v_seed_money','v_money_tree'}}
+    config = { vouchers = {'v_seed_money','v_money_tree'} }
 }
 
 SMODS.Back { --Church
@@ -178,26 +167,23 @@ SMODS.Back { --Ben
 	end
 }
 
---[[
 SMODS.Back { --Ezili
     key = "ezili",
     name = "Ezili Deck",
 	loc_txt = {
         name = 'Ezili Deck',
         text = {
-            '{C:spectral}Spectral{} packs appear ',
-            '{C:attention}2x{} more frequently',
-            'in the shop',
-            'Start run with a {C:spectral}Hex{} card',
-            '{C:inactive}unimplemented{}'
+            'Start run with',
+            '{C:attention}Magic Trick{}, {C:enhanced}Illusion{},',
+            'and {C:dark_edition}Hone{}'
+            
         }
     },
 	atlas = "Back",
 	pos = { x = 1, y = 1 },
     order = 23,
-    config = { consumables = {'c_hex'} }
+    config = { vouchers = {'v_magic_trick','v_illusion','v_hone','v_glow_up'} }
 }
-]]
 
 SMODS.Back { --Pat
     key = "pat",
@@ -279,20 +265,17 @@ SMODS.Back { --Brick
         return { vars = { self.config.extra.ante, self.config.hands, self.config.extra.discards } }
     end,
     apply = function(self)
-        ease_ante(self.config.extra.ante - 1)
-        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
-        G.GAME.round_resets.blind_ante = self.config.extra.ante
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                ease_ante(-1)
+                ease_discard(-G.GAME.round_resets.discards)
+                G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+                G.GAME.round_resets.blind_ante = self.config.extra.ante
+                G.GAME.round_resets.discards = self.config.extra.discards
+                return true
+            end 
+        }))
     end,
-    calculate = function(self, back, context)
-        if context.setting_blind then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    ease_discard(-G.GAME.current_round.discards_left, nil, true)
-                    return true
-                end 
-            }))
-        end
-    end
 }
 
 SMODS.Back { --French
@@ -344,7 +327,8 @@ SMODS.Back { --Psi
 	loc_txt = {
         name = 'Psi Deck',
         text = {
-            'All {C:attention}Boss Blinds{} are {C:attention}The Psychic{}'
+            'All {C:attention}Boss Blinds{}',
+            'are {C:attention}The Psychic{}'
         }
     },
 	atlas = "Back",
@@ -401,3 +385,45 @@ SMODS.Back { --Rose
     order = 32
 }
 ]]
+
+SMODS.Back { --Silas
+    key = "silas",
+    name = "Silas Deck",
+	loc_txt = {
+        name = 'Silas Deck',
+        text = {
+            'After {C:attention}Blind{} is defeated,',
+            '{C:attention}Freeze #1#{} cards in your deck',
+        }
+    },
+	atlas = "Back",
+	pos = { x = 1, y = 3 },
+    order = 33,
+    config = { extra = { number = 3 } },
+
+    loc_vars = function (self, info_queue, card)
+        return { vars = { self.config.extra.number } }
+    end,
+    calculate = function (self, back, context)
+        if context.end_of_round and not context.individual and not context.repetition then
+            local valid_cards = {}
+            for k, v in ipairs(G.playing_cards) do
+                if v.ability.effect ~= 'Frozen_card' then
+                    valid_cards[#valid_cards+1] = v
+                end
+            end
+            for i = 1, self.config.extra.number do
+                if valid_cards[1] then
+                    local frozen_card = pseudorandom_element(valid_cards, pseudoseed('silas'..G.GAME.round_resets.ante))
+                    frozen_card:set_ability('m_bloons_frozen', nil, true)
+                    for k, v in pairs(valid_cards) do
+                        if v == frozen_card then
+                            table.remove(valid_cards,i)
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end
+}
