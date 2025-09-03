@@ -54,16 +54,23 @@ SMODS.Enhancement ({ --Glued
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
-    config = { mult = 5, cost = 1 }, --Variables: mult = +mult, cost = money loss when discarded
-    
-    loc_vars = function(self, info_queue, center)
-        return { vars = { self.config.mult, self.config.cost } }
+    config = { mult = 5 }, --Variables: mult = +mult
+
+    loc_vars = function(self, info_queue, center) -- cost = money loss when discarded
+        if G.GAME.modifiers.sticky_situation then
+            self.cost = 5
+        elseif #find_joker('Glue Hose') ~= 0 then
+            self.cost = 0
+        else
+            self.cost = 1
+        end
+        return { vars = { self.config.mult, self.cost } }
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
             card:set_ability(G.P_CENTERS.c_base, nil, true)
-        elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
-            ease_dollars(-1*card.ability.cost)
+        elseif context.discard and context.other_card == card and self.cost > 0 then
+            ease_dollars(-1*self.cost)
         end
     end
 })

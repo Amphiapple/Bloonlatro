@@ -233,7 +233,7 @@ end_round = function()
             if v.ability.extra.active == false then
                 active = false
             end
-        end
+        end 
         if active then
             local ret = end_round_new(mdoms)
             return ret
