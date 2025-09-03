@@ -222,13 +222,11 @@ for _, joker in ipairs(income_jokers) do
 end
 
 local glorious_gold_other = {
-    { id = 'bl_plant', type = 'blind' },
     { id = 'Gold' }
 }
 
 local glorious_gold_bans = {
     banned_cards = glorious_gold_cards,
-    banned_tags = income_tags,
     banned_other = glorious_gold_other
 }
 

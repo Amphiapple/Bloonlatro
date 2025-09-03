@@ -14,7 +14,7 @@ return {
                 "Entire deck must be enhanced at the end of ante {C:attention}8{}"
             },
             ch_c_disable_gold_card_money = {
-                "{C:gold}Gold{} cards no longer give money at end of round"
+                "{C:gold}Gold{} cards no longer give money"
             },
             ch_c_no_shop_tarots = {
                 "{C:tarot}Tarot{} cards no longer appear in the {C:attention}shop{}"
