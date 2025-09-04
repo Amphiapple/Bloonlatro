@@ -29,6 +29,7 @@ General Changes:
 - Text changes to some things
 - Stunned Cards remove stun status after being discarded instead of before
 - Cave Monkey changed from a Joker to a power
+- Added an entire page of challenges
 
 Balance Changes:
 - Banana Farm no longer counts itself
