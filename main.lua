@@ -2,7 +2,8 @@ local functions = {
     'hook',
     'function',
     'talisman',
-    'blind'
+    'calculate-score'
+
 }
 
 local items = {

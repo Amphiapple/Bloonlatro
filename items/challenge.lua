@@ -348,7 +348,7 @@ SMODS.Challenge {
     calculate = function(self, context)
         if context.before and not context.blueprint then
             for i, card in ipairs(context.scoring_hand) do
-                if not card.debuff then
+                if not card.debuff and not (card.config.center == G.P_CENTERS['m_gold']) then
                     card:set_ability('m_gold', nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()

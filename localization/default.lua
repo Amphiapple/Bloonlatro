@@ -23,7 +23,7 @@ return {
                 "Start with {C:attention}-2{} card slots available in the shop"
             },
             ch_c_no_skipping_blinds = {
-                "Skipping blinds is disabled"
+                "Skipping Blinds is disabled"
             },
             ch_c_double_blind_size = {
                 "Blind requirements are doubled"
@@ -32,7 +32,7 @@ return {
                 "Blind requirements are tripled"
             },
             ch_c_sticky_situation = {
-                "Scored cards are glued at the end of scoring"
+                "Scored cards are glued after they've been scored"
             },
             ch_c_glue_money_loss = {
                 "Lose {C:money}$5{} when glued cards are discarded"
