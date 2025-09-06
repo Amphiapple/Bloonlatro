@@ -111,6 +111,8 @@ local unable_eternal = {
     {id = 'j_invisible'},
     {id = 'j_luchador'},
     {id = 'j_bloons_brew'},
+    {id = 'j_bloons_grape'},
+    {id = 'j_bloons_pineapple'},
     {id = 'j_bloons_tt5'},
     {id = 'j_bloons_bank'}
 }
@@ -244,6 +246,31 @@ for _, tag in ipairs(income_tags) do
     table.insert(monkeyopolis_tags, tag)
 end
 
+local crash_of_the_titans_cards = {
+    { id = 'c_hanged_man' },
+    { id = 'c_incantation' },
+    { id = 'c_grim' },
+    { id = 'c_familiar' },
+    { id = 'c_bloons_volcano' },
+    { id = 'p_standard_normal_1',
+        ids = {'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2'},
+    },
+    { id = 'j_marble' },
+    { id = 'j_certificate' },
+    { id = 'j_trading' },
+    { id = 'j_bloons_iring' },
+    { id = 'j_bloons_wlp' },
+    { id = 'j_bloons_mdom' },
+    { id = 'v_magic_trick' },
+    { id = 'v_illusion' },
+    { id = 'v_hieroglyph' },
+    { id = 'v_petroglyph' }
+}
+
+for _, joker in ipairs(banned_hand_cards) do
+    table.insert(crash_of_the_titans_cards, joker)
+end
+
 SMODS.Challenge {
     key = 'bloonlatro',
     loc_txt = {
@@ -277,9 +304,7 @@ SMODS.Challenge {
             { id = 'no_interest' },
         },
         modifiers = {
-            { id = 'joker_slots', value = 50 },
-            { id = 'hands', value = 1 },
-            { id = 'discards', value = 5 },
+            { id = 'joker_slots', value = 15 },
         }
     },
     restrictions = {
@@ -293,7 +318,7 @@ SMODS.Challenge {
             {id = 'c_bloons_farmer'},
             {id = 'v_antimatter'},
             {id = 'p_buffoon_normal_1', ids = {
-                'p_buffoon_normal_1','p_buffoon_normal_2','p_buffoon_jumbo_1','p_buffoon_mega_1',
+                'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2',
             }},
         },
         banned_tags = monkeyopolis_tags,
@@ -421,6 +446,10 @@ SMODS.Challenge {
             { id = 'crash_of_the_titans' },
             { id = 'double_blind_size' },
             { id = 'no_skipping_blinds' }
+        },
+        modifiers = {
+            { id = 'hands', value = 1 },
+            { id = 'discards', value = 6 },
         }
     },
     jokers = {
@@ -428,28 +457,13 @@ SMODS.Challenge {
     },
     vouchers = {},
     restrictions = {
-            banned_cards = {
-                { id = 'c_hanged_man' },
-                { id = 'c_incantation' },
-                { id = 'c_grim' },
-                { id = 'c_familiar' },
-                { id = 'c_bloons_volcano' },
-                { id = 'p_standard_normal_1', ids = {
-                'p_standard_normal_1', 'p_standard_normal_2',
-                'p_standard_jumbo_1', 'p_standard_mega_1' }
-                },
-                { id = 'j_marble' },
-                { id = 'j_certificate' },
-                { id = 'j_trading' },
-                { id = 'j_bloons_iring' },
-                { id = 'j_bloons_wlp' },
-                { id = 'v_magic_trick' },
-                { id = 'v_illusion' },
-            },
+            banned_cards = crash_of_the_titans_cards,
             banned_tags = {
                 { id = 'tag_standard' },
             },
-            banned_other = {}
+            banned_other = {
+                { id = 'bl_water' }
+            }
         },
     deck = {
         type = 'Challenge Deck',
@@ -535,7 +549,9 @@ SMODS.Challenge {
         { id = 'j_bloons_pspike', eternal = true }
     },
     vouchers = {},
-    restrictions = {},
+    restrictions = {
+        banned_cards = banned_hand_cards
+    },
     deck = {
         type = 'Challenge Deck',
     },
