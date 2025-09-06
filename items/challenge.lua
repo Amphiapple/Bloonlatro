@@ -278,8 +278,6 @@ SMODS.Challenge {
         },
         modifiers = {
             { id = 'joker_slots', value = 50 },
-            { id = 'hands', value = 1 },
-            { id = 'discards', value = 5 },
         }
     },
     restrictions = {
@@ -421,6 +419,10 @@ SMODS.Challenge {
             { id = 'crash_of_the_titans' },
             { id = 'double_blind_size' },
             { id = 'no_skipping_blinds' }
+        },
+        modifiers = {
+            { id = 'hands', value = 1 },
+            { id = 'discards', value = 6 },
         }
     },
     jokers = {

@@ -124,6 +124,22 @@ SMODS.Enhancement ({ --Stunned
                 local destroyed_cards = {}
                 for i=1, count do
                     stunned[i]:calculate_seal({discard = true})
+
+                    if stunned[i].seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'before',
+                            delay = 0.0,
+                            func = (function()
+                                    local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
+                                    card:add_to_deck()
+                                    G.consumeables:emplace(card)
+                                    G.GAME.consumeable_buffer = 0
+                                return true
+                            end)}))
+                        card_eval_status_text(stunned[i], 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+                    end
+
                     local removed = false
                     for j = 1, #G.jokers.cards do
                         local eval = nil

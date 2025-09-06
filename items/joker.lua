@@ -2960,7 +2960,7 @@ SMODS.Joker { --Icicles
 	order = 245,
 	blueprint_compat = true,
 
-    config = { extra = { Xmult = 2, num = 1, denom = 2 } }, --Variables: Xmult = Xmult, num/denom = probability fraction
+    config = { extra = { Xmult = 1.5, num = 1, denom = 2 } }, --Variables: Xmult = Xmult, num/denom = probability fraction
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'icicles')
@@ -4747,14 +4747,14 @@ SMODS.Joker { --TT5
 }
 
 SMODS.Joker { --AoW
-    key = 'aow',    
+    key = 'aow',
     name = 'Avatar of Wrath',
 	loc_txt = {
         name = 'Avatar of Wrath',
         text = {
             '{X:mult,C:white}X#1#{} Mult,',
-            'loses {X:mult,C:white}X#2#{} Mult for every',
-            '{C:attention}0.5%{} of chips scored this round',
+            'loses {X:mult,C:white}X0.015{} Mult for every',
+            '{C:attention}1%{} of chips scored this round',
         }
     },
 	atlas = 'Joker',
@@ -4763,7 +4763,7 @@ SMODS.Joker { --AoW
 	cost = 8,
 	order = 288,
 	blueprint_compat = true,
-    config = { extra = { Xmult = 3, current = 3, loss = 0.01 } }, --Variables: Xmult = starting Xmult, current = current Xmult, loss = Xmult loss per percent, 
+    config = { extra = { Xmult = 2.5, current = 2.5 } }, --Variables: Xmult = starting Xmult, current = current Xmult,
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current, card.ability.extra.loss } }
@@ -4773,7 +4773,7 @@ SMODS.Joker { --AoW
             if G.GAME.chips/G.GAME.blind.chips > to_big(1) then
                 card.ability.extra.current = 1
             else
-                card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
+                card.ability.extra.current = card.ability.extra.Xmult - 1.5 * G.GAME.chips/G.GAME.blind.chips
             end
         else
             card.ability.extra.current = card.ability.extra.Xmult
@@ -5210,9 +5210,9 @@ SMODS.Joker { --Smines
         name = 'Super Mines',
         text = {
             'Creates a {C:attention}Mine{} every {C:attention}#1#{C:inactive}#2#{} hands',
-            'If chips scored is below required',
-            'chips on {C:attention}final hand{} of round,',
-            'spend a mine to give {X:mult,C:white}X#3#{} Mult',
+            'Spend mines to give {X:mult,C:white}X#3#{} Mult until',
+            'chips scored exceeds required',
+            'chips on {C:attention}final hand{} of round',
             '{C:inactive}(Currently {C:attention}#4#{C:inactive} mines){}'
         }
     },

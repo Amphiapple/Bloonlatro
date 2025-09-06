@@ -36,8 +36,10 @@ Balance Changes:
 - Arcane Mastery effect changed
 - Long Life Spikes Mult per Spade +1 > +2, halves at end of round
 - Bloon Impact gains +1 Mult whenever a Stunned card wears off, can still be perishable due to stunning effect
+- Icicles Xmult 2 > 1.5
 - Favored Trades effect changes
 - Jungle's Bounty effect changed
+- Avatar of Wrath maximum Xmult 3 > 2.5
 - Primary Expertise XMult X4 > X3
 - Time Stop +1 hand +2 discards > +3 hands
 - Psychic Blast also gives +2 discards when used
@@ -49,3 +51,4 @@ Fixes:
 - Rocket Storm scaling no longer gets copied by Blueprint effects
 - Total Transformation removes all stickers from left Joker, no longer stacks Eternal and Perishable
 - Golden Justice no longer crashes if a Gold Card is played but doesn't score
+- Purple Seal should now activate when discarded by a stunned card
