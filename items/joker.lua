@@ -4978,7 +4978,7 @@ SMODS.Joker { --Meg
 	order = 294,
 	blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { chips = 15, mult = 2, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
+    config = { extra = { chips = 10, mult = 2, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
     
     in_pool = function(self, args)
         for k, v in pairs(G.playing_cards) do

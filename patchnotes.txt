@@ -41,6 +41,7 @@ Balance Changes:
 - Jungle's Bounty effect changed
 - Avatar of Wrath maximum Xmult 3 > 2.5
 - Primary Expertise XMult X4 > X3
+- Megalodon chips scaling +15 > +10
 - Time Stop +1 hand +2 discards > +3 hands
 - Psychic Blast also gives +2 discards when used
 - Energizing Totem Xmult 1.25 > 1.5
