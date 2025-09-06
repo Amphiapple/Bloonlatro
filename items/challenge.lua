@@ -295,11 +295,11 @@ SMODS.Challenge {
     },
     deck = {
         type = 'Challenge Deck'
-    }
+    },
 }
 
 SMODS.Challenge {
-        key = 'monkeyopolis',
+    key = 'monkeyopolis',
     loc_txt = {
         name = 'Monkeyopolis',
     },
