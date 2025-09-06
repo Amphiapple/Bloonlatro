@@ -1,11 +1,17 @@
 return {
     misc = {
         v_text = {
+            ch_c_gold_stake = {
+                "Challenge is played on {C:gold}Gold Stake{}"
+            },
+            ch_c_purple_stake = {
+                "Challenge is played on {C:purple}Purple Stake{}"
+            },
             ch_c_bloonlatro = {
                 "All vanilla {C:attention}Jokers{} are banned."
             },
             ch_c_gorgon_storm = {
-                "Lose run if {C:attention}poker hand{} does not contain a {C:attention}pair{}"
+                "Lose run when {C:attention}Rocket Storm{} resets"
             },
             ch_c_crash_of_the_titans = {
                 "Must play {C:attention}5{} scoring cards"
@@ -24,12 +30,6 @@ return {
             },
             ch_c_no_skipping_blinds = {
                 "Skipping Blinds is disabled"
-            },
-            ch_c_double_blind_size = {
-                "Blind requirements are doubled"
-            },
-            ch_c_triple_blind_size = {
-                "Blind requirements are tripled"
             },
             ch_c_sticky_situation = {
                 "Scored cards are glued after they've been scored"

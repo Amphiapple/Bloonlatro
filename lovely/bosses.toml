@@ -3,19 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Vortex challenge ending on ante 6 logic
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "self.GAME.challenge = args.challenge.id"
-position = "after"
-payload = '''
-if self.GAME.challenge == "c_bloons_vortex" then
-    self.GAME.win_ante = 6
-end
-'''
-match_indent = true
-
 # Change the blind's local debuffed text
 [[patches]]
 [patches.pattern]

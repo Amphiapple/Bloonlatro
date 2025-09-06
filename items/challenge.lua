@@ -285,6 +285,7 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
+            { id = 'gold_stake' },
             { id = 'bloonlatro' }
         }
     },
@@ -295,7 +296,11 @@ SMODS.Challenge {
     },
     deck = {
         type = 'Challenge Deck'
-    }
+    },
+
+    apply = function(self)
+        G.GAME.stake = 8
+    end
 }
 
 SMODS.Challenge {
@@ -342,6 +347,7 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
+            { id = 'gold_stake' },
             { id = 'gorgon_storm' },
         }
     },
@@ -353,6 +359,64 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck'
     },
+
+    calculate = function(self, context)
+        if context.initial_scoring_step and not context.blueprint then
+            print('Gorgon Storm activated')
+            print(#G.play.cards)
+            print(#context.scoring_hand)
+
+            if G.play and G.play.cards then
+                local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+
+                local final_scoring_hand = {}
+                for i=1, #G.play.cards do
+                    local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash'))
+                    local unsplashed = SMODS.never_scores(G.play.cards[i])
+                    if not splashed then
+                        for _, card in pairs(scoring_hand) do
+                            if card == G.play.cards[i] then splashed = true end
+                        end
+                    end
+                    local effects = {}
+                    SMODS.calculate_context({modify_scoring_hand = true, other_card =  G.play.cards[i], full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true}, effects)
+                    local flags = SMODS.trigger_effects(effects, G.play.cards[i])
+                    if flags and flags.add_to_hand then splashed = true end
+                    if flags and flags.remove_from_hand then unsplashed = true end
+                    if splashed and not unsplashed then table.insert(final_scoring_hand, G.play.cards[i]) end
+                end
+                -- TARGET: adding to hand effects
+                scoring_hand = final_scoring_hand
+
+                local value_counts = {}
+                local duplicate_found = false
+                for _, card in ipairs(scoring_hand) do
+                    local v = card.base.value
+                    value_counts[v] = (value_counts[v] or 0) + 1
+                end
+                for _, count in pairs(value_counts) do
+                    if count > 1 then
+                        duplicate_found = true
+                    end
+                end
+
+                if not duplicate_found then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        func = function()
+                            G.STATE = G.STATES.GAME_OVER
+                            G.STATE_COMPLETE = false
+                            return true
+                        end
+                    }))
+                end
+            end
+        end
+    end,
+
+    apply = function(self)
+        G.GAME.stake = 8
+    end
 }
 
 SMODS.Challenge {
@@ -373,10 +437,11 @@ SMODS.Challenge {
     restrictions = abracadabmonkey_bans,
     deck = {
         type = 'Challenge Deck',
-        cards = {
-            {s='D',r='2',},{s='D',r='3',},{s='D',r='4',},{s='D',r='5',},{s='D',r='6',},{s='D',r='7',},{s='D',r='8',},{s='D',r='9',},{s='D',r='T',},{s='D',r='A',},{s='C',r='2',},{s='C',r='3',},{s='C',r='4',},{s='C',r='5',},{s='C',r='6',},{s='C',r='7',},{s='C',r='8',},{s='C',r='9',},{s='C',r='T',},{s='C',r='A',},{s='H',r='2',},{s='H',r='3',},{s='H',r='4',},{s='H',r='5',},{s='H',r='6',},{s='H',r='7',},{s='H',r='8',},{s='H',r='9',},{s='H',r='T',},{s='H',r='A',},{s='S',r='2',},{s='S',r='3',},{s='S',r='4',},{s='S',r='5',},{s='S',r='6',},{s='S',r='7',},{s='S',r='8',},{s='S',r='9',},{s='S',r='T',},{s='S',r='A',}
-        }
     },
+
+    apply = function(self)
+        G.GAME.tarot_rate = 0
+    end
 }
 
 SMODS.Challenge {
@@ -386,10 +451,10 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
+            { id = 'gold_stake' },
             { id = 'condensed_no_extra_money' },
             { id = 'disable_gold_card_money' },
             { id = 'scored_cards_become_gold' },
-            { id = 'triple_blind_size' },
         }
     },
     jokers = {
@@ -415,7 +480,17 @@ SMODS.Challenge {
                 end
             end
         end
-    end
+    end,
+
+    apply = function(self)
+        G.GAME.modifiers.no_extra_hand_money = true
+        G.GAME.modifiers.no_interest = true
+        G.GAME.modifiers.no_blind_reward = G.GAME.modifiers.no_blind_reward or {}
+        G.GAME.modifiers.no_blind_reward.Small = true
+        G.GAME.modifiers.no_blind_reward.Big = true
+        G.GAME.modifiers.no_blind_reward.Boss = true
+        G.GAME.stake = 8
+    end,
 }
 
 SMODS.Challenge {
@@ -441,6 +516,10 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+
+    apply = function(self)
+        change_shop_size(-2)
+    end
 }
 
 SMODS.Challenge {
@@ -490,11 +569,9 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
+            { id = 'purple_stake' },
             { id = 'all_eternal' },
         },
-        modifiers = {
-            {id = 'joker_slots', value = 4},
-        }
     },
     jokers = {
         { id = 'j_bloons_tt5', pinned = true },
@@ -510,6 +587,10 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+
+    apply = function(self)
+        G.GAME.stake = 6
+    end
 }
 
 SMODS.Challenge {
@@ -540,6 +621,10 @@ SMODS.Challenge {
         if context.individual and context.cardarea == G.play and not context.blueprint then
             context.other_card:set_ability('m_bloons_glued', nil, true)
         end
+    end,
+
+    apply = function(self)
+        G.GAME.tarot_rate = 0
     end
 }
 
@@ -552,6 +637,9 @@ SMODS.Challenge {
         modifiers = {
             { id = 'hands', value = 2 }
         },
+        custom = {
+            { id = 'gold_stake' }
+        }
     },
     jokers = {
         { id = 'j_bloons_pspike', eternal = true }
@@ -563,6 +651,10 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+
+    apply = function(self)
+        G.GAME.stake = 8
+    end
 }
 
 SMODS.Challenge {
@@ -626,6 +718,10 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck'
     },
+
+    apply = function(self)
+        G.GAME.win_ante = 6
+    end
 }
 
 SMODS.Challenge {
