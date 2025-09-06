@@ -238,6 +238,16 @@ SMODS.Blind {
         return G.GAME.challenge == 'c_bloons_dreadbloon'
     end,
 
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_dreadbloon")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+
     drawn_to_hand = function(self)
         for _,joker in ipairs(G.jokers.cards) do
             SMODS.recalc_debuff(joker)
@@ -254,10 +264,6 @@ SMODS.Blind {
         return math.max(math.floor(mult * 0.5 + 0.5), 1),
                math.max(math.floor(hand_chips * 0.5 + 0.5), 0),
                true
-    end,
-
-    bloons_modify_score = function(self, score)
-        return math.floor(math.min(0.3 * G.GAME.blind.chips, score) + 0.5)
     end,
 }
 
@@ -338,12 +344,17 @@ SMODS.Blind {
         return G.GAME.challenge == 'c_bloons_blastapopoulos'
     end,
 
-    press_play = function(self)
-        self.checked = {}
-    end,
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_blastapopoulos")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
 
     drawn_to_hand = function(self)
-        self.heat = 0
         local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('blastapopoulos'))
         local card = SMODS.add_card({
             set = 'Playing Card',
@@ -360,38 +371,5 @@ SMODS.Blind {
             end
         }))
         draw_card(G.play,G.deck, 90,'up', nil)
-    end,
-
-    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        for _, card in ipairs(G.hand.cards) do
-            if not self.checked[card] and card.config.center == G.P_CENTERS.m_bloons_frozen then
-                self.checked[card] = true
-                self.heat = self.heat - 3
-                return  mult, hand_chips, true
-            end
-        end
-        return mult, hand_chips, false
-    end,
-
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if not self.checked[context.other_card] then
-                self.checked[context.other_card] = true
-                if context.other_card.ability.name == 'Meteor Card' then
-                    self.heat = self.heat + 5
-                else
-                    self.heat = self.heat + 1
-                end
-            end
-        end
-    end,
-
-    bloons_modify_score = function(self, score)
-        if self.heat <= 0 then
-            return score
-        end
-        local reduction = 1 - math.min(self.heat * 0.05, 1)
-        local reduced_score = math.floor(score * reduction + 0.5)
-        return reduced_score
     end,
 }

@@ -110,6 +110,8 @@ local unable_eternal = {
     {id = 'j_mr_bones'},
     {id = 'j_invisible'},
     {id = 'j_luchador'},
+    {id = 'j_bloons_grape'},
+    {id = 'j_bloons_pineapple'},
     {id = 'j_bloons_brew'},
     {id = 'j_bloons_tt5'},
     {id = 'j_bloons_bank'}
@@ -185,17 +187,24 @@ local abracadabmonkey_bans = {
 local sticky_situation_cards = {
     { id = 'j_bloons_glose' }
 }
+local sticky_situation_others = {
+    { id = 'bl_water', type = 'blind' },
+    { id = 'bl_needle', type = 'blind' }
+}
 for _, card in ipairs(banned_tarot_cards) do
     table.insert(sticky_situation_cards, card)
 end
 for _, card in ipairs(banned_hand_cards) do
     table.insert(sticky_situation_cards, card)
 end
+for _, card in ipairs(banned_tarot_others) do
+    table.insert(sticky_situation_others, card)
+end
 
 local sticky_situation_bans = {
     banned_cards = sticky_situation_cards,
     banned_tags = banned_tarot_tags,
-    banned_other = banned_tarot_others
+    banned_other = sticky_situation_others
 }
 
 local dreadbloon_cards = {
@@ -244,6 +253,31 @@ for _, tag in ipairs(income_tags) do
     table.insert(monkeyopolis_tags, tag)
 end
 
+local crash_of_the_titans_cards = {
+    { id = 'c_hanged_man' },
+    { id = 'c_incantation' },
+    { id = 'c_grim' },
+    { id = 'c_familiar' },
+    { id = 'c_bloons_volcano' },
+    { id = 'p_standard_normal_1',
+        ids = {'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2'},
+    },
+    { id = 'j_marble' },
+    { id = 'j_certificate' },
+    { id = 'j_trading' },
+    { id = 'j_bloons_iring' },
+    { id = 'j_bloons_wlp' },
+    { id = 'j_bloons_mdom' },
+    { id = 'v_magic_trick' },
+    { id = 'v_illusion' },
+    { id = 'v_hieroglyph' },
+    { id = 'v_petroglyph' }
+}
+
+for _, joker in ipairs(banned_hand_cards) do
+    table.insert(crash_of_the_titans_cards, joker)
+end
+
 SMODS.Challenge {
     key = 'bloonlatro',
     loc_txt = {
@@ -277,7 +311,7 @@ SMODS.Challenge {
             { id = 'no_interest' },
         },
         modifiers = {
-            { id = 'joker_slots', value = 50 },
+            { id = 'joker_slots', value = 15 },
         }
     },
     restrictions = {
@@ -291,7 +325,7 @@ SMODS.Challenge {
             {id = 'c_bloons_farmer'},
             {id = 'v_antimatter'},
             {id = 'p_buffoon_normal_1', ids = {
-                'p_buffoon_normal_1','p_buffoon_normal_2','p_buffoon_jumbo_1','p_buffoon_mega_1',
+                'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2',
             }},
         },
         banned_tags = monkeyopolis_tags,
@@ -322,6 +356,30 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
+    key = 'abracadabmonkey',
+    loc_txt = {
+        name = 'Abracadabmonkey'
+    },
+    rules = {
+        custom = {
+            { id = 'abracadabmonkey' },
+            { id = 'no_shop_tarots' },
+        }
+    },
+    jokers = {
+        { id = 'j_bloons_wiz', eternal = true }
+    },
+    vouchers = {},
+    restrictions = abracadabmonkey_bans,
+    deck = {
+        type = 'Challenge Deck',
+        cards = {
+            {s='D',r='2',},{s='D',r='3',},{s='D',r='4',},{s='D',r='5',},{s='D',r='6',},{s='D',r='7',},{s='D',r='8',},{s='D',r='9',},{s='D',r='T',},{s='D',r='A',},{s='C',r='2',},{s='C',r='3',},{s='C',r='4',},{s='C',r='5',},{s='C',r='6',},{s='C',r='7',},{s='C',r='8',},{s='C',r='9',},{s='C',r='T',},{s='C',r='A',},{s='H',r='2',},{s='H',r='3',},{s='H',r='4',},{s='H',r='5',},{s='H',r='6',},{s='H',r='7',},{s='H',r='8',},{s='H',r='9',},{s='H',r='T',},{s='H',r='A',},{s='S',r='2',},{s='S',r='3',},{s='S',r='4',},{s='S',r='5',},{s='S',r='6',},{s='S',r='7',},{s='S',r='8',},{s='S',r='9',},{s='S',r='T',},{s='S',r='A',}
+        }
+    },
+}
+
+SMODS.Challenge {
     key = 'glorious_gold',
     loc_txt = {
         name = 'Glorious Gold'
@@ -346,7 +404,7 @@ SMODS.Challenge {
     calculate = function(self, context)
         if context.before and not context.blueprint then
             for i, card in ipairs(context.scoring_hand) do
-                if not card.debuff then
+                if not card.debuff and not (card.config.center == G.P_CENTERS['m_gold']) then
                     card:set_ability('m_gold', nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -358,30 +416,6 @@ SMODS.Challenge {
             end
         end
     end
-}
-
-SMODS.Challenge {
-    key = 'abracadabmonkey',
-    loc_txt = {
-        name = 'Abracadabmonkey'
-    },
-    rules = {
-        custom = {
-            { id = 'abracadabmonkey' },
-            { id = 'no_shop_tarots' },
-        }
-    },
-    jokers = {
-        { id = 'j_bloons_wiz', eternal = true }
-    },
-    vouchers = {},
-    restrictions = abracadabmonkey_bans,
-    deck = {
-        type = 'Challenge Deck',
-        cards = {
-            {s='D',r='2',},{s='D',r='3',},{s='D',r='4',},{s='D',r='5',},{s='D',r='6',},{s='D',r='7',},{s='D',r='8',},{s='D',r='9',},{s='D',r='T',},{s='D',r='A',},{s='C',r='2',},{s='C',r='3',},{s='C',r='4',},{s='C',r='5',},{s='C',r='6',},{s='C',r='7',},{s='C',r='8',},{s='C',r='9',},{s='C',r='T',},{s='C',r='A',},{s='H',r='2',},{s='H',r='3',},{s='H',r='4',},{s='H',r='5',},{s='H',r='6',},{s='H',r='7',},{s='H',r='8',},{s='H',r='9',},{s='H',r='T',},{s='H',r='A',},{s='S',r='2',},{s='S',r='3',},{s='S',r='4',},{s='S',r='5',},{s='S',r='6',},{s='S',r='7',},{s='S',r='8',},{s='S',r='9',},{s='S',r='T',},{s='S',r='A',}
-        }
-    },
 }
 
 SMODS.Challenge {
@@ -430,28 +464,14 @@ SMODS.Challenge {
     },
     vouchers = {},
     restrictions = {
-            banned_cards = {
-                { id = 'c_hanged_man' },
-                { id = 'c_incantation' },
-                { id = 'c_grim' },
-                { id = 'c_familiar' },
-                { id = 'c_bloons_volcano' },
-                { id = 'p_standard_normal_1', ids = {
-                'p_standard_normal_1', 'p_standard_normal_2',
-                'p_standard_jumbo_1', 'p_standard_mega_1' }
-                },
-                { id = 'j_marble' },
-                { id = 'j_certificate' },
-                { id = 'j_trading' },
-                { id = 'j_bloons_iring' },
-                { id = 'j_bloons_wlp' },
-                { id = 'v_magic_trick' },
-                { id = 'v_illusion' },
-            },
+            banned_cards = crash_of_the_titans_cards,
             banned_tags = {
                 { id = 'tag_standard' },
             },
-            banned_other = {}
+            banned_other = {
+                { id = 'bl_water', type = 'blind' },
+                { id = 'bl_needle', type = 'blind' }
+            }
         },
     deck = {
         type = 'Challenge Deck',
@@ -537,7 +557,9 @@ SMODS.Challenge {
         { id = 'j_bloons_pspike', eternal = true }
     },
     vouchers = {},
-    restrictions = {},
+    restrictions = {
+        banned_cards = banned_hand_cards
+    },
     deck = {
         type = 'Challenge Deck',
     },
