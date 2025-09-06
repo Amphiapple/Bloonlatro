@@ -64,6 +64,11 @@ SMODS.Scoring_Calculation({
             local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
 
             for i=1, #G.play.cards do
+				-- nullify the heat decreased from played frozen cards
+				if G.play.cards[i].config.center == G.P_CENTERS.m_bloons_frozen then
+					heat = heat + 3
+				end
+				
                 local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash'))
                 local unsplashed = SMODS.never_scores(G.play.cards[i])
                 if not splashed then
@@ -79,7 +84,7 @@ SMODS.Scoring_Calculation({
                 if splashed and not unsplashed then 
                     if G.play.cards[i].config.center == G.P_CENTERS.m_bloons_meteor then
                         heat = heat + 3
-                    else
+					else
                         heat = heat + 1
                     end
                 end
