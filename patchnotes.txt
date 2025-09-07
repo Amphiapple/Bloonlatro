@@ -50,6 +50,8 @@ Fixes:
 - Brickell Deck no longer crashes the game
 - Brickell Deck can gain discards again
 - Rocket Storm scaling no longer gets copied by Blueprint effects
+- Glaive Lord text should now say Blueprint compatible
+- Ray of Doom should no longer recount cards when copied by Blueprint effects
 - Total Transformation removes all stickers from left Joker, no longer stacks Eternal and Perishable
 - Golden Justice no longer crashes if a Gold Card is played but doesn't score
 - Purple Seal should now activate when discarded by a stunned card

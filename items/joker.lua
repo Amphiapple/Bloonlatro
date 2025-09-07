@@ -4089,7 +4089,7 @@ SMODS.Joker { --Glaive Lord
     rarity = 3,
 	cost = 8,
 	order = 272,
-	blueprint_compat = false,
+	blueprint_compat = true,
     perishable_compat = false,
     config = { extra = { chips = 3, current = 0, suits = {}, ranks = {} } }, --Variables: chips = +chips per continuing card, current = current +chips
 
@@ -4571,15 +4571,23 @@ SMODS.Joker { --Rod
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            for i = 1, #card.ability.extra.ranks do
-                if context.other_card:get_id() == card.ability.extra.ranks[i] then
+            local new_rank = true
+            local id = context.other_card:get_id()
+            if id < 0 then
+                new_rank = false
+            end
+            for k, v in pairs(card.ability.extra.ranks) do
+                if id == k then
                     local temp_Xmult = pseudorandom('rod', card.ability.extra.min, card.ability.extra.max) / 20.0
+                    new_rank = false
                     return {
                         x_mult = temp_Xmult
                     }
                 end
             end
-            card.ability.extra.ranks[#card.ability.extra.ranks+1] = context.other_card:get_id()
+            if new_rank and not context.blueprint then
+                card.ability.extra.ranks[id] = true
+            end
         elseif context.after and not context.blueprint then
             card.ability.extra.ranks = {}
         end
