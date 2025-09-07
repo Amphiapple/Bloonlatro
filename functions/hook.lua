@@ -120,3 +120,19 @@ end_round = function()
     local ret = end_round_old()
     return ret
 end
+
+--Challenge higher stakes
+local start_challenge_run_old = G.FUNCS.start_challenge_run
+G.FUNCS.start_challenge_run = function(e)
+    if G.OVERLAY_MENU then
+        G.FUNCS.exit_overlay_menu()
+    end
+    local stake = 1
+    if e.config.id == 21 or e.config.id == 23 or e.config.id == 25 or e.config.id == 30 then
+        stake = 8
+    elseif e.config.id == 28 then
+        stake = 6
+    end
+    local ret = G.FUNCS.start_run(e, {stake = stake, challenge = G.CHALLENGES[e.config.id]})
+    return ret
+end

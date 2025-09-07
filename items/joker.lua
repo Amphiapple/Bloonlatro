@@ -2296,7 +2296,7 @@ SMODS.Joker { --Shell Shock
 	cost = 5,
 	order = 222,
 	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2, mult = 6 } }, --Variables: num/denom = probability fraction 
+    config = { extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction 
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
@@ -2401,7 +2401,7 @@ SMODS.Joker { --Flash
 	cost = 6,
 	order = 226,
 	blueprint_compat = false,
-    config = { extra = { mult = 30, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
+    config = { extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned

@@ -33,7 +33,9 @@ General Changes:
 
 Balance Changes:
 - Banana Farm no longer counts itself
+- Shell Shock mult 6 > 8
 - Arcane Mastery effect changed
+- Flash Bomb mult 30 > 40
 - Long Life Spikes Mult per Spade +1 > +2, halves at end of round
 - Bloon Impact gains +1 Mult whenever a Stunned card wears off, can still be perishable due to stunning effect
 - Icicles Xmult 2 > 1.5
