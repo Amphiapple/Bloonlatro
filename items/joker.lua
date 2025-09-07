@@ -4080,7 +4080,7 @@ SMODS.Joker { --Glaive Lord
         text = {
             'This Joker gains {C:chips}+#1#{} Chips',
             'when each card with a new',
-            'suit and rank is scored',
+            'suit or rank is scored',
             '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
         }
     },
@@ -4134,9 +4134,9 @@ SMODS.Joker { --Glaive Lord
             end
             if new_rank then
                 card.ability.extra.ranks[id] = true
-                if new_suit then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
-                end
+            end
+            if new_suit or new_rank then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
             end
         elseif context.joker_main then
             return {
