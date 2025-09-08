@@ -268,8 +268,8 @@ local crash_of_the_titans_cards = {
     { id = 'j_marble' },
     { id = 'j_certificate' },
     { id = 'j_trading' },
+    { id = 'j_erosion'},
     { id = 'j_dna'},
-    { id = 'j_bloons_burny'},
     { id = 'j_bloons_necro'},
     { id = 'j_bloons_iring' },
     { id = 'j_bloons_wlp' },
@@ -373,10 +373,6 @@ SMODS.Challenge {
 
     calculate = function(self, context)
         if context.initial_scoring_step and not context.blueprint then
-            print('Gorgon Storm activated')
-            print(#G.play.cards)
-            print(#context.scoring_hand)
-
             if G.play and G.play.cards then
                 local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
 
