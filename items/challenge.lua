@@ -638,7 +638,7 @@ SMODS.Challenge {
 SMODS.Challenge {
     key = 'joshs_constant',
     loc_txt = {
-        name = 'Josh\'s Constant'
+        name = "Josh's Constant"
     },
     rules = {
         modifiers = {
