@@ -4744,7 +4744,7 @@ SMODS.Joker { --TT5
             }))
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + 1
-            if card.ability.extra.current >= card.ability.extra.rounds then
+            if card.ability.extra.current == card.ability.extra.rounds then
                 local eval = function()
                     return not card.REMOVED
                 end
@@ -4761,7 +4761,7 @@ SMODS.Joker { --AoW
         name = 'Avatar of Wrath',
         text = {
             '{X:mult,C:white}X#1#{} Mult,',
-            'loses {X:mult,C:white}X0.015{} Mult for every',
+            'loses {X:mult,C:white}X0.02{} Mult for every',
             '{C:attention}1%{} of chips scored this round',
         }
     },
@@ -4771,7 +4771,7 @@ SMODS.Joker { --AoW
 	cost = 8,
 	order = 288,
 	blueprint_compat = true,
-    config = { extra = { Xmult = 2.5, current = 2.5 } }, --Variables: Xmult = starting Xmult, current = current Xmult,
+    config = { extra = { Xmult = 3, current = 3 } }, --Variables: Xmult = starting Xmult, current = current Xmult,
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current, card.ability.extra.loss } }
@@ -4781,7 +4781,7 @@ SMODS.Joker { --AoW
             if G.GAME.chips/G.GAME.blind.chips > to_big(1) then
                 card.ability.extra.current = 1
             else
-                card.ability.extra.current = card.ability.extra.Xmult - 1.5 * G.GAME.chips/G.GAME.blind.chips
+                card.ability.extra.current = card.ability.extra.Xmult - 2 * G.GAME.chips/G.GAME.blind.chips
             end
         else
             card.ability.extra.current = card.ability.extra.Xmult
@@ -4802,7 +4802,7 @@ SMODS.Joker { --Lota
     loc_txt = {
         name = 'Lord of the Abyss',
         text = {
-            '{C:mult}+88{} Mult if you have',
+            '{C:mult}+#1#{} Mult if you have',
             'at least {C:attention}8 Bonus{}',
             'cards in your full deck',
             '{C:inactive}(Currently {C:attention}#2#{C:inactive})'

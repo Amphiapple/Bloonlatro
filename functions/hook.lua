@@ -47,16 +47,6 @@ Card.set_cost = function(self, ...)
             self.cost = self.cost - #find_joker('Monkey Commerce')
         end
     end
-    local lotas = find_joker('Lord of the Abyss')
-    if self.ability.set == 'Booster' and #lotas > 0 then
-        for k, v in pairs(lotas) do
-            if self.cost - v.ability.extra.number < 0 then
-                self.cost = 0
-            else
-                self.cost = self.cost - v.ability.extra.number
-            end
-        end
-    end
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
         self.cost = 0
     end

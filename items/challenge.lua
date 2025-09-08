@@ -113,8 +113,9 @@ local unable_eternal = {
     {id = 'j_bloons_grape'},
     {id = 'j_bloons_pineapple'},
     {id = 'j_bloons_brew'},
+    {id = 'j_bloons_bank'},
+    {id = 'j_bloons_blitz'},
     {id = 'j_bloons_tt5'},
-    {id = 'j_bloons_bank'}
 }
 
 local income_jokers = {
@@ -258,15 +259,21 @@ local crash_of_the_titans_cards = {
     { id = 'c_incantation' },
     { id = 'c_grim' },
     { id = 'c_familiar' },
+    { id = 'c_immolate'},
     { id = 'c_bloons_volcano' },
+    { id = 'c_bloons_cave'},
     { id = 'p_standard_normal_1',
         ids = {'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2'},
     },
     { id = 'j_marble' },
     { id = 'j_certificate' },
     { id = 'j_trading' },
+    { id = 'j_dna'},
+    { id = 'j_bloons_burny'},
+    { id = 'j_bloons_necro'},
     { id = 'j_bloons_iring' },
     { id = 'j_bloons_wlp' },
+    { id = 'j_bloons_tt5'},
     { id = 'j_bloons_mdom' },
     { id = 'v_magic_trick' },
     { id = 'v_illusion' },
@@ -316,7 +323,7 @@ SMODS.Challenge {
             { id = 'no_interest' },
         },
         modifiers = {
-            { id = 'joker_slots', value = 15 },
+            { id = 'joker_slots', value = 10 },
         }
     },
     restrictions = {
@@ -329,9 +336,9 @@ SMODS.Challenge {
             {id = 'c_bloons_cash'},
             {id = 'c_bloons_farmer'},
             {id = 'v_antimatter'},
-            {id = 'p_buffoon_normal_1', ids = {
-                'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2',
-            }},
+            {id = 'p_buffoon_normal_1',
+                ids = {'p_buffoon_normal_1','p_buffoon_normal_2', 'p_buffoon_jumbo_1','p_buffoon_mega_1'},
+            },
         },
         banned_tags = monkeyopolis_tags,
     },
@@ -355,7 +362,11 @@ SMODS.Challenge {
         { id = 'j_bloons_rorm', eternal = true }
     },
     vouchers = {},
-    restrictions = {},
+    restrictions = {
+        banned_cards = {
+            { id = 'j_bloons_tt5'},
+        }
+    },
     deck = {
         type = 'Challenge Deck'
     },

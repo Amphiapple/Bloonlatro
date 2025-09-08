@@ -18,7 +18,7 @@ SMODS.Blind {
     },
     key = 'bloonarius',
     atlas = 'Blind',
-    pos = { y = 10 },
+    pos = { y = 0 },
     dollars = 8,
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
@@ -63,7 +63,7 @@ SMODS.Blind {
     },
     key = 'lych',
     atlas = 'Blind',
-    pos = { y = 9 },
+    pos = { y = 1 },
     dollars = 8,
     mult = 40, -- 40x base score (2 million)
     boss = { showdown = true },
@@ -172,7 +172,7 @@ SMODS.Blind {
     },
     key = 'vortex',
     atlas = 'Blind',
-    pos = { y = 5 },
+    pos = { y = 2 },
     dollars = 8,
     mult = 25, -- 25x base score (500k)
     boss = { showdown = true },
@@ -227,7 +227,7 @@ SMODS.Blind {
 
     key = 'dreadbloon',
     atlas = 'Blind',
-    pos = { y = 12 },
+    pos = { y = 3 },
     dollars = 8,
     mult = 8, -- 8x base score (400k)
     boss = { showdown = true },
@@ -279,7 +279,7 @@ SMODS.Blind {
     },
     key = 'phayze',
     atlas = 'Blind',
-    pos = { y = 8 },
+    pos = { y = 4 },
     dollars = 8,
     mult = 20, -- 20x base score (1 million)
     boss = { showdown = true },
@@ -321,7 +321,7 @@ SMODS.Blind {
     },
     key = 'blastapopoulos',
     atlas = 'Blind',
-    pos = { y = 24 },
+    pos = { y = 5 },
     dollars = 8,
     mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },

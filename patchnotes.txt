@@ -41,7 +41,6 @@ Balance Changes:
 - Icicles Xmult 2 > 1.5
 - Favored Trades effect changes
 - Jungle's Bounty effect changed
-- Avatar of Wrath maximum Xmult 3 > 2.5
 - Primary Expertise XMult X4 > X3
 - Megalodon chips scaling +15 > +10
 - Time Stop +1 hand +2 discards > +3 hands
