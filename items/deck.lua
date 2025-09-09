@@ -175,7 +175,7 @@ SMODS.Back { --Ezili
         text = {
             'Start run with',
             '{C:attention}Magic Trick{}, {C:enhanced}Illusion{},',
-            'and {C:dark_edition}Hone{}'
+            '{C:dark_edition}Hone{}, and {C:dark_edition}Glow Up{}'
             
         }
     },
