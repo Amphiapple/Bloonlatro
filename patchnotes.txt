@@ -1,58 +1,11 @@
 Added Decks:
-- Ezili Deck
-- Silas Deck (may change in the future)
 
 Added Jokers:
-- Frag Bombs
-- Nomad
-- Grape Shot
-- Exploding Pineapple
-- Ultravision
-- Double Gun
-- Spike Storm
-- Sentry Expert + 4 sentries
-- Glaive Lord
-- Lord of the Abyss
-- Monkey Wall Street
-- Perma-Spike
 
 Added Consumables:
-- Thrive
-- Banana Farmer
-- Portable Lake
-- Road Spikes
-- Pontoon
-- Tech Bot
-- Cave Monkey
 
 General Changes:
-- Text changes to some things
-- Stunned Cards remove stun status after being discarded instead of before
-- Cave Monkey changed from a Joker to a power
-- Added an entire page of challenges
-- Added art for the Boss Blinds
 
 Balance Changes:
-- Banana Farm no longer counts itself
-- Shell Shock mult 6 > 8
-- Arcane Mastery effect changed
-- Flash Bomb mult 30 > 40
-- Long Life Spikes Mult per Spade +1 > +2, halves at end of round
-- Bloon Impact gains +1 Mult whenever a Stunned card wears off, can still be perishable due to stunning effect
-- Icicles Xmult 2 > 1.5
-- Favored Trades effect changes
-- Jungle's Bounty effect changed
-- Primary Expertise XMult X4 > X3
-- Megalodon chips scaling +15 > +10
-- Time Stop +1 hand +2 discards > +3 hands
-- Psychic Blast also gives +2 discards when used
-- Energizing Totem Xmult 1.25 > 1.5
 
 Fixes:
-- Brickell Deck no longer crashes the game
-- Brickell Deck can gain discards again
-- Rocket Storm scaling no longer gets copied by Blueprint effects
-- Ray of Doom should no longer recount cards when copied by Blueprint effects
-- Total Transformation removes all stickers from left Joker, no longer stacks Eternal and Perishable
-- Golden Justice no longer crashes if a Gold Card is played but doesn't score
-- Purple Seal should now activate when discarded by a stunned card
