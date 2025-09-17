@@ -20,8 +20,8 @@ SMODS.Joker { --Dart
     rarity = 1,
 	cost = 2,
 	order = 151,
-	blueprint_compat = true,
-    config = { extra = { chips = 30, mult = 2 } }, --Variables: chips = +chips, mult = +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { chips = 30, mult = 2 } }, --Variables: chips = +chips, mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
@@ -52,8 +52,8 @@ SMODS.Joker { --Boomer
     rarity = 1,
 	cost = 4,
 	order = 152,
-	blueprint_compat = true,
-    config = { extra = { retrigger = 2 } }, --Variables: retrigger = retrigger amount
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { retrigger = 2 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retrigger } }
@@ -83,9 +83,9 @@ SMODS.Joker { --Bomb
     rarity = 1,
 	cost = 5,
 	order = 153,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_steel',
-    config = { extra = { Xmult = 1.5 } }, --Variables: Xmult = Xmult
+    config = { category = 'primary', extra = { Xmult = 1.5 } }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult} }
@@ -115,8 +115,8 @@ SMODS.Joker { --Tack
     rarity = 1,
 	cost = 3,
 	order = 154,
-	blueprint_compat = true,
-    config = { extra = { chips = 24, mult = 4 } }, --Variables: chips = +chips, mult = +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { chips = 24, mult = 4 } }, --Variables: chips = +chips, mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
@@ -147,8 +147,8 @@ SMODS.Joker { --Ice
     rarity = 1,
 	cost = 3,
 	order = 156,
-	blueprint_compat = true,
-    config = { extra = { chips = 50 } }, --Variables: chips = +chips
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { chips = 50 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
@@ -196,8 +196,8 @@ SMODS.Joker { --Glue
     rarity = 1,
 	cost = 3,
 	order = 156,
-	blueprint_compat = true,
-    config = { extra = { mult = 10 } }, --Variables: mult = +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { mult = 10 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
@@ -229,8 +229,8 @@ SMODS.Joker { --Sniper
     rarity = 1,
 	cost = 4,
 	order = 157,
-	blueprint_compat = true,
-    config = { extra = { mult = 20, limit = 2, counter = 2 } }, --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
+    blueprint_compat = true,
+    config = { category = 'military', extra = { mult = 20, limit = 2, counter = 2 } }, --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
@@ -281,8 +281,8 @@ SMODS.Joker { --Sub
     rarity = 1,
 	cost = 3,
 	order = 158,
-	blueprint_compat = true,
-    config = { extra = { mult = 2 } }, --Variables: mult = +mult
+    blueprint_compat = true,
+    config = { category = 'military', extra = { mult = 2 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
@@ -320,8 +320,8 @@ SMODS.Joker { --Boat
     rarity = 1,
 	cost = 4,
 	order = 159,
-	blueprint_compat = false,
-    config = { extra = { money = 1, rate = 3, current = 0 } }, --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
+    blueprint_compat = false,
+    config = { category = 'military', extra = { money = 1, rate = 3, current = 0 } }, --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money, card.ability.extra.rate, card.ability.extra.current } }
@@ -358,8 +358,8 @@ SMODS.Joker { --Ace
     rarity = 1,
 	cost = 5,
 	order = 160,
-	blueprint_compat = true,
-    config = { extra = { chips = 50 } }, --Variables: chips = +chips
+    blueprint_compat = true,
+    config = { category = 'military', extra = { chips = 50 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips } }
@@ -396,8 +396,8 @@ SMODS.Joker { --Heli
     rarity = 1,
 	cost = 6,
 	order = 161,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 2 } }, --Variables: Xmult = Xmult
+    blueprint_compat = true,
+    config = { category = 'military', extra = { Xmult = 2 } }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult} }
@@ -437,8 +437,8 @@ SMODS.Joker { --Mortar
     rarity = 1,
 	cost = 5,
 	order = 162,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction, mult = +mult
+    blueprint_compat = true,
+    config = { category = 'military', extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction, mult = +mult
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mortar')
@@ -467,8 +467,8 @@ SMODS.Joker { --Dartling
     rarity = 1,
 	cost = 5,
 	order = 163,
-	blueprint_compat = true,
-    config = { extra = { max = 150, min = 0 } }, --Variables: max = max possible +chips, min = min possible +chips
+    blueprint_compat = true,
+    config = { category = 'military', extra = { max = 150, min = 0 } }, --Variables: max = max possible +chips, min = min possible +chips
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -496,7 +496,8 @@ SMODS.Joker { --Wiz
     rarity = 1,
 	cost = 4,
 	order = 164,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    config = { category = 'magic' },
 
     calculate = function(self, card, context)
         if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
@@ -542,8 +543,8 @@ SMODS.Joker { --Super
     rarity = 1,
 	cost = 6,
 	order = 165,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 1.5 } }, --Variables: Xmult = Xmult
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { Xmult = 1.5 } }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
@@ -573,8 +574,8 @@ SMODS.Joker { --Ninja
     rarity = 1,
 	cost = 4,
 	order = 166,
-	blueprint_compat = true,
-    config = { extra = { mult = 4, slots = 1 } }, --Variables: mult = +mult, slots = extra joker slots
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { mult = 4, slots = 1 } }, --Variables: mult = +mult, slots = extra joker slots
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
@@ -612,8 +613,8 @@ SMODS.Joker { --Alch
     rarity = 1,
 	cost = 5,
 	order = 167,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2 } }, --Variables: num/denom = probability fraction
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { num = 1, denom = 2 } }, --Variables: num/denom = probability fraction
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'alch')
@@ -669,8 +670,8 @@ SMODS.Joker { --Druid
     rarity = 1,
 	cost = 4,
 	order = 168,
-	blueprint_compat = true,
-    config = { extra = { mult = 20 } }, --Variables: mult = +mult
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { mult = 20 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
@@ -700,9 +701,9 @@ SMODS.Joker { --Merm
     rarity = 1,
 	cost = 3,
 	order = 169,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_bonus',
-    config = { extra = { mult = 15 } }, --Variables: mult = +mult
+    config = { category = 'magic', extra = { mult = 15 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -737,8 +738,8 @@ SMODS.Joker { --Farm
     rarity = 1,
 	cost = 5,
 	order = 170,
-	blueprint_compat = false,
-    config = { extra = { money = 1, current = 0 } }, --Variables: money = dollars per joker, current = current end of round dollars
+    blueprint_compat = false,
+    config = { category = 'support', extra = { money = 1, current = 0 } }, --Variables: money = dollars per joker, current = current end of round dollars
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money, card.ability.extra.current } }
@@ -773,8 +774,8 @@ SMODS.Joker { --Spac
     rarity = 1,
 	cost = 5,
 	order = 171,
-	blueprint_compat = true,
-    config = { extra = { chips = 25, current = 0 } }, --Variables: chips = +chips for each discard used, current = current +chips
+    blueprint_compat = true,
+    config = { category = 'support', extra = { chips = 25, current = 0 } }, --Variables: chips = +chips for each discard used, current = current +chips
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.current } }
@@ -816,8 +817,8 @@ SMODS.Joker { --Village
     rarity = 1,
 	cost = 5,
 	order = 172,
-	blueprint_compat = true,
-    config = { extra = { mult = 5 } }, --Variables: mult = +mult
+    blueprint_compat = true,
+    config = { category = 'support', extra = { mult = 5 } }, --Variables: mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
@@ -853,8 +854,8 @@ SMODS.Joker { --Engi
     rarity = 1,
 	cost = 4,
 	order = 173,
-	blueprint_compat = true,
-    config = { extra = { money = 3 } }, --Variables: money = dollars
+    blueprint_compat = true,
+    config = { category = 'support', extra = { money = 3 } }, --Variables: money = dollars
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money } }
@@ -892,9 +893,9 @@ SMODS.Joker { --Beast
     rarity = 1,
 	cost = 3,
 	order = 174,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_mult',
-    config = { extra = { chips = 90 } }, --Variables: chips = +chips
+    config = { category = 'support', extra = { chips = 90 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
@@ -929,8 +930,8 @@ SMODS.Joker { --Desp
     rarity = 1,
 	cost = 3,
 	order = 175,
-	blueprint_compat = true,
-    config = { extra = { number = 2, chips = 20 } }, --Variables: number = number of cards, chips = +chips
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { number = 2, chips = 20 } }, --Variables: number = number of cards, chips = +chips
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.number, card.ability.extra.chips } }
@@ -969,8 +970,8 @@ SMODS.Joker { --Eyesight
     rarity = 1,
 	cost = 4,
 	order = 181,
-	blueprint_compat = false,
-    config = { extra = { slots = 1 } }, --Variables: slots = extra consumable slots
+    blueprint_compat = false,
+    config = { category = 'primary', extra = { slots = 1 } }, --Variables: slots = extra consumable slots
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.slots } }
@@ -999,8 +1000,8 @@ SMODS.Joker { --Red Hot
     rarity = 1,
 	cost = 4,
 	order = 182,
-	blueprint_compat = true,
-    config = { extra = { retrigger = 2, number = 3 } }, --Variables: retrigger = retrigger amount, number = cards required for retrigger
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { retrigger = 2, number = 3 } }, --Variables: retrigger = retrigger amount, number = cards required for retrigger
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retrigger, card.ability.extra.number } }
@@ -1031,8 +1032,8 @@ SMODS.Joker { --Frags
     rarity = 1,
 	cost = 4,
 	order = 183,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 3 } }, --Variables: num/denom = probability fraction
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { num = 1, denom = 3 } }, --Variables: num/denom = probability fraction
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
@@ -1076,8 +1077,8 @@ SMODS.Joker { --More Tacks
     rarity = 1,
 	cost = 4,
 	order = 184,
-	blueprint_compat = true,
-    config = { extra = { chips = 20, mult = 5 } }, --Variables: chips = +chips, mult = +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { chips = 20, mult = 5 } }, --Variables: chips = +chips, mult = +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
@@ -1107,9 +1108,9 @@ SMODS.Joker { --Refreeze
     rarity = 1,
 	cost = 4,
 	order = 185,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
-    config = { extra = { retrigger = 1 } }, --Variables = retrigger = retrigger amount
+    config = { category = 'primary', extra = { retrigger = 1 } }, --Variables = retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
@@ -1141,10 +1142,10 @@ SMODS.Joker { --Corrosive
     rarity = 1,
 	cost = 4,
 	order = 186,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
-    config = { extra = { chips = 10, current = 0 } }, --Variables: chips = +chip gain for each glued card, current = current +chips
+    config = { category = 'primary', extra = { chips = 10, current = 0 } }, --Variables: chips = +chip gain for each glued card, current = current +chips
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
@@ -1182,9 +1183,10 @@ SMODS.Joker { --Shraps
     rarity = 1,
 	cost = 4,
 	order = 187,
-	blueprint_compat = true,
+    blueprint_compat = true,
+    config = { category = 'military' },
 
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
        if context.individual and context.cardarea == G.play and #context.scoring_hand > 1 and context.other_card == context.scoring_hand[#context.scoring_hand] then
             local last_number = context.scoring_hand[#context.scoring_hand-1].base.nominal
             return {
@@ -1209,8 +1211,8 @@ SMODS.Joker { --Intel
     rarity = 1,
 	cost = 5,
 	order = 188,
-	blueprint_compat = false,
-    config = { extra = { slots = 1 } }, --Variables: mult = +mult, slots = extra shop slots
+    blueprint_compat = false,
+    config = { category = 'military', extra = { slots = 1 } }, --Variables: mult = +mult, slots = extra shop slots
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.slots } }
@@ -1249,9 +1251,9 @@ SMODS.Joker { --Grape Shot
     rarity = 1,
 	cost = 5,
 	order = 189,
-	blueprint_compat = true,
+    blueprint_compat = true,
     eternal_compat = false,
-    config = { extra = { money = 5, loss = 1 } }, --Variables: money = dollars, loss = money reduction
+    config = { category = 'military', extra = { money = 5, loss = 1 } }, --Variables: money = dollars, loss = money reduction
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.money, card.ability.extra.loss } }
@@ -1314,9 +1316,9 @@ SMODS.Joker { --Pineapple
     rarity = 1,
 	cost = 5,
 	order = 190,
-	blueprint_compat = false,
+    blueprint_compat = false,
     eternal_compat = false,
-    config = { extra = { hands = 3 } }, --Variables: hands = hands remaining
+    config = { category = 'military', extra = { hands = 3 } }, --Variables: hands = hands remaining
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.hands } }
@@ -1372,9 +1374,9 @@ SMODS.Joker { --Quad
     rarity = 1,
 	cost = 6,
 	order = 191,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { mult = 1, number = 4, current = 0 } }, --Variables: mult = +mult gain or loss, current = current +mult
+    config = { category = 'military', extra = { mult = 1, number = 4, current = 0 } }, --Variables: mult = +mult gain or loss, current = current +mult
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.number, card.ability.extra.current } }
@@ -1417,8 +1419,8 @@ SMODS.Joker { --Burny
     rarity = 1,
 	cost = 5,
 	order = 192,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 4 } }, --Variables: num/denom = probability fraction 
+    blueprint_compat = true,
+    config = { category = 'military', extra = { num = 1, denom = 4 } }, --Variables: num/denom = probability fraction 
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'burny')
@@ -1448,9 +1450,8 @@ SMODS.Joker { --Laser Shock
     rarity = 1,
 	cost = 6,
 	order = 193,
-	blueprint_compat = true,
-
-    config = { extra = { max = 23, min = 0, mult = 0 } }, --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
+    blueprint_compat = true,
+    config = { category = 'military', extra = { max = 23, min = 0, mult = 0 } }, --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
@@ -1495,9 +1496,10 @@ SMODS.Joker { --WOF
     rarity = 1,
 	cost = 5,
 	order = 194,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    config = {category = 'magic' },
 
-    update = function (self, card, dt)
+    update = function(self, card, dt)
         if G.playing_cards then
             for k, v in pairs(G.playing_cards) do
                 if v.debuff then
@@ -1523,8 +1525,8 @@ SMODS.Joker { --UV
     rarity = 2,
 	cost = 6,
 	order = 195,
-	blueprint_compat = false,
-    config = { extra = { slots = 2 , discards = -1 } }, --Variables: slots = extra consumable slots, d_size = discard change
+    blueprint_compat = false,
+    config = { category = 'magic', extra = { slots = 2 , discards = -1 } }, --Variables: slots = extra consumable slots, d_size = discard change
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.slots, card.ability.extra.discards } }
@@ -1556,8 +1558,8 @@ SMODS.Joker { --Espionage
     rarity = 1,
 	cost = 5,
 	order = 196,
-	blueprint_compat = false,
-    config = { extra = { ready = true, active = false, hands = 0, discards = 0 } }, --Variables: ready = ready to combine hands and discards, active = hands merged with discards, hands = added hands, discards = added discards
+    blueprint_compat = false,
+    config = { category = 'magic', extra = { ready = true, active = false, hands = 0, discards = 0 } }, --Variables: ready = ready to combine hands and discards, active = hands merged with discards, hands = added hands, discards = added discards
 
     remove_from_deck = function(self, card, from_debuff)
         if card.ability.extra.active then
@@ -1630,8 +1632,8 @@ SMODS.Joker { --AMD
     rarity = 1,
 	cost = 6,
 	order = 197,
-	blueprint_compat = false,
-    config = { extra = { num = 1, denom = 4 } }, --Variables: num/denom = probability fraction
+    blueprint_compat = false,
+    config = { category = 'magic', extra = { num = 1, denom = 4 } }, --Variables: num/denom = probability fraction
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'amd')
@@ -1664,8 +1666,8 @@ SMODS.Joker { --Thunder
     rarity = 1,
 	cost = 5,
 	order = 198,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2 } }, --Variables: num/denom = probability fraction
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { num = 1, denom = 2 } }, --Variables: num/denom = probability fraction
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'thunder')
@@ -1690,9 +1692,9 @@ SMODS.Joker { --Enetwork
     rarity = 1,
 	cost = 5,
 	order = 199,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_bonus',
-    config = { extra = { number = 2 } }, --Variables: required = required bonus cards for planet
+    config = { category = 'magic', extra = { number = 2 } }, --Variables: required = required bonus cards for planet
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -1739,8 +1741,8 @@ SMODS.Joker { --Salvage
     rarity = 1,
 	cost = 5,
 	order = 200,
-	blueprint_compat = false,
-    config = { extra = { cost = 2 } }, --Variables: cost = extra sell price
+    blueprint_compat = false,
+    config = { category = 'support', extra = { cost = 2 } }, --Variables: cost = extra sell price
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.cost } }
@@ -1790,9 +1792,9 @@ SMODS.Joker { --Smart
     rarity = 1,
 	cost = 5,
 	order = 201,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult per unused hand, current = current +mult, hands = unused hands
+    config = { category = 'support', extra = { mult = 1, current = 0 } }, --Variables: mult = +mult per unused hand, current = current +mult, hands = unused hands
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
@@ -1825,8 +1827,8 @@ SMODS.Joker { --Discount
     rarity = 1,
 	cost = 5,
 	order = 202,
-	blueprint_compat = false,
-    config = { extra = { cost = 1 } }, --Variables: cost = discount amount
+    blueprint_compat = false,
+    config = { category = 'support', extra = { cost = 1 } }, --Variables: cost = discount amount
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.cost } }
@@ -1854,8 +1856,8 @@ SMODS.Joker { --Sentries
     rarity = 1,
 	cost = 5,
 	order = 203,
-	blueprint_compat = true,
-    config = { extra = { number = 2 } }, --Variables: number = required bonus cards for planet
+    blueprint_compat = true,
+    config = { category = 'support', extra = { number = 2 } }, --Variables: number = required bonus cards for planet
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.number } }
@@ -1894,9 +1896,9 @@ SMODS.Joker { --Owl
     rarity = 1,
 	cost = 5,
 	order = 204,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_mult',
-    config = { extra = { number = 2 } }, --Variables: number = required bonus cards for planet
+    config = { category = 'support', extra = { number = 2 } }, --Variables: number = required bonus cards for planet
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
@@ -1946,9 +1948,9 @@ SMODS.Joker { --Nomad
     rarity = 1,
 	cost = 4,
 	order = 205,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { chips = 4, current = 0, poker_hand = '' } }, --Variables: chips = +chips gain, current = current +chips, poker_hand = previous poker hand
+    config = { category = 'primary', extra = { chips = 4, current = 0, poker_hand = '' } }, --Variables: chips = +chips gain, current = current +chips, poker_hand = previous poker hand
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.chips, card.ability.extra.current, card.ability.extra.poker_hand } }
@@ -1987,8 +1989,8 @@ SMODS.Joker { --Sentry
     rarity = 1,
 	cost = 1,
 	order = 206,
-	blueprint_compat = true,
-    config = { extra = { chips = 30, mult = 2, slots = 1, rounds = 2 } }, --Variables: slots = joker slots, rounds = rounds remaining
+    blueprint_compat = true,
+    config = { category = 'support', extra = { chips = 30, mult = 2, slots = 1, rounds = 2 } }, --Variables: slots = joker slots, rounds = rounds remaining
 
     in_pool = function(self, args)
         return false
@@ -2054,8 +2056,8 @@ SMODS.Joker { --Trip shot
     rarity = 1,
 	cost = 5,
 	order = 211,
-	blueprint_compat = true,
-    config = { extra = { tarots = 3, limit = 3, counter = 3 } }, --Variables: tarots = number of tarots, limit = number of 3oaks for tarots, counter = current count index
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { tarots = 3, limit = 3, counter = 3 } }, --Variables: tarots = number of tarots, limit = number of 3oaks for tarots, counter = current count index
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.tarots, card.ability.extra.limit, card.ability.extra.counter } }
@@ -2110,10 +2112,10 @@ SMODS.Joker { --Bioboomer
     rarity = 1,
 	cost = 6,
 	order = 212,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
     enhancement_gate = 'm_steel',
-    config = { extra = { chips = 5, current = 0 } }, --Variables: chips = +chips gain if steel is held, current = current +chips
+    config = { category = 'primary', extra = { chips = 5, current = 0 } }, --Variables: chips = +chips gain if steel is held, current = current +chips
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
@@ -2157,8 +2159,8 @@ SMODS.Joker { --Mauler
     rarity = 1,
 	cost = 5,
 	order = 213,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 2.5 } }, --Variables: Xmult = Xmult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { Xmult = 2.5 } }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         
@@ -2190,9 +2192,9 @@ SMODS.Joker { --Blade
     rarity = 1,
 	cost = 5,
 	order = 214,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult gain if scoring hand contains 7, 8, 9, current = current +mult
+    config = { category = 'primary', extra = { mult = 1, current = 0 } }, --Variables: mult = +mult gain if scoring hand contains 7, 8, 9, current = current +mult
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
@@ -2237,10 +2239,10 @@ SMODS.Joker { --Shards
     rarity = 2,
 	cost = 6,
 	order = 215,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
-    config = { extra = { mult = 2, current = 0 } },
+    config = { category = 'primary', extra = { mult = 2, current = 0 } },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
@@ -2334,8 +2336,9 @@ SMODS.Joker { --Glose
     rarity = 2,
 	cost = 6,
 	order = 216,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
+    config = { category = 'primary' },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
@@ -2367,8 +2370,8 @@ SMODS.Joker { --Dprec
     rarity = 2,
 	cost = 7,
 	order = 217,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 3, limit = 3, counter = 3 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+    blueprint_compat = true,
+    config = { category = 'military', extra = { Xmult = 3, limit = 3, counter = 3 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
@@ -2420,9 +2423,9 @@ SMODS.Joker { --Trip guns
     rarity = 2,
 	cost = 6,
 	order = 218,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain for each 3oak held, current = current Xmult
+    config = { category = 'military', extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain for each 3oak held, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -2479,8 +2482,8 @@ SMODS.Joker { --Destroyer
     rarity = 2,
 	cost = 7,
 	order = 219,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 2, active = false } }, --Variables: Xmult = Xmult, active = joker destroyed
+    blueprint_compat = true,
+    config = { category = 'military', extra = { Xmult = 2, active = false } }, --Variables: Xmult = Xmult, active = joker destroyed
 
     loc_vars = function(self, info_queue, card)
         local function process_var(active)
@@ -2541,8 +2544,8 @@ SMODS.Joker { --Nevamiss
     rarity = 2,
 	cost = 6,
 	order = 220,
-	blueprint_compat = true,
-    config = { extra = { percent_min = 80, percent_max = 120 } }, --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
+    blueprint_compat = true,
+    config = { category = 'military', extra = { percent_min = 80, percent_max = 120 } }, --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.percent_min, card.ability.extra.percent_max } }
@@ -2585,8 +2588,8 @@ SMODS.Joker { --Draft
     rarity = 2,
 	cost = 7,
 	order = 221,
-	blueprint_compat = true,
-    config = { extra = { hands = 1, boss_hands = 2, counter = 0 } }, --Variables: hands = extra hands, scored_chips = chips for first hands, counter = amount of blowback hands left
+    blueprint_compat = true,
+    config = { category = 'military', extra = { hands = 1, boss_hands = 2, counter = 0 } }, --Variables: hands = extra hands, scored_chips = chips for first hands, counter = amount of blowback hands left
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.hands, card.ability.extra.boss_hands, card.ability.extra.counter } }
@@ -2652,8 +2655,8 @@ SMODS.Joker { --Shell Shock
     rarity = 1,
 	cost = 5,
 	order = 222,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction 
+    blueprint_compat = true,
+    config = { category = 'military', extra = { num = 1, denom = 2, mult = 8 } }, --Variables: num/denom = probability fraction 
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
@@ -2684,8 +2687,8 @@ SMODS.Joker { --Buckshot
     rarity = 2,
 	cost = 7,
 	order = 223,
-	blueprint_compat = true,
-    config = { extra = { max = 33, min = 10 } }, --Variables: max = max possible Xmult *10, min = min possible Xmult *10
+    blueprint_compat = true,
+    config = { category = 'military', extra = { max = 33, min = 10 } }, --Variables: max = max possible Xmult *10, min = min possible Xmult *10
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -2714,8 +2717,8 @@ SMODS.Joker { --Amast
     rarity = 2,
 	cost = 6,
 	order = 224,
-	blueprint_compat = false,
-    config = { extra = { money = 8 } }, --Variables: retrigger = retrigger amount
+    blueprint_compat = false,
+    config = { category = 'magic', extra = { money = 8 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Purple
@@ -2757,9 +2760,9 @@ SMODS.Joker { --Sav
     rarity = 2,
 	cost = 8,
 	order = 225,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { Xmult_match = 2, Xmult = 1.5 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands
+    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
@@ -2783,8 +2786,8 @@ SMODS.Joker { --Flash
     rarity = 2,
 	cost = 6,
 	order = 226,
-	blueprint_compat = false,
-    config = { extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
+    blueprint_compat = false,
+    config = { category = 'magic', extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
@@ -2846,9 +2849,9 @@ SMODS.Joker { --Brew
     rarity = 2,
 	cost = 6,
 	order = 227,
-	blueprint_compat = false,
+    blueprint_compat = false,
     eternal_compat = false,
-    config = { eligible_jokers = {} }, --Variables: eligible_jokers = possible jokers to give polychrome
+    config = { category = 'magic', eligible_jokers = {} }, --Variables: eligible_jokers = possible jokers to give polychrome
     
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
@@ -2892,8 +2895,8 @@ SMODS.Joker { --Melody
     rarity = 2,
 	cost = 6,
 	order = 229,
-	blueprint_compat = true,
-    config = { extra = { chips = 30 } }, --Variables: chips = +chips if bonus card
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { chips = 30 } }, --Variables: chips = +chips if bonus card
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -2932,9 +2935,9 @@ SMODS.Joker { --Bank
     rarity = 2,
 	cost = 7,
 	order = 230,
-	blueprint_compat = false,
+    blueprint_compat = false,
     eternal_compat = false,
-    config = { extra = { sell_limit = 10, capacity = 20 } }, --Variables: sell_limit = required sell price to create bank, capacity = max sell price from interest
+    config = { category = 'support', extra = { sell_limit = 10, capacity = 20 } }, --Variables: sell_limit = required sell price to create bank, capacity = max sell price from interest
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.sell_limit, card.ability.extra.capacity } }
@@ -2988,9 +2991,9 @@ SMODS.Joker { --LLS
     rarity = 2,
 	cost = 6,
 	order = 231,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { mult = 1, loss = 4, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+    config = { category = 'support', extra = { mult = 1, loss = 4, current = 0 } }, --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.loss, card.ability.extra.current } }
@@ -3031,7 +3034,7 @@ SMODS.Joker { --MIB
             '{C:attention}Listed {C:green,E:1,S:1.1}probabilities{} are',
             'multiplied by the number of unique ',
             'rarities in other owned {C:attention}Jokers',
-            '{C:inactive}(Currently {C:green}X#1#{C:inactive})',
+            '{C:inactive}(Currently {X:green,C:white}X#1#{C:inactive})',
         }
     },
     atlas = 'Joker',
@@ -3040,7 +3043,7 @@ SMODS.Joker { --MIB
     cost = 7,
     order = 232,
     blueprint_compat = false,
-    config = { extra = { num = 1 } },
+    config = { category = 'support', extra = { num = 1 } },
 
     loc_vars = function(self, info_queue, center)
         return { vars = { center.ability.extra.num } }
@@ -3091,8 +3094,8 @@ SMODS.Joker { --Doublegun
     rarity = 1,
 	cost = 5,
 	order = 233,
-	blueprint_compat = true,
-    config = { extra = { money = 1, pairs = {} } }, --Variables: money = money per held pair, pairs = held pairs
+    blueprint_compat = true,
+    config = { category = 'support', extra = { money = 1, pairs = {} } }, --Variables: money = money per held pair, pairs = held pairs
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money } }
@@ -3144,8 +3147,8 @@ SMODS.Joker { --Velo
     rarity = 2,
 	cost = 5,
 	order = 234,
-	blueprint_compat = true,
-    config = { extra = { mult = 4 } }, --Variables: mult = +mult if mult card
+    blueprint_compat = true,
+    config = { category = 'support', extra = { mult = 4 } }, --Variables: mult = +mult if mult card
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
@@ -3179,10 +3182,10 @@ SMODS.Joker { --Enforcer
     rarity = 2,
 	cost = 6,
 	order = 235,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
     enhancement_gate = 'm_stone',
-    config = { extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain for each stone, current = current Xmult
+    config = { category = 'primary', extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain for each stone, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -3218,8 +3221,8 @@ SMODS.Joker { --Jugg
     rarity = 2,
 	cost = 5,
 	order = 241,
-	blueprint_compat = true,
-    config = { extra = { mult = 2, current = 0 } }, --Variables: mult = +mult for each card scored, current = current +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { mult = 2, current = 0 } }, --Variables: mult = +mult for each card scored, current = current +mult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.current } }
@@ -3255,7 +3258,8 @@ SMODS.Joker { --Press
     rarity = 2,
 	cost = 5,
 	order = 242,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    config = { category = 'primary' },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Red
@@ -3293,8 +3297,8 @@ SMODS.Joker { --Blimpact
     rarity = 2,
 	cost = 6,
 	order = 244,
-	blueprint_compat = true,
-    config = { extra = { mult = 1, current = 0 } }, --Variables: mult = +mult for each stunned, current = current +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { mult = 1, current = 0 } }, --Variables: mult = +mult for each stunned, current = current +mult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
@@ -3341,8 +3345,8 @@ SMODS.Joker { --Od
     rarity = 2,
 	cost = 6,
 	order = 244,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 0.5, current = 1 } }, --Variables: Xmult = Xmult gain for each 8, current = current Xmult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { Xmult = 0.5, current = 1 } }, --Variables: Xmult = Xmult gain for each 8, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -3385,9 +3389,9 @@ SMODS.Joker { --Icicles
     rarity = 2,
 	cost = 6,
 	order = 245,
-	blueprint_compat = true,
+    blueprint_compat = true,
 
-    config = { extra = { Xmult = 1.2, num = 1, denom = 2 } }, --Variables: Xmult = Xmult, num/denom = probability fraction
+    config = { category = 'primary', extra = { Xmult = 1.2, num = 1, denom = 2 } }, --Variables: Xmult = Xmult, num/denom = probability fraction
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'icicles')
@@ -3424,9 +3428,9 @@ SMODS.Joker { --Relentless
     rarity = 2,
 	cost = 6,
 	order = 246,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
-    config = { extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
+    config = { category = 'primary', extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
@@ -3457,8 +3461,8 @@ SMODS.Joker { --Supply Drop
     rarity = 2,
 	cost = 7,
 	order = 247,
-	blueprint_compat = true,
-    config = { extra = { limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+    blueprint_compat = true,
+    config = { category = 'military', extra = { limit = 4, counter = 4 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
@@ -3515,9 +3519,9 @@ SMODS.Joker { --FS
     rarity = 2,
 	cost = 7,
 	order = 248,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { Xmult = 0.25, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
+    config = { category = 'military', extra = { Xmult = 0.25, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -3555,7 +3559,8 @@ SMODS.Joker { --Flavored
     rarity = 2,
 	cost = 7,
 	order = 249,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    category = {category = 'military' },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Blue
@@ -3601,8 +3606,8 @@ SMODS.Joker { --GZ
     rarity = 3,
 	cost = 7,
 	order = 250,
-	blueprint_compat = true,
-    config = { extra = { chips = 350 } }, --Variables: chips = +chips
+    blueprint_compat = true,
+    config = { category = 'military', extra = { chips = 350 } }, --Variables: chips = +chips
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
@@ -3638,8 +3643,8 @@ SMODS.Joker { --Comdef
     rarity = 2,
 	cost = 7,
 	order = 251,
-	blueprint_compat = true,
-    config = { extra = { chips = 30, current = 30, mini_chips = 40 } }, --Variables: chips = base chips
+    blueprint_compat = true,
+    config = { category = 'military', extra = { chips = 30, current = 30, mini_chips = 40 } }, --Variables: chips = base chips
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current, card.ability.extra.mini_chips } }
@@ -3682,8 +3687,8 @@ SMODS.Joker { --Abatt
     rarity = 2,
 	cost = 7,
 	order = 252,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 } }, --Variables: num/denom = probability fraction, chips = +chips, mult = +mult, Xmult = Xmult
+    blueprint_compat = true,
+    config = { category = 'military', extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 } }, --Variables: num/denom = probability fraction, chips = +chips, mult = +mult, Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'abatt')
@@ -3735,9 +3740,9 @@ SMODS.Joker { --Rorm
     rarity = 2,
 	cost = 7,
 	order = 253,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { max = 15, min = 0, current = 1 } }, --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
+    config = { category = 'military', extra = { max = 15, min = 0, current = 1 } }, --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
     
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current } }
@@ -3781,7 +3786,8 @@ SMODS.Joker { --Necro
     rarity = 2,
 	cost = 6,
 	order = 254,
-	blueprint_compat = true,
+    blueprint_compat = true,
+    config = { category = 'magic' },
 
     calculate = function(self, card, context)
         if (context.cards_destroyed or context.remove_playing_cards) and #G.hand.cards >= 1 then
@@ -3824,8 +3830,8 @@ SMODS.Joker { --Tech
     rarity = 3,
 	cost = 8,
 	order = 255,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 5, Xmult = 1.5 } }, --Variables: num/denom = probability fraction, Xmult = Xmult per crit
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { num = 1, denom = 5, Xmult = 1.5 } }, --Variables: num/denom = probability fraction, Xmult = Xmult per crit
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'tech')
@@ -3860,8 +3866,8 @@ SMODS.Joker { --Sabo
     rarity = 2,
 	cost = 6,
 	order = 256,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2, discards = 1 } }, --Variables: num/denom = probability fraction, discards = number of discards gained
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { num = 1, denom = 2, discards = 1 } }, --Variables: num/denom = probability fraction, discards = number of discards gained
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
@@ -3921,7 +3927,8 @@ SMODS.Joker { --R2G
     rarity = 2,
 	cost = 6,
 	order = 257,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    config = { category = 'magic' },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Gold
@@ -3958,7 +3965,8 @@ SMODS.Joker { --Jbounty
     rarity = 2,
 	cost = 7,
 	order = 258,
-	blueprint_compat = true,
+    blueprint_compat = true,
+    config = { category = 'magic' },
 
     calculate = function(self, card, context)
         if context.before and next(context.poker_hands['Full House']) then
@@ -3996,9 +4004,9 @@ SMODS.Joker { --Arknight
     rarity = 2,
 	cost = 7,
 	order = 259,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_bonus',
-    config = { extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
+    config = { category = 'magic', extra = { retrigger = 1 } }, --Variables: retrigger = retrigger amount
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -4036,13 +4044,13 @@ SMODS.Joker { --BRF
     rarity = 3,
 	cost = 7,
 	order = 260,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 0.5, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
+    blueprint_compat = true,
+    config = { category = 'support', extra = { Xmult = 0.5, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
-    update = function (self, card, dt)
+    update = function(self, card, dt)
         local count = 0
         for k, v in pairs(G.GAME.used_vouchers) do
             if v then
@@ -4077,9 +4085,9 @@ SMODS.Joker { --Sporm
     rarity = 2,
 	cost = 7,
 	order = 261,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
+    config = { category = 'support', extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -4129,8 +4137,8 @@ SMODS.Joker { --City
     rarity = 2,
 	cost = 7,
 	order = 262,
-	blueprint_compat = true,
-    config = { extra = { money = 1, current = 0 } },
+    blueprint_compat = true,
+    config = { category = 'support', extra = { money = 1, current = 0 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money, card.ability.extra.current } } --Variables: money = dollars per dart, current = current end of round dollars
@@ -4173,8 +4181,8 @@ SMODS.Joker { --Sexpert
     rarity = 2,
 	cost = 5,
 	order = 263,
-	blueprint_compat = true,
-    config = { extra = { sentries = { 'j_bloons_crushing_sentry', 'j_bloons_boom_sentry', 'j_bloons_cold_sentry', 'j_bloons_energy_sentry' } } },
+    blueprint_compat = true,
+    config = { category = 'support', extra = { sentries = { 'j_bloons_crushing_sentry', 'j_bloons_boom_sentry', 'j_bloons_cold_sentry', 'j_bloons_energy_sentry' } } },
 
     calculate = function(self, card, context)
         if context.setting_blind and not context.getting_sliced then
@@ -4211,8 +4219,8 @@ SMODS.Joker { --Condor
     rarity = 2,
 	cost = 7,
 	order = 264,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 2, hand_size = 1, current = 0 } }, --Variables: num/denom = probability fraction, hand_size = extra hand size, current = current increased hand size
+    blueprint_compat = true,
+    config = { category = 'support', extra = { num = 1, denom = 2, hand_size = 1, current = 0 } }, --Variables: num/denom = probability fraction, hand_size = extra hand size, current = current increased hand size
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
@@ -4256,8 +4264,8 @@ SMODS.Joker { --Twix
     rarity = 2,
 	cost = 6,
 	order = 265,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 3, number = 2 } }, --Variables: Xmult = Xmult, number = required 6s for Xmult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { Xmult = 3, number = 2 } }, --Variables: Xmult = Xmult, number = required 6s for Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.number } }
@@ -4298,8 +4306,8 @@ SMODS.Joker { --Crushing Sentry
     rarity = 2,
 	cost = 1,
 	order = 266,
-	blueprint_compat = true,
-    config = { extra = { mult = 4, slots = 1, rounds = 3 } }, --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
+    blueprint_compat = true,
+    config = { category = 'support', extra = { mult = 4, slots = 1, rounds = 3 } }, --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
 
     in_pool = function(self, args)
         return false
@@ -4364,8 +4372,8 @@ SMODS.Joker { --Boom Sentry
     rarity = 2,
 	cost = 1,
 	order = 267,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 1.5, slots = 1, rounds = 3 } }, --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
+    blueprint_compat = true,
+    config = { category = 'support', extra = { Xmult = 1.5, slots = 1, rounds = 3 } }, --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
 
     in_pool = function(self, args)
         return false
@@ -4437,8 +4445,8 @@ SMODS.Joker { --Cold Sentry
     rarity = 2,
 	cost = 1,
 	order = 268,
-	blueprint_compat = true,
-    config = { extra = { retrigger = 1, slots = 1, rounds = 3 } }, --Variables: retrigger = retrigger count, slots = joker slots, rounds = rounds remaining
+    blueprint_compat = true,
+    config = { category = 'support', extra = { retrigger = 1, slots = 1, rounds = 3 } }, --Variables: retrigger = retrigger amount, slots = joker slots, rounds = rounds remaining
 
     in_pool = function(self, args)
         return false
@@ -4506,8 +4514,8 @@ SMODS.Joker { --Energy Sentry
     rarity = 2,
 	cost = 1,
 	order = 269,
-	blueprint_compat = true,
-    config = { extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } }, --Variables: slots = joker slots, rounds = rounds remaining
+    blueprint_compat = true,
+    config = { category = 'support', extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } }, --Variables: slots = joker slots, rounds = rounds remaining
 
     in_pool = function(self, args)
         return false
@@ -4573,8 +4581,8 @@ SMODS.Joker { --Bloonprint
     rarity = 3,
 	cost = 10,
 	order = 270,
-	blueprint_compat = true,
-    config = { extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
+    blueprint_compat = true,
+    config = { category = 'support', extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
 
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
@@ -4633,8 +4641,8 @@ SMODS.Joker { --XBM
     rarity = 2,
 	cost = 7,
 	order = 271,
-	blueprint_compat = false,
-    config = { extra = { Xmult = 3, limit = 5, counter = 1 } }, --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
+    blueprint_compat = false,
+    config = { category = 'primary', extra = { Xmult = 3, limit = 5, counter = 1 } }, --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
@@ -4682,11 +4690,11 @@ SMODS.Joker { --Glaive Lord
     rarity = 3,
 	cost = 8,
 	order = 272,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { chips = 3, current = 0, suits = {}, ranks = {} } }, --Variables: chips = +chips per continuing card, current = current +chips
+    config = { category = 'primary', extra = { chips = 3, current = 0, suits = {}, ranks = {} } }, --Variables: chips = +chips per continuing card, current = current +chips
 
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
@@ -4759,11 +4767,11 @@ SMODS.Joker { --Blitz
     rarity = 3,
 	cost = 7,
 	order = 273,
-	blueprint_compat = false,
+    blueprint_compat = false,
     eternal_compat = false,
-    config = { extra = { scored_percent = 50 } }, --Variables: scored_percent = percent of required chips scored
+    config = { category = 'primary', extra = { scored_percent = 50 } }, --Variables: scored_percent = percent of required chips scored
 
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.scored_percent } }
     end,
     calculate = function(self, card, context)
@@ -4821,7 +4829,8 @@ SMODS.Joker { --Iring
     rarity = 3,
 	cost = 8,
 	order = 274,
-	blueprint_compat = true,
+    blueprint_compat = true,
+    config = { category = 'primary' },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
@@ -4871,8 +4880,8 @@ SMODS.Joker { --AZ
     rarity = 2,
 	cost = 7,
 	order = 275,
-	blueprint_compat = true,
-    config = { extra = { number = 5 } }, --Variables: number = required cards for spectral
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { number = 5 } }, --Variables: number = required cards for spectral
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
@@ -4953,8 +4962,8 @@ SMODS.Joker { --Solver
     rarity = 3,
 	cost = 7,
 	order = 276,
-	blueprint_compat = true,
-    config = { extra = { mult = 3 } }, --Variables: mult = permanent +mult
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { mult = 3 } }, --Variables: mult = permanent +mult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
@@ -4991,8 +5000,8 @@ SMODS.Joker { --Edef
     rarity = 2,
 	cost = 7,
 	order = 277,
-	blueprint_compat = true,
-    config = { extra = { Xmult1 = 1.5, Xmult2 = 2, Xmult3 = 4 } }, --Variables: Xmult1 = Xmult after first hand, Xmult2 = Xmult on final hand, Xmult3 = XMult if under 25%
+    blueprint_compat = true,
+    config = { category = 'military', extra = { Xmult1 = 1.5, Xmult2 = 2, Xmult3 = 4 } }, --Variables: Xmult1 = Xmult after first hand, Xmult2 = Xmult on final hand, Xmult3 = XMult if under 25%
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3 } }
@@ -5032,7 +5041,8 @@ SMODS.Joker { --Gizer
     rarity = 3,
 	cost = 8,
 	order = 278,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    config = { category = 'military' },
 
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
@@ -5066,9 +5076,9 @@ SMODS.Joker { --Plord
     rarity = 3,
 	cost = 8,
 	order = 279,
-	blueprint_compat = true,
+    blueprint_compat = true,
     enhancement_gate = 'm_lucky',
-    config = { extra = { num = 1, denom = 5 } }, --Variables: num/denom = probability fraction for lucky cards
+    config = { category = 'military', extra = { num = 1, denom = 5 } }, --Variables: num/denom = probability fraction for lucky cards
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'plord')
@@ -5093,8 +5103,9 @@ SMODS.Joker { --Shredder
     rarity = 3,
 	cost = 8,
 	order = 280,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 1, Xmult_next = 2, limit = 4, counter = 0 } }, --Variables: Xmult = Xmult, limit = aces for next level, counter = aces scored
+    blueprint_compat = true,
+    perishable_compat = false,
+    config = { category = 'military', extra = { Xmult = 1, Xmult_next = 2, limit = 4, counter = 0 } }, --Variables: Xmult = Xmult, limit = aces for next level, counter = aces scored
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_next, card.ability.extra.limit, card.ability.extra.counter } }
@@ -5139,8 +5150,8 @@ SMODS.Joker { --Aprime
     rarity = 3,
 	cost = 9,
 	order = 281,
-	blueprint_compat = true,
-    config = { extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } }, --Variables: Xmult = Xmult for each rank
+    blueprint_compat = true,
+    config = { category = 'military', extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } }, --Variables: Xmult = Xmult for each rank
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3, card.ability.extra.Xmult4 } }
@@ -5185,8 +5196,8 @@ SMODS.Joker { --Cin
     rarity = 3,
 	cost = 8,
 	order = 282,
-	blueprint_compat = false,
-    config = { extra = { Xmult = 1 } }, --Variables: Xmult = Xmult
+    blueprint_compat = false,
+    config = { category = 'military', extra = { Xmult = 1 } }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
@@ -5232,8 +5243,8 @@ SMODS.Joker { --ROD
     rarity = 3,
 	cost = 10,
 	order = 283,
-	blueprint_compat = true,
-    config = { extra = { max = 43, min = 20, ranks = {} } }, --Variables: max = max possible Xmult *20, min = min possible Xmult *20, ranks = card ranks played
+    blueprint_compat = true,
+    config = { category = 'military', extra = { max = 43, min = 20, ranks = {} } }, --Variables: max = max possible Xmult *20, min = min possible Xmult *20, ranks = card ranks played
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -5276,7 +5287,8 @@ SMODS.Joker { --WLP
     rarity = 3,
 	cost = 8,
 	order = 284,
-	blueprint_compat = true,
+    blueprint_compat = true,
+    config = { category = 'magic' },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.c_bloons_volcano
@@ -5317,7 +5329,8 @@ SMODS.Joker { --LOTN
     rarity = 3,
 	cost = 10,
 	order = 285,
-	blueprint_compat = false,
+    blueprint_compat = false,
+    config = { category = 'magic' },
 
     calculate = function(self, card, context)
         if context.game_over and not G.GAME.blind.boss and not context.blueprint then
@@ -5360,8 +5373,8 @@ SMODS.Joker { --GMN
     rarity = 3,
 	cost = 8,
 	order = 286,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 0.5 } },
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { Xmult = 0.5 } },
 
     loc_vars = function(self, info_queue, card)
         --Variables: Xmult = Xmult
@@ -5402,11 +5415,11 @@ SMODS.Joker { --TT5
     rarity = 3,
 	cost = 8,
 	order = 287,
-	blueprint_compat = false,
+    blueprint_compat = false,
     eternal_compat = false,
-    config = { extra = { rounds = 2, current = 0 } },
+    config = { category = 'magic', extra = { rounds = 2, current = 0 } },
 
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.rounds, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
@@ -5480,8 +5493,8 @@ SMODS.Joker { --AoW
     rarity = 3,
 	cost = 8,
 	order = 288,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 3, current = 3 } }, --Variables: Xmult = starting Xmult, current = current Xmult,
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { Xmult = 3, current = 3 } }, --Variables: Xmult = starting Xmult, current = current Xmult,
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current, card.ability.extra.loss } }
@@ -5523,9 +5536,9 @@ SMODS.Joker { --LOTA
     rarity = 2,
 	cost = 8,
 	order = 289,
-	blueprint_compat = false,
+    blueprint_compat = false,
     enhancement_gate = 'm_bonus',
-    config = { extra = { mult = 50, number = 0 } }, --Variables: mult = +mult, number = number of bonus cards in deck
+    config = { category = 'magic', extra = { mult = 50, number = 0 } }, --Variables: mult = +mult, number = number of bonus cards in deck
     
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
@@ -5542,7 +5555,7 @@ SMODS.Joker { --LOTA
             card.ability.extra.number = count
         end
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.number >= 8 then
             return {
                 mult = card.ability.extra.mult
@@ -5566,8 +5579,8 @@ SMODS.Joker { --Wall Street
     rarity = 3,
 	cost = 10,
 	order = 290,
-	blueprint_compat = false,
-    config = { extra = { slots = 1 } }, --Variables: slots = extra booster slots, cost_multiplier = pack cost multiplier
+    blueprint_compat = false,
+    config = { category = 'support', extra = { slots = 1 } }, --Variables: slots = extra booster slots, cost_multiplier = pack cost multiplier
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.slots } }
@@ -5597,8 +5610,8 @@ SMODS.Joker { --Pspike
     rarity = 3,
 	cost = 8,
 	order = 291,
-	blueprint_compat = false,
-    config = { extra = { hands = 5, current = 0 } }, --Variables: hands = max carryover hands, current = current hands
+    blueprint_compat = false,
+    config = { category = 'support', extra = { hands = 5, current = 0 } }, --Variables: hands = max carryover hands, current = current hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands, card.ability.extra.current } }
@@ -5643,8 +5656,8 @@ SMODS.Joker { --Pex
     rarity = 3,
 	cost = 8,
 	order = 292,
-	blueprint_compat = true,
-    config = { extra = { num = 1, denom = 5, Xmult = 3 } }, --Variables: num/denom = probability fraction, Xmult = Xmult
+    blueprint_compat = true,
+    config = { category = 'support', extra = { num = 1, denom = 5, Xmult = 3 } }, --Variables: num/denom = probability fraction, Xmult = Xmult
     
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
@@ -5676,6 +5689,46 @@ SMODS.Joker { --Pex
     end
 }
 
+SMODS.Joker { --Uboost
+    key = 'uboost',
+    name = 'Ultraboost',
+	loc_txt = {
+        name = 'Ultraboost',
+        text = {
+            'Played {C:attention}cards{}',
+            'permanently gain {X:mult,C:white}X#1#{}',
+            'Mult when scored',
+            '{C:inactive}(Maximum of {X:mult,C:white}X#2#{C:inactive})'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 14 },
+    rarity = 3,
+	cost = 9,
+	order = 293,
+    blueprint_compat = true,
+    config = { category = 'support', extra = { Xmult = 0.1, Xmult_max = 1 } }, --Variables: Xmult = permanent Xmult on cards, Xmult_max = maximum Xmult, 
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_max + 1 } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 1
+            if context.other_card.ability.perma_x_mult + card.ability.extra.Xmult > card.ability.extra.Xmult_max then
+                context.other_card.ability.perma_x_mult = card.ability.extra.Xmult_max
+            else
+                context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.Xmult
+            end
+            return {
+                extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
+                colour = G.C.CMULT,
+            }
+        end
+    end
+
+}
+
 SMODS.Joker { --Meg
     key = 'meg',
     name = 'Megalodon',
@@ -5694,9 +5747,9 @@ SMODS.Joker { --Meg
     rarity = 3,
 	cost = 9,
 	order = 294,
-	blueprint_compat = true,
+    blueprint_compat = true,
     perishable_compat = false,
-    config = { extra = { chips = 10, mult = 2, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
+    config = { category = 'support', extra = { chips = 10, mult = 2, current_chips = 0, current_mult = 0 } }, --Variables: chips = +chips for each bonus card, mult = +mult for each mult card, current_chips/mult = current +chips/+mult
     
     in_pool = function(self, args)
         for k, v in pairs(G.playing_cards) do
@@ -5745,8 +5798,8 @@ SMODS.Joker { --Gustice
     rarity = 3,
 	cost = 8,
 	order = 295,
-	blueprint_compat = false,
-    config = { extra = { Xmult = 2, num = 1, denom = 4, gold_dollars = 3, destroy_dollars = 15 } }, --Variables = Xmult = glass Xmult, num/denom = probability fraction, gold_dollars = gold dollars, destroy dollars = dollars when destroyed
+    blueprint_compat = false,
+    config = { category = 'primary', extra = { Xmult = 2, num = 1, denom = 4, gold_dollars = 3, destroy_dollars = 15 } }, --Variables = Xmult = glass Xmult, num/denom = probability fraction, gold_dollars = gold dollars, destroy dollars = dollars when destroyed
 
     in_pool = function(self, args)
         for k, v in pairs(G.playing_cards) do
@@ -5823,8 +5876,8 @@ SMODS.Joker { --MOAB Domination
     rarity = 4,
 	cost = 20,
 	order = 296,
-	blueprint_compat = true,
-    config = { extra = { Xmult = 1, current = 1, active = true } }, --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
+    blueprint_compat = true,
+    config = { category = 'primary', extra = { Xmult = 1, current = 1, active = true } }, --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -5862,8 +5915,8 @@ SMODS.Joker { --Fortress
     rarity = 4,
 	cost = 20,
 	order = 297,
-	blueprint_compat = false,
-    config = { extra = { retrigger = 1, money = 3 } }, --Variables: retrigger = retrigger amount (red), money = dollars (gold)
+    blueprint_compat = false,
+    config = { category = 'military', extra = { retrigger = 1, money = 3 } }, --Variables: retrigger = retrigger amount (red), money = dollars (gold)
 
     calculate = function(self, card, context)
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
@@ -5939,7 +5992,8 @@ SMODS.Joker { --Pbrew
     rarity = 4,
 	cost = 20,
 	order = 298,
-	blueprint_compat = true,
+    blueprint_compat = true,
+    config = { category = 'magic' },
 
     calculate = function(self, card, context)
         if context.before then
@@ -5974,8 +6028,8 @@ SMODS.Joker { --Smines
     rarity = 4,
 	cost = 20,
 	order = 299,
-	blueprint_compat = true,
-    config = { extra = { limit = 3, counter = 3, Xmult = 3, mines = 0 } }, --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
+    blueprint_compat = true,
+    config = { category = 'support', extra = { limit = 3, counter = 3, Xmult = 3, mines = 0 } }, --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
@@ -6026,6 +6080,71 @@ SMODS.Joker { --Smines
                 })
                 card.ability.extra.mines = card.ability.extra.mines - 1
             end
+        end
+    end
+}
+
+SMODS.Joker { --VTSG
+    key = 'vtsg',
+    name = 'Vengeful True Sun God',
+	loc_txt = {
+        name = 'Vengeful True Sun God',
+        text = {
+            'Sacrifices {C:attention}ALL{} other {C:attention}Jokers{}',
+            'to the {C:legendary,E:1,S:1.1}Vengeful True Sun God{}',
+            '{C:inactive}[#1# #2# #3# #4#]{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 14 },
+    soul_pos = { x = 9, y = 15 },
+    rarity = 4,
+	cost = 20,
+	order = 300,
+	blueprint_compat = true,
+    config = { category = 'magic', extra = { sacrifices = {}, chips = 200, mult = 40, Xmult = 2, discount = 1 } }, --Variables: mult = +mult, chips = +chips, Xmult = Xmult, discount = discount amount
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.sacrifices['primary'] or 0, card.ability.extra.sacrifices['military'] or 0, card.ability.extra.sacrifices['magic'] or 0, card.ability.extra.sacrifices['support'] or 0 } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        local deletable_jokers = {}
+        card.ability.extra.sacrifices['primary'] = 0
+        card.ability.extra.sacrifices['military'] = 0
+        card.ability.extra.sacrifices['magic'] = 0
+        card.ability.extra.sacrifices['support'] = 0
+        for k, v in pairs(G.jokers.cards) do
+            if not v.ability.eternal and v ~= card then
+                local category = v:get_category()
+                if card.ability.extra.sacrifices[category] < 9 then
+                    card.ability.extra.sacrifices[category] = card.ability.extra.sacrifices[category] + 1
+                end
+                deletable_jokers[#deletable_jokers + 1] = v
+            end
+        end
+        local _first_dissolve = nil
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.75,
+            func = function()
+                for k, v in pairs(deletable_jokers) do
+                    v:start_dissolve(nil, _first_dissolve)
+                end
+                return true
+            end
+        }))
+        recalc_all_costs()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips * card.ability.extra.sacrifices['primary'],
+                mult = card.ability.extra.mult * card.ability.extra.sacrifices['military'],
+                x_mult = 1 + card.ability.extra.Xmult * card.ability.extra.sacrifices['magic'],
+            }
         end
     end
 }

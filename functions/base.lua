@@ -14,6 +14,24 @@ function recalc_all_costs()
     }))
 end
 
+--Tower category function
+function Card.get_category(self)
+    if self.ability.category then
+        return self.ability.category
+    else
+        local order = self.ability.order
+        if order >= 1 and order <= 45 then
+            return 'primary'
+        elseif order >= 46 and order <= 75 then
+            return 'military'
+        elseif order >= 76 and order <= 105 then
+            return 'magic'
+        else
+            return 'support'
+        end
+    end
+end
+
 --Mdom new end round
 function end_round_new(mdoms)
     G.E_MANAGER:add_event(Event({

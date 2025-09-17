@@ -36,10 +36,13 @@ end
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
+    --Banana Salvage sell cost
     self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+    --Monkey Wall Street booster discount
     if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
         self.cost = math.floor(self.cost / 2.0)
     end
+    --Monkey Commerce discount
     if #find_joker('Monkey Commerce') > 0 then
         if #find_joker('Monkey Commerce') > self.cost then
             self.cost = 0
@@ -47,8 +50,22 @@ Card.set_cost = function(self, ...)
             self.cost = self.cost - #find_joker('Monkey Commerce')
         end
     end
+    --Primary expertise primary free discount
     if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
         self.cost = 0
+    end
+    --VTSG discount
+    local vtsgs = find_joker('Vengeful True Sun God')
+    if #vtsgs > 0 then
+        local discount = 0
+        for k, v in pairs(vtsgs) do
+            discount = discount + v.ability.extra.discount * v.ability.extra.sacrifices['support']
+        end
+        if discount > self.cost then
+            self.cost = 0
+        else
+            self.cost = self.cost - discount
+        end
     end
     return ret
 end
@@ -63,7 +80,7 @@ calculate_reroll_cost = function(skip_increment)
     return ret
 end
 
---Monkey Wall Street pack changing
+--Monkey Wall Street booster changing
 local get_pack_old = get_pack
 get_pack = function(_key, _type)
     local center = nil

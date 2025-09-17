@@ -17,6 +17,8 @@ Added Jokers:
 - Pirate Lord
 - Sky Shredder
 - Legend of the Night
+- Ultraboost
+- ?????
 
 Added Consumables:
 
