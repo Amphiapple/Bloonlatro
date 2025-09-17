@@ -5919,13 +5919,20 @@ SMODS.Joker { --Fortress
     config = { category = 'military', extra = { retrigger = 1, money = 3 } }, --Variables: retrigger = retrigger amount (red), money = dollars (gold)
 
     calculate = function(self, card, context)
+        if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card:get_id() == 14 and not context.blueprint then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger
+            }
+        end
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
             if context.cardarea == G.play then
                 return {
                     p_dollars = card.ability.extra.money
                 }
             end
-        elseif context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.blueprint then
+        end
+        if context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.blueprint then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -5939,37 +5946,34 @@ SMODS.Joker { --Fortress
                 end)
             }))
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
-        elseif context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
-            for i = 0, card.ability.extra.retrigger do
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'before',
-                        delay = 0.0,
-                        func = (function()
-                            if G.GAME.last_hand_played then
-                                local _planet = 0
-                                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                                    if v.config.hand_type == G.GAME.last_hand_played then
-                                        _planet = v.key
-                                    end
+        end
+        if context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        if G.GAME.last_hand_played then
+                            local _planet = 0
+                            for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                                if v.config.hand_type == G.GAME.last_hand_played then
+                                    _planet = v.key
                                 end
-                                local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
-                                card:add_to_deck()
-                                G.consumeables:emplace(card)
-                                G.GAME.consumeable_buffer = 0
                             end
-                            return true
-                        end)
-                    }))
-                    card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
-                end
+                            local card = create_card('Planet',G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
+                            card:add_to_deck()
+                            G.consumeables:emplace(card)
+                            G.GAME.consumeable_buffer = 0
+                        end
+                        return true
+                    end)
+                }))
+                return {
+                    message = localize('k_plus_planet'),
+                    colour = G.C.SECONDARY_SET.Planet
+                }
             end
-        elseif context.repetition and context.other_card:get_id() == 14 and (context.cardarea == G.play or context.cardarea == G.hand) and not context.blueprint then
-            return {
-                message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
-            }
         end
     end
 }

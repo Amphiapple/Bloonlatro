@@ -36,4 +36,5 @@ Balance Changes:
 Fixes:
 - Played/scoring card text fixes
 - Double gun functions correctly with blueprint effects
+- Flying Fortress should now retrigger all effects at end of round
 - Churchill Deck should no longer crash with other mods
