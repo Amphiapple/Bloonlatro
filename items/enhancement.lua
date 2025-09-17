@@ -13,7 +13,8 @@ SMODS.Enhancement ({ --Frozen
         text = {
             '{C:chips}+#1#{} Chips and',
             'thaws when held in hand',
-            'no rank or suit'
+            'no rank or suit',
+            "doesn't score"
         }
     },
 	atlas = "Enhancement",

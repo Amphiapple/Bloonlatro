@@ -1,11 +1,37 @@
 Added Decks:
 
 Added Jokers:
+- Shrapnel Shot
+- Wall of Fire
+- Counter Espionage
+- Acidic Mixture Dip
+- Heart of Thunder
+- Sentry Gun + Nail Sentry
+- Destroyer
+- Sun Avatar
+- Enforcer
+- First Strike Capability
+- Tech Terror
+- Banana Research Facility
+- Giant Condor
+- Pirate Lord
+- Sky Shredder
+- Legend of the Night
 
 Added Consumables:
 
 General Changes:
 
 Balance Changes:
+- Dart Monkey mult 3 > 2
+- Long Life Spikes mult gain 2 > 1, mult loss -50% > -4
+- Icicles X1.5 mult > held Frozen cards give X1.2 mult
+- Crushing Sentry mult 2 > 4
+- Energy Sentry chips 30 > 40
+- Crossbow Master Xmult 2 > 3
+- The Bloon Solver mult per trigger 2 > 3
 
 Fixes:
+- Played/scoring card text fixes
+- Double gun functions correctly with blueprint effects
+- Churchill Deck should no longer crash with other mods

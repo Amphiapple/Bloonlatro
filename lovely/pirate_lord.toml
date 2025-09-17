@@ -1,0 +1,22 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -11
+
+# Pirate Lord mult
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
+position = 'at'
+payload = "if #find_joker('Pirate Lord') > 0 or pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
+match_indent = true
+
+# Pirate Lord money
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
+position = 'at'
+payload = "if (#find_joker('Pirate Lord') > 0 and pseudorandom('lucky_money') < G.GAME.probabilities.normal/5) or pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
+match_indent = true

@@ -638,7 +638,8 @@ SMODS.Consumable { --Pontoon
     loc_txt = {
         name = 'Pontoon',
         text = {
-            'Use with a {C:attention}Portable Lake{} to',
+            'Use on a',
+            '{C:attention}Portable Lake{} to',
             'gain {C:dark_edition}+1{} Joker Slot'
         }
     },

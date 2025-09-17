@@ -125,7 +125,7 @@ SMODS.Back { --Church
 		return { vars = { self.config.extra.Xmult } }
 	end,
     calculate = function(self, back, context)
-		if G.GAME.blind.boss and context.final_scoring_step then
+		if context.final_scoring_step and G.GAME.blind.boss then
             mult = mod_mult(mult * self.config.extra.Xmult)
             update_hand_text( { delay = 0 }, { mult = mult } )
             G.E_MANAGER:add_event(Event({
