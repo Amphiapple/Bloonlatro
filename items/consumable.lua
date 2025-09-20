@@ -106,7 +106,7 @@ SMODS.Consumable { --SMS
     atlas = 'Consumable',
 	pos = { x = 0, y = 0 },
 	order = 1,
-    config = { percent = 75, max = 20000 }, --Variables: percent = cercent of required chips scored, max = maximum chips cap
+    config = { percent = 80, max = 20000 }, --Variables: percent = cercent of required chips scored, max = maximum chips cap
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.percent, card.ability.max } }

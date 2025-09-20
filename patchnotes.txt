@@ -31,6 +31,8 @@ Balance Changes:
 - Crushing Sentry mult 2 > 4
 - Energy Sentry chips 30 > 40
 - Crossbow Master Xmult 2 > 3
+- Super Monkey Storm score 50% > 80%
+- Thrive retrigger all cards > all held in hand cards
 
 Fixes:
 - Played/scoring card text fixes

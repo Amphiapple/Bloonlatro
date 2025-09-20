@@ -1640,15 +1640,11 @@ SMODS.Joker { --AMD
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'amd', card.ability.extra.num, card.ability.extra.denom, 'amd') then
+        if context.before and SMODS.pseudorandom_probability(card, 'amd', card.ability.extra.num, card.ability.extra.denom, 'amd') and not context.blueprint then
             local other_card = context.scoring_hand[# context.scoring_hand]
             if not other_card.edition then
                 local edition = poll_edition('amd', nil, true, true)
                 other_card:set_edition(edition, true)
-                return {
-                    message = 'Acid!',
-                    colour = G.C.GREEN
-                }
             end
         end
     end
