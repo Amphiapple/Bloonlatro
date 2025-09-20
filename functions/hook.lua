@@ -59,7 +59,7 @@ Card.set_cost = function(self, ...)
     if #vtsgs > 0 then
         local discount = 0
         for k, v in pairs(vtsgs) do
-            discount = discount + v.ability.extra.discount * v.ability.extra.sacrifices['support']
+            discount = discount + v.ability.extra.discount * (v.ability.extra.sacrifices['econ'])
         end
         if discount > self.cost then
             self.cost = 0

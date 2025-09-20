@@ -59,7 +59,7 @@ SMODS.Joker { --Boomer
         return { vars = { card.ability.extra.retrigger } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and (next(context.card_effects[1]) or #context.card_effects > 1) then
+        if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger
@@ -1645,6 +1645,10 @@ SMODS.Joker { --AMD
             if not other_card.edition then
                 local edition = poll_edition('amd', nil, true, true)
                 other_card:set_edition(edition, true)
+                return {
+                    message = 'Acid!',
+                    colour = G.C.GREEN
+                }
             end
         end
     end
@@ -1675,8 +1679,8 @@ SMODS.Joker { --Thunder
     end,
 }
 
-SMODS.Joker { --Enetwork
-    key = 'enetwork',
+SMODS.Joker { --Network
+    key = 'network',
     name = 'Echosense Network',
     loc_txt = {
         name = 'Echosense Network',
@@ -3127,6 +3131,8 @@ SMODS.Joker { --Doublegun
                     }
                 end
             end
+        elseif context.after then
+            card.ability.extra.pairs = {}
         end
     end
 }
@@ -3820,9 +3826,10 @@ SMODS.Joker { --Tech
 	loc_txt = {
         name = 'Tech Terror',
         text = {
-            'All cards randomly',
-            '{C:attention}CRIT{} for {X:mult,C:white}X#3#{} Mult',
-            '{C:attention}Steel{} cards always {C:attention}CRIT{}'
+            'Copies the ability',
+            'of rightmost {C:attention}Joker{}',
+            'every {C:attention}#1#{} hands',
+            '{C:inactive}(#2#){}'
         }
     },
 	atlas = 'Joker',
@@ -3831,19 +3838,51 @@ SMODS.Joker { --Tech
 	cost = 8,
 	order = 255,
     blueprint_compat = true,
-    config = { category = 'magic', extra = { num = 1, denom = 5, Xmult = 1.5 } }, --Variables: num/denom = probability fraction, Xmult = Xmult per crit
+    config = { category = 'support', extra = { limit = 3, counter = 3 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'tech')
-        return { vars = { n, d, card.ability.extra.Xmult } }
+        local function process_var(count, cap)
+			if count == cap - 1 then
+				return 'Active!'
+			end
+			return cap - count%cap - 1 .. ' remaining'
+		end
+        if card.area and card.area == G.jokers then
+			local other_joker = G.jokers.cards[#G.jokers.cards]
+			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+			main_end = {{
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {{
+                    n = G.UIT.C,
+                    config = {
+                        ref_table = card,
+                        align = "m",
+                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
+                        r = 0.05,
+                        padding = 0.06,
+                    },
+                    nodes = {{
+                        n = G.UIT.T,
+                        config = {
+                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
+                            colour = G.C.UI.TEXT_LIGHT,
+                            scale = 0.32 * 0.8,
+                        }
+                    }}
+                }}
+			}}
+		end
+        return { vars = { card.ability.extra.limit, process_var(card.ability.extra.counter, card.ability.extra.limit) }, main_end = main_end }
     end,
     calculate = function(self, card, context)
-        if context.individual and not context.end_of_round and not context.other_card.debuff then
-            if context.other_card.ability.name == 'Steel Card' or SMODS.pseudorandom_probability(card, 'tech', card.ability.extra.num, card.ability.extra.denom, 'tech') then
-                return {
-                    x_mult = card.ability.extra.Xmult
-                }
-            end
+        if context.after then
+            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
+        end
+        if card.ability.extra.counter == card.ability.extra.limit - 1 then
+            return SMODS.blueprint_effect(card, G.jokers.cards[#G.jokers.cards], context)
+        else
+            return
         end
     end
 }
@@ -3870,7 +3909,7 @@ SMODS.Joker { --Sabo
     config = { category = 'magic', extra = { num = 1, denom = 2, discards = 1 } }, --Variables: num/denom = probability fraction, discards = number of discards gained
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sabo')
         return { vars = { n, d, card.ability.extra.discards } }
     end,
 
@@ -4641,7 +4680,7 @@ SMODS.Joker { --XBM
     rarity = 2,
 	cost = 7,
 	order = 271,
-    blueprint_compat = false,
+    blueprint_compat = true,
     config = { category = 'primary', extra = { Xmult = 3, limit = 5, counter = 1 } }, --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
 
     loc_vars = function(self, info_queue, card)
@@ -4660,7 +4699,7 @@ SMODS.Joker { --XBM
 		}
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.blueprint then
+        if context.individual and context.cardarea == G.play then
             if card.ability.extra.counter == card.ability.extra.limit then
                 card.ability.extra.counter = 1
                 return {
@@ -4963,7 +5002,7 @@ SMODS.Joker { --Solver
 	cost = 7,
 	order = 276,
     blueprint_compat = true,
-    config = { category = 'primary', extra = { mult = 3 } }, --Variables: mult = permanent +mult
+    config = { category = 'primary', extra = { mult = 2 } }, --Variables: mult = permanent +mult
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
@@ -5065,9 +5104,9 @@ SMODS.Joker { --Plord
 	loc_txt = {
         name = 'Pirate Lord',
         text = {
-            '{C:attention}Lucky{} cards are',
-            'guaranteed to give Mult',
-            'and have a {C:green}#1# in #2#{}',
+            '{C:attention}Lucky{} cards have a',
+            '{C:green}#1# in #2#{} chance to give Mult',
+            'and have a {C:green}#3# in #4#{}',
             'chance to win {C:money}money{}'
         }
     },
@@ -5078,11 +5117,12 @@ SMODS.Joker { --Plord
 	order = 279,
     blueprint_compat = true,
     enhancement_gate = 'm_lucky',
-    config = { category = 'military', extra = { num = 1, denom = 5 } }, --Variables: num/denom = probability fraction for lucky cards
+    config = { category = 'military', extra = { num = 1, denom1 = 2, denom2 = 5 } }, --Variables: num/denom1, num/denom2 = probability fraction for lucky cards
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'plord')
-        return { vars = { n, d } }
+        local m, d1 = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom1, 'plord')
+        local n, d2 = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom2, 'plord')
+        return { vars = { m, d1, n, d2 } }
     end,
 }
 
@@ -5092,10 +5132,10 @@ SMODS.Joker { --Shredder
 	loc_txt = {
         name = 'Sky Shredder',
         text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{X:mult,C:white}X#2#{} Mult after',
-            '{C:attention}#3# Aces{} are scored',
-            '{C:inactive}(Currently {C:attention}#4#{C:inactive}/#3#)'
+            'This Joker gains{X:mult,C:white}X#1#{} Mult',
+            'every {C:attention}#2#{C:inactive} [#3#]{C:attention} Aces{} scored',
+            'Requirement doubles each increment',
+            '{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)',
         }
     },
 	atlas = 'Joker',
@@ -5105,18 +5145,17 @@ SMODS.Joker { --Shredder
 	order = 280,
     blueprint_compat = true,
     perishable_compat = false,
-    config = { category = 'military', extra = { Xmult = 1, Xmult_next = 2, limit = 4, counter = 0 } }, --Variables: Xmult = Xmult, limit = aces for next level, counter = aces scored
+    config = { category = 'military', extra = { Xmult = 1, limit = 4, counter = 0, current = 1 } }, --Variables: Xmult = Xmult gain, limit = aces for next level, counter = aces scored, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_next, card.ability.extra.limit, card.ability.extra.counter } }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.limit, card.ability.extra.counter, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and card.ability.extra.counter < 32 and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
             card.ability.extra.counter = card.ability.extra.counter + 1
             if card.ability.extra.counter >= card.ability.extra.limit then
-                card.ability.extra.Xmult = card.ability.extra.Xmult_next
-                if card.ability.extra.Xmult_next < 5 then
-                    card.ability.extra.Xmult_next = card.ability.extra.Xmult_next + 1
+                card.ability.extra.current = card.ability.extra.current + 1
+                if card.ability.extra.current < 5 then
                     card.ability.extra.limit = card.ability.extra.limit * 2
                 end
                 return {
@@ -5125,9 +5164,9 @@ SMODS.Joker { --Shredder
                     delay = 0.45,
                 }
             end
-        elseif context.joker_main and card.ability.extra.Xmult > 1 then
+        elseif context.joker_main and card.ability.extra.current > 1 then
             return {
-                x_mult = card.ability.extra.Xmult
+                x_mult = card.ability.extra.current
             }
         end
     end
@@ -5205,10 +5244,8 @@ SMODS.Joker { --Cin
     calculate = function(self, card, context)
         if context.joker_main then
             local total = 1
-            for ik, v in ipairs(context.scoring_hand) do
-                if v.config.center ~= G.P_CENTERS.c_base or
-                        v.edition or
-                        v.seal then
+            for k, v in ipairs(context.scoring_hand) do
+                if (v.config.center ~= G.P_CENTERS.c_base or v.edition or v.seal) and not v.debuff then
                     total = total + card.ability.extra.Xmult
                 end
             end
@@ -5221,6 +5258,7 @@ SMODS.Joker { --Cin
                 (context.destroying_card.config.center ~= G.P_CENTERS.c_base or
                 context.destroying_card.edition or
                 context.destroying_card.seal) and
+                not context.destroying_card.debuff and
                 not context.blueprint then
             return true
         end
@@ -5384,7 +5422,7 @@ SMODS.Joker { --GMN
         if context.joker_main then
             local total = 1
             for k, v in ipairs(context.scoring_hand) do
-                if v:is_suit('Diamonds', true) then
+                if v:is_suit('Diamonds', true) and not v.debuff then
                     total = total + card.ability.extra.Xmult
                 end
             end
@@ -5526,9 +5564,9 @@ SMODS.Joker { --LOTA
         name = 'Lord of the Abyss',
         text = {
             '{C:mult}+#1#{} Mult if you have',
-            'at least {C:attention}8 Bonus{}',
+            'at least {C:attention}#2# Bonus{}',
             'cards in your full deck',
-            '{C:inactive}(Currently {C:attention}#2#{C:inactive})'
+            '{C:inactive}(Currently {C:attention}#3#{C:inactive})'
         }
     },
     atlas = 'Joker',
@@ -5538,11 +5576,11 @@ SMODS.Joker { --LOTA
 	order = 289,
     blueprint_compat = false,
     enhancement_gate = 'm_bonus',
-    config = { category = 'magic', extra = { mult = 50, number = 0 } }, --Variables: mult = +mult, number = number of bonus cards in deck
+    config = { category = 'magic', extra = { mult = 50, limit = 8, number = 0 } }, --Variables: mult = +mult, limit = number of bonus required, number = number of bonus cards in deck
     
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
-        return { vars = { card.ability.extra.mult, card.ability.extra.number } }
+        return { vars = { card.ability.extra.mult, card.ability.extra.limit, card.ability.extra.number } }
     end,
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
@@ -5556,7 +5594,7 @@ SMODS.Joker { --LOTA
         end
     end,
     calculate = function(self, card, context)
-        if context.joker_main and card.ability.extra.number >= 8 then
+        if context.joker_main and card.ability.extra.number >= card.ability.extra.limit then
             return {
                 mult = card.ability.extra.mult
             }
@@ -6009,6 +6047,10 @@ SMODS.Joker { --Pbrew
                     v:set_edition('e_polychrome', true)
                 end
             end
+            return {
+                message = 'Brewed!',
+                colour = G.C.MONEY
+            }
         end
     end
 }
@@ -6096,7 +6138,7 @@ SMODS.Joker { --VTSG
         text = {
             'Sacrifices {C:attention}ALL{} other {C:attention}Jokers{}',
             'to the {C:legendary,E:1,S:1.1}Vengeful True Sun God{}',
-            '{C:inactive}[#1# #2# #3# #4#]{}'
+            '{C:inactive}[#1# #2# #3# #4# #5# #6#]{}'
         }
     },
 	atlas = 'Joker',
@@ -6106,22 +6148,33 @@ SMODS.Joker { --VTSG
 	cost = 20,
 	order = 300,
 	blueprint_compat = true,
-    config = { category = 'magic', extra = { sacrifices = {}, chips = 200, mult = 40, Xmult = 2, discount = 1 } }, --Variables: mult = +mult, chips = +chips, Xmult = Xmult, discount = discount amount
+    --Variables: mult = +mult, chips = +chips, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
+    config = { category = 'magic', extra = { sacrifices = {}, chips = 200, mult = 40, Xmult = 2, consumable = 1, discount = 2, Xmult_support = 0.2 } },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.sacrifices['primary'] or 0, card.ability.extra.sacrifices['military'] or 0, card.ability.extra.sacrifices['magic'] or 0, card.ability.extra.sacrifices['support'] or 0 } }
+		return { vars = {
+            card.ability.extra.sacrifices['+chips'] or 0,
+            card.ability.extra.sacrifices['+mult'] or 0,
+            card.ability.extra.sacrifices['Xmult'] or 0,
+            card.ability.extra.sacrifices['econ'] or 0,
+            card.ability.extra.sacrifices['value'] or 0,
+            card.ability.extra.sacrifices['support'] or 0
+        } }
     end,
     add_to_deck = function(self, card, from_debuff)
         local deletable_jokers = {}
-        card.ability.extra.sacrifices['primary'] = 0
-        card.ability.extra.sacrifices['military'] = 0
-        card.ability.extra.sacrifices['magic'] = 0
+        card.ability.extra.sacrifices['+chips'] = 0
+        card.ability.extra.sacrifices['+mult'] = 0
+        card.ability.extra.sacrifices['Xmult'] = 0
+        card.ability.extra.sacrifices['econ'] = 0
+        card.ability.extra.sacrifices['value'] = 0
         card.ability.extra.sacrifices['support'] = 0
         for k, v in pairs(G.jokers.cards) do
             if not v.ability.eternal and v ~= card then
-                local category = v:get_category()
-                if card.ability.extra.sacrifices[category] < 9 then
-                    card.ability.extra.sacrifices[category] = card.ability.extra.sacrifices[category] + 1
+                local category = v:get_effects_vtsg()
+                local weight = v:get_effect_weight_vtsg()
+                for i, j in pairs(category) do
+                    card.ability.extra.sacrifices[j] = card.ability.extra.sacrifices[j] + weight
                 end
                 deletable_jokers[#deletable_jokers + 1] = v
             end
@@ -6145,10 +6198,33 @@ SMODS.Joker { --VTSG
     calculate = function (self, card, context)
         if context.joker_main then
             return {
-                chips = card.ability.extra.chips * card.ability.extra.sacrifices['primary'],
-                mult = card.ability.extra.mult * card.ability.extra.sacrifices['military'],
-                x_mult = 1 + card.ability.extra.Xmult * card.ability.extra.sacrifices['magic'],
+                chips = card.ability.extra.chips * card.ability.extra.sacrifices['+chips'],
+                mult = card.ability.extra.mult * card.ability.extra.sacrifices['+mult'],
+                x_mult = 1 + card.ability.extra.Xmult * card.ability.extra.sacrifices['Xmult'],
             }
-        end
+        elseif context.other_joker and context.other_joker ~= card then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
+            return {
+                x_mult = 1 + card.ability.extra.Xmult_support * card.ability.extra.sacrifices['support']
+            }
+        elseif context.ending_shop and card.ability.extra.sacrifices['value'] >= 1 then
+            for i = 1, card.ability.extra.consumable * card.ability.extra.sacrifices['value'] do
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        local card = create_card('Consumeables',G.consumeables, nil, nil, nil, nil, nil, 'vtsg')
+                        card:set_edition({negative = true}, true)
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        return true
+                    end
+                }))
+            end
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*card.ability.extra.sacrifices['value'], colour = G.C.DARK_EDITION})
+        end   
     end
 }

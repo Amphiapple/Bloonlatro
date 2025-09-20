@@ -106,7 +106,7 @@ SMODS.Consumable { --SMS
     atlas = 'Consumable',
 	pos = { x = 0, y = 0 },
 	order = 1,
-    config = { percent = 50, max = 20000 }, --Variables: percent = cercent of required chips scored, max = maximum chips cap
+    config = { percent = 75, max = 20000 }, --Variables: percent = cercent of required chips scored, max = maximum chips cap
 
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.percent, card.ability.max } }
@@ -233,8 +233,7 @@ SMODS.Consumable { --Thrive
         name = 'Thrive',
         text = {
             'Retrigger all cards',
-            'held in hand and',
-            'played next hand',
+            'held in hand next hand'
         }
     },
     atlas = 'Consumable',
@@ -257,7 +256,7 @@ SMODS.Consumable { --Thrive
 		end
     end,
     calculate = function(self, card, context)
-        if context.repetition and (context.cardarea == G.hand or context.cardarea == G.play) and card.ability.active then
+        if context.repetition and context.cardarea == G.hand and card.ability.active then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.retrigger

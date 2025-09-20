@@ -9,7 +9,7 @@ priority = -11
 target = 'card.lua'
 pattern = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
 position = 'at'
-payload = "if #find_joker('Pirate Lord') > 0 or pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
+payload = "if (#find_joker('Pirate Lord') > 0 and pseudorandom('lucky_mult') < G.GAME.probabilities.normal/2) or pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
 match_indent = true
 
 # Pirate Lord money
