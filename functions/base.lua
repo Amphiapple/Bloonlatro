@@ -242,7 +242,7 @@ Joker_effects_vtsg = {
     j_bloons_abatt=     {effect = {'+chips', '+mult', 'Xmult'}, weight = 0.5},
     j_bloons_rorm=      {effect = {'Xmult'}, weight = 1},
     j_bloons_necro=     {effect = {'support'}, weight = 1},
-    j_bloons_tech=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_tech=      {effect = {'support'}, weight = 1},
     j_bloons_sabo=      {effect = {'support'}, weight = 1},
     j_bloons_r2g=       {effect = {'econ'}, weight = 1},
     j_bloons_jbounty=   {effect = {'econ'}, weight = 1},

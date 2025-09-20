@@ -32,11 +32,63 @@ G.FUNCS.can_select_card = function(e)
     end
 end
 
+--Thunder skip order change
+G.FUNCS.skip_blind = function(e)
+    stop_use()
+    G.CONTROLLER.locks.skip_blind = true
+    G.E_MANAGER:add_event(Event({
+        no_delete = true,
+        trigger = 'after',
+        blocking = false,blockable = false,
+        delay = 2.5,
+        timer = 'TOTAL',
+        func = function()
+            G.CONTROLLER.locks.skip_blind = nil
+            return true
+        end
+    }))
+    local _tag = e.UIBox:get_UIE_by_ID('tag_container')
+    G.GAME.skips = (G.GAME.skips or 0) + 1
+    if _tag then 
+        local skipped, skip_to = G.GAME.blind_on_deck or 'Small', 
+        G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'
+        G.GAME.round_resets.blind_states[skipped] = 'Skipped'
+        G.GAME.round_resets.blind_states[skip_to] = 'Select'
+        G.GAME.blind_on_deck = skip_to
+        play_sound('generic1')
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                delay(0.3)
+                for i = 1, #G.jokers.cards do
+                    G.jokers.cards[i]:calculate_joker({skip_blind = true})
+                end
+                add_tag(_tag.config.ref_table)
+                save_run()
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                delay(0.3)
+                for i = 1, #G.GAME.tags do
+                    G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+                end
+                for i = 1, #G.GAME.tags do
+                    if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+                end
+                return true
+            end
+        }))
+    end
+end
+
 --Cost and sell price change
 local set_cost_old = Card.set_cost
 Card.set_cost = function(self, ...)
     local ret = set_cost_old(self, ...)
-    --Banana Salvage sell cost
+    --Salvage sell cost
     self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
     --Monkey Wall Street booster discount
     if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
@@ -80,7 +132,7 @@ calculate_reroll_cost = function(skip_increment)
     return ret
 end
 
---Monkey Wall Street booster changing
+--Wall Street booster changing
 local get_pack_old = get_pack
 get_pack = function(_key, _type)
     local center = nil

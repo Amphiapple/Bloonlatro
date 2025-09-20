@@ -1677,6 +1677,11 @@ SMODS.Joker { --Thunder
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'thunder')
         return { vars = { n, d } }
     end,
+    calculate = function(self, card, context)
+        if context.skip_blind and SMODS.pseudorandom_probability(card, 'thunder', card.ability.extra.num, card.ability.extra.denom, 'thunder') then
+            add_tag(Tag('tag_double'))
+        end
+    end
 }
 
 SMODS.Joker { --Network
@@ -3838,7 +3843,7 @@ SMODS.Joker { --Tech
 	cost = 8,
 	order = 255,
     blueprint_compat = true,
-    config = { category = 'support', extra = { limit = 3, counter = 3 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
+    config = { category = 'support', extra = { limit = 2, counter = 2 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)
