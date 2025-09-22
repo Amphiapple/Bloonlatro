@@ -13,6 +13,7 @@ local items = {
     'deck',
     'enhancement',
     'joker',
+    'voucher'
 }
 
 for k, v in ipairs(functions) do

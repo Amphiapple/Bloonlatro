@@ -290,13 +290,13 @@ SMODS.Back { --French
 	atlas = "Back",
 	pos = { x = 0, y = 2 },
     order = 27,
-    config = { extra = { booster_slots = 1 } },
+    config = { extra = { slots = 1 } },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { self.config.extra.booster_slots } }
+        return { vars = { self.config.extra.slots } }
     end,
     apply = function(self)
-        SMODS.change_booster_limit(self.config.extra.booster_slots)
+        SMODS.change_booster_limit(self.config.extra.slots)
     end
 }
 

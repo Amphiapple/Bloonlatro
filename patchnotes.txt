@@ -20,7 +20,15 @@ Added Jokers:
 - Ultraboost
 - ?????
 
-Added Consumables:
+Added Vouchers:
+- Power Merchant
+- Power Tycoon
+- Insider Trades
+- Backroom Deals
+- Quick Hands
+- Grand Prix Spree
+- Big Bloon Sabotage
+- Big Bloon Blueprints
 
 General Changes:
 

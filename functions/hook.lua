@@ -32,7 +32,7 @@ G.FUNCS.can_select_card = function(e)
     end
 end
 
---Thunder skip order change
+--Skip tag effects
 G.FUNCS.skip_blind = function(e)
     stop_use()
     G.CONTROLLER.locks.skip_blind = true
@@ -60,6 +60,12 @@ G.FUNCS.skip_blind = function(e)
             trigger = 'immediate',
             func = function()
                 delay(0.3)
+                if G.GAME.used_vouchers.v_bloons_quick_hands then
+                    if G.GAME.used_vouchers.v_bloons_grand_prix_spree then
+                        add_tag(Tag('tag_skip'))
+                    end
+                    add_tag(Tag('tag_double'))
+                end
                 for i = 1, #G.jokers.cards do
                     G.jokers.cards[i]:calculate_joker({skip_blind = true})
                 end

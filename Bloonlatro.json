@@ -1,7 +1,7 @@
 {
 	"id": "bloonlatro",
 	"name": "Bloonlatro",
-	"author": ["Amphibirdzciclucas"],
+	"author": ["Refuge"],
 	"description": "Adds BTD6 into Balatro",
 	"prefix": "bloons",
 	"main_file": "main.lua",
