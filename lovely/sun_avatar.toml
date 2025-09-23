@@ -1,15 +1,13 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = -11
+priority = 1
 
 # Sun Avatar Planet Xmult
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = '''function Card:calculate_joker(context)
-    if self.debuff then return nil end
-'''
+pattern = "function Card:calculate_joker(context)"
 position = 'after'
 payload = '''
 if self.ability.set == "Planet" and not self.debuff then

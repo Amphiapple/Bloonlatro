@@ -1,3 +1,11 @@
+Challenge_stakes = {
+    c_bloons_bloonlatro = {stake = 8},
+    c_bloons_gorgon_storm = {stake = 8},
+    c_bloons_glorious_gold = {stake = 8},
+    c_bloons_freaky_friday = {stake = 6},
+    c_bloons_joshs_constant = {stake = 8}
+}
+
 local vanilla_jokers = {}
 for key, _ in pairs(G.P_CENTERS or {}) do
     if key:sub(1,2) == "j_" and not key:find("^j_bloons") then

@@ -119,11 +119,11 @@ SMODS.Voucher { --Backroom Deals
     end
 }
 
-SMODS.Voucher { --Quick hands
+SMODS.Voucher { --Quick Hands
     key = 'quick_hands',
-    name = 'Quick hands',
+    name = 'Quick Hands',
 	loc_txt = {
-        name = 'Quick hands',
+        name = 'Quick Hands',
         text = {
             'Create a {C:attention}Double Tag{}',
             'when skipping a {C:attention}Blind{}'
@@ -193,7 +193,7 @@ SMODS.Voucher { --Big Bloon Blueprints
         }
     },
 	atlas = 'Voucher',
-	pos = { x = 3, y = 0 },
+	pos = { x = 3, y = 1 },
 	cost = 10,
 	order = 40,
     requires = { 'v_bloons_big_bloon_sabotage' },

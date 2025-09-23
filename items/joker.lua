@@ -1719,7 +1719,7 @@ SMODS.Joker { --Network
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'enetwork')
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'network')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -2488,7 +2488,7 @@ SMODS.Joker { --Destroyer
 	cost = 7,
 	order = 219,
     blueprint_compat = true,
-    config = { category = 'military', extra = { Xmult = 2, active = false } }, --Variables: Xmult = Xmult, active = joker destroyed
+    config = { category = 'military', extra = { Xmult = 2.5, active = false } }, --Variables: Xmult = Xmult, active = joker destroyed
 
     loc_vars = function(self, info_queue, card)
         local function process_var(active)
@@ -4127,7 +4127,7 @@ SMODS.Joker { --Sporm
 	order = 261,
     blueprint_compat = true,
     perishable_compat = false,
-    config = { category = 'support', extra = { Xmult = 0.1, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
+    config = { category = 'support', extra = { Xmult = 0.2, current = 1 } }, --Variables: Xmult = Xmult gain/loss, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
@@ -4260,6 +4260,7 @@ SMODS.Joker { --Condor
 	cost = 7,
 	order = 264,
     blueprint_compat = true,
+    enhancement_gate = 'm_mult',
     config = { category = 'support', extra = { num = 1, denom = 2, hand_size = 1, current = 0 } }, --Variables: num/denom = probability fraction, hand_size = extra hand size, current = current increased hand size
 
     loc_vars = function(self, info_queue, card)
@@ -5133,10 +5134,10 @@ SMODS.Joker { --Shredder
 	loc_txt = {
         name = 'Sky Shredder',
         text = {
-            'This Joker gains{X:mult,C:white}X#1#{} Mult',
+            'This Joker gains {X:mult,C:white}X#1#{} Mult',
             'every {C:attention}#2#{C:inactive} [#3#]{C:attention} Aces{} scored',
             'Requirement doubles each increment',
-            '{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)',
+            '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)',
         }
     },
 	atlas = 'Joker',

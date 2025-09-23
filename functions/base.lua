@@ -308,6 +308,15 @@ function Card.get_effect_weight_vtsg(self)
     return 1
 end
 
+--Challenge id function
+function get_challenge_stake(e)
+    local key = G.CHALLENGES[e.config.id].id
+    if key and Challenge_stakes[key] then
+        return Challenge_stakes[key].stake
+    end
+    return 1
+end
+
 --Recalculate cost function
 function recalc_all_costs()
     G.E_MANAGER:add_event(Event({

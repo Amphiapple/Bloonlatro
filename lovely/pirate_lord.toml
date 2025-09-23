@@ -1,22 +1,62 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = -11
+priority = 1
 
 # Pirate Lord mult
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
+pattern = "if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then"
+position = 'before'
+payload = '''
+local plord_mult_override = false
+if #find_joker('Pirate Lord') > 0 then
+    local plord = find_joker('Pirate Lord')[1]
+    if SMODS.pseudorandom_probability(self, 'lucky_mult', plord.ability.extra.num, plord.ability.extra.denom1) then
+        self.lucky_trigger = true
+        ret = ret + self.ability.mult
+        plord_mult_override = true
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then"
 position = 'at'
-payload = "if (#find_joker('Pirate Lord') > 0 and pseudorandom('lucky_mult') < G.GAME.probabilities.normal/2) or pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
+payload = '''
+if not plord_mult_override and SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+'''
 match_indent = true
 
 # Pirate Lord money
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
+pattern = "if SMODS.pseudorandom_probability(self, 'lucky_money', 1, 15) then"
+position = 'before'
+payload = '''
+local plord_lucky_override = false
+if #find_joker('Pirate Lord') > 0 then
+    local plord = find_joker('Pirate Lord')[1]
+    if SMODS.pseudorandom_probability(self, 'lucky_money', plord.ability.extra.num, plord.ability.extra.denom2) then
+        self.lucky_trigger = true
+        ret = ret + self.ability.p_dollars
+        plord_lucky_override = true
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if SMODS.pseudorandom_probability(self, 'lucky_money', 1, 15) then"
 position = 'at'
-payload = "if (#find_joker('Pirate Lord') > 0 and pseudorandom('lucky_money') < G.GAME.probabilities.normal/5) or pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
+payload = '''
+if not plord_lucky_override and SMODS.pseudorandom_probability(self, 'lucky_money', 1, 15) then
+'''
 match_indent = true
