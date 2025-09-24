@@ -50,6 +50,16 @@ G.FUNCS.skip_blind = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     G.GAME.skips = (G.GAME.skips or 0) + 1
     if _tag then 
+        if G.GAME.used_vouchers.v_bloons_quick_hands then
+            if G.GAME.used_vouchers.v_bloons_grand_prix_spree then
+                add_tag(Tag('tag_skip'))
+            end
+            add_tag(Tag('tag_double'))
+        end
+        for i = 1, #G.jokers.cards do
+            G.jokers.cards[i]:calculate_joker({skip_blind = true})
+        end
+        add_tag(_tag.config.ref_table)
         local skipped, skip_to = G.GAME.blind_on_deck or 'Small', 
         G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'
         G.GAME.round_resets.blind_states[skipped] = 'Skipped'
@@ -60,24 +70,7 @@ G.FUNCS.skip_blind = function(e)
             trigger = 'immediate',
             func = function()
                 delay(0.3)
-                if G.GAME.used_vouchers.v_bloons_quick_hands then
-                    if G.GAME.used_vouchers.v_bloons_grand_prix_spree then
-                        add_tag(Tag('tag_skip'))
-                    end
-                    add_tag(Tag('tag_double'))
-                end
-                for i = 1, #G.jokers.cards do
-                    G.jokers.cards[i]:calculate_joker({skip_blind = true})
-                end
-                add_tag(_tag.config.ref_table)
                 save_run()
-                return true
-            end
-        }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            func = function()
-                delay(0.3)
                 for i = 1, #G.GAME.tags do
                     G.GAME.tags[i]:apply_to_run({type = 'immediate'})
                 end

@@ -932,7 +932,7 @@ SMODS.Challenge {
     jokers = {},
     vouchers = {},
     restrictions = {
-        banned_cards = unable_eternal,
+        banned_cards = banned_2tc_cards,
         banned_tags = {
             { id = 'tag_negative' }
         },
