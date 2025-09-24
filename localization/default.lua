@@ -118,6 +118,18 @@ return {
             ch_c_blastapopoulos4 = {
                 "Face Blastapopoulos, Demon of the Core in Ante {C:attention}8{}"
             },
+            ch_c_inflated = {
+                "After round begins, draw no cards"
+            },
+            ch_c_survivor = {
+                "Rerolls cost {C:money}$540078{}"
+            },
+            ch_c_2tc = {
+                "Negative Jokers no longer appear in the shop"
+            },
+            ch_c_2mp = {
+                "Required score scales extremely fast for each {C:attention}Ante{}"
+            },
         },
     },
 }

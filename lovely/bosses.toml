@@ -3,12 +3,14 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Change the blind's local debuffed text
+# Custom loc_debuff_text for boss blinds
 [[patches]]
 [patches.pattern]
-target = "blind.lua"
-pattern = "function Blind:set_text()"
-position = "after"
+target = 'blind.lua'
+pattern = '''
+    self.loc_debuff_text = self.loc_debuff_text..v..(k <= #loc_target and ' ' or '')
+'''
+position = 'before'
 payload = '''
 if 
     self.name == 'bl_bloons_bloonarius' or
@@ -18,44 +20,19 @@ if
     self.name == 'bl_bloons_phayze' or
     self.name == 'bl_bloons_blastapopoulos'
 then
-    if self.config.blind then
-        if self.disabled then
-            self.loc_name = self.name == '' and self.name or localize{type ='name_text', key = self.config.blind.key, set = 'Blind'}
-            self.loc_debuff_text = ''
-            for i = 1, #self.loc_debuff_lines do
-                self.loc_debuff_lines[i] = ''
-            end
-        else
-            local loc_vars = nil
+    self.loc_debuff_text = 'It has all led to this'
+else
+'''
+match_indent = true
 
-            -- Start set_text patch from SMODS:
-            local target = {type = 'raw_descriptions', key = self.config.blind.key, set = 'Blind', vars = loc_vars or self.config.blind.vars}
-            local obj = self.config.blind
-            if obj.loc_vars and type(obj.loc_vars) == 'function' then
-                local res = obj:loc_vars() or {}
-                target.vars = res.vars or target.vars
-                target.key = res.key or target.key
-            end
-            local loc_target = localize(target)
-            -- End set_text patch from SMODS
-
-            -- Text that appears in the middle of the screen
-            self.loc_debuff_text = 'It has all led to this'
-
-            if loc_target then 
-                self.loc_name = self.name == '' and self.name or localize{type ='name_text', key = self.config.blind.key, set = 'Blind'}
-                self.loc_debuff_lines = {}
-                for i = 1, #loc_target do
-                    self.loc_debuff_lines[i] = loc_target[i] or ''
-                end
-            else
-                self.loc_name = ''
-                self.loc_debuff_text = ''
-                self.loc_debuff_lines = {}
-            end
-        end
-    end
-    return true
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = '''
+    self.loc_debuff_text = self.loc_debuff_text..v..(k <= #loc_target and ' ' or '')
+'''
+position = 'after'
+payload = '''
 end
 '''
 match_indent = true

@@ -1,8 +1,9 @@
 local functions = {
     'base',
+    'calculate-score',
     'hook',
+    'joker-display',
     'talisman',
-    'calculate-score'
 }
 
 local items = {

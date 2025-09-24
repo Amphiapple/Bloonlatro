@@ -31,9 +31,11 @@ Added Vouchers:
 - Big Bloon Sabotage
 - Big Bloon Blueprints
 
+- General Changes:
+- Added compatability with Joker Display
+
 Balance Changes:
 - Dart Monkey mult 3 > 2
-- Destroyer Xmult 2 > 2.5
 - Long Life Spikes mult gain 2 > 1, mult loss -50% > -4
 - Icicles X1.5 mult > held Frozen cards give X1.2 mult
 - Spike Storm Xmult 0.1 > 0.2 (affects loss as well)
@@ -47,7 +49,7 @@ Fixes:
 - Played/scoring card text fixes
 - Double gun functions correctly with blueprint effects
 - Blooncineration should no longer score or destroy debuffed cards
-- Grandmaster Nina no longer counts debuffed diamonds
+- Grandmaster Ninja no longer counts debuffed diamonds
 - Flying Fortress should now retrigger all effects at end of round
 - Churchill Deck should no longer crash with other mods
 - Challenges should have the correct stakes with other mods

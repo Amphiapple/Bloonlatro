@@ -132,7 +132,9 @@ end
 local calculate_reroll_cost_old = calculate_reroll_cost
 calculate_reroll_cost = function(skip_increment)
     local ret = calculate_reroll_cost_old(skip_increment)
-    if #find_joker('Energizer') > 0 then
+    if G.GAME.modifiers.survivor then
+        G.GAME.current_round.reroll_cost = 540078
+    elseif #find_joker('Energizer') > 0 then
         G.GAME.current_round.reroll_cost = math.floor(G.GAME.current_round.reroll_cost / 2.0)
     end
     return ret
@@ -195,4 +197,24 @@ G.FUNCS.start_challenge_run = function(e)
     local stake = get_challenge_stake(e)
     local ret = G.FUNCS.start_run(e, {stake = stake, challenge = G.CHALLENGES[e.config.id]})
     return ret
+end
+
+--Challenge faster scaling
+local get_blind_amount_old = get_blind_amount
+function get_blind_amount(ante)
+    local k = 0.75
+    if G.GAME.modifiers.scaling == 4 then 
+        local amounts = {
+            300,  1200,  5000,  18000,  60000,  180000,  450000,  1000000
+        }
+        if ante < 1 then return 100 end
+        if ante <= 8 then return amounts[ante] end
+        local a, b, c, d = amounts[8],1.6,ante-8, 1 + 0.2*(ante-8)
+        local amount = math.floor(a*(b+(k*c)^d)^c)
+        amount = amount - amount%(10^math.floor(math.log10(amount)-1))
+        return amount
+    else
+        local ret = get_blind_amount_old(ante)
+        return ret
+    end
 end

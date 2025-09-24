@@ -2765,8 +2765,8 @@ SMODS.Joker { --Sav
     rarity = 2,
 	cost = 8,
 	order = 225,
-    blueprint_compat = true,
-    perishable_compat = false,
+    blueprint_compat = false,
+    perishable_compat = true,
     config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands
 
     loc_vars = function(self, info_queue, card)
@@ -5135,7 +5135,7 @@ SMODS.Joker { --Shredder
         name = 'Sky Shredder',
         text = {
             'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'every {C:attention}#2#{C:inactive} [#3#]{C:attention} Aces{} scored',
+            'after {C:attention}#2#{C:inactive} [#3#]{C:attention} Aces{} are scored',
             'Requirement doubles each increment',
             '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)',
         }
@@ -5150,7 +5150,13 @@ SMODS.Joker { --Shredder
     config = { category = 'military', extra = { Xmult = 1, limit = 4, counter = 0, current = 1 } }, --Variables: Xmult = Xmult gain, limit = aces for next level, counter = aces scored, current = current Xmult
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.limit, card.ability.extra.counter, card.ability.extra.current } }
+        local function process_var(count)
+			if count == 32 then
+				return 'Max!'
+			end
+			return count
+		end
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.limit, process_var(card.ability.extra.counter), card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and card.ability.extra.counter < 32 and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
