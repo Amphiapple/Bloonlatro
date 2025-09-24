@@ -31,11 +31,13 @@ Added Vouchers:
 - Big Bloon Sabotage
 - Big Bloon Blueprints
 
-- General Changes:
+General Changes:
 - Added compatability with Joker Display
+- Added 5 more challenges to the bottom of the list
 
 Balance Changes:
 - Dart Monkey mult 3 > 2
+- Arcane Mastery purple seal cost $8 > destroy first consumable
 - Long Life Spikes mult gain 2 > 1, mult loss -50% > -4
 - Icicles X1.5 mult > held Frozen cards give X1.2 mult
 - Spike Storm Xmult 0.1 > 0.2 (affects loss as well)

@@ -894,7 +894,7 @@ SMODS.Challenge {
     rules = {
         custom = {
             { id = 'gold_stake' },
-            { id = 'survivor' },
+            { id = 'no_shop_rerolls' },
         },
     },
     jokers = {},
@@ -922,7 +922,7 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = '2tc' },
+            { id = 'no_negative_jokers' },
             { id = 'all_eternal' },
         },
         modifiers = {
@@ -956,9 +956,36 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
+            { id = '2mp' },
+        },
+    },
+    jokers = {},
+    vouchers = {},
+    restrictions = {
+        banned_other = {
+            { id = 'bl_final_vessel', type = 'blind' }
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    apply = function(self)
+        G.GAME.modifiers.scaling = 4
+    end
+}
+
+SMODS.Challenge {
+    key = '2mp_expert',
+    loc_txt = {
+        name = '2 Megapops Expert'
+    },
+    rules = {
+        custom = {
             { id = 'gold_stake' },
             { id = '2mp' },
-        },   
+            { id = 'difficulty_warning'}
+        },
     },
     jokers = {},
     vouchers = {},

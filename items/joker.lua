@@ -2712,9 +2712,9 @@ SMODS.Joker { --Amast
         name = 'Arcane Mastery',
         text = {
             'If {C:attention}first discard{} of round',
-            'is a single {C:enhanced}enhanced{} card,',
-            'spend {C:money}$#1#{} to add a',
-            '{C:attention}Purple Seal{} to it',
+            'contains only {C:attention}1{} card,',
+            'destroy first {C:attention}Consumable{} to',
+            'add a {C:attention}Purple Seal{} to it',
         }
     },
 	atlas = 'Joker',
@@ -2723,23 +2723,22 @@ SMODS.Joker { --Amast
 	cost = 6,
 	order = 224,
     blueprint_compat = false,
-    config = { category = 'magic', extra = { money = 8 } }, --Variables: retrigger = retrigger amount
+    config = { category = 'magic' }, --Variables: 
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS.Purple
-        return { vars = { card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
         if context.discard and G.GAME.current_round.discards_used == 0 and
                 #context.full_hand == 1 and not context.full_hand[1].debuff and
-                context.full_hand[1].config.center ~= G.P_CENTERS.c_base and
-                G.GAME.dollars >= to_big(card.ability.extra.money) and not context.blueprint then
+                G.consumeables.cards[1] and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
+                    G.consumeables.cards[1]:start_dissolve({G.C.RED}, nil)
+                    G.consumeables.cards[1]:remove_from_deck()
                     context.full_hand[1]:set_seal('Purple', nil, true)
-                    ease_dollars(-card.ability.extra.money)
                     return true
                 end
             }))
@@ -3254,8 +3253,8 @@ SMODS.Joker { --Press
     loc_txt = {
         name = 'MOAB Press',
         text = {
-            'If played hand is a',
-            'single {C:attention}face{} card',
+            'If played hand',
+            'contains only {C:attention}1{} card',
             'on the {C:attention}Boss Blind{},',
             'add a {C:attention}Red Seal{} to it',
         }
@@ -3272,7 +3271,7 @@ SMODS.Joker { --Press
         info_queue[#info_queue + 1] = G.P_SEALS.Red
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.blind.boss and #context.full_hand == 1 and not context.full_hand[1].debuff and context.full_hand[1]:is_face() and not context.blueprint then
+        if context.before and G.GAME.blind.boss and #context.full_hand == 1 and not context.full_hand[1].debuff and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
@@ -4822,7 +4821,7 @@ SMODS.Joker { --Blitz
                     G.hand_text_area.blind_chips:juice_up()
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
-                    card:start_dissolve()
+                    card:start_dissolve({G.C.RED}, nil)
                     return true
                 end
             }))

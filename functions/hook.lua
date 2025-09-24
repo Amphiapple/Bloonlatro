@@ -192,6 +192,18 @@ G.FUNCS.start_challenge_run = function(e)
     return ret
 end
 
+--Survivor disable rerolling
+local can_reroll_old = G.FUNCS.can_reroll
+G.FUNCS.can_reroll = function(e)
+    if G.GAME.modifiers.no_shop_rerolls then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        local ret = can_reroll_old(e)
+        return ret
+    end
+end
+
 --Challenge faster scaling
 local get_blind_amount_old = get_blind_amount
 function get_blind_amount(ante)

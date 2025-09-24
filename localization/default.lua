@@ -7,8 +7,11 @@ return {
             ch_c_purple_stake = {
                 "Challenge is played on {C:purple}Purple Stake{}"
             },
+            ch_c_difficulty_warning = {
+                "Warning: This challenge is {C:attention}RIDICULOUSLY {C:red}DIFFICULT{}"
+            },
             ch_c_bloonlatro = {
-                "All vanilla {C:attention}Jokers{} are banned."
+                "All vanilla {C:attention}Jokers{} are banned"
             },
             ch_c_gorgon_storm = {
                 "Lose run when {C:attention}Rocket Storm{} resets"
@@ -121,10 +124,10 @@ return {
             ch_c_inflated = {
                 "After round begins, draw no cards"
             },
-            ch_c_survivor = {
-                "Rerolls cost {C:money}$540078{}"
+            ch_c_no_shop_rerolls = {
+                "Rerolls are disabled"
             },
-            ch_c_2tc = {
+            ch_c_no_negative_jokers = {
                 "Negative Jokers no longer appear in the shop"
             },
             ch_c_2mp = {
