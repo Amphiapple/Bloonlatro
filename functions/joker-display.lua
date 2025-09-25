@@ -1374,7 +1374,14 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         jd_def["j_bloons_necro"] = { --Necro
         }
 
-        jd_def["j_bloons_tech"] = { --Tech TODO (not ready)
+        jd_def["j_bloons_tech"] = { --Tech
+            retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+                if held_in_hand then return 0 end
+                local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
+                local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
+                return first_card and last_card and playing_card ~= first_card and playing_card ~= last_card and
+                    joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+            end
         }
 
         jd_def["j_bloons_sabo"] = { --Sabo
@@ -1781,7 +1788,26 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         jd_def["j_bloons_gizer"] = { --Gizer
         }
 
-        jd_def["j_bloons_plord"] = { --Plord TODO (not ready)
+        jd_def["j_bloons_plord"] = { --Plord
+            text = {
+                { text = "(", colour = G.C.GREEN, scale = 0.3 },
+                { ref_table = "card.joker_display_values", ref_value = "odds2", colour = G.C.GREEN, scale = 0.3 },
+                { text = ")", colour = G.C.GREEN, scale = 0.3 },
+            },
+            extra = {
+                {
+                    { text = "(", colour = G.C.GREEN, scale = 0.3 },
+                    { ref_table = "card.joker_display_values", ref_value = "odds1", colour = G.C.GREEN, scale = 0.3 },
+                    { text = ")", colour = G.C.GREEN, scale = 0.3 },
+                    
+                }
+            },
+            calc_function = function(card)
+                local numerator, denominator1 = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom1, 'plord')
+                card.joker_display_values.odds1 = numerator .. " in " .. denominator1
+                local numerator, denominator2 = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom2, 'plord')
+                card.joker_display_values.odds2 = numerator .. " in " .. denominator2
+            end
         }
 
         jd_def["j_bloons_shredder"] = { --Shredder

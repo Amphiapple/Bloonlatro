@@ -6,7 +6,7 @@ Challenge_stakes = {
     c_bloons_joshs_constant = {stake = 8},
     c_bloons_inflated = {stake = 8},
     c_bloons_survivor = {stake = 8},
-    c_bloons_2mp = {stake = 8},
+    c_bloons_2mp_expert = {stake = 8},
 }
 
 local vanilla_jokers = {}
@@ -26,6 +26,7 @@ local banned_tarot_cards = {
     { id = 'j_bloons_supply' },
     { id = 'j_bloons_amast' },
     { id = 'j_bloons_fortress' },
+    { id = 'j_bloons_vtsg' },
     { id = 'p_arcana_normal_1', ids = {
         'p_arcana_normal_1', 'p_arcana_normal_2',
         'p_arcana_normal_3', 'p_arcana_normal_4',
@@ -370,6 +371,7 @@ SMODS.Challenge {
             {id = 'c_bloons_cash'},
             {id = 'c_bloons_farmer'},
             {id = 'v_antimatter'},
+            {id = 'v_bloons_grand_prix_spree'},
             {id = 'p_buffoon_normal_1',
                 ids = {'p_buffoon_normal_1','p_buffoon_normal_2', 'p_buffoon_jumbo_1','p_buffoon_mega_1'},
             },

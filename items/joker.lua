@@ -3178,8 +3178,8 @@ SMODS.Joker { --Enforcer
         name = 'Enforcer',
         text = {
             'This Joker gains',
-            '{X:mult,C:white}X#1#{} Mult if played hand',
-            'contains a {C:attention}Stone Card{}',
+            '{X:mult,C:white}X#1#{} Mult when each',
+            'played {C:attention}Stone Card{} is scored',
             '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
         }
     },
@@ -3197,12 +3197,9 @@ SMODS.Joker { --Enforcer
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            for k, v in ipairs(context.full_hand) do
-                if v.ability.name == 'Stone Card' then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-                    break
-                end
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff and not context.end_of_round and not context.blueprint then
+            if context.other_card.ability.name == 'Stone Card' then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
             end
         elseif context.joker_main then
             return {
@@ -3826,10 +3823,9 @@ SMODS.Joker { --Tech
 	loc_txt = {
         name = 'Tech Terror',
         text = {
-            'Copies the ability',
-            'of rightmost {C:attention}Joker{}',
-            'every {C:attention}#1#{} hands',
-            '{C:inactive}(#2#){}'
+            'Retrigger all played cards',
+            'between {C:attention}first{} and {C:attention}last{}',
+            'scoring card {C:attention}#1#{} times'
         }
     },
 	atlas = 'Joker',
@@ -3838,51 +3834,17 @@ SMODS.Joker { --Tech
 	cost = 8,
 	order = 255,
     blueprint_compat = true,
-    config = { category = 'support', extra = { limit = 2, counter = 2 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
+    config = { category = 'magic', extra = { retrigger = 2 } }, --Variables: retrigger = retrigger count
 
     loc_vars = function(self, info_queue, card)
-        local function process_var(count, cap)
-			if count == cap - 1 then
-				return 'Active!'
-			end
-			return cap - count%cap - 1 .. ' remaining'
-		end
-        if card.area and card.area == G.jokers then
-			local other_joker = G.jokers.cards[#G.jokers.cards]
-			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-			main_end = {{
-                n = G.UIT.C,
-                config = { align = "bm", minh = 0.4 },
-                nodes = {{
-                    n = G.UIT.C,
-                    config = {
-                        ref_table = card,
-                        align = "m",
-                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
-                        r = 0.05,
-                        padding = 0.06,
-                    },
-                    nodes = {{
-                        n = G.UIT.T,
-                        config = {
-                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
-                            colour = G.C.UI.TEXT_LIGHT,
-                            scale = 0.32 * 0.8,
-                        }
-                    }}
-                }}
-			}}
-		end
-        return { vars = { card.ability.extra.limit, process_var(card.ability.extra.counter, card.ability.extra.limit) }, main_end = main_end }
+		return { vars = { card.ability.extra.retrigger } }
     end,
     calculate = function(self, card, context)
-        if context.after then
-            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
-        end
-        if card.ability.extra.counter == card.ability.extra.limit - 1 then
-            return SMODS.blueprint_effect(card, G.jokers.cards[#G.jokers.cards], context)
-        else
-            return
+        if context.repetition and context.cardarea == G.play and (context.other_card ~= context.scoring_hand[1] and context.other_card ~= context.scoring_hand[#context.scoring_hand]) then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger
+            }
         end
     end
 }
@@ -4092,7 +4054,13 @@ SMODS.Joker { --BRF
     update = function(self, card, dt)
         local count = 0
         for k, v in pairs(G.GAME.used_vouchers) do
-            if v then
+            local redeemed = v
+            for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
+                if k == j then
+                    redeemed = false
+                end
+            end
+            if redeemed then
                 count = count + 1
             end
         end
