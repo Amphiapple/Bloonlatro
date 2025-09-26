@@ -6111,7 +6111,7 @@ SMODS.Joker { --VTSG
 	loc_txt = {
         name = 'Vengeful True Sun God',
         text = {
-            'Sacrifices {C:attention}ALL{} other {C:attention}Jokers{}',
+            'Sacrifice {C:attention}ALL{} other {C:attention}Jokers{}',
             'to the {C:legendary,E:1,S:1.1}Vengeful True Sun God{}',
             '{C:inactive}[#1# #2# #3# #4# #5# #6#]{}'
         }
@@ -6137,13 +6137,15 @@ SMODS.Joker { --VTSG
         } }
     end,
     add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.sacrifices['+chips']  = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['+chips'])  or 0
+        card.ability.extra.sacrifices['+mult']   = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['+mult'])   or 0
+        card.ability.extra.sacrifices['Xmult']   = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['Xmult'])   or 0
+        card.ability.extra.sacrifices['econ']    = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['econ'])    or 0
+        card.ability.extra.sacrifices['value']   = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['value'])   or 0
+        card.ability.extra.sacrifices['support'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['support']) or 0
+    end,
+    sac_to_vtsg = function(card)
         local deletable_jokers = {}
-        card.ability.extra.sacrifices['+chips'] = 0
-        card.ability.extra.sacrifices['+mult'] = 0
-        card.ability.extra.sacrifices['Xmult'] = 0
-        card.ability.extra.sacrifices['econ'] = 0
-        card.ability.extra.sacrifices['value'] = 0
-        card.ability.extra.sacrifices['support'] = 0
         for k, v in pairs(G.jokers.cards) do
             if not v.ability.eternal and v ~= card then
                 local category = v:get_effects_vtsg()
@@ -6200,6 +6202,6 @@ SMODS.Joker { --VTSG
                 }))
             end
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*card.ability.extra.sacrifices['value'], colour = G.C.DARK_EDITION})
-        end   
+        end
     end
 }

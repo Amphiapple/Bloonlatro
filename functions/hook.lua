@@ -181,6 +181,150 @@ end_round = function()
     return ret
 end
 
+--Sacrifice context for adora and vtsg
+local function get_sacrifice_context(card)
+    local deck = G.GAME and G.GAME.selected_back
+    local is_adora_deck = deck and deck.name == 'Adora Deck'
+    local is_vtsg = card.ability and card.ability.name == 'Vengeful True Sun God'
+    local vtsg_sacrifices = is_vtsg and card.ability.extra and card.ability.extra.sacrifices
+
+    local sacrifice_context = { show = is_vtsg or is_adora_deck, enabled = false, func = nil }
+
+    if is_vtsg then
+        local all_zero = vtsg_sacrifices
+            and vtsg_sacrifices['+chips'] == 0
+            and vtsg_sacrifices['+mult'] == 0
+            and vtsg_sacrifices['Xmult'] == 0
+            and vtsg_sacrifices['econ']  == 0
+            and vtsg_sacrifices['value'] == 0
+            and vtsg_sacrifices['support'] == 0
+
+        local non_eternal_jokers = {}
+        for _, joker in pairs(G.jokers.cards) do
+            if not joker.ability.eternal then
+                table.insert(non_eternal_jokers, joker)
+            end
+        end
+        if not is_adora_deck and not all_zero then
+            sacrifice_context.enabled = false
+
+        elseif is_adora_deck and not all_zero and not card.ability.eternal then
+            sacrifice_context.enabled = true
+            sacrifice_context.func = function(c) deck.effect.center.sac_to_adora(c) end
+
+        elseif is_adora_deck and #non_eternal_jokers <= 1 and not card.ability.eternal then
+            sacrifice_context.enabled = true
+            sacrifice_context.func = function(c) deck.effect.center.sac_to_adora(c) end
+
+        elseif #non_eternal_jokers >= 2 then
+            sacrifice_context.enabled = true
+            sacrifice_context.func = function(c) c.config.center.sac_to_vtsg(c) end
+        end
+
+        return sacrifice_context
+
+    elseif is_adora_deck then
+        if not card.ability.eternal then
+            sacrifice_context.enabled = true
+            sacrifice_context.func = function(c) deck.effect.center.sac_to_adora(c) end
+        end
+        return sacrifice_context
+    end
+
+    return sacrifice_context
+end
+
+--Sacrifice function for adora and vtsg
+G.FUNCS.sacrifice = function(e)
+  local card = e.config.ref_table
+  local sacrifice_context = get_sacrifice_context(card)
+  if sacrifice_context.enabled and sacrifice_context.func then
+    sacrifice_context.func(card)
+  end
+  card:highlight(false)
+end
+
+--Sacrifice button for adora and vtsg
+function G.UIDEF.use_and_sell_buttons(card)
+  local sell, use, sac = nil, nil, nil
+  local sacrifice_context = get_sacrifice_context(card)
+
+  if sacrifice_context.show then
+    sac = {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={
+        ref_table = card,
+        align = "cr",
+        maxw = 1.25,
+        padding = 0.1,
+        r = 0.08,
+        minw = 1.25,
+        minh = 0,
+        hover = true,
+        shadow = true,
+        colour = sacrifice_context.enabled and G.C.GREEN or G.C.UI.BACKGROUND_INACTIVE,
+        one_press = true,
+        button = sacrifice_context.enabled and 'sacrifice' or nil,
+      }, nodes={
+        {n=G.UIT.B, config = {w=0.1, h=0.6}},
+        {n=G.UIT.T, config={text = 'SAC', colour = sacrifice_context.enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sacrifice_context.enabled}}
+      }}
+    }}
+  end
+
+  if card.area and card.area.config.type == 'joker' and not (G.GAME and G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then
+    sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.C, config={align = "tm"}, nodes={
+          {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+          }},
+          {n=G.UIT.R, config={align = "cm"}, nodes={
+            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+          }}
+        }}
+      }}
+    }}
+  end
+
+  if card.ability.consumeable then
+    if (card.area == G.pack_cards and G.pack_cards) then
+      return {
+        n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+          {n=G.UIT.R, config={mid = true}, nodes={}},
+          {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, minh = 0.8*card.T.h, maxw = 0.7*card.T.w - 0.15, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_use_consumeable'}, nodes={
+            {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+          }},
+      }}
+    end
+    use = 
+    {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_use_consumeable'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+      }}
+    }}
+  elseif card.area and card.area == G.pack_cards then
+    return {
+      n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.3*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_select_card'}, nodes={
+          {n=G.UIT.T, config={text = localize('b_select'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
+        }},
+    }}
+  end
+
+  local t = {
+    n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+      {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
+        {n=G.UIT.R, config={align = 'cl'}, nodes={ sell }},
+        {n=G.UIT.R, config={align = 'cl'}, nodes={ use }},
+        {n=G.UIT.R, config={align = 'cl'}, nodes={ sac }}
+      }},
+  }}
+  return t
+end
+
 --Challenge higher stakes
 local start_challenge_run_old = G.FUNCS.start_challenge_run
 G.FUNCS.start_challenge_run = function(e)
