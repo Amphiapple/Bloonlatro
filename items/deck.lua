@@ -406,8 +406,6 @@ SMODS.Back { --Rose
                 repetitions = self.config.extra.retrigger,
             }
         elseif context.final_scoring_step and self.config.extra.counter == 1 then
-            hand_mult = mod_chips(hand_chips*self.config.extra.Xmult)
-            update_hand_text( { delay = 0 }, { mult = hand_mult } )
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound('multhit2', 1)
