@@ -4786,6 +4786,12 @@ SMODS.Joker { --Blitz
         if context.game_over and G.GAME.chips/G.GAME.blind.chips >= to_big(card.ability.extra.scored_percent / 100.0) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
+                    G.GAME.saved_text = "Saved by Bomb Blitz!"
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                func = function()
                     G.hand_text_area.blind_chips:juice_up()
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
@@ -5220,7 +5226,7 @@ SMODS.Joker { --Cin
         if context.joker_main then
             local total = 1
             for k, v in ipairs(context.scoring_hand) do
-                if (v.config.center ~= G.P_CENTERS.c_base or v.edition or v.seal) and not v.debuff then
+                if v.config.center ~= G.P_CENTERS.c_base or v.edition or v.seal then
                     total = total + card.ability.extra.Xmult
                 end
             end
@@ -5233,7 +5239,6 @@ SMODS.Joker { --Cin
                 (context.destroying_card.config.center ~= G.P_CENTERS.c_base or
                 context.destroying_card.edition or
                 context.destroying_card.seal) and
-                not context.destroying_card.debuff and
                 not context.blueprint then
             return true
         end
@@ -5347,6 +5352,12 @@ SMODS.Joker { --LOTN
 
     calculate = function(self, card, context)
         if context.game_over and not G.GAME.blind.boss and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.saved_text = "Saved by Legend of the Night!"
+                    return true
+                end
+            }))
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
@@ -6179,7 +6190,7 @@ SMODS.Joker { --VTSG
                 mult = card.ability.extra.mult * card.ability.extra.sacrifices['+mult'],
                 x_mult = 1 + card.ability.extra.Xmult * card.ability.extra.sacrifices['Xmult'],
             }
-        elseif context.other_joker and context.other_joker ~= card then
+        elseif context.other_joker and context.other_joker ~= card and card.ability.extra.sacrifices['support'] > 0 then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)

@@ -1730,6 +1730,16 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         }
 
         jd_def["j_bloons_blitz"] = { --Blitz
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "active" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local blind_ratio = to_big(G.GAME.chips / G.GAME.blind.chips)
+                card.joker_display_values.active = G.GAME and G.GAME.chips and G.GAME.blind.chips and
+                    blind_ratio and blind_ratio ~= to_big(0) and blind_ratio >= to_big(0.5) and "Active!" or "Inactive"
+            end
         }
 
         jd_def["j_bloons_iring"] = { --Iring
@@ -1942,7 +1952,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local text, _, scoring_hand = JokerDisplay.evaluate_hand()
                 if text ~= 'Unknown' then
                     for _, scoring_card in pairs(scoring_hand) do
-                        if scoring_card:is_suit('Diamonds', true) then
+                        if scoring_card:is_suit('Diamonds', true) and not scoring_card.debuff then
                             total_Xmult = total_Xmult + card.ability.extra.Xmult
                         end
                     end

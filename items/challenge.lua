@@ -587,7 +587,7 @@ SMODS.Challenge {
             },
             banned_other = {
                 { id = 'bl_water', type = 'blind' },
-                { id = 'bl_needle', type = 'blind' }
+                { id = 'bl_needle', type = 'blind' },
             }
         },
     deck = {

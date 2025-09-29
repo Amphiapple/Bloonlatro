@@ -1,57 +1,18 @@
 Added Decks:
-- Rosalia Deck
+
 
 Added Jokers:
-- Shrapnel Shot
-- Wall of Fire
-- Counter Espionage
-- Acidic Mixture Dip
-- Heart of Thunder
-- Sentry Gun + Nail Sentry
-- Destroyer
-- Sun Avatar
-- Enforcer
-- First Strike Capability
-- Tech Terror
-- Banana Research Facility
-- Giant Condor
-- Pirate Lord
-- Sky Shredder
-- Legend of the Night
-- Ultraboost
-- ?????
+
 
 Added Vouchers:
-- Power Merchant
-- Power Tycoon
-- Insider Trades
-- Backroom Deals
-- Quick Hands
-- Grand Prix Spree
-- Big Bloon Sabotage
-- Big Bloon Blueprints
+
 
 General Changes:
-- Added compatability with Joker Display
-- Added 5 more challenges to the bottom of the list
+
 
 Balance Changes:
-- Dart Monkey mult 3 > 2
-- Arcane Mastery purple seal cost $8 > destroy first consumable
-- Long Life Spikes mult gain 2 > 1, mult loss -50% > -4
-- Icicles X1.5 mult > held Frozen cards give X1.2 mult
-- Spike Storm Xmult 0.1 > 0.2 (affects loss as well)
-- Crushing Sentry mult 2 > 4
-- Energy Sentry chips 30 > 40
-- Crossbow Master Xmult 2 > 3
-- Super Monkey Storm score 50% > 80%
-- Thrive retrigger all cards > all held in hand cards
+
 
 Fixes:
-- Played/scoring card text fixes
-- Double gun functions correctly with blueprint effects
-- Blooncineration should no longer score or destroy debuffed cards
-- Grandmaster Ninja no longer counts debuffed diamonds
-- Flying Fortress should now retrigger all effects at end of round
-- Churchill Deck should no longer crash with other mods
-- Challenges should have the correct stakes with other mods
+- Blooncineration should destroy debuffed cards with improvements (requirement for Crash of the Titans challenge)
+- Grandmaster Ninja should no longer count debuffed diamonds in Joker Display

@@ -170,15 +170,6 @@ SMODS.Voucher { --Big Bloon Sabotage
 
     loc_vars = function (self, info_queue, card)
         return { vars = { card.ability.extra.reduction } }
-    end,
-    calculate = function(self, card, context)
-        if context.setting_blind then
-            if not (G.GAME.blind.boss and G.GAME.used_vouchers.v_bloons_big_bloon_blueprints) then
-                G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.chips * card.ability.extra.reduction / 100.0
-                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                G.GAME.blind:wiggle()
-            end
-        end
     end
 }
 
@@ -201,12 +192,5 @@ SMODS.Voucher { --Big Bloon Blueprints
 
     loc_vars = function (self, info_queue, card)
         return { vars = { card.ability.extra.reduction } }
-    end,
-    calculate = function(self, card, context)
-        if context.setting_blind and G.GAME.blind.boss then
-            G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.chips * card.ability.extra.reduction / 100.0
-            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-            G.GAME.blind:wiggle()
-        end
     end
 }
