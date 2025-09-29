@@ -388,7 +388,7 @@ SMODS.Back { --Rose
         return { vars = { self.config.extra.Xmult } }
     end,
     apply = function (self, back)
-        self.condig.extra.counter = 0
+        self.config.extra.counter = 0
     end,
     calculate = function (self, back, context)
         if context.repetition and self.config.extra.counter == 0 and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
