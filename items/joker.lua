@@ -2764,13 +2764,28 @@ SMODS.Joker { --Sav
     rarity = 2,
 	cost = 8,
 	order = 225,
-    blueprint_compat = false,
+    blueprint_compat = true,
     perishable_compat = true,
-    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands
+    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5, blueprint_amount = 0 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands, blueprint_amount = times copied by blueprint
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult, card.ability.extra.blueprint_amount } }
     end,
+
+    calculate = function(self, card, context)
+        if context.initial_scoring_step then
+            card.ability.extra.blueprint_amount = 0
+        end
+
+        if context.blueprint and context.other_joker and context.other_joker.config.center.key == 'j_bloons_sav' then
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i].config.center.key == 'j_bloons_sav' then
+                    G.jokers.cards[i].ability.extra.blueprint_amount = G.jokers.cards[i].ability.extra.blueprint_amount + 1
+                    break
+                end
+            end
+        end
+    end
 }
 
 SMODS.Joker { --Flash
@@ -4055,9 +4070,11 @@ SMODS.Joker { --BRF
         local count = 0
         for k, v in pairs(G.GAME.used_vouchers) do
             local redeemed = v
-            for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                if k == j then
-                    redeemed = false
+            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config and G.GAME.selected_back.effect.config.vouchers then
+                for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
+                    if k == j then
+                        redeemed = false
+                    end
                 end
             end
             if redeemed then
