@@ -1730,6 +1730,16 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         }
 
         jd_def["j_bloons_blitz"] = { --Blitz
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "active" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local blind_ratio = to_big(G.GAME.chips / G.GAME.blind.chips)
+                card.joker_display_values.active = G.GAME and G.GAME.chips and G.GAME.blind.chips and
+                    blind_ratio and blind_ratio ~= to_big(0) and blind_ratio >= to_big(0.5) and "Active!" or "Inactive"
+            end
         }
 
         jd_def["j_bloons_iring"] = { --Iring
