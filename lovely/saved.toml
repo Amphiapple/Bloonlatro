@@ -3,11 +3,18 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Saved text
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
-pattern = " {n=G.UIT.O, config={object = DynaText({string = {' '..(type(G.GAME.saved_text) == 'string' and (G.localization.misc.dictionary[G.GAME.saved_text] and localize(G.GAME.saved_text) or G.GAME.saved_text) or localize('ph_mr_bones'))..' '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}"
-position = 'at'
-payload = "{n=G.UIT.O, config={object = DynaText({string = {' Saved! '}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.5*scale, silent = true})}}"
+target = "functions/common_events.lua"
+pattern = '''
+local full_row = {n=G.UIT.R, config={align = "cm", minw = 5}, nodes={
+    {n=G.UIT.C, config={padding = 0.05, minw = width*0.55, minh = 0.61, align = "cl"}, nodes=left_text},
+    {n=G.UIT.C, config={padding = 0.05,minw = width*0.45, align = "cr"}, nodes={{n=G.UIT.C, config={align = "cm", id = 'dollar_'..config.name},nodes={}}}}
+}}'''
+position = "at"
+payload = '''
+local full_row = {n=G.UIT.R, config={align = "cm", minw = 5}, nodes={
+    {n=G.UIT.C, config={padding = 0.05, minw = config.saved and width*0.75 or width*0.55, minh = 0.61, align = "cl"}, nodes=left_text},
+    {n=G.UIT.C, config={padding = 0.05, minw = config.saved and width*0.25 or width*0.45, align = "cr"}, nodes={{n=G.UIT.C, config={align = "cm", id = 'dollar_'..config.name},nodes={}}}}
+}}'''
 match_indent = true

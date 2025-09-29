@@ -4786,6 +4786,12 @@ SMODS.Joker { --Blitz
         if context.game_over and G.GAME.chips/G.GAME.blind.chips >= to_big(card.ability.extra.scored_percent / 100.0) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
+                    G.GAME.saved_text = "Saved by Bomb Blitz!"
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                func = function()
                     G.hand_text_area.blind_chips:juice_up()
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
@@ -5347,6 +5353,12 @@ SMODS.Joker { --LOTN
 
     calculate = function(self, card, context)
         if context.game_over and not G.GAME.blind.boss and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.saved_text = "Saved by Legend of the Night!"
+                    return true
+                end
+            }))
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
