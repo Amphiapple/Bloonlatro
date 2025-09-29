@@ -1942,7 +1942,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local text, _, scoring_hand = JokerDisplay.evaluate_hand()
                 if text ~= 'Unknown' then
                     for _, scoring_card in pairs(scoring_hand) do
-                        if scoring_card:is_suit('Diamonds', true) then
+                        if scoring_card:is_suit('Diamonds', true) and not scoring_card.debuff then
                             total_Xmult = total_Xmult + card.ability.extra.Xmult
                         end
                     end
