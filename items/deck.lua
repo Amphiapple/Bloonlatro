@@ -176,7 +176,6 @@ SMODS.Back { --Ezili
             'Start run with',
             '{C:attention}Magic Trick{}, {C:enhanced}Illusion{},',
             '{C:dark_edition}Hone{}, and {C:dark_edition}Glow Up{}'
-            
         }
     },
 	atlas = "Back",
@@ -211,13 +210,18 @@ SMODS.Back { --Adora
         name = 'Adora Deck',
         text = {
             'Sacrifice cards instead of',
-            'selling them to level up a',
-            'random {C:attention}poker hand{}'
+            'selling them to level up {C:attention}#1#{}',
+            'random {C:attention}poker hands{}'
         }
     },
     atlas = "Back",
     pos = { x = 3, y = 1 },
     order = 25,
+    config = { extra = { sac_levels = 2 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra.sac_levels } }
+    end,
 
     sac_to_adora = function(card)
         local visible = {}
@@ -226,20 +230,22 @@ SMODS.Back { --Adora
                 table.insert(visible, v)
             end
         end
-        local hand = pseudorandom_element(visible, pseudoseed(''))
-        update_hand_text(
-            { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
-            { handname = localize(hand, 'poker_hands'),
-                chips = G.GAME.hands[hand].chips,
-                mult = G.GAME.hands[hand].mult,
-                level = G.GAME.hands[hand].level
-            }
-        )
-        level_up_hand(card, hand)
-        update_hand_text(
-            {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
-        )
-        card:start_dissolve(nil, nil)
+        for i = 1, G.GAME.selected_back.effect.config.extra.sac_levels do
+            local hand = pseudorandom_element(visible, pseudoseed(''))
+            update_hand_text(
+                { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
+                { handname = localize(hand, 'poker_hands'),
+                    chips = G.GAME.hands[hand].chips,
+                    mult = G.GAME.hands[hand].mult,
+                    level = G.GAME.hands[hand].level
+                }
+            )
+            level_up_hand(card, hand)
+            update_hand_text(
+                {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
+            )
+        end
+        card:sell_card()
     end
 }
 
