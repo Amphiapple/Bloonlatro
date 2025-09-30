@@ -14,5 +14,4 @@ Balance Changes:
 
 
 Fixes:
-- Blooncineration should destroy debuffed cards with improvements (requirement for Crash of the Titans challenge)
-- Grandmaster Ninja should no longer count debuffed diamonds in Joker Display
+- Big Bloon Sabotage and Big Bloon Blueprints are now banned in the 2 Megapops challenges

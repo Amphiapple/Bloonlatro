@@ -338,7 +338,9 @@ SMODS.Joker { --Boat
         end
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.current
+        if card.ability.extra.current > 0 then
+            return card.ability.extra.current
+        end
     end
 }
 
@@ -753,7 +755,9 @@ SMODS.Joker { --Farm
         end
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.current
+        if card.ability.extra.current > 0 then
+            return card.ability.extra.current
+        end
     end
 }
 
@@ -4055,9 +4059,11 @@ SMODS.Joker { --BRF
         local count = 0
         for k, v in pairs(G.GAME.used_vouchers) do
             local redeemed = v
-            for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                if k == j then
-                    redeemed = false
+            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config and G.GAME.selected_back.effect.config.vouchers then
+                for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
+                    if k == j then
+                        redeemed = false
+                    end
                 end
             end
             if redeemed then
@@ -4590,7 +4596,7 @@ SMODS.Joker { --Bloonprint
 	cost = 10,
 	order = 270,
     blueprint_compat = true,
-    config = { category = 'support', extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
+    config = { category = 'support', extra = {current = 1 } }, --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
 
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
@@ -4623,11 +4629,7 @@ SMODS.Joker { --Bloonprint
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            local max = card.ability.extra.max
-            if #G.jokers.cards < card.ability.extra.max then
-                max = #G.jokers.cards
-            end
-            card.ability.extra.current = pseudorandom('bloonprint', card.ability.extra.min, max)
+            card.ability.extra.current = pseudorandom('bloonprint', 1, #G.jokers.cards)
         end
         return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
     end
