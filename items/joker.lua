@@ -2766,22 +2766,26 @@ SMODS.Joker { --Sav
 	order = 225,
     blueprint_compat = true,
     perishable_compat = true,
-    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5, blueprint_amount = 0 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands, blueprint_amount = times copied by blueprint
-
+    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5, joker_positions = {} } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands, joker_positions = positions of sav and copy jokers
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult, card.ability.extra.blueprint_amount } }
+        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult, card.ability.extra.joker_positions } }
     end,
 
     calculate = function(self, card, context)
         if context.initial_scoring_step then
-            card.ability.extra.blueprint_amount = 0
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then
+                    card.ability.extra.joker_positions = { i }
+                    break
+                end
+            end
         end
 
         if context.blueprint and context.other_joker and context.other_joker.config.center.key == 'j_bloons_sav' then
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config.center.key == 'j_bloons_sav' then
-                    G.jokers.cards[i].ability.extra.blueprint_amount = G.jokers.cards[i].ability.extra.blueprint_amount + 1
-                    break
+                if G.jokers.cards[i] == context.blueprint_card then
+                    table.insert(card.ability.extra.joker_positions, i)
+                    table.sort(card.ability.extra.joker_positions)
                 end
             end
         end

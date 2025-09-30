@@ -12,7 +12,8 @@ position = 'after'
 payload = '''
 if self.ability.set == "Planet" and not self.debuff then
     if context.other_joker and context.other_joker.ability.name == 'Sun Avatar' and not context.other_joker.debuff then
-        local triggers = 1 + context.other_joker.ability.extra.blueprint_amount
+        local positions = context.other_joker.ability.extra.joker_positions
+        local triggers = #positions
         
         local sav_mult = (self.ability.consumeable.hand_type == context.scoring_name) and 
                          G.P_CENTERS.j_bloons_sav.config.extra.Xmult_match or 
@@ -20,17 +21,20 @@ if self.ability.set == "Planet" and not self.debuff then
 
         for i = 1, triggers do
             mult = mult * sav_mult
-            update_hand_text({sound = 'multhit2', pitch = 0.9, volume = 0.6, delay = 0.3}, {handname=handname, chips = hand_chips, mult = mult, level = level})
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            }))
-            card_eval_status_text(self, 'extra', nil, nil, nil, {
+            update_hand_text({}, { handname = handname, chips = hand_chips, mult = mult, level = level })
+
+            card_eval_status_text(self, 'x_mult', sav_mult, nil, nil, {
                 message = localize{type = 'variable', key = 'a_xmult', vars = {sav_mult}},
                 colour = G.C.RED
             })
+
+            local juice_position = positions[i]
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.jokers.cards[juice_position]:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
         end
     end
 end
