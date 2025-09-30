@@ -32,10 +32,15 @@ Added Vouchers:
 - Big Bloon Blueprints
 
 General Changes:
+- Bomb Blitz and Legend of the Night now have updated Saved! texts
+- Bomb Blitz now shows active/inactive when using JokerDisplay
+- Improved big bloon sabotage and big bloon blueprints score requirement display
+- Added blueprint compatability to Sun Avatar
 - Added compatability with Joker Display
 - Added 5 more challenges to the bottom of the list
 
 Balance Changes:
+- Adora deck amount of hand level ups 1 -> 2
 - Dart Monkey mult 3 > 2
 - Arcane Mastery purple seal cost $8 > destroy first consumable
 - Long Life Spikes mult gain 2 > 1, mult loss -50% > -4
@@ -48,6 +53,7 @@ Balance Changes:
 - Thrive retrigger all cards > all held in hand cards
 
 Fixes:
+- Adora deck now runs sell logic when a joker is sacrificed
 - Played/scoring card text fixes
 - Double gun functions correctly with blueprint effects
 - Blooncineration should no longer score or destroy debuffed cards
