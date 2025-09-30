@@ -2747,7 +2747,7 @@ SMODS.Joker { --Amast
     end
 }
 
-SMODS.Joker { --Sav
+SMODS.Joker {
     key = 'sav',
     name = 'Sun Avatar',
     loc_txt = {
@@ -2759,35 +2759,34 @@ SMODS.Joker { --Sav
             'and {X:red,C:white}X#2#{} Mult otherwise',
         }
     },
-	atlas = 'Joker',
-	pos = { x = 4, y = 7 },
+    atlas = 'Joker',
+    pos = { x = 4, y = 7 },
     rarity = 2,
-	cost = 8,
-	order = 225,
+    cost = 8,
+    order = 225,
     blueprint_compat = true,
     perishable_compat = true,
-    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5, joker_positions = {} } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands, joker_positions = positions of sav and copy jokers
+    config = {
+        category = 'magic',
+        extra = { Xmult_match = 2, Xmult = 1.5 }
+    },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult, card.ability.extra.joker_positions } }
+        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
     end,
 
     calculate = function(self, card, context)
-        if context.initial_scoring_step then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    card.ability.extra.joker_positions = { i }
-                    break
-                end
-            end
-        end
+        if context.other_consumeable
+            and context.other_consumeable.ability.set == "Planet"
+            and not context.other_consumeable.debuff then
 
-        if context.blueprint and context.other_joker and context.other_joker.config.center.key == 'j_bloons_sav' then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == context.blueprint_card then
-                    table.insert(card.ability.extra.joker_positions, i)
-                    table.sort(card.ability.extra.joker_positions)
-                end
-            end
+            local sav_mult = (context.other_consumeable.ability.consumeable.hand_type == context.scoring_name)
+                and card.ability.extra.Xmult_match
+                or card.ability.extra.Xmult
+
+            return {
+                x_mult = sav_mult,
+                message_card = context.other_consumeable
+            }
         end
     end
 }
