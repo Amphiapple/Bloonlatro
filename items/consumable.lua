@@ -6,14 +6,14 @@ SMODS.ConsumableType { --Power Cards
         name = 'Power',
         collection = 'Power Cards',
         undiscovered = { -- description for undiscovered cards in the collection
- 			name = 'Not Discovered',
- 			text = { 
+            name = 'Not Discovered',
+            text = {
                 'Purchase or use',
                 'this card in an',
                 'unseeded run to',
                 'learn what it does',
             },
- 		},
+        },
     },
     collection_rows = {4, 5},
     shop_rate = 0,
@@ -40,21 +40,21 @@ SMODS.Consumable { --Volcano
         }
     },
     atlas = 'Consumable',
-	pos = { x = 0, y = 3 },
+    pos = { x = 0, y = 3 },
     cost = 4,
-	order = 19,
+    order = 19,
     config = { max_highlighted = 1 },
 
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
-		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
     use = function(self, card, area)
         local destroyed_card = G.hand.highlighted[1]
         local volcano_cards = {}
         for i = 1, #G.hand.cards do
             if G.hand.cards[i] == destroyed_card then
-                if i > 1 then 
+                if i > 1 then
                     volcano_cards[#volcano_cards+1] = G.hand.cards[i-1]
                 end
                 if i < #G.hand.cards then
@@ -67,17 +67,17 @@ SMODS.Consumable { --Volcano
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
                 return true
-            end 
+            end
         }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 0.1, func = function()
-                if destroyed_card.ability.name == 'Glass Card' then 
+                if destroyed_card.ability.name == 'Glass Card' then
                     destroyed_card:shatter()
                 else
                     destroyed_card:start_dissolve()
                 end
                 return true
-            end 
+            end
         }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 0.7, func = function()
@@ -104,13 +104,13 @@ SMODS.Consumable { --SMS
         }
     },
     atlas = 'Consumable',
-	pos = { x = 0, y = 0 },
-	order = 1,
+    pos = { x = 0, y = 0 },
+    order = 1,
     config = { percent = 80, max = 20000 }, --Variables: percent = percent of required chips scored, max = maximum chips cap
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.percent, card.ability.max } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.percent, card.ability.max } }
+    end,
     can_use = function(self, card)
         if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
             return true
@@ -172,26 +172,26 @@ SMODS.Consumable { --Mboost
         }
     },
     atlas = 'Consumable',
-	pos = { x = 1, y = 0 },
-	order = 2,
+    pos = { x = 1, y = 0 },
+    order = 2,
     config = { Xmult = 2, active = false }, --Variables: Xmult = Xmult
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.Xmult } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.Xmult } }
+    end,
     can_use = function(self, card)
         return not card.ability.active
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+            G.GAME.DESTROY_CARD = copy_card(card)
+            G.consumeables:emplace(G.GAME.DESTROY_CARD)
+            G.GAME.DESTROY_CARD.ability.active = true
             local eval = function()
                 return true
             end
             juice_card_until(G.GAME.DESTROY_CARD, eval, true)
-		end
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.active then
@@ -237,8 +237,8 @@ SMODS.Consumable { --Thrive
         }
     },
     atlas = 'Consumable',
-	pos = { x = 2, y = 0 },
-	order = 3,
+    pos = { x = 2, y = 0 },
+    order = 3,
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
@@ -246,14 +246,14 @@ SMODS.Consumable { --Thrive
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+            G.GAME.DESTROY_CARD = copy_card(card)
+            G.consumeables:emplace(G.GAME.DESTROY_CARD)
+            G.GAME.DESTROY_CARD.ability.active = true
             local eval = function()
                 return true
             end
             juice_card_until(G.GAME.DESTROY_CARD, eval, true)
-		end
+        end
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand and card.ability.active then
@@ -299,13 +299,13 @@ SMODS.Consumable { --Time
         }
     },
     atlas = 'Consumable',
-	pos = { x = 3, y = 0 },
-	order = 4,
+    pos = { x = 3, y = 0 },
+    order = 4,
     config = { hands = 3 }, --Variables: hands = extra hands
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.hands, card.ability.discards } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.hands, card.ability.discards } }
+    end,
     can_use = function(self, card)
         if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
             return true
@@ -313,8 +313,8 @@ SMODS.Consumable { --Time
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({func = function()
-            ease_hands_played(card.ability.hands)
-        return true end }))
+                ease_hands_played(card.ability.hands)
+                return true end }))
     end,
 }
 
@@ -329,13 +329,13 @@ SMODS.Consumable { --Cash
         }
     },
     atlas = 'Consumable',
-	pos = { x = 4, y = 0 },
-	order = 5,
+    pos = { x = 4, y = 0 },
+    order = 5,
     config = { money = 15 }, --Variables: money = dollars
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.money } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.money } }
+    end,
     can_use = function(self, card)
         if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
             return true
@@ -369,47 +369,44 @@ SMODS.Consumable { --Farmer
         }
     },
     atlas = 'Consumable',
-	pos = { x = 0, y = 1 },
-	order = 6,
+    pos = { x = 0, y = 1 },
+    order = 6,
     config = { money = 4, rounds = 5, current = 5 }, --Variables: money = dollars, rounds = total lifespan, current = lifespan remaining
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.money, card.ability.current } }
-	end,
-    calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition then
-            ease_dollars(card.ability.money, true)
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.money,colour = G.C.MONEY, delay = 0.45})
-            delay(0.3)
-            card.ability.current = card.ability.current - 1
-            if card.ability.current <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
-                return {
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.money, card.ability.current } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        local money = card.ability.money
+        card.ability.current = card.ability.current - 1
+        if card.ability.current <= 0 then
+            G.E_MANAGER:add_event(Event({
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
                     message = 'Used!',
                     colour = G.C.FILTER
-                }
-            end
+                }),
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
         end
+        return money
     end
 }
 
@@ -424,27 +421,27 @@ SMODS.Consumable { --Lake
         }
     },
     atlas = 'Consumable',
-	pos = { x = 1, y = 1 },
-	order = 7,
+    pos = { x = 1, y = 1 },
+    order = 7,
     config = { slots = 1, active = false }, --Variables: slots = extra joker slots
 
     loc_vars = function(self, info_queue, card)
         local function process_num(active)
             if active then
-				return '+' .. card.ability.slots
+                return '+' .. card.ability.slots
             else
-			    return ''
+                return ''
             end
         end
         local function process_var(active)
-			if active then
-				return ' Joker slot'
+            if active then
+                return ' Joker slot'
             else
-			    return 'Does nothing?'
+                return 'Does nothing?'
             end
-		end
-		return { vars = { process_num(card.ability.active), process_var(card.ability.active) } }
-	end,
+        end
+        return { vars = { process_num(card.ability.active), process_var(card.ability.active) } }
+    end,
     add_to_deck = function (self, card, from_debuff)
         card.ability.active = false
     end,
@@ -467,13 +464,13 @@ SMODS.Consumable { --Spikes
         }
     },
     atlas = 'Consumable',
-	pos = { x = 2, y = 1 },
-	order = 8,
+    pos = { x = 2, y = 1 },
+    order = 8,
     config = { retrigger = 1, spikes = 10 }, --Variables: retrigger = retrigger count, spikes = number of uses
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.spikes } }
-	end,
+        return { vars = { card.ability.spikes } }
+    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and card.ability.spikes > 0 then
             card.ability.spikes = card.ability.spikes - 1
@@ -520,14 +517,14 @@ SMODS.Consumable { --Glue
         }
     },
     atlas = 'Consumable',
-	pos = { x = 3, y = 1 },
-	order = 9,
+    pos = { x = 3, y = 1 },
+    order = 9,
     config = { mod_conv = "m_bloons_glued", max_highlighted = 5 },
 
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
-		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
 }
 
 SMODS.Consumable { --Psychic
@@ -543,14 +540,14 @@ SMODS.Consumable { --Psychic
         }
     },
     atlas = 'Consumable',
-	pos = { x = 4, y = 1 },
-	order = 10,
+    pos = { x = 4, y = 1 },
+    order = 10,
     config = { max_highlighted = 5, discards = 2 }, --Variables: discards = extra discards
 
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
-		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted, card.ability.discards } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted, card.ability.discards } }
+    end,
     use = function (self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -565,7 +562,7 @@ SMODS.Consumable { --Psychic
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.15,
-                func = function() 
+                func = function()
                     G.hand.highlighted[i]:flip();
                     play_sound('card1', percent);
                     G.hand.highlighted[i]:juice_up(0.3, 0.3);
@@ -591,7 +588,7 @@ SMODS.Consumable { --Psychic
                     G.hand.highlighted[i]:flip();
                     play_sound('tarot2', percent, 0.6);
                     G.hand.highlighted[i]:juice_up(0.3, 0.3);
-                    return true 
+                    return true
                 end
             }))
         end
@@ -620,14 +617,14 @@ SMODS.Consumable { --Freezing
         }
     },
     atlas = 'Consumable',
-	pos = { x = 0, y = 2 },
-	order = 11,
+    pos = { x = 0, y = 2 },
+    order = 11,
     config = { mod_conv = "m_bloons_frozen", max_highlighted = 5 },
 
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
 }
 
 SMODS.Consumable { --Pontoon
@@ -643,8 +640,8 @@ SMODS.Consumable { --Pontoon
         }
     },
     atlas = 'Consumable',
-	pos = { x = 1, y = 2 },
-	order = 12,
+    pos = { x = 1, y = 2 },
+    order = 12,
     config = { slots = 1 }, --Variables: slots = extra joker slots
 
     in_pool = function (self, args)
@@ -673,7 +670,7 @@ SMODS.Consumable { --Pontoon
                 G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.slots
                 v:juice_up()
                 play_sound('negative', 1.5, 0.4)
-                
+
                 break
             end
         end
@@ -693,8 +690,8 @@ SMODS.Consumable { --Tech
         }
     },
     atlas = 'Consumable',
-	pos = { x = 2, y = 2 },
-	order = 13,
+    pos = { x = 2, y = 2 },
+    order = 13,
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
@@ -702,14 +699,14 @@ SMODS.Consumable { --Tech
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+            G.GAME.DESTROY_CARD = copy_card(card)
+            G.consumeables:emplace(G.GAME.DESTROY_CARD)
+            G.GAME.DESTROY_CARD.ability.active = true
             local eval = function()
                 return true
             end
             juice_card_until(G.GAME.DESTROY_CARD, eval, true)
-		end
+        end
     end,
     calculate = function(self, card, context)
         if context.after and card.ability.active then
@@ -755,13 +752,13 @@ SMODS.Consumable { --Totem
         }
     },
     atlas = 'Consumable',
-	pos = { x = 3, y = 2 },
-	order = 14,
+    pos = { x = 3, y = 2 },
+    order = 14,
     config = { Xmult = 1.5, rounds = 5, current = 5 }, --Variables: Xmult = Xmult, rounds = total lifespan, current = lifespan remaining
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.Xmult, card.ability.current } }
-	end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.Xmult, card.ability.current } }
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
@@ -787,7 +784,7 @@ SMODS.Consumable { --Totem
                                 card = nil
                                 return true;
                             end
-                        })) 
+                        }))
                         return true
                     end
                 }))
@@ -812,8 +809,8 @@ SMODS.Consumable { --Cave Monkey
         }
     },
     atlas = 'Consumable',
-	pos = { x = 4, y = 2 },
-	order = 15,
+    pos = { x = 4, y = 2 },
+    order = 15,
 
     can_use = function(self, card)
         return true
