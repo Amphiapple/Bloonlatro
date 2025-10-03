@@ -4688,15 +4688,43 @@ SMODS.Joker { --XBM
 		}
     end,
     calculate = function(self, card, context)
+        if context.before then
+            self.pre_xbm_blueprints = self.pre_xbm_blueprints or {}
+
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker == card then break end
+                if context.blueprint_card and joker == context.blueprint_card then
+                    table.insert(self.pre_xbm_blueprints, joker)
+                end
+            end
+        end
+
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            card.ability.extra.counter = (card.ability.extra.counter == card.ability.extra.limit) and 1
+                                        or (card.ability.extra.counter + 1)
+        end
+
         if context.individual and context.cardarea == G.play then
-            if card.ability.extra.counter == card.ability.extra.limit then
-                card.ability.extra.counter = 1
+            for _, joker in ipairs(self.pre_xbm_blueprints or {}) do
+                if joker == context.blueprint_card then
+                    if card.ability.extra.counter ~= card.ability.extra.limit then return end
+                    return {
+                        x_mult = card.ability.extra.Xmult,
+                        message_card = context.other_card
+                    }
+                end
+            end
+
+            if card.ability.extra.counter == 1 then
                 return {
                     x_mult = card.ability.extra.Xmult,
+                    message_card = context.other_card
                 }
-            else
-                card.ability.extra.counter = card.ability.extra.counter + 1
             end
+        end
+
+        if context.after then
+            self.pre_xbm_blueprints = {}
         end
     end
 }
