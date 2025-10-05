@@ -1,17 +1,18 @@
-Added Decks:
-
-
-Added Jokers:
-
-
-Added Vouchers:
-
+Added Tags:
+- Cleansing Tag
+- Invisible Tag
+- Power Tag
+- Sabotage Tag
+- Redeemed Tag
+- Concoction Tag
 
 General Changes:
-
+- Small bug fixes and compatibility changes
 
 Balance Changes:
-
+- Thrive now works with end of round effects
+- Monkey Boost, Thrive, and Tech Bot no longer take up a consumable slot when activated (no change if already negative)
 
 Fixes:
+- Backroom Deals should now be able to appear if Insider Trades is redeemed
 - Big Bloon Sabotage and Big Bloon Blueprints are now banned in the 2 Megapops challenges

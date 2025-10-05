@@ -12,11 +12,11 @@ self.chips = get_blind_amount(G.GAME.round_resets.ante)*self.mult*G.GAME.startin
 position = "after"
 payload = '''
 if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and self.boss then
-    reduction = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.reduction
-    self.chips = self.chips - self.chips * reduction / 100.0
+    percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
+    self.chips = self.chips - self.chips * percent / 100.0
 elseif G.GAME.used_vouchers.v_bloons_big_bloon_sabotage then
-    reduction = G.P_CENTERS['v_bloons_big_bloon_sabotage'].config.extra.reduction
-    self.chips = self.chips - self.chips * reduction / 100.0
+    percent = G.P_CENTERS['v_bloons_big_bloon_sabotage'].config.extra.percent
+    self.chips = self.chips - self.chips * percent / 100.0
 end
 '''
 match_indent = true
@@ -31,11 +31,11 @@ local blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*blind_choice.
 position = "after"
 payload = '''
 if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and type == 'Boss' then
-    reduction = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.reduction
-    blind_amt = blind_amt - blind_amt * reduction / 100.0
+    percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
+    blind_amt = blind_amt - blind_amt * percent / 100.0
 elseif G.GAME.used_vouchers.v_bloons_big_bloon_sabotage then
-    reduction = G.P_CENTERS['v_bloons_big_bloon_sabotage'].config.extra.reduction
-    blind_amt = blind_amt - blind_amt * reduction / 100.0
+    percent = G.P_CENTERS['v_bloons_big_bloon_sabotage'].config.extra.percent
+    blind_amt = blind_amt - blind_amt * percent / 100.0
 end
 '''
 match_indent = true

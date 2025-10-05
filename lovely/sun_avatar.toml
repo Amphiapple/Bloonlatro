@@ -1,0 +1,29 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Sun Avatar Planet Xmult
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "function Card:calculate_joker(context)"
+position = 'after'
+payload = '''
+if self.ability.set == "Planet" and not self.debuff then
+    if context.other_joker and context.other_joker.ability.name == 'Sun Avatar' and not context.other_joker.debuff then
+        if self.ability.consumeable.hand_type == context.scoring_name then
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {G.P_CENTERS.j_bloons_sav.config.extra.Xmult_match}},
+                Xmult_mod = G.P_CENTERS.j_bloons_sav.config.extra.Xmult_match
+            }
+        else
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {G.P_CENTERS.j_bloons_sav.config.extra.Xmult}},
+                Xmult_mod = G.P_CENTERS.j_bloons_sav.config.extra.Xmult
+            }
+        end
+    end
+end
+'''
+match_indent = true
