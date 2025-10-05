@@ -910,16 +910,14 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
 
         jd_def["j_bloons_nevamiss"] = { --Nevamiss
             text = {
-                { text = "+1", colour = G.C.SECONDARY_SET.Tarot },
+                { text = "+", colour = G.C.SECONDARY_SET.Tarot },
+                { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Tarot }
             },
-            reminder_text = {
-                { text = "(" },
-                { ref_table = "card.ability.extra", ref_value = "percent_min", colour = G.C.ORANGE },
-                { text = "-", colour = G.C.ORANGE },
-                { ref_table = "card.ability.extra", ref_value = "percent_max", colour = G.C.ORANGE },
-                { text = "%", colour = G.C.ORANGE },
-                { text = ")" }
-            }
+            calc_function = function(card)
+                card.joker_display_values.tarots = G.GAME.blind and G.GAME.blind.chips and
+                G.GAME.chips / G.GAME.blind.chips >= to_big(card.ability.extra.percent_min / 100.0) and
+                G.GAME.chips / G.GAME.blind.chips <= to_big(card.ability.extra.percent_max / 100.0) and 1 or 0
+            end
         }
 
         jd_def["j_bloons_draft"] = { --Draft
