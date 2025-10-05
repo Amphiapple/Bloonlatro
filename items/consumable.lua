@@ -404,43 +404,40 @@ SMODS.Consumable { --Farmer
     order = 6,
     config = { money = 4, rounds = 5, current = 5 }, --Variables: money = dollars, rounds = total lifespan, current = lifespan remaining
 
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.money, card.ability.current } }
-	end,
-    calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition then
-            ease_dollars(card.ability.money, true)
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.money,colour = G.C.MONEY, delay = 0.45})
-            delay(0.3)
-            card.ability.current = card.ability.current - 1
-            if card.ability.current <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
-                return {
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.money, card.ability.current } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        local money = card.ability.money
+        card.ability.current = card.ability.current - 1
+        if card.ability.current <= 0 then
+            G.E_MANAGER:add_event(Event({
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
                     message = 'Used!',
                     colour = G.C.FILTER
-                }
-            end
+                }),
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
         end
+        return money
     end
 }
 
