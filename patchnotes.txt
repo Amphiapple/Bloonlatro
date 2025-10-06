@@ -14,5 +14,6 @@ Balance Changes:
 - Monkey Boost, Thrive, and Tech Bot no longer take up a consumable slot when activated (no change if already negative)
 
 Fixes:
+- Sun Avatar now works with Blueprint effects
 - Backroom Deals should now be able to appear if Insider Trades is redeemed
 - Big Bloon Sabotage and Big Bloon Blueprints are now banned in the 2 Megapops challenges

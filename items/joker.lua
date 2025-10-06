@@ -2769,11 +2769,7 @@ SMODS.Joker {
     cost = 8,
     order = 225,
     blueprint_compat = true,
-    perishable_compat = true,
-    config = {
-        category = 'magic',
-        extra = { Xmult_match = 2, Xmult = 1.5 }
-    },
+    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
     end,
@@ -2782,11 +2778,9 @@ SMODS.Joker {
         if context.other_consumeable
             and context.other_consumeable.ability.set == "Planet"
             and not context.other_consumeable.debuff then
-
             local sav_mult = (context.other_consumeable.ability.consumeable.hand_type == context.scoring_name)
                 and card.ability.extra.Xmult_match
                 or card.ability.extra.Xmult
-
             return {
                 x_mult = sav_mult,
                 message_card = context.other_consumeable
