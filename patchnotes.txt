@@ -1,56 +1,20 @@
-Added Decks:
-- Rosalia Deck
-
-Added Jokers:
-- Shrapnel Shot
-- Wall of Fire
-- Counter Espionage
-- Acidic Mixture Dip
-- Heart of Thunder
-- Sentry Gun + Nail Sentry
-- Destroyer
-- Sun Avatar
-- Enforcer
-- First Strike Capability
-- Tech Terror
-- Banana Research Facility
-- Giant Condor
-- Pirate Lord
-- Sky Shredder
-- Legend of the Night
-- Ultraboost
-- ?????
-
-Added Vouchers:
-- Power Merchant
-- Power Tycoon
-- Insider Trades
-- Backroom Deals
-- Quick Hands
-- Grand Prix Spree
-- Big Bloon Sabotage
-- Big Bloon Blueprints
+Added Tags:
+- Cleansing Tag
+- Invisible Tag
+- Power Tag
+- Sabotage Tag
+- Redeemed Tag
+- Concoction Tag
 
 General Changes:
-- Added compatability with Joker Display
-- Added 5 more challenges to the bottom of the list
+- Small bug fixes and compatibility changes
 
 Balance Changes:
-- Dart Monkey mult 3 > 2
-- Arcane Mastery purple seal cost $8 > destroy first consumable
-- Long Life Spikes mult gain 2 > 1, mult loss -50% > -4
-- Icicles X1.5 mult > held Frozen cards give X1.2 mult
-- Spike Storm Xmult 0.1 > 0.2 (affects loss as well)
-- Crushing Sentry mult 2 > 4
-- Energy Sentry chips 30 > 40
-- Crossbow Master Xmult 2 > 3
-- Super Monkey Storm score 50% > 80%
-- Thrive retrigger all cards > all held in hand cards
+- Thrive now works with end of round effects
+- Monkey Boost, Thrive, and Tech Bot no longer take up a consumable slot when activated (no change if already negative)
 
 Fixes:
-- Played/scoring card text fixes
-- Double gun functions correctly with blueprint effects
-- Grandmaster Ninja no longer counts debuffed diamonds
-- Flying Fortress should now retrigger all effects at end of round
-- Churchill Deck should no longer crash with other mods
-- Challenges should have the correct stakes with other mods
+- Counter Espionage no longer gives you an extra discard when selling it in the middle of the blind
+- Sun Avatar now works with Blueprint effects
+- Backroom Deals should now be able to appear if Insider Trades is redeemed
+- Big Bloon Sabotage and Big Bloon Blueprints are now banned in the 2 Megapops challenges

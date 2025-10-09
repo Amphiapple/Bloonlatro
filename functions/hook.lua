@@ -121,6 +121,70 @@ Card.set_cost = function(self, ...)
     return ret
 end
 
+-- Sell card change
+local sell_card_old = Card.sell_card
+Card.sell_card = function(self, ...)
+    if G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck' then
+        self.sell_cost = 0
+        G.CONTROLLER.locks.selling_card = true
+        stop_use()
+        local area = self.area
+        G.CONTROLLER:save_cardarea_focus(area == G.jokers and 'jokers' or 'consumeables')
+
+        if self.children.use_button then self.children.use_button:remove(); self.children.use_button = nil end
+        if self.children.sell_button then self.children.sell_button:remove(); self.children.sell_button = nil end
+
+        local eval, post = eval_card(self, {selling_self = true})
+        local effects = {eval}
+        for _,v in ipairs(post) do effects[#effects+1] = v end
+        if eval.retriggers then
+            for rt = 1, #eval.retriggers do
+                local rt_eval, rt_post = eval_card(self, { selling_self = true, retrigger_joker = true})
+                if next(rt_eval) then
+                    table.insert(effects, {eval.retriggers[rt]})
+                    table.insert(effects, rt_eval)
+                    for _, v in ipairs(rt_post) do effects[#effects+1] = v end
+                end
+            end
+        end
+        SMODS.trigger_effects(effects, self)
+
+        G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+            self:start_dissolve()
+            delay(0.3)
+
+            inc_career_stat('c_cards_sold', 1)
+            if self.ability.set == 'Joker' then 
+                inc_career_stat('c_jokers_sold', 1)
+            end
+            if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'Verdant Leaf' then
+                G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+                    G.GAME.blind:disable()
+                    return true
+                end}))
+            end
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3, blocking = false,
+            func = function()
+                G.E_MANAGER:add_event(Event({trigger = 'immediate',
+                func = function()
+                    G.E_MANAGER:add_event(Event({trigger = 'immediate',
+                    func = function()
+                        G.CONTROLLER.locks.selling_card = nil
+                        G.CONTROLLER:recall_cardarea_focus(area == G.jokers and 'jokers' or 'consumeables')
+                    return true
+                    end}))
+                return true
+                end}))
+            return true
+            end}))
+            return true
+        end}))
+    else
+        local ret = sell_card_old(self, ...)
+        return ret
+    end
+end
+
 --Energizer reroll cost
 local calculate_reroll_cost_old = calculate_reroll_cost
 calculate_reroll_cost = function(skip_increment)
@@ -181,17 +245,24 @@ end_round = function()
     return ret
 end
 
---Sacrifice context for adora and vtsg
-local function get_sacrifice_context(card)
+--Sacrifice Context for Adora and VTSG
+local function get_sac_context(card)
     local deck = G.GAME and G.GAME.selected_back
     local is_adora_deck = deck and deck.name == 'Adora Deck'
     local is_vtsg = card.ability and card.ability.name == 'Vengeful True Sun God'
     local vtsg_sacrifices = is_vtsg and card.ability.extra and card.ability.extra.sacrifices
 
-    local sacrifice_context = { show = is_vtsg or is_adora_deck, enabled = false, func = nil }
+    local sac_context = {
+        vtsg_show = false,
+        vtsg_enabled = false,
+        adora_show = false,
+        adora_enabled = false,
+    }
 
+    -- VTSG sacrifice
     if is_vtsg then
-        local all_zero = vtsg_sacrifices
+        sac_context.vtsg_show = true
+        local no_sacs = vtsg_sacrifices
             and vtsg_sacrifices['+chips'] == 0
             and vtsg_sacrifices['+mult'] == 0
             and vtsg_sacrifices['Xmult'] == 0
@@ -201,91 +272,116 @@ local function get_sacrifice_context(card)
 
         local non_eternal_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
-            if not joker.ability.eternal then
+            if not joker.ability.eternal and joker ~= card then
                 table.insert(non_eternal_jokers, joker)
             end
         end
-        if not is_adora_deck and not all_zero then
-            sacrifice_context.enabled = false
 
-        elseif is_adora_deck and not all_zero and not card.ability.eternal then
-            sacrifice_context.enabled = true
-            sacrifice_context.func = function(c) deck.effect.center.sac_to_adora(c) end
-
-        elseif is_adora_deck and #non_eternal_jokers <= 1 and not card.ability.eternal then
-            sacrifice_context.enabled = true
-            sacrifice_context.func = function(c) deck.effect.center.sac_to_adora(c) end
-
-        elseif #non_eternal_jokers >= 2 then
-            sacrifice_context.enabled = true
-            sacrifice_context.func = function(c) c.config.center.sac_to_vtsg(c) end
+        if #non_eternal_jokers >= 1 and no_sacs then
+            sac_context.vtsg_enabled = true
         end
+    end
 
-        return sacrifice_context
-
-    elseif is_adora_deck then
+    -- Adora sacrifice
+    if is_adora_deck then
+        sac_context.adora_show = true
         if not card.ability.eternal then
-            sacrifice_context.enabled = true
-            sacrifice_context.func = function(c) deck.effect.center.sac_to_adora(c) end
+            sac_context.adora_enabled = true
         end
-        return sacrifice_context
     end
 
-    return sacrifice_context
+    return sac_context
 end
 
---Sacrifice function for adora and vtsg
-G.FUNCS.sacrifice = function(e)
-  local card = e.config.ref_table
-  local sacrifice_context = get_sacrifice_context(card)
-  if sacrifice_context.enabled and sacrifice_context.func then
-    sacrifice_context.func(card)
-  end
-  card:highlight(false)
+--Sacrifice function for Adora
+G.FUNCS.adora_sac = function(e)
+    local card = e.config.ref_table
+    local sac_context = get_sac_context(card)
+    if not (G.GAME.selected_back.effect.center) or not sac_context.adora_enabled then return end
+    G.GAME.selected_back.effect.center.sac_to_adora(card)
 end
 
---Sacrifice button for adora and vtsg
+--Sacrifice function for VTSG
+G.FUNCS.vtsg_sac = function(e)
+    local card = e.config.ref_table
+    local sac_context = get_sac_context(card)
+    if not sac_context.vtsg_enabled then return end
+    card.config.center.sac_to_vtsg(card)
+    card.highlighted = false
+end
+
+--Sacrifice button for Adora and VTSG
 function G.UIDEF.use_and_sell_buttons(card)
-    local sell, use, sac = nil, nil, nil
-    local sacrifice_context = get_sacrifice_context(card)
+    local sell, use, adora_sac, vtsg_sac = nil, nil, nil, nil
+    local sac_context = get_sac_context(card)
 
-    if sacrifice_context.show then
-        sac = {n=G.UIT.C, config={align = "cr"}, nodes={
-        {n=G.UIT.C, config={
-            ref_table = card,
-            align = "cr",
-            maxw = 1.25,
-            padding = 0.1,
-            r = 0.08,
-            minw = 1.25,
-            minh = 0,
-            hover = true,
-            shadow = true,
-            colour = sacrifice_context.enabled and G.C.GREEN or G.C.UI.BACKGROUND_INACTIVE,
-            one_press = true,
-            button = sacrifice_context.enabled and 'sacrifice' or nil,
-        }, nodes={
-            {n=G.UIT.B, config = {w=0.1, h=0.6}},
-            {n=G.UIT.T, config={text = 'SAC', colour = sacrifice_context.enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sacrifice_context.enabled}}
+    if sac_context.adora_show then
+        adora_sac = {n=G.UIT.C, config={align = "cr"}, nodes={
+            {n=G.UIT.C, config={
+                ref_table = card,
+                align = "cr",
+                maxw = 1.25,
+                padding = 0.15,
+                r = 0.08,
+                minw = 1.25,
+                minh = 0,
+                hover = true,
+                shadow = true,
+                colour = sac_context.adora_enabled and HEX("FFCE00") or G.C.UI.BACKGROUND_INACTIVE,
+                one_press = true,
+                button = sac_context.adora_enabled and 'adora_sac' or nil
+            }, nodes={
+            {n=G.UIT.B, config = {w=0.1,h=0.6}},
+            {n=G.UIT.C, config={align = "cm"}, nodes={
+            {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                {n=G.UIT.T, config={text = 'SAC',colour = sac_context.adora_enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sac_context.adora_enabled}}
+            }}
+            }}
         }}
         }}
     end
 
-    if card.area and card.area.config.type == 'joker' and not (G.GAME and G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then
-        sell = {n=G.UIT.C, config={align = "cr"}, nodes={
-        {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+    if sac_context.vtsg_show then
+        vtsg_sac = {n=G.UIT.C, config={align = "cr"}, nodes={
+            {n=G.UIT.C, config={
+                ref_table = card,
+                align = "cr",
+                maxw = 1.25,
+                padding = 0.15,
+                r = 0.08,
+                minw = 1.25,
+                minh = 0,
+                hover = true,
+                shadow = true,
+                colour = sac_context.vtsg_enabled and HEX("383C76") or G.C.UI.BACKGROUND_INACTIVE,
+                one_press = true,
+                button = sac_context.vtsg_enabled and 'vtsg_sac' or nil
+            }, nodes={
             {n=G.UIT.B, config = {w=0.1,h=0.6}},
-            {n=G.UIT.C, config={align = "tm"}, nodes={
+            {n=G.UIT.C, config={align = "cm"}, nodes={
             {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-                {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
-            }},
-            {n=G.UIT.R, config={align = "cm"}, nodes={
-                {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
-                {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+                {n=G.UIT.T, config={text = 'SAC',colour = sac_context.vtsg_enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sac_context.vtsg_enabled}}
             }}
             }}
         }}
         }}
+    end
+
+    if card.area and card.area.config.type == 'joker' and not (G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then
+        sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.C, config={align = "tm"}, nodes={
+          {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+          }},
+          {n=G.UIT.R, config={align = "cm"}, nodes={
+            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+          }}
+        }}
+      }},
+    }}
     end
     if card.ability.consumeable and card.area == G.pack_cards and booster_obj and booster_obj.select_card and card:selectable_from_pack(booster_obj) then
         if (card.area == G.pack_cards and G.pack_cards) then
@@ -329,7 +425,10 @@ function G.UIDEF.use_and_sell_buttons(card)
             sell
           }},
           {n=G.UIT.R, config={align = 'cl'}, nodes={
-            sac
+            adora_sac
+          }},
+          {n=G.UIT.R, config={align = 'cl'}, nodes={
+            vtsg_sac
           }},
           {n=G.UIT.R, config={align = 'cl'}, nodes={
             use

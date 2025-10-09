@@ -964,6 +964,13 @@ SMODS.Challenge {
     jokers = {},
     vouchers = {},
     restrictions = {
+        banned_cards = {
+            {id = 'v_bloons_big_bloon_sabotage'},
+            {id = 'v_bloons_big_bloon_blueprints'},
+        },
+        banned_tags = {
+            { id = 'tag_sabotage' }
+        },
         banned_other = {
             { id = 'bl_final_vessel', type = 'blind' }
         }
@@ -992,6 +999,13 @@ SMODS.Challenge {
     jokers = {},
     vouchers = {},
     restrictions = {
+        banned_cards = {
+            {id = 'v_bloons_big_bloon_sabotage'},
+            {id = 'v_bloons_big_bloon_blueprints'},
+        },
+        banned_tags = {
+            { id = 'tag_sabotage' }
+        },
         banned_other = {
             { id = 'bl_final_vessel', type = 'blind' }
         }

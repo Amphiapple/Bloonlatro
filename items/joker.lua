@@ -338,7 +338,9 @@ SMODS.Joker { --Boat
         end
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.current
+        if card.ability.extra.current > 0 then
+            return card.ability.extra.current
+        end
     end
 }
 
@@ -753,7 +755,9 @@ SMODS.Joker { --Farm
         end
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.current
+        if card.ability.extra.current > 0 then
+            return card.ability.extra.current
+        end
     end
 }
 
@@ -1563,13 +1567,13 @@ SMODS.Joker { --Espionage
 
     remove_from_deck = function(self, card, from_debuff)
         if card.ability.extra.active then
-            if G.GAME.round_resets.hands - G.GAME.current_round.hands_played < 0 then
+            if G.GAME.round_resets.hands - G.GAME.current_round.hands_played <= 0 then
                 ease_hands_played(1 - G.GAME.current_round.hands_left)
             else
                 ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
             end
             if G.GAME.round_resets.discards - G.GAME.current_round.discards_used < 0 then
-                ease_discard(1 - G.GAME.current_round.discards_left)
+                ease_discard(-G.GAME.current_round.discards_left)
             else
                 ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
             end
@@ -2747,7 +2751,7 @@ SMODS.Joker { --Amast
     end
 }
 
-SMODS.Joker { --Sav
+SMODS.Joker {
     key = 'sav',
     name = 'Sun Avatar',
     loc_txt = {
@@ -2759,22 +2763,34 @@ SMODS.Joker { --Sav
             'and {X:red,C:white}X#2#{} Mult otherwise',
         }
     },
-	atlas = 'Joker',
-	pos = { x = 4, y = 7 },
+    atlas = 'Joker',
+    pos = { x = 4, y = 7 },
     rarity = 2,
-	cost = 8,
-	order = 225,
-    blueprint_compat = false,
-    perishable_compat = true,
-    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5 } }, --Variables: Xmult_match = Xmult gain for specific hand, Xmult = Xmult for other hands
-
+    cost = 8,
+    order = 225,
+    blueprint_compat = true,
+    config = { category = 'magic', extra = { Xmult_match = 2, Xmult = 1.5 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
     end,
+
+    calculate = function(self, card, context)
+        if context.other_consumeable
+            and context.other_consumeable.ability.set == "Planet"
+            and not context.other_consumeable.debuff then
+            local sav_mult = (context.other_consumeable.ability.consumeable.hand_type == context.scoring_name)
+                and card.ability.extra.Xmult_match
+                or card.ability.extra.Xmult
+            return {
+                x_mult = sav_mult,
+                message_card = context.other_consumeable
+            }
+        end
+    end
 }
 
 SMODS.Joker { --Flash
-    key = 'flash',    
+    key = 'flash',
     name = 'Flash Bomb',
 	loc_txt = {
         name = 'Flash Bomb',
@@ -2791,7 +2807,7 @@ SMODS.Joker { --Flash
 	cost = 6,
 	order = 226,
     blueprint_compat = false,
-    config = { category = 'magic', extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
+    config = { category = 'magic', extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
@@ -4055,9 +4071,11 @@ SMODS.Joker { --BRF
         local count = 0
         for k, v in pairs(G.GAME.used_vouchers) do
             local redeemed = v
-            for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                if k == j then
-                    redeemed = false
+            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config and G.GAME.selected_back.effect.config.vouchers then
+                for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
+                    if k == j then
+                        redeemed = false
+                    end
                 end
             end
             if redeemed then
@@ -4590,7 +4608,7 @@ SMODS.Joker { --Bloonprint
 	cost = 10,
 	order = 270,
     blueprint_compat = true,
-    config = { category = 'support', extra = { min = 1, max = 5, current = 1 } }, --Variables: min = minimum position, max = maximum position, current = current retrigger position, blueprint_compat = blueprint copyable
+    config = { category = 'support', extra = {current = 1 } }, --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
 
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
@@ -4623,11 +4641,7 @@ SMODS.Joker { --Bloonprint
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            local max = card.ability.extra.max
-            if #G.jokers.cards < card.ability.extra.max then
-                max = #G.jokers.cards
-            end
-            card.ability.extra.current = pseudorandom('bloonprint', card.ability.extra.min, max)
+            card.ability.extra.current = pseudorandom('bloonprint', 1, #G.jokers.cards)
         end
         return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
     end
@@ -4668,15 +4682,43 @@ SMODS.Joker { --XBM
 		}
     end,
     calculate = function(self, card, context)
+        if context.before then
+            self.pre_xbm_blueprints = self.pre_xbm_blueprints or {}
+
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker == card then break end
+                if context.blueprint_card and joker == context.blueprint_card then
+                    table.insert(self.pre_xbm_blueprints, joker)
+                end
+            end
+        end
+
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            card.ability.extra.counter = (card.ability.extra.counter == card.ability.extra.limit) and 1
+                                        or (card.ability.extra.counter + 1)
+        end
+
         if context.individual and context.cardarea == G.play then
-            if card.ability.extra.counter == card.ability.extra.limit then
-                card.ability.extra.counter = 1
+            for _, joker in ipairs(self.pre_xbm_blueprints or {}) do
+                if joker == context.blueprint_card then
+                    if card.ability.extra.counter ~= card.ability.extra.limit then return end
+                    return {
+                        x_mult = card.ability.extra.Xmult,
+                        message_card = context.other_card
+                    }
+                end
+            end
+
+            if card.ability.extra.counter == 1 then
                 return {
                     x_mult = card.ability.extra.Xmult,
+                    message_card = context.other_card
                 }
-            else
-                card.ability.extra.counter = card.ability.extra.counter + 1
             end
+        end
+
+        if context.after then
+            self.pre_xbm_blueprints = {}
         end
     end
 }
