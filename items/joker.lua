@@ -1567,13 +1567,13 @@ SMODS.Joker { --Espionage
 
     remove_from_deck = function(self, card, from_debuff)
         if card.ability.extra.active then
-            if G.GAME.round_resets.hands - G.GAME.current_round.hands_played < 0 then
+            if G.GAME.round_resets.hands - G.GAME.current_round.hands_played <= 0 then
                 ease_hands_played(1 - G.GAME.current_round.hands_left)
             else
                 ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
             end
             if G.GAME.round_resets.discards - G.GAME.current_round.discards_used < 0 then
-                ease_discard(1 - G.GAME.current_round.discards_left)
+                ease_discard(-G.GAME.current_round.discards_left)
             else
                 ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
             end

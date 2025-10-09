@@ -343,9 +343,12 @@ SMODS.Consumable { --Time
         end
     end,
     use = function(self, card, area, copier)
-        G.E_MANAGER:add_event(Event({func = function()
+        G.E_MANAGER:add_event(Event({
+            func = function()
                 ease_hands_played(card.ability.hands)
-                return true end }))
+                return true
+            end
+        }))
     end,
 }
 
