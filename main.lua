@@ -13,6 +13,9 @@ local items = {
     'consumable',
     'deck',
     'enhancement',
+    'joker',
+    'stake',
+    'sticker',
     'tag',
     'voucher'
 }
