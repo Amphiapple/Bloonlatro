@@ -4,8 +4,10 @@ Challenge_stakes = {
     c_bloons_glorious_gold = {stake = 8},
     c_bloons_freaky_friday = {stake = 6},
     c_bloons_joshs_constant = {stake = 8},
-    c_bloons_inflated = {stake = 8},
     c_bloons_survivor = {stake = 8},
+    c_bloons_inflated_expert = {stake = 8},
+    c_bloons_survivor_expert = {stake = 8},
+    c_bloons_2tc_expert = {stake = 8},
     c_bloons_2mp_expert = {stake = 8},
 }
 
@@ -309,6 +311,8 @@ end
 local inflated_cards = {
     { id = 'j_juggler' },
     { id = 'j_troubadour' },
+    { id = 'j_turtle_bean' },
+    { id = 'j_bloons_condor' },
     { id = 'v_paint_brush' },
     { id = 'v_palette' },
 }
@@ -832,47 +836,13 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
             { id = 'inflated' },
         },
         modifiers = {
             { id = 'hand_size', value = 13 },
             { id = 'hands', value = 3 },
             { id = 'discards', value = 0 },
-        }
-    },
-    jokers = {},
-    vouchers = {},
-    restrictions = {
-        banned_cards = inflated_cards,
-        banned_tags = {
-            { id = 'tag_juggle' },
-        },
-        banned_other = {
-            { id = 'bl_water', type = 'blind' },
-            { id = 'bl_needle', type = 'blind' },
-            { id = 'bl_serpent', type = 'blind' },
-        }
-    },
-    deck = {
-        type = 'Challenge Deck',
-    },
-}
-
-SMODS.Challenge {
-    key = 'inflated',
-    loc_txt = {
-        name = 'Inflated'
-    },
-    rules = {
-        custom = {
-            { id = 'gold_stake' },
-            { id = 'inflated' },
-        },
-        modifiers = {
-            { id = 'hand_size', value = 13 },
-            { id = 'hands', value = 3 },
-            { id = 'discards', value = 0 },
+            { id = 'dollars', value = 13 },
         }
     },
     jokers = {},
@@ -987,6 +957,117 @@ SMODS.Challenge {
 
     apply = function(self)
         G.GAME.modifiers.scaling = 4
+    end
+}
+
+SMODS.Challenge {
+    key = 'inflated_expert',
+    loc_txt = {
+        name = 'Inflated Expert'
+    },
+    rules = {
+        custom = {
+            { id = 'gold_stake' },
+            { id = 'inflated' },
+            { id = 'difficulty_warning'}
+        },
+        modifiers = {
+            { id = 'hand_size', value = 13 },
+            { id = 'hands', value = 3 },
+            { id = 'discards', value = 0 },
+            { id = 'dollars', value = 13 },
+        }
+    },
+    jokers = {},
+    vouchers = {},
+    restrictions = {
+        banned_cards = inflated_cards,
+        banned_tags = {
+            { id = 'tag_juggle' },
+        },
+        banned_other = {
+            { id = 'bl_water', type = 'blind' },
+            { id = 'bl_needle', type = 'blind' },
+            { id = 'bl_serpent', type = 'blind' },
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+}
+
+SMODS.Challenge {
+    key = 'survivor_expert',
+    loc_txt = {
+        name = 'Survivor Expert'
+    },
+    rules = {
+        custom = {
+            { id = 'gold_stake' },
+            { id = 'no_shop_rerolls' },
+            { id = 'no_shop_slots' },
+            { id = 'difficulty_warning'}
+        },
+    },
+    jokers = {},
+    vouchers = {},
+    restrictions = {
+        banned_cards = {
+            {id = 'j_chaos'},
+            {id = 'j_bloons_intel'},
+            {id = 'j_bloons_gizer'},
+            {id = 'v_reroll_surplus'},
+            {id = 'v_reroll_glut'},
+            {id = 'v_overstock_norm'},
+            {id = 'v_overstock_plus'},
+        },
+        banned_tags = {
+            { id = 'tag_d_six' }
+        },
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    apply = function(self)
+        change_shop_size(-2)
+    end
+}
+
+SMODS.Challenge {
+    key = '2tc_expert',
+    loc_txt = {
+        name = '2 Tower Chimps Expert'
+    },
+    rules = {
+        custom = {
+            { id = 'gold_stake' },
+            { id = 'no_negative_jokers' },
+            { id = 'all_eternal' },
+            { id = 'difficulty_warning'}
+        },
+        modifiers = {
+            { id = 'joker_slots', value = 2 },
+        }
+    },
+    jokers = {},
+    vouchers = {},
+    restrictions = {
+        banned_cards = banned_2tc_cards,
+        banned_tags = {
+            { id = 'tag_negative' },
+            { id = 'tag_concoction' }
+        },
+        banned_other = {
+            { id = 'bl_final_leaf', type = 'blind' }
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    apply = function(self)
+        G.GAME.negative_rate = 0
     end
 }
 

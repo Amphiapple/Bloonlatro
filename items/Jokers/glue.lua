@@ -76,6 +76,46 @@ SMODS.Joker { --Corrosive Glue
     end
 }
 
+SMODS.Joker { --MOAB Glue
+    key = 'mglue',
+    name = 'MOAB Glue',
+	loc_txt = {
+        name = 'MOAB Glue',
+        text = {
+            'If scoring hand',
+            'contains {C:attention}face{} cards,',
+            '{C:attention}Glue{} them all and',
+            'give {X:mult,C:white}X#1#{} Mult',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 8 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    config = {
+        base = 'glue',
+        extra = { Xmult = 2, face = false } --Variables: Xmult = 2, face = if face cards score
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.other_card.debuff then
+            context.other_card:set_ability('m_bloons_glued', nil, true)
+            card.ability.extra.face = true
+        elseif context.joker_main and card.ability.extra.face then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.after then
+            card.ability.extra.face = false
+        end
+    end
+}
+
 SMODS.Joker { --Glue Hose
     key = 'glose',
     name = 'Glue Hose',

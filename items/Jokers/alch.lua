@@ -103,6 +103,7 @@ SMODS.Joker { --Berserker Brew
         name = 'Berserker Brew',
         text = {
             'Sell this card to add',
+            '{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
             '{C:dark_edition}Polychrome{} edition',
             'to a random {C:attention}Joker{}'
         }
@@ -135,7 +136,8 @@ SMODS.Joker { --Berserker Brew
                 func = function()
                     local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('brew'))
                     if joker then
-                        joker:set_edition('e_polychrome', true)
+                        local edition = poll_edition('brew', nil, true, true)
+                        joker:set_edition(edition, true)
                     end
                     return true
                 end

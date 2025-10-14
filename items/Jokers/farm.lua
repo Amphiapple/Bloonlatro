@@ -155,6 +155,33 @@ SMODS.Joker { --Banana Salvage
     end
 }
 
+SMODS.Joker { --Banana Plantation
+    key = 'salvage',
+    name = 'Banana Plantation',
+    loc_txt = {
+        name = 'Banana Plantation',
+        text = {
+            ''
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 9, y = 4 },
+    rarity = 2,
+	cost = 7,
+    blueprint_compat = false,
+    config = {
+        base = 'farm',
+        extra = { cost = 2 } --Variables: cost = extra sell price
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cost } }
+    end,
+    calculate = function(self, card, context)
+    end
+}
+
+
 SMODS.Joker { --Monkey Bank
     key = 'bank',
     name = 'Monkey Bank',

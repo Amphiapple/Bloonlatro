@@ -189,7 +189,7 @@ SMODS.Joker { --Shinobi Tactics
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 10 },
+	pos = { x = 6, y = 8 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
