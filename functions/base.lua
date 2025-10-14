@@ -154,10 +154,20 @@ Joker_effects_vtsg = {
 
     --Bloonlatro Jokers
     j_bloons_dart=      {effect = {'+chips', '+mult'}, weight = 0.5},
+    j_bloons_quick=     {effect = {'+chips', '+mult'}, weight = 0.5},
+
     j_bloons_boomer=    {effect = {'support'}, weight = 1},
+    j_bloons_glaives=   {effect = {'+chips'}, weight = 1},
+
     j_bloons_bomb=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_missile=   {effect = {'econ'}, weight = 1},
+
     j_bloons_tack=      {effect = {'+chips', '+mult'}, weight = 0.5},
+    j_bloons_evenmore=  {effect = {'+chips', '+mult'}, weight = 0.5},
+
     j_bloons_ice=       {effect = {'+chips'}, weight = 1},
+    j_bloons_pfrost=    {effect = {'+chips', 'econ'}, weight = 0.5},
+
     j_bloons_glue=      {effect = {'+mult'}, weight = 1},
     j_bloons_sniper=    {effect = {'+mult'}, weight = 1},
     j_bloons_sub=       {effect = {'+mult'}, weight = 1},
@@ -167,14 +177,29 @@ Joker_effects_vtsg = {
     j_bloons_mortar=    {effect = {'+mult'}, weight = 1},
     j_bloons_dartling=  {effect = {'+chips'}, weight = 1},
     j_bloons_wiz=       {effect = {'support'}, weight = 1},
+
     j_bloons_super=     {effect = {'Xmult'}, weight = 1},
+    j_bloons_laser=     {effect = {'Xmult'}, weight = 1},
+    
     j_bloons_ninja=     {effect = {'+mult'}, weight = 1},
+    j_bloons_shinobi=   {effect = {'Xmult'}, weight = 1},
+
     j_bloons_alch=      {effect = {'value'}, weight = 1},
+
     j_bloons_druid=     {effect = {'+mult'}, weight = 1},
+    j_bloons_dots=      {effect = {'support'}, weight = 1},
+
     j_bloons_merm=      {effect = {'+mult'}, weight = 1},
+
     j_bloons_farm=      {effect = {'econ'}, weight = 1},
+    j_bloons_valuable=  {effect = {'econ'}, weight = 1},
+
     j_bloons_spac=      {effect = {'+chips'}, weight = 1},
+    j_bloons_stacks=    {effect = {'econ'}, weight = 1},
+
     j_bloons_village=   {effect = {'+mult'}, weight = 1},
+    j_bloons_drums=     {effect = {'Xmult'}, weight = 1},
+
     j_bloons_engi=      {effect = {'econ'}, weight = 1},
     j_bloons_beast=     {effect = {'+chips'}, weight = 1},
     j_bloons_desp=      {effect = {'+chips'}, weight = 1},

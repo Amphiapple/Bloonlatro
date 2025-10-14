@@ -9,6 +9,165 @@ SMODS.Atlas {
 
 SMODS.Blind {
     loc_txt = {
+        name = 'The Red',
+        text = {
+            '-#1# discard'
+        }
+    },
+    key = 'red',
+    atlas = 'Blind',
+    pos = { y = 0 },
+    dollars = 4,
+    mult = 1.5,
+    boss_colour = HEX("FF0000"),
+    discovered = true,
+
+    loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+    collection_loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+    set_blind = function(self)
+        ease_discard(-1)
+    end,
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'The Blue',
+        text = {
+            '-#1# hand'
+        }
+    },
+    key = 'blue',
+    atlas = 'Blind',
+    pos = { y = 1 },
+    dollars = 4,
+    mult = 1.5,
+    boss_colour = HEX("7777FF"),
+    discovered = true,
+
+    loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+    collection_loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+    set_blind = function(self)
+        ease_hands_played(-1)
+    end,
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'The Green',
+        text = {
+            'Playing hands and',
+            'discarding costs $#1#'
+        }
+    },
+    key = 'green',
+    atlas = 'Blind',
+    pos = { y = 2 },
+    dollars = 4,
+    mult = 1.5,
+    boss_colour = HEX("77FF77"),
+    discovered = true,
+
+    loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+    collection_loc_vars = function(self)
+        return { vars = { 1 } }
+    end,
+    press_play = function(self)
+        ease_dollars(-1)
+    end,
+    calculate = function (self, blind, context)
+        if context.pre_discard then
+            ease_dollars(-1)
+        end
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'The Dark',
+        text = {
+            'Base Chips are halved',
+            'for Spades or Clubs'
+        }
+    },
+    key = 'black',
+    atlas = 'Blind',
+    pos = { y = 5 },
+    dollars = 4,
+    mult = 1.5,
+    boss_colour = HEX("333333"),
+    discovered = true,
+
+    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+        for k, v in ipairs(cards) do
+            if v:is_suit('Spades', true) or v:is_suit('Clubs', true) then
+                return mult, math.max(math.floor(hand_chips * 0.5 + 0.5), 0), true
+            end
+        end
+        return mult, hand_chips, false
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'The Light',
+        text = {
+            'Base Chips are halved',
+            'for Hearts or Diamonds'
+        }
+    },
+    key = 'white',
+    atlas = 'Blind',
+    pos = { y = 6 },
+    dollars = 4,
+    mult = 1.5,
+    boss_colour = HEX("cccccc"),
+    discovered = true,
+
+    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+        for k, v in ipairs(cards) do
+            if v:is_suit('Hearts', true) or v:is_suit('Diamonds', true) then
+                return mult, math.max(math.floor(hand_chips * 0.5 + 0.5), 0), true
+            end
+        end
+        return mult, hand_chips, false
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'The Magic',
+        text = {
+            'Destroy all consumeables',
+        }
+    },
+    key = 'purple',
+    atlas = 'Blind',
+    pos = { y = 7 },
+    dollars = 4,
+    mult = 1.5,
+    boss_colour = HEX("9955bb"),
+    discovered = true,
+
+    set_blind = function(self)
+        for k, v in ipairs(G.consumeables.cards) do
+            v:start_dissolve({G.C.RED}, nil)
+            v:remove_from_deck()
+        end
+    end,
+}
+
+SMODS.Blind {
+    loc_txt = {
         name = 'Bloonarius',
         text = {
             'Fills deck with random',
@@ -18,7 +177,7 @@ SMODS.Blind {
     },
     key = 'bloonarius',
     atlas = 'Blind',
-    pos = { y = 0 },
+    pos = { y = 17 },
     dollars = 8,
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
@@ -63,7 +222,7 @@ SMODS.Blind {
     },
     key = 'lych',
     atlas = 'Blind',
-    pos = { y = 1 },
+    pos = { y = 18 },
     dollars = 8,
     mult = 40, -- 40x base score (2 million)
     boss = { showdown = true },
@@ -172,7 +331,7 @@ SMODS.Blind {
     },
     key = 'vortex',
     atlas = 'Blind',
-    pos = { y = 2 },
+    pos = { y = 19 },
     dollars = 8,
     mult = 25, -- 25x base score (500k)
     boss = { showdown = true },
@@ -227,7 +386,7 @@ SMODS.Blind {
 
     key = 'dreadbloon',
     atlas = 'Blind',
-    pos = { y = 3 },
+    pos = { y = 20 },
     dollars = 8,
     mult = 8, -- 8x base score (400k)
     boss = { showdown = true },
@@ -279,7 +438,7 @@ SMODS.Blind {
     },
     key = 'phayze',
     atlas = 'Blind',
-    pos = { y = 4 },
+    pos = { y = 21 },
     dollars = 8,
     mult = 20, -- 20x base score (1 million)
     boss = { showdown = true },
@@ -321,7 +480,7 @@ SMODS.Blind {
     },
     key = 'blastapopoulos',
     atlas = 'Blind',
-    pos = { y = 5 },
+    pos = { y = 22 },
     dollars = 8,
     mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },

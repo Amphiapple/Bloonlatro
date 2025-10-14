@@ -69,7 +69,7 @@ SMODS.Tag {
 			local lock = tag.ID
             G.CONTROLLER.locks[lock] = true
 			tag:yep("+", G.C.PURPLE, function()
-				if #G.jokers.cards <= G.jokers.config.card_limit and #G.jokers.cards > 0 then 
+				if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit and #G.jokers.cards > 0 then
 					local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'))
 					local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
 					card:add_to_deck()
