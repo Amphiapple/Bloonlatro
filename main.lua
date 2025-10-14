@@ -14,6 +14,8 @@ local items = {
     'deck',
     'enhancement',
     'joker',
+    'stake',
+    'sticker',
     'tag',
     'voucher'
 }

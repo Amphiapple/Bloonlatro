@@ -1,0 +1,222 @@
+[manifest]
+dump_lua = true
+priority = 1
+version = "1.0.0"
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1"
+position = 'after'
+payload = '''
+G.GAME.bloons_blind_modifier = "None"
+if G.GAME.modifiers.chimps_stake then
+    local modifier_pool = {}
+
+    if G.GAME.round_resets.ante >= 2 and pseudorandom('Regrow') > 0.7 then table.insert(modifier_pool, "Regrow") end
+    if G.GAME.round_resets.ante >= 4 and pseudorandom('Camo') > 0.7 then table.insert(modifier_pool, "Camo") end
+    if G.GAME.round_resets.ante >= 6 and pseudorandom('Fortified') > 0.7 then table.insert(modifier_pool, "Fortified") end
+
+    if #modifier_pool > 0 then
+        local r = pseudorandom('modifier')
+        local index = math.floor(r * #modifier_pool) + 1
+        if index > #modifier_pool then index = #modifier_pool end
+        G.GAME.bloons_blind_modifier = modifier_pool[index]
+    end
+end
+
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.chips = get_blind_amount(G.GAME.round_resets.ante)*self.mult*G.GAME.starting_params.ante_scaling"
+position = 'after'
+payload = '''
+if self.boss and G.GAME.bloons_blind_modifier == "Fortified" then
+    self.chips = self.chips * 2
+end
+if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and self.boss then
+    local percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
+    self.chips = self.chips - self.chips * percent / 100.0
+elseif G.GAME.used_vouchers.v_bloons_big_bloon_sabotage then
+    local percent = G.P_CENTERS['v_bloons_big_bloon_sabotage'].config.extra.percent
+    self.chips = self.chips - self.chips * percent / 100.0
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "local blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*blind_choice.config.mult*G.GAME.starting_params.ante_scaling"
+position = 'after'
+payload = '''
+if type == 'Boss' and G.GAME.bloons_blind_modifier == "Fortified" then
+    blind_amt = blind_amt * 2
+end
+if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and type == 'Boss' then
+    local percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
+    blind_amt = blind_amt - blind_amt * percent / 100.0
+elseif G.GAME.used_vouchers.v_bloons_big_bloon_sabotage then
+    local percent = G.P_CENTERS['v_bloons_big_bloon_sabotage'].config.extra.percent
+    blind_amt = blind_amt - blind_amt * percent / 100.0
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = '''
+function Blind:disable()
+    self.disabled = true
+'''
+position = 'after'
+payload = '''
+    if G.GAME.bloons_blind_modifier == "Fortified" then
+        self.chips = self.chips / 2
+        self.chip_text = number_format(self.chips)
+    end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "if self.disabled then return mult, hand_chips, false end"
+position = 'after'
+payload = '''
+if G.GAME.bloons_blind_modifier == "Regrow" and G.GAME.chips ~= 0 then
+    G.GAME.chips = math.max(to_big(0, G.GAME.chips - G.GAME.blind.chips * 10 / 100))
+    self:wiggle()
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = '''
+for _, v in ipairs(G.jokers.cards) do
+    if not reset then self:debuff_card(v, true) end
+end
+'''
+position = 'after'
+payload = '''
+if G.GAME.bloons_blind_modifier == "Camo" and not self.disabled and not reset then
+    local first_joker = G.jokers.cards[1]
+    if first_joker then
+        first_joker:set_debuff(true)
+        if first_joker.debuff then 
+            first_joker.debuffed_by_blind = true 
+        end
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+{n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}},
+'''
+position = 'at'
+payload = '''
+(function()
+    if type ~= 'Boss' then
+        return {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}}
+    end
+    
+    local nodes = {}
+    if G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier ~= "None" then
+        local icon_pos = nil
+        if G.GAME.bloons_blind_modifier == "Regrow" then
+            icon_pos = {x=0, y=0}
+        elseif G.GAME.bloons_blind_modifier == "Camo" then
+            icon_pos = {x=1, y=0}
+        elseif G.GAME.bloons_blind_modifier == "Fortified" then
+            icon_pos = {x=2, y=0}
+        end
+        
+        if icon_pos then
+            table.insert(nodes, {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}})
+            table.insert(nodes, {n=G.UIT.O, config={object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS["bloons_Tag"], icon_pos)}})
+            return {n=G.UIT.R, config={align = "cm"}, nodes=nodes}
+        end
+    end
+    return {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}}
+end)(),
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+G.GAME.current_round.used_packs = {}
+'''
+position = 'after'
+payload = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.3,
+    func = function()
+        if G.HUD_blind and 
+           G.GAME and 
+           G.GAME.bloons_blind_modifier and 
+           G.GAME.bloons_blind_modifier ~= "None" and 
+           G.GAME.blind and 
+           G.GAME.blind.boss then
+            
+            local blind_name_element = G.HUD_blind:get_UIE_by_ID('HUD_blind_name')
+            if blind_name_element and blind_name_element.parent and blind_name_element.config and blind_name_element.config.object then
+                local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
+                
+                local icon_pos = nil
+                if G.GAME.bloons_blind_modifier == "Regrow" then
+                    icon_pos = {x=0, y=0}
+                elseif G.GAME.bloons_blind_modifier == "Camo" then
+                    icon_pos = {x=1, y=0}
+                elseif G.GAME.bloons_blind_modifier == "Fortified" then
+                    icon_pos = {x=2, y=0}
+                end
+                
+                if icon_pos and G.ASSET_ATLAS["bloons_Tag"] then
+                    local parent = blind_name_element.parent
+                    
+                    local element_index = nil
+                    for i, child in ipairs(parent.children) do
+                        if child == blind_name_element then
+                            element_index = i
+                            break
+                        end
+                    end
+                    
+                    if element_index then
+                        table.remove(parent.children, element_index)
+                        
+                        blind_name_element:remove()
+                        
+                        local new_row_def = {
+                            n = G.UIT.R, 
+                            config = {align = "cm"}, 
+                            nodes = {
+                                {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
+                                {n = G.UIT.O, config = {object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS["bloons_Tag"], icon_pos)}}
+                            }
+                        }
+
+                        G.HUD_blind:add_child(new_row_def, parent)
+                    end
+                end
+            end
+        end
+        return true
+    end
+}))
+
+'''
+match_indent = true
