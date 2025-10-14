@@ -13,7 +13,7 @@ return {
             bloons_regrow = {
                 name = 'Regrow',
                 text = {
-                    'Heal back 10% of blind size',
+                    'Heal back #1#% of blind size',
                     'when a hand is played'
                 },
             },
