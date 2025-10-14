@@ -8,6 +8,7 @@ Added Jokers:
 - Valuable Bananas
 - Bigger Stacks
 - Jungle Drums
+- MOAB Glue
 - Shinobi Tactics
 - Druid of the Storm
 
@@ -23,6 +24,7 @@ Balance Changes:
 - Arcane Mastery cost 7 > 6 (same reason)
 - Monkey Bank has no sell value after being emptied
 - Inflated is no longer played on Gold Stake as that has become Inflated Expert
+- Inflated now starts wtih $13 dollars to prevent as many Ante 1 Big Blind losses
 
 Fixes:
 - Frag Bombs no longer shows stunned card tooltip
@@ -31,3 +33,4 @@ Fixes:
 - Berserker Brew may now add Foil or Holographic instead of Polychrome
 - Giant Condor no longer uses Primary Expertise's seed
 - Invisible Tag should no longer create an extra joker if joker slots are full
+- Sabotage should now correctly be banned on 2 Megapops and 2 Megapops Expert

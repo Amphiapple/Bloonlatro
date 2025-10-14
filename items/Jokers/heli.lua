@@ -205,6 +205,84 @@ SMODS.Joker { --Comanche Defense
     end
 }
 
+SMODS.Joker { --Special Poperations
+    key = 'spop',
+    name = 'Special Poperations',
+	loc_txt = {
+        name = 'Special Poperations',
+        text = {
+            '{C:blue}+#1#{} hand',
+            'Create a {C:attention}Marine{}',
+            'every #2# {C:inactive}[#3#]{} hands played',
+            'Create a {C:attention}Cash Drop{}',
+            'every #4# {C:inactive}[#5#]{} hands played'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 0, y = 13 },
+    rarity = 3,
+	cost = 9,
+    blueprint_compat = true,
+    config = {
+        base = 'heli',
+        extra = { hands = 1, marine = 5, cash = 9, counter = 0 } --Variables: hands = extra hands, marine = hands for marine, cash = hands for cash drop, current = current hands
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(count, cap)
+			return count % cap
+		end
+		return {
+			vars = {
+				card.ability.extra.hands,
+                card.ability.extra.marine,
+                process_var(card.ability.extra.counter, card.ability.extra.marine),
+                card.ability.extra.cash,
+                process_var(card.ability.extra.counter, card.ability.extra.cash),
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind and not card.getting_sliced then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_hands_played(card.ability.extra.hands)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
+                    return true 
+                end 
+            }))
+        elseif context.joker_main then
+            card.ability.extra.counter = G.GAME.hands_played - card.ability.hands_played_at_create
+            if card.ability.extra.counter % card.ability.extra.marine == 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local card = create_card('j_bloons_marine', G.jokers, nil, 0, nil, nil, 'j_bloons_marine', 'spop')
+                        card:add_to_deck()
+                        G.jokers:emplace(card)
+                        card:start_materialize()
+                        return true
+                    end
+                }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+            elseif card.ability.extra.counter % card.ability.extra.cash == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'j_bloons_marine', 'spop')
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.POWER})
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Apache Prime
     key = 'aprime',
     name = 'Apache Prime',

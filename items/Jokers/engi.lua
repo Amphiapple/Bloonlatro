@@ -71,7 +71,6 @@ SMODS.Joker { --Sentry Gun
                     card:add_to_deck()
                     G.jokers:emplace(card)
                     card:start_materialize()
-                    G.GAME.joker_buffer = 0
                     return true
                 end
             }))
@@ -172,7 +171,6 @@ SMODS.Joker { --Sentry Expert
                     card:add_to_deck()
                     G.jokers:emplace(card)
                     card:start_materialize()
-                    G.GAME.joker_buffer = 0
                     return true
                 end
             }))
