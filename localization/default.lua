@@ -1,5 +1,42 @@
 return {
+    descriptions = {
+        Stake = {
+            stake_bloons_chimps = {
+                name = "CHIMPS Stake",
+                text = {
+                    '{C:attention}Boss Blinds{} can have {C:attention}Stickers{}',
+                    '{s:0.8}Applies all previous Stakes{}'
+                }
+            }
+        },
+        Other = {
+            bloons_regrow = {
+                name = 'Regrow',
+                text = {
+                    'Heal back 10% of blind size',
+                    'when a hand is played'
+                },
+            },
+            bloons_camo = {
+                name = 'Camo',
+                text = {
+                    'Disable leftmost Joker'
+                },
+            },
+            bloons_fortified = {
+                name = 'Fortified',
+                text = {
+                    'Doubles Blind size'
+                },
+            }
+        }
+    },
     misc = {
+        labels = {
+            bloons_regrow = 'Regrow',
+            bloons_camo = 'Camo',
+            bloons_fortified = 'Fortified',
+        },
         v_text = {
             ch_c_gold_stake = {
                 "Challenge is played on {C:gold}Gold Stake{}"

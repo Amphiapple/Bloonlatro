@@ -103,7 +103,7 @@ SMODS.Voucher { --Backroom Deals
 	pos = { x = 1, y = 1 },
 	cost = 10,
 	order = 36,
-    requires = { 'v_bloons_better_deals' },
+    requires = { 'v_bloons_insider_trades' },
     config = { extra = { slots = 1 } }, --Variables: slots = extra voucher slots
 
     loc_vars = function (self, info_queue, card)
@@ -166,10 +166,10 @@ SMODS.Voucher { --Big Bloon Sabotage
 	pos = { x = 3, y = 0 },
 	cost = 10,
 	order = 39,
-    config = { extra = { reduction = 10 } }, --Variables: reduction = reduction percent
+    config = { extra = { percent = 10 } }, --Variables: percent = reduction percent
 
     loc_vars = function (self, info_queue, card)
-        return { vars = { card.ability.extra.reduction } }
+        return { vars = { card.ability.extra.percent } }
     end
 }
 
@@ -188,9 +188,9 @@ SMODS.Voucher { --Big Bloon Blueprints
 	cost = 10,
 	order = 40,
     requires = { 'v_bloons_big_bloon_sabotage' },
-    config = { extra = { reduction = 25 } }, --Variables: reduction = reduction percent
+    config = { extra = { percent = 25 } }, --Variables: percent = reduction percent
 
     loc_vars = function (self, info_queue, card)
-        return { vars = { card.ability.extra.reduction } }
+        return { vars = { card.ability.extra.percent } }
     end
 }

@@ -184,9 +184,13 @@ SMODS.Consumable { --Mboost
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-            G.GAME.DESTROY_CARD = copy_card(card)
-            G.consumeables:emplace(G.GAME.DESTROY_CARD)
-            G.GAME.DESTROY_CARD.ability.active = true
+			G.GAME.DESTROY_CARD = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
+                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
             local eval = function()
                 return true
             end
@@ -246,9 +250,13 @@ SMODS.Consumable { --Thrive
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-            G.GAME.DESTROY_CARD = copy_card(card)
-            G.consumeables:emplace(G.GAME.DESTROY_CARD)
-            G.GAME.DESTROY_CARD.ability.active = true
+			G.GAME.DESTROY_CARD = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
+                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
             local eval = function()
                 return true
             end
@@ -258,11 +266,34 @@ SMODS.Consumable { --Thrive
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.hand and card.ability.active then
             return {
-                message = localize('k_again_ex'),
                 repetitions = card.ability.retrigger
             }
-        elseif context.after and card.ability.active then
+        elseif context.after and card.ability.active and (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips < to_big(1) then
             G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
+            delay(0.5)
+        elseif context.end_of_round and card.ability.active and not context.individual and not context.repetition then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
                 func = function()
                     play_sound('tarot1')
                     card.T.r = -0.2
@@ -699,9 +730,13 @@ SMODS.Consumable { --Tech
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-            G.GAME.DESTROY_CARD = copy_card(card)
-            G.consumeables:emplace(G.GAME.DESTROY_CARD)
-            G.GAME.DESTROY_CARD.ability.active = true
+			G.GAME.DESTROY_CARD = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
+                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
             local eval = function()
                 return true
             end

@@ -2796,7 +2796,7 @@ SMODS.Joker {
 }
 
 SMODS.Joker { --Flash
-    key = 'flash',    
+    key = 'flash',
     name = 'Flash Bomb',
 	loc_txt = {
         name = 'Flash Bomb',
@@ -2813,7 +2813,7 @@ SMODS.Joker { --Flash
 	cost = 6,
 	order = 226,
     blueprint_compat = false,
-    config = { category = 'magic', extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index, retrigger = retrigger amount
+    config = { category = 'magic', extra = { mult = 40, limit = 3, counter = 3, retrigger = 1 } }, --
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
