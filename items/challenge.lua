@@ -73,6 +73,7 @@ local banned_enhancement_cards = {
 local banned_hand_cards = {
     { id = 'j_bloons_espionage' },
     { id = 'j_bloons_draft' },
+    { id = 'j_bloons_dots' },
     { id = 'j_bloons_pspike' },
     { id = 'j_burglar' },
     { id = 'v_grabber' },
@@ -99,6 +100,7 @@ local unable_perishable = {
     { id = 'j_castle' },
     { id = 'j_glass' },
     { id = 'j_wee' },
+    { id = 'j_bloons_glaives' },
     { id = 'j_bloons_corrosive' },
     { id = 'j_bloons_quad' },
     { id = 'j_bloons_smart' },
@@ -128,6 +130,7 @@ local unable_eternal = {
     {id = 'j_luchador'},
     {id = 'j_bloons_grape'},
     {id = 'j_bloons_pineapple'},
+    {id = 'j_bloons_valuable'},
     {id = 'j_bloons_brew'},
     {id = 'j_bloons_bank'},
     {id = 'j_bloons_blitz'},
@@ -152,6 +155,8 @@ local income_jokers = {
     {id = 'j_to_the_moon'},
     {id = 'j_bloons_farm'},
     {id = 'j_bloons_engi'},
+    {id = 'j_bloons_missile'},
+    {id = 'j_bloons_valuable'},
     {id = 'j_bloons_doublegun'},
     {id = 'j_bloons_jbounty'},
     {id = 'j_bloons_bank'},
@@ -936,7 +941,8 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = banned_2tc_cards,
         banned_tags = {
-            { id = 'tag_negative' }
+            { id = 'tag_negative' },
+            { id = 'tag_concoction' }
         },
         banned_other = {
             { id = 'bl_final_leaf', type = 'blind' }
@@ -969,7 +975,7 @@ SMODS.Challenge {
             {id = 'v_bloons_big_bloon_blueprints'},
         },
         banned_tags = {
-            { id = 'tag_sabotage' }
+            { id = 'tag_bloons_sabotage' }
         },
         banned_other = {
             { id = 'bl_final_vessel', type = 'blind' }
@@ -1004,7 +1010,7 @@ SMODS.Challenge {
             {id = 'v_bloons_big_bloon_blueprints'},
         },
         banned_tags = {
-            { id = 'tag_sabotage' }
+            { id = 'tag_bloons_sabotage' }
         },
         banned_other = {
             { id = 'bl_final_vessel', type = 'blind' }

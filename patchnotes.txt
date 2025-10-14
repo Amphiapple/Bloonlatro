@@ -1,17 +1,29 @@
-Added Decks:
-
-
 Added Jokers:
-
-
-Added Vouchers:
-
+- Quick Shots
+- Glaives
+- Missile Launcher
+- Even More Tacks
+- Permafrost
+- Laser Blasts
+- Valuable Bananas
+- Bigger Stacks
+- Jungle Drums
+- Shinobi Tactics
+- Druid of the Storm
 
 General Changes:
-
+- Added tooltips to towers thaty create other jokers
 
 Balance Changes:
-
+- Bomb Shooter cost 5 > 4
+- Frag Bombs probability 1 in 3 > 1 in 2
+- More Tacks chips 20 > 25
+- Triple Guns cost 6 > 5 (for no other reason than this is a cheap tower)
+- Monkey Bank has no sell value after being emptied
 
 Fixes:
-- Big Bloon Sabotage and Big Bloon Blueprints are now banned in the 2 Megapops challenges
+- Frag Bombs no longer shows stunned card tooltip
+- Glue Hose should be able appear without glued cards in the deck
+- Giant Condor no longer uses Primary Expertise's seed
+- Pirate Lord Rare > Uncommon
+- Invisible Tag should no longer create an extra joker if joker slots are full
