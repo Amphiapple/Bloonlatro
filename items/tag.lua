@@ -236,7 +236,7 @@ SMODS.Tag {
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
 	order = 30,
-    min_ante = nil,
+    min_ante = 2,
     config = { type = 'immediate' },
 
     loc_vars = function(self, info_queue)

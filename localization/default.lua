@@ -10,6 +10,14 @@ return {
             }
         },
         Other = {
+            bloons_chimps_sticker = {
+                name = "CHIMPS Sticker",
+                text = {
+                    'Used this Joker',
+                    'to win on {C:attention}CHIMPS',
+                    '{C:attention}Stake{} difficulty',
+                }
+            },
             bloons_regrow = {
                 name = 'Regrow',
                 text = {

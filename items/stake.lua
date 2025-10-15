@@ -1,8 +1,8 @@
 SMODS.Atlas {
     key = 'Stake',
     path = 'stakes.png',
-    px = 34,
-    py = 34,
+    px = 29,
+    py = 29,
 }
 
 SMODS.Atlas {

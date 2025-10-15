@@ -16,8 +16,9 @@ Added Jokers:
 - Marine
 
 General Changes:
-- Added tooltips to towers thaty create other jokers
-- Added 3 more challenges!
+- Added tooltips to towers that create other jokers
+- Added 3 more challenges
+- Added CHIMPS Stake
 
 Balance Changes:
 - Bomb Shooter cost 5 > 4
@@ -29,6 +30,7 @@ Balance Changes:
 - Monkey Bank has no sell value after being emptied
 - Twin Sixes now works with more than 2 6s
 - Vengeful True Sun God has the ability to sacrifice eternal Jokers
+- Concoction Tag no longer appears in Ante 1
 - Inflated is no longer played on Gold Stake as that has become Inflated Expert
 - Inflated now starts wtih $13 dollars to prevent as many Ante 1 Big Blind losses
 
