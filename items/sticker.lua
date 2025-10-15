@@ -1,6 +1,6 @@
 SMODS.Atlas {
-    key = 'Tag',
-    path = 'tags.png',
+    key = 'Modifier',
+    path = 'modifiers.png',
     px = 34,
     py = 34,
 }
@@ -8,7 +8,7 @@ SMODS.Atlas {
 SMODS.Sticker {
     key = 'regrow',
     name = 'Regrow',
-    atlas = 'Tag',
+    atlas = 'Modifier',
     pos = { x = 0, y = 0 },
     default_compat = false,
     set = 'blind',
@@ -22,7 +22,7 @@ SMODS.Sticker {
 SMODS.Sticker {
     key = 'camo',
     name = 'Camo',
-    atlas = 'Tag',
+    atlas = 'Modifier',
     pos = { x = 1, y = 0 },
     default_compat = false,
     set = 'blind',
@@ -36,7 +36,7 @@ SMODS.Sticker {
 SMODS.Sticker {
     key = 'fortified',
     name = 'Fortified',
-    atlas = 'Tag',
+    atlas = 'Modifier',
     pos = { x = 2, y = 0 },
     default_compat = false,
     set = 'blind',
