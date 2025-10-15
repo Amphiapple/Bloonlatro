@@ -13,20 +13,21 @@ return {
             bloons_regrow = {
                 name = 'Regrow',
                 text = {
-                    'Heal back #1#% of blind size',
+                    'Heal back {C:attention}#1#%{} of {C:attention}Blind{} size',
                     'when a hand is played'
                 },
             },
             bloons_camo = {
                 name = 'Camo',
                 text = {
-                    'Disable leftmost Joker'
+                    'Every {C:attention}#1#th{} drawn {C:attention}Playing{} card is',
+                    'drawn face down and {C:attention}debuffed'
                 },
             },
             bloons_fortified = {
                 name = 'Fortified',
                 text = {
-                    'Doubles Blind size'
+                    '{C:attention}X#1# Blind{} size'
                 },
             }
         }

@@ -11,9 +11,11 @@ SMODS.Sticker {
     atlas = 'Tag',
     pos = { x = 0, y = 0 },
     default_compat = false,
+    set = 'blind',
     badge_colour = G.C.RED,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { 10 } }
+    config = { ante = 2, percent = 10 },
+    loc_vars = function(self)
+        return { vars = { self.config.percent } }
     end
 }
 
@@ -23,10 +25,11 @@ SMODS.Sticker {
     atlas = 'Tag',
     pos = { x = 1, y = 0 },
     default_compat = false,
+    set = 'blind',
     badge_colour = G.C.GREEN,
-    loc_vars = function(self, info_queue, card)
-        local prob_vars = SMODS.get_probability_vars('camo', 1, 7, false)
-        return { vars = prob_vars }
+    config = { ante = 4, limit = 7 },
+    loc_vars = function(self)
+        return { vars = { self.config.limit } }
     end
 }
 
@@ -36,8 +39,10 @@ SMODS.Sticker {
     atlas = 'Tag',
     pos = { x = 2, y = 0 },
     default_compat = false,
+    set = 'blind',
     badge_colour = G.C.BLACK,
-    loc_vars = function(self, info_queue, card)
-        return { vars = {} }
+    config = { ante = 6, increase = 2 },
+    loc_vars = function(self)
+        return { vars = { self.config.increase } }
     end
 }
