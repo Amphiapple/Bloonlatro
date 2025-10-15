@@ -295,6 +295,7 @@ if saveTable and
 
             G.HUD_blind:add_child(new_row_def, parent)
         end
+    end
 end
 
 '''
