@@ -22,6 +22,9 @@ SMODS.Joker { --Alchemist
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'alch')
         return { vars = { n, d } }
     end,
@@ -120,6 +123,8 @@ SMODS.Joker { --Berserker Brew
     },
     
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
     end,
     calculate = function(self, card, context)

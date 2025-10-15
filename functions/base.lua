@@ -162,8 +162,6 @@ Joker_effects_vtsg = {
     j_perkeo=           {effect = {'value'}, weight = 1},
 
     --Bloonlatro Jokers
-
-
     j_bloons_dart=      {effect = {'+chips', '+mult'}, weight = 0.5},
     j_bloons_quick=     {effect = {'+chips', '+mult'}, weight = 0.5},
     j_bloons_eyesight=  {effect = {'support'}, weight = 1},
@@ -241,6 +239,7 @@ Joker_effects_vtsg = {
     j_bloons_draft=     {effect = {'support'}, weight = 1},
     j_bloons_comdef=    {effect = {'+chips'}, weight = 1},
     j_bloons_aprime=    {effect = {'Xmult'}, weight = 1},
+    j_bloons_spop=      {effect = {'value', 'cash'}, weight = 0.5},
 
     j_bloons_mortar=    {effect = {'+mult'}, weight = 1},
     j_bloons_burny=     {effect = {'support'}, weight = 1},
@@ -326,6 +325,7 @@ Joker_effects_vtsg = {
     j_bloons_condor=    {effect = {'support'}, weight = 1},
     j_bloons_meg=       {effect = {'+chips', '+mult'}, weight = 0.5},
 
+    j_bloons_marine=    {effect = {'Xmult'}, weight = 1},
     j_bloons_sentry=    {effect = {'+chips', '+mult'}, weight = 0.5},
     j_bloons_crushing_sentry=   {effect = {'+mult'}, weight = 1},
     j_bloons_boom_sentry=       {effect = {'Xmult'}, weight = 1},

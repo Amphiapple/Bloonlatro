@@ -62,6 +62,13 @@ SMODS.Joker { --Flying Fortress
         extra = { retrigger = 1, money = 3 } --Variables: retrigger = retrigger amount (red), money = dollars (gold)
 
     },
+
+    loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS.Red
+        info_queue[#info_queue + 1] = G.P_SEALS.Blue
+        info_queue[#info_queue + 1] = G.P_SEALS.Gold
+        info_queue[#info_queue + 1] = G.P_SEALS.Purple
+    end,
     calculate = function(self, card, context)
         if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card:get_id() == 14 and not context.blueprint then
             return {
@@ -144,6 +151,11 @@ SMODS.Joker { --Permanent Brew
         base = 'alch',
     },
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+    end,
     calculate = function(self, card, context)
         if context.before then
             for k, v in pairs(context.scoring_hand) do

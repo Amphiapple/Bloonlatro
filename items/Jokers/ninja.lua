@@ -183,8 +183,8 @@ SMODS.Joker { --Shinobi Tactics
 	loc_txt = {
         name = 'Shinobi Tactics',
         text = {
-            'Ninjas give {X:mult,C:white}X#1#{} Mult',
-            'All ninjas may appear',
+            '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
+            'All {C:attention}Ninjas{} may appear',
             'multiple times'
         }
     },

@@ -88,8 +88,9 @@ SMODS.Enhancement ({ --Stunned
     loc_txt = {
         name = 'Stunned Card',
         text = {
-            'Wears off and is',
-            'discarded if held in hand'
+            'Wears off and',
+            'is discarded if',
+            'held in hand'
         }
     },
 	atlas = "Enhancement",

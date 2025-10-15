@@ -172,11 +172,11 @@ SMODS.Joker { --Banana Plantation
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { max = 15, min = 0 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { max = 10, min = 1 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
     calc_dollar_bonus = function(self, card)
-        local dollars = pseudorandom('plantation', card.ability.extra.min, card.ability.extra.max) + 1
+        local dollars = pseudorandom('plantation', card.ability.extra.min, card.ability.extra.max)
         return dollars
     end
 }

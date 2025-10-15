@@ -10,7 +10,10 @@ Added Jokers:
 - Jungle Drums
 - MOAB Glue
 - Shinobi Tactics
+- Banana Plantation
 - Druid of the Storm
+- Special Poperations
+- Marine
 
 General Changes:
 - Added tooltips to towers thaty create other jokers
@@ -20,9 +23,11 @@ Balance Changes:
 - Bomb Shooter cost 5 > 4
 - Frag Bombs probability 1 in 3 > 1 in 2
 - More Tacks chips 20 > 25
-- Triple Guns cost 6 > 5 (for no other reason than this is a cheap tower)
-- Arcane Mastery cost 7 > 6 (same reason)
+- Deadly Precision cost 7 > 6
+- Triple Guns cost 6 > 5
+- Arcane Mastery cost 7 > 6
 - Monkey Bank has no sell value after being emptied
+- Twin Sixes now orks with more than 2 6s
 - Inflated is no longer played on Gold Stake as that has become Inflated Expert
 - Inflated now starts wtih $13 dollars to prevent as many Ante 1 Big Blind losses
 
@@ -34,3 +39,4 @@ Fixes:
 - Giant Condor no longer uses Primary Expertise's seed
 - Invisible Tag should no longer create an extra joker if joker slots are full
 - Sabotage should now correctly be banned on 2 Megapops and 2 Megapops Expert
+- Added lots of text tooltips to Jokers and other items

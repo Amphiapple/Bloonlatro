@@ -212,16 +212,16 @@ SMODS.Joker { --Special Poperations
         name = 'Special Poperations',
         text = {
             '{C:blue}+#1#{} hand',
-            'Create a {C:attention}Marine{}',
-            'every #2# {C:inactive}[#3#]{} hands played',
-            'Create a {C:attention}Cash Drop{}',
-            'every #4# {C:inactive}[#5#]{} hands played'
+            'Create a {C:attention}Marine{} every',
+            '{C:attention}#2#{} {C:inactive}[#3#]{} hands played',
+            'Create a {C:attention}Cash Drop{} every',
+            '{C:attention}#4#{} {C:inactive}[#5#]{} hands played'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 13 },
+	pos = { x = 8, y = 8 },
     rarity = 3,
-	cost = 9,
+	cost = 8,
     blueprint_compat = true,
     config = {
         base = 'heli',
@@ -229,6 +229,8 @@ SMODS.Joker { --Special Poperations
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.j_bloons_marine
+        info_queue[#info_queue+1] = G.P_CENTERS.c_bloons_cash
         local function process_var(count, cap)
 			return count % cap
 		end
@@ -252,7 +254,7 @@ SMODS.Joker { --Special Poperations
                 end 
             }))
         elseif context.joker_main then
-            card.ability.extra.counter = G.GAME.hands_played - card.ability.hands_played_at_create
+            card.ability.extra.counter = G.GAME.hands_played - card.ability.hands_played_at_create + 1
             if card.ability.extra.counter % card.ability.extra.marine == 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -270,7 +272,7 @@ SMODS.Joker { --Special Poperations
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'j_bloons_marine', 'spop')
+                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash', 'spop')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0

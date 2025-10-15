@@ -246,6 +246,7 @@ SMODS.Joker { --Pirate Lord
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
         local m, d1 = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom1, 'plord')
         local n, d2 = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom2, 'plord')
         return { vars = { m, d1, n, d2 } }

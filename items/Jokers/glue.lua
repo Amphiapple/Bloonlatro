@@ -110,7 +110,7 @@ SMODS.Joker { --MOAB Glue
             return {
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.after then
+        elseif context.after and not context.blueprint then
             card.ability.extra.face = false
         end
     end

@@ -196,6 +196,9 @@ SMODS.Joker { --Legend of the Night
         base = 'super',
     },
 
+    loc_vars =function (self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_black_hole
+    end,
     calculate = function(self, card, context)
         if context.game_over and not G.GAME.blind.boss and not context.blueprint then
             G.E_MANAGER:add_event(Event({

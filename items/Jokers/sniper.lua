@@ -159,6 +159,7 @@ SMODS.Joker { --Supply Drop
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'

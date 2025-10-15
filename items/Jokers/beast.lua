@@ -151,6 +151,7 @@ SMODS.Joker { --Giant Condor
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'condor')
         return { vars = { n, d, card.ability.extra.hand_size } }
     end,
@@ -209,6 +210,8 @@ SMODS.Joker { --Megalodon
         return false
     end,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.current_chips, card.ability.extra.current_mult } }
     end,
     calculate = function(self, card, context)

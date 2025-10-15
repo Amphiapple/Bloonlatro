@@ -20,6 +20,7 @@ SMODS.Joker { --Bomb Shooter
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_steel
         return { vars = { card.ability.extra.Xmult} }
     end,
     calculate = function(self, card, context)
@@ -52,8 +53,7 @@ SMODS.Joker { --Missile Launcher
         extra = { num = 1, denom = 2, money = 5 } --Variables: num/denom = probability fraction, money = dollars
     },
 
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+    loc_vars = function(self, info_queue, card) 
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'missile')
         return { vars = { n, d, card.ability.extra.money } }
     end,

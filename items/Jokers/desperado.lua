@@ -110,6 +110,7 @@ SMODS.Joker { --Enforcer
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
@@ -133,7 +134,7 @@ SMODS.Joker { --Twin Sixes
         text = {
             '{X:mult,C:white}X#1#{} Mult if',
             'scoring hand contains',
-            'exactly {C:attention}#2# 6{}s'
+            'at least {C:attention}#2# 6{}s'
         }
     },
 	atlas = 'Joker',
@@ -159,7 +160,7 @@ SMODS.Joker { --Twin Sixes
                     end
                 end
             end
-            if count == card.ability.extra.number then
+            if count >= card.ability.extra.number then
                 return {
                     x_mult = card.ability.extra.Xmult
                 }
@@ -200,6 +201,8 @@ SMODS.Joker { --Golden Justice
         return false
     end,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gustice')
         return { vars = { card.ability.extra.Xmult, n, d, card.ability.extra.gold_money, card.ability.extra.destroy_money } }
     end,

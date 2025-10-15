@@ -74,6 +74,7 @@ SMODS.Joker { --Permafrost
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { card.ability.extra.money, card.ability.extra.chips } }
     end,
     calculate = function(self, card, context)

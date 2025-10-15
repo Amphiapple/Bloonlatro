@@ -240,6 +240,10 @@ SMODS.Tag {
     config = { type = 'immediate' },
 
     loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
 		return { vars = { self.config.percent } }
 	end,
     apply = function(self, tag, context)
