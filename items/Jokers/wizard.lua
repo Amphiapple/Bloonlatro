@@ -55,7 +55,7 @@ SMODS.Joker { --Wall of Fire
         name = 'Wall of Fire',
         text = {
             'Playing cards',
-            'cannot be debuffed'
+            'cannot be {C:attention}debuffed{}'
         }
     },
     atlas = 'Joker',

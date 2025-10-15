@@ -27,7 +27,8 @@ Balance Changes:
 - Triple Guns cost 6 > 5
 - Arcane Mastery cost 7 > 6
 - Monkey Bank has no sell value after being emptied
-- Twin Sixes now orks with more than 2 6s
+- Twin Sixes now works with more than 2 6s
+- Vengeful True Sun God has the ability to sacrifice eternal Jokers
 - Inflated is no longer played on Gold Stake as that has become Inflated Expert
 - Inflated now starts wtih $13 dollars to prevent as many Ante 1 Big Blind losses
 

@@ -50,7 +50,7 @@ SMODS.Joker { --More Tacks
     blueprint_compat = true,
     config = {
         base = 'tack',
-        extra = { chips = 20, mult = 5 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 25, mult = 5 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)

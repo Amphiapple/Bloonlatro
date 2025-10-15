@@ -76,6 +76,7 @@ local banned_hand_cards = {
     { id = 'j_bloons_espionage' },
     { id = 'j_bloons_draft' },
     { id = 'j_bloons_dots' },
+    { id = 'j_bloons_spop' },
     { id = 'j_bloons_pspike' },
     { id = 'j_burglar' },
     { id = 'v_grabber' },
@@ -159,11 +160,13 @@ local income_jokers = {
     {id = 'j_bloons_engi'},
     {id = 'j_bloons_missile'},
     {id = 'j_bloons_valuable'},
+    {id = 'j_bloons_plantation'},
     {id = 'j_bloons_doublegun'},
     {id = 'j_bloons_jbounty'},
     {id = 'j_bloons_bank'},
     {id = 'j_bloons_r2g'},
     {id = 'j_bloons_city'},
+    {id = 'j_bloons_spop'},
     {id = 'j_bloons_gustice'},
     {id = 'j_bloons_fortress'}
 }
@@ -272,6 +275,7 @@ local monkeyopolis_tags = {
     {id = 'tag_foil'},
     {id = 'tag_buffoon'},
     {id = 'tag_top_up'},
+    {id = 'tag_bloons_cleansing'},
 }
 for _, tag in ipairs(income_tags) do
     table.insert(monkeyopolis_tags, tag)
@@ -325,6 +329,7 @@ local banned_2tc_cards = {
     { id = 'c_ectoplasm' },
     { id = 'c_bloons_pontoon' },
     { id = 'j_bloons_ninja' },
+    { id = 'j_bloons_shinobi' },
     { id = 'v_antimatter' },
 }
 

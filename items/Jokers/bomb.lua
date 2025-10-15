@@ -11,7 +11,7 @@ SMODS.Joker { --Bomb Shooter
 	atlas = 'Joker',
 	pos = { x = 2, y = 0 },
     rarity = 1,
-	cost = 5,
+	cost = 4,
     blueprint_compat = true,
     enhancement_gate = 'm_steel',
     config = {
@@ -84,7 +84,7 @@ SMODS.Joker { --Frag Bombs
     blueprint_compat = true,
     config = {
         base = 'bomb',
-        extra = { num = 1, denom = 3 } --Variables: num/denom = probability fraction
+        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)

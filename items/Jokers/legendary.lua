@@ -294,7 +294,7 @@ SMODS.Joker { --Vengeful True Sun God
     sac_to_vtsg = function(card)
         local deletable_jokers = {}
         for k, v in pairs(G.jokers.cards) do
-            if not v.ability.eternal and v ~= card then
+            if v ~= card then
                 local category = v:get_effects_vtsg()
                 local weight = v:get_effect_weight_vtsg()
                 for i, j in pairs(category) do
