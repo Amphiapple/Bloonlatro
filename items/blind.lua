@@ -6,7 +6,7 @@ SMODS.Atlas {
     atlas_table = 'ANIMATION_ATLAS',
     frames = 21,
 }
-
+--[[
 SMODS.Blind {
     loc_txt = {
         name = 'The Red',
@@ -165,7 +165,7 @@ SMODS.Blind {
         end
     end,
 }
-
+]]
 SMODS.Blind {
     loc_txt = {
         name = 'Bloonarius',
