@@ -25,17 +25,20 @@ SMODS.Tag {
 		return { vars = { self.config.percent } }
 	end,
     apply = function(self, tag, context)
-        if context.type == 'store_joker_modify' then
+        if context.type == 'store_joker_modify' and context.card.ability.set == 'Joker' then
 			local lock = tag.ID
             G.CONTROLLER.locks[lock] = true
 			tag:yep('+', G.C.DARK_EDITION, function() 
 				context.card.ability.couponed = true
+				-- Remove stickers
 				context.card:set_eternal(nil)
-				context.card.ability.eternal = nil
-				context.card:set_perishable(nil)
 				context.card.ability.perishable = nil
 				context.card:set_rental(nil)
-				context.card.ability.rental = nil
+				-- Remove Bunco stickers
+				context.card:set_scattering(nil)
+				context.card:set_hindered(nil)
+				context.card:set_reactive(nil)
+				
 				context.card:set_cost()
 				context.card:juice_up(1, 0.5)
 				G.CONTROLLER.locks[lock] = nil

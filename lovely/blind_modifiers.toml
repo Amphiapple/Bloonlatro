@@ -173,10 +173,7 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.HUD_blind and 
            G.GAME and 
-           G.GAME.bloons_blind_sticker and 
-           G.GAME.blind and 
-           G.GAME.blind.boss then
-            
+           G.GAME.blind then
             local blind_name_element = G.HUD_blind:get_UIE_by_ID('HUD_blind_name')
             if blind_name_element and blind_name_element.parent then
                 local parent = blind_name_element.parent
@@ -188,32 +185,45 @@ G.E_MANAGER:add_event(Event({
                 end
                 
                 local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
-                local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
                 
-                local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
-                
-                local tooltip_title = loc_data and loc_data.name or sticker_obj.name
-                local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
-                local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
-                local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
-                
-                local new_row_def = {
-                    n = G.UIT.R, 
-                    config = {align = "cm"}, 
-                    nodes = {
-                        {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
-                        {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
-                            bloons_sticker_tooltip = {
-                                title = tooltip_title,
-                                text = tooltip_text,
-                                vars = tooltip_vars,
-                                color = tooltip_color,
-                                in_blind = true
-                            }}}
+                if G.GAME.bloons_blind_sticker and G.GAME.blind.boss then
+                    local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+                    
+                    local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+                    
+                    local tooltip_title = loc_data and loc_data.name or sticker_obj.name
+                    local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
+                    local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
+                    local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
+                    
+                    local new_row_def = {
+                        n = G.UIT.R, 
+                        config = {align = "cm"}, 
+                        nodes = {
+                            {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
+                            {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
+                                bloons_sticker_tooltip = {
+                                    title = tooltip_title,
+                                    text = tooltip_text,
+                                    vars = tooltip_vars,
+                                    color = tooltip_color,
+                                    in_blind = true
+                                }}}
+                        }
                     }
-                }
 
-                G.HUD_blind:add_child(new_row_def, parent)
+                    G.HUD_blind:add_child(new_row_def, parent)
+                else
+                    local new_row_def = {
+                        n = G.UIT.R, 
+                        config = {align = "cm"}, 
+                        nodes = {
+                            {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}}
+                        }
+                    }
+
+                    G.HUD_blind:add_child(new_row_def, parent)
+                end
             end
         end
         return true
@@ -232,48 +242,59 @@ position = 'after'
 payload = '''
 if saveTable and 
    G.HUD_blind and 
-   G.GAME and 
-   G.GAME.bloons_blind_sticker and 
-   G.GAME.blind and 
-   G.GAME.blind.boss then
+   G.GAME and
+   G.GAME.blind then
 
     local blind_name_element = G.HUD_blind:get_UIE_by_ID('HUD_blind_name')
-    if blind_name_element and blind_name_element.parent and blind_name_element.config and blind_name_element.config.object then
+    if blind_name_element and blind_name_element.parent then
         local parent = blind_name_element.parent
-            
+        
         for i = #parent.children, 1, -1 do
             local child = parent.children[i]
             table.remove(parent.children, i)
             child:remove()
         end
-
+        
         local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
-        local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
         
-        local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
-
-        local tooltip_title = loc_data and loc_data.name or sticker_obj.name
-        local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
-        local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
-        local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
-        
-        local new_row_def = {
-            n = G.UIT.R, 
-            config = {align = "cm"}, 
-            nodes = {
-                {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
-                {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
-                    bloons_sticker_tooltip = {
-                        title = tooltip_title,
-                        text = tooltip_text,
-                        vars = tooltip_vars,
-                        color = tooltip_color,
-                        in_blind = true
-                    }}}
+        if G.GAME.bloons_blind_sticker and G.GAME.blind.boss then
+            local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+            
+            local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+            
+            local tooltip_title = loc_data and loc_data.name or sticker_obj.name
+            local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
+            local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
+            local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
+            
+            local new_row_def = {
+                n = G.UIT.R, 
+                config = {align = "cm"}, 
+                nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
+                    {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
+                        bloons_sticker_tooltip = {
+                            title = tooltip_title,
+                            text = tooltip_text,
+                            vars = tooltip_vars,
+                            color = tooltip_color,
+                            in_blind = true
+                        }}}
+                }
             }
-        }
 
-        G.HUD_blind:add_child(new_row_def, parent)
+            G.HUD_blind:add_child(new_row_def, parent)
+        else
+            local new_row_def = {
+                n = G.UIT.R, 
+                config = {align = "cm"}, 
+                nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}}
+                }
+            }
+
+            G.HUD_blind:add_child(new_row_def, parent)
+        end
     end
 end
 

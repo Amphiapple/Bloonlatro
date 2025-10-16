@@ -3,6 +3,9 @@ local functions = {
     'calculate-score',
     'hook',
     'joker-display',
+
+    --Crossmod files
+    'bunco',
     'talisman',
 }
 

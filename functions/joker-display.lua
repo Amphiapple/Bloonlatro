@@ -50,6 +50,13 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             return count
         end
 
+        local old_copy_card = copy_card
+        function copy_card(other, new_card, card_scale, playing_card, strip_edition)
+            local card = old_copy_card(other, new_card, card_scale, playing_card, strip_edition)
+            if card then card:update_joker_display(true, true, "copy_card_hook") end
+            return card
+        end
+
         local jd_def = JokerDisplay.Definitions
 
         jd_def["j_bloons_dart"] = { --Dart
