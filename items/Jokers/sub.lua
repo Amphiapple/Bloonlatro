@@ -70,7 +70,6 @@ SMODS.Joker { --Advanced Intel
         }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        if not G.GAME.shop then return end
         G.GAME.shop.joker_max = G.GAME.shop.joker_max - card.ability.extra.slots
         if G.shop_jokers and G.shop_jokers.cards then
             G.shop_jokers.config.card_limit = G.GAME.shop.joker_max

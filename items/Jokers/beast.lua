@@ -97,8 +97,8 @@ SMODS.Joker { --Velociraptor
 	loc_txt = {
         name = 'Velociraptor',
         text = {
-            '{C:attention}First{} played card',
-            'becomes {C:attention}Mult{} when scored',
+            '{C:attention}First{} card in scoring',
+            'hand becomes {C:attention}Mult{}',
             '{C:attention}Mult{} cards give {C:mult}+#1#{} more Mult'
         }
     },

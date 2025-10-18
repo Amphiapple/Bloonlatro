@@ -191,6 +191,7 @@ SMODS.Joker { --Shinobi Tactics
     },
 	atlas = 'Joker',
 	pos = { x = 6, y = 8 },
+    soul_pos = { x = 1, y = 15 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,

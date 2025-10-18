@@ -40,7 +40,9 @@ Fixes:
 - Glue Hose should be able appear without glued cards in the deck
 - Pirate Lord Rare > Uncommon
 - Berserker Brew may now add Foil or Holographic instead of Polychrome
+- Alluring Melody specifies transforming bonus cards before trigger
 - Giant Condor no longer uses Primary Expertise's seed
+- Velociraptor specifies transforming mult cards before trigger
 - Super Mines no longer overuses stacked mines on Plasma Deck
 - Cleansing Tag should no longer cleanse consumables instead of jokers
 - Invisible Tag should no longer create an extra joker if joker slots are full

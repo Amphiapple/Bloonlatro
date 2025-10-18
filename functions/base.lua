@@ -260,7 +260,7 @@ Joker_effects_vtsg = {
     j_bloons_wlp=       {effect = {'value'}, weight = 1},
 
     j_bloons_super=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_laser=     {effect = {'Xmult'}, weight = 1},
+    j_bloons_range=     {effect = {'support'}, weight = 1},
     j_bloons_uv=        {effect = {'support'}, weight = 1},
     j_bloons_sav=       {effect = {'Xmult'}, weight = 1},
     j_bloons_tech=      {effect = {'support'}, weight = 1},

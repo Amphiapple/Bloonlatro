@@ -29,14 +29,15 @@ SMODS.Joker { --Super Monkey
     end
 }
 
-SMODS.Joker { --Laser Blasts
-    key = 'laser',
-    name = 'Laser Blasts',
+SMODS.Joker { --Super Range
+    key = 'range',
+    name = 'Super Range',
 	loc_txt = {
-        name = 'Laser Blasts',
+        name = 'Super Range',
         text = {
-            '{X:mult,C:white}X#1#{} Base Mult',
-            '{X:mult,C:white}X#1#{} Mult'
+            '{C:attention}+#1#{} card slot and',
+            '{C:attention}-#2#{} booster slot',
+            'available in shop',
         }
     },
 	atlas = 'Joker',
@@ -46,23 +47,31 @@ SMODS.Joker { --Laser Blasts
     blueprint_compat = true,
     config = {
         base = 'super',
-        extra = { Xmult = 1.25 } --Variables: Xmult = Xmult
+        extra = { shop_slots = 2, booster_slots = 1 } --Variables: shop_slots = extra shop slots, booster_slots = reduced booster slots
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.shop_slots, card.ability.extra.booster_slots } }
     end,
-    calculate = function(self, card, context)
-        if context.initial_scoring_step then
-            return {
-                x_mult = card.ability.extra.Xmult,
-            }
-        elseif context.joker_main then
-            return {
-                x_mult = card.ability.extra.Xmult,
-            }
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(card.ability.extra.shop_slots)
+                SMODS.change_booster_limit(-card.ability.extra.booster_slots)
+                return true
+            end
+        }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.shop.joker_max = G.GAME.shop.joker_max - card.ability.extra.shop_slots
+        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + card.ability.extra.booster_slots
+        if G.shop_jokers and G.shop_jokers.cards then
+            G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
+            G.shop_jokers.T.w = G.GAME.shop.joker_max*1.01*G.CARD_W
+            G.shop:recalculate()
         end
     end
+    
 }
 
 SMODS.Joker { --Ultravision

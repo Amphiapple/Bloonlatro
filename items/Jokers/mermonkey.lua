@@ -97,8 +97,8 @@ SMODS.Joker { --Alluring Melody
 	loc_txt = {
         name = 'Alluring Melody',
         text = {
-            '{C:enhanced}Enhanced{} cards become',
-            '{C:attention}Bonus{} cards when scored',
+            'Scoring {C:enhanced}Enhanced{} cards',
+            'become {C:attention}Bonus{} cards',
             '{C:attention}Bonus{} cards give {C:chips}+#1#{} more Chips'
         }
     },
