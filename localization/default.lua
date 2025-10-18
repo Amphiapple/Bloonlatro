@@ -28,8 +28,8 @@ return {
             bloons_camo = {
                 name = 'Camo',
                 text = {
-                    'Every {C:attention}#1#th{} drawn {C:attention}Playing{} card is',
-                    'drawn face down and {C:attention}debuffed'
+                    'Every {C:attention}#1#thPlaying{} card is drawn',
+                    'face down and {C:attention}debuffed'
                 },
             },
             bloons_fortified = {

@@ -69,7 +69,24 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         }
         
         jd_def["j_bloons_eyesight"] = { --Enhanced Eyesight
+        }
 
+        jd_def["j_bloons_quick"] = { --Quick Shots
+            text = {
+                { text = "+", colour = G.C.CHIPS },
+                { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+                { text = " +", colour = G.C.MULT },
+                { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
+            },
+            calc_function = function(card) 
+                if G.GAME.current_round.hands_played > 0 then
+                    card.joker_display_values.chips = card.ability.extra.chips
+                    card.joker_display_values.mult = card.ability.extra.mult
+                else
+                    card.joker_display_values.chips = 0
+                    card.joker_display_values.mult = 0
+                end
+            end
         }
         
         jd_def["j_bloons_tripshot"] = { --Triple shot
@@ -115,7 +132,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_xbm"] = {--Crossbow Master
+        jd_def["j_bloons_xbm"] = { --Crossbow Master
             text = {
                 {
                     border_nodes = {
@@ -174,6 +191,13 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                     joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
             end
         }
+
+        jd_def["j_bloons_glaives"] = { --Glaives
+            text = {
+                { text = "+", colour = G.C.CHIPS },
+                { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
+            }
+        }
         
         jd_def["j_bloons_redhot"] = { --Red Hot Rangs
             reminder_text = {
@@ -216,9 +240,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
                     ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
 
-                if text ~= "Unknown" and #G.hand.highlighted == 1 then
-                    will_apply = scoring_hand[1]:is_face()
-                end
+                will_apply = #G.hand.highlighted == 1 and scoring_hand and scoring_hand[1]
 
                 card.joker_display_values.active = boss_active and will_apply
 
@@ -270,8 +292,36 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
             end,
         }
+
+        jd_def["j_bloons_missile"] = { --Frag Bombs
+            text = {
+                { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
+                { text = "x", scale = 0.35 },
+                { text = "+$", colour = G.C.MONEY },
+                { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY }
+            },
+            reminder_text = {
+                { text = "(4)"}
+            },
+            extra = {
+                {
+                    { text = "(", colour = G.C.GREEN, scale = 0.3 },
+                    { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
+                    { text = ")", colour = G.C.GREEN, scale = 0.3 },
+                }
+            },
+            calc_function = function(card)
+                
+
+                local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'missile')
+                card.joker_display_values.odds = numerator .. " in " .. denominator
+            end
+        }
         
         jd_def["j_bloons_frags"] = { --Frag Bombs
+            reminder_text = {
+                { text = "(4)"}
+            },
             extra = {
                 {
                     { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -335,9 +385,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" },
             },
             calc_function = function(card)
-                local blind_ratio = to_big(G.GAME.chips / G.GAME.blind.chips)
+                local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
                 card.joker_display_values.active = G.GAME and G.GAME.chips and G.GAME.blind.chips and
-                    blind_ratio and blind_ratio ~= to_big(0) and blind_ratio >= to_big(0.5) and "Active!" or "Inactive"
+                    blind_percent and blind_percent ~= to_big(0) and blind_percent >= to_big(card.ability.extra.scored_percent)
+                    and "Active!" or "Inactive"
             end
         }
 
@@ -394,6 +445,32 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end,
         }
 
+        jd_def["j_bloons_evenmore"] = { --Even More Tacks
+            text = {
+                { text = "+", colour = G.C.CHIPS },
+                { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+                { text = " +", colour = G.C.MULT },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+            },
+            reminder_text = {
+                { text = "(Queen)" }
+            },
+            calc_function = function(card)
+                local count = 0
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:get_id() == 12 then
+                            count = count +
+                                JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                        end
+                    end
+                end
+                card.joker_display_values.chips = card.ability.extra.chips * count
+                card.joker_display_values.mult = card.ability.extra.mult * count
+            end,
+        }
+
         jd_def["j_bloons_blade"] = { --Blade Shooter
             text = {
                 { text = "+", colour = G.C.MULT },
@@ -438,6 +515,30 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 card.joker_display_values.chips = G.GAME and G.GAME.current_round.hands_played == 0 and
                     card.ability.extra.chips or 0
             end,
+        }
+
+        jd_def["j_bloons_pfrost"] = { --Permafrost
+            text = {
+                { text = "+$", colour = G.C.MONEY },
+                { ref_table = "card.joker_display_values", ref_value = "money", retrigger_type = "mult", colour = G.C.MONEY },
+            },
+            reminder_text = {
+                { text = "(" },
+                { text = "Frozen", colour = G.C.ORANGE },
+                { text = ")" }
+            },
+            calc_function = function(card)
+                local playing_hand = next(G.play.cards)
+                local money = 0
+                for _, playing_card in ipairs(G.hand.cards) do
+                    if playing_hand or not playing_card.highlighted then
+                        if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.name == 'Frozen Card' then
+                            money = money + card.ability.extra.money * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                        end
+                    end
+                end
+                card.joker_display_values.money = money
+            end
         }
 
         jd_def["j_bloons_refreeze"] = { --Refreeze
@@ -670,7 +771,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local right_card = nil
 
                 if text ~= 'Unknown' and #scoring_hand >= 2 then
-                    mult_value = scoring_hand[#scoring_hand - 1].base.nominal
+                    local mult_card = scoring_hand[#scoring_hand - 1]
+                    if mult_card.facing ~= 'back' and not mult_card.debuff then
+                        mult_value = mult_card.base.nominal
+                    end
                     right_card = JokerDisplay.calculate_rightmost_card(scoring_hand)
                 end
 
@@ -915,22 +1019,21 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" },
             },
             calc_function = function(card)
-                card.joker_display_values.counter = (card.ability.extra.hands) .. " remaining"
+                card.joker_display_values.counter = card.ability.extra.hands == 1 and "Next!" or card.ability.extra.hands .. " remaining"
             end,
         }
 
         jd_def["j_bloons_nevamiss"] = { --Nevamiss
             text = {
-                { text = "+1", colour = G.C.SECONDARY_SET.Tarot },
+                { text = "+", colour = G.C.SECONDARY_SET.Tarot },
+                { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Tarot }
             },
-            reminder_text = {
-                { text = "(" },
-                { ref_table = "card.ability.extra", ref_value = "percent_min", colour = G.C.ORANGE },
-                { text = "-", colour = G.C.ORANGE },
-                { ref_table = "card.ability.extra", ref_value = "percent_max", colour = G.C.ORANGE },
-                { text = "%", colour = G.C.ORANGE },
-                { text = ")" }
-            }
+            calc_function = function(card) 
+                local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
+                card.joker_display_values.tarots = G.GAME and G.GAME.chips and G.GAME.blind.chips and blind_percent
+                    and blind_percent >= to_big(card.ability.extra.percent_min) and blind_percent <= to_big(card.ability.extra.percent_max)
+                    and 1 or 0
+            end
         }
 
         jd_def["j_bloons_gz"] = { --GZ
@@ -1288,6 +1391,25 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                     border_nodes = {
                         { text = "X" },
                         { ref_table = "card.ability.extra", ref_value = "Xmult" }
+                    }
+                }
+            }
+        }
+
+        jd_def["j_bloons_laser"] = { --Laser Blasts
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "Xmult" }
+                    }
+                }
+            },
+            reminder_text = {
+                {
+                    border_nodes = {
+                        { text = "X", colour = G.C.WHITE, scale = 0.39 },
+                        { ref_table = "card.ability.extra", ref_value = "Xmult", colour = G.C.WHITE, scale = 0.39 }
                     }
                 }
             }
@@ -1750,7 +1872,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_pspike"] = {
+        jd_def["j_bloons_pspike"] = { --Pspike
             text = {
                 { text = "+", colour = G.C.BLUE },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.BLUE }
