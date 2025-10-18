@@ -1396,23 +1396,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_laser"] = { --Laser Blasts
-            text = {
-                {
-                    border_nodes = {
-                        { text = "X" },
-                        { ref_table = "card.ability.extra", ref_value = "Xmult" }
-                    }
-                }
-            },
-            reminder_text = {
-                {
-                    border_nodes = {
-                        { text = "X", colour = G.C.WHITE, scale = 0.39 },
-                        { ref_table = "card.ability.extra", ref_value = "Xmult", colour = G.C.WHITE, scale = 0.39 }
-                    }
-                }
-            }
+        jd_def["j_bloons_range"] = { --Super Range
         }
 
         jd_def["j_bloons_uv"] = { --Ultravision
@@ -1814,6 +1798,29 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             reminder_text = {
                 { text = "(Round)" }
             }
+        }
+
+        jd_def["j_bloons_valuable"] = { --Valuable Bananas
+            text = {
+                { text = "+$", colour = G.C.MONEY },
+                { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.ability.extra", ref_value = "bananas" },
+                { text = " Remaining)" }
+            },
+            extra = {
+                {
+                    { text = "(", colour = G.C.GREEN, scale = 0.3 },
+                    { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
+                    { text = ")", colour = G.C.GREEN, scale = 0.3 },
+                }
+            },
+            calc_function = function(card)
+                local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuables')
+                card.joker_display_values.odds = numerator .. " in " .. denominator
+            end
         }
 
         jd_def["j_bloons_salvage"] = { --Banana Salvage
