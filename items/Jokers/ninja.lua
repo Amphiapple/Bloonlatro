@@ -184,6 +184,7 @@ SMODS.Joker { --Shinobi Tactics
         name = 'Shinobi Tactics',
         text = {
             '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
+            '{C:dark_edition}+#2#{} Joker Slot',
             'All {C:attention}Ninjas{} may appear',
             'multiple times'
         }
@@ -195,11 +196,17 @@ SMODS.Joker { --Shinobi Tactics
     blueprint_compat = true,
     config = {
         base = 'ninja',
-        extra = { Xmult = 1.25, slots = 1 } --Variables: Xmult = Xmult for each ninja, slots = extra joker slots
+        extra = { Xmult = 1.2, slots = 1 } --Variables: Xmult = Xmult for each ninja, slots = extra joker slots
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.other_joker and context.other_joker.ability.base == 'ninja' then

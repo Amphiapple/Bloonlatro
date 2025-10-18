@@ -228,7 +228,9 @@ SMODS.Joker { --Super Mines
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Mine', colour = G.C.RED})
             end
         elseif context.final_scoring_step and G.GAME.current_round.hands_left == 0 and not context.blueprint then
-            while (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < to_big(1) and card.ability.extra.mines > 0 do
+            while card.ability.extra.mines > 0 and
+                    ((G.GAME.selected_back.name ~= 'Plasma Deck' and (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < to_big(1)) or
+                    (G.GAME.selected_back.name == 'Plasma Deck' and (G.GAME.chips + ((hand_chips+mult)/2)^2)/G.GAME.blind.chips < to_big(1))) do
                 mult = mod_mult(mult * card.ability.extra.Xmult)
                 update_hand_text( { delay = 0 }, { mult = mult } )
                 G.E_MANAGER:add_event(Event({
