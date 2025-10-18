@@ -69,7 +69,24 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         }
         
         jd_def["j_bloons_eyesight"] = { --Enhanced Eyesight
+        }
 
+        jd_def["j_bloons_quick"] = { --Quick Shots
+            text = {
+                { text = "+", colour = G.C.CHIPS },
+                { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+                { text = " +", colour = G.C.MULT },
+                { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
+            },
+            calc_function = function(card) 
+                if G.GAME.current_round.hands_played > 0 then
+                    card.joker_display_values.chips = card.ability.extra.chips
+                    card.joker_display_values.mult = card.ability.extra.mult
+                else
+                    card.joker_display_values.chips = 0
+                    card.joker_display_values.mult = 0
+                end
+            end
         }
         
         jd_def["j_bloons_tripshot"] = { --Triple shot
@@ -115,7 +132,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_xbm"] = {--Crossbow Master
+        jd_def["j_bloons_xbm"] = { --Crossbow Master
             text = {
                 {
                     border_nodes = {
@@ -174,6 +191,13 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                     joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
             end
         }
+
+        jd_def["j_bloons_glaives"] = { --Glaives
+            text = {
+                { text = "+", colour = G.C.CHIPS },
+                { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
+            }
+        }
         
         jd_def["j_bloons_redhot"] = { --Red Hot Rangs
             reminder_text = {
@@ -216,9 +240,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
                     ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
 
-                if text ~= "Unknown" and #G.hand.highlighted == 1 then
-                    will_apply = scoring_hand[1]:is_face()
-                end
+                will_apply = #G.hand.highlighted == 1 and scoring_hand and scoring_hand[1]
 
                 card.joker_display_values.active = boss_active and will_apply
 
@@ -270,8 +292,36 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
             end,
         }
+
+        jd_def["j_bloons_missile"] = { --Missile launcher
+            text = {
+                { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
+                { text = "x", scale = 0.35 },
+                { text = "+$", colour = G.C.MONEY },
+                { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY }
+            },
+            reminder_text = {
+                { text = "(4)"}
+            },
+            extra = {
+                {
+                    { text = "(", colour = G.C.GREEN, scale = 0.3 },
+                    { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
+                    { text = ")", colour = G.C.GREEN, scale = 0.3 },
+                }
+            },
+            calc_function = function(card)
+                
+
+                local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'missile')
+                card.joker_display_values.odds = numerator .. " in " .. denominator
+            end
+        }
         
         jd_def["j_bloons_frags"] = { --Frag Bombs
+            reminder_text = {
+                { text = "(4)"}
+            },
             extra = {
                 {
                     { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -335,9 +385,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" },
             },
             calc_function = function(card)
-                local blind_ratio = to_big(G.GAME.chips / G.GAME.blind.chips)
+                local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
                 card.joker_display_values.active = G.GAME and G.GAME.chips and G.GAME.blind.chips and
-                    blind_ratio and blind_ratio ~= to_big(0) and blind_ratio >= to_big(0.5) and "Active!" or "Inactive"
+                    blind_percent and blind_percent ~= to_big(0) and blind_percent >= to_big(card.ability.extra.scored_percent)
+                    and "Active!" or "Inactive"
             end
         }
 
@@ -394,6 +445,32 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end,
         }
 
+        jd_def["j_bloons_evenmore"] = { --Even More Tacks
+            text = {
+                { text = "+", colour = G.C.CHIPS },
+                { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+                { text = " +", colour = G.C.MULT },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+            },
+            reminder_text = {
+                { text = "(Queen)" }
+            },
+            calc_function = function(card)
+                local count = 0
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:get_id() == 12 then
+                            count = count +
+                                JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                        end
+                    end
+                end
+                card.joker_display_values.chips = card.ability.extra.chips * count
+                card.joker_display_values.mult = card.ability.extra.mult * count
+            end,
+        }
+
         jd_def["j_bloons_blade"] = { --Blade Shooter
             text = {
                 { text = "+", colour = G.C.MULT },
@@ -422,7 +499,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         }
 
 
-        jd_def["j_bloons_ice"] = { --Ice
+        jd_def["j_bloons_ice"] = { --Ice Monkey
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS }
@@ -438,6 +515,30 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 card.joker_display_values.chips = G.GAME and G.GAME.current_round.hands_played == 0 and
                     card.ability.extra.chips or 0
             end,
+        }
+
+        jd_def["j_bloons_pfrost"] = { --Permafrost
+            text = {
+                { text = "+$", colour = G.C.MONEY },
+                { ref_table = "card.joker_display_values", ref_value = "money", retrigger_type = "mult", colour = G.C.MONEY },
+            },
+            reminder_text = {
+                { text = "(" },
+                { text = "Frozen", colour = G.C.ORANGE },
+                { text = ")" }
+            },
+            calc_function = function(card)
+                local playing_hand = next(G.play.cards)
+                local money = 0
+                for _, playing_card in ipairs(G.hand.cards) do
+                    if playing_hand or not playing_card.highlighted then
+                        if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.name == 'Frozen Card' then
+                            money = money + card.ability.extra.money * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                        end
+                    end
+                end
+                card.joker_display_values.money = money
+            end
         }
 
         jd_def["j_bloons_refreeze"] = { --Refreeze
@@ -465,7 +566,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_shards"] = { --Shards
+        jd_def["j_bloons_shards"] = { --Ice Shards
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
@@ -519,7 +620,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_glue"] = { --Glue
+        jd_def["j_bloons_glue"] = { --Glue Monkey
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -537,7 +638,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_corrosive"] = { --Corrosive
+        jd_def["j_bloons_corrosive"] = { --Corrosive Glue
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
@@ -549,16 +650,16 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_glose"] = { --Glose
+        jd_def["j_bloons_glose"] = { --Glue Hose
         }
 
-        jd_def["j_bloons_relentless"] = { --Relentless
+        jd_def["j_bloons_relentless"] = { --Relentless Glue
         }
 
         jd_def["j_bloons_solver"] = { --The Bloon Solver
         }
 
-        jd_def["j_bloons_desp"] = { --Desp
+        jd_def["j_bloons_desp"] = { --Desperado
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
@@ -601,7 +702,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_twix"] = { --Twix
+        jd_def["j_bloons_twix"] = { --Twin Sixes
              text = {
                 {
                     border_nodes = {
@@ -631,10 +732,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_gustice"] = { --Gustice
+        jd_def["j_bloons_gustice"] = { --Golden Justice
         }
 
-        jd_def["j_bloons_sniper"] = { --Sniper
+        jd_def["j_bloons_sniper"] = { --Sniper Monkey
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -659,7 +760,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
         
-        jd_def["j_bloons_shraps"] = { --Shraps 
+        jd_def["j_bloons_shraps"] = { --Shrapnel Shot
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -670,7 +771,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local right_card = nil
 
                 if text ~= 'Unknown' and #scoring_hand >= 2 then
-                    mult_value = scoring_hand[#scoring_hand - 1].base.nominal
+                    local mult_card = scoring_hand[#scoring_hand - 1]
+                    if mult_card.facing ~= 'back' and not mult_card.debuff then
+                        mult_value = mult_card.base.nominal
+                    end
                     right_card = JokerDisplay.calculate_rightmost_card(scoring_hand)
                 end
 
@@ -678,7 +782,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_dprec"] = { --Dprec
+        jd_def["j_bloons_dprec"] = { --Deadly Precision
             text = {
                 {
                     border_nodes = {
@@ -728,7 +832,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_edef"] = { --Edef
+        jd_def["j_bloons_edef"] = { --Elite Defender
             text = {
                 {
                     border_nodes = {
@@ -759,7 +863,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_sub"] = { --Sub
+        jd_def["j_bloons_sub"] = { --Monkey Sub
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -778,10 +882,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_intel"] = { --Intel
+        jd_def["j_bloons_intel"] = { --Advanced Intel
         }
 
-        jd_def["j_bloons_tripguns"] = { --Trip guns
+        jd_def["j_bloons_tripguns"] = { --Triple guns
             text = {
                 {
                     border_nodes = {
@@ -792,7 +896,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
         }
 
-        jd_def["j_bloons_fs"] = { --First Strike
+        jd_def["j_bloons_fs"] = { --First Strike Capability
             text = {
                 {
                     border_nodes = {
@@ -803,10 +907,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_gizer"] = { --Gizer
+        jd_def["j_bloons_gizer"] = { --Energizer
         }
 
-        jd_def["j_bloons_boat"] = { --Boat
+        jd_def["j_bloons_boat"] = { --Monkey Buccaneer
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -840,7 +944,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_flavored"] = { --Flavored
+        jd_def["j_bloons_flavored"] = { --Favored Trades
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -865,7 +969,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_plord"] = { --Plord
+        jd_def["j_bloons_plord"] = { --Pirate Lord
             text = {
                 { text = "(", colour = G.C.GREEN, scale = 0.3 },
                 { ref_table = "card.joker_display_values", ref_value = "odds2", colour = G.C.GREEN, scale = 0.3 },
@@ -886,7 +990,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_ace"] = { --Ace
+        jd_def["j_bloons_ace"] = { --Monkey Ace
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -908,32 +1012,31 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_pineapple"] = { --Pineapple
+        jd_def["j_bloons_pineapple"] = { --Exploding Pineapple
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "counter" },
                 { text = ")" },
             },
             calc_function = function(card)
-                card.joker_display_values.counter = (card.ability.extra.hands) .. " remaining"
+                card.joker_display_values.counter = card.ability.extra.hands == 1 and "Next!" or card.ability.extra.hands .. " remaining"
             end,
         }
 
-        jd_def["j_bloons_nevamiss"] = { --Nevamiss
+        jd_def["j_bloons_nevamiss"] = { --Nevamiss Targeting
             text = {
-                { text = "+1", colour = G.C.SECONDARY_SET.Tarot },
+                { text = "+", colour = G.C.SECONDARY_SET.Tarot },
+                { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Tarot }
             },
-            reminder_text = {
-                { text = "(" },
-                { ref_table = "card.ability.extra", ref_value = "percent_min", colour = G.C.ORANGE },
-                { text = "-", colour = G.C.ORANGE },
-                { ref_table = "card.ability.extra", ref_value = "percent_max", colour = G.C.ORANGE },
-                { text = "%", colour = G.C.ORANGE },
-                { text = ")" }
-            }
+            calc_function = function(card) 
+                local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
+                card.joker_display_values.tarots = G.GAME and G.GAME.chips and G.GAME.blind.chips and blind_percent
+                    and blind_percent >= to_big(card.ability.extra.percent_min) and blind_percent <= to_big(card.ability.extra.percent_max)
+                    and 1 or 0
+            end
         }
 
-        jd_def["j_bloons_gz"] = { --GZ
+        jd_def["j_bloons_gz"] = { --Ground Zero
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS }
@@ -943,7 +1046,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_shredder"] = { --Shredder
+        jd_def["j_bloons_shredder"] = { --Sky Shredder
             text = {
                 {
                     border_nodes = {
@@ -961,7 +1064,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
         }
 
-        jd_def["j_bloons_heli"] = { --Heli
+        jd_def["j_bloons_heli"] = { --Heli Pilot
             text = {
                 {
                     border_nodes = {
@@ -991,14 +1094,14 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_quad"] = { --Quad
+        jd_def["j_bloons_quad"] = { --Quad Darts
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT },
             },
         }
 
-        jd_def["j_bloons_draft"] = { --Draft
+        jd_def["j_bloons_draft"] = { --Downdraft
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -1009,14 +1112,14 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_comdef"] = { --Comdef
+        jd_def["j_bloons_comdef"] = { --Comanche Defense
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
             },
         }
 
-        jd_def["j_bloons_aprime"] = { --Aprime
+        jd_def["j_bloons_aprime"] = { --Apache Prime
             text = {
                 {
                     border_nodes = {
@@ -1052,7 +1155,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_mortar"] = { --Mortar
+        jd_def["j_bloons_mortar"] = { --Mortar Monkey
             text = {
                 { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
                 { text = "x", scale = 0.35 },
@@ -1083,7 +1186,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_burny"] = { --Burny
+        jd_def["j_bloons_burny"] = { --Burny Stuff
             reminder_text = {
                 { text = '(First played card)'}
             },
@@ -1131,7 +1234,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_abatt"] = { --Abatt
+        jd_def["j_bloons_abatt"] = { --Artillery Battery
             text = {
                 { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
                 { text = "x", scale = 0.35 },
@@ -1170,7 +1273,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_cin"] = { --Cin
+        jd_def["j_bloons_cin"] = { --Blooncineration
             text = {
                 {
                     border_nodes = {
@@ -1193,7 +1296,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_dartling"] = { --Dartling
+        jd_def["j_bloons_dartling"] = { --Dartling Gunner
             text = {
                 { text = "+???", colour = G.C.CHIPS },
             }
@@ -1216,7 +1319,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
         }
 
-        jd_def["j_bloons_rorm"] = { --Rorm
+        jd_def["j_bloons_rorm"] = { --Rocket Storm
             text = {
                 {
                     border_nodes = {
@@ -1232,7 +1335,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_rod"] = { --Rod
+        jd_def["j_bloons_rod"] = { --Ray of Doom
             text = {
                 { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
                 { text = "x",                              scale = 0.35 },
@@ -1267,22 +1370,22 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_wiz"] = { --Wizard
+        jd_def["j_bloons_wiz"] = { --Wizard Monkey
         }
 
-        jd_def["j_bloons_wof"] = { --WOF
+        jd_def["j_bloons_wof"] = { --Wall of Fire
         }
 
-        jd_def["j_bloons_amast"] = { --Amast
+        jd_def["j_bloons_amast"] = { --Arcane Mastery
         }
 
-        jd_def["j_bloons_necro"] = { --Necro
+        jd_def["j_bloons_necro"] = { --Necromancer: Unpopped Army
         }
 
-        jd_def["j_bloons_wlp"] = { --WLP
+        jd_def["j_bloons_wlp"] = { --Wizard Lord Phoenix
         }
 
-        jd_def["j_bloons_super"] = { --Super
+        jd_def["j_bloons_super"] = { --Super Monkey
             text = {
                 {
                     border_nodes = {
@@ -1293,10 +1396,29 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
+        jd_def["j_bloons_laser"] = { --Laser Blasts
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "Xmult" }
+                    }
+                }
+            },
+            reminder_text = {
+                {
+                    border_nodes = {
+                        { text = "X", colour = G.C.WHITE, scale = 0.39 },
+                        { ref_table = "card.ability.extra", ref_value = "Xmult", colour = G.C.WHITE, scale = 0.39 }
+                    }
+                }
+            }
+        }
+
         jd_def["j_bloons_uv"] = { --Ultravision
         }
 
-        jd_def["j_bloons_sav"] = { --Sav
+        jd_def["j_bloons_sav"] = { --Sun Avatar
             text = {
                 {
                     border_nodes = {
@@ -1321,7 +1443,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_tech"] = { --Tech
+        jd_def["j_bloons_tech"] = { --Tech Terror
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
                 if held_in_hand then return 0 end
                 local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
@@ -1331,20 +1453,20 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_lotn"] = { --LOTN
+        jd_def["j_bloons_lotn"] = { --Legend of the Night
         }
 
-        jd_def["j_bloons_ninja"] = { --Ninja
+        jd_def["j_bloons_ninja"] = { --Ninja Monkey
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
             }
         }
 
-        jd_def["j_bloons_espionage"] = { --Espionage
+        jd_def["j_bloons_espionage"] = { --Counter Espionage
         }
 
-        jd_def["j_bloons_flash"] = {
+        jd_def["j_bloons_flash"] = { --Flash Bomb
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -1365,7 +1487,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_sabo"] = { --Sabo
+        jd_def["j_bloons_sabo"] = { --Bloon Sabotage
             reminder_text = {
                 { text = "(" },
                 { text = "Heart", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
@@ -1386,7 +1508,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_gmn"] = { --GMN
+        jd_def["j_bloons_gmn"] = { --Grandmaster Ninja
             text = {
                 {
                     border_nodes = {
@@ -1409,7 +1531,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_alch"] = { --Alch
+        jd_def["j_bloons_alch"] = { --Alchemist
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -1429,7 +1551,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_amd"] = { --AMD
+        jd_def["j_bloons_amd"] = { --Acidic Mixture Dip
             extra = {
                 {
                     { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -1446,7 +1568,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         jd_def["j_bloons_brew"] = { --Berserker Brew
         }
 
-        jd_def["j_bloons_r2g"] = { --R2g
+        jd_def["j_bloons_r2g"] = { --Rubber to Gold
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -1461,7 +1583,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_tt5"] = { --TT5
+        jd_def["j_bloons_tt5"] = { --Total Transformation
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -1494,7 +1616,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_thunder"] = { --Thunder
+        jd_def["j_bloons_thunder"] = { --Heart of Thunder
             extra = {
                 {
                     { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -1508,7 +1630,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_jbounty"] = { --Jbounty
+        jd_def["j_bloons_jbounty"] = { --Jungle's Bounty
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -1542,7 +1664,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_aow"] = { --AoW
+        jd_def["j_bloons_aow"] = { --Avatar of Wrath
             text = {
                 {
                     border_nodes = {
@@ -1553,7 +1675,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_merm"] = { --Merm
+        jd_def["j_bloons_merm"] = { --Mermonkey
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -1576,7 +1698,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_network"] = { --Network
+        jd_def["j_bloons_network"] = { --Echosense Network
             text = {
                 { text = "+", colour = G.C.SECONDARY_SET.Planet },
                 { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Planet }
@@ -1601,7 +1723,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_melody"] = { --Melody
+        jd_def["j_bloons_melody"] = { --Alluring Melody
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -1626,7 +1748,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end,
         }
 
-        jd_def["j_bloons_arknight"] = { --Arknight
+        jd_def["j_bloons_arknight"] = { --Arctic Knight
             reminder_text = {
                 { text = "(" },
                 { text = "Bonus", colour = G.C.ORANGE },
@@ -1658,7 +1780,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_lota"] = { --Lota
+        jd_def["j_bloons_lota"] = { --Lord of the Abyss
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -1684,7 +1806,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_farm"] = { --Farm
+        jd_def["j_bloons_farm"] = { --Banana Farm
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -1694,17 +1816,17 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_salvage"] = { --Salvage
+        jd_def["j_bloons_salvage"] = { --Banana Salvage
         }
 
-        jd_def["j_bloons_bank"] = { --Bank
+        jd_def["j_bloons_bank"] = { --Monkey Bank
             text = {
                 { text = "$", colour = G.C.MONEY },
                 { ref_table = "card", ref_value = "sell_cost", colour = G.C.MONEY }
             }
         }
 
-        jd_def["j_bloons_brf"] = { --BRF
+        jd_def["j_bloons_brf"] = { --Banana Research Facility
             text = {
                 {
                     border_nodes = {
@@ -1715,31 +1837,31 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_wallstreet"] = { --Wall Street
+        jd_def["j_bloons_wallstreet"] = { --Monkey Wall Street
         }
 
-        jd_def["j_bloons_spac"] = { --Spac
+        jd_def["j_bloons_spac"] = { --Spike Factory
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
             },
         }
 
-        jd_def["j_bloons_smart"] = { --Smart
+        jd_def["j_bloons_smart"] = { --Smart Spikes
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
             }
         }
 
-        jd_def["j_bloons_lls"] = { --LLS
+        jd_def["j_bloons_lls"] = { --Long Life Spikes
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT },
             },
         }
 
-        jd_def["j_bloons_sporm"] = { --Sporm
+        jd_def["j_bloons_sporm"] = { --Spike Storm
             text = {
                 {
                     border_nodes = {
@@ -1750,14 +1872,14 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_pspike"] = {
+        jd_def["j_bloons_pspike"] = { --Perma Spike
             text = {
                 { text = "+", colour = G.C.BLUE },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.BLUE }
             }
         }
 
-        jd_def["j_bloons_village"] = { --Village
+        jd_def["j_bloons_village"] = { --Monkey Village
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
@@ -1781,10 +1903,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_discount"] = { --Discount
+        jd_def["j_bloons_discount"] = { --Monkey Commerce
         }
 
-        jd_def["j_bloons_mib"] = { --MIB
+        jd_def["j_bloons_mib"] = { --Monkey Intelligence Bureau
             text = {
                 {
                     border_nodes = {
@@ -1796,7 +1918,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
         }
 
-        jd_def["j_bloons_city"] = { --City
+        jd_def["j_bloons_city"] = { --Monkey City
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -1806,7 +1928,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_pex"] = { --Pex
+        jd_def["j_bloons_pex"] = { --Primary Expertise
             text = {
                 {
                     border_nodes = {
@@ -1828,7 +1950,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_engi"] = { --Engi
+        jd_def["j_bloons_engi"] = { --Engineer Monkey
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -1857,7 +1979,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         jd_def["j_bloons_sentries"] = { --Sentry Gun
         }
 
-        jd_def["j_bloons_doublegun"] = { --Doublegun
+        jd_def["j_bloons_doublegun"] = { --Double Gun
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY }
@@ -1890,13 +2012,13 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_sexpert"] = { --Sexpert
+        jd_def["j_bloons_sexpert"] = { --Sentry Expert
         }
 
-        jd_def["j_bloons_uboost"] = { --Uboost
+        jd_def["j_bloons_uboost"] = { --Ultraboost
         }
 
-        jd_def["j_bloons_beast"] = { --Beast
+        jd_def["j_bloons_beast"] = { --Beast Handler
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
@@ -1919,7 +2041,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_owl"] = { --Owl
+        jd_def["j_bloons_owl"] = { --Horned Owl
             text = {
                 { text = "+", colour = G.C.SECONDARY_SET.Tarot },
                 { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Tarot }
@@ -1944,7 +2066,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_velo"] = { --Velo
+        jd_def["j_bloons_velo"] = { --Velociraptor
             text = {
                 { text = "+", colour = G.C.MULT },
                 { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -1969,7 +2091,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end,
         }
 
-        jd_def["j_bloons_condor"] = { --Condor
+        jd_def["j_bloons_condor"] = { --Giant Condor
             reminder_text = {
                 { text = "(" },
                 { text = "Mult", colour = G.C.ORANGE },
@@ -1988,7 +2110,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_meg"] = { --Meg
+        jd_def["j_bloons_meg"] = { --Megalodon
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current_chips", colour = G.C.CHIPS },
@@ -2025,7 +2147,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_sentry"] = { --Sentry
+        jd_def["j_bloons_sentry"] = { --Nail Sentry
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -2142,7 +2264,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
-        jd_def["j_bloons_fortress"] = { --Fortress
+        jd_def["j_bloons_fortress"] = { --Flying Fortress
             text = {
                 { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY, retrigger_type = "mult" },
@@ -2182,10 +2304,10 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_pbrew"] = { --Pbrew
+        jd_def["j_bloons_pbrew"] = { --Permanent Brew
         }
 
-        jd_def["j_bloons_smines"] = { --Smines
+        jd_def["j_bloons_smines"] = { --Super Mines
             text = {
                 { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
                 { ref_table = "card.ability.extra", ref_value = "mines", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
@@ -2205,7 +2327,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
-        jd_def["j_bloons_vtsg"] = { --VTSG
+        jd_def["j_bloons_vtsg"] = { --Vengeful True Sun God
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "sacrifices" },

@@ -102,9 +102,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'blind.lua'
-pattern = '''
-function Blind:stay_flipped(area, card, from_area)
-'''
+pattern = "function Blind:stay_flipped(area, card, from_area)"
 position = 'after'
 payload = '''
 if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss and not self.disabled and area == G.hand then
@@ -113,10 +111,48 @@ if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" 
 
     if flip_counter == sticker_obj.config.limit then
         self.flip_counter = 1
+        card.ability.camo = true
         card:set_debuff(true)
+        if card.debuff then card.debuffed_by_blind = true end
         return true
     end
     self.flip_counter = flip_counter + 1
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "function Blind:debuff_card(card, from_blind)"
+position = 'after'
+payload = '''
+    if card.ability.camo then
+        card:set_debuff(true)
+        return
+    end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "v.ability.wheel_flipped = nil"
+position = 'after'
+payload = "v.ability.camo = nil"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "for k, v in ipairs(G.jokers.cards) do"
+position = 'before'
+payload = '''
+for k, v in pairs(G.playing_cards) do
+    if v.ability.camo then 
+        v.ability.camo = nil
+        v:set_debuff(false)
+    end
 end
 '''
 match_indent = true
