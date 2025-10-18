@@ -114,7 +114,7 @@ if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" 
         card.ability.camo = true
         card:set_debuff(true)
         if card.debuff then card.debuffed_by_blind = true end
-        return false
+        return true
     end
     self.flip_counter = flip_counter + 1
 end
