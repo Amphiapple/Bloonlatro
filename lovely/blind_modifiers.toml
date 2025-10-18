@@ -14,7 +14,7 @@ if G.GAME.modifiers.chimps_stake then
 
     for _, sticker in pairs(SMODS.Stickers) do
         if sticker.set == "blind" then
-            if G.GAME.round_resets.ante >= sticker.config.ante and pseudorandom(sticker.name) > 0.7 then
+            if G.GAME.round_resets.ante % G.GAME.win_ante == 0 or G.GAME.round_resets.ante >= sticker.config.ante and pseudorandom(sticker.name) > 0.7 then
                 table.insert(sticker_pool, sticker)
             end
         end

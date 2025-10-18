@@ -22,6 +22,7 @@ SMODS.Stake {
     applied_stakes = { 'gold' },
     prefix_config = { applied_stakes = { mod = false } },
     colour = HEX("90b4f7"),
+    shiny = true,
 
     modifiers = function()
         G.GAME.modifiers.chimps_stake = true

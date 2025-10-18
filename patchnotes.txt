@@ -19,6 +19,7 @@ General Changes:
 - Added tooltips to towers that create other jokers
 - Added 3 more challenges
 - Added CHIMPS Stake
+- Added some Bunco compatability
 
 Balance Changes:
 - Bomb Shooter cost 5 > 4
@@ -40,6 +41,8 @@ Fixes:
 - Pirate Lord Rare > Uncommon
 - Berserker Brew may now add Foil or Holographic instead of Polychrome
 - Giant Condor no longer uses Primary Expertise's seed
+- Super Mines no longer overuses stacked mines on Plasma Deck
+- Cleansing Tag should no longer cleanse consumables instead of jokers
 - Invisible Tag should no longer create an extra joker if joker slots are full
-- Sabotage should now correctly be banned on 2 Megapops and 2 Megapops Expert
-- Added lots of text tooltips to Jokers and other items
+- Sabotage Tag should now correctly be banned on 2 Megapops and 2 Megapops Expert
+- Added lots of text tooltips to jokers and other items
