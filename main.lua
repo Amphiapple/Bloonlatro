@@ -2,10 +2,10 @@ local functions = {
     'base',
     'calculate-score',
     'hook',
-    'joker-display',
 
     --Crossmod files
     'bunco',
+    'joker-display',
     'talisman',
 }
 

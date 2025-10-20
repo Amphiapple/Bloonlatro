@@ -311,7 +311,14 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 }
             },
             calc_function = function(card)
-                
+                local count = 0
+                local hand = G.hand.highlighted
+                for _, playing_card in pairs(hand) do
+                    if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and playing_card:get_id() and playing_card:get_id() == 4 then
+                        count = count + 1
+                    end
+                end
+                card.joker_display_values.count = count
 
                 local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'missile')
                 card.joker_display_values.odds = numerator .. " in " .. denominator
@@ -650,6 +657,35 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             }
         }
 
+        jd_def["j_bloons_mglue"] = { --Moab Glue
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+                    }
+                }
+            },
+            reminder_text = {
+                { text = "(" },
+                { text = "Face Cards", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                local Xmult = 1
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:is_face() then
+                            Xmult = card.ability.extra.Xmult
+                            break
+                        end
+                    end
+                end
+                card.joker_display_values.Xmult = Xmult
+            end
+        }
+
         jd_def["j_bloons_glose"] = { --Glue Hose
         }
 
@@ -746,15 +782,11 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" },
             },
             calc_function = function(card)
-                if card.ability.extra.counter ~= card.ability.extra.limit then
-                    card.joker_display_values.mult = card.ability.extra.mult
-                else
-                    card.joker_display_values.mult = 0
-                end
-
                 if card.ability.extra.counter == card.ability.extra.limit - 1 then
+                    card.joker_display_values.mult = card.ability.extra.mult
                     card.joker_display_values.active = "Active!"
                 else
+                    card.joker_display_values.mult = 0
                     card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
                 end
             end
@@ -797,16 +829,12 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" }
             },
             calc_function = function(card)
-                if card.ability.extra.counter ~= card.ability.extra.limit then
-                    card.joker_display_values.Xmult = card.ability.extra.Xmult
-                else
-                    card.joker_display_values.Xmult = 1
-                end
-
                 if card.ability.extra.counter == card.ability.extra.limit - 1 then
                     card.joker_display_values.active = "Active!"
+                    card.joker_display_values.Xmult = card.ability.extra.Xmult
                 else
                     card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
+                    card.joker_display_values.Xmult = 1
                 end
             end
         }
@@ -1117,6 +1145,9 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
             },
+        }
+
+        jd_def["j_bloons_spop"] = { --Special Poperations TODO
         }
 
         jd_def["j_bloons_aprime"] = { --Apache Prime
@@ -1471,6 +1502,30 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end
         }
 
+        jd_def["j_bloons_shinobi"] = { --Shinobi Tactics
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
+                { text = "x" },
+                { text = "Ninjas", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local count = 0
+                if G.jokers then
+                    for _, joker_card in ipairs(G.jokers.cards) do
+                        if joker_card.ability.base and joker_card.ability.base == 'ninja' then
+                            count = count + 1
+                        end
+                    end
+                end
+                card.joker_display_values.count = count
+            end,
+            mod_function = function(card, mod_joker)
+                return { x_mult = (card.ability.base and card.ability.base == 'ninja' and mod_joker.ability.extra.Xmult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+            end
+        }
+
         jd_def["j_bloons_sabo"] = { --Bloon Sabotage
             reminder_text = {
                 { text = "(" },
@@ -1611,6 +1666,27 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             calc_function = function(card)
                 local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'thunder')
                 card.joker_display_values.odds = numerator .. " in " .. denominator
+            end
+        }
+
+        jd_def["j_bloons_dots"] = { --Druid of the Storm
+            text = {
+                { text = "+", colour = G.C.BLUE },
+                { ref_table = "card.joker_display_values", ref_value = "hands", colour = G.C.BLUE }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "active" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                if card.ability.extra.counter == card.ability.extra.limit - 1 then
+                    card.joker_display_values.hands = card.ability.extra.hands
+                    card.joker_display_values.active = "Active!"
+                else
+                    card.joker_display_values.hands = 0
+                    card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
+                end
             end
         }
 
@@ -1818,12 +1894,18 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 }
             },
             calc_function = function(card)
-                local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuables')
+                local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuable')
                 card.joker_display_values.odds = numerator .. " in " .. denominator
             end
         }
 
         jd_def["j_bloons_salvage"] = { --Banana Salvage
+        }
+
+        jd_def["j_bloons_plantation"] = { --Dartling Gunner
+            text = {
+                { text = "+$??", colour = G.C.MONEY },
+            }
         }
 
         jd_def["j_bloons_bank"] = { --Monkey Bank
@@ -1852,6 +1934,16 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
             },
+        }
+
+        jd_def["j_bloons_stacks"] = { --Bigger Stacks
+            text = {
+                { text = "+$", colour = G.C.MONEY },
+                { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
+            },
+            calc_function = function(card)
+                card.joker_display_values.money = (G.GAME.current_round.hands_left > 0 and card.ability.extra.money * G.GAME.current_round.hands_left) or 0
+            end
         }
 
         jd_def["j_bloons_smart"] = { --Smart Spikes
@@ -1907,6 +1999,30 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end,
             mod_function = function(card, mod_joker)
                 return { mult = (card.config.center.rarity == 1 and mod_joker.ability.extra.mult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+            end
+        }
+
+        jd_def["j_bloons_drums"] = { --Jungle Drums
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
+                { text = "x" },
+                { text = "Jokers", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local count = 0
+                if G.jokers then
+                    for _, joker_card in ipairs(G.jokers.cards) do
+                        if joker_card ~= card then
+                            count = count + 1
+                        end
+                    end
+                end
+                card.joker_display_values.count = count
+            end,
+            mod_function = function(card, mod_joker)
+                return { x_mult = (card ~= mod_joker and mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
             end
         }
 

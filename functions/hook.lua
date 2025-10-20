@@ -270,14 +270,14 @@ local function get_sac_context(card)
             and vtsg_sacrifices['value'] == 0
             and vtsg_sacrifices['support'] == 0
 
-        local non_eternal_jokers = {}
+        local other_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
-            if not joker.ability.eternal and joker ~= card then
-                table.insert(non_eternal_jokers, joker)
+            if joker ~= card then
+                table.insert(other_jokers, joker)
             end
         end
 
-        if #non_eternal_jokers >= 1 and no_sacs then
+        if #other_jokers >= 1 and no_sacs then
             sac_context.vtsg_enabled = true
         end
     end
