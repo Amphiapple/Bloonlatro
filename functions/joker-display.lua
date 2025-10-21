@@ -107,7 +107,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 end
 
                 if card.ability.extra.counter == 1 then
-                    card.joker_display_values.active = "Active!"
+                    card.joker_display_values.active = "Next!"
                 else
                     card.joker_display_values.active = card.ability.extra.counter .. " remaining"
                 end
@@ -830,7 +830,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
             calc_function = function(card)
                 if card.ability.extra.counter == card.ability.extra.limit - 1 then
-                    card.joker_display_values.active = "Active!"
+                    card.joker_display_values.active = "Next!"
                     card.joker_display_values.Xmult = card.ability.extra.Xmult
                 else
                     card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
@@ -851,7 +851,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
             calc_function = function(card)
                 if card.ability.extra.counter == card.ability.extra.limit - 1 then
-                    card.joker_display_values.active = "Active!"
+                    card.joker_display_values.active = "Next!"
                     card.joker_display_values.tarots = 1
                 else
                     card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
@@ -1147,7 +1147,45 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
         }
 
-        jd_def["j_bloons_spop"] = { --Special Poperations TODO
+        jd_def["j_bloons_spop"] = { --Special Poperations
+            text = {
+                { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
+                { ref_table = "card.joker_display_values", ref_value = "active_marine", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
+                { text = ")", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "active_cash_drop" },
+                { text = ")" },
+            },
+            extra = {
+                {
+                    { text = "+", colour = G.C.ORANGE },
+                    { ref_table = "card.joker_display_values", ref_value = "marine", colour = G.C.ORANGE },
+                    { text = " +", colour = G.C.MONEY },
+                    { ref_table = "card.joker_display_values", ref_value = "cash_drop", colour = G.C.MONEY },
+                }
+            },
+            calc_function = function(card)
+                local marine = card.ability.extra.marine
+                local cash = card.ability.extra.cash
+                local counter = card.ability.extra.counter
+                if (counter + 1) % marine == 0 then
+                    card.joker_display_values.marine = 1
+                    card.joker_display_values.active_marine = "Next!"
+                else
+                    card.joker_display_values.marine = 0
+                    card.joker_display_values.active_marine = marine - counter % marine .. " remaining"
+                end
+
+                if (counter + 1) % cash == 0 then
+                    card.joker_display_values.cash_drop = 1
+                    card.joker_display_values.active_cash_drop = "Next!"
+                else
+                    card.joker_display_values.cash_drop = 0
+                    card.joker_display_values.active_cash_drop = cash - counter % cash .. " remaining"
+                end
+            end
         }
 
         jd_def["j_bloons_aprime"] = { --Apache Prime
@@ -1494,7 +1532,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             calc_function = function(card)
                 if card.ability.extra.counter == card.ability.extra.limit - 1 then
                     card.joker_display_values.mult = card.ability.extra.mult
-                    card.joker_display_values.active = "Active!"
+                    card.joker_display_values.active = "Next!"
                 else
                     card.joker_display_values.mult = 0
                     card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
@@ -1682,7 +1720,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             calc_function = function(card)
                 if card.ability.extra.counter == card.ability.extra.limit - 1 then
                     card.joker_display_values.hands = card.ability.extra.hands
-                    card.joker_display_values.active = "Active!"
+                    card.joker_display_values.active = "Next!"
                 else
                     card.joker_display_values.hands = 0
                     card.joker_display_values.active = card.ability.extra.limit - card.ability.extra.counter % card.ability.extra.limit - 1 .. " remaining"
@@ -2267,6 +2305,25 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             end,
             get_blueprint_joker = function(card)
                 return G.jokers.cards[card.ability.extra.current] or nil
+            end
+        }
+
+        jd_def["j_bloons_marine"] = { --Marine
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "Xmult" }
+                    }
+                }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "duration" },
+                { text = ")" }
+            },
+            calc_function = function(card)
+                card.joker_display_values.duration = card.ability.extra.hands .. " hand" .. (card.ability.extra.hands ~= 1 and "s" or "") .. " left"
             end
         }
 
