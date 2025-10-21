@@ -10,11 +10,14 @@ A brand new difficulty even harder than Gold Stake has been introduced: CHIMPS s
 
 Huge thanks to the Ninja Kiwi team for the amazing game BTD6
 
-As well as the contributors to this mod
+As well as all the contributors to this mod
 
+- Amphiapple
 - Birdz
 - Braces
 - Fireblazer
 - Geeph
 - Greenkookie56
+- Icicle
+- Kanjerlucas
 - Villain7

@@ -20,6 +20,7 @@ General Changes:
 - Added 3 more challenges
 - Added CHIMPS Stake
 - Added some Bunco compatability
+- Added some art (Thank you Geeph)
 
 Balance Changes:
 - Bomb Shooter cost 5 > 4
