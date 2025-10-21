@@ -632,6 +632,9 @@ SMODS.Challenge {
     vouchers = {},
     restrictions = {
         banned_cards = unable_eternal,
+        banned_tags = {
+            { id = 'tag_bloons_cleansing' },
+        },
         banned_other = {
             { id = 'bl_final_leaf', type = 'blind' }
         }
@@ -917,7 +920,8 @@ SMODS.Challenge {
         banned_cards = banned_2tc_cards,
         banned_tags = {
             { id = 'tag_negative' },
-            { id = 'tag_concoction' }
+            { id = 'tag_bloons_cleansing' },
+            { id = 'tag_bloons_concoction' }
         },
         banned_other = {
             { id = 'bl_final_leaf', type = 'blind' }
@@ -1061,7 +1065,8 @@ SMODS.Challenge {
         banned_cards = banned_2tc_cards,
         banned_tags = {
             { id = 'tag_negative' },
-            { id = 'tag_concoction' }
+            { id = 'tag_bloons_cleansing' },
+            { id = 'tag_bloons_concoction' }
         },
         banned_other = {
             { id = 'bl_final_leaf', type = 'blind' }

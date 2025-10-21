@@ -40,7 +40,7 @@ SMODS.Sticker {
     pos = { x = 2, y = 0 },
     default_compat = false,
     set = 'blind',
-    badge_colour = G.C.BLACK,
+    badge_colour = HEX('Be6a1a'),
     config = { ante = 6, increase = 2 },
     loc_vars = function(self)
         return { vars = { self.config.increase } }
