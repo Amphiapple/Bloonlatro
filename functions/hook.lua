@@ -12,7 +12,7 @@ end
 --Ninja full slots buy
 local check_for_buy_space_old = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-    if card.ability.set == 'Joker' and card.ability.name == 'Ninja Monkey' then
+    if card.ability.set == 'Joker' and (card.ability.name == 'Ninja Monkey' or card.ability.name == 'Shinobi Tactics') then
         return true
     else
         local ret = check_for_buy_space_old(card)
@@ -23,7 +23,7 @@ end
 --Ninja full slots add
 local can_select_card_old = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-    if e.config.ref_table.ability.name == 'Ninja Monkey' then 
+    if e.config.ref_table.ability.name == 'Ninja Monkey' or e.config.ref_table.ability.name == 'Shinobi Tactics' then 
         e.config.colour = G.C.GREEN
         e.config.button = 'use_card'
     else
@@ -270,14 +270,14 @@ local function get_sac_context(card)
             and vtsg_sacrifices['value'] == 0
             and vtsg_sacrifices['support'] == 0
 
-        local non_eternal_jokers = {}
+        local other_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
-            if not joker.ability.eternal and joker ~= card then
-                table.insert(non_eternal_jokers, joker)
+            if joker ~= card then
+                table.insert(other_jokers, joker)
             end
         end
 
-        if #non_eternal_jokers >= 1 and no_sacs then
+        if #other_jokers >= 1 and no_sacs then
             sac_context.vtsg_enabled = true
         end
     end

@@ -10,23 +10,33 @@ return {
             }
         },
         Other = {
+            bloons_chimps_sticker = {
+                name = "CHIMPS Sticker",
+                text = {
+                    'Used this Joker',
+                    'to win on {C:attention}CHIMPS',
+                    '{C:attention}Stake{} difficulty',
+                }
+            },
             bloons_regrow = {
                 name = 'Regrow',
                 text = {
-                    'Heal back 10% of blind size',
+                    'Heal back {C:attention}#1#%{} of {C:attention}Blind{} size',
                     'when a hand is played'
                 },
             },
             bloons_camo = {
                 name = 'Camo',
                 text = {
-                    'Disable leftmost Joker'
+                    'Every {C:attention}#1#th Playing{}',
+                    'card is drawn face',
+                    'down and {C:attention}debuffed'
                 },
             },
             bloons_fortified = {
                 name = 'Fortified',
                 text = {
-                    'Doubles Blind size'
+                    '{C:attention}X#1# Blind{} size'
                 },
             }
         }

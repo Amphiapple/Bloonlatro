@@ -9,20 +9,19 @@ target = "functions/common_events.lua"
 pattern = "G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1"
 position = 'after'
 payload = '''
-G.GAME.bloons_blind_modifier = "None"
 if G.GAME.modifiers.chimps_stake then
-    local modifier_pool = {}
+    local sticker_pool = {}
 
-    if G.GAME.round_resets.ante >= 2 and pseudorandom('Regrow') > 0.7 then table.insert(modifier_pool, "Regrow") end
-    if G.GAME.round_resets.ante >= 4 and pseudorandom('Camo') > 0.7 then table.insert(modifier_pool, "Camo") end
-    if G.GAME.round_resets.ante >= 6 and pseudorandom('Fortified') > 0.7 then table.insert(modifier_pool, "Fortified") end
-
-    if #modifier_pool > 0 then
-        local r = pseudorandom('modifier')
-        local index = math.floor(r * #modifier_pool) + 1
-        if index > #modifier_pool then index = #modifier_pool end
-        G.GAME.bloons_blind_modifier = modifier_pool[index]
+    for _, sticker in pairs(SMODS.Stickers) do
+        if sticker.set == "blind" then
+            if G.GAME.round_resets.ante % G.GAME.win_ante == 0 or G.GAME.round_resets.ante >= sticker.config.ante and pseudorandom(sticker.name) > 0.7 then
+                table.insert(sticker_pool, sticker)
+            end
+        end
     end
+
+    local blind_sticker = pseudorandom_element(sticker_pool, pseudoseed('blind_sticker'))
+    G.GAME.bloons_blind_sticker = blind_sticker and blind_sticker.key
 end
 
 '''
@@ -34,8 +33,9 @@ target = "blind.lua"
 pattern = "self.chips = get_blind_amount(G.GAME.round_resets.ante)*self.mult*G.GAME.starting_params.ante_scaling"
 position = 'after'
 payload = '''
-if self.boss and G.GAME.bloons_blind_modifier == "Fortified" then
-    self.chips = self.chips * 2
+if self.boss and G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" then
+    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+    self.chips = self.chips * sticker_obj.config.increase
 end
 if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and self.boss then
     local percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
@@ -53,8 +53,9 @@ target = 'functions/UI_definitions.lua'
 pattern = "local blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*blind_choice.config.mult*G.GAME.starting_params.ante_scaling"
 position = 'after'
 payload = '''
-if type == 'Boss' and G.GAME.bloons_blind_modifier == "Fortified" then
-    blind_amt = blind_amt * 2
+if type == 'Boss' and G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" then
+    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+    blind_amt = blind_amt * sticker_obj.config.increase
 end
 if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and type == 'Boss' then
     local percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
@@ -75,8 +76,9 @@ function Blind:disable()
 '''
 position = 'after'
 payload = '''
-    if G.GAME.bloons_blind_modifier == "Fortified" then
-        self.chips = self.chips / 2
+    if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" and self.boss then
+        sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+        self.chips = self.chips / sticker_obj.config.increase
         self.chip_text = number_format(self.chips)
     end
 '''
@@ -88,8 +90,10 @@ target = 'blind.lua'
 pattern = "if self.disabled then return mult, hand_chips, false end"
 position = 'after'
 payload = '''
-if G.GAME.bloons_blind_modifier == "Regrow" and G.GAME.chips ~= 0 then
-    G.GAME.chips = math.max(to_big(0, G.GAME.chips - G.GAME.blind.chips * 10 / 100))
+if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_regrow" and G.GAME.chips ~= to_big(0) and self.boss then
+    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+    G.GAME.chips = to_big(G.GAME.chips - G.GAME.blind.chips * sticker_obj.config.percent / 100)
+    if G.GAME.chips < to_big(0) then G.GAME.chips = to_big(0) end
     self:wiggle()
 end
 '''
@@ -98,20 +102,56 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'blind.lua'
-pattern = '''
-for _, v in ipairs(G.jokers.cards) do
-    if not reset then self:debuff_card(v, true) end
-end
-'''
+pattern = "function Blind:stay_flipped(area, card, from_area)"
 position = 'after'
 payload = '''
-if G.GAME.bloons_blind_modifier == "Camo" and not self.disabled and not reset then
-    local first_joker = G.jokers.cards[1]
-    if first_joker then
-        first_joker:set_debuff(true)
-        if first_joker.debuff then 
-            first_joker.debuffed_by_blind = true 
-        end
+if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss and not self.disabled and area == G.hand then
+    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+    local flip_counter = self.flip_counter or 1
+
+    if flip_counter == sticker_obj.config.limit then
+        self.flip_counter = 1
+        card.ability.camo = true
+        card:set_debuff(true)
+        if card.debuff then card.debuffed_by_blind = true end
+        return true
+    end
+    self.flip_counter = flip_counter + 1
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "function Blind:debuff_card(card, from_blind)"
+position = 'after'
+payload = '''
+    if card.ability.camo then
+        card:set_debuff(true)
+        return
+    end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "v.ability.wheel_flipped = nil"
+position = 'after'
+payload = "v.ability.camo = nil"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "for k, v in ipairs(G.jokers.cards) do"
+position = 'before'
+payload = '''
+for k, v in pairs(G.playing_cards) do
+    if v.ability.camo then 
+        v.ability.camo = nil
+        v:set_debuff(false)
     end
 end
 '''
@@ -131,21 +171,26 @@ payload = '''
     end
     
     local nodes = {}
-    if G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier ~= "None" then
-        local icon_pos = nil
-        if G.GAME.bloons_blind_modifier == "Regrow" then
-            icon_pos = {x=0, y=0}
-        elseif G.GAME.bloons_blind_modifier == "Camo" then
-            icon_pos = {x=1, y=0}
-        elseif G.GAME.bloons_blind_modifier == "Fortified" then
-            icon_pos = {x=2, y=0}
-        end
+    if G.GAME.bloons_blind_sticker then
+        local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
         
-        if icon_pos then
-            table.insert(nodes, {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}})
-            table.insert(nodes, {n=G.UIT.O, config={object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS["bloons_Tag"], icon_pos)}})
-            return {n=G.UIT.R, config={align = "cm"}, nodes=nodes}
-        end
+        table.insert(nodes, {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}})
+        
+        local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+        
+        local tooltip_title = loc_data and loc_data.name or sticker_obj.name
+        local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
+        local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
+
+        table.insert(nodes, {n = G.UIT.O, config = {object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true, 
+                            bloons_sticker_tooltip = {
+                                title = tooltip_title,
+                                text = tooltip_text,
+                                vars = tooltip_vars,
+                                color = sticker_obj.badge_colour,
+                                in_blind = false
+                            }}})
+        return {n=G.UIT.R, config={align = "cm"}, nodes=nodes}
     end
     return {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}}
 end)(),
@@ -154,10 +199,8 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
-pattern = '''
-G.GAME.current_round.used_packs = {}
-'''
+target = 'blind.lua'
+pattern = "G.ARGS.spin.real = (G.SETTINGS.reduced_motion and 0 or 1)*(self.config.blind.boss and (self.config.blind.boss.showdown and 0.5 or 0.25) or 0)"
 position = 'after'
 payload = '''
 G.E_MANAGER:add_event(Event({
@@ -166,57 +209,190 @@ G.E_MANAGER:add_event(Event({
     func = function()
         if G.HUD_blind and 
            G.GAME and 
-           G.GAME.bloons_blind_modifier and 
-           G.GAME.bloons_blind_modifier ~= "None" and 
-           G.GAME.blind and 
-           G.GAME.blind.boss then
-            
+           G.GAME.blind then
             local blind_name_element = G.HUD_blind:get_UIE_by_ID('HUD_blind_name')
-            if blind_name_element and blind_name_element.parent and blind_name_element.config and blind_name_element.config.object then
-                local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
+            if blind_name_element and blind_name_element.parent then
+                local parent = blind_name_element.parent
                 
-                local icon_pos = nil
-                if G.GAME.bloons_blind_modifier == "Regrow" then
-                    icon_pos = {x=0, y=0}
-                elseif G.GAME.bloons_blind_modifier == "Camo" then
-                    icon_pos = {x=1, y=0}
-                elseif G.GAME.bloons_blind_modifier == "Fortified" then
-                    icon_pos = {x=2, y=0}
+                for i = #parent.children, 1, -1 do
+                    local child = parent.children[i]
+                    table.remove(parent.children, i)
+                    child:remove()
                 end
                 
-                if icon_pos and G.ASSET_ATLAS["bloons_Tag"] then
-                    local parent = blind_name_element.parent
+                local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
+                
+                if G.GAME.bloons_blind_sticker and G.GAME.blind.boss then
+                    local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
                     
-                    local element_index = nil
-                    for i, child in ipairs(parent.children) do
-                        if child == blind_name_element then
-                            element_index = i
-                            break
-                        end
-                    end
+                    local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
                     
-                    if element_index then
-                        table.remove(parent.children, element_index)
-                        
-                        blind_name_element:remove()
-                        
-                        local new_row_def = {
-                            n = G.UIT.R, 
-                            config = {align = "cm"}, 
-                            nodes = {
-                                {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
-                                {n = G.UIT.O, config = {object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS["bloons_Tag"], icon_pos)}}
-                            }
+                    local tooltip_title = loc_data and loc_data.name or sticker_obj.name
+                    local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
+                    local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
+                    local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
+                    
+                    local new_row_def = {
+                        n = G.UIT.R, 
+                        config = {align = "cm"}, 
+                        nodes = {
+                            {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
+                            {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
+                                bloons_sticker_tooltip = {
+                                    title = tooltip_title,
+                                    text = tooltip_text,
+                                    vars = tooltip_vars,
+                                    color = tooltip_color,
+                                    in_blind = true
+                                }}}
                         }
+                    }
 
-                        G.HUD_blind:add_child(new_row_def, parent)
-                    end
+                    G.HUD_blind:add_child(new_row_def, parent)
+                else
+                    local new_row_def = {
+                        n = G.UIT.R, 
+                        config = {align = "cm"}, 
+                        nodes = {
+                            {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}}
+                        }
+                    }
+
+                    G.HUD_blind:add_child(new_row_def, parent)
                 end
             end
         end
         return true
     end
 }))
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
+'''
+position = 'after'
+payload = '''
+if saveTable and 
+   G.HUD_blind and 
+   G.GAME and
+   G.GAME.blind then
+
+    local blind_name_element = G.HUD_blind:get_UIE_by_ID('HUD_blind_name')
+    if blind_name_element and blind_name_element.parent then
+        local parent = blind_name_element.parent
+        
+        for i = #parent.children, 1, -1 do
+            local child = parent.children[i]
+            table.remove(parent.children, i)
+            child:remove()
+        end
+        
+        local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
+        
+        if G.GAME.bloons_blind_sticker and G.GAME.blind.boss then
+            local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+            
+            local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+            
+            local tooltip_title = loc_data and loc_data.name or sticker_obj.name
+            local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
+            local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
+            local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
+            
+            local new_row_def = {
+                n = G.UIT.R, 
+                config = {align = "cm"}, 
+                nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
+                    {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
+                        bloons_sticker_tooltip = {
+                            title = tooltip_title,
+                            text = tooltip_text,
+                            vars = tooltip_vars,
+                            color = tooltip_color,
+                            in_blind = true
+                        }}}
+                }
+            }
+
+            G.HUD_blind:add_child(new_row_def, parent)
+        else
+            local new_row_def = {
+                n = G.UIT.R, 
+                config = {align = "cm"}, 
+                nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}}
+                }
+            }
+
+            G.HUD_blind:add_child(new_row_def, parent)
+        end
+    end
+end
+
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+pattern = '''
+if self.config.detailed_tooltip and G.CONTROLLER.HID.pointer then
+    self.config.h_popup = create_UIBox_detailed_tooltip(self.config.detailed_tooltip)
+    self.config.h_popup_config ={align="tm", offset = {x=0,y=-0.1}, parent = self}
+end
+'''
+position = 'after'
+payload = '''
+if self.config and self.config.bloons_sticker_tooltip then
+    self.config.h_popup = create_popup_UIBox_bloons_sticker_tooltip(self.config.bloons_sticker_tooltip)
+    local align = self.config.bloons_sticker_tooltip.in_blind and "bm" or "tm"
+    local offset = self.config.bloons_sticker_tooltip.in_blind and {x=0, y=0.1} or {x=0, y=-0.1}
+    self.config.h_popup_config = {align=align, offset=offset, parent = self}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = 'function create_UIBox_detailed_tooltip(_center)'
+position = 'before'
+payload = '''
+function create_popup_UIBox_bloons_sticker_tooltip(tooltip)
+    local title = tooltip.title or nil
+    local text = tooltip.text or {}
+    local color = tooltip.color or G.C.WHITE
+    local vars = tooltip.vars.vars or {}
+    local rows = {}
+    
+    if title then
+        local r = {n=G.UIT.R, config={align = "cm", colour = color, r = 0.1, padding = 0, minh = 0.6}, nodes={
+            {n=G.UIT.C, config={align = "cm"}, nodes={
+                {n=G.UIT.T, config={text = title, colour = G.C.UI.TEXT_LIGHT, scale = 0.5}}}}}}
+        table.insert(rows, r)
+    end
+    
+    for i = 1, #text do
+        if type(text[i]) == 'table' then
+            local r = {n=G.UIT.R, config={align = "cm", padding = 0.03, colour = G.C.WHITE}, nodes={
+            {n=G.UIT.T, config={ref_table = text[i].ref_table, ref_value = text[i].ref_value, colour = G.C.UI.TEXT_DARK, scale = 0.4}}}}
+            table.insert(rows, r)
+        else
+            local r = {n=G.UIT.R, config={align = "cm", padding = 0.03, colour = G.C.WHITE}, nodes=SMODS.localize_box(loc_parse_string(text[i]), {scale = 1.25, colour = G.C.UI.TEXT_DARK, vars = vars})}
+            table.insert(rows, r)
+        end
+    end
+    
+    local t = {
+        n=G.UIT.ROOT, config = {align = "cm", padding = 0.05, r=0.1, colour = color, emboss = 0.05}, nodes=
+        {{n=G.UIT.C, config={align = "cm", padding = 0.05, r = 0.1, colour = G.C.WHITE, emboss = 0.05}, nodes=rows}}}
+    return t
+end
 
 '''
 match_indent = true

@@ -25,17 +25,20 @@ SMODS.Tag {
 		return { vars = { self.config.percent } }
 	end,
     apply = function(self, tag, context)
-        if context.type == 'store_joker_modify' then
+        if context.type == 'store_joker_modify' and context.card.ability.set == 'Joker' then
 			local lock = tag.ID
             G.CONTROLLER.locks[lock] = true
 			tag:yep('+', G.C.DARK_EDITION, function() 
 				context.card.ability.couponed = true
+				-- Remove stickers
 				context.card:set_eternal(nil)
-				context.card.ability.eternal = nil
-				context.card:set_perishable(nil)
 				context.card.ability.perishable = nil
 				context.card:set_rental(nil)
-				context.card.ability.rental = nil
+				-- Remove Bunco stickers
+				context.card:set_scattering(nil)
+				context.card:set_hindered(nil)
+				context.card:set_reactive(nil)
+				
 				context.card:set_cost()
 				context.card:juice_up(1, 0.5)
 				G.CONTROLLER.locks[lock] = nil
@@ -69,7 +72,7 @@ SMODS.Tag {
 			local lock = tag.ID
             G.CONTROLLER.locks[lock] = true
 			tag:yep("+", G.C.PURPLE, function()
-				if #G.jokers.cards <= G.jokers.config.card_limit and #G.jokers.cards > 0 then 
+				if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit and #G.jokers.cards > 0 then
 					local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'))
 					local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
 					card:add_to_deck()
@@ -236,10 +239,14 @@ SMODS.Tag {
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
 	order = 30,
-    min_ante = nil,
+    min_ante = 2,
     config = { type = 'immediate' },
 
     loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
 		return { vars = { self.config.percent } }
 	end,
     apply = function(self, tag, context)
