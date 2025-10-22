@@ -333,11 +333,6 @@ local banned_2tc_cards = {
     { id = 'v_antimatter' },
 }
 
-for _, joker in ipairs(unable_eternal) do
-    table.insert(banned_2tc_cards, joker)
-end
-
-
 SMODS.Challenge {
     key = 'bloonlatro',
     loc_txt = {
@@ -908,7 +903,6 @@ SMODS.Challenge {
     rules = {
         custom = {
             { id = 'no_negative_jokers' },
-            { id = 'all_eternal' },
         },
         modifiers = {
             { id = 'joker_slots', value = 2 },
@@ -920,7 +914,6 @@ SMODS.Challenge {
         banned_cards = banned_2tc_cards,
         banned_tags = {
             { id = 'tag_negative' },
-            { id = 'tag_bloons_cleansing' },
             { id = 'tag_bloons_concoction' }
         },
         banned_other = {
@@ -932,7 +925,12 @@ SMODS.Challenge {
     },
 
     apply = function(self)
-        G.GAME.negative_rate = 0
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.negative_rate = 0
+                return true
+            end
+        }))
     end
 }
 
@@ -1052,7 +1050,6 @@ SMODS.Challenge {
         custom = {
             { id = 'gold_stake' },
             { id = 'no_negative_jokers' },
-            { id = 'all_eternal' },
             { id = 'difficulty_warning'}
         },
         modifiers = {
@@ -1065,7 +1062,6 @@ SMODS.Challenge {
         banned_cards = banned_2tc_cards,
         banned_tags = {
             { id = 'tag_negative' },
-            { id = 'tag_bloons_cleansing' },
             { id = 'tag_bloons_concoction' }
         },
         banned_other = {
@@ -1077,7 +1073,12 @@ SMODS.Challenge {
     },
 
     apply = function(self)
-        G.GAME.negative_rate = 0
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.negative_rate = 0
+                return true
+            end
+        }))
     end
 }
 
