@@ -2,6 +2,7 @@ local functions = {
     'base',
     'calculate-score',
     'hook',
+    'corvus',
 
     --Crossmod files
     'bunco',
