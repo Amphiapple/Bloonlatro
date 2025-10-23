@@ -356,44 +356,6 @@ SMODS.Back { --Gerry
 }
 ]]
 
-SMODS.Back { --Corvus
-    key = "corvus",
-    name = "Corvus Deck",
-	loc_txt = {
-        name = 'Corvus Deck',
-        text = {
-            'Earn {C:attention}#1#{} mana for each',
-            'played card that scores',
-            "Enables Corvus' {C:spectral}Spellbook{}",
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 4, y = 2 },
-    order = 31,
-    config = { extra = { mana_per_card = 1 } },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { self.config.extra.mana_per_card } }
-    end,
-    apply = function(self)
-        G.GAME.bloons_mana = 0
-        G.GAME.bloons_max_mana = 800
-        corvus_spellbook()
-    end,
-    calculate = function(self, back, context)
-        if context.individual and context.cardarea == G.play and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.bloons_mana = G.GAME.bloons_mana + self.config.extra.mana_per_card
-                    return true
-                end,
-            }))
-        end
-    end
-}
-
-
 SMODS.Back { --Rose
     key = "rose",
     name = "Rosalia Deck",
