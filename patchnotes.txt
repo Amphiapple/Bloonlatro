@@ -35,6 +35,8 @@ Balance Changes:
 - Concoction Tag no longer appears in Ante 1
 - Inflated is no longer played on Gold Stake as that has become Inflated Expert
 - Inflated now starts wtih $13 dollars to prevent as many Ante 1 Big Blind losses
+- 2TC no longer makes all jokers eternal, and allows perishable stickers to appear
+- 2TC allows jokers that cannot be eternal to appear
 
 Fixes:
 - Frag Bombs no longer shows stunned card tooltip

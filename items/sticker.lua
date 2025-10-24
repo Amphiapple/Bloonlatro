@@ -27,7 +27,7 @@ SMODS.Sticker {
     default_compat = false,
     set = 'blind',
     badge_colour = G.C.GREEN,
-    config = { ante = 4, limit = 7 },
+    config = { ante = 4, limit = 5 },
     loc_vars = function(self)
         return { vars = { self.config.limit } }
     end
