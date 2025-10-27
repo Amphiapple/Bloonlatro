@@ -26,14 +26,13 @@ end
 
 '''
 match_indent = true
-
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
 pattern = "function Blind:wiggle()"
 position = 'before'
 payload = '''
-function Blind:disable_stickers()
+function Blind:disable_blind_stickers()
     if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" and self.boss then
         sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
         self.chips = self.chips / sticker_obj.config.increase
@@ -49,7 +48,7 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Chicot' and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then"
 position = 'after'
-payload = "G.GAME.blind:disable_stickers()"
+payload = "G.GAME.blind:disable_blind_stickers()"
 match_indent = true
 
 [[patches]]
@@ -57,7 +56,7 @@ match_indent = true
 target = "card.lua"
 pattern = "card_eval_status_text(context_blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})"
 position = 'after'
-payload = "G.GAME.blind:disable_stickers()"
+payload = "G.GAME.blind:disable_blind_stickers()"
 match_indent = true
 
 [[patches]]
