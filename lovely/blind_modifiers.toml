@@ -30,9 +30,56 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
+pattern = "function Blind:wiggle()"
+position = 'before'
+payload = '''
+function Blind:disable_stickers()
+    if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" and self.boss then
+        sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+        self.chips = self.chips / sticker_obj.config.increase
+        self.chip_text = number_format(self.chips)
+    end
+    self.disable_stickers = true
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.name == 'Chicot' and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then"
+position = 'after'
+payload = "G.GAME.blind:disable_stickers()"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "card_eval_status_text(context_blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})"
+position = 'after'
+payload = "G.GAME.blind:disable_stickers()"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+                G.E_MANAGER:add_event(Event({func = function()
+                    G.E_MANAGER:add_event(Event({func = function()
+'''
+position = 'after'
+payload = '''
+                        G.GAME.blind:disable_stickers()
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
 pattern = "self.chips = get_blind_amount(G.GAME.round_resets.ante)*self.mult*G.GAME.starting_params.ante_scaling"
 position = 'after'
 payload = '''
+self.disable_stickers = false
 if self.boss and G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" then
     sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
     self.chips = self.chips * sticker_obj.config.increase
@@ -70,27 +117,10 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'blind.lua'
-pattern = '''
-function Blind:disable()
-    self.disabled = true
-'''
-position = 'after'
-payload = '''
-    if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" and self.boss then
-        sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
-        self.chips = self.chips / sticker_obj.config.increase
-        self.chip_text = number_format(self.chips)
-    end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'blind.lua'
 pattern = "if self.disabled then return mult, hand_chips, false end"
-position = 'after'
+position = 'before'
 payload = '''
-if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_regrow" and G.GAME.chips ~= to_big(0) and self.boss then
+if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_regrow" and G.GAME.chips ~= to_big(0) and self.boss and not self.disable_stickers then
     sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
     G.GAME.chips = to_big(G.GAME.chips - G.GAME.blind.chips * sticker_obj.config.percent / 100)
     if G.GAME.chips < to_big(0) then G.GAME.chips = to_big(0) end
@@ -105,7 +135,7 @@ target = 'blind.lua'
 pattern = "function Blind:stay_flipped(area, card, from_area)"
 position = 'after'
 payload = '''
-if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss and not self.disabled and area == G.hand then
+if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss and not self.disable_stickers and area == G.hand then
     sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
     local flip_counter = self.flip_counter or 1
 
@@ -149,7 +179,7 @@ pattern = "for k, v in ipairs(G.jokers.cards) do"
 position = 'before'
 payload = '''
 for k, v in pairs(G.playing_cards) do
-    if v.ability.camo then 
+    if v.ability.camo and not self.disable_stickers then
         v.ability.camo = nil
         v:set_debuff(false)
     end
