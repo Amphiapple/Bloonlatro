@@ -31,6 +31,7 @@ Balance Changes:
 - Arcane Mastery cost 7 > 6
 - Monkey Bank has no sell value after being emptied
 - Twin Sixes now works with more than 2 6s
+- Pirate Lord Rare > Uncommon
 - Vengeful True Sun God has the ability to sacrifice eternal Jokers
 - Concoction Tag no longer appears in Ante 1
 - Inflated is no longer played on Gold Stake as that has become Inflated Expert
@@ -41,7 +42,6 @@ Balance Changes:
 Fixes:
 - Frag Bombs no longer shows stunned card tooltip
 - Glue Hose should be able appear without glued cards in the deck
-- Pirate Lord Rare > Uncommon
 - Berserker Brew may now add Foil or Holographic instead of Polychrome
 - Alluring Melody specifies transforming bonus cards before trigger
 - Giant Condor no longer uses Primary Expertise's seed
