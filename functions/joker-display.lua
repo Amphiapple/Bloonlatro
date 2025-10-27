@@ -758,13 +758,13 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local count = 0
                 if text ~= 'Unknown' then
                     for _, scoring_card in pairs(scoring_hand) do
-                        if scoring_card:get_id() == 6 then
+                        if scoring_card:get_id() == 6 and not scoring_card.debuff then
                             count = count + 1
                         end
                     end
                 end
 
-                card.joker_display_values.Xmult = count == card.ability.extra.number and card.ability.extra.Xmult or 1
+                card.joker_display_values.Xmult = count >= card.ability.extra.number and card.ability.extra.Xmult or 1
             end
         }
 
@@ -1922,7 +1922,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.ability.extra", ref_value = "bananas" },
-                { text = " Remaining)" }
+                { text = " remaining)" }
             },
             extra = {
                 {

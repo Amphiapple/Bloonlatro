@@ -354,23 +354,6 @@ SMODS.Back { --Gerry
 	pos = { x = 3, y = 2 },
     order = 30,
 }
-
-SMODS.Back { --Corvus
-    key = "corvus",
-    name = "Corvus Deck",
-	loc_txt = {
-        name = 'Corvus Deck',
-        text = {
-            'Earn {C:attention}1{} mana for each',
-            'played card that scores',
-            "Enables Corvus' {C:spectral}Spellbook{}",
-            '{C:inactive}unimplemented{}'
-        }
-    },
-	atlas = "Back",
-	pos = { x = 4, y = 2 },
-    order = 31,
-}
 ]]
 
 SMODS.Back { --Rose

@@ -61,7 +61,7 @@ SMODS.Joker { --Missile Launcher
         if context.discard and context.other_card:get_id() == 4 and not context.other_card.debuff and
                 SMODS.pseudorandom_probability(card, 'missile', card.ability.extra.num, card.ability.extra.denom, 'missile') then
             ease_dollars(card.ability.extra.money)
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..(card.ability.extra.money),colour = G.C.MONEY, delay = 0.45})
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('$')..(card.ability.extra.money),colour = G.C.MONEY, delay = 0.45})
         end
     end
 }
