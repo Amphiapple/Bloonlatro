@@ -155,7 +155,7 @@ SMODS.Joker { --Twin Sixes
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() == 6 then
+                    if v:get_id() == 6 and not v.debuff then
                         count = count + 1
                     end
                 end
