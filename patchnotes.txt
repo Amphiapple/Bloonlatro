@@ -1,53 +1,17 @@
-Added Jokers:
-- Quick Shots
-- Glaives
-- Missile Launcher
-- Even More Tacks
-- Permafrost
-- Laser Blasts
-- Valuable Bananas
-- Bigger Stacks
-- Jungle Drums
-- MOAB Glue
-- Shinobi Tactics
-- Banana Plantation
-- Druid of the Storm
-- Special Poperations
-- Marine
-
 General Changes:
-- Added tooltips to towers that create other jokers
-- Added 3 more challenges
-- Added CHIMPS Stake
-- Added some Bunco compatability
-- Added some art (Thank you Geeph)
 
 Balance Changes:
-- Bomb Shooter cost 5 > 4
-- Frag Bombs probability 1 in 3 > 1 in 2
-- More Tacks chips 20 > 25
-- Deadly Precision cost 7 > 6
-- Triple Guns cost 6 > 5
-- Arcane Mastery cost 7 > 6
-- Monkey Bank has no sell value after being emptied
-- Twin Sixes now works with more than 2 6s
-- Pirate Lord Rare > Uncommon
-- Vengeful True Sun God has the ability to sacrifice eternal Jokers
-- Concoction Tag no longer appears in Ante 1
-- Inflated is no longer played on Gold Stake as that has become Inflated Expert
-- Inflated now starts wtih $13 dollars to prevent as many Ante 1 Big Blind losses
-- 2TC no longer makes all jokers eternal, and allows perishable stickers to appear
-- 2TC allows jokers that cannot be eternal to appear
+- Mortar mult 8 > 6
+- Red Hot Rangs retrigger last card 2 times > last 2 cards 1 time
+- Red Hot Rangs no longer requires 3 played cards
+- Corrosive Glue chips 10 > 8
+- Pirate Lord money chance 1 in 5 > 10
+- Sky Shredder counts played Aces that score instead of when Aces are triggered
+- Special Poperations no longer gives +1 hand
+- Nail Sentry chips 30 > 20
+- Cold Sentry target first scoring card > first card held in hand
+- MOAB Domination Xmult per boss defeated 1 > 0.5
+- Super Mines Xmult 3 > 2
 
 Fixes:
-- Frag Bombs no longer shows stunned card tooltip
-- Glue Hose should be able appear without glued cards in the deck
-- Berserker Brew may now add Foil or Holographic instead of Polychrome
-- Alluring Melody specifies transforming bonus cards before trigger
-- Giant Condor no longer uses Primary Expertise's seed
-- Velociraptor specifies transforming mult cards before trigger
-- Super Mines no longer overuses stacked mines on Plasma Deck
-- Cleansing Tag should no longer cleanse consumables instead of jokers
-- Invisible Tag should no longer create an extra joker if joker slots are full
-- Sabotage Tag should now correctly be banned on 2 Megapops and 2 Megapops Expert
-- Added lots of text tooltips to jokers and other items
+- Banana Research Facility no longer starts with 1.5x mult on decks with exactly one voucher redeemed

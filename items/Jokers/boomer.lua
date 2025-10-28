@@ -74,9 +74,9 @@ SMODS.Joker { --Red Hot Rangs
     loc_txt = {
         name = 'Red Hot Rangs',
         text = {
-            'Retrigger {C:attention}last{} scored card',
-            '{C:attention}#1#{} times if scoring hand',
-            'contains {C:attention}#2#{} or more cards'
+            'Retrigger {C:attention}last{}',
+            '{C:attention}#1#{} played cards',
+            'used in scoring'
         }
     },
     atlas = 'Joker',
@@ -86,14 +86,14 @@ SMODS.Joker { --Red Hot Rangs
     blueprint_compat = true,
     config = {
         base = 'boomer',
-        extra = { retrigger = 2, number = 3 } --Variables: retrigger = retrigger amount, number = cards required for retrigger
+        extra = { retrigger = 1, number = 2 } --Variables: retrigger = retrigger amount, number = number of cards retriggered
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.retrigger, card.ability.extra.number } }
+        return { vars = { card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and #context.scoring_hand >= card.ability.extra.number and context.other_card == context.scoring_hand[#context.scoring_hand] then
+        if context.repetition and context.cardarea == G.play and (context.other_card == context.scoring_hand[#context.scoring_hand] or context.other_card == context.scoring_hand[#context.scoring_hand-1] ) then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,

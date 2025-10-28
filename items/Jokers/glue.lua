@@ -54,7 +54,7 @@ SMODS.Joker { --Corrosive Glue
     enhancement_gate = 'm_bloons_glued',
     config = {
         base = 'glue',
-        extra = { chips = 10, current = 0 } --Variables: chips = +chip gain for each glued card, current = current +chips
+        extra = { chips = 8, current = 0 } --Variables: chips = +chip gain for each glued card, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)

@@ -143,7 +143,7 @@ SMODS.Joker { --Sentry
     blueprint_compat = true,
     config = {
         base = 'other',
-        extra = { chips = 30, mult = 2, slots = 1, rounds = 2 } --Variables: slots = joker slots, rounds = rounds remaining
+        extra = { chips = 20, mult = 2, slots = 1, rounds = 2 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
     in_pool = function(self, args)
@@ -343,7 +343,7 @@ SMODS.Joker { --Cold Sentry
         name = 'Cold Sentry',
         text = {
             '{C:attention}Freeze{} and retrigger',
-            'first played card when scored',
+            '{C:attention}first{} card held in hand',
             '{C:dark_edition}+#1#{} Joker Slot',
             'Lasts {C:attention}#2#{} rounds'
         }
@@ -372,9 +372,9 @@ SMODS.Joker { --Cold Sentry
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.before and context.scoring_hand[1] and not context.blueprint then
-            context.scoring_hand[1]:set_ability('m_bloons_frozen', nil, true)
-        elseif context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and not context.other_card.debuff then
+        if context.before and G.hand.cards[1] and not context.blueprint then
+            G.hand.cards[1]:set_ability('m_bloons_frozen', nil, true)
+        elseif context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger

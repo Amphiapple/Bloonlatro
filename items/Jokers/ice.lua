@@ -268,15 +268,14 @@ SMODS.Joker { --Icicles
     end
 }
 
-
 SMODS.Joker { --Absolute Zero
     key = 'az',
     name = 'Absolute Zero',
 	loc_txt = {
         name = 'Absolute Zero',
         text = {
-            'If {C:attention}first hand{} of round has ',
-            '{C:attention}#1#{} scoring cards, score no chips,',
+            'If {C:attention}first hand{} of round',
+            'has {C:attention}#1#{} scoring cards, score {C:attention}#1#{} chips',
             '{C:attention}Freeze{} all scoring cards, and',
             'create a {C:spectral}Spectral{} card',
             '{C:inactive}(Must have room){}'
@@ -289,12 +288,12 @@ SMODS.Joker { --Absolute Zero
     blueprint_compat = true,
     config = {
         base = 'ice',
-        extra = { number = 5 } --Variables: number = required cards for spectral
+        extra = { chips = 0, number = 5 } --Variables: number = required cards for spectral
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.number } }
+        return { vars = { card.ability.extra.chips, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
@@ -332,8 +331,8 @@ SMODS.Joker { --Absolute Zero
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
             end
         elseif context.final_scoring_step and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 and not context.blueprint then
-            hand_chips = mod_chips(0)
-            hand_mult = mod_mult(0)
+            hand_chips = mod_chips(card.ability.extra.chips)
+            hand_mult = mod_mult(card.ability.extra.chips)
             update_hand_text( { delay = 0 }, { chips = hand_chips, mult = hand_mult } )
             G.E_MANAGER:add_event(Event({
                 func = function()

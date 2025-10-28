@@ -16,7 +16,7 @@ SMODS.Joker { --Mortar Monkey
     blueprint_compat = true,
     config = {
         base = 'mortar',
-        extra = { num = 1, denom = 2, mult = 8 } --Variables: num/denom = probability fraction, mult = +mult
+        extra = { num = 1, denom = 2, mult = 6 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)

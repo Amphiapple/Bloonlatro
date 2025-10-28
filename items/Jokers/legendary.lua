@@ -18,7 +18,7 @@ SMODS.Joker { --MOAB Domination
     blueprint_compat = true,
     config = {
         base = 'boomer',
-        extra = { Xmult = 1, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
+        extra = { Xmult = 0.5, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
     },
 
     loc_vars = function(self, info_queue, card)
@@ -195,7 +195,7 @@ SMODS.Joker { --Super Mines
     blueprint_compat = true,
     config = {
         base = 'spac',
-        extra = { limit = 3, counter = 3, Xmult = 3, mines = 0 } --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
+        extra = { limit = 3, counter = 3, Xmult = 2, mines = 0 } --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
     },
 
     loc_vars = function(self, info_queue, card)

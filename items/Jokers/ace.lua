@@ -45,7 +45,7 @@ SMODS.Joker { --Exploding Pineapple
         name = 'Exploding Pineapple',
         text = {
             'Destroy all scoring',
-            'cards in {C:attention}#1#{} hands',
+            'cards after {C:attention}#1#{} hands',
             '{S:1.1,C:red,E:2}self destructs{}'
         }
     },
@@ -186,8 +186,8 @@ SMODS.Joker { --Sky Shredder
 	loc_txt = {
         name = 'Sky Shredder',
         text = {
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'after {C:attention}#2#{C:inactive} [#3#]{C:attention} Aces{} are scored',
+            'This Joker gains {X:mult,C:white}X#1#{} Mult after',
+            '{C:attention}#2#{C:inactive} [#3#]{} scoring {C:attention}Aces{} are played',
             'Requirement doubles each increment',
             '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)',
         }
@@ -213,18 +213,22 @@ SMODS.Joker { --Sky Shredder
         return { vars = { card.ability.extra.Xmult, card.ability.extra.limit, process_var(card.ability.extra.counter), card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and card.ability.extra.counter < 32 and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
-            card.ability.extra.counter = card.ability.extra.counter + 1
-            if card.ability.extra.counter >= card.ability.extra.limit then
-                card.ability.extra.current = card.ability.extra.current + 1
-                if card.ability.extra.current < 5 then
-                    card.ability.extra.limit = card.ability.extra.limit * 2
+        if context.before and not context.blueprint then
+            for k, v in ipairs(context.scoring_hand) do
+                if card.ability.extra.counter < 32 and v:get_id() == 14 and not v.debuff then
+                    card.ability.extra.counter = card.ability.extra.counter + 1
+                    if card.ability.extra.counter >= card.ability.extra.limit then
+                        card.ability.extra.current = card.ability.extra.current + 1
+                        if card.ability.extra.current < 5 then
+                            card.ability.extra.limit = card.ability.extra.limit * 2
+                        end
+                        return {
+                            message = localize('k_upgrade_ex'),
+                            colour = G.C.RED,
+                            delay = 0.45,
+                        }
+                    end
                 end
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.RED,
-                    delay = 0.45,
-                }
             end
         elseif context.joker_main and card.ability.extra.current > 1 then
             return {

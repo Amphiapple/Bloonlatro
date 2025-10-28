@@ -105,6 +105,8 @@ SMODS.Joker { --Counter Espionage
                 }))
             end
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
+            ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
             card.ability.extra.ready = true
             card.ability.extra.active = false
         end
@@ -222,7 +224,6 @@ SMODS.Joker { --Shinobi Tactics
             }
         end
     end
-
 }
 
 SMODS.Joker { --Bloon Sabotage

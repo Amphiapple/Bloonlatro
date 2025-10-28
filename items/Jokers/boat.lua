@@ -242,7 +242,7 @@ SMODS.Joker { --Pirate Lord
     enhancement_gate = 'm_lucky',
     config = {
         base = 'boat',
-        extra = { num = 1, denom1 = 2, denom2 = 5 } --Variables: num/denom1, num/denom2 = probability fraction for lucky cards
+        extra = { num = 1, denom1 = 2, denom2 = 10 } --Variables: num/denom1, num/denom2 = probability fraction for lucky cards
     },
 
     loc_vars = function(self, info_queue, card)

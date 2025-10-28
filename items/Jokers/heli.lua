@@ -211,11 +211,10 @@ SMODS.Joker { --Special Poperations
 	loc_txt = {
         name = 'Special Poperations',
         text = {
-            '{C:blue}+#1#{} hand',
             'Create a {C:attention}Marine{} every',
-            '{C:attention}#2#{} {C:inactive}[#3#]{} hands played',
+            '{C:attention}#1#{} {C:inactive}[#2#]{} hands played',
             'Create a {C:attention}Cash Drop{} every',
-            '{C:attention}#4#{} {C:inactive}[#5#]{} hands played'
+            '{C:attention}#3#{} {C:inactive}[#4#]{} hands played'
         }
     },
 	atlas = 'Joker',
@@ -225,7 +224,7 @@ SMODS.Joker { --Special Poperations
     blueprint_compat = true,
     config = {
         base = 'heli',
-        extra = { hands = 1, marine = 5, cash = 9, counter = 0 } --Variables: hands = extra hands, marine = hands for marine, cash = hands for cash drop, current = current hands
+        extra = {marine = 5, cash = 9, counter = 0 } --Variables: hands = extra hands, marine = hands for marine, cash = hands for cash drop, current = current hands
     },
 
     loc_vars = function(self, info_queue, card)
@@ -236,7 +235,6 @@ SMODS.Joker { --Special Poperations
 		end
 		return {
 			vars = {
-				card.ability.extra.hands,
                 card.ability.extra.marine,
                 process_var(card.ability.extra.counter, card.ability.extra.marine),
                 card.ability.extra.cash,
@@ -245,15 +243,7 @@ SMODS.Joker { --Special Poperations
 		}
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not card.getting_sliced then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    ease_hands_played(card.ability.extra.hands)
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
-                    return true 
-                end 
-            }))
-        elseif context.joker_main then
+        if context.joker_main then
             card.ability.extra.counter = G.GAME.hands_played - card.ability.hands_played_at_create + 1
             if card.ability.extra.counter % card.ability.extra.marine == 0 then
                 G.E_MANAGER:add_event(Event({
