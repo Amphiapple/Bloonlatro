@@ -100,12 +100,16 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" },
             },
             calc_function = function(card)
-                if card.ability.extra.counter == 1 then
-                    card.joker_display_values.active = "Next!"
+                if card.ability.extra.counter ~= card.ability.extra.limit then
                     card.joker_display_values.tarots = card.ability.extra.tarots
                 else
-                    card.joker_display_values.active = card.ability.extra.counter .. " remaining"
                     card.joker_display_values.tarots = 0
+                end
+
+                if card.ability.extra.counter == 1 then
+                    card.joker_display_values.active = "Next!"
+                else
+                    card.joker_display_values.active = card.ability.extra.counter .. " remaining"
                 end
             end
         }
@@ -293,7 +297,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             text = {
                 { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
                 { text = "x", scale = 0.35 },
-                { text = "$", colour = G.C.MONEY },
+                { text = "+$", colour = G.C.MONEY },
                 { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY }
             },
             reminder_text = {
@@ -795,16 +799,15 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             },
             calc_function = function(card)
                 local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-                local sorted_hand = JokerDisplay.sort_cards(scoring_hand)
                 local mult_value = 0
                 local right_card = nil
 
-                if text ~= 'Unknown' and #sorted_hand >= 2 then
-                    local mult_card = sorted_hand[#sorted_hand - 1]
+                if text ~= 'Unknown' and #scoring_hand >= 2 then
+                    local mult_card = scoring_hand[#scoring_hand - 1]
                     if mult_card.facing ~= 'back' and not mult_card.debuff then
                         mult_value = mult_card.base.nominal
                     end
-                    right_card = sorted_hand[#sorted_hand]
+                    right_card = JokerDisplay.calculate_rightmost_card(scoring_hand)
                 end
 
                 card.joker_display_values.mult = right_card and JokerDisplay.calculate_card_triggers(right_card, scoring_hand, false) * mult_value or 0

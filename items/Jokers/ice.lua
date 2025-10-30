@@ -274,8 +274,8 @@ SMODS.Joker { --Absolute Zero
 	loc_txt = {
         name = 'Absolute Zero',
         text = {
-            'If {C:attention}first hand{} of round',
-            'has {C:attention}#1#{} scoring cards, score {C:attention}#1#{} chips',
+            'If {C:attention}first hand{} of round has',
+            '{C:attention}#1#{} scoring cards, score {C:attention}#1#{} chips,',
             '{C:attention}Freeze{} all scoring cards, and',
             'create a {C:spectral}Spectral{} card',
             '{C:inactive}(Must have room){}'

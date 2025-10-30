@@ -12,6 +12,9 @@ Balance Changes:
 - Cold Sentry target first scoring card > first card held in hand
 - MOAB Domination Xmult per boss defeated 1 > 0.5
 - Super Mines Xmult 3 > 2
+- Cash Drop can now be used in the shop
+- Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
 
 Fixes:
+- Long Life Spikes no longer gains mult when discarding debuffed Spades
 - Banana Research Facility no longer starts with 1.5x mult on decks with exactly one voucher redeemed

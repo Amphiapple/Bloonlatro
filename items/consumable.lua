@@ -112,9 +112,7 @@ SMODS.Consumable { --SMS
         return { vars = { card.ability.percent, card.ability.max } }
     end,
     can_use = function(self, card)
-        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
-            return true
-        end
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
         local score = G.GAME.blind.chips * card.ability.percent / 100.0
@@ -180,7 +178,7 @@ SMODS.Consumable { --Mboost
         return { vars = { card.ability.Xmult } }
     end,
     can_use = function(self, card)
-        return not card.ability.active
+        return not card.ability.active and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
@@ -246,7 +244,7 @@ SMODS.Consumable { --Thrive
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
-        return not card.ability.active
+        return not card.ability.active and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
@@ -338,9 +336,7 @@ SMODS.Consumable { --Time
         return { vars = { card.ability.hands, card.ability.discards } }
     end,
     can_use = function(self, card)
-        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
-            return true
-        end
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -371,9 +367,7 @@ SMODS.Consumable { --Cash
         return { vars = { card.ability.money } }
     end,
     can_use = function(self, card)
-        if G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
-            return true
-        end
+        return true
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -729,7 +723,7 @@ SMODS.Consumable { --Tech
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
-        return not card.ability.active
+        return not card.ability.active and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then

@@ -142,7 +142,7 @@ SMODS.Joker { --Long Life Spikes
         return { vars = { card.ability.extra.mult, card.ability.extra.loss, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card:is_suit('Spades', true) and not context.blueprint then
+        if context.discard and context.other_card:is_suit('Spades', true) and not context.other_card.debuff and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
                 message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
