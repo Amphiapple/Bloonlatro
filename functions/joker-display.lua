@@ -724,7 +724,15 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             text = {
                 { text = "+", colour = G.C.CHIPS },
                 { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
-            }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "poker_hand", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.poker_hand = card.ability.extra.poker_hand ~= "" and card.ability.extra.poker_hand or "None"
+            end
         }
 
         jd_def["j_bloons_enforcer"] = { --Enforcer
