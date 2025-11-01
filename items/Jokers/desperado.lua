@@ -66,12 +66,15 @@ SMODS.Joker { --Nomad
     },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.chips, card.ability.extra.current, card.ability.extra.poker_hand } }
+        local function process_vars(poker_hand)
+            return poker_hand ~= '' and '[' .. poker_hand .. ']' or poker_hand
+        end
+		return { vars = { card.ability.extra.chips, card.ability.extra.current, process_vars(card.ability.extra.poker_hand) } }
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
-            if '[' .. context.scoring_name .. ']' ~= card.ability.extra.poker_hand then
-                card.ability.extra.poker_hand = '[' .. context.scoring_name .. ']'
+            if context.scoring_name ~= card.ability.extra.poker_hand then
+                card.ability.extra.poker_hand = context.scoring_name
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
                 return {
                     message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}}
