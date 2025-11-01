@@ -17,7 +17,7 @@ SMODS.Joker { --Mermonkey
     enhancement_gate = 'm_bonus',
     config = {
         base = 'mermonkey',
-        extra = { mult = 15 } --Variables: mult = +mult
+        extra = { mult = 20 } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -43,8 +43,8 @@ SMODS.Joker { --Echosense Network'
     loc_txt = {
         name = 'Echosense Network',
         text = {
-            'Create a random {C:planet}Planet{}',
-            'card if {C:attention}scoring hand{}',
+            'Create the {C:planet}Planet{} card for',
+            'played {C:attention}poker hand{} if it',
             'contains {C:attention}#1# Bonus Cards{}',
             '{C:inactive}(Must have room){}'
         }
@@ -78,7 +78,13 @@ SMODS.Joker { --Echosense Network'
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'network')
+                        local planet = nil
+                        for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                            if v.config.hand_type == context.scoring_name then
+                                planet = v.key
+                            end
+                        end
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'network')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0

@@ -39,8 +39,8 @@ SMODS.Joker { --Burny Stuff
         name = 'Burny Stuff',
         text = {
             '{C:green}#1# in #2#{} chance to',
-            'destroy {C:attention}first{} played',
-            'card that scores'
+            'destroy {C:attention}first{}',
+            'played card'
         }
     },
     atlas = 'Joker',
@@ -58,8 +58,8 @@ SMODS.Joker { --Burny Stuff
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.destroying_card and context.scoring_hand[1] and context.destroying_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
-            return true
+        if context.destroy_card and context.destroy_card == context.full_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
+            return {remove = true}
         end
     end
 }

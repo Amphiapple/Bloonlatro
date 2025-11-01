@@ -105,8 +105,10 @@ SMODS.Joker { --Counter Espionage
                 }))
             end
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
-            ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
+            if card.ability.extra.active then
+                ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
+                ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
+            end
             card.ability.extra.ready = true
             card.ability.extra.active = false
         end
@@ -120,7 +122,7 @@ SMODS.Joker { --Flash Bomb
         name = 'Flash Bomb',
         text = {
             '{C:mult}+#1#{} Mult and',
-            '{C:attention}Stun{} all scoring {C:spades}Spades{}',
+            '{C:attention}Stun{} all scoring cards',
             'every {C:attention}#2#{} hands',
             '{C:inactive}(#3#)'
         }
@@ -160,15 +162,13 @@ SMODS.Joker { --Flash Bomb
             juice_card_until(card, eval, true)
             if card.ability.extra.counter == card.ability.extra.limit then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Spades', true) then
-                        v:set_ability(G.P_CENTERS.m_bloons_stunned)
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                v:juice_up()
-                                return true
-                            end
-                        }))
-                    end
+                    v:set_ability(G.P_CENTERS.m_bloons_stunned)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            v:juice_up()
+                            return true
+                        end
+                    }))
                 end
             end
         elseif context.joker_main and card.ability.extra.counter == card.ability.extra.limit then

@@ -135,7 +135,7 @@ SMODS.Joker { --Long Life Spikes
     perishable_compat = false,
     config = {
         base = 'spac',
-        extra = { mult = 1, loss = 4, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+        extra = { mult = 1, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
     },
 
     loc_vars = function(self, info_queue, card)

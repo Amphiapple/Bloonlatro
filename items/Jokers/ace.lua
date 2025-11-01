@@ -116,7 +116,7 @@ SMODS.Joker { --Neva-Miss Targeting
     blueprint_compat = true,
     config = {
         base = 'ace',
-        extra = { percent_min = 80, percent_max = 120 } --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
+        extra = { percent_min = 75, percent_max = 125 } --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
     },
 
     loc_vars = function(self, info_queue, card)

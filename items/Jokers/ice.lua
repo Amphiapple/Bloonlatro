@@ -245,7 +245,7 @@ SMODS.Joker { --Icicles
     blueprint_compat = true,
     config = {
         base = 'ice',
-        extra = { Xmult = 1.2, num = 1, denom = 2 } --Variables: Xmult = Xmult, num/denom = probability fraction
+        extra = { Xmult = 1.3, num = 1, denom = 2 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)

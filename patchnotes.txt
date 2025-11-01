@@ -1,10 +1,20 @@
 General Changes:
+- Power usability changes due to the new function of certain powers becoming Negative when used
+- Cash Drop can now be used in the shop
+- Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
 
 Balance Changes:
-- Mortar mult 8 > 6
+- Mortar Mult 8 > 6
+- Mermonkey Mult 15 > 20
 - Red Hot Rangs retrigger last card 2 times > last 2 cards 1 time
 - Red Hot Rangs no longer requires 3 played cards
 - Corrosive Glue chips 10 > 8
+- Burny Stuff first scoring card > first played card
+- Counter Espionage resets hands and discards at end of round
+- Neva-Miss Targeting range 80%-120% > 75%-125%
+- Flash Bomb stuns all scoring cards instead of only Spades
+- Long Life Spikes mult loss 4 > 3
+- PIcicles Xmult 1.2 > 1.3
 - Pirate Lord money chance 1 in 5 > 10
 - Sky Shredder counts played Aces that score instead of when Aces are triggered
 - Special Poperations no longer gives +1 hand
@@ -12,8 +22,6 @@ Balance Changes:
 - Cold Sentry target first scoring card > first card held in hand
 - MOAB Domination Xmult per boss defeated 1 > 0.5
 - Super Mines Xmult 3 > 2
-- Cash Drop can now be used in the shop
-- Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
 
 Fixes:
 - Long Life Spikes no longer gains mult when discarding debuffed Spades
