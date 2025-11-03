@@ -63,12 +63,12 @@ match_indent = true
 [patches.pattern]
 target = "card.lua"
 pattern = '''
-                G.E_MANAGER:add_event(Event({func = function()
-                    G.E_MANAGER:add_event(Event({func = function()
+G.E_MANAGER:add_event(Event({func = function()
+    G.E_MANAGER:add_event(Event({func = function()
 '''
 position = 'after'
 payload = '''
-                        G.GAME.blind:disable_stickers()
+G.GAME.blind:disable_blind_stickers()
 '''
 match_indent = true
 

@@ -44,7 +44,9 @@ SMODS.Joker { --Counter Espionage
         name = 'Counter Espionage',
         text = {
             'When {C:attention}Blind{} is selected,',
-            'combine hands and discards'
+            'combine hands and discards',
+            'Lose all hands and discards',
+            'at the end of round'
         }
     },
     atlas = 'Joker',
@@ -106,11 +108,11 @@ SMODS.Joker { --Counter Espionage
             end
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             if card.ability.extra.active then
-                ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
-                ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
+                ease_hands_played(-G.GAME.current_round.hands_left)
+                ease_discard(-G.GAME.current_round.discards_left)
             end
-            card.ability.extra.ready = true
             card.ability.extra.active = false
+            card.ability.extra.ready = true
         end
     end
 }
