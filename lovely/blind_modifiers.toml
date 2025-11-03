@@ -38,6 +38,15 @@ function Blind:disable_blind_stickers()
         self.chips = self.chips / sticker_obj.config.increase
         self.chip_text = number_format(self.chips)
     end
+    if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss then
+        for _, card in ipairs(G.hand.cards) do
+            if card.ability.camo then
+                card.ability.camo = nil
+                card:set_debuff(false)
+                if card.facing == 'back' then card:flip() end
+            end
+        end
+    end
     self.disable_stickers = true
 end
 '''
@@ -68,7 +77,7 @@ G.E_MANAGER:add_event(Event({func = function()
 '''
 position = 'after'
 payload = '''
-G.GAME.blind:disable_blind_stickers()
+    G.GAME.blind:disable_blind_stickers()
 '''
 match_indent = true
 
@@ -423,5 +432,21 @@ function create_popup_UIBox_bloons_sticker_tooltip(tooltip)
     return t
 end
 
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+new_card.debuff = other.debuff
+new_card.pinned = other.pinned
+'''
+position = 'after'
+payload = '''
+new_card.ability.camo = other.ability.camo
+if new_card.facing ~= other.facing then
+    new_card:flip()
+end
 '''
 match_indent = true
