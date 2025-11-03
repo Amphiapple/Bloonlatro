@@ -9,7 +9,7 @@ SMODS.Joker { --Monkey Village
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 2 },
+	pos = { x = 0, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -36,6 +36,36 @@ SMODS.Joker { --Monkey Village
     end
 }
 
+SMODS.Joker { --Monkey Business
+    key = 'discount',
+    name = 'Monkey Business',
+    loc_txt = {
+        name = 'Monkey Business',
+        text = {
+            'Shop items cost {C:attention}$#1#{} less'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 11, y = 22 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = false,
+    config = {
+        base = 'village',
+        extra = { cost = 1 } --Variables: cost = discount amount
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cost } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        recalc_all_costs()
+    end,
+}
+
 SMODS.Joker { --Jungle Drums
     key = 'drums',
     name = 'Jungle Drums',
@@ -47,7 +77,7 @@ SMODS.Joker { --Jungle Drums
         }
     },
     atlas = 'Joker',
-	pos = { x = 9, y = 5 },
+	pos = { x = 2, y = 22 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -74,36 +104,6 @@ SMODS.Joker { --Jungle Drums
     end
 }
 
-SMODS.Joker { --Monkey Commerce
-    key = 'discount',
-    name = 'Monkey Commerce',
-    loc_txt = {
-        name = 'Monkey Commerce',
-        text = {
-            'Shop items cost {C:attention}$#1#{} less'
-        }
-    },
-    atlas = 'Joker',
-	pos = { x = 1, y = 5 },
-    rarity = 1,
-	cost = 5,
-    blueprint_compat = false,
-    config = {
-        base = 'village',
-        extra = { cost = 1 } --Variables: cost = discount amount
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.cost } }
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        recalc_all_costs()
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        recalc_all_costs()
-    end,
-}
-
 SMODS.Joker { --Monkey Intelligence Bureau
     key = 'mib',
     name = 'Monkey Intelligence Bureau',
@@ -117,7 +117,7 @@ SMODS.Joker { --Monkey Intelligence Bureau
         }
     },
     atlas = 'Joker',
-    pos = { x = 1, y = 8 },
+    pos = { x = 8, y = 22 },
     rarity = 2,
     cost = 7,
     blueprint_compat = false,
@@ -173,7 +173,7 @@ SMODS.Joker { --Monkey City
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 11 },
+	pos = { x = 14, y = 22 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -222,7 +222,7 @@ SMODS.Joker { --Primary Expertise
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 14 },
+	pos = { x = 5, y = 22 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

@@ -12,7 +12,7 @@ SMODS.Joker { --Alchemist
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 1 },
+	pos = { x = 0, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -72,7 +72,7 @@ SMODS.Joker { --Acidic Mixture Dip
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 4 },
+	pos = { x = 2, y = 17 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = false,
@@ -112,7 +112,7 @@ SMODS.Joker { --Berserker Brew
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 7 },
+	pos = { x = 3, y = 17 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -163,7 +163,7 @@ SMODS.Joker { --Rubber to Gold
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 10 },
+	pos = { x = 14, y = 17 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -203,7 +203,7 @@ SMODS.Joker { --Total Transformation
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 13 },
+	pos = { x = 10, y = 17 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

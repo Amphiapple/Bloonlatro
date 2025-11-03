@@ -10,7 +10,7 @@ SMODS.Joker { --Engineer Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 2 },
+	pos = { x = 0, y = 23 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -50,7 +50,7 @@ SMODS.Joker { --Sentry Gun
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 5 },
+	pos = { x = 1, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -91,7 +91,7 @@ SMODS.Joker { --Double Gun
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 8 },
+	pos = { x = 13, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -147,7 +147,7 @@ SMODS.Joker { --Sentry Expert
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 11 },
+	pos = { x = 4, y = 23 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -192,7 +192,7 @@ SMODS.Joker { --Ultraboost
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 14 },
+	pos = { x = 10, y = 23 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,

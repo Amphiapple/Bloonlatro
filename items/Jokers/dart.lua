@@ -44,7 +44,7 @@ SMODS.Joker { --Quick Shots
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 2 },
+	pos = { x = 6, y = 0 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -76,7 +76,7 @@ SMODS.Joker { --Enhanced Eyesight
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 3 },
+	pos = { x = 12, y = 0 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -109,7 +109,7 @@ SMODS.Joker { --Triple Shot
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 6 },
+	pos = { x = 8, y = 0 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -165,7 +165,7 @@ SMODS.Joker { --Juggernaut
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 9 },
+	pos = { x = 4, y = 0 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -203,7 +203,7 @@ SMODS.Joker { --Crossbow Master
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 12 },
+	pos = { x = 15, y = 0 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,

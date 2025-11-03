@@ -11,7 +11,7 @@ SMODS.Joker { --Monkey Buccaneer
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 0 },
+	pos = { x = 0, y = 9 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -52,7 +52,7 @@ SMODS.Joker { --Grape Shot
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 3 },
+	pos = { x = 6, y = 9 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -121,7 +121,7 @@ SMODS.Joker { --Destroyer
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 6 },
+	pos = { x = 3, y = 9 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -185,7 +185,7 @@ SMODS.Joker { --Favored Trades
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 9 },
+	pos = { x = 14, y = 9 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -235,7 +235,7 @@ SMODS.Joker { --Pirate Lord
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 12 },
+	pos = { x = 10, y = 9 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,

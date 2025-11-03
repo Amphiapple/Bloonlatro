@@ -8,7 +8,7 @@ SMODS.Joker { --Dartling Gunner
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 1 },
+	pos = { x = 0, y = 13 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -40,7 +40,7 @@ SMODS.Joker { --Laser Shock
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 4 },
+	pos = { x = 2, y = 13 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -87,7 +87,7 @@ SMODS.Joker { --Buckshot
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 7 },
+	pos = { x = 13, y = 13 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -119,7 +119,7 @@ SMODS.Joker { --Rocket Storm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 10 },
+	pos = { x = 9, y = 13 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -166,7 +166,7 @@ SMODS.Joker { --Ray of Doom
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 13 },
+	pos = { x = 5, y = 13 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,

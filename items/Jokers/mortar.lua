@@ -10,7 +10,7 @@ SMODS.Joker { --Mortar Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 1 },
+	pos = { x = 0, y = 12 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -44,7 +44,7 @@ SMODS.Joker { --Burny Stuff
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 4 },
+	pos = { x = 12, y = 12 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -76,7 +76,7 @@ SMODS.Joker { --Shell Shock
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 7 },
+	pos = { x = 3, y = 12 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -113,7 +113,7 @@ SMODS.Joker { --Artillery Battery
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 10 },
+	pos = { x = 9, y = 12 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -168,7 +168,7 @@ SMODS.Joker { --Blooncineration
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 13 },
+	pos = { x = 15, y = 12 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

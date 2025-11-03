@@ -11,7 +11,7 @@ SMODS.Joker { --Bloonprint
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 11 },
+	pos = { x = 0, y = 25 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -69,7 +69,7 @@ SMODS.Joker { --Marine
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 8 },
+	pos = { x = 1, y = 25 },
     rarity = 3,
 	cost = 4,
     blueprint_compat = true,
@@ -137,7 +137,7 @@ SMODS.Joker { --Sentry
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 5 },
+	pos = { x = 2, y = 25 },
     rarity = 1,
 	cost = 1,
     blueprint_compat = true,
@@ -206,7 +206,7 @@ SMODS.Joker { --Crushing Sentry
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 11 },
+	pos = { x = 3, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -274,7 +274,7 @@ SMODS.Joker { --Boom Sentry
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 11 },
+	pos = { x = 4, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -349,7 +349,7 @@ SMODS.Joker { --Cold Sentry
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 11 },
+	pos = { x = 5, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -421,7 +421,7 @@ SMODS.Joker { --Energy Sentry
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 11 },
+	pos = { x = 6, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,

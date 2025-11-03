@@ -11,7 +11,7 @@ SMODS.Joker { --Spike Factory
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 2 },
+	pos = { x = 0, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -57,7 +57,7 @@ SMODS.Joker { --Bigger Stacks
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 5 },
+	pos = { x = 1, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -88,7 +88,7 @@ SMODS.Joker { --Smart Spikes
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 5 },
+	pos = { x = 12, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -128,7 +128,7 @@ SMODS.Joker { --Long Life Spikes
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 8 },
+	pos = { x = 13, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -181,7 +181,7 @@ SMODS.Joker { --Spike Storm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 11 },
+	pos = { x = 9, y = 21 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -234,7 +234,7 @@ SMODS.Joker { --Perma-Spike
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 14 },
+	pos = { x = 15, y = 21 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

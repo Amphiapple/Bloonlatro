@@ -10,7 +10,7 @@ SMODS.Joker { --Mermonkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 1 },
+	pos = { x = 0, y = 19 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -50,7 +50,7 @@ SMODS.Joker { --Echosense Network'
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 4 },
+	pos = { x = 12, y = 19 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -109,7 +109,7 @@ SMODS.Joker { --Alluring Melody
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 7 },
+	pos = { x = 13, y = 19 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -149,7 +149,7 @@ SMODS.Joker { --Arctic Knight'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 10 },
+	pos = { x = 9, y = 19 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -192,7 +192,7 @@ SMODS.Joker { --Lord of the Abyss
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 13 },
+	pos = { x = 5, y = 19 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,

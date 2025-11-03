@@ -8,7 +8,7 @@ SMODS.Joker { --Super Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 1 },
+	pos = { x = 0, y = 15 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -41,13 +41,13 @@ SMODS.Joker { --Super Range
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 2 },
+	pos = { x = 6, y = 15 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
     config = {
         base = 'super',
-        extra = { shop_slots = 2, booster_slots = 1 } --Variables: shop_slots = extra shop slots, booster_slots = reduced booster slots
+        extra = { shop_slots = 2, booster_slots = 2 } --Variables: shop_slots = extra shop slots, booster_slots = reduced booster slots
     },
 
     loc_vars = function(self, info_queue, card)
@@ -85,7 +85,7 @@ SMODS.Joker { --Ultravision
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 4 },
+	pos = { x = 12, y = 15 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -123,7 +123,7 @@ SMODS.Joker { --Sun Avatar
         }
     },
     atlas = 'Joker',
-    pos = { x = 4, y = 7 },
+    pos = { x = 3, y = 15 },
     rarity = 2,
     cost = 8,
     blueprint_compat = true,
@@ -162,7 +162,7 @@ SMODS.Joker { --Tech Terror
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 10 },
+	pos = { x = 9, y = 15 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -197,7 +197,7 @@ SMODS.Joker { --Legend of the Night
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 13 },
+	pos = { x = 15, y = 15 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = false,

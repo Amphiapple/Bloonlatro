@@ -2157,9 +2157,8 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 local held_cards = {}
 
                 for i = 1, #G.hand.cards do
-                    local hand_card = G.hand.cards[i]
-                    if not hand_card.highlighted and hand_card.facing ~= 'back' then
-                        table.insert(held_cards, hand_card)
+                    if not G.hand.cards[i].highlighted then
+                        table.insert(held_cards, G.hand.cards[i])
                     end
                 end
 

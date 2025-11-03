@@ -10,7 +10,7 @@ SMODS.Joker { --Desperado
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 2 },
+	pos = { x = 0, y = 6 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -55,7 +55,7 @@ SMODS.Joker { --Nomad
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 5 },
+	pos = { x = 12, y = 6 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -101,7 +101,7 @@ SMODS.Joker { --Enforcer
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 8 },
+	pos = { x = 13, y = 6 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -141,7 +141,7 @@ SMODS.Joker { --Twin Sixes
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 11 },
+	pos = { x = 4, y = 6 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -186,7 +186,7 @@ SMODS.Joker { --Golden Justice
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 14 },
+	pos = { x = 10, y = 6 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

@@ -9,8 +9,8 @@ SMODS.Joker { --Ninja Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 1 },
-    soul_pos = { x = 0, y = 15 },
+	pos = { x = 0, y = 16 },
+    soul_pos = { x = 10, y = 26 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -50,7 +50,7 @@ SMODS.Joker { --Counter Espionage
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 4 },
+	pos = { x = 7, y = 16 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -117,6 +117,53 @@ SMODS.Joker { --Counter Espionage
     end
 }
 
+SMODS.Joker { --Shinobi Tactics
+    key = 'shinobi',
+    name = 'Shinobi Tactics',
+	loc_txt = {
+        name = 'Shinobi Tactics',
+        text = {
+            '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
+            '{C:dark_edition}+#2#{} Joker Slot',
+            'All {C:attention}Ninjas{} may appear',
+            'multiple times'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 16 },
+    soul_pos = { x = 12, y = 26 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'ninja',
+        extra = { Xmult = 1.2, slots = 1 } --Variables: Xmult = Xmult for each ninja, slots = extra joker slots
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.base == 'ninja' then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Flash Bomb
     key = 'flash',
     name = 'Flash Bomb',
@@ -130,7 +177,7 @@ SMODS.Joker { --Flash Bomb
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 7 },
+	pos = { x = 13, y = 16 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -181,53 +228,6 @@ SMODS.Joker { --Flash Bomb
     end
 }
 
-SMODS.Joker { --Shinobi Tactics
-    key = 'shinobi',
-    name = 'Shinobi Tactics',
-	loc_txt = {
-        name = 'Shinobi Tactics',
-        text = {
-            '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'All {C:attention}Ninjas{} may appear',
-            'multiple times'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 6, y = 8 },
-    soul_pos = { x = 1, y = 15 },
-    rarity = 2,
-	cost = 5,
-    blueprint_compat = true,
-    config = {
-        base = 'ninja',
-        extra = { Xmult = 1.2, slots = 1 } --Variables: Xmult = Xmult for each ninja, slots = extra joker slots
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-    end,
-    calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.ability.base == 'ninja' then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            }))
-            return {
-                x_mult = card.ability.extra.Xmult
-            }
-        end
-    end
-}
-
 SMODS.Joker { --Bloon Sabotage
     key = 'sabo',
     name = 'Bloon Sabotage',
@@ -242,7 +242,7 @@ SMODS.Joker { --Bloon Sabotage
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 10 },
+	pos = { x = 9, y = 16 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -305,7 +305,7 @@ SMODS.Joker { --Grandmaster Ninja
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 13 },
+	pos = { x = 5, y = 16 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

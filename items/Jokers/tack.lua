@@ -10,7 +10,7 @@ SMODS.Joker { --Tack Shooter
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 0 },
+	pos = { x = 0, y = 3 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -44,7 +44,7 @@ SMODS.Joker { --More Tacks
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 3 },
+	pos = { x = 11, y = 3 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -78,7 +78,7 @@ SMODS.Joker { --Even More Tacks
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 2 },
+	pos = { x = 12, y = 3 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -113,7 +113,7 @@ SMODS.Joker { --Blade Shooter
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 6 },
+	pos = { x = 8, y = 3 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -162,7 +162,7 @@ SMODS.Joker { --Overdrive
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 9 },
+	pos = { x = 14, y = 3 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -207,7 +207,7 @@ SMODS.Joker { --Inferno Ring
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 12 },
+	pos = { x = 5, y = 3 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
