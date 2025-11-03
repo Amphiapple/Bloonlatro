@@ -10,7 +10,7 @@ SMODS.Joker { --Ice Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 0 },
+	pos = { x = 0, y = 4 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -63,7 +63,7 @@ SMODS.Joker { --Permafrost
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 2 },
+	pos = { x = 1, y = 4 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -103,7 +103,7 @@ SMODS.Joker { --Refreeze
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 3 },
+	pos = { x = 12, y = 4 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -139,7 +139,7 @@ SMODS.Joker { --Ice Shards
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 6 },
+	pos = { x = 3, y = 4 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -239,7 +239,7 @@ SMODS.Joker { --Icicles
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 9 },
+	pos = { x = 14, y = 4 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -282,7 +282,7 @@ SMODS.Joker { --Absolute Zero
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 12 },
+	pos = { x = 10, y = 4 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,

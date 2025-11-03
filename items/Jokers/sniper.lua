@@ -10,7 +10,7 @@ SMODS.Joker { --Sniper Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 0 },
+	pos = { x = 0, y = 7 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -65,7 +65,7 @@ SMODS.Joker { --Shrapnel Shot
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 3 },
+	pos = { x = 7, y = 7 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -95,7 +95,7 @@ SMODS.Joker { --Deadly Precision
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 6 },
+	pos = { x = 3, y = 7 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -149,7 +149,7 @@ SMODS.Joker { --Supply Drop
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 9 },
+	pos = { x = 9, y = 7 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -211,7 +211,7 @@ SMODS.Joker { --Elite Defender
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 12 },
+	pos = { x = 15, y = 7 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,

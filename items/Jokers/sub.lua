@@ -10,7 +10,7 @@ SMODS.Joker { --Monkey Sub
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 0 },
+	pos = { x = 0, y = 8 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -49,7 +49,7 @@ SMODS.Joker { --Advanced Intel
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 3 },
+	pos = { x = 2, y = 8 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -92,7 +92,7 @@ SMODS.Joker { --Triple Guns
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 6 },
+	pos = { x = 13, y = 8 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -152,7 +152,7 @@ SMODS.Joker { --First Strike Capability
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 9 },
+	pos = { x = 9, y = 8 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -191,7 +191,7 @@ SMODS.Joker { --Energizer
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 12 },
+	pos = { x = 5, y = 8 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

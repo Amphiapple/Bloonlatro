@@ -10,7 +10,7 @@ SMODS.Joker { --Boomerang Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 0 },
+	pos = { x = 0, y = 1 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -44,7 +44,7 @@ SMODS.Joker { --Glaives
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 5 },
+	pos = { x = 2, y = 1 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -80,7 +80,7 @@ SMODS.Joker { --Red Hot Rangs
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 3 },
+	pos = { x = 12, y = 1 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -115,7 +115,7 @@ SMODS.Joker { --Bionic Boomerang
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 6 },
+	pos = { x = 8, y = 1 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -166,7 +166,7 @@ SMODS.Joker { --MOAB Press
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 9 },
+	pos = { x = 14, y = 1 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = false,
@@ -206,7 +206,7 @@ SMODS.Joker { --Glaive Lord
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 12 },
+	pos = { x = 5, y = 1 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

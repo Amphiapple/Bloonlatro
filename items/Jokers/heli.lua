@@ -10,7 +10,7 @@ SMODS.Joker { --Heli Pilot
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 1 },
+	pos = { x = 0, y = 11 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -54,7 +54,7 @@ SMODS.Joker { --Quad Darts
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 4 },
+	pos = { x = 1, y = 11 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -102,7 +102,7 @@ SMODS.Joker { --Downdraft
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 7 },
+	pos = { x = 8, y = 11 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -172,7 +172,7 @@ SMODS.Joker { --Comanche Defense
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 10 },
+	pos = { x = 14, y = 11 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -205,6 +205,54 @@ SMODS.Joker { --Comanche Defense
     end
 }
 
+SMODS.Joker { --Apache Prime
+    key = 'aprime',
+    name = 'Apache Prime',
+	loc_txt = {
+        name = 'Apache Prime',
+        text = {
+            'Each played {C:attention}2{}, {C:attention}3{}, {C:attention}5{},',
+            'or {C:attention}7{} gives {X:mult,C:white}X#1#{}, {X:mult,C:white}X#2#{},',
+            '{X:mult,C:white}X#3#{}, or {X:mult,C:white}X#4#{} Mult',
+            'respectively when scored'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 11 },
+    rarity = 3,
+	cost = 9,
+    blueprint_compat = true,
+    config = {
+        base = 'heli',
+        extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } --Variables: Xmult = Xmult for each rank
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3, card.ability.extra.Xmult4 } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 2 then
+                return {
+                    x_mult = card.ability.extra.Xmult1
+                }
+            elseif context.other_card:get_id() == 3 then
+                return {
+                    x_mult = card.ability.extra.Xmult2
+                }
+            elseif context.other_card:get_id() == 5 then
+                return {
+                    x_mult = card.ability.extra.Xmult3
+                }
+            elseif context.other_card:get_id() == 7 then
+                return {
+                    x_mult = card.ability.extra.Xmult4
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Special Poperations
     key = 'spop',
     name = 'Special Poperations',
@@ -218,7 +266,7 @@ SMODS.Joker { --Special Poperations
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 8 },
+	pos = { x = 10, y = 11 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -270,54 +318,6 @@ SMODS.Joker { --Special Poperations
                     end)
                 }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.POWER})
-            end
-        end
-    end
-}
-
-SMODS.Joker { --Apache Prime
-    key = 'aprime',
-    name = 'Apache Prime',
-	loc_txt = {
-        name = 'Apache Prime',
-        text = {
-            'Each played {C:attention}2{}, {C:attention}3{}, {C:attention}5{},',
-            'or {C:attention}7{} gives {X:mult,C:white}X#1#{}, {X:mult,C:white}X#2#{},',
-            '{X:mult,C:white}X#3#{}, or {X:mult,C:white}X#4#{} Mult',
-            'respectively when scored'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 0, y = 13 },
-    rarity = 3,
-	cost = 9,
-    blueprint_compat = true,
-    config = {
-        base = 'heli',
-        extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } --Variables: Xmult = Xmult for each rank
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3, card.ability.extra.Xmult4 } }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 2 then
-                return {
-                    x_mult = card.ability.extra.Xmult1
-                }
-            elseif context.other_card:get_id() == 3 then
-                return {
-                    x_mult = card.ability.extra.Xmult2
-                }
-            elseif context.other_card:get_id() == 5 then
-                return {
-                    x_mult = card.ability.extra.Xmult3
-                }
-            elseif context.other_card:get_id() == 7 then
-                return {
-                    x_mult = card.ability.extra.Xmult4
-                }
             end
         end
     end

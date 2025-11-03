@@ -10,7 +10,7 @@ SMODS.Joker { --Wizard Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 1 },
+	pos = { x = 0, y = 14 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -59,7 +59,7 @@ SMODS.Joker { --Wall of Fire
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 4 },
+	pos = { x = 7, y = 14 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -91,7 +91,7 @@ SMODS.Joker { --Arcane Mastery
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 7 },
+	pos = { x = 3, y = 14 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -134,7 +134,7 @@ SMODS.Joker { --Necromancer
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 10 },
+	pos = { x = 14, y = 14 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -179,7 +179,7 @@ SMODS.Joker { --Wizard Lord Phoenix
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 13 },
+	pos = { x = 10, y = 14 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

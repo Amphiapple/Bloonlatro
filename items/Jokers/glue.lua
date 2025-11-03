@@ -10,7 +10,7 @@ SMODS.Joker { --Glue Gunner
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 0 },
+	pos = { x = 0, y = 5 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -46,7 +46,7 @@ SMODS.Joker { --Corrosive Glue
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 3 },
+	pos = { x = 2, y = 5 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -89,7 +89,7 @@ SMODS.Joker { --MOAB Glue
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 8 },
+	pos = { x = 13, y = 5 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -129,7 +129,7 @@ SMODS.Joker { --Glue Hose
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 6 },
+	pos = { x = 8, y = 5 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -165,7 +165,7 @@ SMODS.Joker { --Relentless Glue
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 9 },
+	pos = { x = 14, y = 5 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -201,7 +201,7 @@ SMODS.Joker { --The Bloon Solver
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 12 },
+	pos = { x = 5, y = 5 },
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
