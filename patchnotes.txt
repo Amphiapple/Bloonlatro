@@ -2,6 +2,7 @@ General Changes:
 - Power usability changes due to the new function of certain powers becoming Negative when used
 - Cash Drop can now be used in the shop
 - Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
+- Glue Hose was found horsing around
 
 Balance Changes:
 - Mortar Mult 8 > 6

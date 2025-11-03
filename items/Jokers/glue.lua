@@ -120,7 +120,7 @@ SMODS.Joker { --Glue Hose
     key = 'glose',
     name = 'Glue Hose',
 	loc_txt = {
-        name = 'Glue Hose',
+        name = '#1#',
         text = {
             '{C:attention}Glue{} all cards',
             'in first discard',
@@ -139,6 +139,8 @@ SMODS.Joker { --Glue Hose
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        local horse = SMODS.Mods['horse_mod'] and SMODS.Mods['horse_mod'].can_load and HORSEMOD
+        return { vars = { horse and 'Glue Horse' or 'Glue Hose' } }
     end,
     calculate = function(self, card, context)
         if context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff and not context.blueprint then
