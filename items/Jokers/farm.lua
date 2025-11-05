@@ -274,7 +274,7 @@ SMODS.Joker { --BRF
                 if k == G.GAME.selected_back.effect.config.voucher then
                     redeemed = false
                 elseif G.GAME.selected_back.effect.config.vouchers then
-                    for i, j in pairs(G.GAME.selected_back.effect.config.voucher) do
+                    for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
                         if k == j then
                             redeemed = false
                         end
