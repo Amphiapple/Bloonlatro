@@ -1,7 +1,8 @@
 General Changes:
 - Power usability changes due to the new function of certain powers becoming Negative when used
-- Cash Drop can now be used in the shop
-- Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
+    - Cash Drop can now be used in the shop
+    - Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
+- Monkey Commerce renamed to Monkey Business
 - Glue Hose was found horsing around
 
 Balance Changes:
@@ -11,6 +12,7 @@ Balance Changes:
 - Red Hot Rangs no longer requires 3 played cards
 - Corrosive Glue chips 10 > 8
 - Burny Stuff first scoring card > first played card
+- Super Range booster slots -1 > -2
 - Counter Espionage removes all combined hands and discards at the end of round
 - Neva-Miss Targeting range 80%-120% > 75%-125%
 - Flash Bomb stuns all scoring cards instead of only Spades
@@ -27,3 +29,4 @@ Balance Changes:
 Fixes:
 - Long Life Spikes no longer gains mult when discarding debuffed Spades
 - Banana Research Facility no longer starts with 1.5x mult on decks with exactly one voucher redeemed
+- Volcano now activates card destruction effects

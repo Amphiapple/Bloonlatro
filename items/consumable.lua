@@ -63,28 +63,36 @@ SMODS.Consumable { --Volcano
             end
         end
         G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 0.4, func = function()
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
                 return true
             end
         }))
         G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 0.1, func = function()
-                if destroyed_card.ability.name == 'Glass Card' then
-                    destroyed_card:shatter()
+            trigger = 'after',
+            delay = 0.1,
+            func = function()
+                local card = destroyed_card
+                if SMODS.shatters(card) then
+                    card:shatter()
                 else
-                    destroyed_card:start_dissolve()
+                    card:start_dissolve()
                 end
                 return true
             end
         }))
         G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 0.7, func = function()
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
                 for k, v in pairs(volcano_cards) do
                     v:set_ability('m_bloons_meteor', nil, true)
                     v:juice_up()
                 end
+                SMODS.calculate_context({ remove_playing_cards = true, removed = { destroyed_card } })
                 return true
             end
         }))
@@ -355,7 +363,7 @@ SMODS.Consumable { --Cash
     loc_txt = {
         name = 'Cash Drop',
         text = {
-            'Gives {C:money}$#1#{} during blinds',
+            'Gives {C:money}$#1#{}',
         }
     },
     atlas = 'Consumable',
