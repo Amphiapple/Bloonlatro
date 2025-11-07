@@ -35,8 +35,8 @@ SMODS.Joker { --Super Range
 	loc_txt = {
         name = 'Super Range',
         text = {
-            '{C:attention}+#1#{} card slot and',
-            '{C:attention}-#2#{} booster slot',
+            '{C:attention}+#1#{} card slots and',
+            '{C:attention}-#2#{} booster slots',
             'available in shop',
         }
     },

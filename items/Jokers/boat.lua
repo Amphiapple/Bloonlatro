@@ -100,7 +100,7 @@ SMODS.Joker { --Grape Shot
                 card.ability.extra.money = card.ability.extra.money - card.ability.extra.loss
                 return {
                     message = localize{type='variable',key='a_chips_minus',vars={card.ability.extra.loss}},
-                    colour = G.C.YELLOW
+                    colour = G.C.MONEY
                 }
             end
         end

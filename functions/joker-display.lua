@@ -100,16 +100,13 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
                 { text = ")" },
             },
             calc_function = function(card)
-                if card.ability.extra.counter ~= card.ability.extra.limit then
-                    card.joker_display_values.tarots = card.ability.extra.tarots
-                else
-                    card.joker_display_values.tarots = 0
-                end
 
                 if card.ability.extra.counter == 1 then
                     card.joker_display_values.active = "Next!"
+                    card.joker_display_values.tarots = card.ability.extra.tarots
                 else
                     card.joker_display_values.active = card.ability.extra.counter .. " remaining"
+                    card.joker_display_values.tarots = 0
                 end
             end
         }
@@ -297,7 +294,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             text = {
                 { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
                 { text = "x", scale = 0.35 },
-                { text = "+$", colour = G.C.MONEY },
+                { text = "$", colour = G.C.MONEY },
                 { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY }
             },
             reminder_text = {
