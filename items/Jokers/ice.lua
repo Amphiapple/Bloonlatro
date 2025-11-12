@@ -275,7 +275,7 @@ SMODS.Joker { --Absolute Zero
         name = 'Absolute Zero',
         text = {
             'If {C:attention}first hand{} of round has',
-            '{C:attention}#1#{} scoring cards, score {C:attention}#1#{} chips,',
+            '{C:attention}#1#{} scoring cards, score {C:attention}#2#{} chips,',
             '{C:attention}Freeze{} all scoring cards, and',
             'create a {C:spectral}Spectral{} card',
             '{C:inactive}(Must have room){}'
@@ -288,12 +288,12 @@ SMODS.Joker { --Absolute Zero
     blueprint_compat = true,
     config = {
         base = 'ice',
-        extra = { chips = 0, number = 5 } --Variables: number = required cards for spectral
+        extra = { number = 5, chips = 0 } --Variables: number = required cards for spectral
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.chips, card.ability.extra.number } }
+        return { vars = { card.ability.extra.number, card.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then

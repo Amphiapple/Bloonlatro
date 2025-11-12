@@ -93,12 +93,12 @@ Card.set_cost = function(self, ...)
     if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
         self.cost = math.floor(self.cost / 2.0)
     end
-    --Monkey Commerce discount
-    if #find_joker('Monkey Commerce') > 0 then
-        if #find_joker('Monkey Commerce') > self.cost then
+    --Monkey Business discount
+    if #find_joker('Monkey Business') > 0 then
+        if #find_joker('Monkey Business') > self.cost then
             self.cost = 0
         else
-            self.cost = self.cost - #find_joker('Monkey Commerce')
+            self.cost = self.cost - #find_joker('Monkey Business')
         end
     end
     --Primary expertise primary free discount

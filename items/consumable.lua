@@ -26,79 +26,6 @@ SMODS.Atlas {
     py = 95,
 }
 
-SMODS.Consumable { --Volcano
-    key = 'volcano',
-    set = 'Spectral',
-    name = 'Volcano',
-    loc_txt = {
-        name = 'Volcano',
-        text = {
-            'Destroy {C:attention}1{} selected',
-            'card in hand',
-            'Adjacent cards become',
-            '{C:attention}Meteor{} cards'
-        }
-    },
-    atlas = 'Consumable',
-    pos = { x = 0, y = 3 },
-    cost = 4,
-    order = 19,
-    config = { max_highlighted = 1 },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
-        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
-    end,
-    use = function(self, card, area)
-        local destroyed_card = G.hand.highlighted[1]
-        local volcano_cards = {}
-        for i = 1, #G.hand.cards do
-            if G.hand.cards[i] == destroyed_card then
-                if i > 1 then
-                    volcano_cards[#volcano_cards+1] = G.hand.cards[i-1]
-                end
-                if i < #G.hand.cards then
-                    volcano_cards[#volcano_cards+1] = G.hand.cards[i+1]
-                end
-            end
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.4,
-            func = function()
-                play_sound('tarot1')
-                card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                local card = destroyed_card
-                if SMODS.shatters(card) then
-                    card:shatter()
-                else
-                    card:start_dissolve()
-                end
-                return true
-            end
-        }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.7,
-            func = function()
-                for k, v in pairs(volcano_cards) do
-                    v:set_ability('m_bloons_meteor', nil, true)
-                    v:juice_up()
-                end
-                SMODS.calculate_context({ remove_playing_cards = true, removed = { destroyed_card } })
-                return true
-            end
-        }))
-    end
-}
-
 SMODS.Consumable { --SMS
     key = 'sms',
     set = 'Power',
@@ -876,5 +803,120 @@ SMODS.Consumable { --Cave Monkey
         }))
         draw_card(G.play,G.deck, 90,'up', nil)
         playing_card_joker_effects({true})
+    end
+}
+
+SMODS.Consumable { --Cave Monkey
+    key = 'cave',
+    set = 'Power',
+    name = 'Cave Monkey',
+    loc_txt = {
+        name = 'Cave Monkey',
+        text = {
+            'Add a {C:attention}Stone{} card with',
+            'an {C:dark_edition}Edition{} to your deck'
+        }
+    },
+    atlas = 'Consumable',
+    pos = { x = 4, y = 2 },
+    order = 15,
+
+    can_use = function(self, card)
+        return true
+    end,
+    use = function (self, card, area, copier)
+        local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave'))
+        local stone = SMODS.add_card({
+            set = 'Playing Card',
+            front = front,
+            area = G.deck,
+            skip_materialize = false,
+        })
+        stone:set_ability(G.P_CENTERS.m_stone, nil, true)
+        local edition = poll_edition('cave', nil, true, true)
+        stone:set_edition(edition, true)
+        card_eval_status_text(stone, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
+
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                return true
+            end
+        }))
+        draw_card(G.play,G.deck, 90,'up', nil)
+        playing_card_joker_effects({true})
+    end
+}
+
+SMODS.Consumable { --Volcano
+    key = 'volcano',
+    set = 'Spectral',
+    name = 'Volcano',
+    loc_txt = {
+        name = 'Volcano',
+        text = {
+            'Destroy {C:attention}1{} selected',
+            'card in hand',
+            'Adjacent cards become',
+            '{C:attention}Meteor{} cards'
+        }
+    },
+    atlas = 'Consumable',
+    pos = { x = 0, y = 3 },
+    cost = 4,
+    order = 19,
+    config = { max_highlighted = 1 },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
+    use = function(self, card, area)
+        local destroyed_card = G.hand.highlighted[1]
+        local volcano_cards = {}
+        for i = 1, #G.hand.cards do
+            if G.hand.cards[i] == destroyed_card then
+                if i > 1 then
+                    volcano_cards[#volcano_cards+1] = G.hand.cards[i-1]
+                end
+                if i < #G.hand.cards then
+                    volcano_cards[#volcano_cards+1] = G.hand.cards[i+1]
+                end
+            end
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function()
+                local card = destroyed_card
+                if SMODS.shatters(card) then
+                    card:shatter()
+                else
+                    card:start_dissolve()
+                end
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                for k, v in pairs(volcano_cards) do
+                    v:set_ability('m_bloons_meteor', nil, true)
+                    v:juice_up()
+                end
+                SMODS.calculate_context({ remove_playing_cards = true, removed = { destroyed_card } })
+                return true
+            end
+        }))
     end
 }

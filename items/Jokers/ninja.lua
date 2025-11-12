@@ -124,7 +124,6 @@ SMODS.Joker { --Shinobi Tactics
         name = 'Shinobi Tactics',
         text = {
             '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
             'All {C:attention}Ninjas{} may appear',
             'multiple times'
         }
@@ -137,17 +136,11 @@ SMODS.Joker { --Shinobi Tactics
     blueprint_compat = true,
     config = {
         base = 'ninja',
-        extra = { Xmult = 1.2, slots = 1 } --Variables: Xmult = Xmult for each ninja, slots = extra joker slots
+        extra = { Xmult = 1.25 } --Variables: Xmult = Xmult for each ninja
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.other_joker and context.other_joker.ability.base == 'ninja' then
@@ -235,10 +228,8 @@ SMODS.Joker { --Bloon Sabotage
         name = 'Bloon Sabotage',
         text = {
             '{C:green}#1# in #2#{} chance to',
-            'gain {C:red}+#3#{} discard if',
-            'played hand has a scoring',
-            '{C:hearts}Heart{} and a scoring',
-            'card of any other {C:attention}suit{}'
+            'gain {C:red}+#3#{} discard if scoring',
+            'hand contains a {C:hearts}Heart{}',
         }
     },
 	atlas = 'Joker',
@@ -258,32 +249,13 @@ SMODS.Joker { --Bloon Sabotage
 
     calculate = function(self, card, context)
         if context.before and SMODS.pseudorandom_probability(card, 'sabo', card.ability.extra.num, card.ability.extra.denom, 'sabo') then
-            local suits = {
-                ['Hearts'] = 0,
-                ['Diamonds'] = 0,
-                ['Spades'] = 0,
-                ['Clubs'] = 0
-            }
+            local hasheart = false
             for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name ~= 'Wild Card' then
-                    if v:is_suit('Hearts') then suits["Hearts"] = suits["Hearts"] + 1 end
-                    if v:is_suit('Diamonds') then suits["Diamonds"] = suits["Diamonds"] + 1 end
-                    if v:is_suit('Spades') then suits["Spades"] = suits["Spades"] + 1 end
-                    if v:is_suit('Clubs') then suits["Clubs"] = suits["Clubs"] + 1 end
+                if v.ability.name == 'Wild Card' or v:is_suit('Hearts') then
+                    hasheart = true
                 end
             end
-            for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Wild Card' then
-                    if v:is_suit('Clubs') and suits["Clubs"] == 0 then suits["Clubs"] = suits["Clubs"] + 1
-                    elseif v:is_suit('Diamonds') and suits["Diamonds"] == 0  then suits["Diamonds"] = suits["Diamonds"] + 1
-                    elseif v:is_suit('Spades') and suits["Spades"] == 0  then suits["Spades"] = suits["Spades"] + 1
-                    elseif v:is_suit('Hearts') and suits["Hearts"] == 0  then suits["Hearts"] = suits["Hearts"] + 1 end
-                end
-            end
-            if suits["Hearts"] > 0 and
-            (suits["Diamonds"] > 0 or
-            suits["Spades"] > 0 or
-            suits["Clubs"] > 0) then
+            if hasheart then
                 ease_discard(card.ability.extra.discards)
                 return {
                     message = '+1 Discard'

@@ -197,20 +197,11 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
         }
         
         jd_def["j_bloons_redhot"] = { --Red Hot Rangs
-            reminder_text = {
-                { text = "(" },
-                { ref_table = "card.joker_display_values", ref_value = "active" },
-                { text = ")" }
-            },
-            calc_function = function(card)
-                local _, _, scoring_hand = JokerDisplay.evaluate_hand()
-                card.joker_display_values.active =
-                    (#scoring_hand >= card.ability.extra.number) and "Active!" or #scoring_hand .. "/" .. card.ability.extra.number
-            end,
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
                 if held_in_hand then return 0 end
                 local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
-                return last_card and playing_card == last_card and #scoring_hand >= joker_card.ability.extra.number and
+                local second_last_card = scoring_hand and #scoring_hand >= 2 and scoring_hand[#scoring_hand - 1]
+                return ((last_card and playing_card == last_card) or (second_last_card and playing_card == second_last_card)) and
                     joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
             end
         }
@@ -1573,8 +1564,6 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             reminder_text = {
                 { text = "(" },
                 { text = "Heart", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
-                { text = "+" },
-                { text = "Other", colour = G.C.ORANGE },
                 { text = ")" },
             },
             extra = {
@@ -2414,9 +2403,18 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
             calc_function = function(card)
                 card.joker_display_values.duration = card.ability.extra.rounds .. " round" .. (card.ability.extra.rounds ~= 1 and "s" or "") .. " left"
             end,
+
             retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-                if held_in_hand then return 0 end
-                local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
+                local held_cards = {}
+
+                for i = 1, #G.hand.cards do
+                    if not G.hand.cards[i].highlighted then
+                        table.insert(held_cards, G.hand.cards[i])
+                    end
+                end
+
+                local first_card = JokerDisplay.calculate_leftmost_card(held_cards)
+
                 return first_card and playing_card == first_card and
                     joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
             end

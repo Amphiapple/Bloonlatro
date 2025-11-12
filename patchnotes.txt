@@ -15,9 +15,13 @@ Balance Changes:
 - Super Range booster slots -1 > -2
 - Counter Espionage removes all combined hands and discards at the end of round
 - Neva-Miss Targeting range 80%-120% > 75%-125%
+- Shinobi Tactics Xmult 1.2 > 1.25
+- Shinobi Tactics no longer gives +1 Joker slot
 - Flash Bomb stuns all scoring cards instead of only Spades
 - Long Life Spikes mult loss 4 > 3
 - Icicles Xmult 1.2 > 1.3
+- Banana Research Facility Xmult 0.5 > 0.25
+- Banana Research Facility rarity Rare > Uncommon
 - Pirate Lord money chance 1 in 5 > 10
 - Sky Shredder counts played Aces that score instead of when Aces are triggered
 - Special Poperations no longer gives +1 hand
@@ -28,5 +32,6 @@ Balance Changes:
 
 Fixes:
 - Long Life Spikes no longer gains mult when discarding debuffed Spades
+- Blade Shooter and Overdrive no longer gain mult when playing debuffed cards
 - Banana Research Facility no longer starts with 1.5x mult on decks with exactly one voucher redeemed
 - Volcano now activates card destruction effects

@@ -130,7 +130,7 @@ SMODS.Joker { --Blade Shooter
         if context.before and not context.blueprint then
             local has_789 = false
             for k, v in ipairs(context.scoring_hand) do
-                if v:get_id() == 7 or v:get_id() == 8 or v:get_id() == 9 then
+                if (v:get_id() == 7 or v:get_id() == 8 or v:get_id() == 9) and not v.debuff then
                     has_789 = true
                     break
                 end
@@ -177,7 +177,7 @@ SMODS.Joker { --Overdrive
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
             for k, v in ipairs(context.scoring_hand) do
-                if v:get_id() == 8 then
+                if v:get_id() == 8 and not v.debuff then
                     card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
                 end
             end

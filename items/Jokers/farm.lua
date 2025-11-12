@@ -255,12 +255,12 @@ SMODS.Joker { --BRF
     },
 	atlas = 'Joker',
 	pos = { x = 4, y = 20 },
-    rarity = 3,
+    rarity = 2,
 	cost = 7,
     blueprint_compat = true,
     config = {
         base = 'farm',
-        extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
+        extra = { Xmult = 0.25, current = 1 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
     }, 
 
     loc_vars = function(self, info_queue, card)
@@ -274,7 +274,7 @@ SMODS.Joker { --BRF
                 if k == G.GAME.selected_back.effect.config.voucher then
                     redeemed = false
                 elseif G.GAME.selected_back.effect.config.vouchers then
-                    for i, j in pairs(G.GAME.selected_back.effect.config.voucher) do
+                    for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
                         if k == j then
                             redeemed = false
                         end
