@@ -800,7 +800,7 @@ if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load then
 
                 if text ~= 'Unknown' and #scoring_hand >= 2 then
                     local mult_card = scoring_hand[#scoring_hand - 1]
-                    if mult_card.facing ~= 'back' and not mult_card.debuff then
+                    if mult_card.facing ~= 'back' then
                         mult_value = mult_card.base.nominal
                     end
                     right_card = JokerDisplay.calculate_rightmost_card(scoring_hand)

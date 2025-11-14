@@ -110,7 +110,7 @@ SMODS.Enhancement ({ --Stunned
             end
             local stunned = {}
             for k, v in ipairs(G.hand.cards) do
-                if v.ability.name == 'Stunned Card' then
+                if v.ability.name == 'Stunned Card' and not v.debuff then
                     stunned[#stunned+1] = v
                 end
             end

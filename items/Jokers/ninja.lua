@@ -251,7 +251,7 @@ SMODS.Joker { --Bloon Sabotage
         if context.before and SMODS.pseudorandom_probability(card, 'sabo', card.ability.extra.num, card.ability.extra.denom, 'sabo') then
             local hasheart = false
             for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Wild Card' or v:is_suit('Hearts') then
+                if (v.ability.name == 'Wild Card' or v:is_suit('Hearts')) and not v.debuff then
                     hasheart = true
                 end
             end
