@@ -1,41 +1,7 @@
 General Changes:
-- Power usability changes due to the new function of certain powers becoming Negative when used
-    - Cash Drop can now be used in the shop
-    - Monkey Boost, Thrive, and Tech Bot can no longer be used in the shop
-- Monkey Commerce renamed to Monkey Business
-- Glue Hose was found horsing around
 
 Balance Changes:
-- Mortar Mult 8 > 6
-- Mermonkey Mult 15 > 20
-- Red Hot Rangs retrigger last card 2 times > last 2 cards 1 time
-- Red Hot Rangs no longer requires 3 played cards
-- Corrosive Glue chips 10 > 8
-- Burny Stuff first scoring card > first played card
-- Super Range booster slots -1 > -2
-- Counter Espionage removes all combined hands and discards at the end of round
-- Neva-Miss Targeting range 80%-120% > 75%-125%
-- Shinobi Tactics Xmult 1.2 > 1.25
-- Shinobi Tactics no longer gives +1 Joker slot
-- Flash Bomb stuns all scoring cards instead of only Spades
-- Long Life Spikes mult loss 4 > 3
-- Icicles Xmult 1.2 > 1.3
-- Bloon Sabotage Heart + other suit > Heart
-- Banana Research Facility Xmult 0.5 > 0.25
-- Banana Research Facility rarity Rare > Uncommon
-- Pirate Lord money chance 1 in 5 > 10
-- Sky Shredder counts played Aces that score instead of when Aces are triggered
-- Special Poperations no longer gives +1 hand
-- Nail Sentry chips 30 > 20
-- Cold Sentry target first scoring card > first card held in hand
-- MOAB Domination Xmult per boss defeated 1 > 0.5
-- Super Mines Xmult 3 > 2
 
 Fixes:
-- Shrapnel Shot should display mult even if second to last card is debuffed
-- Long Life Spikes no longer gains mult when discarding debuffed Spades
-- Blade Shooter and Overdrive no longer gain mult when playing debuffed cards
-- Bloon Sabotage no longer gives discards when playing debuffed hearts
-- Banana Research Facility no longer starts with 1.5x mult on decks with exactly one voucher redeemed
-- Volcano now activates card destruction effects
-- Stunned cards should no longer activate if debuffed
+- Shinobi Tactics can no longer be bought or taken with full joker slots
+- Fixed some hook functions for specific towers to not conflict with other mods

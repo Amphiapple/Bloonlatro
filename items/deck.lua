@@ -337,7 +337,20 @@ SMODS.Back { --Psi
     },
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
-    order = 29
+    order = 29,
+
+    apply = function(self)
+        G.FORCE_BOSS = "bl_psychic"
+    end,
+    calculate = function(self, card, context)
+        if context.modify_ante then
+            if (G.GAME.round_resets.ante+1)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+                G.FORCE_BOSS = nil
+            else
+                G.FORCE_BOSS = "bl_psychic"
+            end
+        end       
+    end
 }
 
 --[[

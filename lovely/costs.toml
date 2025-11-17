@@ -1,0 +1,58 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Change costs and sell costs
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if self.area and self.ability.couponed and (self.area == G.shop_jokers or self.area == G.shop_booster) then self.cost = 0 end"
+position = 'after'
+payload = '''
+--Salvage sell cost
+self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+--Monkey Wall Street booster discount
+if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
+    self.cost = math.floor(self.cost / 2.0)
+end
+--Monkey Business discount
+if #find_joker('Monkey Business') > 0 then
+    if #find_joker('Monkey Business') > self.cost then
+        self.cost = 0
+    else
+        self.cost = self.cost - #find_joker('Monkey Business')
+    end
+end
+--Primary expertise primary free discount
+if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
+    self.cost = 0
+end
+--VTSG discount
+local vtsgs = find_joker('Vengeful True Sun God')
+if #vtsgs > 0 then
+    local discount = 0
+    for k, v in pairs(vtsgs) do
+        discount = discount + v.ability.extra.discount * (v.ability.extra.sacrifices['econ'])
+    end
+    if discount > self.cost then
+        self.cost = 0
+    else
+        self.cost = self.cost - discount
+    end
+end
+'''
+match_indent = true
+
+# Change reroll cost
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or G.GAME.round_resets.reroll_cost) + G.GAME.current_round.reroll_cost_increase"
+position = 'after'
+payload = '''
+if #find_joker('Energizer') > 0 then
+    G.GAME.current_round.reroll_cost = math.floor(G.GAME.current_round.reroll_cost / 2.0)
+end
+'''
+match_indent = true

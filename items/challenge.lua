@@ -7,8 +7,8 @@ Challenge_stakes = {
     c_bloons_survivor = {stake = 8},
     c_bloons_inflated_expert = {stake = 8},
     c_bloons_survivor_expert = {stake = 8},
-    c_bloons_2tc_expert = {stake = 8},
-    c_bloons_2mp_expert = {stake = 8},
+    c_bloons__2tc_expert = {stake = 8},
+    c_bloons__2mp_expert = {stake = 8},
 }
 
 local vanilla_jokers = {}
@@ -896,7 +896,7 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2tc',
+    key = '_2tc',
     loc_txt = {
         name = '2 Tower Chimps'
     },
@@ -935,13 +935,13 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2mp',
+    key = '_2mp',
     loc_txt = {
         name = '2 Megapops'
     },
     rules = {
         custom = {
-            { id = '2mp' },
+            { id = '_2mp' },
         },
     },
     jokers = {},
@@ -963,7 +963,7 @@ SMODS.Challenge {
     },
 
     apply = function(self)
-        G.GAME.modifiers.scaling = 4
+        G.GAME.modifiers.scaling = 3
     end
 }
 
@@ -1042,7 +1042,7 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2tc_expert',
+    key = '_2tc_expert',
     loc_txt = {
         name = '2 Tower Chimps Expert'
     },
@@ -1083,14 +1083,14 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2mp_expert',
+    key = '_2mp_expert',
     loc_txt = {
         name = '2 Megapops Expert'
     },
     rules = {
         custom = {
             { id = 'gold_stake' },
-            { id = '2mp' },
+            { id = '_2mp' },
             { id = 'difficulty_warning'}
         },
     },
@@ -1113,6 +1113,6 @@ SMODS.Challenge {
     },
 
     apply = function(self)
-        G.GAME.modifiers.scaling = 4
+        G.GAME.modifiers.scaling = 3
     end
 }

@@ -20,7 +20,6 @@ SMODS.Blind {
     dollars = 4,
     mult = 1.5,
     boss_colour = HEX("FF0000"),
-    discovered = true,
 
     loc_vars = function(self)
         return { vars = { 1 } }
@@ -46,7 +45,6 @@ SMODS.Blind {
     dollars = 4,
     mult = 1.5,
     boss_colour = HEX("7777FF"),
-    discovered = true,
 
     loc_vars = function(self)
         return { vars = { 1 } }
@@ -73,7 +71,6 @@ SMODS.Blind {
     dollars = 4,
     mult = 1.5,
     boss_colour = HEX("77FF77"),
-    discovered = true,
 
     loc_vars = function(self)
         return { vars = { 1 } }
@@ -105,7 +102,6 @@ SMODS.Blind {
     dollars = 4,
     mult = 1.5,
     boss_colour = HEX("333333"),
-    discovered = true,
 
     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
         for k, v in ipairs(cards) do
@@ -131,7 +127,6 @@ SMODS.Blind {
     dollars = 4,
     mult = 1.5,
     boss_colour = HEX("cccccc"),
-    discovered = true,
 
     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
         for k, v in ipairs(cards) do
@@ -156,7 +151,6 @@ SMODS.Blind {
     dollars = 4,
     mult = 1.5,
     boss_colour = HEX("9955bb"),
-    discovered = true,
 
     set_blind = function(self)
         for k, v in ipairs(G.consumeables.cards) do
@@ -166,6 +160,7 @@ SMODS.Blind {
     end,
 }
 ]]
+
 SMODS.Blind {
     loc_txt = {
         name = 'Bloonarius',
@@ -182,7 +177,6 @@ SMODS.Blind {
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
-    discovered = true,
 
     loc_vars = function(self)
         return { vars = { 100 } }
@@ -227,7 +221,6 @@ SMODS.Blind {
     mult = 40, -- 40x base score (2 million)
     boss = { showdown = true },
     boss_colour = HEX("BA58BD"),
-    discovered = true,
 
     in_pool = function()
         return G.GAME.challenge == 'c_bloons_lych'
@@ -336,7 +329,6 @@ SMODS.Blind {
     mult = 25, -- 25x base score (500k)
     boss = { showdown = true },
     boss_colour = HEX("63E0FF"),
-    discovered = true,
 
     loc_vars = function(self)
         return { vars = { 1 } }
@@ -391,7 +383,6 @@ SMODS.Blind {
     mult = 8, -- 8x base score (400k)
     boss = { showdown = true },
     boss_colour = HEX("FFDC3F"),
-    discovered = true,
 
     in_pool = function()
         return G.GAME.challenge == 'c_bloons_dreadbloon'
@@ -443,7 +434,6 @@ SMODS.Blind {
     mult = 20, -- 20x base score (1 million)
     boss = { showdown = true },
     boss_colour = HEX("000000"),
-    discovered = true,
 
     in_pool = function()
         return G.GAME.challenge == 'c_bloons_phayze'
@@ -485,7 +475,6 @@ SMODS.Blind {
     mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },
     boss_colour = HEX("FF862E"),
-    discovered = true,
 
     loc_vars = function(self)
         return {
