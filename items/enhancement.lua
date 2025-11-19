@@ -120,7 +120,7 @@ SMODS.Enhancement ({ --Stunned
                 table.sort(stunned, function(a,b) return a.T.x < b.T.x end)
                 inc_career_stat('c_cards_discarded', count)
                 for j = 1, #G.jokers.cards do
-                    G.jokers.cards[j]:calculate_joker({pre_discard = true, full_hand = stunned, hook = hook})
+                    G.jokers.cards[j]:calculate_joker({pre_discard = true, full_hand = stunned, hook = false})
                 end
                 local cards = {}
                 local destroyed_cards = {}
@@ -145,7 +145,7 @@ SMODS.Enhancement ({ --Stunned
                     local removed = false
                     for j = 1, #G.jokers.cards do
                         local eval = nil
-                        eval = G.jokers.cards[j]:calculate_joker({discard = true, other_card =  stunned[i], full_hand = stunned})
+                        eval = G.jokers.cards[j]:calculate_joker({discard = true, other_card =  stunned[i], full_hand = stunned, stun = true})
                         if eval then
                             if eval.remove then removed = true end
                             card_eval_status_text(G.jokers.cards[j], 'jokers', nil, 1, nil, eval)

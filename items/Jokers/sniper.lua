@@ -74,7 +74,9 @@ SMODS.Joker { --Shrapnel Shot
     },
 
     calculate = function(self, card, context)
-       if context.individual and context.cardarea == G.play and #context.scoring_hand > 1 and context.other_card == context.scoring_hand[#context.scoring_hand] then
+        if context.individual and context.cardarea == G.play and #context.scoring_hand > 1 and
+                context.other_card == context.scoring_hand[#context.scoring_hand] and
+                not SMODS.has_no_rank(#context.scoring_hand-1) then
             local last_number = context.scoring_hand[#context.scoring_hand-1].base.nominal
             return {
                 mult = last_number

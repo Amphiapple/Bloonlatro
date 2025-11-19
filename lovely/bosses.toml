@@ -3,6 +3,15 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Disable ZOMG when selling jokers
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'Verdant Leaf' then "
+position = 'at'
+payload = "if self.ability.set == 'Joker' and G.GAME.blind and (G.GAME.blind.name == 'Verdant Leaf' or G.GAME.blind.name == 'Green Gargantuan') then "
+match_indent = true
+
 # Custom loc_debuff_text for boss blinds
 [[patches]]
 [patches.pattern]

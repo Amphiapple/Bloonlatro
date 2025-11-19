@@ -1,7 +1,13 @@
 General Changes:
+- Added 5 new Finisher boss blinds!
 
 Balance Changes:
+- Cleansing Tag no longer appears on stakes with no Joker modifier stickers
 
 Fixes:
+- Shrapnel Shot no longer gives mult for cards without a rank
 - Shinobi Tactics can no longer be bought or taken with full joker slots
+- Bloon Impact no longer stuns cards that the hook discards
+- Bloon Impact no longer gains mult if a stunned card is discarded normally or by the hook
+- Monkey Wall Street correctly costs $9 instead of $10
 - Fixed some hook functions for specific towers to not conflict with other mods

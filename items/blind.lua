@@ -8,6 +8,7 @@ SMODS.Atlas {
 }
 --[[
 SMODS.Blind {
+    name = 'The Red',
     loc_txt = {
         name = 'The Red',
         text = {
@@ -33,6 +34,7 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+    name = 'The Blue',
     loc_txt = {
         name = 'The Blue',
         text = {
@@ -58,6 +60,7 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+    name = 'The Green',
     loc_txt = {
         name = 'The Green',
         text = {
@@ -89,6 +92,7 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+    name = 'The Dark',
     loc_txt = {
         name = 'The Dark',
         text = {
@@ -114,6 +118,7 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+    name = 'The Light',
     loc_txt = {
         name = 'The Light',
         text = {
@@ -139,6 +144,7 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+    name = 'The Magic',
     loc_txt = {
         name = 'The Magic',
         text = {
@@ -160,6 +166,207 @@ SMODS.Blind {
     end,
 }
 ]]
+
+SMODS.Blind {
+    name = 'Massive MOAB',
+    loc_txt = {
+        name = 'Massive MOAB',
+        text = {
+            'Halve Hands and Discards',
+        }
+    },
+    key = 'final_moab',
+    atlas = 'Blind',
+    pos = { y = 12 },
+    dollars = 8,
+    mult = 2,
+    boss = { showdown = true },
+    boss_colour = HEX("2ecaf7"),
+
+    set_blind = function(self)
+        ease_hands_played(-math.floor(G.GAME.current_round.hands_left/2))
+        ease_discard(-math.floor(G.GAME.current_round.discards_left/2))
+    end,
+}
+
+SMODS.Blind {
+    name = 'Brutal Behemoth',
+    loc_txt = {
+        name = 'Brutal Behemoth',
+        text = {
+            'Disable the rightmost',
+            'Joker per hand played'
+        }
+    },
+    key = 'final_bfb',
+    atlas = 'Blind',
+    pos = { y = 13 },
+    dollars = 8,
+    mult = 2,
+    boss = { showdown = true },
+    boss_colour = HEX("d10705"),
+
+    calculate = function(self, blind, context)
+        if context.final_scoring_step then
+            local card = nil
+            for _,joker in ipairs(G.jokers.cards) do
+                if not joker.debuff then
+                    card = joker
+                end
+            end
+            if card then
+                card:set_debuff(true)
+                if card.debuff then
+                    card.debuffed_by_blind = true
+                end
+            end
+        end
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff
+    end,
+    disable = function(self)
+        for _,joker in ipairs(G.jokers.cards) do
+            if joker.debuffed_by_blind then
+                joker:set_debuff()
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    name = 'Dark Titan',
+    loc_txt = {
+        name = 'Dark Titan',
+        text = {
+            '#1# in 4 cards',
+            'are debuffed'
+        }
+    },
+    key = 'final_ddt',
+    atlas = 'Blind',
+    pos = { y = 14 },
+    dollars = 8,
+    mult = 2,
+    boss = { showdown = true },
+    boss_colour = HEX("4a4b4a"),
+
+    loc_vars = function(self)
+        return { vars = { G.GAME.probabilities.normal or 1 } }
+    end,
+    collection_loc_vars = function(self)
+        return { vars = { G.GAME.probabilities.normal or 1 } }
+    end,
+
+    calculate = function(self, blind, context)
+        if context.hand_drawn then
+            for _, card in ipairs(context.hand_drawn) do
+                 if SMODS.pseudorandom_probability(G.GAME.blind, 'ddt', 1, 4) then
+                    card:set_debuff(true)
+                    if card.debuff then
+                        card.debuffed_by_blind = true
+                    end
+                end
+            end
+        end
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff
+    end,
+    disable = function(self)
+        for _,card in ipairs(G.hand) do
+            if card.debuffed_by_blind then
+                card:set_debuff()
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    name = 'Green Gargantuan',
+    loc_txt = {
+        name = 'Green Gargantuan',
+        text = {
+            'All Jokers debuffed',
+            'until 1 Joker sold'
+        }
+    },
+    key = 'final_zomg',
+    atlas = 'Blind',
+    pos = { y = 15 },
+    dollars = 8,
+    mult = 2,
+    boss = { showdown = true },
+    boss_colour = HEX("b8f700"),
+
+    drawn_to_hand = function(self)
+        for _,joker in ipairs(G.jokers.cards) do
+            joker:set_debuff(true)
+            if joker.debuff then
+                joker.debuffed_by_blind = true
+            end
+        end
+    end,
+    calculate = function (self, blind, context)
+        if context.card_added then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.05,
+                func = function()
+                    for _,joker in ipairs(G.jokers.cards) do
+                        joker:set_debuff(true)
+                        if joker.debuff then
+                            joker.debuffed_by_blind = true
+                        end
+                    end
+                    return true
+                end
+            }))
+        end
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff
+    end,
+    disable = function(self)
+        for _,joker in ipairs(G.jokers.cards) do
+            if joker.debuffed_by_blind then
+                joker:set_debuff()
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    name = 'B.A.D',
+    loc_txt = {
+        name = 'B.A.D',
+        text = {
+            'X1.5 blind size',
+            'after each hand'
+        }
+    },
+    key = 'final_bad',
+    atlas = 'Blind',
+    pos = { y = 16 },
+    dollars = 8,
+    mult = 2,
+    boss = { showdown = true },
+    boss_colour = HEX("aa04aa"),
+
+    set_blind = function(self)
+        self.prepped = false
+    end,
+    press_play = function (self)
+        self.prepped = true
+    end,
+    drawn_to_hand = function(self)
+        if self.prepped then
+            G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 1.5)
+            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+            self.prepped = false
+        end
+    end,
+}
 
 SMODS.Blind {
     loc_txt = {

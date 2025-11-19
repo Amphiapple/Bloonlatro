@@ -191,6 +191,11 @@ table.insert(finisher_blinds, { id = 'bl_final_vessel', type = 'blind' })
 table.insert(finisher_blinds, { id = 'bl_final_leaf', type = 'blind' })
 table.insert(finisher_blinds, { id = 'bl_final_heart', type = 'blind' })
 table.insert(finisher_blinds, { id = 'bl_final_acorn', type = 'blind' })
+table.insert(finisher_blinds, { id = 'bl_bloons_final_moab', type = 'blind' })
+table.insert(finisher_blinds, { id = 'bl_bloons_final_bfb', type = 'blind' })
+table.insert(finisher_blinds, { id = 'bl_bloons_final_ddt', type = 'blind' })
+table.insert(finisher_blinds, { id = 'bl_bloons_final_zomg', type = 'blind' })
+table.insert(finisher_blinds, { id = 'bl_bloons_final_bad', type = 'blind' })
 
 local boss_bans = {
     banned_cards = boss_jokers,
@@ -216,7 +221,7 @@ local sticky_situation_cards = {
 }
 local sticky_situation_others = {
     { id = 'bl_water', type = 'blind' },
-    { id = 'bl_needle', type = 'blind' }
+    { id = 'bl_needle', type = 'blind' },
 }
 for _, card in ipairs(banned_tarot_cards) do
     table.insert(sticky_situation_cards, card)
@@ -631,7 +636,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_cleansing' },
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' }
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_bloons_final_zomg', type = 'blind' },
         }
     },
     deck = {
@@ -859,6 +865,7 @@ SMODS.Challenge {
             { id = 'bl_water', type = 'blind' },
             { id = 'bl_needle', type = 'blind' },
             { id = 'bl_serpent', type = 'blind' },
+            { id = 'bl_bloons_final_moab', type = 'blind' },
         }
     },
     deck = {
@@ -917,7 +924,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_concoction' }
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' }
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_bloons_final_zomg', type = 'blind' },
         }
     },
     deck = {
@@ -996,6 +1004,7 @@ SMODS.Challenge {
             { id = 'bl_water', type = 'blind' },
             { id = 'bl_needle', type = 'blind' },
             { id = 'bl_serpent', type = 'blind' },
+            { id = 'bl_bloons_final_moab', type = 'blind' },
         }
     },
     deck = {
@@ -1065,7 +1074,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_concoction' }
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' }
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_bloons_final_zomg', type = 'blind' },
         }
     },
     deck = {
