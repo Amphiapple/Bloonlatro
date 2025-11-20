@@ -206,7 +206,7 @@ SMODS.Enhancement ({ --Meteor
             return {
                 x_mult = card.ability.Xmult
             }
-        elseif context.destroying_card then
+        elseif context.destroying_card and not context.destroying_card.debuff then
             return { remove = context.destroying_card.ability.name == 'Meteor Card' }
         end
     end

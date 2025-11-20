@@ -10,4 +10,5 @@ Fixes:
 - Bloon Impact no longer stuns cards that the hook discards
 - Bloon Impact no longer gains mult if a stunned card is discarded normally or by the hook
 - Monkey Wall Street correctly costs $9 instead of $10
+- Meteor Cards no longer destroy themselves if debuffed
 - Fixed some hook functions for specific towers to not conflict with other mods

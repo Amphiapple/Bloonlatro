@@ -166,6 +166,71 @@ end_round = function()
     return ret
 end
 
+--Sacrifice Context for Adora and VTSG
+local function get_sac_context(card)
+    local deck = G.GAME and G.GAME.selected_back
+    local is_adora_deck = deck and deck.name == 'Adora Deck'
+    local is_vtsg = card.ability and card.ability.name == 'Vengeful True Sun God'
+    local vtsg_sacrifices = is_vtsg and card.ability.extra and card.ability.extra.sacrifices
+
+    local sac_context = {
+        vtsg_show = false,
+        vtsg_enabled = false,
+        adora_show = false,
+        adora_enabled = false,
+    }
+
+    -- VTSG sacrifice
+    if is_vtsg then
+        sac_context.vtsg_show = true
+        local no_sacs = vtsg_sacrifices
+            and vtsg_sacrifices['+chips'] == 0
+            and vtsg_sacrifices['+mult'] == 0
+            and vtsg_sacrifices['Xmult'] == 0
+            and vtsg_sacrifices['econ']  == 0
+            and vtsg_sacrifices['value'] == 0
+            and vtsg_sacrifices['support'] == 0
+
+        local other_jokers = {}
+        for _, joker in pairs(G.jokers.cards) do
+            if joker ~= card then
+                table.insert(other_jokers, joker)
+            end
+        end
+
+        if #other_jokers >= 1 and no_sacs then
+            sac_context.vtsg_enabled = true
+        end
+    end
+
+    -- Adora sacrifice
+    if is_adora_deck then
+        sac_context.adora_show = true
+        if not card.ability.eternal then
+            sac_context.adora_enabled = true
+        end
+    end
+
+    return sac_context
+end
+
+--Sacrifice function for Adora
+G.FUNCS.adora_sac = function(e)
+    local card = e.config.ref_table
+    local sac_context = get_sac_context(card)
+    if not (G.GAME.selected_back.effect.center) or not sac_context.adora_enabled then return end
+    G.GAME.selected_back.effect.center.sac_to_adora(card)
+end
+
+--Sacrifice function for VTSG
+G.FUNCS.vtsg_sac = function(e)
+    local card = e.config.ref_table
+    local sac_context = get_sac_context(card)
+    if not sac_context.vtsg_enabled then return end
+    card.config.center.sac_to_vtsg(card)
+    card.highlighted = false
+end
+
 --Sacrifice button for Adora and VTSG
 function G.UIDEF.use_and_sell_buttons(card)
     local sell, use, adora_sac, vtsg_sac = nil, nil, nil, nil
