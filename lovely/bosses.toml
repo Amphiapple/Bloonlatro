@@ -3,6 +3,21 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Psi Deck boss change
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "if G.FORCE_BOSS then return G.FORCE_BOSS end"
+position = 'after'
+payload = '''
+if G.GAME.selected_back.name == 'Psi Deck' and (G.GAME.round_resets.ante%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2) then
+    return "bl_psychic"
+end
+'''
+match_indent = true
+
+
+
 # Disable ZOMG when selling jokers
 [[patches]]
 [patches.pattern]

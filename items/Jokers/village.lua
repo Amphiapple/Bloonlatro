@@ -193,8 +193,9 @@ SMODS.Joker { --Monkey City
         if context.setting_blind and not card.getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
             G.GAME.joker_buffer = G.GAME.joker_buffer + 1
             G.E_MANAGER:add_event(Event({
-                func = function() 
+                func = function()
                     local card = create_card('j_bloons_dart', G.jokers, nil, nil, nil, nil, 'j_bloons_dart', 'city')
+                    card.extra_cost = -card.base_cost
                     card.sell_cost = 0
                     card:add_to_deck()
                     G.jokers:emplace(card)
