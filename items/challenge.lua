@@ -185,21 +185,8 @@ table.insert(boss_jokers, { id = 'j_chicot' })
 table.insert(boss_jokers, { id = 'j_mr_bones' })
 table.insert(boss_jokers, { id = 'j_bloons_blitz' })
 
-local finisher_blinds = {}
-table.insert(finisher_blinds, { id = 'bl_final_bell', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_vessel', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_leaf', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_heart', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_acorn', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_bloons_final_moab', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_bloons_final_bfb', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_bloons_final_ddt', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_bloons_final_zomg', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_bloons_final_bad', type = 'blind' })
-
 local boss_bans = {
     banned_cards = boss_jokers,
-    banned_other = finisher_blinds
 }
 
 local abracadabmonkey_cards = {}
@@ -252,7 +239,6 @@ end
 
 local dreadbloon_bans = {
     banned_cards = dreadbloon_cards,
-    banned_other = finisher_blinds
 }
 
 local glorious_gold_cards = {
