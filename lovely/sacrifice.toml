@@ -1,0 +1,98 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local sell = nil
+local use = nil
+'''
+position = "at"
+payload = '''
+    local sell, use, adora_sac, vtsg_sac = nil, nil, nil, nil
+    local sac_context = get_sac_context(card)
+
+    if sac_context.adora_show then
+        adora_sac = {n=G.UIT.C, config={align = "cr"}, nodes={
+            {n=G.UIT.C, config={
+                ref_table = card,
+                align = "cr",
+                maxw = 1.25,
+                padding = 0.15,
+                r = 0.08,
+                minw = 1.25,
+                minh = 0,
+                hover = true,
+                shadow = true,
+                colour = sac_context.adora_enabled and HEX("FFCE00") or G.C.UI.BACKGROUND_INACTIVE,
+                one_press = true,
+                button = sac_context.adora_enabled and 'adora_sac' or nil
+            }, nodes={
+            {n=G.UIT.B, config = {w=0.1,h=0.6}},
+            {n=G.UIT.C, config={align = "cm"}, nodes={
+            {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                {n=G.UIT.T, config={text = 'SAC',colour = sac_context.adora_enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sac_context.adora_enabled}}
+            }}
+            }}
+        }}
+        }}
+    end
+
+    if sac_context.vtsg_show then
+        vtsg_sac = {n=G.UIT.C, config={align = "cr"}, nodes={
+            {n=G.UIT.C, config={
+                ref_table = card,
+                align = "cr",
+                maxw = 1.25,
+                padding = 0.15,
+                r = 0.08,
+                minw = 1.25,
+                minh = 0,
+                hover = true,
+                shadow = true,
+                colour = sac_context.vtsg_enabled and HEX("383C76") or G.C.UI.BACKGROUND_INACTIVE,
+                one_press = true,
+                button = sac_context.vtsg_enabled and 'vtsg_sac' or nil
+            }, nodes={
+            {n=G.UIT.B, config = {w=0.1,h=0.6}},
+            {n=G.UIT.C, config={align = "cm"}, nodes={
+            {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                {n=G.UIT.T, config={text = 'SAC',colour = sac_context.vtsg_enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sac_context.vtsg_enabled}}
+            }}
+            }}
+        }}
+        }}
+    end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "if card.area and card.area.config.type == 'joker' then"
+position = "at"
+payload = "if card.area and card.area.config.type == 'joker' and not (G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern ='''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  sell
+}},
+'''
+position = "after"
+payload = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  adora_sac
+}},
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  vtsg_sac
+}},
+'''
+match_indent = true
+

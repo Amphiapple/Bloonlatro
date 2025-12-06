@@ -1,36 +1,3 @@
---Psi change boss
-local get_boss_old = get_new_boss
-get_new_boss = function()
-    local ret = get_boss_old()
-    if G.GAME.selected_back.name ~= 'Psi Deck' or G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-        return ret
-    else
-        return "bl_psychic"
-    end
-end
-
---Ninja full slots buy
-local check_for_buy_space_old = G.FUNCS.check_for_buy_space
-G.FUNCS.check_for_buy_space = function(card)
-    if card.ability.set == 'Joker' and (card.ability.name == 'Ninja Monkey' or card.ability.name == 'Shinobi Tactics') then
-        return true
-    else
-        local ret = check_for_buy_space_old(card)
-        return ret
-    end
-end
-
---Ninja full slots add
-local can_select_card_old = G.FUNCS.can_select_card
-G.FUNCS.can_select_card = function(e)
-    if e.config.ref_table.ability.name == 'Ninja Monkey' or e.config.ref_table.ability.name == 'Shinobi Tactics' then 
-        e.config.colour = G.C.GREEN
-        e.config.button = 'use_card'
-    else
-        local ret = can_select_card_old(e)
-        return ret
-    end
-end
 
 --Skip tag effects
 G.FUNCS.skip_blind = function(e)
@@ -83,44 +50,6 @@ G.FUNCS.skip_blind = function(e)
     end
 end
 
---Cost and sell price change
-local set_cost_old = Card.set_cost
-Card.set_cost = function(self, ...)
-    local ret = set_cost_old(self, ...)
-    --Salvage sell cost
-    self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
-    --Monkey Wall Street booster discount
-    if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
-        self.cost = math.floor(self.cost / 2.0)
-    end
-    --Monkey Business discount
-    if #find_joker('Monkey Business') > 0 then
-        if #find_joker('Monkey Business') > self.cost then
-            self.cost = 0
-        else
-            self.cost = self.cost - #find_joker('Monkey Business')
-        end
-    end
-    --Primary expertise primary free discount
-    if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
-        self.cost = 0
-    end
-    --VTSG discount
-    local vtsgs = find_joker('Vengeful True Sun God')
-    if #vtsgs > 0 then
-        local discount = 0
-        for k, v in pairs(vtsgs) do
-            discount = discount + v.ability.extra.discount * (v.ability.extra.sacrifices['econ'])
-        end
-        if discount > self.cost then
-            self.cost = 0
-        else
-            self.cost = self.cost - discount
-        end
-    end
-    return ret
-end
-
 -- Sell card change
 local sell_card_old = Card.sell_card
 Card.sell_card = function(self, ...)
@@ -157,7 +86,7 @@ Card.sell_card = function(self, ...)
             if self.ability.set == 'Joker' then 
                 inc_career_stat('c_jokers_sold', 1)
             end
-            if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'Verdant Leaf' then
+            if self.ability.set == 'Joker' and G.GAME.blind and (G.GAME.blind.name == 'Verdant Leaf' or G.GAME.blind.name == 'Green Gargantuan') then
                 G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
                     G.GAME.blind:disable()
                     return true
@@ -185,23 +114,15 @@ Card.sell_card = function(self, ...)
     end
 end
 
---Energizer reroll cost
-local calculate_reroll_cost_old = calculate_reroll_cost
-calculate_reroll_cost = function(skip_increment)
-    local ret = calculate_reroll_cost_old(skip_increment)
-    if G.GAME.modifiers.survivor then
-        G.GAME.current_round.reroll_cost = 540078
-    elseif #find_joker('Energizer') > 0 then
-        G.GAME.current_round.reroll_cost = math.floor(G.GAME.current_round.reroll_cost / 2.0)
-    end
-    return ret
-end
-
 --Wall Street booster changing
 local get_pack_old = get_pack
 get_pack = function(_key, _type)
     local center = nil
     if #find_joker('Monkey Wall Street') > 0 then
+        if not G.GAME.first_shop_buffoon and not G.GAME.banned_keys['p_buffoon_mega_1'] then
+            G.GAME.first_shop_buffoon = true
+            return G.P_CENTERS['p_buffoon_mega_1']
+        end
         local mega_packs = {}
         for k, v in ipairs(G.P_CENTER_POOLS['Booster']) do
             if v.key:sub(1,2) == 'p_' and v.key:find('mega') then
@@ -243,240 +164,4 @@ end_round = function()
     end
     local ret = end_round_old()
     return ret
-end
-
---Sacrifice Context for Adora and VTSG
-local function get_sac_context(card)
-    local deck = G.GAME and G.GAME.selected_back
-    local is_adora_deck = deck and deck.name == 'Adora Deck'
-    local is_vtsg = card.ability and card.ability.name == 'Vengeful True Sun God'
-    local vtsg_sacrifices = is_vtsg and card.ability.extra and card.ability.extra.sacrifices
-
-    local sac_context = {
-        vtsg_show = false,
-        vtsg_enabled = false,
-        adora_show = false,
-        adora_enabled = false,
-    }
-
-    -- VTSG sacrifice
-    if is_vtsg then
-        sac_context.vtsg_show = true
-        local no_sacs = vtsg_sacrifices
-            and vtsg_sacrifices['+chips'] == 0
-            and vtsg_sacrifices['+mult'] == 0
-            and vtsg_sacrifices['Xmult'] == 0
-            and vtsg_sacrifices['econ']  == 0
-            and vtsg_sacrifices['value'] == 0
-            and vtsg_sacrifices['support'] == 0
-
-        local other_jokers = {}
-        for _, joker in pairs(G.jokers.cards) do
-            if joker ~= card then
-                table.insert(other_jokers, joker)
-            end
-        end
-
-        if #other_jokers >= 1 and no_sacs then
-            sac_context.vtsg_enabled = true
-        end
-    end
-
-    -- Adora sacrifice
-    if is_adora_deck then
-        sac_context.adora_show = true
-        if not card.ability.eternal then
-            sac_context.adora_enabled = true
-        end
-    end
-
-    return sac_context
-end
-
---Sacrifice function for Adora
-G.FUNCS.adora_sac = function(e)
-    local card = e.config.ref_table
-    local sac_context = get_sac_context(card)
-    if not (G.GAME.selected_back.effect.center) or not sac_context.adora_enabled then return end
-    G.GAME.selected_back.effect.center.sac_to_adora(card)
-end
-
---Sacrifice function for VTSG
-G.FUNCS.vtsg_sac = function(e)
-    local card = e.config.ref_table
-    local sac_context = get_sac_context(card)
-    if not sac_context.vtsg_enabled then return end
-    card.config.center.sac_to_vtsg(card)
-    card.highlighted = false
-end
-
---Sacrifice button for Adora and VTSG
-function G.UIDEF.use_and_sell_buttons(card)
-    local sell, use, adora_sac, vtsg_sac = nil, nil, nil, nil
-    local sac_context = get_sac_context(card)
-
-    if sac_context.adora_show then
-        adora_sac = {n=G.UIT.C, config={align = "cr"}, nodes={
-            {n=G.UIT.C, config={
-                ref_table = card,
-                align = "cr",
-                maxw = 1.25,
-                padding = 0.15,
-                r = 0.08,
-                minw = 1.25,
-                minh = 0,
-                hover = true,
-                shadow = true,
-                colour = sac_context.adora_enabled and HEX("FFCE00") or G.C.UI.BACKGROUND_INACTIVE,
-                one_press = true,
-                button = sac_context.adora_enabled and 'adora_sac' or nil
-            }, nodes={
-            {n=G.UIT.B, config = {w=0.1,h=0.6}},
-            {n=G.UIT.C, config={align = "cm"}, nodes={
-            {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-                {n=G.UIT.T, config={text = 'SAC',colour = sac_context.adora_enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sac_context.adora_enabled}}
-            }}
-            }}
-        }}
-        }}
-    end
-
-    if sac_context.vtsg_show then
-        vtsg_sac = {n=G.UIT.C, config={align = "cr"}, nodes={
-            {n=G.UIT.C, config={
-                ref_table = card,
-                align = "cr",
-                maxw = 1.25,
-                padding = 0.15,
-                r = 0.08,
-                minw = 1.25,
-                minh = 0,
-                hover = true,
-                shadow = true,
-                colour = sac_context.vtsg_enabled and HEX("383C76") or G.C.UI.BACKGROUND_INACTIVE,
-                one_press = true,
-                button = sac_context.vtsg_enabled and 'vtsg_sac' or nil
-            }, nodes={
-            {n=G.UIT.B, config = {w=0.1,h=0.6}},
-            {n=G.UIT.C, config={align = "cm"}, nodes={
-            {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-                {n=G.UIT.T, config={text = 'SAC',colour = sac_context.vtsg_enabled and G.C.UI.TEXT_LIGHT or G.C.UI.TEXT_INACTIVE, scale = 0.55, shadow = sac_context.vtsg_enabled}}
-            }}
-            }}
-        }}
-        }}
-    end
-
-    if card.area and card.area.config.type == 'joker' and not (G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then
-        sell = {n=G.UIT.C, config={align = "cr"}, nodes={
-      {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
-        {n=G.UIT.B, config = {w=0.1,h=0.6}},
-        {n=G.UIT.C, config={align = "tm"}, nodes={
-          {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
-          }},
-          {n=G.UIT.R, config={align = "cm"}, nodes={
-            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
-            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
-          }}
-        }}
-      }},
-    }}
-    end
-    if card.ability.consumeable and card.area == G.pack_cards and booster_obj and booster_obj.select_card and card:selectable_from_pack(booster_obj) then
-        if (card.area == G.pack_cards and G.pack_cards) then
-            return {n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-                {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.3*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_select_from_booster'}, nodes={
-                {n=G.UIT.T, config={text = localize('b_select'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
-                }},
-            }}
-        end
-    end
-  if card.ability.consumeable then
-    if (card.area == G.pack_cards and G.pack_cards) then
-      return {
-        n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-          {n=G.UIT.R, config={mid = true}, nodes={
-          }},
-          {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, minh = 0.8*card.T.h, maxw = 0.7*card.T.w - 0.15, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_use_consumeable'}, nodes={
-            {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
-          }},
-      }}
-    end
-    use =
-    {n=G.UIT.C, config={align = "cr"}, nodes={
-      {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_use_consumeable'}, nodes={
-        {n=G.UIT.B, config = {w=0.1,h=0.6}},
-        {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
-      }}
-    }}
-  elseif card.area and card.area == G.pack_cards then
-    return {
-      n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-        {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.3*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_select_card'}, nodes={
-          {n=G.UIT.T, config={text = localize('b_select'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
-        }},
-    }}
-  end
-    local t = {
-      n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-        {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
-          {n=G.UIT.R, config={align = 'cl'}, nodes={
-            sell
-          }},
-          {n=G.UIT.R, config={align = 'cl'}, nodes={
-            adora_sac
-          }},
-          {n=G.UIT.R, config={align = 'cl'}, nodes={
-            vtsg_sac
-          }},
-          {n=G.UIT.R, config={align = 'cl'}, nodes={
-            use
-          }},
-        }},
-    }}
-  return t
-end
-
---Challenge higher stakes
-local start_challenge_run_old = G.FUNCS.start_challenge_run
-G.FUNCS.start_challenge_run = function(e)
-    if G.OVERLAY_MENU then
-        G.FUNCS.exit_overlay_menu()
-    end
-    local stake = get_challenge_stake(e)
-    local ret = G.FUNCS.start_run(e, {stake = stake, challenge = G.CHALLENGES[e.config.id]})
-    return ret
-end
-
---Survivor disable rerolling
-local can_reroll_old = G.FUNCS.can_reroll
-G.FUNCS.can_reroll = function(e)
-    if G.GAME.modifiers.no_shop_rerolls then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    else
-        local ret = can_reroll_old(e)
-        return ret
-    end
-end
-
---Challenge faster scaling
-local get_blind_amount_old = get_blind_amount
-function get_blind_amount(ante)
-    local k = 0.75
-    if G.GAME.modifiers.scaling == 4 then 
-        local amounts = {
-            300,  1200,  5000,  18000,  60000,  180000,  450000,  1000000
-        }
-        if ante < 1 then return 100 end
-        if ante <= 8 then return amounts[ante] end
-        local a, b, c, d = amounts[8],1.6,ante-8, 1 + 0.2*(ante-8)
-        local amount = math.floor(a*(b+(k*c)^d)^c)
-        amount = amount - amount%(10^math.floor(math.log10(amount)-1))
-        return amount
-    else
-        local ret = get_blind_amount_old(ante)
-        return ret
-    end
 end

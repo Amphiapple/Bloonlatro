@@ -3,6 +3,42 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Force Bosses
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "if G.FORCE_BOSS then return G.FORCE_BOSS end"
+position = 'after'
+payload = '''
+if G.GAME.selected_back.name == 'Psi Deck' and (G.GAME.round_resets.ante%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2) then
+    return "bl_psychic"
+elseif G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+    if G.GAME.modifiers.bloonarius1 then
+        return "bl_bloons_bloonarius"
+    elseif G.GAME.modifiers.lych1 then
+        return "bl_bloons_lych"
+    elseif G.GAME.modifiers.vortex1 then
+        return "bl_bloons_vortex"
+    elseif G.GAME.modifiers.dreadbloon1 then
+        return "bl_bloons_dreadbloon"
+    elseif G.GAME.modifiers.phayze1 then
+        return "bl_bloons_phayze"
+    elseif G.GAME.modifiers.blastapopoulos1 then
+        return "bl_bloons_blastapopoulos"
+    end
+end
+'''
+match_indent = true
+
+# Disable ZOMG when selling jokers
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'Verdant Leaf' then "
+position = 'at'
+payload = "if self.ability.set == 'Joker' and G.GAME.blind and (G.GAME.blind.name == 'Verdant Leaf' or G.GAME.blind.name == 'Green Gargantuan') then "
+match_indent = true
+
 # Custom loc_debuff_text for boss blinds
 [[patches]]
 [patches.pattern]

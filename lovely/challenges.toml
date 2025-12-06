@@ -1,0 +1,42 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Challenge stake change
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.FUNCS.start_run(e, {stake = 1, challenge = G.CHALLENGES[e.config.id]})"
+position = 'at'
+payload = "G.FUNCS.start_run(e, {stake = get_challenge_stake(e), challenge = G.CHALLENGES[e.config.id]})"
+match_indent = true
+
+# Survivor reroll disable
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if ((G.GAME.dollars-G.GAME.bankrupt_at) - G.GAME.current_round.reroll_cost < 0) and G.GAME.current_round.reroll_cost ~= 0 then"
+position = 'at'
+payload = "if ((G.GAME.dollars-G.GAME.bankrupt_at) - G.GAME.current_round.reroll_cost < 0) and G.GAME.current_round.reroll_cost ~= 0 or G.GAME.modifiers.no_shop_rerolls then"
+match_indent = true
+
+# 
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''
+local amounts = {
+    300,  1000, 3200,  9000,  25000,  60000,  110000,  200000
+    --300,  1000, 3000,  8000,  22000,  50000,  90000,  180000
+}
+'''
+position = 'after'
+payload = '''
+if G.GAME.modifiers._2mp or G.GAME.modifiers._2mp_expert then
+    amounts = {
+        300,  1200,  5000,  18000,  60000,  180000,  450000,  1000000
+    }
+end
+'''
+match_indent = true

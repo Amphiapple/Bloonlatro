@@ -24,6 +24,9 @@ SMODS.Tag {
     loc_vars = function(self, info_queue)
 		return { vars = { self.config.percent } }
 	end,
+	in_pool = function (self, args)
+		return G.GAME.stake >= 4
+	end,
     apply = function(self, tag, context)
         if context.type == 'store_joker_modify' and context.card.ability.set == 'Joker' then
 			local lock = tag.ID

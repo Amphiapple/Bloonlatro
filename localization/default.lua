@@ -177,7 +177,7 @@ return {
             ch_c_no_negative_jokers = {
                 "Negative Jokers no longer appear in the shop"
             },
-            ch_c_2mp = {
+            ch_c__2mp = {
                 "Required score scales extremely fast for each {C:attention}Ante{}"
             },
         },

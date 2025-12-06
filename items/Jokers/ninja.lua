@@ -204,13 +204,15 @@ SMODS.Joker { --Flash Bomb
             juice_card_until(card, eval, true)
             if card.ability.extra.counter == card.ability.extra.limit then
                 for k, v in ipairs(context.scoring_hand) do
-                    v:set_ability(G.P_CENTERS.m_bloons_stunned)
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            v:juice_up()
-                            return true
-                        end
-                    }))
+                    if not v.debuff then
+                        v:set_ability(G.P_CENTERS.m_bloons_stunned)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                v:juice_up()
+                                return true
+                            end
+                        }))
+                    end
                 end
             end
         elseif context.joker_main and card.ability.extra.counter == card.ability.extra.limit then

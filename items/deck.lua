@@ -337,7 +337,7 @@ SMODS.Back { --Psi
     },
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
-    order = 29
+    order = 29,
 }
 
 --[[

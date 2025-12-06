@@ -7,8 +7,8 @@ Challenge_stakes = {
     c_bloons_survivor = {stake = 8},
     c_bloons_inflated_expert = {stake = 8},
     c_bloons_survivor_expert = {stake = 8},
-    c_bloons_2tc_expert = {stake = 8},
-    c_bloons_2mp_expert = {stake = 8},
+    c_bloons__2tc_expert = {stake = 8},
+    c_bloons__2mp_expert = {stake = 8},
 }
 
 local vanilla_jokers = {}
@@ -185,16 +185,8 @@ table.insert(boss_jokers, { id = 'j_chicot' })
 table.insert(boss_jokers, { id = 'j_mr_bones' })
 table.insert(boss_jokers, { id = 'j_bloons_blitz' })
 
-local finisher_blinds = {}
-table.insert(finisher_blinds, { id = 'bl_final_bell', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_vessel', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_leaf', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_heart', type = 'blind' })
-table.insert(finisher_blinds, { id = 'bl_final_acorn', type = 'blind' })
-
 local boss_bans = {
     banned_cards = boss_jokers,
-    banned_other = finisher_blinds
 }
 
 local abracadabmonkey_cards = {}
@@ -216,7 +208,7 @@ local sticky_situation_cards = {
 }
 local sticky_situation_others = {
     { id = 'bl_water', type = 'blind' },
-    { id = 'bl_needle', type = 'blind' }
+    { id = 'bl_needle', type = 'blind' },
 }
 for _, card in ipairs(banned_tarot_cards) do
     table.insert(sticky_situation_cards, card)
@@ -247,7 +239,6 @@ end
 
 local dreadbloon_bans = {
     banned_cards = dreadbloon_cards,
-    banned_other = finisher_blinds
 }
 
 local glorious_gold_cards = {
@@ -631,7 +622,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_cleansing' },
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' }
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_bloons_final_zomg', type = 'blind' },
         }
     },
     deck = {
@@ -859,6 +851,7 @@ SMODS.Challenge {
             { id = 'bl_water', type = 'blind' },
             { id = 'bl_needle', type = 'blind' },
             { id = 'bl_serpent', type = 'blind' },
+            { id = 'bl_bloons_final_moab', type = 'blind' },
         }
     },
     deck = {
@@ -896,7 +889,7 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2tc',
+    key = '_2tc',
     loc_txt = {
         name = '2 Tower Chimps'
     },
@@ -917,7 +910,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_concoction' }
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' }
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_bloons_final_zomg', type = 'blind' },
         }
     },
     deck = {
@@ -935,13 +929,13 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2mp',
+    key = '_2mp',
     loc_txt = {
         name = '2 Megapops'
     },
     rules = {
         custom = {
-            { id = '2mp' },
+            { id = '_2mp' },
         },
     },
     jokers = {},
@@ -963,7 +957,7 @@ SMODS.Challenge {
     },
 
     apply = function(self)
-        G.GAME.modifiers.scaling = 4
+        G.GAME.modifiers.scaling = 3
     end
 }
 
@@ -996,6 +990,7 @@ SMODS.Challenge {
             { id = 'bl_water', type = 'blind' },
             { id = 'bl_needle', type = 'blind' },
             { id = 'bl_serpent', type = 'blind' },
+            { id = 'bl_bloons_final_moab', type = 'blind' },
         }
     },
     deck = {
@@ -1042,7 +1037,7 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2tc_expert',
+    key = '_2tc_expert',
     loc_txt = {
         name = '2 Tower Chimps Expert'
     },
@@ -1065,7 +1060,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_concoction' }
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' }
+            { id = 'bl_final_leaf', type = 'blind' },
+            { id = 'bl_bloons_final_zomg', type = 'blind' },
         }
     },
     deck = {
@@ -1083,14 +1079,14 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = '2mp_expert',
+    key = '_2mp_expert',
     loc_txt = {
         name = '2 Megapops Expert'
     },
     rules = {
         custom = {
             { id = 'gold_stake' },
-            { id = '2mp' },
+            { id = '_2mp' },
             { id = 'difficulty_warning'}
         },
     },
@@ -1113,6 +1109,6 @@ SMODS.Challenge {
     },
 
     apply = function(self)
-        G.GAME.modifiers.scaling = 4
+        G.GAME.modifiers.scaling = 3
     end
 }

@@ -309,7 +309,7 @@ SMODS.Joker { --Wall Street
     atlas = 'Joker',
 	pos = { x = 15, y = 20 },
     rarity = 3,
-	cost = 10,
+	cost = 9,
     blueprint_compat = false,
     config = {
         base = 'farm',
