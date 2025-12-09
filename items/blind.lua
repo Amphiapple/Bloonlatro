@@ -182,11 +182,18 @@ SMODS.Blind {
     mult = 2,
     boss = { showdown = true },
     boss_colour = HEX("2ecaf7"),
+    config = { extra = { hands = 0, discards = 0 } },
 
     set_blind = function(self)
-        ease_hands_played(-math.floor(G.GAME.current_round.hands_left/2))
-        ease_discard(-math.floor(G.GAME.current_round.discards_left/2))
+        self.config.extra.hands = math.floor(G.GAME.current_round.hands_left/2)
+        self.config.extra.discards = math.floor(G.GAME.current_round.discards_left/2)
+        ease_hands_played(-self.config.extra.hands)
+        ease_discard(-self.config.extra.discards)
     end,
+    disable = function(self)
+        ease_hands_played(self.config.extra.hands)
+        ease_discard(self.config.extra.discards)
+    end
 }
 
 SMODS.Blind {
@@ -207,7 +214,7 @@ SMODS.Blind {
     boss_colour = HEX("d10705"),
 
     calculate = function(self, blind, context)
-        if context.final_scoring_step then
+        if context.final_scoring_step and not blind.disabled then
             local card = nil
             for _,joker in ipairs(G.jokers.cards) do
                 if not joker.debuff then
@@ -223,7 +230,7 @@ SMODS.Blind {
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        return card.debuff
+        return card.debuff and not self.disabled
     end,
     disable = function(self)
         for _,joker in ipairs(G.jokers.cards) do
@@ -259,7 +266,7 @@ SMODS.Blind {
     end,
 
     calculate = function(self, blind, context)
-        if context.hand_drawn then
+        if context.hand_drawn and not blind.disabled then
             for _, card in ipairs(context.hand_drawn) do
                  if SMODS.pseudorandom_probability(G.GAME.blind, 'ddt', 1, 4) then
                     card:set_debuff(true)
@@ -271,7 +278,7 @@ SMODS.Blind {
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        return card.debuff
+        return card.debuff and not self.disabled
     end,
     disable = function(self)
         for _,card in ipairs(G.hand) do
@@ -308,7 +315,7 @@ SMODS.Blind {
         end
     end,
     calculate = function (self, blind, context)
-        if context.card_added then
+        if context.card_added and not blind.disabled then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.05,
@@ -325,7 +332,7 @@ SMODS.Blind {
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        return card.debuff
+        return card.debuff and not self.disabled
     end,
     disable = function(self)
         for _,joker in ipairs(G.jokers.cards) do
@@ -360,7 +367,7 @@ SMODS.Blind {
         self.prepped = true
     end,
     drawn_to_hand = function(self)
-        if self.prepped then
+        if self.prepped and not self.disabled then
             G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 1.5)
             G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             self.prepped = false
