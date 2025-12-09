@@ -12,4 +12,6 @@ Fixes:
 - Bloon Impact no longer gains mult if a stunned card is discarded normally or by the hook
 - Monkey Wall Street correctly costs $9 instead of $10
 - Meteor Cards no longer destroy themselves if debuffed
+- Disabling finisher blinds should now work
+- Sacrificing cards on Adora Deck should now disable Green Gargantuan
 - Fixed some hook functions for specific functions to not conflict with other mods
