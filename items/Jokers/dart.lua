@@ -49,14 +49,14 @@ SMODS.Joker { --Sharp Shots
     blueprint_compat = true,
     config = {
         base = 'dart',
-        extra = { chips = 30, mult = 3 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 30, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.current_round.hands_played > 0 then
+        if context.joker_main then
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult
@@ -82,14 +82,14 @@ SMODS.Joker { --Razor Sharp Shots
     blueprint_compat = true,
     config = {
         base = 'dart',
-        extra = { chips = 30, mult = 5 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 30, mult = 6 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.current_round.hands_played > 0 then
+        if context.joker_main then
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult
@@ -341,6 +341,7 @@ SMODS.Joker { --Super Monkey Fan Club
         text = {
             '{X:mult,C:white}X#1#{} Mult',
             'Common {C:attention}Dart Monkeys',
+            'and {C:attention}Fan Club{} members',
             'give {X:mult,C:white}X#1#{} Mult',
         }
     },
@@ -358,7 +359,9 @@ SMODS.Joker { --Super Monkey Fan Club
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity("Common")) or context.other_joker == self then
+        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity("Common")) or
+                context.other_joker.name == "Super Monkey Fan Club" or
+                context.other_joker.name == "Plasma Monkey Fan Club" then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)
@@ -380,6 +383,7 @@ SMODS.Joker { --Plasma Monkey Fan Club
         text = {
             '{X:mult,C:white}X#1#{} Mult',
             'Common {C:attention}Dart Monkeys',
+            'and {C:attention}Fan Club{} members',
             'give {X:mult,C:white}X#1#{} Mult',
         }
     },
@@ -397,7 +401,9 @@ SMODS.Joker { --Plasma Monkey Fan Club
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity("Common")) or context.other_joker == self then
+        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity("Common")) or
+                context.other_joker.name == "Super Monkey Fan Club" or
+                context.other_joker.name == "Plasma Monkey Fan Club" then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)
@@ -436,12 +442,12 @@ SMODS.Joker { --Long Range Darts
         return { vars = { card.ability.extra.current_chips, card.ability.extra.current_mult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.current_round.hands_played > 0 then
+        if context.joker_main then
             return {
                 chips = card.ability.extra.current_chips,
                 mult = card.ability.extra.current_mult
             }
-        elseif context.after and G.GAME.current_round.hands_played == 1 and not context.blueprint then
+        elseif context.after and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             card.ability.extra.current_chips = card.ability.extra.chips * 2
             card.ability.extra.current_mult = card.ability.extra.mult * 2
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then

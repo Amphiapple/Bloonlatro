@@ -1,11 +1,17 @@
 Added Jokers:
 - All remaining Dart Monkeys
+- All remaining Boomerang Monkeys
 
 General Changes:
 - Higher quality temporary art for Tier 5 towers
 
 Balance Changes:
-- 
+- Bionic Boomerang Common > Uncommon
+- Bionic Boomerang Cost 6 > 5
+- Bionic Boomerang chips +5 > +3
+- Bionic Boomerang any Steel > each Steel held in hand
+- MOAB Press reworked, Red seal creation may return to another Joker in the future
 
 Fixes:
+- Disabling Brutal Behemoth and Dark Titan should now work
 - Sacrificing a Joker on Adora deck should now stop Green Gargantuan
