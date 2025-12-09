@@ -86,7 +86,7 @@ Card.sell_card = function(self, ...)
             if self.ability.set == 'Joker' then 
                 inc_career_stat('c_jokers_sold', 1)
             end
-            if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'Verdant Leaf' then
+            if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'Verdant Leaf' or G.GAME.blind.name == 'Green Gargantuan' then
                 G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
                     G.GAME.blind:disable()
                     return true
