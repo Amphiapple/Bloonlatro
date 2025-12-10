@@ -214,6 +214,7 @@ SMODS.Joker { --Sky Shredder
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
+            local upgrade = false
             for k, v in ipairs(context.scoring_hand) do
                 if card.ability.extra.counter < 32 and v:get_id() == 14 and not v.debuff then
                     card.ability.extra.counter = card.ability.extra.counter + 1
@@ -221,14 +222,17 @@ SMODS.Joker { --Sky Shredder
                         card.ability.extra.current = card.ability.extra.current + 1
                         if card.ability.extra.current < 5 then
                             card.ability.extra.limit = card.ability.extra.limit * 2
+                            upgrade = true
                         end
-                        return {
-                            message = localize('k_upgrade_ex'),
-                            colour = G.C.RED,
-                            delay = 0.45,
-                        }
                     end
                 end
+            end
+            if upgrade then
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.RED,
+                    delay = 0.45,
+                }
             end
         elseif context.joker_main and card.ability.extra.current > 1 then
             return {

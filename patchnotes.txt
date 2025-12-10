@@ -11,7 +11,9 @@ Balance Changes:
 - Bionic Boomerang chips +5 > +3
 - Bionic Boomerang any Steel > each Steel held in hand
 - MOAB Press reworked, Red seal creation may return to another Joker in the future
+- Cleansing Tag reworked, should now be far more usable than before
 
 Fixes:
+- Sky Shredder should no longer stop counting scoring aces when it upgrades
 - Disabling Brutal Behemoth and Dark Titan should now work
 - Sacrificing a Joker on Adora deck should now stop Green Gargantuan

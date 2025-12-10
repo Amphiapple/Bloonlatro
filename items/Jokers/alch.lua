@@ -175,7 +175,7 @@ SMODS.Joker { --Rubber to Gold
         info_queue[#info_queue + 1] = G.P_SEALS.Gold
     end,
     calculate = function(self, card, context)
-        if context.discard and G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.blueprint then
+        if context.discard and G.GAME.current_round.discards_left <= 1 and #context.full_hand == 1 and not context.full_hand[1].debuff and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,

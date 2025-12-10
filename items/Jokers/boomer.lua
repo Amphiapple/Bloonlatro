@@ -113,7 +113,7 @@ SMODS.Joker { --Glaive Ricochet
     },
     atlas = 'Joker',
 	pos = { x = 3, y = 1 },
-    rarity = 1,
+    rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     perishable_compat = false,
@@ -454,7 +454,7 @@ SMODS.Joker { --Perma Charge
         return { vars = { card.ability.extra.retrigger } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and G.GAME.current_round.hands_left == 0 and context.cardarea == G.hand and context.other_card == G.hand.cards[#G.hand.cards] and not context.other_card.debuff then
+        if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[#G.hand.cards] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger

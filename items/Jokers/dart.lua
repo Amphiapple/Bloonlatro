@@ -512,7 +512,7 @@ SMODS.Joker { --Crossbow
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and #G.consumeables.cards > 0 then
+        if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer > 0 then
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult
