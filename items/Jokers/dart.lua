@@ -204,7 +204,7 @@ SMODS.Joker { --Ultra-Juggernaut
                 }
             end
 		elseif context.after then
-            card.ability.extra.current = 0
+            card.ability.extra.current = 1
         end
     end
 }
@@ -359,9 +359,9 @@ SMODS.Joker { --Super Monkey Fan Club
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity("Common")) or
-                context.other_joker.name == "Super Monkey Fan Club" or
-                context.other_joker.name == "Plasma Monkey Fan Club" then
+        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity('Common') or
+                context.other_joker.ability.name == "Super Monkey Fan Club" or
+                context.other_joker.ability.name == "Plasma Monkey Fan Club") then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)
@@ -401,9 +401,9 @@ SMODS.Joker { --Plasma Monkey Fan Club
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity("Common")) or
-                context.other_joker.name == "Super Monkey Fan Club" or
-                context.other_joker.name == "Plasma Monkey Fan Club" then
+        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity('Common') or
+                context.other_joker.ability.name == "Super Monkey Fan Club" or
+                context.other_joker.ability.name == "Plasma Monkey Fan Club") then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)

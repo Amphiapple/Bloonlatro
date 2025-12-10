@@ -22,7 +22,7 @@ SMODS.Joker { --Monkey Village
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.config.center.rarity == 1 then
+        if context.other_joker and context.other_joker:is_rarity('Common') then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)

@@ -2,7 +2,9 @@
 
 A Balatro mod that incorporates Bloons Tower Defense into the base game
 
-Includes 160 new Jokers, 15 new Decks, and more!
+# New Additions:
+
+Starting on the path to adding the upgrading mechanic, Dart Monkey and Boomerang Monkey have been completely fleshed out.
 
 ---
 
