@@ -217,7 +217,7 @@ SMODS.Blind {
         if context.final_scoring_step and not blind.disabled then
             local card = nil
             for _,joker in ipairs(G.jokers.cards) do
-                if not joker.debuff then
+                if not joker.debuffed_by_blind then
                     card = joker
                 end
             end

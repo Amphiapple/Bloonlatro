@@ -171,7 +171,7 @@ SMODS.Joker { --MOAR Glaives
     perishable_compat = false,
     config = {
         base = 'boomer',
-        extra = { chips = 2, current = 0, suits = {} } --Variables: chips = +chips per continuing card, current = current +chips
+        extra = { chips = 2, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 } } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)
@@ -179,36 +179,40 @@ SMODS.Joker { --MOAR Glaives
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff and not context.blueprint then
-            local new_suit = true
-            local suit = 'None'
-            if context.other_card.ability.name == 'Wild Card' then
-                suit = 'Wild'
-            elseif context.other_card:is_suit('Hearts') then
-                suit = 'Hearts'
-            elseif context.other_card:is_suit('Diamonds') then
-                suit = 'Diamonds'
-            elseif context.other_card:is_suit('Spades') then
-                suit = 'Spades'
-            elseif context.other_card:is_suit('Clubs') then
-                suit =' Clubs'
-            else
-                new_suit = false
-            end
-            for k, v in pairs(card.ability.extra.suits) do
-                if suit == k then
-                    new_suit = false
-                end
-            end
-            if new_suit then
-                card.ability.extra.suits[suit] = true
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
+            if SMODS.has_any_suit(context.other_card) then
+                card.ability.extra.suits['Wild'] = card.ability.extra.suits['Wild'] + 1
+            elseif context.other_card:is_suit('Hearts') and card.ability.extra.suits['Hearts'] == 0 then
+                card.ability.extra.suits['Hearts'] = card.ability.extra.suits['Hearts'] + 1
+            elseif context.other_card:is_suit('Diamonds') and card.ability.extra.suits['Diamonds'] == 0 then
+                card.ability.extra.suits['Diamonds'] = card.ability.extra.suits['Diamonds'] + 1
+            elseif context.other_card:is_suit('Spades') and card.ability.extra.suits['Spades'] == 0 then
+                card.ability.extra.suits['Spades'] = card.ability.extra.suits['Spades'] + 1
+            elseif context.other_card:is_suit('Clubs') and card.ability.extra.suits['Clubs'] == 0 then
+                card.ability.extra.suits['Clubs'] = card.ability.extra.suits['Clubs'] + 1
             end
         elseif context.joker_main then
+            while card.ability.extra.suits['Wild'] > 0 do
+                card.ability.extra.suits['Wild'] = card.ability.extra.suits['Wild'] - 1
+                if card.ability.extra.suits['Hearts'] == 0 then
+                    card.ability.extra.suits['Hearts'] = card.ability.extra.suits['Hearts'] + 1
+                elseif card.ability.extra.suits['Diamonds'] == 0 then
+                    card.ability.extra.suits['Diamonds'] = card.ability.extra.suits['Diamonds'] + 1
+                elseif card.ability.extra.suits['Spades'] == 0 then
+                    card.ability.extra.suits['Spades'] = card.ability.extra.suits['Spades'] + 1
+                elseif card.ability.extra.suits['Clubs'] == 0 then
+                    card.ability.extra.suits['Clubs'] = card.ability.extra.suits['Clubs'] + 1
+                end
+            end
+            local count = 0
+            for k, v in pairs(card.ability.extra.suits) do
+                count = count + v
+            end
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips * count
             return {
                 chips = card.ability.extra.current
             }
         elseif context.after and not context.blueprint then
-            card.ability.extra.suits = {}
+            card.ability.extra.suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }
         end
     end
 }
@@ -233,7 +237,7 @@ SMODS.Joker { --Glaive Lord
     perishable_compat = false,
     config = {
         base = 'boomer',
-        extra = { chips = 3, current = 0, suits = {}, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
+        extra = { chips = 3, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)
@@ -241,30 +245,6 @@ SMODS.Joker { --Glaive Lord
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff and not context.blueprint then
-            local new_suit = true
-            local suit = 'None'
-            if context.other_card.ability.name == 'Wild Card' then
-                suit = 'Wild'
-            elseif context.other_card:is_suit('Hearts') then
-                suit = 'Hearts'
-            elseif context.other_card:is_suit('Diamonds') then
-                suit = 'Diamonds'
-            elseif context.other_card:is_suit('Spades') then
-                suit = 'Spades'
-            elseif context.other_card:is_suit('Clubs') then
-                suit =' Clubs'
-            else
-                new_suit = false
-            end
-            for k, v in pairs(card.ability.extra.suits) do
-                if suit == k then
-                    new_suit = false
-                end
-            end
-            if new_suit then
-                card.ability.extra.suits[suit] = true
-            end
-
             local new_rank = true
             local id = context.other_card:get_id()
             if id < 0 then
@@ -278,16 +258,51 @@ SMODS.Joker { --Glaive Lord
             if new_rank then
                 card.ability.extra.ranks[id] = true
             end
-            if new_suit or new_rank then
+
+            local new_suit = true
+            if SMODS.has_any_suit(context.other_card) and card.ability.extra.suits['Wild'] < 4 then
+                card.ability.extra.suits['Wild'] = card.ability.extra.suits['Wild'] + 1
+                new_suit = false
+            elseif context.other_card:is_suit('Hearts') and card.ability.extra.suits['Hearts'] == 0 then
+                card.ability.extra.suits['Hearts'] = card.ability.extra.suits['Hearts'] + 1
+            elseif context.other_card:is_suit('Diamonds') and card.ability.extra.suits['Diamonds'] == 0 then
+                card.ability.extra.suits['Diamonds'] = card.ability.extra.suits['Diamonds'] + 1
+            elseif context.other_card:is_suit('Spades') and card.ability.extra.suits['Spades'] == 0 then
+                card.ability.extra.suits['Spades'] = card.ability.extra.suits['Spades'] + 1
+            elseif context.other_card:is_suit('Clubs') and card.ability.extra.suits['Clubs'] == 0 then
+                card.ability.extra.suits['Clubs'] = card.ability.extra.suits['Clubs'] + 1
+            else
+                new_suit = false
+            end
+
+            if new_rank or new_suit then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
             end
         elseif context.joker_main then
+            local new_suit = true
+            while card.ability.extra.suits['Wild'] > 0 do
+                card.ability.extra.suits['Wild'] = card.ability.extra.suits['Wild'] - 1
+                new_suit = true
+                if card.ability.extra.suits['Hearts'] == 0 then
+                    card.ability.extra.suits['Hearts'] = card.ability.extra.suits['Hearts'] + 1
+                elseif card.ability.extra.suits['Diamonds'] == 0 then
+                    card.ability.extra.suits['Diamonds'] = card.ability.extra.suits['Diamonds'] + 1
+                elseif card.ability.extra.suits['Spades'] == 0 then
+                    card.ability.extra.suits['Spades'] = card.ability.extra.suits['Spades'] + 1
+                elseif card.ability.extra.suits['Clubs'] == 0 then
+                    card.ability.extra.suits['Clubs'] = card.ability.extra.suits['Clubs'] + 1
+                else
+                    new_suit = false
+                end
+                if new_suit then
+                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
+                end
+            end
             return {
                 chips = card.ability.extra.current
             }
         elseif context.after and not context.blueprint then
-            card.ability.extra.suits = {}
-            card.ability.extra.ranks = {}
+            card.ability.extra.suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }
         end
     end
 }
