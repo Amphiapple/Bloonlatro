@@ -401,7 +401,10 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             { id = 'j_bloons_tt5'},
-        }
+        },
+        banned_tags = {
+            { id = 'tag_bloons_cleansing' },
+        },
     },
     deck = {
         type = 'Challenge Deck'
@@ -500,7 +503,12 @@ SMODS.Challenge {
         { id = 'j_bloons_gustice', eternal = true }
     },
     vouchers = {},
-    restrictions = glorious_gold_bans,
+    restrictions = {
+        banned_cards =  glorious_gold_bans,
+        banned_tags = {
+            { id = 'tag_bloons_cleansing' },
+        },
+    },
     deck = {
         type = 'Challenge Deck',
     },
@@ -584,6 +592,7 @@ SMODS.Challenge {
             banned_cards = crash_of_the_titans_cards,
             banned_tags = {
                 { id = 'tag_standard' },
+                { id = 'tag_bloons_cleansing' },
             },
             banned_other = {
                 { id = 'bl_water', type = 'blind' },
@@ -684,7 +693,10 @@ SMODS.Challenge {
     },
     vouchers = {},
     restrictions = {
-        banned_cards = banned_hand_cards
+        banned_cards = banned_hand_cards,
+        banned_tags = {
+            { id = 'tag_bloons_cleansing' },
+        },
     },
     deck = {
         type = 'Challenge Deck',

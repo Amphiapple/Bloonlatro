@@ -14,6 +14,7 @@ Balance Changes:
 - MOAB Press reworked to be a retrigger
 - Deadly Precision cost 7 > 6
 - Cleansing Tag reworked, should now be far more usable than before
+    - Updated challenges to accomodate for the new cleansing tag
 
 Fixes:
 - Glaive Lord logic fixed to accomodate for Wild cards. Retriggering Wilds will now count as different suits, up to 4 suits!
