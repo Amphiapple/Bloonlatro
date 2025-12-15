@@ -595,7 +595,7 @@ SMODS.Joker { --MOAB Press
 	pos = { x = 14, y = 1 },
     rarity = 2,
 	cost = 6,
-    blueprint_compat = false,
+    blueprint_compat = true,
     config = {
         base = 'boomer',
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount

@@ -364,7 +364,7 @@ SMODS.Joker { --Night Vision Goggles
 	pos = { x = 6, y = 7 },
     rarity = 1,
 	cost = 4,
-    blueprint_compat = true,
+    blueprint_compat = false,
     config = {
         base = 'sniper',
     },
@@ -532,7 +532,7 @@ SMODS.Joker { --Elite Sniper
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { money = 10, limit = 4, counter = 4 } --Variables: money = dollars, limit = number of hands for money and spectral, counter = hand index
+        extra = { money = 5, limit = 4, counter = 4 } --Variables: money = dollars, limit = number of hands for money and spectral, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)
@@ -616,7 +616,7 @@ SMODS.Joker { --Fast Firing
             card.ability.extra.counter = math.fmod(G.GAME.hands_played - card.ability.hands_played_at_create, card.ability.extra.limit) + 1
             if not context.blueprint then
                 local eval = function()
-                    return card.ability.extra.counter >= card.ability.extra.limit - 1
+                    return card.ability.extra.counter >= card.ability.extra.limit - 1 and card.ability.extra.counter < card.ability.extra.limit
                 end
                 juice_card_until(card, eval, true)
             end

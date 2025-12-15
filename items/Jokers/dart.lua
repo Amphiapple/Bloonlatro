@@ -105,7 +105,7 @@ SMODS.Joker { --Spike-o-pult
         name = 'Spike-o-pult',
         text = {
             'Each played card gives',
-            '{C:mult}+#1#{} more Mult when scored'
+            '{C:mult}+#1#{} Mult when scored'
         }
     },
 	atlas = 'Joker',
@@ -115,22 +115,17 @@ SMODS.Joker { --Spike-o-pult
     blueprint_compat = true,
     config = {
         base = 'dart',
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult for each card scored, current = current +mult
+        extra = { mult = 4 } --Variables: mult = +mult for each card scored
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+        return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual then
-			if context.cardarea == G.play then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
-                return {
-                    mult = card.ability.extra.current
-                }
-            end
-		elseif context.after then
-            card.ability.extra.current = 0
+        if context.individual and context.cardarea == G.play then
+            return {
+                mult = card.ability.extra.mult
+            }
         end
     end
 }

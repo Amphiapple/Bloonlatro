@@ -1,0 +1,17 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Ring of Fire meteor card
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''if (v.type == 'Base' or v.type == 'Enhanced') and G.GAME.used_vouchers["v_illusion"] and pseudorandom(pseudoseed('illusion')) > 0.8 then'''
+position = 'before'
+payload = '''
+if (v.type == 'Base' or v.type == 'Enhanced') and (#find_joker('Ring of Fire') > 0 or #find_joker('Inferno Ring') > 0) and pseudorandom(pseudoseed('rof')) > 2 / G.GAME.playing_card_rate then
+    card:set_ability('m_bloons_meteor', nil, true)
+end
+'''
+match_indent = true

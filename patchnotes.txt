@@ -1,18 +1,13 @@
 Added Jokers:
-- All remaining Dart Monkeys
-- All remaining Boomerang Monkeys
-- All remaining Sniper Monkeys
+- All Dart Monkeys
+- All Boomerang Monkeys
+- All Tack Shooters
+- All Sniper Monkeys
 
 General Changes:
 - Higher quality temporary art for Tier 5 towers
 
 Balance Changes:
-- Bionic Boomerang Common > Uncommon
-- Bionic Boomerang Cost 6 > 5
-- Bionic Boomerang chips +5 > +3
-- Bionic Boomerang any Steel > each Steel held in hand
-- MOAB Press reworked to be a retrigger
-- Deadly Precision cost 7 > 6
 - Cleansing Tag reworked, should now be far more usable than before
     - Updated challenges to accomodate for the new cleansing tag
 

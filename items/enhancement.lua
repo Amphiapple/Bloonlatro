@@ -196,7 +196,7 @@ SMODS.Enhancement ({ --Meteor
     config = { Xmult = 3 }, --Variables: x_mult = Xmult
 
     in_pool = function()
-        return #find_joker('Inferno Ring') > 0 or #find_joker('Wizard Lord Phoenix') > 0
+        return #find_joker('Ring of Fire') > 0 or #find_joker('Inferno Ring') > 0 or #find_joker('Wizard Lord Phoenix') > 0
     end,
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.Xmult } }
