@@ -88,6 +88,7 @@ SMODS.Joker { --Nomad
     end
 }
 
+--[[
 SMODS.Joker { --Enforcer
     key = 'enforcer',
     name = 'Enforcer',
@@ -128,7 +129,7 @@ SMODS.Joker { --Enforcer
         end
     end
 }
-
+]]
 SMODS.Joker { --Twin Sixes
     key = 'twix',
     name = 'Twin Sixes',

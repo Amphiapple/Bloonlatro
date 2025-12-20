@@ -71,6 +71,7 @@ SMODS.Joker { --Druid of the Storm
         text = {
             'Gain {C:blue}+#1#{} hand every',
             '{C:attention}#2#{} hands played',
+            '{C:inactive}Max {C:attention}2{C:inactive} per round{}',
             '{C:inactive}(#3#)'
         }
     },
@@ -108,7 +109,7 @@ SMODS.Joker { --Druid of the Storm
                 end
                 juice_card_until(card, eval, true)
             end
-            if card.ability.extra.counter == card.ability.extra.limit then
+            if card.ability.extra.counter == card.ability.extra.limit and G.GAME.current_round.hands_played <= 8 then
                 ease_hands_played(card.ability.extra.hands)
             end
         end

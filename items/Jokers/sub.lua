@@ -154,7 +154,7 @@ SMODS.Joker { --First Strike Capability
 	atlas = 'Joker',
 	pos = { x = 9, y = 8 },
     rarity = 2,
-	cost = 7,
+	cost = 8,
     blueprint_compat = true,
     perishable_compat = false,
     config = {

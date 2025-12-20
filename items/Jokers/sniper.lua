@@ -518,11 +518,10 @@ SMODS.Joker { --Elite Sniper
     loc_txt = {
         name = 'Elite Sniper',
         text = {
-            'Earn {C:money}$#1#{} and',
-            'create a {C:dark_edition}Negative',
+            'Create a {C:dark_edition}Negative',
             '{C:tarot}Spectral{} card every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
+            '{C:attention}#1#{} hands played',
+            '{C:inactive}(#2#)'
         }
     },
 	atlas = 'Joker',
@@ -532,7 +531,7 @@ SMODS.Joker { --Elite Sniper
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { money = 5, limit = 4, counter = 4 } --Variables: money = dollars, limit = number of hands for money and spectral, counter = hand index
+        extra = { limit = 4, counter = 4 } --Variables: limit = number of hands for money and spectral, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)
@@ -545,7 +544,6 @@ SMODS.Joker { --Elite Sniper
 		end
 		return {
 			vars = {
-                card.ability.extra.money,
 				card.ability.extra.limit,
                 process_var(card.ability.extra.counter, card.ability.extra.limit),
 			},
@@ -561,7 +559,6 @@ SMODS.Joker { --Elite Sniper
                 juice_card_until(card, eval, true)
             end
             if card.ability.extra.counter == card.ability.extra.limit then
-                ease_dollars(card.ability.extra.money)
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         local card = create_card('Spectral',G.consumeables, nil, nil, nil, nil, nil, 'esniper')

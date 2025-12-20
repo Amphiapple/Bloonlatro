@@ -3,6 +3,7 @@ Added Jokers:
 - All Boomerang Monkeys
 - All Tack Shooters
 - All Sniper Monkeys
+- All Wizard Monkeys
 
 General Changes:
 - Higher quality temporary art for Tier 5 towers
@@ -10,6 +11,8 @@ General Changes:
 Balance Changes:
 - Cleansing Tag reworked, should now be far more usable than before
     - Updated challenges to accomodate for the new cleansing tag
+- Enforcer temporarily removed as Dragon's Breath now uses its effect
+- Druid of the Storm temporarily limited to 2 activations each round
 
 Fixes:
 - Glaive Lord logic fixed to accomodate for Wild cards. Retriggering Wilds will now count as different suits, up to 4 suits!
