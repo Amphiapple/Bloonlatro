@@ -147,7 +147,7 @@ SMODS.Joker { --Ring of Fire
     blueprint_compat = false,
     config = {
         base = 'tack',
-        extra = { rate = 2 } --Variables: rate = meteor card rate
+        extra = { rate = 4 } --Variables: rate = meteor card rate
     },
 
     loc_vars = function(self, info_queue, card)
@@ -156,9 +156,7 @@ SMODS.Joker { --Ring of Fire
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                if not G.GAME.used_vouchers["v_magic_trick"] then
-                    G.GAME.playing_card_rate = card.ability.extra.rate
-                end
+                G.GAME.playing_card_rate = G.GAME.playing_card_rate + card.ability.extra.rate
                 return true
             end
         }))
@@ -166,9 +164,7 @@ SMODS.Joker { --Ring of Fire
     remove_from_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                if not G.GAME.used_vouchers["v_magic_trick"] then
-                    G.GAME.playing_card_rate = 0
-                end
+                G.GAME.playing_card_rate = G.GAME.playing_card_rate - card.ability.extra.rate
                 return true
             end
         }))
@@ -416,7 +412,7 @@ SMODS.Joker { --Super Maelstrom
     key = 'smael',
     name = 'Super Maelstrom',
 	loc_txt = {
-        name = 'Blade Maelstrom',
+        name = 'Super Maelstrom',
         text = {
             '{X:mult,C:white}X#1#{} Mult after',
             'scoring every card rank',
@@ -430,7 +426,7 @@ SMODS.Joker { --Super Maelstrom
     blueprint_compat = true,
     config = {
         base = 'tack',
-        extra = { Xmult = 3, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { Xmult = 2, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)

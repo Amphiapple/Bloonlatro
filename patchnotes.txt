@@ -9,6 +9,9 @@ General Changes:
 - Higher quality temporary art for Tier 5 towers
 
 Balance Changes:
+- Supply Drop Tarots are no longer Negative
+- Supply Drop gives $4 in addition to a Tarot
+- First Strike Capability cost 7 > 8, snowballs far too easily when it's afforded very early on
 - Cleansing Tag reworked, should now be far more usable than before
     - Updated challenges to accomodate for the new cleansing tag
 - Enforcer temporarily removed as Dragon's Breath now uses its effect

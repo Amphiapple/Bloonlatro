@@ -303,6 +303,7 @@ SMODS.Joker { --Glaive Lord
             }
         elseif context.after and not context.blueprint then
             card.ability.extra.suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }
+            card.ability.extra.ranks = {}
         end
     end
 }

@@ -54,7 +54,8 @@ SMODS.Joker { --Guided Magic
         name = 'Guided Magic',
         text = {
             'Enhances {C:attention}first{} played card',
-            'into a {C:attention}#1#{}'
+            'into a {C:attention}#1#{}',
+            '{s:0.8}Enhancement changes every round'
         }
     },
 	atlas = 'Joker',
@@ -265,7 +266,7 @@ SMODS.Joker { --Arcane Spike
     calculate = function(self, card, context)
         if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card.config.center ~= G.P_CENTERS.c_base and not context.other_card.debuff then
             local new_enhancement = true
-            local e = context.other_card.config.center
+            local e = context.other_card.config.center.name
             for k, v in pairs(card.ability.extra.enhancements) do
                 if e == k then
                     new_enhancement = false

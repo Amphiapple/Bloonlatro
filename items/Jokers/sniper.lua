@@ -457,9 +457,10 @@ SMODS.Joker { --Supply Drop
     loc_txt = {
         name = 'Supply Drop',
         text = {
-            'Create a {C:dark_edition}Negative {C:tarot}Tarot{}',
-            'card every {C:attention}#1#{} hands played',
-            '{C:inactive}(#2#)'
+            'Earn {C:money}$#1#{} and',
+            'create a {C:tarot}Tarot{} card',
+            'card every {C:attention}#2#{} hands played',
+            '{C:inactive}(#3#)'
         }
     },
 	atlas = 'Joker',
@@ -469,11 +470,10 @@ SMODS.Joker { --Supply Drop
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { limit = 4, counter = 4 } --Variables: limit = number of hands for tarot, counter = hand index
+        extra = { limit = 4, counter = 4, money = 4 } --Variables: limit = number of hands for tarot, counter = hand index, money = dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'
@@ -482,6 +482,7 @@ SMODS.Joker { --Supply Drop
 		end
 		return {
 			vars = {
+                card.ability.extra.money,
 				card.ability.extra.limit,
                 process_var(card.ability.extra.counter, card.ability.extra.limit),
 			},
@@ -496,14 +497,13 @@ SMODS.Joker { --Supply Drop
                 end
                 juice_card_until(card, eval, true)
             end
-
             if card.ability.extra.counter == card.ability.extra.limit then
+                ease_dollars(card.ability.extra.money)
                 G.E_MANAGER:add_event(Event({
                     func = function() 
-                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'supply')
-                        card:set_edition({negative = true}, true)
+                        local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'supply')
                         card:add_to_deck()
-                        G.consumeables:emplace(card) 
+                        G.consumeables:emplace(card)
                         return true
                     end}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
@@ -518,10 +518,10 @@ SMODS.Joker { --Elite Sniper
     loc_txt = {
         name = 'Elite Sniper',
         text = {
-            'Create a {C:dark_edition}Negative',
-            '{C:tarot}Spectral{} card every',
-            '{C:attention}#1#{} hands played',
-            '{C:inactive}(#2#)'
+            'Earn {C:money}$#1#{} and',
+            'create a {C:power}Power{} card',
+            'every {C:attention}#2#{} hands played',
+            '{C:inactive}(#3#)'
         }
     },
 	atlas = 'Joker',
@@ -531,11 +531,10 @@ SMODS.Joker { --Elite Sniper
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { limit = 4, counter = 4 } --Variables: limit = number of hands for money and spectral, counter = hand index
+        extra = { limit = 4, counter = 4, money = 5 } --Variables: limit = number of hands for money and spectral, counter = hand index, money = dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'
@@ -544,6 +543,7 @@ SMODS.Joker { --Elite Sniper
 		end
 		return {
 			vars = {
+                card.ability.extra.money,
 				card.ability.extra.limit,
                 process_var(card.ability.extra.counter, card.ability.extra.limit),
 			},
@@ -559,15 +559,15 @@ SMODS.Joker { --Elite Sniper
                 juice_card_until(card, eval, true)
             end
             if card.ability.extra.counter == card.ability.extra.limit then
+                ease_dollars(card.ability.extra.money)
                 G.E_MANAGER:add_event(Event({
                     func = function() 
-                        local card = create_card('Spectral',G.consumeables, nil, nil, nil, nil, nil, 'esniper')
-                        card:set_edition({negative = true}, true)
+                        local card = create_card('Power', G.consumeables, nil, nil, nil, nil, nil, 'esniper')
                         card:add_to_deck()
-                        G.consumeables:emplace(card) 
+                        G.consumeables:emplace(card)
                         return true
                     end}))
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.POWER})
             end
         end
     end
