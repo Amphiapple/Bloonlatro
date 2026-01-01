@@ -1,0 +1,94 @@
+JokerDisplay.Definitions["j_bloons_village"] = { --Monkey Village
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
+        { text = "x" },
+        { text = "Common", colour = G.C.BLUE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local count = 0
+        if G.jokers then
+            for _, joker_card in ipairs(G.jokers.cards) do
+                if joker_card.config.center.rarity and joker_card.config.center.rarity == 1 then
+                    count = count + 1
+                end
+            end
+        end
+        card.joker_display_values.count = count
+    end,
+    mod_function = function(card, mod_joker)
+        return { mult = (card.config.center.rarity == 1 and mod_joker.ability.extra.mult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_drums"] = { --Jungle Drums
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
+        { text = "x" },
+        { text = "Jokers", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local count = 0
+        if G.jokers then
+            for _, joker_card in ipairs(G.jokers.cards) do
+                if joker_card ~= card then
+                    count = count + 1
+                end
+            end
+        end
+        card.joker_display_values.count = count
+    end,
+    mod_function = function(card, mod_joker)
+        return { x_mult = (card ~= mod_joker and mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_discount"] = { --Monkey Commerce
+}
+
+JokerDisplay.Definitions["j_bloons_mib"] = { --Monkey Intelligence Bureau
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "num" }
+            },
+            border_colour = G.C.GREEN
+        }
+    },
+}
+
+JokerDisplay.Definitions["j_bloons_city"] = { --Monkey City
+    text = {
+        { text = "+$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "(Round)" }
+    }
+}
+
+JokerDisplay.Definitions["j_bloons_pex"] = { --Primary Expertise
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult"}
+            }
+        }
+    },
+    extra = {
+        {
+            { text = "(", colour = G.C.GREEN, scale = 0.3 },
+            { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
+            { text = ")", colour = G.C.GREEN, scale = 0.3 },
+        }
+    },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
+        card.joker_display_values.odds = numerator .. " in " .. denominator
+    end
+}

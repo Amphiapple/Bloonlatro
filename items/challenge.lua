@@ -21,6 +21,7 @@ end
 local banned_tarot_cards = {
     { id = 'j_hallucination' },
     { id = 'j_cartomancer' },
+    { id = 'j_superposition' },
     { id = 'j_8_ball' },
     { id = 'j_vagabond' },
     { id = 'j_bloons_owl' },
@@ -60,16 +61,20 @@ local banned_enhancement_cards = {
     { id = 'j_midas_mask' },
     { id = 'j_bloons_ice' },
     { id = 'j_bloons_glue' },
-    { id = 'j_bloons_wiz' },
     { id = 'j_bloons_glose' },
     { id = 'j_bloons_sshock' },
+    { id = 'j_bloons_wiz' },
+    { id = 'j_bloons_guided' },
+    { id = 'j_bloons_wof' },
+    { id = 'j_bloons_wlp' },
+    { id = 'j_bloons_shimmer' },
     { id = 'j_bloons_flash' },
     { id = 'j_bloons_velo' },
     { id = 'j_bloons_blimpact' },
     { id = 'j_bloons_icicles' },
     { id = 'j_bloons_az' },
     { id = 'j_bloons_solver' },
-    { id = 'j_bloons_wlp' }
+    
 }
 
 local banned_hand_cards = {

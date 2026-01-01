@@ -125,7 +125,7 @@ SMODS.Joker { --Large Calibre
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { chips = 60, mult = 30, limit = 3, counter = 3 } --Variables: chips = +chips, mult = +mult, limit = number of hands for +mult, counter = hand index
+        extra = { chips = 30, mult = 30, limit = 3, counter = 3 } --Variables: chips = +chips, mult = +mult, limit = number of hands for +mult, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)
@@ -338,7 +338,7 @@ SMODS.Joker { --Cripple MOAB
             end
             if card.ability.extra.counter == card.ability.extra.limit then
                 if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then 
-                    card_eval_status_text(context_blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                    card_eval_status_text(context_blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
                     G.GAME.blind:disable_blind_stickers()
                     G.GAME.blind:disable()
                 end

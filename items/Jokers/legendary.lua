@@ -159,11 +159,13 @@ SMODS.Joker { --Permanent Brew
     calculate = function(self, card, context)
         if context.before then
             for k, v in pairs(context.scoring_hand) do
-                if not v.edition then
-                    local edition = poll_edition('pbrew', nil, true, true)
-                    v:set_edition(edition, true)
-                elseif v.edition.foil or v.edition.holo then
-                    v:set_edition('e_polychrome', true)
+                if not v.debuff then
+                    if not v.edition then
+                        local edition = poll_edition('pbrew', nil, true, true)
+                        v:set_edition(edition, true)
+                    elseif v.edition.foil or v.edition.holo then
+                        v:set_edition('e_polychrome', true)
+                    end
                 end
             end
             return {

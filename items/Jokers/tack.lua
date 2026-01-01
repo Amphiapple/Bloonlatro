@@ -70,7 +70,7 @@ SMODS.Joker { --Even Faster Shooting
     key = 'eventack',
     name = 'Even Faster Shooting',
 	loc_txt = {
-        name = 'Faster Shooting',
+        name = 'Even Faster Shooting',
         text = {
             'Each played {C:attention}8{}',
             'gives {X:mult,C:white}X#1#{} Mult',
