@@ -22,3 +22,4 @@ Fixes:
 - Sky Shredder should no longer stop counting scoring aces when it upgrades
 - Disabling Brutal Behemoth and Dark Titan should now work
 - Sacrificing a Joker on Adora deck should now stop Green Gargantuan
+- Sacrificing Jokers on Adora deck should now trigger sell abilities

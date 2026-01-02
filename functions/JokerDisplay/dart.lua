@@ -7,25 +7,102 @@ JokerDisplay.Definitions["j_bloons_dart"] = { --Dart Monkey
     }
 }
 
-JokerDisplay.Definitions["j_bloons_eyesight"] = { --Enhanced Eyesight
+JokerDisplay.Definitions["j_bloons_sharp"] = { --Sharp Shots
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+    }
+}
+
+JokerDisplay.Definitions["j_bloons_razor"] = { --Razor Sharp Shots
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+    }
+}
+
+JokerDisplay.Definitions["j_bloons_spult"] = { --Spike-o-pult
+    text = {
+        { text = "+", colour = G.C.MULT }, 
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        local count = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                count = count +
+                    JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+            end
+        end
+        card.joker_display_values.mult = card.ability.extra.mult * count
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_jugg"] = { --Juggernaut
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        local count = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                count = count +
+                    JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+            end
+        end
+        card.joker_display_values.mult = card.ability.extra.mult * (count * (count + 1)) / 2
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_ujugg"] = { --Ultra-Juggernaut
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+            }
+        }
+    },
+    calc_function = function(card)
+        local count = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                count = count +
+                    JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+            end
+        end
+        local total_Xmult = 1
+        for i = 1, count do
+            total_Xmult = total_Xmult * (i / 10 + 1)
+        end
+        card.joker_display_values.Xmult = total_Xmult
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_quick"] = { --Quick Shots
     text = {
         { text = "+", colour = G.C.CHIPS },
-        { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
         { text = " +", colour = G.C.MULT },
-        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
-    },
-    calc_function = function(card) 
-        if G.GAME.current_round.hands_played > 0 then 
-            card.joker_display_values.chips = card.ability.extra.chips
-            card.joker_display_values.mult = card.ability.extra.mult
-        else
-            card.joker_display_values.chips = 0
-            card.joker_display_values.mult = 0
-        end
-    end
+        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+    }
+}
+
+JokerDisplay.Definitions["j_bloons_veryquick"] = { --Quick Shots
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+    }
 }
 
 JokerDisplay.Definitions["j_bloons_tripshot"] = { --Triple shot
@@ -50,21 +127,124 @@ JokerDisplay.Definitions["j_bloons_tripshot"] = { --Triple shot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_jugg"] = { --Juggernaut
+JokerDisplay.Definitions["j_bloons_smfc"] = { --Super Monkey Fan Club
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
+        { text = "x" },
+        { text = "Fan Clubs", colour = G.C.BLUE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local count = 0
+        if G.jokers then
+            for _, joker_card in ipairs(G.jokers.cards) do
+                if joker_card.ability.base == 'dart' and joker_card.config.center.rarity and joker_card.config.center.rarity == 1 or
+                        joker_card.ability.name == "Super Monkey Fan Club" or
+                        joker_card.ability.name == "Plasma Monkey Fan Club" then
+                    count = count + 1
+                end
+            end
+        end
+        card.joker_display_values.count = count
+    end,
+    mod_function = function(card, mod_joker)
+        return { x_mult = ((card.ability.base == 'dart' and card.config.center.rarity and card.config.center.rarity == 1 or 
+                card.ability.name == "Super Monkey Fan Club" or card.ability.name == "Plasma Monkey Fan Club") and
+                mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_pmfc"] = { --Plasma Monkey Fan Club
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
+        { text = "x" },
+        { text = "Fan Clubs", colour = G.C.BLUE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local count = 0
+        if G.jokers then
+            for _, joker_card in ipairs(G.jokers.cards) do
+                if joker_card.ability.base == 'dart' and joker_card.config.center.rarity and joker_card.config.center.rarity == 1 or
+                        joker_card.ability.name == "Super Monkey Fan Club" or
+                        joker_card.ability.name == "Plasma Monkey Fan Club" then
+                    count = count + 1
+                end
+            end
+        end
+        card.joker_display_values.count = count
+    end,
+    mod_function = function(card, mod_joker)
+        return { x_mult = ((card.ability.base == 'dart' and card.config.center.rarity and card.config.center.rarity == 1 or 
+                card.ability.name == "Super Monkey Fan Club" or card.ability.name == "Plasma Monkey Fan Club") and
+                mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_rangedart"] = { --Long Range Darts
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+    }
+}
+
+JokerDisplay.Definitions["j_bloons_eyesight"] = { --Enhanced Eyesight
+}
+
+JokerDisplay.Definitions["j_bloons_xbow"] = { --Crossbow
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        card.joker_display_values.chips = card.ability.extra.chips *
+            (G.GAME and #G.consumeables.cards + G.GAME.consumeable_buffer > 0 and 1 or 0)
+        card.joker_display_values.mult = card.ability.extra.mult *
+            (G.GAME and #G.consumeables.cards + G.GAME.consumeable_buffer > 0 and 1 or 0)
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_sshooter"] = { --Sharp Shooter
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
     },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "counter" },
+        { text = ")" }
+    },
     calc_function = function(card)
+        local limit = card.ability.extra.limit
+        local counter = card.ability.extra.counter
+
+        if G.STATE and G.STATE == G.STATES.HAND_PLAYED then
+            card.joker_display_values.mult = card.joker_display_values and card.joker_display_values.mult or 0
+            card.joker_display_values.counter = counter <= limit - 1 and limit - counter % limit .. " remaining" or "Next!"
+            return
+        end
+
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        if text ~= 'Unknown' then
+
+        if text ~= "Unknown" and type(scoring_hand) == "table" then
             for _, scoring_card in pairs(scoring_hand) do
-                count = count +
-                    JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
             end
         end
-        card.joker_display_values.mult = card.ability.extra.mult * (count * (count + 1)) / 2
+
+        local activations = (count + counter - 1 >= limit) and 1 + math.floor((count + counter - 1 - limit) / limit) or 0
+
+        card.joker_display_values.mult = (activations > 0 and (card.ability.extra.mult * activations) or 0)
+
+        card.joker_display_values.counter =
+            counter <= limit - 1 and limit - counter % limit .. " remaining" or "Next!"
     end
 }
 

@@ -531,7 +531,7 @@ SMODS.Joker { --Elite Sniper
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { limit = 4, counter = 4, money = 5 } --Variables: limit = number of hands for money and spectral, counter = hand index, money = dollars
+        extra = { limit = 4, counter = 4, money = 4 } --Variables: limit = number of hands for money and spectral, counter = hand index, money = dollars
     },
 
     loc_vars = function(self, info_queue, card)
@@ -567,7 +567,7 @@ SMODS.Joker { --Elite Sniper
                         G.consumeables:emplace(card)
                         return true
                     end}))
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.POWER})
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.YELLOW})
             end
         end
     end
@@ -735,7 +735,7 @@ SMODS.Joker { --Semi Automatic
 }
 
 SMODS.Joker { --Full Auto Rifle
-    key = 'fullauto',
+    key = 'fauto',
     name = 'Full Auto Rifle',
 	loc_txt = {
         name = 'Full Auto Rifle',

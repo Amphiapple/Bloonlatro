@@ -124,7 +124,7 @@ SMODS.Joker { --Hot Shots
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
     end,
     calculate = function(self, card, context)
-        if context.after and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and not context.full_hand[1].debuff and not context.blueprint then
+        if context.after and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and context.full_hand[1]:get_id() == 8 and not context.full_hand[1].debuff and not context.blueprint then
             context.full_hand[1]:set_ability('m_bloons_meteor', nil, true)
         end
     end
@@ -563,7 +563,8 @@ SMODS.Joker { --Tack Sprayer
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 12 then
+        if context.individual and context.cardarea == G.play and
+                (context.other_card:get_id() == 8 or context.other_card:get_id() == 10 or context.other_card:get_id() == 12) then
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult,

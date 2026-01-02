@@ -1,0 +1,19 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Shimmer copy patch
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "new_card.ability[k] = copy_table(v)"
+position = 'at'
+payload = '''
+if other.ability.name == 'Shimmer' then
+    new_card.ability[k] = { fool = nil }
+else
+    new_card.ability[k] = copy_table(v)
+end
+'''
+match_indent = true

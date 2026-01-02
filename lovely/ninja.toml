@@ -21,7 +21,6 @@ position = 'at'
 payload = "if card.ability.set ~= 'Joker' or card.ability.name == 'Ninja Monkey' or #G.jokers.cards < G.jokers.config.card_limit + card_limit then" 
 match_indent = true
 
-
 # Shinobi Tactics reappear
 [[patches]]
 [patches.pattern]

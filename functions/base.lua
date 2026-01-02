@@ -203,11 +203,21 @@ Joker_effects_vtsg = {
     j_bloons_blitz=     {effect = {'support'}, weight = 1},
 
     j_bloons_tack=      {effect = {'+chips', '+mult'}, weight = 0.5},
+    j_bloons_fasttack=  {effect = {'+chips', '+mult'}, weight = 0.5},
+    j_bloons_eventack=  {effect = {'Xmult'}, weight = 1},
+    j_bloons_hotshots=  {effect = {'support'}, weight = 1},
+    j_bloons_rof=       {effect = {'support'}, weight = 1},
+    j_bloons_iring=     {effect = {'support'}, weight = 1},
+    j_bloons_rangetack= {effect = {'+mult'}, weight = 1},
+    j_bloons_supertack= {effect = {'+mult'}, weight = 1},
+    j_bloons_blade=     {effect = {'+mult'}, weight = 1},
+    j_bloons_mael=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_smael=     {effect = {'Xmult'}, weight = 1},
     j_bloons_moretacks= {effect = {'+chips', '+mult'}, weight = 0.5},
     j_bloons_evenmore=  {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_blade=     {effect = {'+mult'}, weight = 1},
+    j_bloons_sprayer=   {effect = {'+chips', '+mult'}, weight = 0.5},
     j_bloons_od=        {effect = {'Xmult'}, weight = 1},
-    j_bloons_iring=     {effect = {'support'}, weight = 1},
+    j_bloons_tz=        {effect = {'Xmult'}, weight = 1},
 
     j_bloons_ice=       {effect = {'+chips'}, weight = 1},
     j_bloons_pfrost=    {effect = {'+chips', 'econ'}, weight = 0.5},
@@ -230,9 +240,20 @@ Joker_effects_vtsg = {
     j_bloons_gustice=   {effect = {'Xmult', 'econ'}, weight = 0.5},
 
     j_bloons_sniper=    {effect = {'+mult'}, weight = 1},
-    j_bloons_shraps=    {effect = {'+mult'}, weight = 1},
+    j_bloons_fmj=       {effect = {'+mult'}, weight = 1},
+    j_bloons_calibre=   {effect = {'+chips', '+mult'}, weight = 0.5},
     j_bloons_dprec=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_supply=    {effect = {'value'}, weight = 1},
+    j_bloons_maim=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_cripple=   {effect = {'Xmult', 'support'}, weight = 0.5},
+    j_bloons_nightvis=  {effect = {'support'}, weight = 1},
+    j_bloons_shraps=    {effect = {'+mult'}, weight = 1},
+    j_bloons_bouncing=  {effect = {'+mult'}, weight = 1},
+    j_bloons_supply=    {effect = {'value', 'econ'}, weight = 0.5},
+    j_bloons_esniper=   {effect = {'value', 'econ'}, weight = 0.5},
+    j_bloons_fastsniper={effect = {'+mult'}, weight = 1},
+    j_bloons_evensniper={effect = {'+mult'}, weight = 1},
+    j_bloons_semiauto=  {effect = {'Xmult'}, weight = 1},
+    j_bloons_fauto=     {effect = {'Xmult'}, weight = 1},
     j_bloons_edef=      {effect = {'Xmult'}, weight = 1},
 
     j_bloons_sub=       {effect = {'+mult'}, weight = 1},
@@ -273,10 +294,21 @@ Joker_effects_vtsg = {
     j_bloons_rod=       {effect = {'Xmult'}, weight = 1},
 
     j_bloons_wiz=       {effect = {'support'}, weight = 1},
-    j_bloons_wof=       {effect = {'support'}, weight = 1},
+    j_bloons_guided=    {effect = {'support'}, weight = 1},
+    j_bloons_ablast=    {effect = {'chips'}, weight = 1},
     j_bloons_amast=     {effect = {'value'}, weight = 1},
-    j_bloons_necro=     {effect = {'support'}, weight = 1},
+    j_bloons_aspike=    {effect = {'support'}, weight = 1},
+    j_bloons_arch=      {effect = {'support'}, weight = 1},
+    j_bloons_fireball=  {effect = {'mult'}, weight = 1},
+    j_bloons_wof=       {effect = {'support'}, weight = 1},
+    j_bloons_dbreath=   {effect = {'Xmult'}, weight = 1},
+    j_bloons_phoenix=   {effect = {'support'}, weight = 1},
     j_bloons_wlp=       {effect = {'value'}, weight = 1},
+    j_bloons_intense=   {effect = {'mult'}, weight = 1},
+    j_bloons_sense=     {effect = {'support'}, weight = 1},
+    j_bloons_shimmer=   {effect = {'value'}, weight = 1},
+    j_bloons_necro=     {effect = {'support'}, weight = 1},
+    j_bloons_pod=       {effect = {'support'}, weight = 1},
 
     j_bloons_super=     {effect = {'Xmult'}, weight = 1},
     j_bloons_range=     {effect = {'support'}, weight = 1},
@@ -615,6 +647,7 @@ G.FUNCS.adora_sac = function(e)
     local sac_context = get_sac_context(card)
     if not (G.GAME.selected_back.effect.center) or not sac_context.adora_enabled then return end
     G.GAME.selected_back.effect.center.sac_to_adora(card)
+    SMODS.calculate_context({selling_card = true, card = card})
 end
 
 --Sacrifice function for VTSG

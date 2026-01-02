@@ -269,6 +269,10 @@ SMODS.Joker { --Total Transformation
                 end
                 juice_card_until(card, eval, true)
             end
+            return {
+                message = (card.ability.extra.current < card.ability.extra.rounds) and (card.ability.extra.current..'/'..card.ability.extra.rounds) or localize('k_active_ex'),
+                colour = G.C.FILTER
+            }
         end
     end
 }

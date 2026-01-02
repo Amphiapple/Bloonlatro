@@ -500,7 +500,7 @@ SMODS.Joker { --Crossbow
     blueprint_compat = true,
     config = {
         base = 'dart',
-        extra = { chips = 90, mult = 12 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 60, mult = 12 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)

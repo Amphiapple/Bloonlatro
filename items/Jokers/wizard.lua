@@ -231,7 +231,6 @@ SMODS.Joker { --Arcane Mastery
                 delay = 0.1,
                 func = function()
                     G.consumeables.cards[1]:start_dissolve({G.C.RED}, nil)
-                    G.consumeables.cards[1]:remove_from_deck()
                     context.full_hand[1]:set_seal('Purple', nil, true)
                     return true
                 end
@@ -594,30 +593,18 @@ SMODS.Joker { --Shimmer
     end,
     calculate = function(self, card, context)
         if context.starting_shop then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                    card.ability.extra.fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
-                    card.ability.extra.fool:set_edition({negative = true}, true)
-                    card.ability.extra.fool.extra_cost = -card.base_cost
-                    card.ability.extra.fool.sell_cost = 0
-                    card.ability.extra.fool:add_to_deck()
-                    G.consumeables:emplace(card.ability.extra.fool)
-                    return true
-                end)
-            }))
+            card.ability.extra.fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
+            card.ability.extra.fool:set_edition({negative = true}, true)
+            card.ability.extra.fool.extra_cost = -card.base_cost
+            card.ability.extra.fool.sell_cost = 0
+            card.ability.extra.fool:add_to_deck()
+            G.consumeables:emplace(card.ability.extra.fool)
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
-        elseif context.ending_shop and card.ability.extra.fool then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    card.ability.extra.fool:start_dissolve({G.C.RED}, nil)
-                    card.ability.extra.fool:remove_from_deck()
-                    return true
-                end
-            }))
+        elseif context.ending_shop then
+            if card.ability.extra.fool then
+                card.ability.extra.fool:start_dissolve({G.C.RED}, nil)
+                card.ability.extra.fool = nil
+            end
         end
     end
 }
