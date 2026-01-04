@@ -192,7 +192,7 @@ SMODS.Tag {
     atlas = 'Tag',
 	pos = { x = 4, y = 0 },
 	order = 29,
-    min_ante = nil,
+    min_ante = 2,
     config = { type = 'voucher_add' },
 
     apply = function(self, tag, context)
@@ -243,7 +243,7 @@ SMODS.Tag {
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
 	order = 30,
-    min_ante = 2,
+    min_ante = nil,
     config = { type = 'immediate' },
 
     loc_vars = function(self, info_queue)

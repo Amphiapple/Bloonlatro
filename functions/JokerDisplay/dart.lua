@@ -132,7 +132,7 @@ JokerDisplay.Definitions["j_bloons_smfc"] = { --Super Monkey Fan Club
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
         { text = "x" },
-        { text = "Fan Clubs", colour = G.C.BLUE },
+        { text = "Fan Clubs", colour = G.C.ORANGE },
         { text = ")" },
     },
     calc_function = function(card)
@@ -160,7 +160,7 @@ JokerDisplay.Definitions["j_bloons_pmfc"] = { --Plasma Monkey Fan Club
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
         { text = "x" },
-        { text = "Fan Clubs", colour = G.C.BLUE },
+        { text = "Fan Clubs", colour = G.C.ORANGE },
         { text = ")" },
     },
     calc_function = function(card)

@@ -16,8 +16,11 @@ Balance Changes:
     - Updated challenges to accomodate for the new cleansing tag
 - Enforcer temporarily removed as Dragon's Breath now uses its effect
 - Druid of the Storm temporarily limited to 2 activations each round
+- Redeemed Tag can no longer appear in ante 1
+- Concoction Tag can now appear in ante 1
 
 Fixes:
+- Shrapnel Shot JokerDisplay should display the correct mult amount when changing the order of cards
 - Glaive Lord logic fixed to accomodate for Wild cards. Retriggering Wilds will now count as different suits, up to 4 suits!
 - Sky Shredder should no longer stop counting scoring aces when it upgrades
 - Disabling Brutal Behemoth and Dark Titan should now work

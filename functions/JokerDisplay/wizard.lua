@@ -8,7 +8,7 @@ JokerDisplay.Definitions["j_bloons_guided"] = { --Guided Magic
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.enhancement = card.ability.enhancement.effect or card.ability.enhancement.name
+        card.joker_display_values.enhancement = card.ability.extra.enhancement.effect or card.ability.extra.enhancement.name
     end
 }
 

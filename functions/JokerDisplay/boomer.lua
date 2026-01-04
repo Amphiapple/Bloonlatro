@@ -3,7 +3,7 @@ JokerDisplay.Definitions["j_bloons_boomer"] = { --Boomerang Monkey
         if held_in_hand then return 0 end
         local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
         return last_card and playing_card == last_card and
-                joker_card.ability.extra * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 

@@ -156,12 +156,14 @@ JokerDisplay.Definitions["j_bloons_shraps"] = { --Shrapnel Shot
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         local mult_value = 0
         local right_card = nil
+        local mult_card = nil
         if text ~= 'Unknown' and #scoring_hand >= 2 then
-            local mult_card = scoring_hand[#scoring_hand - 1]
-            if mult_card.facing ~= 'back' then
+            local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+            right_card = sorted_cards[#sorted_cards]
+            mult_card = sorted_cards[#sorted_cards - 1]
+            if mult_card and mult_card.facing ~= 'back' and not SMODS.has_no_rank(mult_card) then
                 mult_value = mult_card.base.nominal
             end
-            right_card = JokerDisplay.calculate_rightmost_card(scoring_hand)
         end
         card.joker_display_values.mult = right_card and JokerDisplay.calculate_card_triggers(right_card, scoring_hand, false) * mult_value or 0
     end
@@ -177,9 +179,10 @@ JokerDisplay.Definitions["j_bloons_bouncing"] = { --Bouncing Bullets
         local total_mult = 0
         local mult_value = 0
         if text ~= 'Unknown' then
-            for i, scoring_card in ipairs(scoring_hand) do
-                total_mult = total_mult + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand, false) * mult_value
-                if scoring_card.facing ~= 'back' then
+            local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+            for i, scoring_card in ipairs(sorted_cards) do
+                total_mult = total_mult + JokerDisplay.calculate_card_triggers(scoring_card, sorted_cards, false) * mult_value
+                if scoring_card.facing ~= 'back' and not SMODS.has_no_rank(scoring_card) then
                     mult_value = scoring_card.base.nominal
                 else
                     mult_value = 0
