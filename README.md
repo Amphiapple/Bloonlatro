@@ -4,7 +4,7 @@ A Balatro mod that incorporates Bloons Tower Defense into the base game
 
 # New Additions:
 
-Starting on the path to adding the upgrading mechanic, Dart Monkey and Boomerang Monkey have been completely fleshed out.
+Starting on the path to adding the upgrading mechanic, 5 towers have been completely fleshed out.
 
 ---
 

@@ -132,7 +132,7 @@ JokerDisplay.Definitions["j_bloons_rangerangs"] = { --Long Range Rangs
         if held_in_hand then return 0 end
         local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
         return first_card and playing_card == first_card and
-                joker_card.ability.extra * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 
