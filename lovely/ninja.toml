@@ -9,7 +9,7 @@ priority = 1
 target = 'functions/button_callbacks.lua'
 pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used) and"
 position = 'at'
-payload = "not (card.ability.set == 'Joker' and (card.ability.name == 'Ninja Monkey' or #G.jokers.cards < G.jokers.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used)) and"
+payload = "not (card.ability.set == 'Joker' and (card.ability.base == 'ninja' and card:is_rarity('Common') or #G.jokers.cards < G.jokers.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used)) and"
 match_indent = true
 
 # Ninja full slots select
@@ -18,7 +18,7 @@ match_indent = true
 target = 'functions/button_callbacks.lua'
 pattern = "if card.ability.set ~= 'Joker' or #G.jokers.cards < G.jokers.config.card_limit + card_limit then"
 position = 'at'
-payload = "if card.ability.set ~= 'Joker' or card.ability.name == 'Ninja Monkey' or #G.jokers.cards < G.jokers.config.card_limit + card_limit then" 
+payload = "if card.ability.set ~= 'Joker' or card.ability.base == 'ninja' and card:is_rarity('Common') or #G.jokers.cards < G.jokers.config.card_limit + card_limit then" 
 match_indent = true
 
 # Shinobi Tactics reappear

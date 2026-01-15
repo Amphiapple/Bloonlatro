@@ -215,13 +215,11 @@ SMODS.Joker { --Megalodon
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.current_chips, card.ability.extra.current_mult } }
     end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            for k, v in ipairs(context.scoring_hand) do
-                if v.ability.name == 'Bonus' then
-                    card.ability.extra.current_chips = card.ability.extra.current_chips + card.ability.extra.chips
-                elseif v.ability.name == 'Mult' then
-                    card.ability.extra.current_mult = card.ability.extra.current_mult + card.ability.extra.mult
-                end
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff and not context.blueprint then
+            if context.other_card.ability.name == 'Bonus' then
+                card.ability.extra.current_chips = card.ability.extra.current_chips + card.ability.extra.chips
+            elseif context.other_card.ability.name == 'Mult' then
+                card.ability.extra.current_mult = card.ability.extra.current_mult + card.ability.extra.mult
             end
         elseif context.joker_main then
             return {

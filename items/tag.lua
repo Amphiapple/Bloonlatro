@@ -169,6 +169,24 @@ SMODS.Tag {
 				G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.chips * tag.config.percent / 100.0
 				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 				G.GAME.blind:wiggle()
+				if G.GAME.chips/G.GAME.blind.chips >= to_big(1) then
+					G.E_MANAGER:add_event(
+						Event({
+							trigger = "immediate",
+							func = function()
+								if G.STATE ~= G.STATES.SELECTING_HAND then
+									return false
+								end
+								G.GAME.current_round.semicolon = true
+								G.STATE = G.STATES.HAND_PLAYED
+								G.STATE_COMPLETE = true
+								end_round()
+								return true
+							end,
+						}),
+						"other"
+					)
+				end
 				G.CONTROLLER.locks[lock] = nil
 				return true
 			end)

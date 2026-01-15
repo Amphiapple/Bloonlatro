@@ -1,28 +1,15 @@
 Added Jokers:
-- All Dart Monkeys
-- All Boomerang Monkeys
-- All Tack Shooters
-- All Sniper Monkeys
-- All Wizard Monkeys
+- All remaining Ninjas
+- All remaining Alchemists
+- All remaining Banana Farms
 
 General Changes:
-- Higher quality temporary art for Tier 5 towers
+- 
 
 Balance Changes:
-- Supply Drop Tarots are no longer Negative
-- Supply Drop gives $4 in addition to a Tarot
-- First Strike Capability cost 7 > 8, snowballs far too easily when it's afforded very early on
-- Cleansing Tag reworked, should now be far more usable than before
-    - Updated challenges to accommodate for the new cleansing tag
-- Enforcer temporarily removed as Dragon's Breath now uses its effect
-- Druid of the Storm temporarily limited to 2 activations each round
-- Redeemed Tag can no longer appear in ante 1
-- Concoction Tag can now appear in ante 1
+- Multiple farms reworked to allow for the new Banana Farms to fit in
 
 Fixes:
-- Shrapnel Shot JokerDisplay should display the correct mult amount when changing the order of cards
-- Glaive Lord logic fixed to account for Wild cards. Retriggering Wilds will now count as different suits, up to 4 suits!
-- Sky Shredder should no longer stop counting scoring aces when it upgrades
-- Disabling Brutal Behemoth and Dark Titan should now work
-- Sacrificing a Joker on Adora deck should now stop Green Gargantuan
-- Sacrificing Jokers on Adora deck should now trigger sell abilities
+- Juggernaut and Ultra-Juggernaut no longer scale off of blueprint effects
+- Improved Rangs and Faster Rangs JokerDisplay should function correctly
+- Flash Bomb should be compatible with blueprint

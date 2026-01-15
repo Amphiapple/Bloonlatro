@@ -1,3 +1,4 @@
+
 SMODS.Joker { --Monkey Buccaneer
     key = 'boat',
     name = 'Monkey Buccaneer',
@@ -171,7 +172,7 @@ SMODS.Joker { --Destroyer
         end
     end
 }
-
+--[[
 SMODS.Joker { --Favored Trades
     key = 'flavored',
     name = 'Favored Trades',
@@ -221,7 +222,7 @@ SMODS.Joker { --Favored Trades
         end
     end
 }
-
+]]
 SMODS.Joker { --Pirate Lord
     key = 'plord',
     name = 'Pirate Lord',

@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Shimmer copy patch
+# Copy table patch
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -12,6 +12,8 @@ position = 'at'
 payload = '''
 if other.ability.name == 'Shimmer' then
     new_card.ability[k] = { fool = nil }
+elseif other.ability.name == 'Sticky Bomb' then
+    new_card.ability[k] = { Xmult = 2, stickied = nil, active = false }
 else
     new_card.ability[k] = copy_table(v)
 end

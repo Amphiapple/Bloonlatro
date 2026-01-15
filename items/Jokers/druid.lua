@@ -151,7 +151,7 @@ SMODS.Joker { --Jungle's Bounty
             end
             if high - low > 0 then
                 ease_dollars(high - low)
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..(high-low),colour = G.C.MONEY, delay = 0.45})
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('$')..(high-low),colour = G.C.MONEY, delay = 0.45})
             end
         end
     end

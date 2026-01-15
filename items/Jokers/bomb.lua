@@ -178,7 +178,7 @@ SMODS.Joker { --Bloon Impact
                 return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
             end
             juice_card_until(card, eval, true)
-        elseif context.discard and not context.hook and not context.other_card.debuff then
+        elseif context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
             if context.other_card.ability.name == 'Stunned Card' and context.stun then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             elseif G.GAME.current_round.discards_used == 0 then

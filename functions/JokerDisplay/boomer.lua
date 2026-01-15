@@ -10,8 +10,9 @@ JokerDisplay.Definitions["j_bloons_boomer"] = { --Boomerang Monkey
 JokerDisplay.Definitions["j_bloons_improved"] = { --Improved Rangs
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end 
-        local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
-        local second_last_card = scoring_hand and #scoring_hand >= 2 and scoring_hand[#scoring_hand - 1]
+        local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+        local last_card = scoring_hand and sorted_cards[#sorted_cards]
+        local second_last_card = scoring_hand and #scoring_hand >= 2 and sorted_cards[#sorted_cards - 1]
         return ((last_card and playing_card == last_card) or (second_last_card and playing_card == second_last_card)) and
                 joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
@@ -67,8 +68,9 @@ JokerDisplay.Definitions["j_bloons_fastrangs"] = { --Faster Rangs
                 table.insert(held_cards, G.hand.cards[i])
             end
         end
-        local last_card = JokerDisplay.calculate_rightmost_card(held_cards)
-        local second_last_card = held_cards and #held_cards >= 2 and held_cards[#held_cards - 1]
+        local sorted_cards = JokerDisplay.sort_cards(held_cards)
+        local last_card = held_cards and sorted_cards[#sorted_cards]
+        local second_last_card = held_cards and #held_cards >= 2 and sorted_cards[#sorted_cards - 1]
         return ((last_card and playing_card == last_card) or (second_last_card and playing_card == second_last_card)) and
                 joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end

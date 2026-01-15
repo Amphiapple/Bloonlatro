@@ -4,17 +4,8 @@ JokerDisplay.Definitions["j_bloons_alch"] = { --Alchemist
         { ref_table = "card.joker_display_values", ref_value = "active" },
         { text = ")" },
     },
-    extra = {
-        {
-            { text = "(", colour = G.C.GREEN, scale = 0.3 },
-            { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
-            { text = ")", colour = G.C.GREEN, scale = 0.3 },
-        }
-    },
     calc_function = function(card)
         card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_left <= 1 and "Active!" or "Inactive"
-        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'alch')
-        card.joker_display_values.odds = numerator .. " in " .. denominator
     end
 }
 

@@ -501,13 +501,11 @@ SMODS.Joker { --Long Range Rangs
     },
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play then
-            if context.other_card == context.scoring_hand[1] then
-                return {
-                    message = localize('k_again_ex'),
-                    repetitions = card.ability.extra.retrigger,
-                }
-            end
+        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger,
+            }
         end
     end
 }

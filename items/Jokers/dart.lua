@@ -156,7 +156,9 @@ SMODS.Joker { --Juggernaut
     calculate = function(self, card, context)
         if context.individual then
 			if context.cardarea == G.play then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                if not context.blueprint then
+                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                end
                 return {
                     mult = card.ability.extra.current
                 }
@@ -193,7 +195,9 @@ SMODS.Joker { --Ultra-Juggernaut
     calculate = function(self, card, context)
         if context.individual then
 			if context.cardarea == G.play then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+                if not context.blueprint then
+                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+                end
                 return {
                     x_mult = card.ability.extra.current
                 }

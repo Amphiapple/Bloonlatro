@@ -806,48 +806,6 @@ SMODS.Consumable { --Cave Monkey
     end
 }
 
-SMODS.Consumable { --Cave Monkey
-    key = 'cave',
-    set = 'Power',
-    name = 'Cave Monkey',
-    loc_txt = {
-        name = 'Cave Monkey',
-        text = {
-            'Add a {C:attention}Stone{} card with',
-            'an {C:dark_edition}Edition{} to your deck'
-        }
-    },
-    atlas = 'Consumable',
-    pos = { x = 4, y = 2 },
-    order = 15,
-
-    can_use = function(self, card)
-        return true
-    end,
-    use = function (self, card, area, copier)
-        local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave'))
-        local stone = SMODS.add_card({
-            set = 'Playing Card',
-            front = front,
-            area = G.deck,
-            skip_materialize = false,
-        })
-        stone:set_ability(G.P_CENTERS.m_stone, nil, true)
-        local edition = poll_edition('cave', nil, true, true)
-        stone:set_edition(edition, true)
-        card_eval_status_text(stone, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
-
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                return true
-            end
-        }))
-        draw_card(G.play,G.deck, 90,'up', nil)
-        playing_card_joker_effects({true})
-    end
-}
-
 SMODS.Consumable { --Volcano
     key = 'volcano',
     set = 'Spectral',
