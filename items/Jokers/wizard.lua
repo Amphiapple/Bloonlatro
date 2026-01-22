@@ -334,7 +334,7 @@ SMODS.Joker { --Fireball
     enhancement_gate = 'm_stone',
     config = {
         base = 'wizard',
-        extra = { mult = 10 } --Variables: mult = +mult for stone cards
+        extra = { mult = 12 } --Variables: mult = +mult for stone cards
     },
 
     loc_vars = function(self, info_queue, card)
@@ -367,7 +367,7 @@ SMODS.Joker { --Wall of Fire
     blueprint_compat = true,
     config = {
         base = 'wizard',
-        extra = { num = 1, denom = 4 } --Variables: num/denom = probability fraction
+        extra = { num = 1, denom = 3 } --Variables: num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
@@ -521,7 +521,7 @@ SMODS.Joker { --Intense Magic
     blueprint_compat = true,
     config = {
         base = 'wizard',
-        extra = { mult = 5 } --Variables: mult = +mult for enhanced cards
+        extra = { mult = 6 } --Variables: mult = +mult for enhanced cards
     },
 
     loc_vars = function(self, info_queue, card)

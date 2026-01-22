@@ -55,7 +55,7 @@ SMODS.Joker { --Ninja Discipline
     blueprint_compat = true,
     config = {
         base = 'ninja',
-        extra = { chips = 30, slots = 1 } --Variables: chips = +chips, slots = extra joker slots
+        extra = { chips = 20, slots = 1 } --Variables: chips = +chips, slots = extra joker slots
     },
 
     loc_vars = function(self, info_queue, card)
@@ -95,7 +95,7 @@ SMODS.Joker { --Sharp Shurikens
     blueprint_compat = true,
     config = {
         base = 'ninja',
-        extra = { chips = 30, mult = 4, slots = 1 } --Variables: chips = +chips, mult = +mult, slots = extra joker slots
+        extra = { chips = 20, mult = 4, slots = 1 } --Variables: chips = +chips, mult = +mult, slots = extra joker slots
     },
 
     loc_vars = function(self, info_queue, card)
@@ -169,7 +169,8 @@ SMODS.Joker { --Bloonjitsu
         text = {
             '{X:mult,C:white}X#1#{} Mult if',
             'scoring hand contains',
-            'a {C:diamonds}Diamond{} card'
+            'at least {C:attention}#2#',
+            '{C:diamonds}Diamond{} cards'
         }
     },
 	atlas = 'Joker',
@@ -179,7 +180,7 @@ SMODS.Joker { --Bloonjitsu
     blueprint_compat = true,
     config = {
         base = 'ninja',
-        extra = { Xmult = 2 } --Variables: Xmult = Xmult
+        extra = { Xmult = 3, number = 3 } --Variables: Xmult = Xmult, number = required diamonds for Xmult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -187,15 +188,15 @@ SMODS.Joker { --Bloonjitsu
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local has_diamond = false
+            local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
                     if v:is_suit('Diamonds', true) and not v.debuff then
-                        has_diamond = true
+                        count = count + 1
                     end
                 end
             end
-            if has_diamond then
+            if count >= card.ability.extra.number then
                 return {
                     x_mult = card.ability.extra.Xmult
                 }
@@ -506,7 +507,7 @@ SMODS.Joker { --Grand Saboteur
         name = 'Grand Saboteur',
         text = {
             '{C:green}#1# in #2#{} chance to',
-            'create a {C:attention}Sabotage Tag{}',
+            'gain a {C:attention}Sabotage Tag{}',
             'if scoring hand contains',
             'at least {C:attention}#3# {C:hearts}Heart{} cards'
         }
@@ -611,6 +612,7 @@ SMODS.Joker { --Caltrops
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         base = 'ninja',
         extra = { mult = 1, current = 0, slots = 1 } --Variables: mult = +mult each round, current = current +mult, slots = extra joker slots
@@ -724,7 +726,7 @@ SMODS.Joker { --Sticky Bomb
     blueprint_compat = true,
     config = {
         base = 'ninja',
-        extra = { Xmult = 2, stickied = nil, active = false } --Variables: Xmult = Xmult
+        extra = { Xmult = 3, stickied = nil, active = false } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -736,7 +738,12 @@ SMODS.Joker { --Sticky Bomb
             if context.other_card == card.ability.extra.stickied and context.stun then
                 card.ability.extra.active = true
             end
-        elseif context.initial_scoring_step and not context.blueprint then
+        elseif context.joker_main and card.ability.extra.active then
+            return {
+                Xmult = card.ability.extra.Xmult,
+            }
+        elseif context.after and not context.blueprint then
+            card.ability.extra.active = false
             local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
                 if v:is_suit('Spades', true) and v ~= card.ability.extra.stickied and not v.debuff then
@@ -746,18 +753,12 @@ SMODS.Joker { --Sticky Bomb
             if next(eligible_cards) then
                 card.ability.extra.stickied = pseudorandom_element(eligible_cards, pseudoseed('sticky'))
                 card.ability.extra.stickied:set_ability(G.P_CENTERS.m_bloons_stunned)
-                return {
-                    message = 'Stickied!',
-                    colour = G.C.RED
-                }
+                card_eval_status_text(card.ability.extra.stickied, 'extra', nil, nil, nil, {
+                    message = 'Stickied!'
+                })
             else
                 card.ability.extra.stickied = nil
             end
-        elseif context.joker_main and card.ability.extra.active then
-            card.ability.extra.active = false
-            return {
-                Xmult = card.ability.extra.Xmult,
-            }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.stickied = nil
         end
@@ -795,26 +796,25 @@ SMODS.Joker { --Master Bomber
             if context.other_card.ability.name == 'Stunned Card' and context.stun then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
             end
-        elseif context.initial_scoring_step and not context.blueprint then
-            local has_spades = false
-            for k, v in ipairs(G.hand.cards) do
-                if v:is_suit('Spades', true) then
-                    v:set_ability(G.P_CENTERS.m_bloons_stunned)
-                    has_spades = true
-                end
-            end
-            if has_spades then
-                return {
-                    message = 'Stickied!',
-                    colour = G.C.RED
-                }
-            end
-        elseif context.joker_main then
+        elseif context.joker_main and card.ability.extra.current > 1 then
             return {
                 x_mult = card.ability.extra.current,
             }
         elseif context.after and not context.blueprint then
             card.ability.extra.current = 1
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for k, v in ipairs(G.hand.cards) do
+                        if v:is_suit('Spades', true) then
+                            v:set_ability(G.P_CENTERS.m_bloons_stunned)
+                            card_eval_status_text(v, 'extra', nil, nil, nil, {
+                                message = 'Stickied!'
+                            })
+                        end
+                    end
+                    return true
+                end
+            }))
         end
     end
 }

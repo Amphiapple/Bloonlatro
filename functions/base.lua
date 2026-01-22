@@ -1,4 +1,3 @@
---Tower info and effects
 Joker_effects_vtsg = {
     --Vanilla Jokers
     j_joker=            {effect = {'+mult'}, weight = 1},
@@ -257,16 +256,38 @@ Joker_effects_vtsg = {
     j_bloons_edef=      {effect = {'Xmult'}, weight = 1},
 
     j_bloons_sub=       {effect = {'+mult'}, weight = 1},
-    j_bloons_intel=     {effect = {'support'}, weight = 1},
-    j_bloons_tripguns=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_fs=        {effect = {'Xmult'}, weight = 1},
+    j_bloons_rangesub=  {effect = {'value'}, weight = 1},
+    j_bloons_intel=     {effect = {'value'}, weight = 1},
+    j_bloons_sns=       {effect = {'econ'}, weight = 1},
+    j_bloons_reactor=   {effect = {'+chips'}, weight = 1},
     j_bloons_gizer=     {effect = {'econ'}, weight = 1},
+    j_bloons_barbed=    {effect = {'+mult'}, weight = 1},
+    j_bloons_heattip=   {effect = {'+chips'}, weight = 1},
+    j_bloons_ballistic= {effect = {'Xmult'}, weight = 1},
+    j_bloons_fs=        {effect = {'Xmult'}, weight = 1},
+    j_bloons_preemp=    {effect = {'support'}, weight = 1},
+    j_bloons_twinguns=  {effect = {'+mult'}, weight = 1},
+    j_bloons_airburst=  {effect = {'+mult'}, weight = 1},
+    j_bloons_tripguns=  {effect = {'Xmult'}, weight = 1},
+    j_bloons_apd=       {effect = {'Xmult'}, weight = 1},
+    j_bloons_subcom=    {effect = {'support'}, weight = 1},
 
     j_bloons_boat=      {effect = {'econ'}, weight = 1},
-    j_bloons_grape=     {effect = {'econ'}, weight = 1},
+    j_bloons_fastboat=  {effect = {'econ'}, weight = 1},
+    j_bloons_doubleboat={effect = {'econ'}, weight = 1},
     j_bloons_destroyer= {effect = {'Xmult'}, weight = 1},
-    j_bloons_flavored=  {effect = {'value'}, weight = 1},
-    j_bloons_plord=     {effect = {'+mult', 'econ'}, weight = 0.5},
+    j_bloons_airrier=   {effect = {'Xmult'}, weight = 1},
+    j_bloons_flag=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_grape=     {effect = {'econ'}, weight = 1},
+    j_bloons_hotshot=   {effect = {'econ'}, weight = 1},
+    j_bloons_cannon=    {effect = {'+mult', 'econ'}, weight = 0.5},
+    j_bloons_pirates=   {effect = {'support'}, weight = 1},
+    j_bloons_plord=     {effect = {'support', 'econ'}, weight = 0.5},
+    j_bloons_rangeboat= {effect = {'econ'}, weight = 1},
+    j_bloons_crowsnest= {effect = {'econ'}, weight = 1},
+    j_bloons_merchant=  {effect = {'value'}, weight = 1},
+    j_bloons_flavored=  {effect = {'Xmult'}, weight = 1},
+    j_bloons_empire=    {effect = {'value', 'econ'}, weight = 0.5},
 
     j_bloons_ace=       {effect = {'+chips'}, weight = 1},
     j_bloons_pineapple= {effect = {'support'}, weight = 1},
@@ -311,24 +332,44 @@ Joker_effects_vtsg = {
     j_bloons_pod=       {effect = {'support'}, weight = 1},
 
     j_bloons_super=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_range=     {effect = {'support'}, weight = 1},
+    j_bloons_range=     {effect = {'value'}, weight = 1},
     j_bloons_uv=        {effect = {'support'}, weight = 1},
     j_bloons_sav=       {effect = {'Xmult'}, weight = 1},
     j_bloons_tech=      {effect = {'support'}, weight = 1},
     j_bloons_lotn=      {effect = {'value', 'support'}, weight = 0.5},
     
     j_bloons_ninja=     {effect = {'+mult'}, weight = 1},
+    j_bloons_discipline={effect = {'+chips'}, weight = 1},
+    j_bloons_sharpshur= {effect = {'+chips', '+mult'}, weight = 0.5},
+    j_bloons_doubleshur={effect = {'Xmult'}, weight = 1},
+    j_bloons_jitsu=     {effect = {'Xmult'}, weight = 1},
+    j_bloons_gmn=       {effect = {'Xmult'}, weight = 1},
+    j_bloons_distract=  {effect = {'support'}, weight = 1},
     j_bloons_espionage= {effect = {'support'}, weight = 1},
     j_bloons_shinobi=   {effect = {'Xmult'}, weight = 1},
-    j_bloons_flash=     {effect = {'+mult'}, weight = 1},
     j_bloons_sabo=      {effect = {'support'}, weight = 1},
-    j_bloons_gmn=       {effect = {'Xmult'}, weight = 1},
+    j_bloons_gsabo=     {effect = {'support'}, weight = 1},
+    j_bloons_seeking=   {effect = {'+mult'}, weight = 1},
+    j_bloons_caltrops=  {effect = {'+mult'}, weight = 1},
+    j_bloons_flash=     {effect = {'+mult'}, weight = 1},
+    j_bloons_sticky=    {effect = {'Xmult'}, weight = 1},
+    j_bloons_mbomber=   {effect = {'Xmult'}, weight = 1},
 
     j_bloons_alch=      {effect = {'value'}, weight = 1},
-    j_bloons_amd=       {effect = {'support'}, weight = 1},
-    j_bloons_brew=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_largerpots={effect = {'value'}, weight = 1},
+    j_bloons_amd=       {effect = {'chips', 'mult', 'Xmult'}, weight = 0.5},
+    j_bloons_brew=      {effect = {'chips', 'mult', 'Xmult'}, weight = 0.5},
+    j_bloons_stim=      {effect = {'Xmult'}, weight = 1},
+    j_bloons_acid=      {effect = {'value'}, weight = 1},
+    j_bloons_perishing= {effect = {'Xmult'}, weight = 1},
+    j_bloons_conc=      {effect = {'support'}, weight = 1},
+    j_bloons_tt4=       {effect = {'support'}, weight = 1},
+    j_bloons_tt5=       {effect = {'support'}, weight = 1},
+    j_bloons_fastalch=  {effect = {'value'}, weight = 1},
+    j_bloons_pools=     {effect = {'value'}, weight = 1},
+    j_bloons_l2g=       {effect = {'econ'}, weight = 1},
     j_bloons_r2g=       {effect = {'econ'}, weight = 1},
-    j_bloons_tt5=       {effect = {'value'}, weight = 1},
+    j_bloons_bma=       {effect = {'support'}, weight = 1},
 
     j_bloons_druid=     {effect = {'+mult'}, weight = 1},
     j_bloons_thunder=   {effect = {'value'}, weight = 1},
@@ -343,12 +384,20 @@ Joker_effects_vtsg = {
     j_bloons_lota=      {effect = {'+mult'}, weight = 1},
 
     j_bloons_farm=      {effect = {'econ'}, weight = 1},
-    j_bloons_valuable=  {effect = {'econ'}, weight = 1},
-    j_bloons_salvage=   {effect = {'econ'}, weight = 1},
+    j_bloons_iproduct=  {effect = {'econ'}, weight = 1},
+    j_bloons_gproduct=  {effect = {'econ'}, weight = 1},
     j_bloons_plantation={effect = {'econ'}, weight = 1},
+    j_bloons_brf=       {effect = {'econ'}, weight = 1},
+    j_bloons_central=   {effect = {'econ'}, weight = 1},
+    j_bloons_valuable=  {effect = {'econ'}, weight = 1},
     j_bloons_bank=      {effect = {'econ'}, weight = 1},
-    j_bloons_brf=       {effect = {'Xmult'}, weight = 1},
-    j_bloons_wallstreet={effect = {'econ'}, weight = 1},
+    j_bloons_imf=       {effect = {'econ'}, weight = 1},
+    j_bloons_nomics=    {effect = {'econ'}, weight = 1},
+    j_bloons_ez=        {effect = {'econ'}, weight = 1},
+    j_bloons_salvage=   {effect = {'econ'}, weight = 1},
+    j_bloons_market=    {effect = {'econ'}, weight = 1},
+    j_bloons_cmarket=   {effect = {'econ'}, weight = 1},
+    j_bloons_wallstreet={effect = {'econ', 'value'}, weight = 0.5},
 
     j_bloons_spac=      {effect = {'+chips'}, weight = 1},
     j_bloons_stacks=    {effect = {'econ'}, weight = 1},
@@ -390,24 +439,6 @@ Joker_effects_vtsg = {
     j_bloons_smines=    {effect = {'Xmult'}, weight = 1},
     j_bloons_vtsg=      {effect = {'support'}, weight = 1},
 }
-
---Tower effects function
-function Card.get_effects_vtsg(self)
-    local key = self.config.center_key
-    if Joker_effects_vtsg[key] then
-        return Joker_effects_vtsg[key].effect
-    end
-    return {'support'}
-end
-
---Tower effect weight function
-function Card.get_effect_weight_vtsg(self)
-    local key = self.config.center_key
-    if Joker_effects_vtsg[key] then
-        return Joker_effects_vtsg[key].weight
-    end
-    return 1
-end
 
 --Challenge id function
 function get_challenge_stake(e)
@@ -594,7 +625,7 @@ function end_round_new(mdoms)
 end
 
 --Sacrifice Context for Adora and VTSG
-get_sac_context = function(card)
+function get_sac_context(card)
     local deck = G.GAME and G.GAME.selected_back
     local is_adora_deck = deck and deck.name == 'Adora Deck'
     local is_vtsg = card.ability and card.ability.name == 'Vengeful True Sun God'
@@ -657,4 +688,22 @@ G.FUNCS.vtsg_sac = function(e)
     if not sac_context.vtsg_enabled then return end
     card.config.center.sac_to_vtsg(card)
     card.highlighted = false
+end
+
+--Tower effects function
+function Card.get_effects_vtsg(self)
+    local key = self.config.center_key
+    if Joker_effects_vtsg[key] then
+        return Joker_effects_vtsg[key].effect
+    end
+    return {'support'}
+end
+
+--Tower effect weight function
+function Card.get_effect_weight_vtsg(self)
+    local key = self.config.center_key
+    if Joker_effects_vtsg[key] then
+        return Joker_effects_vtsg[key].weight
+    end
+    return 1
 end

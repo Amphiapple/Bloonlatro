@@ -238,7 +238,6 @@ SMODS.Joker { --Super Mines
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('multhit2')
-                        delay(0.5)
                         return true
                     end
                 }))

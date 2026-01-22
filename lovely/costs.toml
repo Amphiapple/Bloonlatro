@@ -12,6 +12,10 @@ position = 'after'
 payload = '''
 --Salvage sell cost
 self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+--Trade Empire voucher discount
+if self.ability.set == 'Voucher' and #find_joker('Trade Empire') > 0 then
+    self.cost = math.floor(self.cost / 2.0)
+end
 --Monkey Wall Street booster discount
 if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
     self.cost = math.floor(self.cost / 2.0)

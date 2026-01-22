@@ -186,9 +186,9 @@ JokerDisplay.Definitions["j_bloons_pmfc"] = { --Plasma Monkey Fan Club
 JokerDisplay.Definitions["j_bloons_rangedart"] = { --Long Range Darts
     text = {
         { text = "+", colour = G.C.CHIPS },
-        { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "current_chips", colour = G.C.CHIPS },
         { text = " +", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "current_mult", colour = G.C.MULT },
     }
 }
 

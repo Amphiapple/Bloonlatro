@@ -97,7 +97,7 @@ SMODS.Joker { --Double Gun
     blueprint_compat = true,
     config = {
         base = 'engi',
-        extra = { money = 1, pairs = {} } --Variables: money = money per held pair, pairs = held pairs
+        extra = { money = 1, pairs = {} } --Variables: money = dollars per held pair, pairs = held pairs
     },
 
     loc_vars = function(self, info_queue, card)

@@ -39,7 +39,7 @@ SMODS.Joker { --Alchemist
 }
 
 SMODS.Joker { --Larger Potions
-    key = 'largepots',
+    key = 'largerpots',
     name = 'Larger Potions',
 	loc_txt = {
         name = 'Larger Potions',
@@ -251,13 +251,13 @@ SMODS.Joker { --Stronger Acid
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'alch')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'acid')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            if SMODS.pseudorandom_probability(card, 'alch', card.ability.extra.num, card.ability.extra.denom, 'alch') then
+            if SMODS.pseudorandom_probability(card, 'acid', card.ability.extra.num, card.ability.extra.denom, 'acid') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     delay = 0.0,
@@ -384,7 +384,12 @@ SMODS.Joker { --Transforming Tonic
     },
 
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 2 and not context.blueprint then
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES
+            end
+            juice_card_until(card, eval, true)
+        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 2 and not context.blueprint then
             local rightmost = context.full_hand[#context.full_hand]
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',

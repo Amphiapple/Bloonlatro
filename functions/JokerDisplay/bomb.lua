@@ -128,7 +128,7 @@ JokerDisplay.Definitions["j_bloons_blitz"] = { --Bomb Blitz
     calc_function = function(card)
         local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
         card.joker_display_values.active = G.GAME and G.GAME.chips and G.GAME.blind.chips and
-            blind_percent and blind_percent ~= to_big(0) and blind_percent >= to_big(card.ability.extra.scored_percent)
+            blind_percent and blind_percent ~= to_big(0) and blind_percent >= to_big(card.ability.extra.percent)
             and "Active!" or "Inactive"
     end
 }

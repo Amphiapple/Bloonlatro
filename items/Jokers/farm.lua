@@ -88,7 +88,7 @@ SMODS.Joker { --Banana Plantation
     loc_txt = {
         name = 'Banana Plantation',
         text = {
-            'Earn {C:money}$??{} at',
+            'Earn {C:money}$#1#-#2#{} at',
             'end of round'
         }
     },
@@ -99,9 +99,12 @@ SMODS.Joker { --Banana Plantation
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { max = 1, min = 10 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { min = 1, max = 10 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.min, card.ability.extra.max } }
+    end,
     calc_dollar_bonus = function(self, card)
         local dollars = pseudorandom('plantation', card.ability.extra.min, card.ability.extra.max)
         return dollars
@@ -114,8 +117,8 @@ SMODS.Joker { --BRF
 	loc_txt = { 
         name = 'Banana Research Facility',
         text = {
-            'Earn {C:attention}??{} crates of',
-            '{C:money}$#1#{} at end of round'
+            'Earn {C:attention}1-#1#{} crates of',
+            '{C:money}$#2#{} at end of round'
         }
     },
     atlas = 'Joker',
@@ -125,15 +128,15 @@ SMODS.Joker { --BRF
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { money = 3, crates = 5 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money } }
+        return { vars = { card.ability.extra.crates, card.ability.extra.money } }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = 0
-        for i = 0, card.ability.extra.crates do
+        local dollars = card.ability.extra.money
+        for i = 2, card.ability.extra.crates do
             if pseudorandom('brf') > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
@@ -160,7 +163,7 @@ SMODS.Joker { --Banana Central
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { money = 10, current = 0 } --Variables: money = dollars per farm
+        extra = { money = 8, current = 0 } --Variables: money = dollars per farm
     },
 
     loc_vars = function(self, info_queue, card)
@@ -415,9 +418,8 @@ SMODS.Joker { --IMF Loan
         if context.setting_blind and G.GAME.dollars < to_big(0) and not context.getting_sliced and not context.blueprint then
             card.ability.extra_value = card.ability.extra_value + G.GAME.dollars
             card:set_cost()
-            ease_dollars(-G.GAME.dollars)
             return {
-                message = localize('k_val_up'),
+                dollars = -G.GAME.dollars,
                 colour = G.C.MONEY
             }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
@@ -543,23 +545,9 @@ SMODS.Joker { --Banana Salvage
     end,
     calculate = function(self, card, context)
         if context.buying_card then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.0,
-                func = (function()
-                    for k, v in ipairs(G.jokers.cards) do
-                        if v.set_cost then 
-                            v:set_cost()
-                        end
-                    end
-                    for k, v in ipairs(G.consumeables.cards) do
-                        if v.set_cost then
-                            v:set_cost()
-                        end
-                    end
-                    return true
-                end)
-            }))
+            if context.card.set_cost then
+                context.card:set_cost()
+            end
         end
     end
 }

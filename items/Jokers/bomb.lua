@@ -216,14 +216,14 @@ SMODS.Joker { --Bomb Blitz
     eternal_compat = false,
     config = {
         base = 'bomb',
-        extra = { scored_percent = 50 } --Variables: scored_percent = percent of required chips scored
+        extra = { percent = 50 } --Variables: percent = percent of required chips scored
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.scored_percent } }
+        return { vars = { card.ability.extra.percent } }
     end,
     calculate = function(self, card, context)
-        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= to_big(card.ability.extra.scored_percent / 100.0) and not context.blueprint then
+        if context.game_over and G.GAME.chips/G.GAME.blind.chips >= to_big(card.ability.extra.percent / 100.0) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.GAME.saved_text = "Saved by Bomb Blitz!"

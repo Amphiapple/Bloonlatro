@@ -498,7 +498,6 @@ SMODS.Joker { --Supply Drop
                 juice_card_until(card, eval, true)
             end
             if card.ability.extra.counter == card.ability.extra.limit then
-                ease_dollars(card.ability.extra.money)
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'supply')
@@ -507,6 +506,10 @@ SMODS.Joker { --Supply Drop
                         return true
                     end}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+                return {
+                    dollars = card.ability.extra.money,
+                    colour = G.C.MONEY
+                }
             end
         end
     end
@@ -559,7 +562,6 @@ SMODS.Joker { --Elite Sniper
                 juice_card_until(card, eval, true)
             end
             if card.ability.extra.counter == card.ability.extra.limit then
-                ease_dollars(card.ability.extra.money)
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         local card = create_card('Power', G.consumeables, nil, nil, nil, nil, nil, 'esniper')
@@ -568,6 +570,10 @@ SMODS.Joker { --Elite Sniper
                         return true
                     end}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.YELLOW})
+                return {
+                    dollars = card.ability.extra.money,
+                    colour = G.C.MONEY
+                }
             end
         end
     end

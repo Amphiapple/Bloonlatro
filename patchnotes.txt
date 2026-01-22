@@ -1,15 +1,20 @@
 Added Jokers:
+- All remaining Subs
+- All remaining Boats
 - All remaining Ninjas
 - All remaining Alchemists
 - All remaining Banana Farms
 
-General Changes:
-- 
-
 Balance Changes:
+- Destroyer cost 7 > 6
+- Fireball mult 10 > 12
+- Wall of Fire probability 1 in 4 > 1 in 3
+- Intense Magic mult 5 > 6
 - Multiple farms reworked to allow for the new Banana Farms to fit in
 
 Fixes:
 - Juggernaut and Ultra-Juggernaut no longer scale off of blueprint effects
+- Long Range Darts Joker Display should show the correct value'
 - Improved Rangs and Faster Rangs JokerDisplay should function correctly
+- Grape Shot should no longer be compatible with blueprint
 - Flash Bomb should be compatible with blueprint

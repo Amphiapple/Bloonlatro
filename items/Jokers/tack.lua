@@ -185,7 +185,7 @@ SMODS.Joker { --Inferno Ring
 	atlas = 'Joker',
 	pos = { x = 5, y = 3 },
     rarity = 3,
-	cost = 8,
+	cost = 9,
     blueprint_compat = true,
     config = {
         base = 'tack',
