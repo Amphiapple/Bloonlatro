@@ -401,7 +401,7 @@ SMODS.Joker { --Hot Shot
     eternal_compat = false,
     config = {
         base = 'boat',
-        extra = { num = 1, denom = 4, money = 5 } --Variables: num/denom = probability fraction, money = dollars
+        extra = { num = 1, denom = 3, money = 5 } --Variables: num/denom = probability fraction, money = dollars
     },
 
     loc_vars = function(self, info_queue, card)

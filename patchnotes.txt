@@ -5,6 +5,9 @@ Added Jokers:
 - All remaining Alchemists
 - All remaining Banana Farms
 
+General Changes:
+- Certain challenges removed due to difficulty in keeping them updated, may be replaced with new challenges in the future.
+
 Balance Changes:
 - Destroyer cost 7 > 6
 - Fireball mult 10 > 12
@@ -16,5 +19,7 @@ Fixes:
 - Juggernaut and Ultra-Juggernaut no longer scale off of blueprint effects
 - Long Range Darts Joker Display should show the correct value'
 - Improved Rangs and Faster Rangs JokerDisplay should function correctly
+- Glue Hose should have an animation before using first discard
 - Grape Shot should no longer be compatible with blueprint
 - Flash Bomb should be compatible with blueprint
+- Negative jokers should no longer appear naturally in 2tc challenges

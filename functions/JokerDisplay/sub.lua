@@ -143,7 +143,7 @@ JokerDisplay.Definitions["j_bloons_twinguns"] = { --Twin Guns
         end
         local count = 0
         local idx_by_id = {}
-        for k, v in ipairs(G.hand.cards) do
+        for k, v in ipairs(held_cards) do
             local id = v:get_id()
             if idx_by_id[id] then
                 count = count + JokerDisplay.calculate_card_triggers(v, nil, true)
@@ -199,7 +199,7 @@ JokerDisplay.Definitions["j_bloons_apd"] = { --Armor Piercing Darts
         end
         local count = 0
         local idx_by_id = {}
-        for k, v in ipairs(G.hand.cards) do
+        for k, v in ipairs(held_cards) do
             local id = v:get_id()
             if idx_by_id[id] then
                 idx_by_id[id] = idx_by_id[id] + 1

@@ -140,7 +140,7 @@ JokerDisplay.Definitions["j_bloons_hotshot"] = { --Hot Shot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_plord"] = { --Cannon Ship
+JokerDisplay.Definitions["j_bloons_cannon"] = { --Cannon Ship
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
@@ -149,7 +149,7 @@ JokerDisplay.Definitions["j_bloons_plord"] = { --Cannon Ship
     },
 }
 
-JokerDisplay.Definitions["j_bloons_plord"] = { --Monkey Pirates
+JokerDisplay.Definitions["j_bloons_pirates"] = { --Monkey Pirates
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },

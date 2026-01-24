@@ -143,7 +143,12 @@ SMODS.Joker { --Glue Hose
         return { vars = { horse and 'Glue Horse' or 'Glue Hose' } }
     end,
     calculate = function(self, card, context)
-        if context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff and not context.blueprint then
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff and not context.blueprint then
             context.other_card:set_ability('m_bloons_glued', nil, true)
             return {
                 message = 'Glued!',
