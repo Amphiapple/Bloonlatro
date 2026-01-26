@@ -416,10 +416,9 @@ SMODS.Joker { --Turbo Charge
 	loc_txt = {
         name = 'Turbo Charge',
         text = {
-            'Retrigger {C:attention}last{}',
-            'card held in hand',
-            '{C:attention}#1#{} additional times on',
-            'final hand of round'
+            'Retrigger all card',
+            'held in hand abilities',
+            'on final hand of round'
         }
     },
 	atlas = 'Joker',
@@ -429,14 +428,14 @@ SMODS.Joker { --Turbo Charge
     blueprint_compat = true,
     config = {
         base = 'boomer',
-        extra = { retrigger = 3 } --Variables: retrigger = retrigger amount
+        extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retrigger } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and G.GAME.current_round.hands_left == 0 and context.cardarea == G.hand and context.other_card == G.hand.cards[#G.hand.cards] and not context.other_card.debuff then
+        if context.repetition and G.GAME.current_round.hands_left == 0 and context.cardarea == G.hand and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger

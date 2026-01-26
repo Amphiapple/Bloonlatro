@@ -146,6 +146,18 @@ JokerDisplay.Definitions["j_bloons_sense"] = { --Monkey Sense
 }
 
 JokerDisplay.Definitions["j_bloons_shimmer"] = { --Shimmer
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.demon, 'wof')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_necro"] = { --Necromancer: Unpopped Army

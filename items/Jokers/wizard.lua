@@ -572,6 +572,7 @@ SMODS.Joker { --Shimmer
 	loc_txt = {
         name = 'Shimmer',
         text = {
+            '{C:green}#1# in #2#{} chance to',
             'Create a free {C:dark_edition}Negative{}',
             '{C:attention}Fool{} at start of shop',
             'Destroy it at end of shop'
@@ -584,15 +585,17 @@ SMODS.Joker { --Shimmer
     blueprint_compat = false,
     config = {
         base = 'wizard',
-        extra = { fool = nil } --Variables: fool = temporary fool
+        extra = { num = 1, denom = 2, fool = nil } --Variables: fool = temporary fool
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
         info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'shimmer')
+        return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.starting_shop then
+        if context.starting_shop and SMODS.pseudorandom_probability(card, 'shimmer', card.ability.extra.num, card.ability.extra.denom, 'shimmer')then
             card.ability.extra.fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
             card.ability.extra.fool:set_edition({negative = true}, true)
             card.ability.extra.fool.extra_cost = -card.base_cost

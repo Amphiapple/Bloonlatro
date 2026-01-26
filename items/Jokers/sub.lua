@@ -44,7 +44,7 @@ SMODS.Joker { --Longer Range
     loc_txt = {
         name = 'Longer Range',
         text = {
-            'First shop has {C:attention}+#1#{}',
+            'Initial shop has {C:attention}+#1#{}',
             'card slot available'
         }
     },
@@ -670,7 +670,6 @@ SMODS.Joker { --Armor Piercing Darts
         elseif context.individual and context.cardarea == G.hand and not context.other_card.debuff and not context.end_of_round then
             for k, v in pairs(card.ability.extra._3oaks) do
                 if context.other_card == v then
-                    print(G.GAME.subcom_mult)
                     return {
                         x_mult = card.ability.extra.Xmult * (G.GAME.subcom_mult or 1),
                     }

@@ -402,7 +402,7 @@ SMODS.Joker { --IMF Loan
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { bankrupt = 15, money = 5 } --Variables: bankrupt = max amount of debt, money = sell value per round
+        extra = { bankrupt = 10, money = 4 } --Variables: bankrupt = max amount of debt, money = sell value per round
     },
 
     loc_vars = function(self, info_queue, card)

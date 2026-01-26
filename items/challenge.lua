@@ -424,7 +424,13 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = survivor_cards,
         banned_tags = {
-            { id = 'tag_d_six' }
+            { id = 'tag_d_six' },
+            { id = 'tag_uncommon' },
+            { id = 'tag_rare' },
+            { id = 'tag_negative' },
+            { id = 'tag_foil' },
+            { id = 'tag_holo' },
+            { id = 'tag_polychrome' },
         },
     },
     deck = {
@@ -496,7 +502,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_sabotage' }
         },
         banned_other = {
-            { id = 'bl_final_vessel', type = 'blind' }
+            { id = 'bl_final_vessel', type = 'blind' },
+            { id = 'bl_bloons_final_bad', type = 'blind' }
         }
     },
     deck = {
@@ -698,7 +705,13 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = survivor_cards,
         banned_tags = {
-            { id = 'tag_d_six' }
+            { id = 'tag_d_six' },
+            { id = 'tag_uncommon' },
+            { id = 'tag_rare' },
+            { id = 'tag_negative' },
+            { id = 'tag_foil' },
+            { id = 'tag_holo' },
+            { id = 'tag_polychrome' },
         },
     },
     deck = {
@@ -774,7 +787,8 @@ SMODS.Challenge {
             { id = 'tag_bloons_sabotage' }
         },
         banned_other = {
-            { id = 'bl_final_vessel', type = 'blind' }
+            { id = 'bl_final_vessel', type = 'blind' },
+            { id = 'bl_bloons_final_bad', type = 'blind' }
         }
     },
     deck = {

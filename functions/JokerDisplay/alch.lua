@@ -96,7 +96,7 @@ JokerDisplay.Definitions["j_bloons_tt4"] = { --Transforming Tonic
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_played == 0 and #G.hand.highlighted == 2 and "Active!" or "Inactive"
+        card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_played == 0 and "Active!" or "Inactive"
     end
 }
 
@@ -120,7 +120,7 @@ JokerDisplay.Definitions["j_bloons_fastalch"] = { --Faster Throwing
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 2 and 1 or 0
+        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left == 2 and 1 or 0
     end
 }
 JokerDisplay.Definitions["j_bloons_pools"] = { --Acid Pools
@@ -141,11 +141,7 @@ JokerDisplay.Definitions["j_bloons_r2g"] = { --Rubber to Gold
         { text = ")" },
     },
     calc_function = function(card)
-        local text, _, _ = JokerDisplay.evaluate_hand()
-
-        local only_card = text ~= "Unknown" and #G.hand.highlighted == 1
-
-        card.joker_display_values.active = G.GAME and G.GAME.current_round.discards_left == 1 and only_card and "Active!" or "Inactive"
+        card.joker_display_values.active = G.GAME and G.GAME.current_round.discards_left == 1 and "Active!" or "Inactive"
     end
 }
 

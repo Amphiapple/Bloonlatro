@@ -9,10 +9,13 @@ General Changes:
 - Certain challenges removed due to difficulty in keeping them updated, may be replaced with new challenges in the future.
 
 Balance Changes:
+- Turbo Charge retriggers all cards held in hand once instead of last card 3 times
+- Cripple MOAB Xmult 4 > 3
 - Destroyer cost 7 > 6
 - Fireball mult 10 > 12
 - Wall of Fire probability 1 in 4 > 1 in 3
 - Intense Magic mult 5 > 6
+- Shimmer now has a 1 in 2 chance of creating The Fool
 - Multiple farms reworked to allow for the new Banana Farms to fit in
 
 Fixes:
@@ -22,4 +25,6 @@ Fixes:
 - Glue Hose should have an animation before using first discard
 - Grape Shot should no longer be compatible with blueprint
 - Flash Bomb should be compatible with blueprint
+- Glued Cards no longer lose glue status until end of round (reduces calculations and lag)
+- Shop joker tags should no longer appear in survivor challenges
 - Negative jokers should no longer appear naturally in 2tc challenges

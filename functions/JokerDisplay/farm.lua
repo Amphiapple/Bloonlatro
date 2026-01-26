@@ -140,6 +140,13 @@ JokerDisplay.Definitions["j_bloons_salvage"] = { --Banana Salvage
 }
 
 JokerDisplay.Definitions["j_bloons_market"] = { --Marketplace
+    text = {
+        { text = "+$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "(Round)" }
+    }
 }
 
 JokerDisplay.Definitions["j_bloons_cmarket"] = { --Central Market

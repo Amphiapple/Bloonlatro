@@ -100,14 +100,7 @@ JokerDisplay.Definitions["j_bloons_tcharge"] = { --Turbo Charge
                 (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and "Active!" or "Inactive"
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        local held_cards = {}
-        for i = 1, #G.hand.cards do
-            if not G.hand.cards[i].highlighted then
-                table.insert(held_cards, G.hand.cards[i])
-            end
-        end
-        local last_card = JokerDisplay.calculate_rightmost_card(held_cards)
-        return last_card and playing_card == last_card and
+        return held_in_hand and
                 ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
                 (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
                 joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0

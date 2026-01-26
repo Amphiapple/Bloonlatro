@@ -299,7 +299,7 @@ SMODS.Joker { --Cripple MOAB
     blueprint_compat = true,
     config = {
         base = 'sniper',
-        extra = { Xmult = 4, limit = 3, counter = 3 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
+        extra = { Xmult = 3, limit = 3, counter = 3 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)

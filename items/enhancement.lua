@@ -48,7 +48,7 @@ SMODS.Enhancement ({ --Glued
         name = 'Glued Card',
         text = {
             '{C:mult}+#1#{} Mult and',
-            'wears off when scored',
+            'wears off if scored',
             'Lose {C:money}$#2#{} when discarded'
         }
     },
@@ -69,7 +69,7 @@ SMODS.Enhancement ({ --Glued
         return { vars = { self.config.mult, process_var(self.config.cost) } }
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.main_scoring and #find_joker('Relentless Glue') == 0 then
+        if context.after and context.cardarea == G.play and #find_joker('Relentless Glue') == 0 then
             card:set_ability(G.P_CENTERS.c_base, nil, true)
         elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
             if G.GAME.modifiers.sticky_situation then
