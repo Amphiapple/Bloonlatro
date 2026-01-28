@@ -368,8 +368,8 @@ SMODS.Joker { --Transforming Tonic
 	loc_txt = {
         name = 'Transforming Tonic',
         text = {
-            'If {C:attention}first hand{} of round',
-            'C:attention}2{} cards with the same rank,',
+            'If {C:attention}first hand{} of round is',
+            '{C:attention}2{} cards with the same rank,',
             '{C:attention}Transform{} the {C:attention}left{} card',
             'into the {C:attention}right{} card',
         }
