@@ -1,8 +1,8 @@
-# Bloonlatro v0.3.4
+# Bloonlatro
 
 A Balatro mod that incorporates Bloons Tower Defense into the base game
 
-Includes 150 new Jokers, 15 new Decks, and more!
+Includes new Jokers, new Decks, new Challenges, and a variety of additional content
 
 ---
 
