@@ -83,7 +83,7 @@ SMODS.Joker { --Jungle Drums
     blueprint_compat = true,
     config = {
         base = 'village',
-        extra = { Xmult = 1.15 } --Variables: Xmult = Xmult per joker
+        extra = { Xmult = 1.1 } --Variables: Xmult = Xmult per joker
     },
 
     loc_vars = function(self, info_queue, card)

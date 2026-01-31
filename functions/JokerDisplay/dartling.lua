@@ -38,6 +38,7 @@ JokerDisplay.Definitions["j_bloons_rorm"] = { --Rocket Storm
 }
 
 JokerDisplay.Definitions["j_bloons_rod"] = { --Ray of Doom
+    --[[
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x",                              scale = 0.35 },
@@ -70,4 +71,5 @@ JokerDisplay.Definitions["j_bloons_rod"] = { --Ray of Doom
 
         card.joker_display_values.count = count
     end
+    ]]
 }

@@ -145,23 +145,3 @@ get_pack = function(_key, _type)
     end
     return center
 end
-
---Mdom replay boss
-local end_round_old = end_round
-end_round = function()
-    local mdoms = find_joker('MOAB Domination')
-    if #mdoms > 0 then
-        local active = true
-        for k, v in pairs(mdoms) do
-            if v.ability.extra.active == false then
-                active = false
-            end
-        end 
-        if active then
-            local ret = end_round_new(mdoms)
-            return ret
-        end
-    end
-    local ret = end_round_old()
-    return ret
-end

@@ -1,30 +1,24 @@
 Added Jokers:
-- All remaining Subs
-- All remaining Boats
-- All remaining Ninjas
-- All remaining Alchemists
-- All remaining Banana Farms
+- All remaining Desperados
+- All remaining Dartling Gunners
 
 General Changes:
-- Certain challenges removed due to difficulty in keeping them updated, may be replaced with new challenges in the future.
+- 
 
 Balance Changes:
-- Turbo Charge retriggers all cards held in hand once instead of last card 3 times
-- Cripple MOAB Xmult 4 > 3
-- Destroyer cost 7 > 6
-- Fireball mult 10 > 12
-- Wall of Fire probability 1 in 4 > 1 in 3
-- Intense Magic mult 5 > 6
-- Shimmer now has a 1 in 2 chance of creating The Fool
-- Multiple farms reworked to allow for the new Banana Farms to fit in
+- Sharp Shooter crit mult 30 > 40
+- Kylie Boomerang no longer retriggfers first card
+- Tack Sprayer chips 40 > 24
+- Desperado gives 3 Mult instead of 20 Chips
+- Ground Zero rarity Rare > Uncommon, cost 7 > 8
+- Ray of Doom no longer has any random spread
+- Buckshot cost 7 > 6, maximum 3.3X > 3X
+- Marketplace rate every $2 of sell price > $3 of sell price
+- Jungle Drums Xmult 1.15 > 1.1
+- MOAB Domination scaling 0.5 > 0.25
 
 Fixes:
-- Juggernaut and Ultra-Juggernaut no longer scale off of blueprint effects
-- Long Range Darts Joker Display should show the correct value'
-- Improved Rangs and Faster Rangs JokerDisplay should function correctly
-- Glue Hose should have an animation before using first discard
-- Grape Shot should no longer be compatible with blueprint
-- Flash Bomb should be compatible with blueprint
-- Glued Cards no longer lose glue status until end of round (reduces calculations and lag)
-- Shop joker tags should no longer appear in survivor challenges
-- Negative jokers should no longer appear naturally in 2tc challenges
+- Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
+- Transforming Tonic text fixed
+- MOAB Domination replaying bosses should trigger boss defeat effects both times
+- Many Jokers should no longer activate effects if being destroyed

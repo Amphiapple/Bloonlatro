@@ -18,7 +18,7 @@ SMODS.Joker { --MOAB Domination
     blueprint_compat = true,
     config = {
         base = 'boomer',
-        extra = { Xmult = 0.5, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
+        extra = { Xmult = 0.25, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
     },
 
     loc_vars = function(self, info_queue, card)

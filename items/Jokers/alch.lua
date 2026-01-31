@@ -352,7 +352,7 @@ SMODS.Joker { --Unstable Concoction
                         context.full_hand[1]:set_seal(SMODS.poll_seal({type_key = 'conc', guaranteed = true}), nil, true)
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
-                        play_sound('coin6', 0.96+math.random()*0.08)
+                        play_sound('tarot2', 0.96+math.random()*0.08)
                         return true
                     end
                 }))

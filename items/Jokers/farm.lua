@@ -415,7 +415,7 @@ SMODS.Joker { --IMF Loan
         G.GAME.bankrupt_at = G.GAME.bankrupt_at + card.ability.extra.bankrupt
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and G.GAME.dollars < to_big(0) and not context.getting_sliced and not context.blueprint then
+        if context.setting_blind and G.GAME.dollars < to_big(0) and not card.getting_sliced and not context.blueprint then
             card.ability.extra_value = card.ability.extra_value + G.GAME.dollars
             card:set_cost()
             return {
@@ -571,7 +571,7 @@ SMODS.Joker { --Marketplace
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { money = 1, rate = 2, current = 0 } --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
+        extra = { money = 1, rate = 3, current = 0 } --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
     },
 
     loc_vars = function(self, info_queue, card)

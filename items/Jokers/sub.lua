@@ -430,7 +430,7 @@ SMODS.Joker { --Pre-emptive Strike
         return { vars = { card.ability.extra.percent, card.ability.extra.max } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not context.getting_sliced then
+        if context.setting_blind and not card.getting_sliced then
             local score = (G.GAME.blind.chips - G.GAME.chips) * card.ability.extra.percent / 100.0
             if score > to_big(card.ability.extra.max) then
                 score = to_big(card.ability.extra.max)
@@ -703,7 +703,7 @@ SMODS.Joker { --Sub Commander
     },
 
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.subcom_mult = G.GAME.subcom_mult and G.GAME.subcom_mult * 2 or 2
+        G.GAME.subcom_mult = G.GAME.subcom_mult * 2
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.subcom_mult = G.GAME.subcom_mult / 2

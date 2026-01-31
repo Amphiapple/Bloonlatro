@@ -1,0 +1,37 @@
+[manifest]
+dump_lua = true
+priority = 1
+version = "1.0.0"
+
+# gobal variables
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "blind_on_deck = nil,"
+position = 'after'
+payload = '''
+subcom_mult = 1,
+'''
+match_indent = true
+
+# current round variables
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "idol_card = {suit = 'Spades', rank = 'Ace'},"
+position = 'before'
+payload = '''
+desperado_card = {rank = 'Ace'},
+'''
+match_indent = true
+
+# Reset start of game variables
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "reset_idol_card()"
+position = 'after'
+payload = '''
+reset_desperado_card()
+'''
+match_indent = true

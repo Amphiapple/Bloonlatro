@@ -556,7 +556,7 @@ SMODS.Joker { --Tack Sprayer
     blueprint_compat = true,
     config = {
         base = 'tack',
-        extra = { chips = 40, mult = 8 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 24, mult = 8 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)

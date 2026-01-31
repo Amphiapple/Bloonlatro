@@ -538,7 +538,7 @@ SMODS.Joker { --Sharp Shooter
     blueprint_compat = true,
     config = {
         base = 'dart',
-        extra = { mult = 30, limit = 10, counter = 1 } --Variables: mult = mult, limit = number of cards scored for mult, counter = card index
+        extra = { mult = 40, limit = 10, counter = 1 } --Variables: mult = mult, limit = number of cards scored for mult, counter = card index
     },
 
     loc_vars = function(self, info_queue, card)

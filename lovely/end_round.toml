@@ -1,0 +1,80 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Mdom active check
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "G.GAME.blind.in_blind = false"
+position = 'before'
+payload = '''
+local replay_boss = false
+local mdoms = find_joker('MOAB Domination')
+if #mdoms > 0 then
+    replay_boss = true
+    for k, v in pairs(mdoms) do
+        if v.ability.extra.active == false then
+            replay_boss = false
+        end
+    end 
+end
+'''
+match_indent = true
+
+# Mdom win check
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then"
+position = 'at'
+payload = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and not replay_boss then"
+match_indent = true
+
+# Mdom ante end check
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "if G.GAME.blind:get_type() == 'Boss' then"
+position = 'at'
+payload = "if G.GAME.blind:get_type() == 'Boss' and not replay_boss then"
+match_indent = true
+
+# Mdom boss defeat check
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+G.GAME.round_resets.blind_states.Boss = 'Defeated'
+for k, v in ipairs(G.playing_cards) do
+    v.ability.played_this_ante = nil
+end
+'''
+position = 'at'
+payload = '''
+if replay_boss then
+    for k, v in pairs(mdoms) do
+        v.ability.extra.active = false
+    end
+else
+    G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+    G.GAME.round_resets.blind_states.Boss = 'Defeated'
+    for k, v in ipairs(G.playing_cards) do
+        v.ability.played_this_ante = nil
+    end
+end
+'''
+match_indent = true
+
+# Reset round variables
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "reset_idol_card()"
+position = 'after'
+payload = '''
+reset_desperado_card()
+'''
+match_indent = true

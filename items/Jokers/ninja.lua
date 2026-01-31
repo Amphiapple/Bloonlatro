@@ -326,7 +326,7 @@ SMODS.Joker { --Counter Espionage
         end
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and card.ability.extra.ready and not context.getting_sliced and not context.blueprint then
+        if context.setting_blind and card.ability.extra.ready and not card.getting_sliced and not context.blueprint then
             local espionages = find_joker('Counter Espionage')
             for k, v in pairs(espionages) do
                 if v ~= card then
@@ -402,7 +402,7 @@ SMODS.Joker { --Counter Espionage
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not context.getting_sliced and not context.blueprint then
+        if context.setting_blind and not card.getting_sliced and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local total = G.GAME.current_round.hands_left + G.GAME.current_round.discards_left
@@ -628,7 +628,7 @@ SMODS.Joker { --Caltrops
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not context.getting_sliced and not context.blueprint then
+        if context.setting_blind and not card.getting_sliced and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
                 message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}

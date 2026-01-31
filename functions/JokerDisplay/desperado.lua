@@ -1,4 +1,5 @@
 JokerDisplay.Definitions["j_bloons_desp"] = { --Desperado
+    --[[
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
@@ -21,6 +22,7 @@ JokerDisplay.Definitions["j_bloons_desp"] = { --Desperado
         end
         card.joker_display_values.chips = card.ability.extra.chips * count
     end
+    ]]
 }
 
 JokerDisplay.Definitions["j_bloons_nomad"] = { --Nomad
@@ -39,18 +41,10 @@ JokerDisplay.Definitions["j_bloons_nomad"] = { --Nomad
 }
 
 JokerDisplay.Definitions["j_bloons_enforcer"] = { --Enforcer
-    text = {
-        {
-            border_nodes = {
-                { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "current" }
-            }
-        }
-    }
 }
 
 JokerDisplay.Definitions["j_bloons_twix"] = { --Twin Sixes
-        text = {
+    text = {
         {
             border_nodes = {
                 { text = "X" },

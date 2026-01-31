@@ -155,8 +155,8 @@ SMODS.Joker { --Ground Zero
     },
 	atlas = 'Joker',
 	pos = { x = 9, y = 10 },
-    rarity = 3,
-	cost = 7,
+    rarity = 2,
+	cost = 8,
     blueprint_compat = true,
     config = {
         base = 'ace',
