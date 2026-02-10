@@ -497,7 +497,7 @@ SMODS.Joker { --Supply Drop
                 end
                 juice_card_until(card, eval, true)
             end
-            if card.ability.extra.counter == card.ability.extra.limit then
+            if card.ability.extra.counter == card.ability.extra.limit and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'supply')
@@ -561,7 +561,7 @@ SMODS.Joker { --Elite Sniper
                 end
                 juice_card_until(card, eval, true)
             end
-            if card.ability.extra.counter == card.ability.extra.limit then
+            if card.ability.extra.counter == card.ability.extra.limit and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         local card = create_card('Power', G.consumeables, nil, nil, nil, nil, nil, 'esniper')

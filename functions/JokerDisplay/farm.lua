@@ -8,7 +8,7 @@ JokerDisplay.Definitions["j_bloons_farm"] = { --Banana Farm
     }
 }
 
-JokerDisplay.Definitions["j_bloons_iproduct"] = { --BIncreased Production
+JokerDisplay.Definitions["j_bloons_iproduct"] = { --Increased Production
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -42,7 +42,8 @@ JokerDisplay.Definitions["j_bloons_plantation"] = { --Banana Plantation
 
 JokerDisplay.Definitions["j_bloons_brf"] = { --Banana Research Facility
     text = {
-        { text = "0-" },
+        { ref_table = "card.ability.extra", ref_value = "min" },
+        { text = "-" },
         { ref_table = "card.ability.extra", ref_value = "crates" },
         { text = "x" },
         { text = "+$", colour = G.C.MONEY },

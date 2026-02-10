@@ -368,8 +368,8 @@ SMODS.Joker { --Transforming Tonic
 	loc_txt = {
         name = 'Transforming Tonic',
         text = {
-            'If {C:attention}first hand{} of round is',
-            '{C:attention}2{} cards with the same rank,',
+            'If {C:attention}first hand{} of round',
+            'contains only {C:attention}2{} cards,',
             '{C:attention}Transform{} the {C:attention}left{} card',
             'into the {C:attention}right{} card',
         }
@@ -389,7 +389,7 @@ SMODS.Joker { --Transforming Tonic
                 return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES
             end
             juice_card_until(card, eval, true)
-        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 2 and context.full_hand[1]:get_id() == context.full_hand[2]:get_id() and not context.blueprint then
+        elseif context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 2 and not context.blueprint then
             local rightmost = context.full_hand[#context.full_hand]
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',

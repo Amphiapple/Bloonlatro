@@ -30,13 +30,16 @@ SMODS.Enhancement ({ --Frozen
     end,
     calculate = function(self, card, context)
         if context.after and context.cardarea == G.hand then
-            card:set_ability(G.P_CENTERS.c_base, nil, true)
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:juice_up()
-                    return true
-                end
-            })) 
+            local deep_freeze = find_joker('Deep Freeze')[1]
+            if not deep_freeze or SMODS.pseudorandom_probability(deep_freeze, 'deep', deep_freeze.ability.extra.num, deep_freeze.ability.extra.denom, 'deep') then
+                card:set_ability(G.P_CENTERS.c_base, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:juice_up()
+                        return true
+                    end
+                }))
+            end
         end
     end
 })

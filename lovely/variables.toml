@@ -22,6 +22,7 @@ pattern = "idol_card = {suit = 'Spades', rank = 'Ace'},"
 position = 'before'
 payload = '''
 desperado_card = {rank = 'Ace'},
+spike_factory_card = {suit = 'Spades', rank = 'Ace'},
 '''
 match_indent = true
 
@@ -33,5 +34,6 @@ pattern = "reset_idol_card()"
 position = 'after'
 payload = '''
 reset_desperado_card()
+reset_spike_factory_card()
 '''
 match_indent = true

@@ -410,16 +410,18 @@ SMODS.Joker { --Golden Justice
             return {
                 x_mult = card.ability.extra.Xmult
             }
-        elseif context.destroying_card and context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') and not context.blueprint then
-            local other_card = context.destroying_card
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    other_card:shatter()
-                    return true
-                end
-            }))
-            return true
+        elseif context.destroying_card and not context.blueprint then
+            if context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    func = function()
+                        context.destroying_card:shatter()
+                        return true
+                    end
+                }))
+                return true
+            end
+            return nil
         elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
             ease_dollars(card.ability.extra.gold_money)
             card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_money,colour = G.C.MONEY, delay = 0.45})
@@ -459,7 +461,7 @@ SMODS.Joker { --Wanderer
             '{C:chips}+#1#{} Chips for each',
             'empty {C:attention}Joker{} slot',
             '{s:0.8}Wanderer included',
-            '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)'
+            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
         }
     },
     atlas = 'Joker',
@@ -486,7 +488,7 @@ SMODS.Joker { --Wanderer
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chips = card.ability.extra.chips
+                chips = card.ability.extra.current
             }
 		end
     end
@@ -699,18 +701,17 @@ SMODS.Joker { --Avenger
     end
 }
 
---[[
 SMODS.Joker { --The Desert Phantom
     key = 'phantom',
     name = 'The Desert Phantom',
 	loc_txt = {
         name = 'The Desert Phantom',
         text = {
-            '{X:mult,C:white}X#1#{} on {C:attention}final hand{}',
-            'of round for each {C:attention}#2#{}',
-            'played this round',
-            'rank changes every round',
-            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)',
+            '{C:spectral}Spectral{} cards may',
+            'appear in the shop,',
+            '{X:mult,C:white}X#1#{} Mult for each',
+            '{C:spectral}Spectral{} card used',
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)',
         }
     },
 	atlas = 'Joker',
@@ -720,25 +721,33 @@ SMODS.Joker { --The Desert Phantom
     blueprint_compat = true,
     config = {
         base = 'desperado',
-        extra = { Xmult = 0.1, number = 5, current = 1 } --Variables: Xmult = Xmult gain, number = required scoring cards, current = current Xmult
+        extra = { spectral_rate = 2, Xmult = 0.25, current = 1 } --Variables: Xmult = Xmult gain, current = current Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult} }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.spectral_rate = G.GAME.spectral_rate + 2
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.spectral_rate = G.GAME.spectral_rate - 2
+    end,
+    update = function(self, card, dt)
+        local count = G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.spectral or 0
+        card.ability.extra.current = 1 + card.ability.extra.Xmult * count
     end,
     calculate = function(self, card, context)
-        if context.before and #context.scoring_hand == card.ability.extra.number and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+        if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == "Spectral" then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
-                colour = G.C.MULT,
-                delay = 0.45,
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT
             }
-        elseif context.joker_main then
+        end
+        if context.joker_main and card.ability.extra.current > 1 then
             return {
-                x_mult = card.ability.extra.current,
+                x_mult = card.ability.extra.current
             }
         end
     end
 }
-]]

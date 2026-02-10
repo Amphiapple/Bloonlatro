@@ -193,12 +193,11 @@ SMODS.Joker { --Blooncineration
                     x_mult = total
                 }
             end
-        elseif context.destroying_card and
-                (context.destroying_card.config.center ~= G.P_CENTERS.c_base or
-                context.destroying_card.edition or
-                context.destroying_card.seal) and
-                not context.blueprint then
-            return true
+        elseif context.destroying_card and not context.blueprint then
+            if context.destroying_card.config.center ~= G.P_CENTERS.c_base or context.destroying_card.edition or context.destroying_card.seal then
+                return true
+            end
+            return nil
         end
     end
 }

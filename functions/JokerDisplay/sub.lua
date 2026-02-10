@@ -211,7 +211,7 @@ JokerDisplay.Definitions["j_bloons_apd"] = { --Armor Piercing Darts
                 idx_by_id[id] = 0
             end
         end
-        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count * (G.GAME.subcom_mult or 1)
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ (count * (G.GAME.subcom_mult or 1))
     end
 }
 

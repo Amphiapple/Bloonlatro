@@ -392,6 +392,11 @@ SMODS.Joker { --Rocket Storm
             if next(context.poker_hands['Pair']) then
                 local temp_Xmult = pseudorandom('rorm', card.ability.extra.min, card.ability.extra.max) / 100.0
                 card.ability.extra.current = card.ability.extra.current + temp_Xmult
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.RED,
+                    delay = 0.45,
+                }
             else
                 card.ability.extra.current = 1
                 return {
@@ -436,6 +441,11 @@ SMODS.Joker { --M.A.D
         if context.setting_blind and G.GAME.blind.boss and not card.getting_sliced and not context.blueprint then
             local temp_Xmult = pseudorandom('mad', card.ability.extra.min, card.ability.extra.max) / 100.0
             card.ability.extra.current = card.ability.extra.current + temp_Xmult
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.RED,
+                delay = 0.45,
+            }
         elseif context.joker_main then
             return {
                 x_mult = card.ability.extra.current

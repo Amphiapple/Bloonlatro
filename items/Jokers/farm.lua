@@ -117,8 +117,8 @@ SMODS.Joker { --BRF
 	loc_txt = { 
         name = 'Banana Research Facility',
         text = {
-            'Earn {C:attention}1-#1#{} crates of',
-            '{C:money}$#2#{} at end of round'
+            'Earn {C:attention}#1#-#2#{} crates of',
+            '{C:money}$#3#{} at end of round'
         }
     },
     atlas = 'Joker',
@@ -128,15 +128,15 @@ SMODS.Joker { --BRF
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { min = 1, crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.crates, card.ability.extra.money } }
+        return { vars = { card.ability.extra.min, card.ability.extra.crates, card.ability.extra.money } }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = card.ability.extra.money
-        for i = 2, card.ability.extra.crates do
+        local dollars = card.ability.extra.money * card.ability.extra.min
+        for i = card.ability.extra.min + 1, card.ability.extra.crates do
             if pseudorandom('brf') > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
@@ -503,7 +503,7 @@ SMODS.Joker { --EZ Collect
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             card.ability.extra.current = card.ability.extra.money * #G.jokers.cards
-            if #find_joker('EZ Collect') then
+            if #find_joker('EZ Collect') > 0 then
                 card.ability.extra.current = card.ability.extra.current - card.ability.extra.money
             end
         end
@@ -558,8 +558,8 @@ SMODS.Joker { --Marketplace
 	loc_txt = {
         name = 'Marketplace',
         text = {
-            'Earn {C:money}$#1#{} for every',
-            '{C:money}$#2#{} of sell value of all other',
+            'Earn {C:money}$#1#{} per {C:money}$#2#{}',
+            'of sell value of all other',
             '{C:attention}Jokers{} at end of round',
             '{C:inactive}(Currently {C:money}$#3#{C:inactive}){}'
         }

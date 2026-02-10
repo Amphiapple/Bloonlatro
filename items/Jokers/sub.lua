@@ -393,8 +393,6 @@ SMODS.Joker { --First Strike Capability
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
             return {
                 message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
-                colour = G.C.MULT,
-                delay = 0.45,
             }
         elseif context.joker_main then
             return {
@@ -423,7 +421,7 @@ SMODS.Joker { --Pre-emptive Strike
     blueprint_compat = true,
     config = {
         base = 'sub',
-        extra = { percent = 50, max = 200000 } --Variables: percent = percent score
+        extra = { percent = 80, max = 20000 } --Variables: percent = percent score
     },
 
     loc_vars = function(self, info_queue, card)

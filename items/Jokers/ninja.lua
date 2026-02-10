@@ -147,7 +147,7 @@ SMODS.Joker { --Double Shot
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Diamonds', true) and not v.debuff then
+                    if v:is_suit('Diamonds') then
                         count = count + 1
                     end
                 end
@@ -191,7 +191,7 @@ SMODS.Joker { --Bloonjitsu
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Diamonds', true) and not v.debuff then
+                    if v:is_suit('Diamonds') then
                         count = count + 1
                     end
                 end
@@ -233,7 +233,7 @@ SMODS.Joker { --Grandmaster Ninja
         if context.joker_main then
             local total = 1
             for k, v in ipairs(context.scoring_hand) do
-                if v:is_suit('Diamonds', true) and not v.debuff then
+                if v:is_suit('Diamonds') then
                     total = total + card.ability.extra.Xmult
                 end
             end
@@ -486,7 +486,7 @@ SMODS.Joker { --Bloon Sabotage
         if context.before and SMODS.pseudorandom_probability(card, 'sabo', card.ability.extra.num, card.ability.extra.denom, 'sabo') then
             local hasheart = false
             for k, v in ipairs(context.scoring_hand) do
-                if (v.ability.name == 'Wild Card' or v:is_suit('Hearts')) and not v.debuff then
+                if v:is_suit('Hearts') then
                     hasheart = true
                 end
             end
@@ -533,7 +533,7 @@ SMODS.Joker { --Grand Saboteur
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Hearts', true) and not v.debuff then
+                    if v:is_suit('Hearts') then
                         count = count + 1
                     end
                 end
@@ -746,7 +746,7 @@ SMODS.Joker { --Sticky Bomb
             card.ability.extra.active = false
             local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
-                if v:is_suit('Spades', true) and v ~= card.ability.extra.stickied and not v.debuff then
+                if v:is_suit('Spades') and v ~= card.ability.extra.stickied and not v.debuff then
                     eligible_cards[#eligible_cards+1] = v
                 end
             end
@@ -805,7 +805,7 @@ SMODS.Joker { --Master Bomber
             G.E_MANAGER:add_event(Event({
                 func = function()
                     for k, v in ipairs(G.hand.cards) do
-                        if v:is_suit('Spades', true) then
+                        if v:is_suit('Spades') then
                             v:set_ability(G.P_CENTERS.m_bloons_stunned)
                             card_eval_status_text(v, 'extra', nil, nil, nil, {
                                 message = 'Stickied!'

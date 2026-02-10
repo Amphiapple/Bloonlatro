@@ -1,24 +1,44 @@
 Added Jokers:
+- All remaining Ice Monkeys
 - All remaining Desperados
 - All remaining Dartling Gunners
+- All remaining Mermonkeys
+- All remaining Spike Factories
+- All remaining Beast Handlers
 
 General Changes:
-- 
+- Many balance changes to Jokers in preparation for the upgrading mechanic
 
 Balance Changes:
 - Sharp Shooter crit mult 30 > 40
 - Kylie Boomerang no longer retriggfers first card
+- MOAB Mauler mult 2.5 > 2
 - Tack Sprayer chips 40 > 24
+- Ice Monkey now freezes every 3 hands instead of first hand of round
+- Ice Shards mult 2 > 1, cost 6 > 5
+- Absolute Zero rarity Uncommon > Rare
 - Desperado gives 3 Mult instead of 20 Chips
+- Pre-emptive Strike percent 50% > 80%, max chips scored 200000 > 20000
 - Ground Zero rarity Rare > Uncommon, cost 7 > 8
 - Ray of Doom no longer has any random spread
 - Buckshot cost 7 > 6, maximum 3.3X > 3X
+- Mermonkey reworked completely
 - Marketplace rate every $2 of sell price > $3 of sell price
+- Spike Factory cost 5 > 4
+- Bigger Stacks reworked
+- Long Life Spikes cost 6 > 5, suit changes every round
 - Jungle Drums Xmult 1.15 > 1.1
 - MOAB Domination scaling 0.5 > 0.25
 
+- Gwendolin Deck no longer gives -1 hand size, instead gives -1 hand
+- Silas Deck freezes 2 cards in hand rather than 3 random cards
+- Dark Titan debuff change 1 in 4 > 1 in 3
+
 Fixes:
 - Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
+- Dragon's Breath should no longer have perishable stickers
 - Transforming Tonic text fixed
+- EZ Collect should no longer show athe incorrect value in the shop
+- Banana Research Facility Joker Display should show the correct values
 - MOAB Domination replaying bosses should trigger boss defeat effects both times
 - Many Jokers should no longer activate effects if being destroyed

@@ -499,6 +499,22 @@ function reset_desperado_card()
     end
 end
 
+--Reset spike factory card
+function reset_spike_factory_card()
+    G.GAME.current_round.spike_factory_card.rank = 'Ace'
+    local valid_spike_factory_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if not SMODS.has_no_rank(v) then
+            valid_spike_factory_cards[#valid_spike_factory_cards+1] = v
+        end
+    end
+    if valid_spike_factory_cards[1] then
+        local spike_factory_card = pseudorandom_element(valid_spike_factory_cards, pseudoseed('spac'..G.GAME.round_resets.ante))
+        G.GAME.current_round.spike_factory_card.rank = spike_factory_card.base.value
+        G.GAME.current_round.spike_factory_card.id = spike_factory_card.base.id
+    end
+end
+
 --Sacrifice Context for Adora and VTSG
 function get_sac_context(card)
     local deck = G.GAME and G.GAME.selected_back
@@ -563,4 +579,12 @@ G.FUNCS.vtsg_sac = function(e)
     if not sac_context.vtsg_enabled then return end
     card.config.center.sac_to_vtsg(card)
     card.highlighted = false
+end
+
+--Enable optional features
+SMODS.current_mod.optional_features = function()
+    return {
+        post_trigger = true,
+        retrigger_joker = true,
+    }
 end

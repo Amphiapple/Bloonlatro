@@ -5,7 +5,7 @@ SMODS.Joker { --Spike Factory
         name = 'Spike Factory',
         text = {
             'This joker gains {C:chips}+#1#{}',
-            'Chips for every discard',
+            'Chips per discard',
             'used this round',
             '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
         }
@@ -13,7 +13,7 @@ SMODS.Joker { --Spike Factory
     atlas = 'Joker',
 	pos = { x = 0, y = 21 },
     rarity = 1,
-	cost = 5,
+	cost = 4,
     blueprint_compat = true,
     config = {
         base = 'spac',
@@ -33,9 +33,9 @@ SMODS.Joker { --Spike Factory
             }
         elseif context.joker_main then
             return {
-            chips = card.ability.extra.current,
+                chips = card.ability.extra.current,
             }
-        elseif context.end_of_round and card.ability.extra.current > 0 and not context.individual and not context.repetitionand and not context.blueprint then
+        elseif context.end_of_round and card.ability.extra.current > 0 and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.current = 0
             return {
                 message = localize('k_reset'),
@@ -51,29 +51,470 @@ SMODS.Joker { --Bigger Stacks
     loc_txt = {
         name = 'Bigger Stacks',
         text = {
-            'Earn an extra {C:money}$#1#{}',
-            'per unused hand',
-            'at end of round',
+            'This joker gains {C:chips}+#1#{}',
+            'Chips per discard',
+            'used this round',
+            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
         }
     },
     atlas = 'Joker',
 	pos = { x = 1, y = 21 },
     rarity = 1,
 	cost = 5,
-    blueprint_compat = false,
+    blueprint_compat = true,
     config = {
         base = 'spac',
-        extra = { money = 2 } --Variables = money = dollars per unused hands
+        extra = { chips = 35, current = 0 } --Variables: chips = +chips for each discard used, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money } }
+        return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     end,
-    calc_dollar_bonus = function(self, card)
-        if G.GAME.current_round.hands_left > 0 then
-            return card.ability.extra.money * G.GAME.current_round.hands_left
+    calculate = function(self, card, context)
+        if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                delay = 0.45,
+            }
+        elseif context.joker_main then
+            return {
+                chips = card.ability.extra.current,
+            }
+        elseif context.end_of_round and card.ability.extra.current > 0 and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
+    end
+}
+
+SMODS.Joker { --White Hot Spikes
+    key = 'whitehot',
+    name = 'whitehot',
+    loc_txt = {
+        name = 'White Hot Spikes',
+        text = {
+            '{C:chips}+#1#{} Chips when',
+            '{C:attention}#2#{} discards',
+            'remaining',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 2, y = 21 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { chips = 90, discards = 0 } --Variables: chips = +chips if 0 discards
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.discards } }
     end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.current_round.discards_left == 0 then
+            return {
+                chips = card.ability.extra.chips,
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Spiked Balls
+    key = 'spalls',
+    name = 'Spiked Balls',
+    loc_txt = {
+        name = 'Spiked Balls',
+        text = {
+            '{C:chips}+#1#{} Chips',
+            '{C:chips}-#2#{} Chips for',
+            'every hand played',
+            'this round',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 3, y = 21 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { chips = 120, current = 120, loss = 30 } --Variables: chips = +chips if 0 discards
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.current, card.ability.extra.loss } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.current,
+            }
+        elseif context.after and not G.GAME.chips/G.GAME.blind.chips >= to_big(1) and card.ability.extra.currenmt > 0 and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
+            return {
+                message = localize{type='variable',key='a_chips',vars={-card.ability.extra.loss}},
+                colour = G.C.CHIPS,
+                delay = 0.45,
+            }
+        elseif context.end_of_round and card.ability.extra.current < card.ability.extra.chips and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.chips
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Spiked Mines
+    key = 'spines',
+    name = 'Spiked Mines',
+    loc_txt = {
+        name = 'Spiked Mines',
+        text = {
+            'This Joker gains {C:chips}+#1#{} Chips',
+            'on {C:attention}final hand{} of round per',
+            'card discarded this round',
+            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 4, y = 21 },
+    rarity = 2,
+	cost = 7,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { chips = 15, current = 0 } --Variables: chips = +chips per discarded card, current = current chips
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.current_round.hands_left == 1 then
+            return {
+                chips = card.ability.extra.current,
+            }
+        elseif context.discard and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                delay = 0.45,
+            }
+        elseif context.end_of_round and card.ability.extra.current > 0 and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Faster Production
+    key = 'fastspac',
+    name = 'Faster Production',
+    loc_txt = {
+        name = 'Faster Production',
+        text = {
+            'This joker gains {C:mult}+#1#{}',
+            'Mult per discard',
+            'used this round',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 6, y = 21 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { mult = 5, current = 0 } --Variables: mult = +mult for each discard used, current = current +mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+            return {
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                colour = G.C.MULT,
+                delay = 0.45,
+            }
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current,
+            }
+        elseif context.end_of_round and card.ability.extra.current > 0 and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Even Faster Production
+    key = 'evenspac',
+    name = 'Even Faster Production',
+    loc_txt = {
+        name = 'Even Faster Production',
+        text = {
+            'This joker gains {C:mult}+#1#{}',
+            'Mult per discard',
+            'used this round',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 7, y = 21 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { mult = 8, current = 0 } --Variables: mult = +mult for each discard used, current = current +mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+            return {
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                colour = G.C.MULT,
+                delay = 0.45,
+            }
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current,
+            }
+        elseif context.end_of_round and card.ability.extra.current > 0 and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
+
+SMODS.Joker { --MOAB SHREDR
+    key = 'shredr',
+    name = 'MOAB SHREDR',
+	loc_txt = {
+        name = 'MOAB SHREDR',
+        text = {
+            'This Joker gains {X:mult,C:white}X#1#{}',
+            'Mult per discard used',
+            'this round, double Xmult',
+            'against {C:attention}Boss Blinds{}',
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 21 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    perishable_compat = false,
+    config = {
+        base = 'spac',
+        extra = { Xmult = 0.25, Xmult_boss = 0.5, current = 1 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(normal, boss)
+			return G.GAME.blind and G.GAME.blind.boss and boss or normal
+		end
+        return {
+            vars = {
+                process_var(card.ability.extra.Xmult, card.ability.extra.Xmult_boss),
+                card.ability.extra.current
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
+            if G.GAME.blind.boss then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult_boss
+            else
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+            end
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
+                colour = G.C.MULT,
+                delay = 0.45,
+            }
+        elseif context.joker_main then
+            return {
+                x_mult = card.ability.extra.current,
+            }
+        elseif context.end_of_round and card.ability.extra.current > 1 and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 1
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Spike Storm
+    key = 'sporm',
+    name = 'Spike Storm',
+	loc_txt = {
+        name = 'Spike Storm',
+        text = {
+            'Each played card',
+            'gives {X:mult,C:white}X#1#{} Mult every',
+            '{C:attention}#2#{} hands played',
+            '{C:inactive}(#3#)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 21 },
+    rarity = 2,
+	cost = 7,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { limit = 4, counter = 4, Xmult = 1.5 } --Variables: limit = number of hands for Xmult, counter = hand index, Xmult = Xmult per card
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(count, cap)
+			if count == cap - 1 then
+				return 'Active!'
+			end
+			return cap - count%cap - 1 .. ' remaining'
+		end
+		return {
+			vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit),
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
+            if not context.blueprint then
+                local eval = function()
+                    return card.ability.extra.counter == card.ability.extra.limit - 1
+                end
+                juice_card_until(card, eval, true)
+            end
+        elseif context.individual and context.cardarea == G.play and card.ability.extra.counter == card.ability.extra.limit then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Carpet of Spikes
+    key = 'carpet',
+    name = 'Carpet of Spikes',
+	loc_txt = {
+        name = 'Carpet of Spikes',
+        text = {
+            'Each played card gives',
+            '{X:mult,C:white}X#1#{} Mult per discard used',
+            'this round when scored',
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 10, y = 21 },
+    rarity = 3,
+	cost = 8,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { Xmult = 0.2, current = 1 } --Variables: Xmult = Xmult gain poer discard, current = current Xmult
+    },
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
+                colour = G.C.MULT,
+                delay = 0.45,
+            }
+        elseif context.individual and context.cardarea == G.play and card.ability.extra.current > 1 then
+            return {
+                x_mult = card.ability.extra.current
+            }
+        elseif context.end_of_round and card.ability.extra.current > 1 and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 1
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+        
+    end
+}
+
+SMODS.Joker { --Long Reach
+    key = 'rangespac',
+    name = 'Long Reach',
+    loc_txt = {
+        name = 'Long Reach',
+        text = {
+            'When {C:attention}Blind{} is selected,',
+            'gain {C:blue}+#1#{} Hand and',
+            'lose {C:red}#1#{} Discard'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 11, y = 21 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { hands = 1 } --Variables: hands = hands gain and discard loss
+    },
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.hands } }
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind and not (context.blueprint_card or card).getting_sliced then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if G.GAME.current_round.discards_left > 1 then
+                        ease_discard(-card.ability.extra.hands)
+                    end
+                    ease_hands_played(card.ability.extra.hands)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
+                return true end
+            }))
+            return nil, true
+        end
+    end
 }
 
 SMODS.Joker { --Smart Spikes
@@ -122,15 +563,16 @@ SMODS.Joker { --Long Life Spikes
         name = 'Long Life Spikes',
         text = {
             'This joker gains {C:mult}+#1#{} Mult',
-            'for every discarded {C:spades}Spade',
-            '{C:mult}-#2#{} Mult at end of round',
-            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
+            'per discarded {V:1}#2#{}',
+            '{C:mult}-#3#{} Mult and suit changes',
+            'at end of round',
+            '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
         }
     },
 	atlas = 'Joker',
 	pos = { x = 13, y = 21 },
     rarity = 2,
-	cost = 6,
+	cost = 5,
     blueprint_compat = true,
     perishable_compat = false,
     config = {
@@ -139,10 +581,18 @@ SMODS.Joker { --Long Life Spikes
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, card.ability.extra.loss, card.ability.extra.current } }
+        return {
+            vars = {
+                card.ability.extra.mult,
+                localize(G.GAME.current_round.spike_factory_card.suit, 'suits_singular'),
+                card.ability.extra.loss,
+                card.ability.extra.current,
+                colours = {G.C.SUITS[G.GAME.current_round.spike_factory_card.suit]},
+            }
+        }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card:is_suit('Spades', true) and not context.other_card.debuff and not context.blueprint then
+        if context.discard and context.other_card:is_suit(G.GAME.current_round.spike_factory_card.suit) and not context.other_card.debuff and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
                 message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
@@ -168,54 +618,65 @@ SMODS.Joker { --Long Life Spikes
     end
 }
 
-SMODS.Joker { --Spike Storm
-    key = 'sporm',
-    name = 'Spike Storm',
+SMODS.Joker { --Deadly Spikes
+    key = 'deadly',
+    name = 'Deadly Spikes',
 	loc_txt = {
-        name = 'Spike Storm',
+        name = 'Deadly Spikes',
         text = {
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'per discard and loses {X:mult,C:white}X#1#{}',
-            'Mult per hand played',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
+            'This joker gains {C:mult}+#1#{} Mult',
+            'per discarded {C:attention}#2#{} of {V:1}#3#{}',
+            '{C:mult}-#4#{} Mult and card changes',
+            'at end of round',
+            '{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 21 },
+	pos = { x = 14, y = 21 },
     rarity = 2,
-	cost = 7,
+	cost = 6,
     blueprint_compat = true,
     perishable_compat = false,
     config = {
         base = 'spac',
-        extra = { Xmult = 0.2, current = 1 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
+        extra = { mult = 10, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+        return {
+            vars = {
+                card.ability.extra.mult,
+                localize(G.GAME.current_round.spike_factory_card.rank, 'ranks'),
+                localize(G.GAME.current_round.spike_factory_card.suit, 'suits_plural'),
+                card.ability.extra.loss,
+                card.ability.extra.current,
+                colours = {G.C.SUITS[G.GAME.current_round.spike_factory_card.suit]},
+            }
+        }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card == context.full_hand[#context.full_hand] and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+        if context.discard and context.other_card:get_id() == G.GAME.current_round.spike_factory_card.id
+                and context.other_card:is_suit(G.GAME.current_round.spike_factory_card.suit) and not context.other_card.debuff and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
                 colour = G.C.MULT,
                 delay = 0.45,
             }
-        elseif context.joker_main then
+        elseif context.joker_main and card.ability.extra.current > 0 then
             return {
-                x_mult = card.ability.extra.current,
+            mult = card.ability.extra.current,
             }
-        elseif context.after and not context.blueprint then
-            if card.ability.extra.current - card.ability.extra.Xmult < 1 then
-                card.ability.extra.current = 1
-            else
-                card.ability.extra.current = card.ability.extra.current - card.ability.extra.Xmult
+        end
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            local loss = card.ability.extra.loss
+            if loss > card.ability.extra.current then
+                loss = card.ability.extra.current
             end
+            card.ability.extra.current = card.ability.extra.current - loss
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
-                colour = G.C.MULT,
-                delay = 0.45,
+                message = localize{type='variable',key='a_mult_minus',vars={loss}},
+                colour = G.C.MULT
             }
         end
     end

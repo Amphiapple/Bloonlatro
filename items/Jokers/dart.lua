@@ -423,7 +423,7 @@ SMODS.Joker { --Long Range Darts
         name = 'Long Range Darts',
         text = {
             '{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult',
-            'Double chips and mult',
+            'double chips and mult',
             'after {C:attention}first hand{} of round'
         }
     },
