@@ -4,7 +4,7 @@ A Balatro mod that incorporates Bloons Tower Defense into the base game
 
 # New Additions:
 
-
+6 new towers!
 
 ---
 

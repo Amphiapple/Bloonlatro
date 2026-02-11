@@ -20,6 +20,7 @@ Balance Changes:
 - Desperado gives 3 Mult instead of 20 Chips
 - Pre-emptive Strike percent 50% > 80%, max chips scored 200000 > 20000
 - Ground Zero rarity Rare > Uncommon, cost 7 > 8
+- Quad Darts mult loss 1 > 2
 - Ray of Doom no longer has any random spread
 - Buckshot cost 7 > 6, maximum 3.3X > 3X
 - Mermonkey reworked completely
@@ -29,12 +30,12 @@ Balance Changes:
 - Long Life Spikes cost 6 > 5, suit changes every round
 - Jungle Drums Xmult 1.15 > 1.1
 - MOAB Domination scaling 0.5 > 0.25
-
 - Gwendolin Deck no longer gives -1 hand size, instead gives -1 hand
 - Silas Deck freezes 2 cards in hand rather than 3 random cards
 - Dark Titan debuff change 1 in 4 > 1 in 3
 
 Fixes:
+- Glue enhancement should no longer remove itself if it hasn't been scored
 - Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
 - Dragon's Breath should no longer have perishable stickers
 - Transforming Tonic text fixed

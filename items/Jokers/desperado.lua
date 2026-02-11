@@ -206,14 +206,10 @@ SMODS.Joker { --The Blazing Sun
         return { vars = { card.ability.extra.Xmult, localize(G.GAME.current_round.desperado_card.rank, 'ranks') } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            for k, v in ipairs(context.scoring_hand) do
-                if v:get_id() == G.GAME.current_round.desperado_card.id and v:is_suit('Hearts') and not v.debuff then
-                    return {
-                        x_mult = card.ability.extra.Xmult
-                    }
-                end
-            end
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == G.GAME.current_round.desperado_card.id and context.other_card:is_suit('Hearts') then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
         end
     end
 }
@@ -374,11 +370,9 @@ SMODS.Joker { --Golden Justice
 	loc_txt = {
         name = 'Golden Justice',
         text = {
-            '{C:attention}Gold{} cards give {X:mult,C:white}X#1#{} Mult and',
-            '{C:green}#2# in #3#{} chance to be destroyed',
-            '{C:attention}Glass{} cards give {C:money}$#4#{} if',
-            'held in hand at end of round',
-            'Both give {C:money}$#5#{} when destroyed',
+            '{C:attention}Gold Cards{} and {C:attention}Glass Cards{}',
+            "inherit each others' abilities,",
+            'both give {C:money}$#5#{} when destroyed',
         }
     },
 	atlas = 'Joker',

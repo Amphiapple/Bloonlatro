@@ -26,6 +26,9 @@ SMODS.Joker { --Glue Gunner
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and not context.other_card.debuff then
             context.other_card:set_ability('m_bloons_glued', nil, true)
+            if not context.other_card.glued then
+                context.other_card.glued = true
+            end
             return {
                 mult = card.ability.extra.mult
             }
@@ -105,6 +108,9 @@ SMODS.Joker { --MOAB Glue
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.other_card.debuff then
             context.other_card:set_ability('m_bloons_glued', nil, true)
+            if not context.other_card.glued then
+                context.other_card.glued = true
+            end
             card.ability.extra.face = true
         elseif context.joker_main and card.ability.extra.face then
             return {
@@ -222,6 +228,9 @@ SMODS.Joker { --The Bloon Solver
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             context.other_card:set_ability('m_bloons_glued', nil, true)
+            if not context.other_card.glued then
+                context.other_card.glued = true
+            end 
             context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
             context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult
             return {

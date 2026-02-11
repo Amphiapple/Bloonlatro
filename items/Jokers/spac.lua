@@ -155,7 +155,7 @@ SMODS.Joker { --Spiked Balls
             return {
                 chips = card.ability.extra.current,
             }
-        elseif context.after and not G.GAME.chips/G.GAME.blind.chips >= to_big(1) and card.ability.extra.currenmt > 0 and not context.blueprint then
+        elseif context.after and (G.GAME.chips + hand_chips*mult) /G.GAME.blind.chips < to_big(1) and card.ability.extra.current > 0 and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
             return {
                 message = localize{type='variable',key='a_chips',vars={-card.ability.extra.loss}},
@@ -430,7 +430,7 @@ SMODS.Joker { --Spike Storm
 }
 
 SMODS.Joker { --Carpet of Spikes
-    key = 'carpet',
+    key = 'cos',
     name = 'Carpet of Spikes',
 	loc_txt = {
         name = 'Carpet of Spikes',

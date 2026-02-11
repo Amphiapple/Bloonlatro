@@ -381,7 +381,7 @@ SMODS.Joker { --Rocket Storm
     perishable_compat = false,
     config = {
         base = 'dartling',
-        extra = { max = 15, min = 0, current = 1 } --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
+        extra = { min = 0, max = 15, current = 1 } --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
     },
     
     loc_vars = function(self, info_queue, card)

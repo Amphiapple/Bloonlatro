@@ -555,7 +555,7 @@ SMODS.Joker { --Airburst Darts
             if has_pair then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
                 return {
-                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.current}}
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.current * (G.GAME.subcom_mult or 1)}}
                 }
             end
         elseif context.joker_main then
@@ -615,7 +615,7 @@ SMODS.Joker { --Triple Guns
             if has_3oak then
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
                 return {
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}}
+                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current * (G.GAME.subcom_mult or 1)}}
                 }
             end
         elseif context.joker_main then

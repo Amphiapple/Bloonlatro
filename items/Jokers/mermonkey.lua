@@ -29,7 +29,9 @@ SMODS.Joker { --Mermonkey
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return card.ability.extra.current
+            return {
+                mult = card.ability.extra.current
+            }
         end
     end
 }
@@ -65,7 +67,9 @@ SMODS.Joker { --Trident Efficiency
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return card.ability.extra.current
+            return {
+                mult = card.ability.extra.current
+            }
         end
     end
 }
@@ -107,7 +111,9 @@ SMODS.Joker { --Trident Swiftness
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return card.ability.extra.current
+            return {
+                mult = card.ability.extra.current
+            }
         end
     end
 }
@@ -139,17 +145,17 @@ SMODS.Joker { --Abyss Dweller
         if context.other_joker then
             local left_joker = nil
             local right_joker = nil
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    if i > 1 then
-                        left_joker = G.jokers.cards[i - 1]
+            for k, v in ipairs(G.jokers.cards) do
+                if v == card then
+                    if k > 1 then
+                        left_joker = G.jokers.cards[k - 1]
                     end
-                    if i <= #G.jokers.cards then
-                        right_joker = G.jokers.cards[i + 1]
+                    if k < #G.jokers.cards then
+                        right_joker = G.jokers.cards[k + 1]
                     end
                 end
             end
-            if left_joker and context.other_card == left_joker or right_joker and context.other_card == right_joker then
+            if left_joker and context.other_joker == left_joker or right_joker and context.other_joker == right_joker then
                 return {
                     mult = card.ability.extra.mult
                 }
@@ -190,17 +196,17 @@ SMODS.Joker { --Abyssal Warrior
         elseif context.other_joker then
             local left_joker = nil
             local right_joker = nil
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    if i > 1 then
-                        left_joker = G.jokers.cards[i - 1]
+            for k, v in ipairs(G.jokers.cards) do
+                if v == card then
+                    if k > 1 then
+                        left_joker = G.jokers.cards[k - 1]
                     end
-                    if i <= #G.jokers.cards then
-                        right_joker = G.jokers.cards[i + 1]
+                    if k < #G.jokers.cards then
+                        right_joker = G.jokers.cards[k + 1]
                     end
                 end
             end
-            if left_joker and context.other_card == left_joker or right_joker and context.other_card == right_joker then
+            if left_joker and context.other_joker == left_joker or right_joker and context.other_joker == right_joker then
                 return {
                     x_mult = card.ability.extra.Xmult
                 }
@@ -301,7 +307,9 @@ SMODS.Joker { --Sharper Prongs
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return card.ability.extra.current
+           return {
+                chips = card.ability.extra.current
+            }
         end
     end
 }
@@ -411,7 +419,7 @@ SMODS.Joker { --Arctic Knight
         text = {
             '{C:green}#1# in #2#{} chance to',
             '{C:attention}Freeze{} each card',
-            'held in hand',
+            'played or held in hand',
         }
     },
 	atlas = 'Joker',
@@ -431,6 +439,17 @@ SMODS.Joker { --Arctic Knight
     end,
     calculate = function(self, card, context)
         if context.before then
+            for k, v in ipairs(context.scoring_hand) do
+                if SMODS.pseudorandom_probability(card, 'arknight', card.ability.extra.num, card.ability.extra.denom, 'arknight') and not v.debuff then
+                    v:set_ability('m_bloons_frozen', nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            v:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
             for k, v in ipairs(G.hand.cards) do
                 if SMODS.pseudorandom_probability(card, 'arknight', card.ability.extra.num, card.ability.extra.denom, 'arknight') and not v.debuff then
                     v:set_ability('m_bloons_frozen', nil, true)
@@ -540,36 +559,10 @@ SMODS.Joker { --Echosense Network
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                mult = card.ability.extra.curent
+                mult = card.ability.extra.current
             }
         end
     end
-}
-
-SMODS.Joker { --Echosense Network
-    key = 'network',
-    name = 'Echosense Network',
-    loc_txt = {
-        name = 'Echosense Network',
-        text = {
-            '{C:mult}+#1#{} Mult for',
-            'each {C:attention}Mermonkey{}',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
-        }
-    },
-    atlas = 'Joker',
-	pos = { x = 12, y = 19 },
-    rarity = 1,
-	cost = 4,
-    blueprint_compat = true,
-    config = {
-        base = 'mermonkey',
-        extra = { mult = 10, current = 0 } --Variables: mult = +mult per mermonkey
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
-    end,
 }
 
 SMODS.Joker { --Alluring Melody
@@ -712,7 +705,7 @@ SMODS.Joker { --The Final Harmonic
         text = {
             'Return {C:attention}Enhanced{}',
             'cards to hand after',
-            'bring scored',
+            'being scored',
         }
     },
     atlas = 'Joker',
