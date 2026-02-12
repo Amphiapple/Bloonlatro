@@ -421,7 +421,7 @@ SMODS.Joker { --Pre-emptive Strike
     blueprint_compat = true,
     config = {
         base = 'sub',
-        extra = { percent = 80, max = 20000 } --Variables: percent = percent score
+        extra = { percent = 80, max = 50000 } --Variables: percent = percent score
     },
 
     loc_vars = function(self, info_queue, card)

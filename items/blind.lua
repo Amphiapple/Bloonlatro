@@ -259,11 +259,11 @@ SMODS.Blind {
     boss_colour = HEX("4a4b4a"),
 
     loc_vars = function(self)
-        local n, d = SMODS.get_probability_vars(card, 1, 3, 'ddt')
+        local n, d = SMODS.get_probability_vars(self, 1, 3, 'ddt')
         return { vars = { n, d } }
     end,
     collection_loc_vars = function(self)
-        local n, d = SMODS.get_probability_vars(card, 1, 3, 'ddt')
+        local n, d = SMODS.get_probability_vars(self, 1, 3, 'ddt')
         return { vars = { n, d } }
     end,
 

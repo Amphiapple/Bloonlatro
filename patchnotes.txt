@@ -37,6 +37,7 @@ Balance Changes:
 
 Fixes:
 - Glue enhancement should no longer remove itself if it hasn't been scored
+- Wall of Fire should no longer stone other unscoring cards outside the first
 - Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
 - Dragon's Breath should no longer have perishable stickers
 - Transforming Tonic text fixed

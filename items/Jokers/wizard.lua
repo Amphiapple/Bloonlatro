@@ -356,11 +356,15 @@ SMODS.Joker { --Wall of Fire
     calculate = function(self, card, context)
         if context.before then
             for k, v in pairs(context.full_hand) do
-                if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(card, 'wof', card.ability.extra.num, card.ability.extra.denom, 'wof') then
-                    v:set_ability('m_stone', nil, true)
-                    return {
-                        message = 'Stone!'
-                    }
+                if not SMODS.in_scoring(v, context.scoring_hand) then
+                    if SMODS.pseudorandom_probability(card, 'wof', card.ability.extra.num, card.ability.extra.denom, 'wof') then
+                        v:set_ability('m_stone', nil, true)
+                        return {
+                            message = 'Stone!'
+                        }
+                    else
+                        return nil
+                    end
                 end
             end
         end
