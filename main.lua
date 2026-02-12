@@ -73,7 +73,7 @@ local jokers = {
     'ninja',
     'alch',
     'druid',
-    'mermonkey',
+    'merm',
     'farm',
     'spac',
     'village',

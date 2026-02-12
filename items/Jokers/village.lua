@@ -169,7 +169,9 @@ SMODS.Joker { --Monkey City
         return { vars = { card.ability.extra.money, card.ability.extra.current } } --Variables: money = dollars per dart, current = current end of round dollars
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.current
+        if card.ability.extra.current > 0 then
+            return card.ability.extra.current
+        end
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then

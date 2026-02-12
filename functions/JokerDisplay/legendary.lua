@@ -78,15 +78,12 @@ JokerDisplay.Definitions["j_bloons_vtsg"] = { --Vengeful True Sun God
         { ref_table = "card.joker_display_values", ref_value = "sacrifices" },
         { text = ")" },
     },
-
     calc_function = function(card)
         local sacs = card.ability.extra.sacrifices
         card.joker_display_values.sacrifices =
-            (sacs["+chips"] or 0) .. " " ..
-            (sacs["+mult"] or 0) .. " " ..
-            (sacs["Xmult"] or 0) .. " " ..
-            (sacs["econ"] or 0) .. " " ..
-            (sacs["value"] or 0) .. " " ..
+            (sacs["primary"] or 0) .. " " ..
+            (sacs["military"] or 0) .. " " ..
+            (sacs["magic"] or 0) .. " " ..
             (sacs["support"] or 0)
     end
 }
