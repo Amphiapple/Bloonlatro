@@ -53,7 +53,7 @@ SMODS.Joker { --Focused Firing
             local r = pseudorandom(pseudoseed('focus'))
             local temp_chips
             if r < 0.5 then
-                temp_chips = pseudorandom('focus', card.ability.extra.q1, card.ability.extra.q1)
+                temp_chips = pseudorandom('focus', card.ability.extra.q1, card.ability.extra.q3)
             else
                 temp_chips = pseudorandom('focus', card.ability.extra.min, card.ability.extra.max)
             end
@@ -121,8 +121,9 @@ SMODS.Joker { --Laser Cannon
         name = 'Laser Cannon',
         text = {
             'Each {C:attention}face{} card gives',
-            '{C:mult}+??{} Mult when scored',
-            'and for next hand',
+            '{C:mult}+??{} Mult when scored,',
+            'store Mult as shock',
+            'damage for next hand',
             '{C:inactive}Shock damage {C:mult}+#1#{C:inactive} Mult{}'
         }
     },
@@ -482,7 +483,7 @@ SMODS.Joker { --Faster Swivel
             if r < 0.33 then
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q1)
             elseif r > 0.67 then
-                temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q3)
+                temp_chips = pseudorandom('swivel', card.ability.extra.q3, card.ability.extra.max)
             else
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.max)
             end
