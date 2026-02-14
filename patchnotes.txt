@@ -18,7 +18,7 @@ Balance Changes:
 - Ice Shards mult 2 > 1, cost 6 > 5
 - Absolute Zero rarity Uncommon > Rare
 - Desperado gives 3 Mult instead of 20 Chips
-- Pre-emptive Strike percent 50% > 80%, max chips scored 200000 > 20000
+- Pre-emptive Strike reworked
 - Ground Zero rarity Rare > Uncommon, cost 7 > 8
 - Quad Darts mult loss 1 > 2
 - Ray of Doom no longer has any random spread
@@ -37,6 +37,7 @@ Balance Changes:
 
 Fixes:
 - Glue enhancement should no longer remove itself if it hasn't been scored
+- Double Shot buccaneer Joker Display should calculate retriggers correctly
 - Wall of Fire should no longer stone other unscoring cards outside the first
 - Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
 - Dragon's Breath should no longer have perishable stickers

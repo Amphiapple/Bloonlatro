@@ -171,20 +171,122 @@ JokerDisplay.Definitions["j_bloons_buckshot"] = { --Buckshot
 
 JokerDisplay.Definitions["j_bloons_bads"] = { --Bloon Area Denial System
     text = {
+        { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
+        { text = "x", scale = 0.35 },
         {
             border_nodes = {
                 { text = "X?.?" },
             }
         }
     },
+    calc_function = function(card)
+        local count = 0
+        local low = 0
+        local high = 0
+        local trigger_cards = {}
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+            for k, v in ipairs(sorted_cards) do
+                if not SMODS.has_no_rank(v) then
+                    local id = v:get_id()
+                    if k == 1 then
+                        trigger_cards['first'] = v
+                        low = id
+                        high = id
+                    end
+                    if k == #sorted_cards then
+                        trigger_cards['last'] = v
+                    end
+                    if id < low then
+                        low = id
+                        trigger_cards['low'] = v
+                    end
+                    if id > high then
+                        high = id
+                        trigger_cards['high'] = v
+                    end
+                end
+            end
+            for k, v in ipairs(scoring_hand) do
+                for i, j in pairs(trigger_cards) do
+                    if v == j then
+                        count = count + 1
+                        break
+                    end
+                end
+            end
+        end
+        card.joker_display_values.count = count
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_bez"] = { --Bloon Exclusion Zone
     text = {
+        { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
+        { text = "x", scale = 0.35 },
         {
             border_nodes = {
                 { text = "X?.?" },
             }
         }
     },
+    calc_function = function(card)
+        local count = 0
+        local high = 0
+        local trigger_cards = {}
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local held_cards = {}
+        for i = 1, #G.hand.cards do
+            local hand_card = G.hand.cards[i]
+            if not hand_card.highlighted and hand_card.facing ~= 'back' then
+                table.insert(held_cards, hand_card)
+            end
+        end
+        if text ~= 'Unknown' then
+            local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+            for k, v in ipairs(sorted_cards) do
+                if not SMODS.has_no_rank(v) and not v.debuff then
+                    local id = v:get_id()
+                    if k == 1 then
+                        trigger_cards['first'] = v
+                        high = id
+                    end
+                    if k == #sorted_cards then
+                        trigger_cards['last'] = v
+                    end
+                    if id > high then
+                        high = id
+                        trigger_cards['high'] = v
+                    end
+                end
+            end
+        end
+        local sorted_h_cards = JokerDisplay.sort_cards(held_cards)
+        for k, v in ipairs(sorted_h_cards) do
+            if not SMODS.has_no_rank(v) and not v.debuff then
+                local id = v:get_id()
+                if k == 1 then
+                    trigger_cards['h_first'] = v
+                    high = id
+                end
+                if k == #sorted_h_cards then
+                    trigger_cards['h_last'] = v
+                end
+                if id > high then
+                    high = id
+                    trigger_cards['h_high'] = v
+                end
+            end
+        end
+        for k, v in ipairs(G.hand.cards) do
+            for i, j in pairs(trigger_cards) do
+                if v == j then
+                    count = count + 1
+                    break
+                end
+            end
+        end
+        card.joker_display_values.count = count
+    end
 }

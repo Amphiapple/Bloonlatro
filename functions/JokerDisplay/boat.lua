@@ -36,7 +36,7 @@ JokerDisplay.Definitions["j_bloons_doubleboat"] = { --Double Shot
             for k, v in pairs(scoring_hand) do
                 local id = v:get_id()
                 if idx_by_id[id] then
-                    count = count + JokerDisplay.calculate_card_triggers(v, nil, true)
+                    count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
                     idx_by_id[id] = nil
                 else
                     idx_by_id[id] = k

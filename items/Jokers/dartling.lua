@@ -180,7 +180,7 @@ SMODS.Joker { --Plasma Accelerator
     blueprint_compat = true,
     config = {
         base = 'dartling',
-        extra = { mult = 10, ranks = {} } --Variables: mult = +mult, ranks = card ranks played
+        extra = { mult = 12, ranks = {} } --Variables: mult = +mult, ranks = card ranks played
     },
 
     loc_vars = function(self, info_queue, card)
