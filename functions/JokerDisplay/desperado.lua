@@ -233,7 +233,6 @@ JokerDisplay.Definitions["j_bloons_deadeye"] = { --Deadeye
             }
         }
     },
-    text_config = { colour = G.C.GOLD },
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "desperado_card_rank", },
