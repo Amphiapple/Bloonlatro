@@ -871,7 +871,7 @@ SMODS.Joker { --Faster Swivel
             local temp_chips
             if r < 0.25 then
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q1)
-            elseif r > 0.67 then
+            elseif r > 0.75 then
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q3)
             else
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.max)
