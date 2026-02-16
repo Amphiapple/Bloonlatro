@@ -1,12 +1,6 @@
 SMODS.Joker { --Dartling Gunner
     key = 'dartling',
     name = 'Dartling Gunner',
-	loc_txt = {
-        name = 'Dartling Gunner',
-        text = {
-            '{C:chips}+??{} Chips'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 13 },
     rarity = 1,
@@ -16,6 +10,42 @@ SMODS.Joker { --Dartling Gunner
         base = 'dartling',
         extra = { min = 0, max = 150 } --Variables: min = min possible +chips, max = max possible +chips
     },
+
+    loc_txt = {
+        name = 'Dartling Gunner',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -30,14 +60,6 @@ SMODS.Joker { --Dartling Gunner
 SMODS.Joker { --Focused Firing
     key = 'focus',
     name = 'Focused Firing',
-	loc_txt = {
-        name = 'Focused Firing',
-        text = {
-            '{C:chips}+??{} Chips',
-            'Higher chance of',
-            'central values'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 13 },
     rarity = 1,
@@ -48,12 +70,57 @@ SMODS.Joker { --Focused Firing
         extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: min = min possible +chips, q1,q3 = range for central values, max = max possible +chips
     },
 
+    loc_txt = {
+        name = 'Focused Firing',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+            if i >= card.ability.extra.q1 and i <= card.ability.extra.q3 then
+                r_chips[#r_chips + 1] = tostring(i)
+            end
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Higher chance of', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'central values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
+
     calculate = function(self, card, context)
         if context.joker_main then
             local r = pseudorandom(pseudoseed('focus'))
             local temp_chips
             if r < 0.5 then
-                temp_chips = pseudorandom('focus', card.ability.extra.q1, card.ability.extra.q1)
+                temp_chips = pseudorandom('focus', card.ability.extra.q1, card.ability.extra.q3)
             else
                 temp_chips = pseudorandom('focus', card.ability.extra.min, card.ability.extra.max)
             end
@@ -67,15 +134,6 @@ SMODS.Joker { --Focused Firing
 SMODS.Joker { --Laser Shock
     key = 'lshock',
     name = 'Laser Shock',
-    loc_txt = {
-        name = 'Laser Shock',
-        text = {
-            '{C:mult}+??{} Mult for current and',
-            'next hand if scoring hand',
-            'contains a {C:attention}face{} card',
-            '{C:inactive}Shock damage {C:mult}+#1#{C:inactive} Mult{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 13 },
     rarity = 1,
@@ -86,9 +144,59 @@ SMODS.Joker { --Laser Shock
         extra = { min = 0, max = 23, mult = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
     },
 
+    loc_txt = {
+        name = 'Laser Shock',
+    },
+
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
+        local r_mult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_mult[#r_mult + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.MULT, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_mult,
+                            colours = { G.C.MULT },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Mult if scoring hand', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                     { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'contains a ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'face ', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'card', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Store Mult as shock', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'damage for next hand', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '(Shock damage ', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.MULT, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = tostring(card.ability.extra.mult), colour = G.C.MULT, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' Mult)', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
+
     calculate = function(self, card, context)
         if context.joker_main then
             local has_face = false
@@ -117,15 +225,6 @@ SMODS.Joker { --Laser Shock
 SMODS.Joker { --Laser Cannon
     key = 'lcan',
     name = 'Laser Cannon',
-    loc_txt = {
-        name = 'Laser Cannon',
-        text = {
-            'Each {C:attention}face{} card gives',
-            '{C:mult}+??{} Mult when scored',
-            'and for next hand',
-            '{C:inactive}Shock damage {C:mult}+#1#{C:inactive} Mult{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 13 },
     rarity = 2,
@@ -136,9 +235,59 @@ SMODS.Joker { --Laser Cannon
         extra = { min = 0, max = 11, mult = 0, saved = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult, saved = saved shock +mult
     },
 
+    loc_txt = {
+        name = 'Laser Cannon',
+    },
+
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
+        local r_mult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_mult[#r_mult + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Each ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'face ', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'card gives', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.MULT, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_mult,
+                            colours = { G.C.MULT },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Mult when scored', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Store Mult as shock', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'damage for next hand', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '(Shock damage ', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.MULT, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = tostring(card.ability.extra.mult), colour = G.C.MULT, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' Mult)', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
+
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.other_card.debuff then
             local rand_mult = pseudorandom('lcan', card.ability.extra.min, card.ability.extra.max)
@@ -258,13 +407,6 @@ SMODS.Joker { --Ray of Doom
 SMODS.Joker { --Advanced Targeting
     key = 'advanced',
     name = 'Advanced Targeting',
-	loc_txt = {
-        name = 'Advanced Targeting',
-        text = {
-            '{C:chips}+??{} Chips',
-            'Smaller range of values'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 13 },
     rarity = 1,
@@ -274,6 +416,45 @@ SMODS.Joker { --Advanced Targeting
         base = 'dartling',
         extra = { min = 25, max = 125 } --Variables: min = min possible +chips, max = max possible +chips
     },
+
+    loc_txt = {
+        name = 'Advanced Targeting',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Smaller range of values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -288,13 +469,6 @@ SMODS.Joker { --Advanced Targeting
 SMODS.Joker { --Faster Barrel Spin
     key = 'fastspin',
     name = 'Faster Barrel Spin',
-	loc_txt = {
-        name = 'Faster Barrel Spin',
-        text = {
-            '{C:chips}+??{} Chips',
-            'Higher possible values'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 13 },
     rarity = 1,
@@ -304,6 +478,45 @@ SMODS.Joker { --Faster Barrel Spin
         base = 'dartling',
         extra = { min = 50, max = 150 } --Variables: min = min possible +chips, max = max possible +chips
     },
+
+    loc_txt = {
+        name = 'Faster Barrel Spin',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Higher possible values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -318,15 +531,6 @@ SMODS.Joker { --Faster Barrel Spin
 SMODS.Joker { --Hydra Rocket Pods
     key = 'hrp',
     name = 'Hydra Rocket Pods',
-	loc_txt = {
-        name = 'Hydra Rocket Pods',
-        text = {
-            'This Joker gains {C:chips}+??{}',
-            'Chips per {C:attention}consecutive{} hand',
-            'played containing a {C:attention}Pair{}',
-            '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 13 },
     rarity = 2,
@@ -335,17 +539,66 @@ SMODS.Joker { --Hydra Rocket Pods
     perishable_compat = false,
     config = {
         base = 'dartling',
-        extra = { min = 0, max = 11, current = 0 } --Variables: min = min possible chip gain, max = max possible chips gain, current = current Xmult
+        extra = { min = 0, max = 11, current = 0 } --Variables: min = min possible chip gain, max = max possible chips gain, current = current chips
+    },
+
+    loc_txt = {
+        name = 'Hydra Rocket Pods'
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current } }
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'This Joker gains ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'per ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'consecutive ', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'hand', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'played containing a ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'Pair', colour = G.C.ORANGE, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '(Currently ', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = tostring(card.ability.extra.current), colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' Chips)', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
+
     calculate = function(self, card, context)
         if context.before and context.poker_hands and not context.blueprint then
             if next(context.poker_hands['Pair']) then
-                local temp_Xmult = pseudorandom('hrp', card.ability.extra.min, card.ability.extra.max) / 100.0
-                card.ability.extra.current = card.ability.extra.current + temp_Xmult
+                local temp_chips = pseudorandom('hrp', card.ability.extra.min, card.ability.extra.max)
+                card.ability.extra.current = card.ability.extra.current + temp_chips
             else
                 card.ability.extra.current = 0
                 return {
@@ -355,7 +608,7 @@ SMODS.Joker { --Hydra Rocket Pods
             end
         elseif context.joker_main then
             return {
-                mult = card.ability.extra.current
+                chips = card.ability.extra.current
             }
         end
     end
@@ -364,15 +617,6 @@ SMODS.Joker { --Hydra Rocket Pods
 SMODS.Joker { --Rocket Storm
     key = 'rorm',
     name = 'Rocket Storm',
-	loc_txt = {
-        name = 'Rocket Storm',
-        text = {
-            'This Joker gains {X:mult,C:white}X0.??{}',
-            'Mult per {C:attention}consecutive{} hand',
-            'played containing a {C:attention}Pair{}',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 13 },
     rarity = 2,
@@ -383,10 +627,70 @@ SMODS.Joker { --Rocket Storm
         base = 'dartling',
         extra = { min = 0, max = 15, current = 1 } --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
     },
-    
+
+    loc_txt = {
+        name = 'Rocket Storm'
+    },
+
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current } }
+        local r_xmult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_xmult[#r_xmult+1] = tostring(i/100)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'This Joker gains ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.O, config = { object = DynaText({
+                                    string = r_xmult,
+                                    colours = { G.C.WHITE },
+                                    pop_in_rate = 9999999,
+                                    silent = true,
+                                    random_element = true,
+                                    pop_delay = 0.5,
+                                    scale = 0.32,
+                                    min_cycle_time = 0
+                                })}
+                            }}
+                        }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Mult per ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'consecutive ', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'hand', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'played containing a ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'Pair', colour = G.C.ORANGE, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '(Currently ', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.T, config = { text = card.ability.extra.current, colour = G.C.WHITE, scale = 0.32 } },
+                            }
+                        },
+                        { n = G.UIT.T, config = { text = ' Mult)', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
+
     calculate = function(self, card, context)
         if context.before and context.poker_hands and not context.blueprint then
             if next(context.poker_hands['Pair']) then
@@ -415,14 +719,6 @@ SMODS.Joker { --Rocket Storm
 SMODS.Joker { --M.A.D
     key = 'mad',
     name = 'M.A.D',
-	loc_txt = {
-        name = 'M.A.D',
-        text = {
-            'This Joker gains {X:mult,C:white}X0.??{} Mult',
-            'when {C:attention}Boss Blind{} is selected',
-            '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 13 },
     rarity = 3,
@@ -433,10 +729,67 @@ SMODS.Joker { --M.A.D
         base = 'dartling',
         extra = { min = 25, max = 100, current = 1 } --Variables: min = min possible Xmult gain *100, max = max possible Xmult gain *100, current = current Xmult
     },
-    
+
+    loc_txt = {
+        name = 'M.A.D'
+    },
+
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current } }
+        local r_xmult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_xmult[#r_xmult+1] = tostring(i/100)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'This Joker gains ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.O, config = { object = DynaText({
+                                    string = r_xmult,
+                                    colours = { G.C.WHITE },
+                                    pop_in_rate = 9999999,
+                                    silent = true,
+                                    random_element = true,
+                                    pop_delay = 0.5,
+                                    scale = 0.32,
+                                    min_cycle_time = 0
+                                })}
+                            }}
+                        },
+                        { n = G.UIT.T, config = { text = ' Mult', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'when ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'Boss Blind ', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'is selected', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '(Currently ', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.T, config = { text = card.ability.extra.current, colour = G.C.WHITE, scale = 0.32 } },
+                            }
+                        },
+                        { n = G.UIT.T, config = { text = ' Mult)', colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 } },
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
+
     calculate = function(self, card, context)
         if context.setting_blind and G.GAME.blind.boss and not card.getting_sliced and not context.blueprint then
             local temp_Xmult = pseudorandom('mad', card.ability.extra.min, card.ability.extra.max) / 100.0
@@ -457,14 +810,6 @@ SMODS.Joker { --M.A.D
 SMODS.Joker { --Faster Swivel
     key = 'swivel',
     name = 'Faster Swivel',
-	loc_txt = {
-        name = 'Faster Swivel',
-        text = {
-            '{C:chips}+??{} Chips',
-            'Higher chance of',
-            'edge values'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 13 },
     rarity = 1,
@@ -475,14 +820,59 @@ SMODS.Joker { --Faster Swivel
         extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: max = max possible +chips, q1-q3 = range for extreme values, min = min possible +chips
     },
 
+    loc_txt = {
+        name = 'Faster Swivel',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+            if i <= card.ability.extra.q1 or i >= card.ability.extra.q3 then
+                r_chips[#r_chips + 1] = tostring(i)
+            end
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Higher chance of', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'edge values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
+
     calculate = function(self, card, context)
         if context.joker_main then
             local r = pseudorandom(pseudoseed('swivel'))
             local temp_chips
-            if r < 0.33 then
+            if r < 0.25 then
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q1)
-            elseif r > 0.67 then
-                temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q3)
+            elseif r > 0.75 then
+                temp_chips = pseudorandom('swivel', card.ability.extra.q3, card.ability.extra.max)
             else
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.max)
             end
@@ -496,13 +886,6 @@ SMODS.Joker { --Faster Swivel
 SMODS.Joker { --Powerful Darts
     key = 'powerful',
     name = 'Powerful Darts',
-	loc_txt = {
-        name = 'Powerful Darts',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            '{C:chips}+??{} Chips',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 13 },
     rarity = 1,
@@ -513,10 +896,48 @@ SMODS.Joker { --Powerful Darts
         extra = { num = 1, denom = 2, min = 150, max = 250 } --Variables: num/denom = probabiltiy fraction, max = max possible +chips, min = min possible +chips
     },
 
+    loc_txt = {
+        name = 'Powerful Darts',
+    },
+
     loc_vars = function(self, info_queue, card)
+        local r_chips = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_chips[#r_chips + 1] = tostring(i)
+        end
+
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'powerful')
-        return { vars = { n, d } }
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = n .. " in " .. d, colour = G.C.GREEN, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = " chance for", colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_chips,
+                            colours = { G.C.CHIPS },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
+
     calculate = function(self, card, context)
         if context.joker_main and SMODS.pseudorandom_probability(card, 'powerful', card.ability.extra.num, card.ability.extra.denom, 'powerful') then
             local temp_chips = pseudorandom('powerful', card.ability.extra.min, card.ability.extra.max)
@@ -530,12 +951,6 @@ SMODS.Joker { --Powerful Darts
 SMODS.Joker { --Buckshot
     key = 'buckshot',
     name = 'Buckshot',
-	loc_txt = {
-        name = 'Buckshot',
-        text = {
-            '{X:mult,C:white}X?.?{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 13 },
     rarity = 2,
@@ -543,8 +958,50 @@ SMODS.Joker { --Buckshot
     blueprint_compat = true,
     config = {
         base = 'dartling',
-        extra = { max = 20, min = 10 } --Variables: max = max possible Xmult *10, min = min possible Xmult *10
+        extra = { max = 30, min = 10 } --Variables: max = max possible Xmult *10, min = min possible Xmult *10
     },
+
+    loc_txt = {
+        name = 'Buckshot'
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_xmult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_xmult[#r_xmult+1] = tostring(i/10)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.O, config = { object = DynaText({
+                                    string = r_xmult,
+                                    colours = { G.C.WHITE },
+                                    pop_in_rate = 9999999,
+                                    silent = true,
+                                    random_element = true,
+                                    pop_delay = 0.5,
+                                    scale = 0.32,
+                                    min_cycle_time = 0
+                                })}
+                            }}
+                        },
+                        { n = G.UIT.T, config = { text = ' Mult', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -559,14 +1016,6 @@ SMODS.Joker { --Buckshot
 SMODS.Joker { --Bloon Area Denial System
     key = 'bads',
     name = 'Bloon Area Denial System',
-	loc_txt = {
-        name = 'Bloon Area Denial System',
-        text = {
-            '{C:attention}First{}, {C:attention}last{}, {C:attention}lowest{}, and',
-            '{C:attention}highest{} rank cards give',
-            '{X:mult,C:white}X?.?{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 13 },
     rarity = 2,
@@ -576,6 +1025,61 @@ SMODS.Joker { --Bloon Area Denial System
         base = 'dartling',
         extra = { min = 100, max = 150, cards = {} } --Variables: min = min possible Xmult *100, max = max possible Xmult *100
     },
+
+    loc_txt = {
+        name = 'Bloon Area Denial System'
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_xmult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_xmult[#r_xmult+1] = tostring(i/100)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'First', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ', ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'last', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ', ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'lowest', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ', and', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'highest', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' rank cards give', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.O, config = { object = DynaText({
+                                    string = r_xmult,
+                                    colours = { G.C.WHITE },
+                                    pop_in_rate = 9999999,
+                                    silent = true,
+                                    random_element = true,
+                                    pop_delay = 0.5,
+                                    scale = 0.32,
+                                    min_cycle_time = 0
+                                })}
+                            }}
+                        },
+                        { n = G.UIT.T, config = { text = ' Mult when scored', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
 
     calculate = function(self, card, context)
         if context.before then
@@ -618,15 +1122,6 @@ SMODS.Joker { --Bloon Area Denial System
 SMODS.Joker { --Bloon Exclusion Zone
     key = 'bez',
     name = 'Bloon Exclusion Zone',
-	loc_txt = {
-        name = 'Bloon Exclusion Zone',
-        text = {
-            '{C:attention}First{}, {C:attention}last{}, and',
-            '{C:attention}highest{} rank cards played',
-            'or held in hand give',
-            '{X:mult,C:white}X?.?{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 13 },
     rarity = 3,
@@ -636,6 +1131,61 @@ SMODS.Joker { --Bloon Exclusion Zone
         base = 'dartling',
         extra = { min = 100, max = 150, cards = {} } --Variables: min = min possible Xmult *100, max = max possible Xmult *100
     },
+
+    loc_txt = {
+        name = 'Bloon Exclusion Zone'
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local r_xmult = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_xmult[#r_xmult+1] = tostring(i/100)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'First', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ', ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = 'last', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ', and', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'highest', colour = G.C.ORANGE, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' rank cards played', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'or held in hand give', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { colour = G.C.RED, r = 0.05, padding = 0.03, res = 0.15 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = "X", colour = G.C.WHITE, scale = 0.32 } },
+                                { n = G.UIT.O, config = { object = DynaText({
+                                    string = r_xmult,
+                                    colours = { G.C.WHITE },
+                                    pop_in_rate = 9999999,
+                                    silent = true,
+                                    random_element = true,
+                                    pop_delay = 0.5,
+                                    scale = 0.32,
+                                    min_cycle_time = 0
+                                })}
+                            }}
+                        },
+                        { n = G.UIT.T, config = { text = ' Mult when scored', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
+    end,
 
     calculate = function(self, card, context)
         if context.before then
