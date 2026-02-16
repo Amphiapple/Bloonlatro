@@ -1,32 +1,77 @@
 JokerDisplay.Definitions["j_bloons_dartling"] = { --Dartling Gunner
     text = {
-        { text = "+??", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.CHIPS },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_dartling"]
+                        local r_chips = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_chips[#r_chips + 1] = tostring(i)
+                        end
+                        return r_chips
+                    end
+                )(),
+                colours = { G.C.CHIPS },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_focus"] = { --Focused Firing
     text = {
-        { text = "+??", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.CHIPS },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_focus"]
+                        local r_chips = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_chips[#r_chips + 1] = tostring(i)
+                            if i >= card.config.extra.q1 and i <= card.config.extra.q3 then
+                                r_chips[#r_chips + 1] = tostring(i)
+                            end
+                        end
+                        return r_chips
+                    end
+                )(),
+                colours = { G.C.CHIPS },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_lshock"] = { --Laser Shock
     text = {
-        { text = "+", colour = G.C.MULT },
+        { text = "+",                       colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_lcan"] = { --Laser Cannon
     text = {
-        { text = "+", colour = G.C.MULT },
+        { text = "+",                       colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_paccel"] = { --Plasma Accelerator
     text = {
-        { text = "+", colour = G.C.MULT },
+        { text = "+",                              colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
     },
     calc_function = function(card)
@@ -87,19 +132,61 @@ JokerDisplay.Definitions["j_bloons_rod"] = { --Ray of Doom
 
 JokerDisplay.Definitions["j_bloons_advanced"] = { --Advanced Targeting
     text = {
-        { text = "+??", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.CHIPS },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_advanced"]
+                        local r_chips = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_chips[#r_chips + 1] = tostring(i)
+                        end
+                        return r_chips
+                    end
+                )(),
+                colours = { G.C.CHIPS },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_fastspin"] = { --Faster Barrel Spin
     text = {
-        { text = "+??", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.CHIPS },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_fastspin"]
+                        local r_chips = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_chips[#r_chips + 1] = tostring(i)
+                        end
+                        return r_chips
+                    end
+                )(),
+                colours = { G.C.CHIPS },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_hrp"] = { --Hydra Rocket Pods
     text = {
-        { text = "+", colour = G.C.CHIPS },
+        { text = "+",                       colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
     },
     reminder_text = {
@@ -138,19 +225,64 @@ JokerDisplay.Definitions["j_bloons_mad"] = { --MAD
 
 JokerDisplay.Definitions["j_bloons_swivel"] = { --Faster Swivel
     text = {
-        { text = "+??", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.CHIPS },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_swivel"]
+                        local r_chips = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_chips[#r_chips + 1] = tostring(i)
+                            if i <= card.config.extra.q1 or i >= card.config.extra.q3 then
+                                r_chips[#r_chips + 1] = tostring(i)
+                            end
+                        end
+                        return r_chips
+                    end
+                )(),
+                colours = { G.C.CHIPS },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     }
 }
 
 JokerDisplay.Definitions["j_bloons_powerful"] = { --Powerful Darts
     text = {
-        { text = "+??", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.CHIPS },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_powerful"]
+                        local r_chips = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_chips[#r_chips + 1] = tostring(i)
+                        end
+                        return r_chips
+                    end
+                )(),
+                colours = { G.C.CHIPS },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     },
     extra = {
         {
-            { text = "(", colour = G.C.GREEN, scale = 0.3 },
+            { text = "(",                              colour = G.C.GREEN, scale = 0.3 },
             { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
-            { text = ")", colour = G.C.GREEN, scale = 0.3 },
+            { text = ")",                              colour = G.C.GREEN, scale = 0.3 },
         }
     },
     calc_function = function(card)
@@ -163,19 +295,61 @@ JokerDisplay.Definitions["j_bloons_buckshot"] = { --Buckshot
     text = {
         {
             border_nodes = {
-                { text = "X?.?" },
+                { text = "X" },
+                {
+                    dynatext = {
+                        string = (
+                            function()
+                                local card = SMODS.Centers["j_bloons_buckshot"]
+                                local r_xmult = {}
+                                for i = card.config.extra.min, card.config.extra.max do
+                                    r_xmult[#r_xmult + 1] = tostring(i/10)
+                                end
+                                return r_xmult
+                            end
+                        )(),
+                        colours = { G.C.WHITE },
+                        pop_in_rate = 9999999,
+                        silent = true,
+                        random_element = true,
+                        pop_delay = 0.5,
+                        scale = 0.4,
+                        min_cycle_time = 0
+                    }
+                }
             }
         }
-    },
+    }
 }
 
 JokerDisplay.Definitions["j_bloons_bads"] = { --Bloon Area Denial System
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
-        { text = "x", scale = 0.35 },
+        { text = "x",                              scale = 0.35 },
         {
             border_nodes = {
-                { text = "X?.?" },
+                { text = "X" },
+                {
+                    dynatext = {
+                        string = (
+                            function()
+                                local card = SMODS.Centers["j_bloons_bads"]
+                                local r_xmult = {}
+                                for i = card.config.extra.min, card.config.extra.max do
+                                    r_xmult[#r_xmult + 1] = tostring(i/100)
+                                end
+                                return r_xmult
+                            end
+                        )(),
+                        colours = { G.C.WHITE },
+                        pop_in_rate = 9999999,
+                        silent = true,
+                        random_element = true,
+                        pop_delay = 0.5,
+                        scale = 0.4,
+                        min_cycle_time = 0
+                    }
+                }
             }
         }
     },
@@ -224,10 +398,31 @@ JokerDisplay.Definitions["j_bloons_bads"] = { --Bloon Area Denial System
 JokerDisplay.Definitions["j_bloons_bez"] = { --Bloon Exclusion Zone
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
-        { text = "x", scale = 0.35 },
+        { text = "x",                              scale = 0.35 },
         {
             border_nodes = {
-                { text = "X?.?" },
+                { text = "X" },
+                {
+                    dynatext = {
+                        string = (
+                            function()
+                                local card = SMODS.Centers["j_bloons_bez"]
+                                local r_xmult = {}
+                                for i = card.config.extra.min, card.config.extra.max do
+                                    r_xmult[#r_xmult + 1] = tostring(i/100)
+                                end
+                                return r_xmult
+                            end
+                        )(),
+                        colours = { G.C.WHITE },
+                        pop_in_rate = 9999999,
+                        silent = true,
+                        random_element = true,
+                        pop_delay = 0.5,
+                        scale = 0.4,
+                        min_cycle_time = 0
+                    }
+                }
             }
         }
     },
