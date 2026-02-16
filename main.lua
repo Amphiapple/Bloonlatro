@@ -1,6 +1,10 @@
+Bloonlatro = {}
+Bloonlatro.config = SMODS.current_mod.config
+
 local functions = {
     'base',
     'calculate-score',
+    'config_tab',
     'hook',
     'corvus',
 
