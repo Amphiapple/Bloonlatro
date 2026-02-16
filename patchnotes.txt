@@ -8,6 +8,7 @@ Added Jokers:
 
 General Changes:
 - Many balance changes to Jokers in preparation for the upgrading mechanic
+- Configuration to remove all base game Jokers added
 
 Balance Changes:
 - Sharp Shooter crit mult 30 > 40
