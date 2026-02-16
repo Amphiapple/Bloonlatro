@@ -126,6 +126,17 @@ JokerDisplay.Definitions["j_bloons_fs"] = { --First Strike Capability
 }
 
 JokerDisplay.Definitions["j_bloons_preemp"] = { --Pre-emptive Strike
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+            }
+        }
+    },
+    calc_function = function(card)
+        card.joker_display_values.Xmult = card.ability.extra.Xmult * (G.GAME.subcom_mult or 1)
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_twinguns"] = { --Twin Guns
@@ -211,7 +222,7 @@ JokerDisplay.Definitions["j_bloons_apd"] = { --Armor Piercing Darts
                 idx_by_id[id] = 0
             end
         end
-        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count * (G.GAME.subcom_mult or 1)
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ (count * (G.GAME.subcom_mult or 1))
     end
 }
 

@@ -21,11 +21,16 @@ position = 'at'
 payload = "if card.ability.set ~= 'Joker' or card.ability.base == 'ninja' and card:is_rarity('Common') or #G.jokers.cards < G.jokers.config.card_limit + card_limit then" 
 match_indent = true
 
-# Shinobi Tactics reappear
+# Reappear check
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
 pattern = "elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not SMODS.showman(v.key)) and"
 position = 'at'
-payload = "elseif (not G.GAME.used_jokers[v.key] or (v.config.base == 'ninja' and #find_joker('Shinobi Tactics') > 0) or pool_opts.allow_duplicates or SMODS.showman(v.key)) and"
+payload = '''elseif (not G.GAME.used_jokers[v.key] or
+    (v.config.base == 'ninja' and #find_joker('Shinobi Tactics') > 0) or
+    (v.set == 'Joker' and #find_joker('Monkey Village') > 0) or
+    pool_opts.allow_duplicates or
+    SMODS.showman(v.key)) and
+'''
 match_indent = true

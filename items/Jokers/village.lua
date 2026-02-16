@@ -4,36 +4,18 @@ SMODS.Joker { --Monkey Village
     loc_txt = {
         name = 'Monkey Village',
         text = {
-            '{C:blue}Common{} Jokers',
-            'each give {C:mult}+#1#{} Mult'
+            '{C:attention}Joker{} cards may',
+            'appear multiple times'
         }
     },
     atlas = 'Joker',
 	pos = { x = 0, y = 22 },
     rarity = 1,
 	cost = 5,
-    blueprint_compat = true,
+    blueprint_compat = false,
     config = {
         base = 'village',
-        extra = { mult = 5 } --Variables: mult = +mult
     },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
-    end,
-    calculate = function(self, card, context)
-        if context.other_joker and context.other_joker:is_rarity('Common') then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            }))
-            return {
-                mult = card.ability.extra.mult
-            }
-        end
-    end
 }
 
 SMODS.Joker { --Monkey Business
@@ -83,7 +65,7 @@ SMODS.Joker { --Jungle Drums
     blueprint_compat = true,
     config = {
         base = 'village',
-        extra = { Xmult = 1.15 } --Variables: Xmult = Xmult per joker
+        extra = { Xmult = 1.1 } --Variables: Xmult = Xmult per joker
     },
 
     loc_vars = function(self, info_queue, card)
@@ -187,7 +169,9 @@ SMODS.Joker { --Monkey City
         return { vars = { card.ability.extra.money, card.ability.extra.current } } --Variables: money = dollars per dart, current = current end of round dollars
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.current
+        if card.ability.extra.current > 0 then
+            return card.ability.extra.current
+        end
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then

@@ -49,8 +49,8 @@ SMODS.Joker { --Quad Darts
         text = {
             '{C:mult}+#1#{} Mult per played hand',
             'with exactly {C:attention}#2#{} cards',
-            '{C:mult}-#1#{} Mult otherwise',
-            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
+            '{C:mult}-#3#{} Mult otherwise',
+            '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
         }
     },
     atlas = 'Joker',
@@ -61,11 +61,11 @@ SMODS.Joker { --Quad Darts
     perishable_compat = false,
     config = {
         base = 'heli',
-        extra = { mult = 1, number = 4, current = 0 } --Variables: mult = +mult gain or loss, current = current +mult
+        extra = { mult = 1, number = 4, loss = 2, current = 0 } --Variables: mult = +mult gain or loss, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.mult, card.ability.extra.number, card.ability.extra.current } }
+		return { vars = { card.ability.extra.mult, card.ability.extra.number, card.ability.extra.loss, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -74,11 +74,14 @@ SMODS.Joker { --Quad Darts
                 return {
                     message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
                 }
-            elseif card.ability.extra.current > 0 then
-                card.ability.extra.current = card.ability.extra.current - card.ability.extra.mult
+            else
+                card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
+                if card.ability.extra.current < 0 then
+                    card.ability.extra.current = 0
+                end
                 return {
-                    message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.mult}},
-                    colour = G.C.RED,   
+                    message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.loss}},
+                    colour = G.C.RED,
                 }
             end
         elseif context.joker_main then

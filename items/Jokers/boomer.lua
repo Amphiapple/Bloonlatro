@@ -54,7 +54,7 @@ SMODS.Joker { --Improved Rangs
         return { vars = { card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and (context.other_card == context.scoring_hand[#context.scoring_hand] or context.other_card == context.scoring_hand[#context.scoring_hand-1] ) then
+        if context.repetition and context.cardarea == G.play and (context.other_card == context.scoring_hand[#context.scoring_hand] or context.other_card == context.scoring_hand[#context.scoring_hand-1]) then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,
@@ -554,8 +554,8 @@ SMODS.Joker { --Kylie Boomerang
         name = 'Kylie Boomerang',
         text = {
             'Retrigger all cards',
-            'except {C:attention}last{} played card',
-            'used in scoring'
+            'between {C:attention}first{} and',
+            '{C:attention}last{} played card',
         }
     },
     atlas = 'Joker',
@@ -569,7 +569,7 @@ SMODS.Joker { --Kylie Boomerang
     },
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.other_card ~= context.scoring_hand[#context.scoring_hand] then
+        if context.repetition and context.cardarea == G.play and context.other_card ~= context.scoring_hand[1] and context.other_card ~= context.scoring_hand[#context.scoring_hand] then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,

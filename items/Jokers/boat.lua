@@ -472,16 +472,16 @@ SMODS.Joker { --Cannon Ship
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.money } }
     end,
-    calc_dollar_bonus = function(self, card)
-        return card.ability.extra.money
-    end,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
                 mult = card.ability.extra.mult
             }
         end
-    end
+    end,
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.money
+    end,
 }
 
 SMODS.Joker { --Monkey Pirates

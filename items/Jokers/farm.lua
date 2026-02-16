@@ -117,8 +117,8 @@ SMODS.Joker { --BRF
 	loc_txt = { 
         name = 'Banana Research Facility',
         text = {
-            'Earn {C:attention}1-#1#{} crates of',
-            '{C:money}$#2#{} at end of round'
+            'Earn {C:attention}#1#-#2#{} crates of',
+            '{C:money}$#3#{} at end of round'
         }
     },
     atlas = 'Joker',
@@ -128,15 +128,15 @@ SMODS.Joker { --BRF
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { min = 1, crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.crates, card.ability.extra.money } }
+        return { vars = { card.ability.extra.min, card.ability.extra.crates, card.ability.extra.money } }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = card.ability.extra.money
-        for i = 2, card.ability.extra.crates do
+        local dollars = card.ability.extra.money * card.ability.extra.min
+        for i = card.ability.extra.min + 1, card.ability.extra.crates do
             if pseudorandom('brf') > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
@@ -415,7 +415,7 @@ SMODS.Joker { --IMF Loan
         G.GAME.bankrupt_at = G.GAME.bankrupt_at + card.ability.extra.bankrupt
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and G.GAME.dollars < to_big(0) and not context.getting_sliced and not context.blueprint then
+        if context.setting_blind and G.GAME.dollars < to_big(0) and not card.getting_sliced and not context.blueprint then
             card.ability.extra_value = card.ability.extra_value + G.GAME.dollars
             card:set_cost()
             return {
@@ -503,7 +503,7 @@ SMODS.Joker { --EZ Collect
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
             card.ability.extra.current = card.ability.extra.money * #G.jokers.cards
-            if #find_joker('EZ Collect') then
+            if #find_joker('EZ Collect') > 0 then
                 card.ability.extra.current = card.ability.extra.current - card.ability.extra.money
             end
         end
@@ -558,8 +558,8 @@ SMODS.Joker { --Marketplace
 	loc_txt = {
         name = 'Marketplace',
         text = {
-            'Earn {C:money}$#1#{} for every',
-            '{C:money}$#2#{} of sell value of all other',
+            'Earn {C:money}$#1#{} per {C:money}$#2#{}',
+            'of sell value of all other',
             '{C:attention}Jokers{} at end of round',
             '{C:inactive}(Currently {C:money}$#3#{C:inactive}){}'
         }
@@ -571,7 +571,7 @@ SMODS.Joker { --Marketplace
     blueprint_compat = false,
     config = {
         base = 'farm',
-        extra = { money = 1, rate = 2, current = 0 } --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
+        extra = { money = 1, rate = 3, current = 0 } --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
     },
 
     loc_vars = function(self, info_queue, card)

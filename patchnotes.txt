@@ -1,30 +1,49 @@
 Added Jokers:
-- All remaining Subs
-- All remaining Boats
-- All remaining Ninjas
-- All remaining Alchemists
-- All remaining Banana Farms
+- All remaining Ice Monkeys
+- All remaining Desperados
+- All remaining Dartling Gunners
+- All remaining Mermonkeys
+- All remaining Spike Factories
+- All remaining Beast Handlers
 
 General Changes:
-- Certain challenges removed due to difficulty in keeping them updated, may be replaced with new challenges in the future.
+- Many balance changes to Jokers in preparation for the upgrading mechanic
 
 Balance Changes:
-- Turbo Charge retriggers all cards held in hand once instead of last card 3 times
-- Cripple MOAB Xmult 4 > 3
-- Destroyer cost 7 > 6
-- Fireball mult 10 > 12
-- Wall of Fire probability 1 in 4 > 1 in 3
-- Intense Magic mult 5 > 6
-- Shimmer now has a 1 in 2 chance of creating The Fool
-- Multiple farms reworked to allow for the new Banana Farms to fit in
+- Sharp Shooter crit mult 30 > 40
+- Kylie Boomerang no longer retriggfers first card
+- MOAB Mauler mult 2.5 > 2
+- Tack Sprayer chips 40 > 24
+- Ice Monkey now freezes every 3 hands instead of first hand of round
+- Ice Shards mult 2 > 1, cost 6 > 5
+- Absolute Zero rarity Uncommon > Rare
+- Desperado gives 3 Mult instead of 20 Chips
+- Pre-emptive Strike reworked
+- Ground Zero rarity Rare > Uncommon, cost 7 > 8
+- Quad Darts mult loss 1 > 2
+- Ray of Doom no longer has any random spread
+- Buckshot cost 7 > 6, maximum 3.3X > 3X
+- Mermonkey reworked completely
+- Marketplace rate every $2 of sell price > $3 of sell price
+- Spike Factory cost 5 > 4
+- Bigger Stacks reworked
+- Long Life Spikes cost 6 > 5, suit changes every round
+- Jungle Drums Xmult 1.15 > 1.1
+- MOAB Domination scaling 0.5 > 0.25
+- Vengeful True Sun God has been reworked
+- Gwendolin Deck no longer gives -1 hand size, instead gives -1 hand
+- Silas Deck freezes 2 cards in hand rather than 3 random cards
+- Dark Titan debuff change 1 in 4 > 1 in 3
 
 Fixes:
-- Juggernaut and Ultra-Juggernaut no longer scale off of blueprint effects
-- Long Range Darts Joker Display should show the correct value'
-- Improved Rangs and Faster Rangs JokerDisplay should function correctly
-- Glue Hose should have an animation before using first discard
-- Grape Shot should no longer be compatible with blueprint
-- Flash Bomb should be compatible with blueprint
-- Glued Cards no longer lose glue status until end of round (reduces calculations and lag)
-- Shop joker tags should no longer appear in survivor challenges
-- Negative jokers should no longer appear naturally in 2tc challenges
+- Glue enhancement should no longer remove itself if it hasn't been scored
+- Double Shot buccaneer Joker Display should calculate retriggers correctly
+- Wall of Fire should no longer stone other unscoring cards outside the first
+- Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
+- Dragon's Breath should no longer have perishable stickers
+- Transforming Tonic text fixed
+- EZ Collect should no longer show athe incorrect value in the shop
+- Banana Research Facility Joker Display should show the correct values
+- Monkey City should no longer cash out when it gives no money
+- MOAB Domination replaying bosses should trigger boss defeat effects both times
+- Many Jokers should no longer activate effects if being destroyed

@@ -1,444 +1,68 @@
-Joker_effects_vtsg = {
-    --Vanilla Jokers
-    j_joker=            {effect = {'+mult'}, weight = 1},
-    j_greedy_joker=     {effect = {'+mult'}, weight = 1},
-    j_lusty_joker=      {effect = {'+mult'}, weight = 1},
-    j_wrathful_joker=   {effect = {'+mult'}, weight = 1},
-    j_gluttenous_joker= {effect = {'+mult'}, weight = 1},
-    j_jolly=            {effect = {'+mult'}, weight = 1},
-    j_zany=             {effect = {'+mult'}, weight = 1},
-    j_mad=              {effect = {'+mult'}, weight = 1},
-    j_crazy=            {effect = {'+mult'}, weight = 1},
-    j_droll=            {effect = {'+mult'}, weight = 1},
-    j_sly=              {effect = {'+chips'}, weight = 1},
-    j_wily=             {effect = {'+chips'}, weight = 1},
-    j_clever=           {effect = {'+chips'}, weight = 1},
-    j_devious=          {effect = {'+chips'}, weight = 1},
-    j_crafty=           {effect = {'+chips'}, weight = 1},
-
-    j_half=             {effect = {'+mult'}, weight = 1},
-    j_stencil=          {effect = {'Xmult'}, weight = 1},
-    j_four_fingers=     {effect = {'support'}, weight = 1},
-    j_mime=             {effect = {'support'}, weight = 1},
-    j_credit_card=      {effect = {'econ'}, weight = 1},
-    j_ceremonial=       {effect = {'+mult'}, weight = 1},
-    j_banner=           {effect = {'+chips'}, weight = 1},
-    j_mystic_summit=    {effect = {'+mult'}, weight = 1},
-    j_marble=           {effect = {'support'}, weight = 1},
-    j_loyalty_card=     {effect = {'Xmult'}, weight = 1},
-    j_8_ball=           {effect = {'value'}, weight = 1},
-    j_misprint=         {effect = {'+mult'}, weight = 1},
-    j_dusk=             {effect = {'support'}, weight = 1},
-    j_raised_fist=      {effect = {'+mult'}, weight = 1},
-    j_chaos=            {effect = {'econ'}, weight = 1},
-
-    j_fibonacci=        {effect = {'+mult'}, weight = 1},
-    j_steel_joker=      {effect = {'Xmult'}, weight = 1},
-    j_scary_face=       {effect = {'+chips'}, weight = 1},
-    j_abstract=         {effect = {'+mult'}, weight = 1},
-    j_delayed_grat=     {effect = {'econ'}, weight = 1},
-    j_hack=             {effect = {'support'}, weight = 1},
-    j_pareidolia=       {effect = {'support'}, weight = 1},
-    j_gros_michel=      {effect = {'+mult'}, weight = 1},
-    j_even_steven=      {effect = {'+mult'}, weight = 1},
-    j_odd_todd=         {effect = {'+chips'}, weight = 1},
-    j_scholar=          {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_business=         {effect = {'econ'}, weight = 1},
-    j_supernova=        {effect = {'+mult'}, weight = 1},
-    j_ride_the_bus=     {effect = {'+mult'}, weight = 1},
-    j_space=            {effect = {'value'}, weight = 1},
-
-    j_egg=              {effect = {'econ'}, weight = 1},
-    j_burglar=          {effect = {'support'}, weight = 1},
-    j_blackboard=       {effect = {'Xmult'}, weight = 1},
-    j_runner=           {effect = {'+chips'}, weight = 1},
-    j_ice_cream=        {effect = {'+chips'}, weight = 1},
-    j_dna=              {effect = {'support'}, weight = 1},
-    j_splash=           {effect = {'support'}, weight = 1},
-    j_blue_joker=       {effect = {'+chips'}, weight = 1},
-    j_sixth_sense=      {effect = {'value'}, weight = 1},
-    j_constellation=    {effect = {'Xmult'}, weight = 1},
-    j_hiker=            {effect = {'+chips'}, weight = 1},
-    j_faceless=         {effect = {'econ'}, weight = 1},
-    j_green_joker=      {effect = {'+mult'}, weight = 1},
-    j_superposition=    {effect = {'value'}, weight = 1},
-    j_todo_list=        {effect = {'econ'}, weight = 1},
-
-    j_cavendish=        {effect = {'Xmult'}, weight = 1},
-    j_card_sharp=       {effect = {'Xmult'}, weight = 1},
-    j_red_card=         {effect = {'+mult'}, weight = 1},
-    j_madness=          {effect = {'Xmult'}, weight = 1},
-    j_square=           {effect = {'+chips'}, weight = 1},
-    j_seance=           {effect = {'value'}, weight = 1},
-    j_riff_raff=        {effect = {'value'}, weight = 1},
-    j_vampire=          {effect = {'Xmult'}, weight = 1},
-    j_shortcut=         {effect = {'support'}, weight = 1},
-    j_hologram=         {effect = {'Xmult'}, weight = 1},
-    j_vagabond=         {effect = {'value'}, weight = 1},
-    j_baron=            {effect = {'Xmult'}, weight = 1},
-    j_cloud_9=          {effect = {'econ'}, weight = 1},
-    j_rocket=           {effect = {'econ'}, weight = 1},
-    j_obelisk=          {effect = {'Xmult'}, weight = 1},
-
-    j_midas_mask=       {effect = {'econ'}, weight = 1},
-    j_luchador=         {effect = {'support'}, weight = 1},
-    j_photograph=       {effect = {'Xmult'}, weight = 1},
-    j_gift=             {effect = {'econ'}, weight = 1},
-    j_turtle_bean=      {effect = {'support'}, weight = 1},
-    j_erosion=          {effect = {'+mult'}, weight = 1},
-    j_reserved_parking= {effect = {'econ'}, weight = 1},
-    j_mail=             {effect = {'econ'}, weight = 1},
-    j_to_the_moon=      {effect = {'econ'}, weight = 1},
-    j_hallucination=    {effect = {'value'}, weight = 1},
-    j_fortune_teller=   {effect = {'+mult'}, weight = 1},
-    j_juggler=          {effect = {'support'}, weight = 1},
-    j_drunkard=         {effect = {'support'}, weight = 1},
-    j_stone=            {effect = {'+chips'}, weight = 1},
-    j_golden=           {effect = {'econ'}, weight = 1},
-
-    j_lucky_cat=        {effect = {'Xmult'}, weight = 1},
-    j_baseball=         {effect = {'Xmult'}, weight = 1},
-    j_bull=             {effect = {'+chips'}, weight = 1},
-    j_diet_cola=        {effect = {'value'}, weight = 1},
-    j_trading=          {effect = {'econ'}, weight = 1},
-    j_flash=            {effect = {'+mult'}, weight = 1},
-    j_popcorn=          {effect = {'+mult'}, weight = 1},
-    j_trousers=         {effect = {'+mult'}, weight = 1},
-    j_ancient=          {effect = {'Xmult'}, weight = 1},
-    j_ramen=            {effect = {'Xmult'}, weight = 1},
-    j_walkie_talkie=    {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_selzer=           {effect = {'support'}, weight = 1},
-    j_castle=           {effect = {'+chips'}, weight = 1},
-    j_smiley=           {effect = {'+mult'}, weight = 1},
-    j_campfire=         {effect = {'Xmult'}, weight = 1},
-
-    j_ticket=           {effect = {'econ'}, weight = 1},
-    j_mr_bones=         {effect = {'support'}, weight = 1},
-    j_acrobat=          {effect = {'Xmult'}, weight = 1},
-    j_sock_and_buskin=  {effect = {'support'}, weight = 1},
-    j_swashbuckler=     {effect = {'+mult'}, weight = 1},
-    j_troubadour=       {effect = {'support'}, weight = 1},
-    j_certificate=      {effect = {'support'}, weight = 1},
-    j_smeared=          {effect = {'support'}, weight = 1},
-    j_throwback=        {effect = {'Xmult'}, weight = 1},
-    j_hanging_chad=     {effect = {'support'}, weight = 1},
-    j_rough_gem=        {effect = {'econ'}, weight = 1},
-    j_bloodstone=       {effect = {'Xmult'}, weight = 1},
-    j_arrowhead=        {effect = {'+chips'}, weight = 1},
-    j_onyx_agate=       {effect = {'+mult'}, weight = 1},
-    j_glass=            {effect = {'Xmult'}, weight = 1},
-
-    j_ring_master=      {effect = {'support'}, weight = 1},
-    j_flower_pot=       {effect = {'Xmult'}, weight = 1},
-    j_blueprint=        {effect = {'support'}, weight = 1},
-    j_wee=              {effect = {'+chips'}, weight = 1},
-    j_merry_andy=       {effect = {'support'}, weight = 1},
-    j_oops=             {effect = {'support'}, weight = 1},
-    j_idol=             {effect = {'Xmult'}, weight = 1},
-    j_seeing_double=    {effect = {'Xmult'}, weight = 1},
-    j_matador=          {effect = {'econ'}, weight = 1},
-    j_hit_the_road=     {effect = {'Xmult'}, weight = 1},
-    j_duo=              {effect = {'Xmult'}, weight = 1},
-    j_trio=             {effect = {'Xmult'}, weight = 1},
-    j_family=           {effect = {'Xmult'}, weight = 1},
-    j_order=            {effect = {'Xmult'}, weight = 1},
-    j_tribe=            {effect = {'Xmult'}, weight = 1},
-
-    j_stuntman=         {effect = {'+chips'}, weight = 1},
-    j_invisible=        {effect = {'value'}, weight = 1},
-    j_brainstorm=       {effect = {'support'}, weight = 1},
-    j_satellite=        {effect = {'econ'}, weight = 1},
-    j_shoot_the_moon=   {effect = {'+mult'}, weight = 1},
-    j_drivers_license=  {effect = {'Xmult'}, weight = 1},
-    j_cartomancer=      {effect = {'value'}, weight = 1},
-    j_astronomer=       {effect = {'econ'}, weight = 1},
-    j_burnt=            {effect = {'value'}, weight = 1},
-    j_bootstraps=       {effect = {'+mult'}, weight = 1},
-    j_caino=            {effect = {'Xmult'}, weight = 1},
-    j_triboulet=        {effect = {'Xmult'}, weight = 1},
-    j_yorick=           {effect = {'Xmult'}, weight = 1},
-    j_chicot=           {effect = {'support'}, weight = 1},
-    j_perkeo=           {effect = {'value'}, weight = 1},
-
-    --Bloonlatro Jokers
-    j_bloons_dart=      {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_sharp=     {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_razor=     {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_spult =    {effect = {'+mult'}, weight = 1},
-    j_bloons_jugg=      {effect = {'+mult'}, weight = 1},
-    j_bloons_ujugg=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_quick=     {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_veryquick= {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_tripshot=  {effect = {'value'}, weight = 1},
-    j_bloons_smfc=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_pmfc=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_rangedart= {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_eyesight=  {effect = {'support'}, weight = 1},
-    j_bloons_xbow=      {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_sshooter=  {effect = {'+mult'}, weight = 1},
-    j_bloons_xbm=       {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_boomer=    {effect = {'support'}, weight = 1},
-    j_bloons_improved=  {effect = {'support'}, weight = 1},
-    j_bloons_glaives=   {effect = {'+chips'}, weight = 1},
-    j_bloons_rico=      {effect = {'+chips'}, weight = 1},
-    j_bloons_moar=      {effect = {'+chips'}, weight = 1},
-    j_bloons_glord=     {effect = {'+chips'}, weight = 1},
-    j_bloons_fastboomer={effect = {'support'}, weight = 1},
-    j_bloons_fastrangs= {effect = {'support'}, weight = 1},
-    j_bloons_bioboomer= {effect = {'+chips'}, weight = 1},
-    j_bloons_tcharge=   {effect = {'support'}, weight = 1},
-    j_bloons_pcharge=   {effect = {'support'}, weight = 1},
-    j_bloons_rangerangs={effect = {'support'}, weight = 1},
-    j_bloons_redhot=    {effect = {'support'}, weight = 1},
-    j_bloons_kylie=     {effect = {'support'}, weight = 1},
-    j_bloons_press=     {effect = {'support'}, weight = 1},
-
-    j_bloons_bomb=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_missile=   {effect = {'econ'}, weight = 1},
-    j_bloons_frags=     {effect = {'value'}, weight = 1},
-    j_bloons_mauler=    {effect = {'Xmult'}, weight = 1},
-    j_bloons_blimpact=  {effect = {'+mult'}, weight = 1},
-    j_bloons_blitz=     {effect = {'support'}, weight = 1},
-
-    j_bloons_tack=      {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_fasttack=  {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_eventack=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_hotshots=  {effect = {'support'}, weight = 1},
-    j_bloons_rof=       {effect = {'support'}, weight = 1},
-    j_bloons_iring=     {effect = {'support'}, weight = 1},
-    j_bloons_rangetack= {effect = {'+mult'}, weight = 1},
-    j_bloons_supertack= {effect = {'+mult'}, weight = 1},
-    j_bloons_blade=     {effect = {'+mult'}, weight = 1},
-    j_bloons_mael=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_smael=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_moretacks= {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_evenmore=  {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_sprayer=   {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_od=        {effect = {'Xmult'}, weight = 1},
-    j_bloons_tz=        {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_ice=       {effect = {'+chips'}, weight = 1},
-    j_bloons_pfrost=    {effect = {'+chips', 'econ'}, weight = 0.5},
-    j_bloons_refreeze=  {effect = {'support'}, weight = 1},
-    j_bloons_shards=    {effect = {'+mult'}, weight = 1},
-    j_bloons_icicles=   {effect = {'Xmult'}, weight = 1},
-    j_bloons_az=        {effect = {'value'}, weight = 1},
-
-    j_bloons_glue=      {effect = {'+mult'}, weight = 1},
-    j_bloons_corrosive= {effect = {'+chips'}, weight = 1},
-    j_bloons_mglue=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_glose=     {effect = {'support'}, weight = 1},
-    j_bloons_relentless={effect = {'support'}, weight = 1},
-    j_bloons_solver=    {effect = {'+mult'}, weight = 1},
-
-    j_bloons_desp=      {effect = {'+chips'}, weight = 1},
-    j_bloons_nomad=     {effect = {'+chips'}, weight = 1},
-    j_bloons_enforcer=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_twix=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_gustice=   {effect = {'Xmult', 'econ'}, weight = 0.5},
-
-    j_bloons_sniper=    {effect = {'+mult'}, weight = 1},
-    j_bloons_fmj=       {effect = {'+mult'}, weight = 1},
-    j_bloons_calibre=   {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_dprec=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_maim=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_cripple=   {effect = {'Xmult', 'support'}, weight = 0.5},
-    j_bloons_nightvis=  {effect = {'support'}, weight = 1},
-    j_bloons_shraps=    {effect = {'+mult'}, weight = 1},
-    j_bloons_bouncing=  {effect = {'+mult'}, weight = 1},
-    j_bloons_supply=    {effect = {'value', 'econ'}, weight = 0.5},
-    j_bloons_esniper=   {effect = {'value', 'econ'}, weight = 0.5},
-    j_bloons_fastsniper={effect = {'+mult'}, weight = 1},
-    j_bloons_evensniper={effect = {'+mult'}, weight = 1},
-    j_bloons_semiauto=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_fauto=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_edef=      {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_sub=       {effect = {'+mult'}, weight = 1},
-    j_bloons_rangesub=  {effect = {'value'}, weight = 1},
-    j_bloons_intel=     {effect = {'value'}, weight = 1},
-    j_bloons_sns=       {effect = {'econ'}, weight = 1},
-    j_bloons_reactor=   {effect = {'+chips'}, weight = 1},
-    j_bloons_gizer=     {effect = {'econ'}, weight = 1},
-    j_bloons_barbed=    {effect = {'+mult'}, weight = 1},
-    j_bloons_heattip=   {effect = {'+chips'}, weight = 1},
-    j_bloons_ballistic= {effect = {'Xmult'}, weight = 1},
-    j_bloons_fs=        {effect = {'Xmult'}, weight = 1},
-    j_bloons_preemp=    {effect = {'support'}, weight = 1},
-    j_bloons_twinguns=  {effect = {'+mult'}, weight = 1},
-    j_bloons_airburst=  {effect = {'+mult'}, weight = 1},
-    j_bloons_tripguns=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_apd=       {effect = {'Xmult'}, weight = 1},
-    j_bloons_subcom=    {effect = {'support'}, weight = 1},
-
-    j_bloons_boat=      {effect = {'econ'}, weight = 1},
-    j_bloons_fastboat=  {effect = {'econ'}, weight = 1},
-    j_bloons_doubleboat={effect = {'econ'}, weight = 1},
-    j_bloons_destroyer= {effect = {'Xmult'}, weight = 1},
-    j_bloons_airrier=   {effect = {'Xmult'}, weight = 1},
-    j_bloons_flag=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_grape=     {effect = {'econ'}, weight = 1},
-    j_bloons_hotshot=   {effect = {'econ'}, weight = 1},
-    j_bloons_cannon=    {effect = {'+mult', 'econ'}, weight = 0.5},
-    j_bloons_pirates=   {effect = {'support'}, weight = 1},
-    j_bloons_plord=     {effect = {'support', 'econ'}, weight = 0.5},
-    j_bloons_rangeboat= {effect = {'econ'}, weight = 1},
-    j_bloons_crowsnest= {effect = {'econ'}, weight = 1},
-    j_bloons_merchant=  {effect = {'value'}, weight = 1},
-    j_bloons_flavored=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_empire=    {effect = {'value', 'econ'}, weight = 0.5},
-
-    j_bloons_ace=       {effect = {'+chips'}, weight = 1},
-    j_bloons_pineapple= {effect = {'support'}, weight = 1},
-    j_bloons_nevamiss=  {effect = {'value'}, weight = 1},
-    j_bloons_gz=        {effect = {'+chips'}, weight = 1},
-    j_bloons_shredder=  {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_heli=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_quad=      {effect = {'+mult'}, weight = 1},
-    j_bloons_draft=     {effect = {'support'}, weight = 1},
-    j_bloons_comdef=    {effect = {'+chips'}, weight = 1},
-    j_bloons_aprime=    {effect = {'Xmult'}, weight = 1},
-    j_bloons_spop=      {effect = {'value', 'cash'}, weight = 0.5},
-
-    j_bloons_mortar=    {effect = {'+mult'}, weight = 1},
-    j_bloons_burny=     {effect = {'support'}, weight = 1},
-    j_bloons_sshock=    {effect = {'+mult'}, weight = 1},
-    j_bloons_abatt=     {effect = {'+chips', '+mult', 'Xmult'}, weight = 0.5},
-    j_bloons_cin=       {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_dartling=  {effect = {'+chips'}, weight = 1},
-    j_bloons_lshock=    {effect = {'+mult'}, weight = 1},
-    j_bloons_buckshot=  {effect = {'Xmult'}, weight = 1},
-    j_bloons_rorm=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_rod=       {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_wiz=       {effect = {'support'}, weight = 1},
-    j_bloons_guided=    {effect = {'support'}, weight = 1},
-    j_bloons_ablast=    {effect = {'chips'}, weight = 1},
-    j_bloons_amast=     {effect = {'value'}, weight = 1},
-    j_bloons_aspike=    {effect = {'support'}, weight = 1},
-    j_bloons_arch=      {effect = {'support'}, weight = 1},
-    j_bloons_fireball=  {effect = {'mult'}, weight = 1},
-    j_bloons_wof=       {effect = {'support'}, weight = 1},
-    j_bloons_dbreath=   {effect = {'Xmult'}, weight = 1},
-    j_bloons_phoenix=   {effect = {'support'}, weight = 1},
-    j_bloons_wlp=       {effect = {'value'}, weight = 1},
-    j_bloons_intense=   {effect = {'mult'}, weight = 1},
-    j_bloons_sense=     {effect = {'support'}, weight = 1},
-    j_bloons_shimmer=   {effect = {'value'}, weight = 1},
-    j_bloons_necro=     {effect = {'support'}, weight = 1},
-    j_bloons_pod=       {effect = {'support'}, weight = 1},
-
-    j_bloons_super=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_range=     {effect = {'value'}, weight = 1},
-    j_bloons_uv=        {effect = {'support'}, weight = 1},
-    j_bloons_sav=       {effect = {'Xmult'}, weight = 1},
-    j_bloons_tech=      {effect = {'support'}, weight = 1},
-    j_bloons_lotn=      {effect = {'value', 'support'}, weight = 0.5},
-    
-    j_bloons_ninja=     {effect = {'+mult'}, weight = 1},
-    j_bloons_discipline={effect = {'+chips'}, weight = 1},
-    j_bloons_sharpshur= {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_doubleshur={effect = {'Xmult'}, weight = 1},
-    j_bloons_jitsu=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_gmn=       {effect = {'Xmult'}, weight = 1},
-    j_bloons_distract=  {effect = {'support'}, weight = 1},
-    j_bloons_espionage= {effect = {'support'}, weight = 1},
-    j_bloons_shinobi=   {effect = {'Xmult'}, weight = 1},
-    j_bloons_sabo=      {effect = {'support'}, weight = 1},
-    j_bloons_gsabo=     {effect = {'support'}, weight = 1},
-    j_bloons_seeking=   {effect = {'+mult'}, weight = 1},
-    j_bloons_caltrops=  {effect = {'+mult'}, weight = 1},
-    j_bloons_flash=     {effect = {'+mult'}, weight = 1},
-    j_bloons_sticky=    {effect = {'Xmult'}, weight = 1},
-    j_bloons_mbomber=   {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_alch=      {effect = {'value'}, weight = 1},
-    j_bloons_largerpots={effect = {'value'}, weight = 1},
-    j_bloons_amd=       {effect = {'chips', 'mult', 'Xmult'}, weight = 0.5},
-    j_bloons_brew=      {effect = {'chips', 'mult', 'Xmult'}, weight = 0.5},
-    j_bloons_stim=      {effect = {'Xmult'}, weight = 1},
-    j_bloons_acid=      {effect = {'value'}, weight = 1},
-    j_bloons_perishing= {effect = {'Xmult'}, weight = 1},
-    j_bloons_conc=      {effect = {'support'}, weight = 1},
-    j_bloons_tt4=       {effect = {'support'}, weight = 1},
-    j_bloons_tt5=       {effect = {'support'}, weight = 1},
-    j_bloons_fastalch=  {effect = {'value'}, weight = 1},
-    j_bloons_pools=     {effect = {'value'}, weight = 1},
-    j_bloons_l2g=       {effect = {'econ'}, weight = 1},
-    j_bloons_r2g=       {effect = {'econ'}, weight = 1},
-    j_bloons_bma=       {effect = {'support'}, weight = 1},
-
-    j_bloons_druid=     {effect = {'+mult'}, weight = 1},
-    j_bloons_thunder=   {effect = {'value'}, weight = 1},
-    j_bloons_dots=      {effect = {'support'}, weight = 1},
-    j_bloons_jbounty=   {effect = {'econ'}, weight = 1},
-    j_bloons_aow=       {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_merm=      {effect = {'+mult'}, weight = 1},
-    j_bloons_network=   {effect = {'value'}, weight = 1},
-    j_bloons_melody=    {effect = {'+chips', 'support'}, weight = 0.5},
-    j_bloons_arknight=  {effect = {'support'}, weight = 1},
-    j_bloons_lota=      {effect = {'+mult'}, weight = 1},
-
-    j_bloons_farm=      {effect = {'econ'}, weight = 1},
-    j_bloons_iproduct=  {effect = {'econ'}, weight = 1},
-    j_bloons_gproduct=  {effect = {'econ'}, weight = 1},
-    j_bloons_plantation={effect = {'econ'}, weight = 1},
-    j_bloons_brf=       {effect = {'econ'}, weight = 1},
-    j_bloons_central=   {effect = {'econ'}, weight = 1},
-    j_bloons_valuable=  {effect = {'econ'}, weight = 1},
-    j_bloons_bank=      {effect = {'econ'}, weight = 1},
-    j_bloons_imf=       {effect = {'econ'}, weight = 1},
-    j_bloons_nomics=    {effect = {'econ'}, weight = 1},
-    j_bloons_ez=        {effect = {'econ'}, weight = 1},
-    j_bloons_salvage=   {effect = {'econ'}, weight = 1},
-    j_bloons_market=    {effect = {'econ'}, weight = 1},
-    j_bloons_cmarket=   {effect = {'econ'}, weight = 1},
-    j_bloons_wallstreet={effect = {'econ', 'value'}, weight = 0.5},
-
-    j_bloons_spac=      {effect = {'+chips'}, weight = 1},
-    j_bloons_stacks=    {effect = {'econ'}, weight = 1},
-    j_bloons_smart=     {effect = {'+mult'}, weight = 1},
-    j_bloons_lls=       {effect = {'+mult'}, weight = 1},
-    j_bloons_sporm=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_pspike=    {effect = {'support'}, weight = 1},
-
-    j_bloons_village=   {effect = {'+mult'}, weight = 1},
-    j_bloons_drums=     {effect = {'Xmult'}, weight = 1},
-    j_bloons_discount=  {effect = {'econ'}, weight = 1},
-    j_bloons_mib=       {effect = {'support'}, weight = 1},
-    j_bloons_city=      {effect = {'value', 'econ'}, weight = 0.5},
-    j_bloons_pex=       {effect = {'Xmult', 'econ'}, weight = 0.5},
-
-    j_bloons_engi=      {effect = {'econ'}, weight = 1},
-    j_bloons_sentries=  {effect = {'value'}, weight = 1},
-    j_bloons_doublegun= {effect = {'econ'}, weight = 1},
-    j_bloons_sexpert=   {effect = {'value'}, weight = 1},
-    j_bloons_uboost=    {effect = {'Xmult'}, weight = 1},
-
-    j_bloons_beast=     {effect = {'+chips'}, weight = 1},
-    j_bloons_owl=       {effect = {'value'}, weight = 1},
-    j_bloons_velo=      {effect = {'+mult', 'support'}, weight = 0.5},
-    j_bloons_condor=    {effect = {'support'}, weight = 1},
-    j_bloons_meg=       {effect = {'+chips', '+mult'}, weight = 0.5},
-
-    j_bloons_marine=    {effect = {'Xmult'}, weight = 1},
-    j_bloons_sentry=    {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_crushing_sentry=   {effect = {'+mult'}, weight = 1},
-    j_bloons_boom_sentry=       {effect = {'Xmult'}, weight = 1},
-    j_bloons_cold_sentry=       {effect = {'support'}, weight = 1},
-    j_bloons_energy_sentry=     {effect = {'+chips', '+mult'}, weight = 0.5},
-    j_bloons_bloonprint={effect = {'support'}, weight = 1},
-
-    j_bloons_mdom=      {effect = {'Xmult', 'value'}, weight = 0.5},
-    j_bloons_fortress=  {effect = {'value', 'econ',}, weight = 0.5},
-    j_bloons_pbrew=     {effect = {'support'}, weight = 1},
-    j_bloons_smines=    {effect = {'Xmult'}, weight = 1},
-    j_bloons_vtsg=      {effect = {'support'}, weight = 1},
+Primary_towers = {
+    'dart',
+    'boomer',
+    'bomb',
+    'tack',
+    'ice',
+    'glue',
+    'desperado',
 }
+
+Military_towers = {
+    'sniper',
+    'sub',
+    'boat',
+    'ace',
+    'heli',
+    'mortar',
+    'dartling',
+}
+
+Magic_towers = {
+    'wizard',
+    'super',
+    'ninja',
+    'alch',
+    'druid',
+    'merm',
+}
+
+Support_towers = {
+    'farm',
+    'spac',
+    'village',
+    'engi',
+    'beast',
+}
+
+--Tower effects function
+function Card.get_category_vtsg(self)
+    local category = self.ability.base
+    if category == 'other' then
+        return nil
+    end
+    for k, v in ipairs(Primary_towers) do
+        if category == v then
+            return 'primary'
+        end
+    end
+    for k, v in ipairs(Military_towers) do
+        if category == v then
+            return 'military'
+        end
+    end
+    for k, v in ipairs(Magic_towers) do
+        if category == v then
+            return 'magic'
+        end
+    end
+    for k, v in ipairs(Support_towers) do
+        if category == v then
+            return 'support'
+        end
+    end
+    return 'primary'
+end
 
 --Challenge id function
 function get_challenge_stake(e)
@@ -465,163 +89,37 @@ function recalc_all_costs()
     }))
 end
 
---Mdom new end round
-function end_round_new(mdoms)
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.2,
-        func = function()
-            local game_over = true
-            local game_won = false
-            G.RESET_BLIND_STATES = true
-            G.RESET_JIGGLES = true
-            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) then
-                game_over = false
-            end
-            for i = 1, #G.jokers.cards do
-                local eval = nil
-                eval = G.jokers.cards[i]:calculate_joker({end_of_round = true, game_over = game_over})
-                if eval then
-                    if eval.saved then
-                        game_over = false
-                    end
-                    card_eval_status_text(G.jokers.cards[i], 'jokers', nil, nil, nil, eval)
-                end
-                G.jokers.cards[i]:calculate_rental()
-                G.jokers.cards[i]:calculate_perishable()
-            end
-            if game_over then
-                G.STATE = G.STATES.GAME_OVER
-                if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
-                    G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
-                end
-                G:save_settings()
-                G.FILE_HANDLER.force = true
-                G.STATE_COMPLETE = false
-            else
-                G.GAME.unused_discards = (G.GAME.unused_discards or 0) + G.GAME.current_round.discards_left
-                if G.GAME.blind and G.GAME.blind.config.blind then 
-                    discover_card(G.GAME.blind.config.blind)
-                end
-
-                if G.GAME.blind:get_type() == 'Boss' and not G.GAME.seeded and not G.GAME.challenge  then
-                    G.GAME.current_boss_streak = G.GAME.current_boss_streak + 1
-                    check_and_set_high_score('boss_streak', G.GAME.current_boss_streak)
-                end
-                
-                if G.GAME.current_round.hands_played == 1 then 
-                    inc_career_stat('c_single_hand_round_streak', 1)
-                else
-                    if not G.GAME.seeded and not G.GAME.challenge  then
-                        G.PROFILES[G.SETTINGS.profile].career_stats.c_single_hand_round_streak = 0
-                        G:save_settings()
-                    end
-                end
-
-                check_for_unlock({type = 'round_win'})
-                set_joker_usage()
-                for i=1, #G.hand.cards do
-                    --Check for hand doubling
-                    local reps = {1}
-                    local j = 1
-                    while j <= #reps do
-                        local percent = (i-0.999)/(#G.hand.cards-0.998) + (j-1)*0.1
-                        if reps[j] ~= 1 then card_eval_status_text((reps[j].jokers or reps[j].seals).card, 'jokers', nil, nil, nil, (reps[j].jokers or reps[j].seals)) end
-    
-                        --calculate the hand effects
-                        local effects = {G.hand.cards[i]:get_end_of_round_effect()}
-                        for k=1, #G.jokers.cards do
-                            --calculate the joker individual card effects
-                            local eval = G.jokers.cards[k]:calculate_joker({cardarea = G.hand, other_card = G.hand.cards[i], individual = true, end_of_round = true})
-                            if eval then 
-                                table.insert(effects, eval)
-                            end
-                        end
-
-                        if reps[j] == 1 then 
-                            --Check for hand doubling
-                            --From Red seal
-                            local eval = eval_card(G.hand.cards[i], {end_of_round = true,cardarea = G.hand, repetition = true, repetition_only = true})
-                            if next(eval) and (next(effects[1]) or #effects > 1)  then 
-                                for h = 1, eval.seals.repetitions do
-                                    reps[#reps+1] = eval
-                                end
-                            end
-
-                            --from Jokers
-                            for j=1, #G.jokers.cards do
-                                --calculate the joker effects
-                                local eval = eval_card(G.jokers.cards[j], {cardarea = G.hand, other_card = G.hand.cards[i], repetition = true, end_of_round = true, card_effects = effects})
-                                if next(eval) then 
-                                    for h  = 1, eval.jokers.repetitions do
-                                        reps[#reps+1] = eval
-                                    end
-                                end
-                            end
-                        end
-        
-                        for ii = 1, #effects do
-                            --if this effect came from a joker
-                            if effects[ii].card then
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'immediate',
-                                    func = (function() effects[ii].card:juice_up(0.7);return true end)
-                                }))
-                            end
-                            
-                            --If dollars
-                            if effects[ii].h_dollars then 
-                                ease_dollars(effects[ii].h_dollars)
-                                card_eval_status_text(G.hand.cards[i], 'dollars', effects[ii].h_dollars, percent)
-                            end
-
-                            --Any extras
-                            if effects[ii].extra then
-                                card_eval_status_text(G.hand.cards[i], 'extra', nil, percent, nil, effects[ii].extra)
-                            end
-                        end
-                        j = j + 1
-                    end
-                end
-                delay(0.3)
-
-                G.FUNCS.draw_from_hand_to_discard()
-                G.FUNCS.draw_from_discard_to_deck()
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.3,
-                    func = function()
-                        G.STATE = G.STATES.ROUND_EVAL
-                        G.STATE_COMPLETE = false
-
-                        if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
-                            G.GAME.round_resets.blind_states.Small = 'Defeated'
-                        elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
-                            G.GAME.round_resets.blind_states.Big = 'Defeated'
-                        else
-                            for k, v in pairs(mdoms) do
-                                v.ability.extra.active = false
-                            end
-                        end
-
-                        if G.GAME.round_resets.temp_handsize then G.hand:change_size(-G.GAME.round_resets.temp_handsize); G.GAME.round_resets.temp_handsize = nil end
-                        if G.GAME.round_resets.temp_reroll_cost then G.GAME.round_resets.temp_reroll_cost = nil; calculate_reroll_cost(true) end
-
-                        reset_idol_card()
-                        reset_mail_rank()
-                        reset_ancient_card()
-                        reset_castle_card()
-                        for k, v in ipairs(G.playing_cards) do
-                            v.ability.discarded = nil
-                            v.ability.forced_selection = nil
-                        end
-                    return true
-                    end
-                }))
-            end
-        return true
+--Reset desperado card
+function reset_desperado_card()
+    G.GAME.current_round.desperado_card.rank = 'Ace'
+    local valid_desperado_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if not SMODS.has_no_rank(v) then
+            valid_desperado_cards[#valid_desperado_cards+1] = v
         end
-    }))
+    end
+    if valid_desperado_cards[1] then 
+        local desperado_card = pseudorandom_element(valid_desperado_cards, pseudoseed('desperado'..G.GAME.round_resets.ante))
+        G.GAME.current_round.desperado_card.rank = desperado_card.base.value
+        G.GAME.current_round.desperado_card.id = desperado_card.base.id
+    end
+end
+
+--Reset spike factory card
+function reset_spike_factory_card()
+    G.GAME.current_round.spike_factory_card.rank = 'Ace'
+    local valid_spike_factory_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if not SMODS.has_no_rank(v) then
+            valid_spike_factory_cards[#valid_spike_factory_cards+1] = v
+        end
+    end
+    if valid_spike_factory_cards[1] then
+        local spike_factory_card = pseudorandom_element(valid_spike_factory_cards, pseudoseed('spac'..G.GAME.round_resets.ante))
+        G.GAME.current_round.spike_factory_card.suit = spike_factory_card.base.suit
+        G.GAME.current_round.spike_factory_card.rank = spike_factory_card.base.value
+        G.GAME.current_round.spike_factory_card.id = spike_factory_card.base.id
+    end
 end
 
 --Sacrifice Context for Adora and VTSG
@@ -642,12 +140,10 @@ function get_sac_context(card)
     if is_vtsg then
         sac_context.vtsg_show = true
         local no_sacs = vtsg_sacrifices
-            and vtsg_sacrifices['+chips'] == 0
-            and vtsg_sacrifices['+mult'] == 0
-            and vtsg_sacrifices['Xmult'] == 0
-            and vtsg_sacrifices['econ']  == 0
-            and vtsg_sacrifices['value'] == 0
-            and vtsg_sacrifices['support'] == 0
+            and vtsg_sacrifices['primary'] == 0
+            and vtsg_sacrifices['military'] == 0
+            and vtsg_sacrifices['magic'] == 0
+            and vtsg_sacrifices['support']  == 0
 
         local other_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
@@ -690,20 +186,10 @@ G.FUNCS.vtsg_sac = function(e)
     card.highlighted = false
 end
 
---Tower effects function
-function Card.get_effects_vtsg(self)
-    local key = self.config.center_key
-    if Joker_effects_vtsg[key] then
-        return Joker_effects_vtsg[key].effect
-    end
-    return {'support'}
-end
-
---Tower effect weight function
-function Card.get_effect_weight_vtsg(self)
-    local key = self.config.center_key
-    if Joker_effects_vtsg[key] then
-        return Joker_effects_vtsg[key].weight
-    end
-    return 1
+--Enable optional features
+SMODS.current_mod.optional_features = function()
+    return {
+        post_trigger = true,
+        retrigger_joker = true,
+    }
 end

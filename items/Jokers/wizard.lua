@@ -20,17 +20,6 @@ SMODS.Joker { --Wizard Monkey
     calculate = function(self, card, context)
         if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
             local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
-            if G.GAME.modifiers.abracadabmonkey then
-                local i = 1
-                while i <= #enhancement_pool do
-                    local enhancement = enhancement_pool[i]
-                    if enhancement.key == 'm_bloons_frozen' or enhancement.key == 'm_bloons_glued' or enhancement.key == 'm_bloons_stunned' then
-                        table.remove(enhancement_pool, i)
-                    else
-                        i = i + 1
-                    end
-                end
-            end
             local enhancement = pseudorandom_element(enhancement_pool, pseudoseed('wiz'))
             context.scoring_hand[1]:set_ability(enhancement, nil, true)
             G.E_MANAGER:add_event(Event({
@@ -93,17 +82,6 @@ SMODS.Joker { --Guided Magic
             }
         elseif context.after then
             local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
-            if G.GAME.modifiers.abracadabmonkey then
-                local i = 1
-                while i <= #enhancement_pool do
-                    local enhancement = enhancement_pool[i]
-                    if enhancement.key == 'm_bloons_frozen' or enhancement.key == 'm_bloons_glued' or enhancement.key == 'm_bloons_stunned' then
-                        table.remove(enhancement_pool, i)
-                    else
-                        i = i + 1
-                    end
-                end
-            end
             card.ability.extra.enhancement = pseudorandom_element(enhancement_pool, pseudoseed('guided'))
         end
     end
@@ -293,7 +271,7 @@ SMODS.Joker { --Archmage
         name = 'Archmage',
         text = {
             'Retrigger all played',
-            'enhanced cards',
+            '{C:attention}Enhanced cards{}',
         }
     },
 	atlas = 'Joker',
@@ -378,9 +356,15 @@ SMODS.Joker { --Wall of Fire
     calculate = function(self, card, context)
         if context.before then
             for k, v in pairs(context.full_hand) do
-                if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(card, 'wof', card.ability.extra.num, card.ability.extra.denom, 'wof') then
-                    v:set_ability('m_stone', nil, true)
-                    break
+                if not SMODS.in_scoring(v, context.scoring_hand) then
+                    if SMODS.pseudorandom_probability(card, 'wof', card.ability.extra.num, card.ability.extra.denom, 'wof') then
+                        v:set_ability('m_stone', nil, true)
+                        return {
+                            message = 'Stone!'
+                        }
+                    else
+                        return nil
+                    end
                 end
             end
         end
@@ -393,7 +377,7 @@ SMODS.Joker { --Dragon's Breath
     loc_txt = {
         name = "Dragon's Breath",
         text = {
-            'This Joker gains',
+            'This {C:attention}Joker{} gains',
             '{X:mult,C:white}X#1#{} Mult when each',
             'played {C:attention}Stone Card{} is scored',
             '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
@@ -404,6 +388,7 @@ SMODS.Joker { --Dragon's Breath
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_stone',
     config = {
         base = 'wizard',
@@ -415,10 +400,8 @@ SMODS.Joker { --Dragon's Breath
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.other_card.debuff and not context.end_of_round and not context.blueprint then
-            if context.other_card.ability.name == 'Stone Card' then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-            end
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Stone Card' and not context.end_of_round and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
         elseif context.joker_main then
             return {
                 x_mult = card.ability.extra.current,
@@ -693,7 +676,7 @@ SMODS.Joker { --Prince of Darkness
                         G.GAME.joker_buffer = 0
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
-                        play_sound('slice1', 0.96+math.random()*0.08)
+                        play_sound('tarot2', 0.96+math.random()*0.08)
                         return true
                     end
                 }))

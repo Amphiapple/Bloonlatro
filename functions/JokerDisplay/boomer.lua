@@ -137,17 +137,23 @@ JokerDisplay.Definitions["j_bloons_redhot"] = { --Red Hot Rangs
         local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
         local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
 
-        return ((first_card and playing_card == first_card) or (last_card and playing_card == last_card)) and
-                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+        local retriggers = 0
+        if (first_card and playing_card == first_card) then
+            retriggers = retriggers + JokerDisplay.calculate_joker_triggers(joker_card)
+        end
+        if (last_card and playing_card == last_card) then
+            retriggers = retriggers + JokerDisplay.calculate_joker_triggers(joker_card)
+        end
+        return retriggers * JokerDisplay.calculate_joker_triggers(joker_card)
     end
 }
 
 JokerDisplay.Definitions["j_bloons_kylie"] = { --Kylie Boomerang
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
+        local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
         local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
-
-        return last_card and playing_card ~= last_card and
+        return first_card and last_card and playing_card ~= first_card and playing_card ~= last_card and
                 joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }

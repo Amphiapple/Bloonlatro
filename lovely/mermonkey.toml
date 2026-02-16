@@ -1,0 +1,30 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Echosense Precision Splash effect
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash'))"
+position = 'at'
+payload = "local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash')) or next(find_joker('Echosense Precision'))"
+match_indent = true
+
+# Trance return to hand effect
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "draw_card(G.play,G.discard, it*100/play_count,'down', false, v)"
+position = 'at'
+payload = '''
+if v.tranced then
+    v.tranced = nil
+    draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
+else
+    draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+end
+'''
+match_indent = true
+

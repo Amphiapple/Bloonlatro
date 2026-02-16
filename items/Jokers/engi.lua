@@ -64,7 +64,7 @@ SMODS.Joker { --Sentry Gun
         return { vars = { card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not context.getting_sliced then
+        if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local card = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sentries')
@@ -163,7 +163,7 @@ SMODS.Joker { --Sentry Expert
         info_queue[#info_queue + 1] = G.P_CENTERS.j_bloons_energy_sentry
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not context.getting_sliced then
+        if context.setting_blind and not card.getting_sliced then
             local sentry = pseudorandom_element(card.ability.extra.sentries, pseudoseed('sexpert'))
             G.E_MANAGER:add_event(Event({
                 func = function()

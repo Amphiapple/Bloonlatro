@@ -246,7 +246,7 @@ SMODS.Blind {
     loc_txt = {
         name = 'Dark Titan',
         text = {
-            '#1# in 4 cards',
+            '#1# in #2# cards',
             'are debuffed'
         }
     },
@@ -259,16 +259,18 @@ SMODS.Blind {
     boss_colour = HEX("4a4b4a"),
 
     loc_vars = function(self)
-        return { vars = { G.GAME.probabilities.normal or 1 } }
+        local n, d = SMODS.get_probability_vars(self, 1, 3, 'ddt')
+        return { vars = { n, d } }
     end,
     collection_loc_vars = function(self)
-        return { vars = { G.GAME.probabilities.normal or 1 } }
+        local n, d = SMODS.get_probability_vars(self, 1, 3, 'ddt')
+        return { vars = { n, d } }
     end,
 
     calculate = function(self, blind, context)
         if context.hand_drawn and not blind.disabled then
             for _, card in ipairs(context.hand_drawn) do
-                 if SMODS.pseudorandom_probability(G.GAME.blind, 'ddt', 1, 4) then
+                 if SMODS.pseudorandom_probability(G.GAME.blind, 'ddt', 1, 3) then
                     card:set_debuff(true)
                     if card.debuff then
                         card.debuffed_by_blind = true
@@ -348,7 +350,7 @@ SMODS.Blind {
     loc_txt = {
         name = 'B.A.D',
         text = {
-            'X1.5 blind size',
+            'X1.5 blind requirement',
             'after each hand'
         }
     },

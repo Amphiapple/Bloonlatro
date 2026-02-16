@@ -55,13 +55,13 @@ SMODS.Back { --Gwen
         text = {
             'Start run with',
             'an {C:spectral}Immolate{} card',
-            '{C:attention}-1{} hand size'
+            '{C:blue}-1{} hand every round'
         }
     },
 	atlas = "Back",
 	pos = { x = 1, y = 0 },
     order = 18,
-    config = { consumables = {'c_immolate'}, hand_size = -1 }
+    config = { consumables = {'c_immolate'}, hands = -1 }
 }
 
 SMODS.Back { --Jones
@@ -427,14 +427,15 @@ SMODS.Back { --Silas
 	loc_txt = {
         name = 'Silas Deck',
         text = {
-            'After {C:attention}Blind{} is defeated,',
-            '{C:attention}Freeze #1#{} cards in your deck',
+            '{C:attention}Freeze #1#{} cards',
+            'held in hand at',
+            'end of round'
         }
     },
 	atlas = "Back",
 	pos = { x = 1, y = 3 },
     order = 33,
-    config = { extra = { number = 3 } },
+    config = { extra = { number = 2 } },
 
     loc_vars = function (self, info_queue, card)
         return { vars = { self.config.extra.number } }
@@ -442,8 +443,8 @@ SMODS.Back { --Silas
     calculate = function (self, back, context)
         if context.end_of_round and not context.individual and not context.repetition then
             local valid_cards = {}
-            for k, v in ipairs(G.playing_cards) do
-                if v.ability.effect ~= 'Frozen_card' then
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.effect ~= 'Frozen_card' and not v.debuff then
                     valid_cards[#valid_cards+1] = v
                 end
             end

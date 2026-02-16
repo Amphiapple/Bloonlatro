@@ -18,7 +18,7 @@ SMODS.Joker { --MOAB Domination
     blueprint_compat = true,
     config = {
         base = 'boomer',
-        extra = { Xmult = 0.5, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
+        extra = { Xmult = 0.25, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
     },
 
     loc_vars = function(self, info_queue, card)
@@ -262,7 +262,7 @@ SMODS.Joker { --Vengeful True Sun God
         text = {
             'Sacrifice {C:attention}ALL{} other {C:attention}Jokers{}',
             'to the {C:legendary,E:1,S:1.1}Vengeful True Sun God{}',
-            '{C:inactive}[#1# #2# #3# #4# #5# #6#]{}'
+            '{C:inactive}(#1# #2# #3# #4#){}'
         }
     },
 	atlas = 'Joker',
@@ -273,35 +273,35 @@ SMODS.Joker { --Vengeful True Sun God
 	blueprint_compat = true,
     config = {
         base = 'super',
-        extra = { sacrifices = {}, chips = 200, mult = 40, Xmult = 2, consumable = 1, discount = 2, Xmult_support = 0.2 } --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
+        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 } --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = {
-            card.ability.extra.sacrifices['+chips'] or 0,
-            card.ability.extra.sacrifices['+mult'] or 0,
-            card.ability.extra.sacrifices['Xmult'] or 0,
-            card.ability.extra.sacrifices['econ'] or 0,
-            card.ability.extra.sacrifices['value'] or 0,
-            card.ability.extra.sacrifices['support'] or 0
-        } }
+		return {
+            vars = {
+                card.ability.extra.sacrifices['primary'] or 0,
+                card.ability.extra.sacrifices['military'] or 0,
+                card.ability.extra.sacrifices['magic'] or 0,
+                card.ability.extra.sacrifices['support'] or 0,
+            }
+        }
     end,
     add_to_deck = function(self, card, from_debuff)
-        card.ability.extra.sacrifices['+chips']  = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['+chips'])  or 0
-        card.ability.extra.sacrifices['+mult']   = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['+mult'])   or 0
-        card.ability.extra.sacrifices['Xmult']   = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['Xmult'])   or 0
-        card.ability.extra.sacrifices['econ']    = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['econ'])    or 0
-        card.ability.extra.sacrifices['value']   = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['value'])   or 0
+        card.ability.extra.sacrifices['primary'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['primary']) or 0
+        card.ability.extra.sacrifices['military'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['military']) or 0
+        card.ability.extra.sacrifices['magic'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['magic']) or 0
         card.ability.extra.sacrifices['support'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['support']) or 0
     end,
     sac_to_vtsg = function(card)
         local deletable_jokers = {}
         for k, v in pairs(G.jokers.cards) do
             if v ~= card then
-                local category = v:get_effects_vtsg()
-                local weight = v:get_effect_weight_vtsg()
-                for i, j in pairs(category) do
-                    card.ability.extra.sacrifices[j] = card.ability.extra.sacrifices[j] + weight
+                local category = v:get_category_vtsg()
+                if category and card.ability.extra.sacrifices[category] then
+                    card.ability.extra.sacrifices[category] = card.ability.extra.sacrifices[category] + v.base_cost
+                    if card.ability.extra.sacrifices[category] > 9 then
+                        card.ability.extra.sacrifices[category] = 9
+                    end
                 end
                 deletable_jokers[#deletable_jokers + 1] = v
             end
@@ -322,27 +322,29 @@ SMODS.Joker { --Vengeful True Sun God
     remove_from_deck = function(self, card, from_debuff)
         recalc_all_costs()
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
+            local chips = math.floor(card.ability.extra.sacrifices['primary'] / 2) + math.floor(card.ability.extra.sacrifices['military'] / 2)
+            local mult = math.ceil(card.ability.extra.sacrifices['primary'] / 2) + math.floor(card.ability.extra.sacrifices['magic'] / 2)
+            local Xmult = math.floor(card.ability.extra.sacrifices['primary'] * 2 / 9) + math.ceil(card.ability.extra.sacrifices['military'] / 2) + math.ceil(card.ability.extra.sacrifices['magic'] / 2) + math.floor(card.ability.extra.sacrifices['support'] / 3)
             return {
-                chips = card.ability.extra.chips * card.ability.extra.sacrifices['+chips'],
-                mult = card.ability.extra.mult * card.ability.extra.sacrifices['+mult'],
-                x_mult = 1 + card.ability.extra.Xmult * card.ability.extra.sacrifices['Xmult'],
+                chips = card.ability.extra.chips * chips,
+                mult = card.ability.extra.mult * mult,
+                x_mult = 1 + card.ability.extra.Xmult * Xmult
             }
-        elseif context.other_joker and context.other_joker ~= card and card.ability.extra.sacrifices['support'] > 0 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            }))
-            return {
-                x_mult = 1 + card.ability.extra.Xmult_support * card.ability.extra.sacrifices['support']
-            }
-        elseif context.ending_shop and card.ability.extra.sacrifices['value'] >= 1 then
-            for i = 1, card.ability.extra.consumable * card.ability.extra.sacrifices['value'] do
+        elseif context.repetition and context.card_area == G.play then
+            local retrigger = math.floor(card.ability.extra.sacrifices['military'] * 2 / 9)
+            if retrigger > 1 then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retrigger * retrigger,
+                }
+            end
+        elseif context.ending_shop then
+            local count = math.floor(card.ability.extra.sacrifices['military'] * 2 / 9)
+            for i = 1, count do
                 G.E_MANAGER:add_event(Event({
-                    func = function() 
+                    func = function()
                         local card = create_card('Consumeables',G.consumeables, nil, nil, nil, nil, nil, 'vtsg')
                         card:set_edition({negative = true}, true)
                         card:add_to_deck()
@@ -351,7 +353,13 @@ SMODS.Joker { --Vengeful True Sun God
                     end
                 }))
             end
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*card.ability.extra.sacrifices['value'], colour = G.C.DARK_EDITION})
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*count, colour = G.C.DARK_EDITION})
+        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        local money = math.ceil(card.ability.extra.sacrifices['support'] / 3)
+        if money > 0 then
+            return card.ability.extra.money * money
         end
     end
 }
