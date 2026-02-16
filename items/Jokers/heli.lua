@@ -74,8 +74,11 @@ SMODS.Joker { --Quad Darts
                 return {
                     message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
                 }
-            elseif card.ability.extra.current > 0 then
+            else
                 card.ability.extra.current = card.ability.extra.current - card.ability.extra.loss
+                if card.ability.extra.current < 0 then
+                    card.ability.extra.current = 0
+                end
                 return {
                     message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.loss}},
                     colour = G.C.RED,

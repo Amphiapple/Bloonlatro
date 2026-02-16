@@ -408,10 +408,8 @@ SMODS.Joker { --Pre-emptive Strike
 	loc_txt = {
         name = 'Pre-emptive Strike',
         text = {
-            'When {C:attention}Blind{} is selected,',
-            'score {C:attention}#1#%{} of remaining',
-            'required chips',
-            '{C:inactive}(Max of {C:attention}#2#{C:inactive}){}',
+            '{X:mult,C:white}X#1#{} Mult before',
+            'cards score',
         }
     },
 	atlas = 'Joker',
@@ -421,37 +419,17 @@ SMODS.Joker { --Pre-emptive Strike
     blueprint_compat = true,
     config = {
         base = 'sub',
-        extra = { percent = 80, max = 20000 } --Variables: percent = percent score
+        extra = { Xmult = 3 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.percent, card.ability.extra.max } }
+        return { vars = { card.ability.extra.Xmult * (G.GAME.subcom_mult or 1) } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not card.getting_sliced then
-            local score = (G.GAME.blind.chips - G.GAME.chips) * card.ability.extra.percent / 100.0
-            if score > to_big(card.ability.extra.max) then
-                score = to_big(card.ability.extra.max)
-            end
-            G.GAME.chips = G.GAME.chips + score
-            G.E_MANAGER:add_event(Event({
-                trigger = 'ease',
-                blocking = false,
-                ref_table = G.GAME,
-                ref_value = 'chips',
-                ease_to = G.GAME.chips,
-                delay = 0.5,
-                func = function(t)
-                    return math.floor(t)
-                end
-            }))
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('timpani')
-                    delay(0.1)
-                    return true
-                end
-            }))
+        if context.initial_scoring_step then
+            return {
+                x_mult = card.ability.extra.Xmult * (G.GAME.subcom_mult or 1),
+            }
         end
     end
 }

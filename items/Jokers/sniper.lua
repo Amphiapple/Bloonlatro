@@ -338,7 +338,7 @@ SMODS.Joker { --Cripple MOAB
             end
             if card.ability.extra.counter == card.ability.extra.limit then
                 if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then 
-                    card_eval_status_text(context_blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
                     G.GAME.blind:disable_blind_stickers()
                     G.GAME.blind:disable()
                 end

@@ -328,7 +328,7 @@ SMODS.Joker { --Plasma Accelerator
     blueprint_compat = true,
     config = {
         base = 'dartling',
-        extra = { mult = 10, ranks = {} } --Variables: mult = +mult, ranks = card ranks played
+        extra = { mult = 12, ranks = {} } --Variables: mult = +mult, ranks = card ranks played
     },
 
     loc_vars = function(self, info_queue, card)
@@ -871,8 +871,8 @@ SMODS.Joker { --Faster Swivel
             local temp_chips
             if r < 0.25 then
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q1)
-            elseif r > 0.75 then
-                temp_chips = pseudorandom('swivel', card.ability.extra.q3, card.ability.extra.max)
+            elseif r > 0.67 then
+                temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.q3)
             else
                 temp_chips = pseudorandom('swivel', card.ability.extra.min, card.ability.extra.max)
             end
