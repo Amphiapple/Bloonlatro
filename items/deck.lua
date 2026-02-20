@@ -340,21 +340,19 @@ SMODS.Back { --Psi
     order = 29,
 }
 
---[[
 SMODS.Back { --Gerry
     key = "gerry",
     name = "Geraldo Deck",
 	loc_txt = {
         name = 'Geraldo Deck',
         text = {
-            '{C:red}G{C:green}a{C:blue}y{}'
+            "{C:red}G{} {C:blue}A{} {C:green}Y{}"
         }
     },
 	atlas = "Back",
 	pos = { x = 3, y = 2 },
     order = 30,
 }
-]]
 
 SMODS.Back { --Corvus
     key = "corvus",
@@ -388,10 +386,13 @@ SMODS.Back { --Corvus
                     G.GAME.corvus_mana.current_mana = G.GAME.corvus_mana.current_mana + G.GAME.corvus_mana.mana_per_card
                     if G.GAME.corvus_mana.current_mana >= G.GAME.corvus_mana.max_mana then
                         G.GAME.corvus_mana.current_mana = 0
-                        local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'acid')
-                        spectral:add_to_deck()
-                        G.consumeables:emplace(spectral)
-                        G.GAME.consumeable_buffer = 0
+                        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                            local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'acid')
+                            spectral:add_to_deck()
+                            G.consumeables:emplace(spectral)
+                            G.GAME.consumeable_buffer = 0
+                        end
                     end
                     return true
                 end,

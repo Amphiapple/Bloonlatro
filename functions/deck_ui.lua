@@ -8,15 +8,19 @@ SMODS.Atlas {
 function generate_corvus_ui()
     local ui = UIBox{
         definition = {
-            n = G.UIT.R,
+            n = G.UIT.ROOT,
             config = {
+                align = "cm",
                 colour = G.C.CLEAR,
+                padding = 0,
+                minw = 0,
+                minh = 0
             },
             nodes = {
                 {
                     n = G.UIT.C,
                     config = {
-                        align = "cr",
+                        align = "cm",
                         padding = 0.1,
                         r = 0.1,
                         minw = 2.5,
@@ -57,7 +61,7 @@ function generate_corvus_ui()
                                         {
                                             n = G.UIT.C,
                                             config = {
-                                                minw = 0.18,
+                                                minw = 0.1,
                                                 minh = 0,
                                                 colour = G.C.CLEAR
                                             }
@@ -103,20 +107,12 @@ function generate_corvus_ui()
             }
         },
         config = {
-            major = G.ROOM,
-            bond = 'Weak',
+            align = 'cri',
+            offset = {x = 0, y = 0},
+            major = G.ROOM_ATTACH,
+            bond = 'Weak'
         }
     }
-
-    if ui and ui.T and G.ROOM and G.ROOM.T then
-        local x_offset = 1.5
-        local y_offset = 0.8
-        ui.T.x = (G.ROOM.T.x or 0) + (G.ROOM.T.w or 0) - (ui.T.w or 0) - x_offset
-        ui.T.y = (G.ROOM.T.y or 0) + ((G.ROOM.T.h or 0) - (ui.T.h or 0)) / 2 - y_offset
-        ui.VT.x, ui.VT.y = ui.T.x, ui.T.y
-        if ui.initialize_VT then ui:initialize_VT() end
-    end
-
     return ui
 end
 
