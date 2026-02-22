@@ -6,7 +6,7 @@ local functions = {
     'calculate-score',
     'config_tab',
     'hook',
-    'corvus',
+    'deck_ui',
 
     --Crossmod files
     'bunco',
