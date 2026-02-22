@@ -61,7 +61,6 @@ local crash_of_the_titans_cards = {
     {id = 'j_bloons_necro'},
     {id = 'j_bloons_wlp'},
     {id = 'j_bloons_tt5'},
-    {id = 'j_bloons_foam'},
     {id = 'j_bloons_meg'},
     {id = 'j_bloons_mdom'},
     {id = 'v_magic_trick'},
@@ -76,7 +75,6 @@ end
 
 local joshs_constant_cards = {
     { id = 'j_bloons_tt5'},
-    { id = 'j_bloons_foam'},
 }
 
 for _, joker in ipairs(banned_hand_cards) do
@@ -162,7 +160,6 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             { id = 'j_bloons_tt5'},
-            { id = 'j_bloons_foam'},
         },
         banned_tags = {
             { id = 'tag_bloons_cleansing' },
@@ -233,7 +230,6 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             { id = 'j_bloons_tt5'},
-            { id = 'j_bloons_foam'},
         },
         banned_tags = {
             { id = 'tag_bloons_cleansing' },
