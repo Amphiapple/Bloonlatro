@@ -31,7 +31,7 @@ SMODS.Enhancement ({ --Frozen
     calculate = function(self, card, context)
         if context.after and context.cardarea == G.hand then
             local deep_freeze = find_joker('Deep Freeze')[1]
-            if not deep_freeze or SMODS.pseudorandom_probability(deep_freeze, 'deep', deep_freeze.ability.extra.num, deep_freeze.ability.extra.denom, 'deep') then
+            if not (deep_freeze and SMODS.pseudorandom_probability(deep_freeze, 'deep', deep_freeze.ability.extra.num, deep_freeze.ability.extra.denom, 'deep')) then
                 card:set_ability(G.P_CENTERS.c_base, nil, true)
             end
         end

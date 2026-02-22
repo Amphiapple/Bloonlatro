@@ -168,9 +168,9 @@ SMODS.Joker { --Bloonjitsu
         name = 'Bloonjitsu',
         text = {
             '{X:mult,C:white}X#1#{} Mult if',
-            'scoring hand contains',
-            'at least {C:attention}#2#',
-            '{C:diamonds}Diamond{} cards'
+            'scoring hand',
+            'contains at least',
+            '{C:attention}#2# {C:diamonds}Diamond{} cards'
         }
     },
 	atlas = 'Joker',

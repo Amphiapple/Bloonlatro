@@ -77,15 +77,10 @@ JokerDisplay.Definitions["j_bloons_fastrangs"] = { --Faster Rangs
 }
 
 JokerDisplay.Definitions["j_bloons_bioboomer"] = { --Bionic Boomerang
-    text = {
-        { text = "+", colour = G.C.CHIPS },
-        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
-    },
-    reminder_text = {
-        { text = "(" },
-        { text = "Steel", colour = G.C.ORANGE },
-        { text = ")" }
-    }
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        return held_in_hand and playing_card.ability.name == 'Steel Card' and
+                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_tcharge"] = { --Turbo Charge

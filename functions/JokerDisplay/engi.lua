@@ -24,7 +24,7 @@ JokerDisplay.Definitions["j_bloons_engi"] = { --Engineer Monkey
     end
 }
 
-JokerDisplay.Definitions["j_bloons_sentries"] = { --Sentry Gun
+JokerDisplay.Definitions["j_bloons_sentrygun"] = { --Sentry Gun
 }
 
 JokerDisplay.Definitions["j_bloons_doublegun"] = { --Double Gun

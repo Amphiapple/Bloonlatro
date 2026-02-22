@@ -327,7 +327,8 @@ SMODS.Joker { --Blade Shooter
         text = {
             'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
             'if scoring hand contains',
-            'at least {C:attention}#2# number{} cards',
+            'C:attention}#2#{} cards with rank',
+            'between {C:attention}6{} and {C:attention}10{}',
             '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
         }
     },
@@ -350,10 +351,7 @@ SMODS.Joker { --Blade Shooter
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() >= 0 and
-                        (v:get_id() <= 10 or
-                        v:get_id() == 14) and
-                        not v.debuff then
+                    if v:get_id() >= 6 and v:get_id() <= 10 and not v.debuff then
                         count = count + 1
                     end
                 end

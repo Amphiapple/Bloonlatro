@@ -1,10 +1,9 @@
-# Bloonlatro v0.4.2
+# Bloonlatro v0.4.3
 
 A Balatro mod that incorporates Bloons Tower Defense into the base game
 
 # New Additions:
 
-6 new towers!
 
 ---
 
@@ -20,4 +19,5 @@ As well as all the contributors to this mod
 - Greenkookie56
 - Icicle
 - Kanjerlucas
+- Thisisrealnow
 - Villain7

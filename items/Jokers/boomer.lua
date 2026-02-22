@@ -237,7 +237,7 @@ SMODS.Joker { --Glaive Lord
     perishable_compat = false,
     config = {
         base = 'boomer',
-        extra = { chips = 3, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
+        extra = { chips = 2, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)
@@ -377,10 +377,8 @@ SMODS.Joker { --Bionic Boomerang
 	loc_txt = {
         name = 'Bionic Boomerang',
         text = {
-            'This {C:attention}Joker{} gains {C:chips}+#1#{}',
-            'Chips for each {C:attention}Steel{}',
-            'card held in hand',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
+            'Retrigger all {C:attention}Steel{}',
+            'cards held in hand',
         }
     },
 	atlas = 'Joker',
@@ -388,23 +386,20 @@ SMODS.Joker { --Bionic Boomerang
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
-    perishable_compat = false,
     enhancement_gate = 'm_steel',
     config = {
         base = 'boomer',
-        extra = { chips = 3, current = 0 } --Variables: chips = +chips gain if steel is held, current = current +chips
+        extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
-		return { vars = { card.ability.extra.chips, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Steel Card' and not context.other_card.debuff and not context.end_of_round and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.chips
-        elseif context.joker_main then
+        if context.repetition and context.cardarea == G.hand and context.other_card.ability.name == 'Steel Card' and not context.other_card.debuff then
             return {
-                chips = card.ability.extra.current
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger
             }
         end
     end

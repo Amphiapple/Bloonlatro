@@ -57,7 +57,7 @@ return {
             ch_c_difficulty_warning = {
                 "Warning: This challenge is {C:attention}RIDICULOUSLY {C:red}DIFFICULT{}"
             },
-            ch_c_bloonlatro = {
+            ch_c_glorious_gold = {
                 "All vanilla {C:attention}Jokers{} are banned"
             },
             ch_c_gorgon_storm = {
