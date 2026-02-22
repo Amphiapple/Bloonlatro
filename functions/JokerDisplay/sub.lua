@@ -96,7 +96,7 @@ JokerDisplay.Definitions["j_bloons_ballistic"] = { --Ballistic Missile
         end
         local max = 1
         local idx_by_id = {}
-        for k, v in ipairs(G.hand.cards) do
+        for k, v in ipairs(held_cards) do
             local id = v:get_id()
             if idx_by_id[id] then
                 idx_by_id[id] = idx_by_id[id] + 1

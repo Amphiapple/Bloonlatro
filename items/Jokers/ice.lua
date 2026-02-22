@@ -11,7 +11,7 @@ SMODS.Joker { --Ice Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 4 },
+	pos = { x = 0, y = 4 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -291,7 +291,7 @@ SMODS.Joker { --Embrittlement
                                 return true
                             end
                         }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
                         return true
                     end
                 }))
@@ -677,7 +677,7 @@ SMODS.Joker { --Larger Radius
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 4 },
+	pos = { x = 11, y = 4 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,

@@ -36,8 +36,22 @@ JokerDisplay.Definitions["j_bloons_quickdraw"] = { --Quickdraw
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        local unscoring = #G.hand.highlighted - #scoring_hand
-        if text ~= 'Unknown' then
+        local playing_hand = next(G.play.cards)
+        local unscoring = 0
+        if playing_hand then
+            for k, v in ipairs(G.play.cards) do
+                if not SMODS.in_scoring(v, scoring_hand) then
+                    unscoring = unscoring + 1
+                end
+            end
+            for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
+                local scoring_card = scoring_hand[i]
+                if scoring_card then
+                    count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                end
+            end
+        elseif text ~= 'Unknown' then
+            unscoring = #G.hand.highlighted - #scoring_hand
             for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
                 local scoring_card = scoring_hand[i]
                 if scoring_card then
@@ -62,8 +76,18 @@ JokerDisplay.Definitions["j_bloons_standoff"] = { --Standoff
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        local missing = 5 - #G.hand.highlighted
-        if text ~= 'Unknown' then
+        local playing_hand = next(G.play.cards)
+        local missing = 0
+        if playing_hand then
+            missing = 5 - #G.play.cards
+            for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
+                local scoring_card = scoring_hand[i]
+                if scoring_card then
+                    count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                end
+            end
+        elseif text ~= 'Unknown' then
+            missing = 5 - #G.hand.highlighted
             for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
                 local scoring_card = scoring_hand[i]
                 if scoring_card then

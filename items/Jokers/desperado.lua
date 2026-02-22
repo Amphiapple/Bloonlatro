@@ -58,9 +58,11 @@ SMODS.Joker { --Quickdraw
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and (context.other_card == context.scoring_hand[1] or context.other_card == context.scoring_hand[2]) then
             local temp_mult = card.ability.extra.mult * (#context.full_hand - #context.scoring_hand)
-            return {
-                mult = temp_mult
-            }
+            if temp_mult > 0 then
+                return {
+                    mult = temp_mult
+                }
+            end
 		end
     end
 }
@@ -93,9 +95,11 @@ SMODS.Joker { --Standoff
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and (context.other_card == context.scoring_hand[1] or context.other_card == context.scoring_hand[2]) then
             local temp_mult = card.ability.extra.mult * (5 - #context.full_hand)
-            return {
-                mult = temp_mult
-            }
+            if temp_mult > 0 then
+                return {
+                    mult = temp_mult
+                }
+            end
 		end
     end
 }
@@ -347,7 +351,7 @@ SMODS.Joker { --Bounty Hunter
     blueprint_compat = true,
     config = {
         base = 'desperado',
-        extra = { money = 5 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
+        extra = { money = 3 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -544,48 +548,6 @@ SMODS.Joker { --Enforcer
             'Mult if scoring hand',
             'contains {C:attention}#2#{} cards',
             '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 13, y = 6 },
-    rarity = 2,
-	cost = 6,
-    blueprint_compat = true,
-    perishable_compat = false,
-    config = {
-        base = 'desperado',
-        extra = { Xmult = 0.1, number = 5, current = 1 } --Variables: Xmult = Xmult gain, number = required scoring cards, current = current Xmult
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.number, card.ability.extra.current } }
-    end,
-    calculate = function(self, card, context)
-        if context.before and #context.scoring_hand == card.ability.extra.number and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-            return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
-                colour = G.C.MULT,
-                delay = 0.45,
-            }
-        elseif context.joker_main then
-            return {
-                x_mult = card.ability.extra.current,
-            }
-        end
-    end
-}
-
-SMODS.Joker { --Enforcer
-    key = 'enforcer',
-    name = 'Enforcer',
-	loc_txt = {
-        name = 'Enforcer',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{}',
-            'Mult if scoring hand',
-            'contains {C:attention}#2#{} cards',
-            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)',
         }
     },
 	atlas = 'Joker',

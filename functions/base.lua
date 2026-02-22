@@ -38,9 +38,6 @@ Support_towers = {
 --Tower effects function
 function Card.get_category_vtsg(self)
     local category = self.ability.base
-    if category == 'other' then
-        return nil
-    end
     for k, v in ipairs(Primary_towers) do
         if category == v then
             return 'primary'
@@ -61,7 +58,7 @@ function Card.get_category_vtsg(self)
             return 'support'
         end
     end
-    return 'primary'
+    return nil
 end
 
 --Challenge id function
