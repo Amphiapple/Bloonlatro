@@ -54,7 +54,7 @@ SMODS.Back { --Gwen
         name = 'Gwendolin Deck',
         text = {
             'Start run with',
-            'an {C:spectral}Immolate{} card',
+            'an {C:spectral,T:c_immolate}Immolate{} card',
             '{C:blue}-1{} hand every round'
         }
     },
@@ -70,7 +70,7 @@ SMODS.Back { --Jones
 	loc_txt = {
         name = 'Jones Deck',
         text = {
-            '{C:attention}Stun{} all {C:spades}Spades{}',
+            '{C:attention,T:m_bloons_stunned}Stun{} all {C:spades}Spades{}',
             'when drawn to hand'
         }
     },
@@ -96,8 +96,8 @@ SMODS.Back { --Obyn
 	loc_txt = {
         name = 'Obyn Deck',
         text = {
-            'Start run with {C:money}Seed Money{}',
-            'and {C:money}Money Tree{}'
+            'Start run with {C:money,T:v_seed_money}Seed Money{}',
+            'and {C:money,T:v_money_tree}Money Tree{}'
         }
     },
 	atlas = "Back",
@@ -153,7 +153,7 @@ SMODS.Back { --Ben
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            'Start with {C:attention}Monkey Bank{}',
+            'Start with {C:attention,T:j_bloons_bank}Monkey Bank{}',
             'and extra {C:money}$#1#'
         }
     },
@@ -174,8 +174,8 @@ SMODS.Back { --Ezili
         name = 'Ezili Deck',
         text = {
             'Start run with',
-            '{C:attention}Magic Trick{}, {C:enhanced}Illusion{},',
-            '{C:dark_edition}Hone{}, and {C:dark_edition}Glow Up{}'
+            '{C:attention,T:v_magic_trick}Magic Trick{}, {C:enhanced,T:v_illusion}Illusion{},',
+            '{C:dark_edition,T:v_hone}Hone{}, and {C:dark_edition,T:v_glow_up}Glow Up{}'
         }
     },
 	atlas = "Back",
@@ -472,7 +472,7 @@ SMODS.Back { --Silas
 	loc_txt = {
         name = 'Silas Deck',
         text = {
-            '{C:attention}Freeze #1#{} cards',
+            '{C:attention,T:m_bloons_frozen}Freeze #1#{} cards',
             'held in hand at',
             'end of round'
         }
