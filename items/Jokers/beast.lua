@@ -130,10 +130,10 @@ SMODS.Joker { --Great White
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
-            for i = 1, #context.scoring_hand do
-                if context.other_card == context.scoring_hand[i] and
-                ((i > 1 and context.scoring_hand[i-1].ability.name == 'Bonus') or
-                (i < #context.scoring_hand and context.scoring_hand[i+1].ability.name == 'Bonus')) then
+            for k, v in ipairs(context.scoring_hand) do
+                if context.other_card == context.scoring_hand[k] and
+                ((k > 1 and context.scoring_hand[i-1].ability.name == 'Bonus') or
+                (k < #context.scoring_hand and context.scoring_hand[k+1].ability.name == 'Bonus')) then
                     return {
                         message = localize('k_again_ex'),
                         repetitions = card.ability.extra.retrigger

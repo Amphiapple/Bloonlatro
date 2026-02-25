@@ -516,10 +516,10 @@ SMODS.Joker { --Nomad
     },
 
     loc_vars = function(self, info_queue, card)
-        local function process_vars(poker_hand)
+        local function process_var(poker_hand)
             return poker_hand ~= '' and '[' .. poker_hand .. ']' or poker_hand
         end
-		return { vars = { card.ability.extra.chips, card.ability.extra.current, process_vars(card.ability.extra.poker_hand) } }
+		return { vars = { card.ability.extra.chips, card.ability.extra.current, process_var(card.ability.extra.poker_hand) } }
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then

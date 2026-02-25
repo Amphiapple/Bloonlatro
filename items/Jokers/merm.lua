@@ -259,8 +259,8 @@ SMODS.Joker { --Lord of the Abyss
                 end
             end
             local return_list = {
-                'chips', 'h_chips', 'chips_mod',
-                'mult', 'h_mult', 'mult_mod',
+                'chips', 'h_chips', 's_chips', 't_chips', 'chips_mod',
+                'mult', 'h_mult', 's_mult', 't_mult', 'mult_mod',
                 'xmult', 'Xmult', 'x_mult', 'x_mult_mod', 'Xmult_mod',
             }
             if left_joker and context.other_card == left_joker or right_joker and context.other_card == right_joker then

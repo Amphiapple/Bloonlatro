@@ -1,4 +1,6 @@
 Added Jokers:
+- All remaining Bomb Shooters
+- All remaining Monkey Aces
 - All remaining Engineer Monkeys
 
 General Changes:
@@ -8,8 +10,16 @@ General Changes:
 Balance Changes:
 - Glaive Lord chip gain 3 > 2
 - Bionic Boomerang reworked
+- Base Bomb, Missile Launcher, and Frag Bombs reworked
+- Bomb Blitz cost 7 > 8
+- Bomb Blitz chips scored percent 50 > 25
+- Super Brittle no longer provides permanent Xmult held in hand
+- Absolute Zero reworked
 - Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
 - Bounty Hunter money 5 > 3
+- Ground Zero chips 350 > 300, first hand > final hand
+- Spiked Balls and Spiked Mines reworked
+- Carpet of Spikes X0.2 per discard > X1.3 if 0 discards remaining
 - VTSG no longer defaults non-towers to Primary category sacrifices
 
 Fixes:

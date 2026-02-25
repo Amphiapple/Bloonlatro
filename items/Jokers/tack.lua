@@ -327,7 +327,7 @@ SMODS.Joker { --Blade Shooter
         text = {
             'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
             'if scoring hand contains',
-            'C:attention}#2#{} cards with rank',
+            '{C:attention}#2#{} cards with rank',
             'between {C:attention}6{} and {C:attention}10{}',
             '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
         }
