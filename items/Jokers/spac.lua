@@ -1,5 +1,5 @@
 SMODS.Joker { --Spike Factory
-    key = 'spac',
+    key = 'spike_factory',
     name = 'Spike Factory',
     loc_txt = {
         name = 'Spike Factory',
@@ -46,7 +46,7 @@ SMODS.Joker { --Spike Factory
 }
 
 SMODS.Joker { --Bigger Stacks
-    key = 'stacks',
+    key = 'bigger_stacks',
     name = 'Bigger Stacks',
     loc_txt = {
         name = 'Bigger Stacks',
@@ -93,7 +93,7 @@ SMODS.Joker { --Bigger Stacks
 }
 
 SMODS.Joker { --White Hot Spikes
-    key = 'whitehot',
+    key = 'white_hot_spikes',
     name = 'whitehot',
     loc_txt = {
         name = 'White Hot Spikes',
@@ -126,7 +126,7 @@ SMODS.Joker { --White Hot Spikes
 }
 
 SMODS.Joker { --Spiked Balls
-    key = 'spalls',
+    key = 'spiked_balls',
     name = 'Spiked Balls',
     loc_txt = {
         name = 'Spiked Balls',
@@ -173,14 +173,14 @@ SMODS.Joker { --Spiked Balls
 }
 
 SMODS.Joker { --Spiked Mines
-    key = 'spines',
+    key = 'spiked_mines',
     name = 'Spiked Mines',
     loc_txt = {
         name = 'Spiked Mines',
         text = {
             '{X:mult,C:white}X#1#{} Mult and',
-            'destroy all played cards',
-            'on final hand of round',
+            'destroy all scoring cards',
+            'on {C:attention}final hand{} of round',
         }
     },
     atlas = 'Joker',
@@ -211,7 +211,7 @@ SMODS.Joker { --Spiked Mines
 }
 
 SMODS.Joker { --Faster Production
-    key = 'fastspac',
+    key = 'faster_production',
     name = 'Faster Production',
     loc_txt = {
         name = 'Faster Production',
@@ -258,7 +258,7 @@ SMODS.Joker { --Faster Production
 }
 
 SMODS.Joker { --Even Faster Production
-    key = 'evenspac',
+    key = 'even_faster_production',
     name = 'Even Faster Production',
     loc_txt = {
         name = 'Even Faster Production',
@@ -306,7 +306,7 @@ SMODS.Joker { --Even Faster Production
 
 
 SMODS.Joker { --MOAB SHREDR
-    key = 'shredr',
+    key = 'moab_shredr',
     name = 'MOAB SHREDR',
 	loc_txt = {
         name = 'MOAB SHREDR',
@@ -367,7 +367,7 @@ SMODS.Joker { --MOAB SHREDR
 }
 
 SMODS.Joker { --Spike Storm
-    key = 'sporm',
+    key = 'spike_storm',
     name = 'Spike Storm',
 	loc_txt = {
         name = 'Spike Storm',
@@ -421,7 +421,7 @@ SMODS.Joker { --Spike Storm
 }
 
 SMODS.Joker { --Carpet of Spikes
-    key = 'cos',
+    key = 'carpet_of_spikes',
     name = 'Carpet of Spikes',
 	loc_txt = {
         name = 'Carpet of Spikes',
@@ -454,7 +454,7 @@ SMODS.Joker { --Carpet of Spikes
 }
 
 SMODS.Joker { --Long Reach
-    key = 'rangespac',
+    key = 'long_reach',
     name = 'Long Reach',
     loc_txt = {
         name = 'Long Reach',
@@ -494,7 +494,7 @@ SMODS.Joker { --Long Reach
 }
 
 SMODS.Joker { --Smart Spikes
-    key = 'smart',
+    key = 'smart_spikes',
     name = 'Smart Spikes',
     loc_txt = {
         name = 'Smart Spikes',
@@ -533,7 +533,7 @@ SMODS.Joker { --Smart Spikes
 }
 
 SMODS.Joker { --Long Life Spikes
-    key = 'lls',
+    key = 'long_life_spikes',
     name = 'Long Life Spikes',
 	loc_txt = {
         name = 'Long Life Spikes',
@@ -595,7 +595,7 @@ SMODS.Joker { --Long Life Spikes
 }
 
 SMODS.Joker { --Deadly Spikes
-    key = 'deadly',
+    key = 'deadly_spikes',
     name = 'Deadly Spikes',
 	loc_txt = {
         name = 'Deadly Spikes',
@@ -659,7 +659,7 @@ SMODS.Joker { --Deadly Spikes
 }
 
 SMODS.Joker { --Perma-Spike
-    key = 'pspike',
+    key = 'perma_spike',
     name = 'Perma-Spike',
     loc_txt = {
         name = 'Perma-Spike',

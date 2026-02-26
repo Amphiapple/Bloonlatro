@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_dart"] = { --Dart Monkey
+JokerDisplay.Definitions["j_bloons_dart_monkey"] = { --Dart Monkey
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -7,7 +7,7 @@ JokerDisplay.Definitions["j_bloons_dart"] = { --Dart Monkey
     }
 }
 
-JokerDisplay.Definitions["j_bloons_sharp"] = { --Sharp Shots
+JokerDisplay.Definitions["j_bloons_sharp_shots"] = { --Sharp Shots
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -16,7 +16,7 @@ JokerDisplay.Definitions["j_bloons_sharp"] = { --Sharp Shots
     }
 }
 
-JokerDisplay.Definitions["j_bloons_razor"] = { --Razor Sharp Shots
+JokerDisplay.Definitions["j_bloons_razor_sharp_shots"] = { --Razor Sharp Shots
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -25,7 +25,7 @@ JokerDisplay.Definitions["j_bloons_razor"] = { --Razor Sharp Shots
     }
 }
 
-JokerDisplay.Definitions["j_bloons_spult"] = { --Spike-o-pult
+JokerDisplay.Definitions["j_bloons_spike_o_pult"] = { --Spike-o-pult
     text = {
         { text = "+", colour = G.C.MULT }, 
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -43,7 +43,7 @@ JokerDisplay.Definitions["j_bloons_spult"] = { --Spike-o-pult
     end
 }
 
-JokerDisplay.Definitions["j_bloons_jugg"] = { --Juggernaut
+JokerDisplay.Definitions["j_bloons_juggernaut"] = { --Juggernaut
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -61,7 +61,7 @@ JokerDisplay.Definitions["j_bloons_jugg"] = { --Juggernaut
     end
 }
 
-JokerDisplay.Definitions["j_bloons_ujugg"] = { --Ultra-Juggernaut
+JokerDisplay.Definitions["j_bloons_ultra_juggernaut"] = { --Ultra-Juggernaut
     text = {
         {
             border_nodes = {
@@ -87,7 +87,7 @@ JokerDisplay.Definitions["j_bloons_ujugg"] = { --Ultra-Juggernaut
     end
 }
 
-JokerDisplay.Definitions["j_bloons_quick"] = { --Quick Shots
+JokerDisplay.Definitions["j_bloons_quick_shots"] = { --Quick Shots
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -96,7 +96,7 @@ JokerDisplay.Definitions["j_bloons_quick"] = { --Quick Shots
     }
 }
 
-JokerDisplay.Definitions["j_bloons_veryquick"] = { --Quick Shots
+JokerDisplay.Definitions["j_bloons_very_quick_shots"] = { --Quick Shots
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -105,7 +105,7 @@ JokerDisplay.Definitions["j_bloons_veryquick"] = { --Quick Shots
     }
 }
 
-JokerDisplay.Definitions["j_bloons_tripshot"] = { --Triple shot
+JokerDisplay.Definitions["j_bloons_triple_shot"] = { --Triple shot
     text = {
         { text = "+", colour = G.C.SECONDARY_SET.Tarot },
         { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Tarot }
@@ -127,7 +127,7 @@ JokerDisplay.Definitions["j_bloons_tripshot"] = { --Triple shot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_smfc"] = { --Super Monkey Fan Club
+JokerDisplay.Definitions["j_bloons_super_monkey_fan_club"] = { --Super Monkey Fan Club
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
@@ -155,7 +155,7 @@ JokerDisplay.Definitions["j_bloons_smfc"] = { --Super Monkey Fan Club
     end
 }
 
-JokerDisplay.Definitions["j_bloons_pmfc"] = { --Plasma Monkey Fan Club
+JokerDisplay.Definitions["j_bloons_plasma_monkey_fan_club"] = { --Plasma Monkey Fan Club
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
@@ -183,7 +183,7 @@ JokerDisplay.Definitions["j_bloons_pmfc"] = { --Plasma Monkey Fan Club
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangedart"] = { --Long Range Darts
+JokerDisplay.Definitions["j_bloons_long_range_darts"] = { --Long Range Darts
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current_chips", colour = G.C.CHIPS },
@@ -192,10 +192,10 @@ JokerDisplay.Definitions["j_bloons_rangedart"] = { --Long Range Darts
     }
 }
 
-JokerDisplay.Definitions["j_bloons_eyesight"] = { --Enhanced Eyesight
+JokerDisplay.Definitions["j_bloons_enhanced_eyesight"] = { --Enhanced Eyesight
 }
 
-JokerDisplay.Definitions["j_bloons_xbow"] = { --Crossbow
+JokerDisplay.Definitions["j_bloons_crossbow"] = { --Crossbow
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
@@ -210,7 +210,7 @@ JokerDisplay.Definitions["j_bloons_xbow"] = { --Crossbow
     end
 }
 
-JokerDisplay.Definitions["j_bloons_sshooter"] = { --Sharp Shooter
+JokerDisplay.Definitions["j_bloons_sharp_shooter"] = { --Sharp Shooter
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -248,7 +248,7 @@ JokerDisplay.Definitions["j_bloons_sshooter"] = { --Sharp Shooter
     end
 }
 
-JokerDisplay.Definitions["j_bloons_xbm"] = { --Crossbow Master
+JokerDisplay.Definitions["j_bloons_crossbow_master"] = { --Crossbow Master
     text = {
         {
             border_nodes = {

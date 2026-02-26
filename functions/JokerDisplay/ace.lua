@@ -214,6 +214,6 @@ JokerDisplay.Definitions["j_bloons_spectre"] = { --Spectre
                 end
             end
         end
-        card.joker_display_values.tarots = count >= card.ability.extra.number and 1 or 0
+        card.joker_display_values.count = count >= card.ability.extra.number and 1 or 0
     end
 }

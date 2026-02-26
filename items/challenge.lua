@@ -8,15 +8,15 @@ Challenge_stakes = {
 }
 
 local banned_hand_cards = {
-    {id = 'j_bloons_espionage'},
-    {id = 'j_bloons_draft'},
-    {id = 'j_bloons_dots'},
-    {id = 'j_bloons_rangespac'},
-    {id = 'j_bloons_pspike'},
+    {id = 'j_bloons_downdraft'},
+    {id = 'j_bloons_counter_espionage'},
+    {id = 'j_bloons_druid_of_the_storm'},
+    {id = 'j_bloons_long_reach'},
+    {id = 'j_bloons_perma_spike'},
     {id = 'j_burglar'},
     {id = 'v_grabber'},
     {id = 'v_nacho_tong'},
-    {id = 'c_bloons_time'}
+    {id = 'c_bloons_time_stop'}
 }
 
 local monkeyopolis_tags = {
@@ -43,7 +43,7 @@ local crash_of_the_titans_cards = {
     {id = 'c_familiar'},
     {id = 'c_immolate'},
     {id = 'c_bloons_volcano'},
-    {id = 'c_bloons_cave'},
+    {id = 'c_bloons_cave_monkey'},
     {id = 'p_standard_normal_1',
         ids = {'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2'},
     },
@@ -52,17 +52,17 @@ local crash_of_the_titans_cards = {
     {id = 'j_trading'},
     {id = 'j_erosion'},
     {id = 'j_dna'},
-    {id = 'j_bloons_blitz'},
-    {id = 'j_bloons_rof'},
-    {id = 'j_bloons_iring'},
-    {id = 'j_bloons_sbrit'},
-    {id = 'j_bloons_pineapple'},
-    {id = 'j_bloons_burny'},
-    {id = 'j_bloons_necro'},
-    {id = 'j_bloons_wlp'},
-    {id = 'j_bloons_tt5'},
-    {id = 'j_bloons_foam'},
-    {id = 'j_bloons_meg'},
+    {id = 'j_bloons_bomb_blitz'},
+    {id = 'j_bloons_ring_of_fire'},
+    {id = 'j_bloons_inferno_ring'},
+    {id = 'j_bloons_super_brittle'},
+    {id = 'j_bloons_exploding_pineapple'},
+    {id = 'j_bloons_burny_stuff'},
+    {id = 'j_bloons_necromancer'},
+    {id = 'j_bloons_wizard_lord_phoenix'},
+    {id = 'j_bloons_total_transformation'},
+    {id = 'j_bloons_cleansing_foam'},
+    {id = 'j_bloons_megalodon'},
     {id = 'j_bloons_mdom'},
     {id = 'v_magic_trick'},
     {id = 'v_illusion'},
@@ -75,8 +75,8 @@ for _, joker in ipairs(banned_hand_cards) do
 end
 
 local joshs_constant_cards = {
-    { id = 'j_bloons_tt5'},
-    { id = 'j_bloons_foam'},
+    { id = 'j_bloons_total_transformation'},
+    { id = 'j_bloons_cleansing_foam'},
 }
 
 for _, joker in ipairs(banned_hand_cards) do
@@ -87,7 +87,7 @@ local inflated_cards = {
     {id = 'j_juggler'},
     {id = 'j_troubadour'},
     {id = 'j_turtle_bean'},
-    {id = 'j_bloons_condor'},
+    {id = 'j_bloons_giant_condor'},
     {id = 'v_paint_brush'},
     {id = 'v_palette'},
 }
@@ -98,11 +98,11 @@ end
 
 local survivor_cards = {
     {id = 'j_chaos'},
-    {id = 'j_bloons_rangesub'},
-    {id = 'j_bloons_intel'},
-    {id = 'j_bloons_sns'},
-    {id = 'j_bloons_gizer'},
-    {id = 'j_bloons_range'},
+    {id = 'j_bloons_longer_range'},
+    {id = 'j_bloons_advanced_intel'},
+    {id = 'j_bloons_submerge_and_support'},
+    {id = 'j_bloons_energizer'},
+    {id = 'j_bloons_super_range'},
     {id = 'v_overstock_norm'},
     {id = 'v_overstock_plus'},
     {id = 'v_reroll_surplus'},
@@ -112,13 +112,13 @@ local survivor_cards = {
 local banned_2tc_cards = {
     {id = 'c_ectoplasm'},
     {id = 'c_bloons_pontoon'},
-    {id = 'j_bloons_flag'},
-    {id = 'j_bloons_ninja'},
-    {id = 'j_bloons_discipline'},
-    {id = 'j_bloons_sharpshur'},
-    {id = 'j_bloons_distract'},
-    {id = 'j_bloons_espionage'},
-    {id = 'j_bloons_seeking'},
+    {id = 'j_bloons_carrier_flagship'},
+    {id = 'j_bloons_ninja_monkey'},
+    {id = 'j_bloons_ninja_discipline'},
+    {id = 'j_bloons_sharp_shurikens'},
+    {id = 'j_bloons_distraction'},
+    {id = 'j_bloons_counter_espionage'},
+    {id = 'j_bloons_seeking_shuriken'},
     {id = 'j_bloons_caltrops'},
     {id = 'v_antimatter'},
 }
@@ -127,8 +127,8 @@ local boss_jokers = {
     {id = 'j_luchador'},
     {id = 'j_chicot'},
     {id = 'j_mr_bones'},
-    {id = 'j_bloons_blitz'},
-    {id = 'j_bloons_cripple'},
+    {id = 'j_bloons_bomb_blitz'},
+    {id = 'j_bloons_cripple_moab'},
 }
 
 local boss_bans = {
@@ -161,15 +161,15 @@ SMODS.Challenge {
     },
     restrictions = {
         banned_cards = {
-            { id = 'j_bloons_tt5'},
-            { id = 'j_bloons_foam'},
+            { id = 'j_bloons_total_transformation'},
+            { id = 'j_bloons_cleansing_foam'},
         },
         banned_tags = {
             { id = 'tag_bloons_cleansing' },
         },
     },
     jokers = {
-        { id = 'j_bloons_r2g', eternal = true }
+        { id = 'j_bloons_rubber_to_gold', eternal = true }
     },
     vouchers = {},
     deck = {
@@ -200,8 +200,8 @@ SMODS.Challenge {
             {id = 'c_temperance'},
             {id = 'c_wraith'},
             {id = 'c_soul'},
-            {id = 'c_bloons_cash'},
-            {id = 'c_bloons_farmer'},
+            {id = 'c_bloons_cash_drop'},
+            {id = 'c_bloons_banana_farmer'},
             {id = 'v_antimatter'},
             {id = 'v_bloons_grand_prix_spree'},
             {id = 'p_buffoon_normal_1',
@@ -211,7 +211,7 @@ SMODS.Challenge {
         banned_tags = monkeyopolis_tags,
     },
     jokers = {
-        { id = 'j_bloons_city', eternal = true }
+        { id = 'j_bloons_monkey_city', eternal = true }
     }
 }
 
@@ -227,13 +227,13 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_rorm', eternal = true }
+        { id = 'j_bloons_rocket_storm', eternal = true }
     },
     vouchers = {},
     restrictions = {
         banned_cards = {
-            { id = 'j_bloons_tt5'},
-            { id = 'j_bloons_foam'},
+            { id = 'j_bloons_total_transformation'},
+            { id = 'j_bloons_cleansing_foam'},
         },
         banned_tags = {
             { id = 'tag_bloons_cleansing' },
@@ -268,8 +268,9 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_rangesub' },
-        { id = 'j_bloons_intel' }
+        { id = 'j_bloons_longer_range' },
+        { id = 'j_bloons_advanced_intel' },
+        { id = 'j_bloons_super_range'},
     },
     vouchers = {},
     restrictions = {
@@ -304,7 +305,7 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_cin', eternal = true }
+        { id = 'j_bloons_blooncineration', eternal = true }
     },
     vouchers = {},
     restrictions = {
@@ -342,7 +343,7 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_pspike', eternal = true }
+        { id = 'j_bloons_perma_spike', eternal = true }
     },
     vouchers = {},
     restrictions = {

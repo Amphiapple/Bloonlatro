@@ -1,5 +1,5 @@
 SMODS.Joker { --Boomerang Monkey
-    key = 'boomer',
+    key = 'boomerang_monkey',
     name = 'Boomerang Monkey',
 	loc_txt = {
         name = 'Boomerang Monkey',
@@ -30,7 +30,7 @@ SMODS.Joker { --Boomerang Monkey
 }
 
 SMODS.Joker { --Improved Rangs
-    key = 'improved',
+    key = 'improved_rangs',
     name = 'Improved Rangs',
     loc_txt = {
         name = 'Improved Rangs',
@@ -100,7 +100,7 @@ SMODS.Joker { --Glaives
 }
 
 SMODS.Joker { --Glaive Ricochet
-    key = 'rico',
+    key = 'glaive_ricochet',
     name = 'Glaive Ricochet',
     loc_txt = {
         name = 'Glaive Ricochet',
@@ -152,7 +152,7 @@ SMODS.Joker { --Glaive Ricochet
 }
 
 SMODS.Joker { --MOAR Glaives
-    key = 'moar',
+    key = 'moar_glaives',
     name = 'MOAR Glaives',
     loc_txt = {
         name = 'MOAR Glaives',
@@ -218,7 +218,7 @@ SMODS.Joker { --MOAR Glaives
 }
 
 SMODS.Joker { --Glaive Lord
-    key = 'glord',
+    key = 'glaive_lord',
     name = 'Glaive Lord',
 	loc_txt = {
         name = 'Glaive Lord',
@@ -309,7 +309,7 @@ SMODS.Joker { --Glaive Lord
 }
 
 SMODS.Joker { --Faster Throwing
-    key = 'fastboomer',
+    key = 'faster_throwing_boomerang',
     name = 'Faster Throwing (Boomerang)',
 	loc_txt = {
         name = 'Faster Throwing',
@@ -339,7 +339,7 @@ SMODS.Joker { --Faster Throwing
 }
 
 SMODS.Joker { --Faster Rangs
-    key = 'fastrangs',
+    key = 'faster_rangs',
     name = 'Faster Rangs',
 	loc_txt = {
         name = 'Faster Rangs',
@@ -372,7 +372,7 @@ SMODS.Joker { --Faster Rangs
 }
 
 SMODS.Joker { --Bionic Boomerang
-    key = 'bioboomer',
+    key = 'bionic_boomerang',
     name = 'Bionic Boomerang',
 	loc_txt = {
         name = 'Bionic Boomerang',
@@ -406,7 +406,7 @@ SMODS.Joker { --Bionic Boomerang
 }
 
 SMODS.Joker { --Turbo Charge
-    key = 'tcharge',
+    key = 'turbo_charge',
     name = 'Turbo Charge',
 	loc_txt = {
         name = 'Turbo Charge',
@@ -440,7 +440,7 @@ SMODS.Joker { --Turbo Charge
 }
 
 SMODS.Joker { --Perma Charge
-    key = 'pcharge',
+    key = 'perma_charge',
     name = 'Perma Charge',
 	loc_txt = {
         name = 'Perma Charge',
@@ -474,7 +474,7 @@ SMODS.Joker { --Perma Charge
 }
 
 SMODS.Joker { --Long Range Rangs
-    key = 'rangerangs',
+    key = 'long_range_rangs',
     name = 'Long Range Rangs',
     loc_txt = {
         name = 'Long Range Rangs',
@@ -505,7 +505,7 @@ SMODS.Joker { --Long Range Rangs
 }
 
 SMODS.Joker { --Red Hot Rangs
-    key = 'redhot',
+    key = 'red_hot_rangs',
     name = 'Red Hot Rangs',
     loc_txt = {
         name = 'Red Hot Rangs',
@@ -543,7 +543,7 @@ SMODS.Joker { --Red Hot Rangs
 }
 
 SMODS.Joker { --Kylie Boomerang
-    key = 'kylie',
+    key = 'kylie_boomerang',
     name = 'Kylie Boomerang',
     loc_txt = {
         name = 'Kylie Boomerang',
@@ -574,7 +574,7 @@ SMODS.Joker { --Kylie Boomerang
 }
 
 SMODS.Joker { --MOAB Press
-    key = 'press',
+    key = 'moab_press',
     name = 'MOAB Press',
     loc_txt = {
         name = 'MOAB Press',
@@ -603,44 +603,3 @@ SMODS.Joker { --MOAB Press
         end
     end
 }
-
---[[
-SMODS.Joker { --MOAB Press
-    key = 'press',
-    name = 'MOAB Press',
-    loc_txt = {
-        name = 'MOAB Press',
-        text = {
-            'If played hand',
-            'contains only {C:attention}1{} card',
-            'on the {C:attention}Boss Blind{},',
-            'add a {C:attention}Red Seal{} to it',
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 14, y = 1 },
-    rarity = 2,
-	cost = 5,
-    blueprint_compat = false,
-    config = {
-        base = 'boomer',
-    },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_SEALS.Red
-    end,
-    calculate = function(self, card, context)
-        if context.before and G.GAME.blind.boss and #context.full_hand == 1 and not context.full_hand[1].debuff and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    context.full_hand[1]:set_seal('Red', nil, true)
-                    return true
-                end
-            }))
-            delay(0.5)
-        end
-    end
-}
-]]

@@ -1,5 +1,5 @@
 SMODS.Joker { --Engineer Monkey
-    key = 'engi',
+    key = 'engineer_monkey',
     name = 'Engineer Monkey',
 	loc_txt = {
         name = 'Engineer Monkey',
@@ -40,7 +40,7 @@ SMODS.Joker { --Engineer Monkey
 }
 
 SMODS.Joker { --Sentry Gun
-    key = 'sentrygun',
+    key = 'sentry_gun',
     name = 'Sentry Gun',
     loc_txt = {
         name = 'Sentry Gun',
@@ -78,7 +78,7 @@ SMODS.Joker { --Sentry Gun
 }
 
 SMODS.Joker { --Faster Engineering
-    key = 'fastengi',
+    key = 'faster_engineering',
     name = 'Faster Engineering',
     loc_txt = {
         name = 'Faster Engineering',
@@ -166,7 +166,7 @@ SMODS.Joker { --Sprockets
 }
 
 SMODS.Joker { --Sentry Expert
-    key = 'sexpert',
+    key = 'sentry_expert',
     name = 'Sentry Expert',
 	loc_txt = {
         name = 'Sentry Expert',
@@ -209,7 +209,7 @@ SMODS.Joker { --Sentry Expert
 }
 
 SMODS.Joker { --Sentry Champion
-    key = 'schamp',
+    key = 'sentry_champion',
     name = 'Sentry Champion',
 	loc_txt = {
         name = 'Sentry Champion',
@@ -247,7 +247,7 @@ SMODS.Joker { --Sentry Champion
 }
 
 SMODS.Joker { --Larger Service Area
-    key = 'rangeengi',
+    key = 'larger_service_area',
     name = 'Larger Service Area',
     loc_txt = {
         name = 'Larger Service Area',
@@ -261,7 +261,7 @@ SMODS.Joker { --Larger Service Area
     atlas = 'Joker',
 	pos = { x = 6, y = 23 },
     rarity = 1,
-	cost = 55,
+	cost = 5,
     blueprint_compat = true,
     config = {
         base = 'engi',
@@ -290,7 +290,7 @@ SMODS.Joker { --Larger Service Area
 }
 
 SMODS.Joker { --Deconstruction
-    key = 'decon',
+    key = 'deconstruction',
     name = 'Deconstruction',
     loc_txt = {
         name = 'Deconstruction',
@@ -329,13 +329,13 @@ SMODS.Joker { --Deconstruction
 }
 
 SMODS.Joker { --Cleansing Foam
-    key = 'foam',
+    key = 'cleansing_foam',
     name = 'Cleansing Foam',
     loc_txt = {
         name = 'Cleansing Foam',
         text = {
             'If played hand is',
-            'a {C:attention}Straight Flush{},',
+            'a {C:attention}#1#{},',
             'create a free',
             '{C:attention}Cleansing Tag{}'
         }
@@ -347,13 +347,15 @@ SMODS.Joker { --Cleansing Foam
     blueprint_compat = true,
     config = {
         base = 'engi',
+        extra = { poker_hand = 'Straight Flush' }
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.tag_bloons_cleansing
+        info_queue[#info_queue+1] = G.P_TAGS.tag_bloons_cleansing
+        return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands') } }
     end,
     calculate = function(self, card, context)
-        if context.before and next(context.poker_hands['Straight Flush']) then
+        if context.before and next(context.poker_hands[card.ability.extra.poker_hand]) then
             G.E_MANAGER:add_event(Event({
                 func = (function()
                     add_tag(Tag('tag_bloons_cleansing'))
@@ -368,7 +370,7 @@ SMODS.Joker { --Cleansing Foam
 }
 
 SMODS.Joker { --Overclock
-    key = 'oc',
+    key = 'overclock',
     name = 'Overclock',
     loc_txt = {
         name = 'Overclock',
@@ -413,7 +415,7 @@ SMODS.Joker { --Overclock
 }
 
 SMODS.Joker { --Ultraboost
-    key = 'uboost',
+    key = 'ultraboost',
     name = 'Ultraboost',
 	loc_txt = {
         name = 'Ultraboost',
@@ -455,7 +457,7 @@ SMODS.Joker { --Ultraboost
 }
 
 SMODS.Joker { --Oversize Nails
-    key = 'oversize',
+    key = 'oversize_nails',
     name = 'Oversize Nails',
 	loc_txt = {
         name = 'Oversize Nails',
@@ -493,11 +495,9 @@ SMODS.Joker { --Pin
 	loc_txt = {
         name = 'Pin',
         text = {
-            'Pin this Joker to',
+            '{X:mult,C:white}X#1#{} Mult',
+            '{C:attention}Pin{} this {C:attention}Joker{} to',
             'the leftmost position',
-            'Earn {C:money}$#1#{} if {C:attention}poker hand{}',
-            'contains a {C:attention}Straight{}',
-            'or a {C:attention}Flush{}'
         }
     },
 	atlas = 'Joker',
@@ -505,37 +505,28 @@ SMODS.Joker { --Pin
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
-    perishable_compat = false,
     config = {
         base = 'engi',
-        extra = { money = 5 } --Variables: money = dollars, number = required cards
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     add_to_deck = function(self, card, from_debuff)
         card.pinned = true
     end,
     calculate = function(self, card, context)
-        if context.before and context.poker_hands then
-            if next(context.poker_hands['Straight Flush']) then
-                return {
-                    dollars = card.ability.extra.money * 2,
-                    colour = G.C.MONEY
-                }
-            elseif next(context.poker_hands['Straight']) or next(context.poker_hands['Flush']) then
-                return {
-                    dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
-                }
-            end
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
         end
     end
 }
 
 SMODS.Joker { --Double Gun
-    key = 'doublegun',
+    key = 'double_gun',
     name = 'Double Gun',
 	loc_txt = {
         name = 'Double Gun',
@@ -592,7 +583,7 @@ SMODS.Joker { --Double Gun
 }
 
 SMODS.Joker { --Bloon Trap
-    key = 'trap',
+    key = 'bloon_trap',
     name = 'Bloon Trap',
 	loc_txt = {
         name = 'Bloon Trap',
@@ -644,7 +635,7 @@ SMODS.Joker { --Bloon Trap
 }
 
 SMODS.Joker { --XXXL Trap
-    key = 'xxxl',
+    key = 'xxxl_trap',
     name = 'XXXL Trap',
 	loc_txt = {
         name = 'XXXL Trap',

@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_alch"] = { --Alchemist
+JokerDisplay.Definitions["j_bloons_alchemist"] = { --Alchemist
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
@@ -9,7 +9,7 @@ JokerDisplay.Definitions["j_bloons_alch"] = { --Alchemist
     end
 }
 
-JokerDisplay.Definitions["j_bloons_largerpots"] = { --Larger Potions
+JokerDisplay.Definitions["j_bloons_larger_potions"] = { --Larger Potions
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
@@ -20,7 +20,7 @@ JokerDisplay.Definitions["j_bloons_largerpots"] = { --Larger Potions
     end
 }
 
-JokerDisplay.Definitions["j_bloons_amd"] = { --Acidic Mixture Dip
+JokerDisplay.Definitions["j_bloons_acidic_mixture_dip"] = { --Acidic Mixture Dip
     extra = {
         {
             { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -34,13 +34,13 @@ JokerDisplay.Definitions["j_bloons_amd"] = { --Acidic Mixture Dip
     end
 }
 
-JokerDisplay.Definitions["j_bloons_brew"] = { --Berserker Brew
+JokerDisplay.Definitions["j_bloons_berserker_brew"] = { --Berserker Brew
 }
 
-JokerDisplay.Definitions["j_bloons_stim"] = { --Stronger Stimulant
+JokerDisplay.Definitions["j_bloons_stronger_stimulant"] = { --Stronger Stimulant
 }
 
-JokerDisplay.Definitions["j_bloons_acid"] = { --Stronger Acid
+JokerDisplay.Definitions["j_bloons_stronger_acid"] = { --Stronger Acid
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
@@ -61,10 +61,10 @@ JokerDisplay.Definitions["j_bloons_acid"] = { --Stronger Acid
     end
 }
 
-JokerDisplay.Definitions["j_bloons_perishing"] = { --Perishing Potions
+JokerDisplay.Definitions["j_bloons_perishing_potions"] = { --Perishing Potions
 }
 
-JokerDisplay.Definitions["j_bloons_conc"] = { --Unstable Concoction
+JokerDisplay.Definitions["j_bloons_unstable_concoction"] = { --Unstable Concoction
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -89,7 +89,7 @@ JokerDisplay.Definitions["j_bloons_conc"] = { --Unstable Concoction
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tt4"] = { --Transforming Tonic
+JokerDisplay.Definitions["j_bloons_transforming_tonic"] = { --Transforming Tonic
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -100,7 +100,7 @@ JokerDisplay.Definitions["j_bloons_tt4"] = { --Transforming Tonic
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tt5"] = { --Total Transformation
+JokerDisplay.Definitions["j_bloons_total_transformation"] = { --Total Transformation
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -113,7 +113,7 @@ JokerDisplay.Definitions["j_bloons_tt5"] = { --Total Transformation
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fastalch"] = { --Faster Throwing
+JokerDisplay.Definitions["j_bloons_faster_throwing"] = { --Faster Throwing
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
@@ -123,10 +123,10 @@ JokerDisplay.Definitions["j_bloons_fastalch"] = { --Faster Throwing
         card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left == 2 and 1 or 0
     end
 }
-JokerDisplay.Definitions["j_bloons_pools"] = { --Acid Pools
+JokerDisplay.Definitions["j_bloons_acid_pools"] = { --Acid Pools
 }
 
-JokerDisplay.Definitions["j_bloons_l2g"] = { --Lead to Gold
+JokerDisplay.Definitions["j_bloons_lead_to_gold"] = { --Lead to Gold
     reminder_text = {
         { text = "(" },
         { text = "Steel", colour = G.C.ORANGE },
@@ -134,7 +134,7 @@ JokerDisplay.Definitions["j_bloons_l2g"] = { --Lead to Gold
     },
 }
 
-JokerDisplay.Definitions["j_bloons_r2g"] = { --Rubber to Gold
+JokerDisplay.Definitions["j_bloons_rubber_to_gold"] = { --Rubber to Gold
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -145,7 +145,7 @@ JokerDisplay.Definitions["j_bloons_r2g"] = { --Rubber to Gold
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bma"] = { --Lead to Gold
+JokerDisplay.Definitions["j_bloons_bloon_master_alchemist"] = { --Bloon Master Alchemist
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },

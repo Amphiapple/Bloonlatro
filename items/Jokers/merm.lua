@@ -1,5 +1,5 @@
 SMODS.Joker { --Mermonkey
-    key = 'merm',
+    key = 'mermonkey',
     name = 'Mermonkey',
 	loc_txt = {
         name = 'Mermonkey',
@@ -37,7 +37,7 @@ SMODS.Joker { --Mermonkey
 }
 
 SMODS.Joker { --Trident Efficiency
-    key = 'fastmerm',
+    key = 'trident_efficiency',
     name = 'Trident Efficiency',
 	loc_txt = {
         name = 'Trident Efficiency',
@@ -75,7 +75,7 @@ SMODS.Joker { --Trident Efficiency
 }
 
 SMODS.Joker { --Trident Swiftness
-    key = 'swiftmerm',
+    key = 'trident_swiftness',
     name = 'Trident Swiftness',
 	loc_txt = {
         name = 'Trident Swiftness',
@@ -119,7 +119,7 @@ SMODS.Joker { --Trident Swiftness
 }
 
 SMODS.Joker { --Abyss Dweller
-    key = 'dweller',
+    key = 'abyss_dweller',
     name = 'Abyss Dweller',
     loc_txt = {
         name = 'Abyss Dweller',
@@ -165,7 +165,7 @@ SMODS.Joker { --Abyss Dweller
 }
 
 SMODS.Joker { --Abyssal Warrior
-    key = 'awarrior',
+    key = 'abyssal_warrior',
     name = 'Abyss Dweller',
     loc_txt = {
         name = 'Abyss Dweller',
@@ -216,7 +216,7 @@ SMODS.Joker { --Abyssal Warrior
 }
 
 SMODS.Joker { --Lord of the Abyss
-    key = 'lota',
+    key = 'lord_of_the_abyss',
     name = 'Lord of the Abyss',
     loc_txt = {
         name = 'Lord of the Abyss',
@@ -277,7 +277,7 @@ SMODS.Joker { --Lord of the Abyss
 }
 
 SMODS.Joker { --Sharper Prongs
-    key = 'prongs',
+    key = 'sharper_prongs',
     name = 'Sharper Prongs',
 	loc_txt = {
         name = 'Sharper Prongs',
@@ -315,7 +315,7 @@ SMODS.Joker { --Sharper Prongs
 }
 
 SMODS.Joker { --Tidal Chill
-    key = 'chill',
+    key = 'tidal_chill',
     name = 'Tidal Chill',
 	loc_txt = {
         name = 'Tidal Chill',
@@ -354,7 +354,7 @@ SMODS.Joker { --Tidal Chill
 }
 
 SMODS.Joker { --Riptide Champion
-    key = 'ripchamp',
+    key = 'riptide_champion',
     name = 'Riptide Champion',
 	loc_txt = {
         name = 'Riptide Champion',
@@ -412,7 +412,7 @@ SMODS.Joker { --Riptide Champion
 }
 
 SMODS.Joker { --Arctic Knight
-    key = 'arknight',
+    key = 'arctic_knight',
     name = 'Arctic Knight',
 	loc_txt = {
         name = 'Arctic Knight',
@@ -502,7 +502,7 @@ SMODS.Joker { --Popseidon
 }
 
 SMODS.Joker { --Echosense Precision
-    key = 'echosense',
+    key = 'echosense_precision',
     name = 'Echosense Precision',
     loc_txt = {
         name = 'Echosense Precision',
@@ -522,7 +522,7 @@ SMODS.Joker { --Echosense Precision
 }
 
 SMODS.Joker { --Echosense Network
-    key = 'network',
+    key = 'echosense_network',
     name = 'Echosense Network',
     loc_txt = {
         name = 'Echosense Network',
@@ -566,14 +566,14 @@ SMODS.Joker { --Echosense Network
 }
 
 SMODS.Joker { --Alluring Melody
-    key = 'melody',
+    key = 'alluring_melody',
     name = 'Alluring Melody',
     loc_txt = {
         name = 'Alluring Melody',
         text = {
             "This Joker gains {C:mult}+#1#{} Mult",
-            "per scoring {C:attention}Enhanced card{} played,",
-            "removes card {C:attention}Enhancement",
+            "per scoring {C:enhanced}Enhanced{} card played,",
+            "removes card {C:enhanced}Enhancement",
             "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
         }
     },
@@ -633,14 +633,14 @@ SMODS.Joker { --Alluring Melody
 }
 
 SMODS.Joker { --Symphonic Resonance
-    key = 'symphres',
+    key = 'symphonic_resonance',
     name = 'Symphonic Resonance',
     loc_txt = {
         name = 'Symphonic Resonance',
         text = {
             "This Joker gains {X:mult,C:white}X#1#{} Mult",
-            "per scoring {C:attention}Enhanced card{} played,",
-            "removes card {C:attention}Enhancement",
+            "per scoring {C:enhanced}Enhanced{} card played,",
+            "removes card {C:enhanced}Enhancement",
             'and returns card to hand',
             "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
         }
@@ -698,12 +698,12 @@ SMODS.Joker { --Symphonic Resonance
 }
 
 SMODS.Joker { --The Final Harmonic
-    key = 'tfh',
+    key = 'the_final_harmonic',
     name = 'The Final Harmonic',
     loc_txt = {
         name = 'The Final Harmonic',
         text = {
-            'Return {C:attention}Enhanced{}',
+            'Return {C:enhanced}Enhanced{}',
             'cards to hand after',
             'being scored',
         }

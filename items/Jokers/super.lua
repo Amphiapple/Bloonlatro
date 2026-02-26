@@ -1,5 +1,5 @@
 SMODS.Joker { --Super Monkey
-    key = 'super',
+    key = 'super_monkey',
     name = 'Super Monkey',
 	loc_txt = {
         name = 'Super Monkey',
@@ -30,7 +30,7 @@ SMODS.Joker { --Super Monkey
 }
 
 SMODS.Joker { --Super Range
-    key = 'range',
+    key = 'super_range',
     name = 'Super Range',
 	loc_txt = {
         name = 'Super Range',
@@ -75,7 +75,7 @@ SMODS.Joker { --Super Range
 }
 
 SMODS.Joker { --Ultravision
-    key = 'uv',
+    key = 'ultravision',
     name = 'Ultravision',
     loc_txt = {
         name = 'Ultravision',
@@ -111,7 +111,7 @@ SMODS.Joker { --Ultravision
 
 
 SMODS.Joker { --Sun Avatar
-    key = 'sav',
+    key = 'sun_avatar',
     name = 'Sun Avatar',
     loc_txt = {
         name = 'Sun Avatar',
@@ -151,7 +151,7 @@ SMODS.Joker { --Sun Avatar
 }
 
 SMODS.Joker { --Tech Terror
-    key = 'tech',
+    key = 'tech_terror',
     name = 'Tech Terror',
 	loc_txt = {
         name = 'Tech Terror',
@@ -185,7 +185,7 @@ SMODS.Joker { --Tech Terror
 }
 
 SMODS.Joker { --Legend of the Night
-    key = 'lotn',
+    key = 'legend_of_the_night',
     name = 'Legend of the Night',
 	loc_txt = {
         name = 'Legend of the Night',

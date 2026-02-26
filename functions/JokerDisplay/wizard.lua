@@ -1,7 +1,7 @@
-JokerDisplay.Definitions["j_bloons_wiz"] = { --Wizard Monkey
+JokerDisplay.Definitions["j_bloons_wizard_monkey"] = { --Wizard Monkey
 }
 
-JokerDisplay.Definitions["j_bloons_guided"] = { --Guided Magic
+JokerDisplay.Definitions["j_bloons_guided_magic"] = { --Guided Magic
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "enhancement", colour = G.C.ORANGE },
@@ -12,7 +12,7 @@ JokerDisplay.Definitions["j_bloons_guided"] = { --Guided Magic
     end
 }
 
-JokerDisplay.Definitions["j_bloons_ablast"] = { --Arcane Blast
+JokerDisplay.Definitions["j_bloons_arcane_blast"] = { --Arcane Blast
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
@@ -36,10 +36,10 @@ JokerDisplay.Definitions["j_bloons_ablast"] = { --Arcane Blast
     end
 }
 
-JokerDisplay.Definitions["j_bloons_amast"] = { --Arcane Mastery
+JokerDisplay.Definitions["j_bloons_arcane_mastery"] = { --Arcane Mastery
 }
 
-JokerDisplay.Definitions["j_bloons_aspike"] = { --Arcane Spike
+JokerDisplay.Definitions["j_bloons_arcane_spike"] = { --Arcane Spike
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         local new_enhancement = true
         local e = playing_card.config.center.name
@@ -52,7 +52,7 @@ JokerDisplay.Definitions["j_bloons_aspike"] = { --Arcane Spike
     end
 }
 
-JokerDisplay.Definitions["j_bloons_arch"] = { --Archmage
+JokerDisplay.Definitions["j_bloons_archmage"] = { --Archmage
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         return playing_card.config.center ~= G.P_CENTERS.c_base and
@@ -86,7 +86,7 @@ JokerDisplay.Definitions["j_bloons_fireball"] = { --Fireball
     end
 }
 
-JokerDisplay.Definitions["j_bloons_wof"] = { --Wall of Fire
+JokerDisplay.Definitions["j_bloons_wall_of_fire"] = { --Wall of Fire
     extra = {
         {
             { text = "(" },
@@ -101,7 +101,7 @@ JokerDisplay.Definitions["j_bloons_wof"] = { --Wall of Fire
     end
 }
 
-JokerDisplay.Definitions["j_bloons_dbreath"] = { --Dragon's Breath
+JokerDisplay.Definitions["j_bloons_dragons_breath"] = { --Dragon's Breath
     text = {
         {
             border_nodes = {
@@ -112,13 +112,13 @@ JokerDisplay.Definitions["j_bloons_dbreath"] = { --Dragon's Breath
     },
 }
 
-JokerDisplay.Definitions["j_bloons_phoenix"] = { --Summon Phoenix
+JokerDisplay.Definitions["j_bloons_summon_phoenix"] = { --Summon Phoenix
 }
 
-JokerDisplay.Definitions["j_bloons_wlp"] = { --Wizard Lord Phoenix
+JokerDisplay.Definitions["j_bloons_wizard_lord_phoenix"] = { --Wizard Lord Phoenix
 }
 
-JokerDisplay.Definitions["j_bloons_intense"] = { --Intense Magic
+JokerDisplay.Definitions["j_bloons_intense_magic"] = { --Intense Magic
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
@@ -142,7 +142,7 @@ JokerDisplay.Definitions["j_bloons_intense"] = { --Intense Magic
     end
 }
 
-JokerDisplay.Definitions["j_bloons_sense"] = { --Monkey Sense
+JokerDisplay.Definitions["j_bloons_monkey_sense"] = { --Monkey Sense
 }
 
 JokerDisplay.Definitions["j_bloons_shimmer"] = { --Shimmer
@@ -160,8 +160,8 @@ JokerDisplay.Definitions["j_bloons_shimmer"] = { --Shimmer
     end
 }
 
-JokerDisplay.Definitions["j_bloons_necro"] = { --Necromancer: Unpopped Army
+JokerDisplay.Definitions["j_bloons_necromancer"] = { --Necromancer: Unpopped Army
 }
 
-JokerDisplay.Definitions["j_bloons_pod"] = { --Prince of Darkness
+JokerDisplay.Definitions["j_bloons_prince_of_darkness"] = { --Prince of Darkness
 }

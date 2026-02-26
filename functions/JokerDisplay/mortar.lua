@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_mortar"] = { --Mortar Monkey
+JokerDisplay.Definitions["j_bloons_mortar_monkey"] = { --Mortar Monkey
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x", scale = 0.35 },
@@ -29,7 +29,7 @@ JokerDisplay.Definitions["j_bloons_mortar"] = { --Mortar Monkey
     end
 }
 
-JokerDisplay.Definitions["j_bloons_burny"] = { --Burny Stuff
+JokerDisplay.Definitions["j_bloons_burny_stuff"] = { --Burny Stuff
     reminder_text = {
         { text = '(First played card)'}
     },
@@ -46,7 +46,7 @@ JokerDisplay.Definitions["j_bloons_burny"] = { --Burny Stuff
     end
 }
 
-JokerDisplay.Definitions["j_bloons_sshock"] = { --Shell Shock
+JokerDisplay.Definitions["j_bloons_shell_shock"] = { --Shell Shock
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x", scale = 0.35 },
@@ -77,7 +77,7 @@ JokerDisplay.Definitions["j_bloons_sshock"] = { --Shell Shock
     end
 }
 
-JokerDisplay.Definitions["j_bloons_abatt"] = { --Artillery Battery
+JokerDisplay.Definitions["j_bloons_artillery_battery"] = { --Artillery Battery
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x", scale = 0.35 },
@@ -116,7 +116,7 @@ JokerDisplay.Definitions["j_bloons_abatt"] = { --Artillery Battery
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cin"] = { --Blooncineration
+JokerDisplay.Definitions["j_bloons_blooncineration"] = { --Blooncineration
     text = {
         {
             border_nodes = {

@@ -1,5 +1,5 @@
 SMODS.Joker { --Alchemist
-    key = 'alch',
+    key = 'alchemist',
     name = 'Alchemist',
 	loc_txt = {
         name = 'Alchemist',
@@ -39,7 +39,7 @@ SMODS.Joker { --Alchemist
 }
 
 SMODS.Joker { --Larger Potions
-    key = 'largerpots',
+    key = 'larger_potions',
     name = 'Larger Potions',
 	loc_txt = {
         name = 'Larger Potions',
@@ -88,7 +88,7 @@ SMODS.Joker { --Larger Potions
 }
 
 SMODS.Joker { --Acidic Mixture Dip
-    key = 'amd',
+    key = 'acidic_mixture_dip',
     name = 'Acidic Mixture Dip',
     loc_txt = {
         name = 'Acidic Mixture Dip',
@@ -128,7 +128,7 @@ SMODS.Joker { --Acidic Mixture Dip
 }
 
 SMODS.Joker { --Berserker Brew
-    key = 'brew',
+    key = 'berserker_brew',
     name = 'Berserker Brew',
 	loc_txt = {
         name = 'Berserker Brew',
@@ -180,7 +180,7 @@ SMODS.Joker { --Berserker Brew
 }
 
 SMODS.Joker { --Stronger Stimulant
-    key = 'stim',
+    key = 'stronger_stimulant',
     name = 'Stronger Stimulant',
 	loc_txt = {
         name = 'Stronger Stimulant',
@@ -228,7 +228,7 @@ SMODS.Joker { --Stronger Stimulant
 }
 
 SMODS.Joker { --Stronger Acid
-    key = 'acid',
+    key = 'stronger_acid',
     name = 'Stronger Acid',
 	loc_txt = {
         name = 'Stronger Acid',
@@ -289,7 +289,7 @@ SMODS.Joker { --Stronger Acid
 }
 
 SMODS.Joker { --Perishing Potions
-    key = 'perishing',
+    key = 'perishing_potions',
     name = 'Perishing Potions',
 	loc_txt = {
         name = 'Perishing Potions',
@@ -309,6 +309,9 @@ SMODS.Joker { --Perishing Potions
         base = 'alch',
     },
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+    end,
     add_to_deck = function(self, card, from_debuff)
         card:set_edition('e_polychrome', true)
         card:set_perishable()
@@ -316,7 +319,7 @@ SMODS.Joker { --Perishing Potions
 }
 
 SMODS.Joker { --Unstable Concoction
-    key = 'conc',
+    key = 'unstable_concoction',
     name = 'Unstable Concoction',
 	loc_txt = {
         name = 'Unstable Concoction',
@@ -363,7 +366,7 @@ SMODS.Joker { --Unstable Concoction
 }
 
 SMODS.Joker { --Transforming Tonic
-    key = 'tt4',
+    key = 'transforming_tonic',
     name = 'Transforming Tonic',
 	loc_txt = {
         name = 'Transforming Tonic',
@@ -427,7 +430,7 @@ SMODS.Joker { --Transforming Tonic
 }
 
 SMODS.Joker { --Total Transformation
-    key = 'tt5',
+    key = 'total_transformation',
     name = 'Total Transformation',
 	loc_txt = {
         name = 'Total Transformation',
@@ -515,8 +518,8 @@ SMODS.Joker { --Total Transformation
 }
 
 SMODS.Joker { --Faster Throwing
-    key = 'fastalch',
-    name = 'Faster Throwing',
+    key = 'faster_throwing_alchemist',
+    name = 'Faster Throwing (Alchemist)',
 	loc_txt = {
         name = 'Faster Throwing',
         text = {
@@ -555,7 +558,7 @@ SMODS.Joker { --Faster Throwing
 }
 
 SMODS.Joker { --Acid Pools
-    key = 'pools',
+    key = 'acid_pools',
     name = 'Acid Pools',
 	loc_txt = {
         name = 'Acid Pools',
@@ -594,7 +597,7 @@ SMODS.Joker { --Acid Pools
 }
 
 SMODS.Joker { --Lead to Gold
-    key = 'l2g',
+    key = 'lead_to_gold',
     name = 'Lead to Gold',
 	loc_txt = {
         name = 'Lead to Gold',
@@ -627,7 +630,7 @@ SMODS.Joker { --Lead to Gold
 }
 
 SMODS.Joker { --Rubber to Gold
-    key = 'r2g',
+    key = 'rubber_to_gold',
     name = 'Rubber to Gold',
 	loc_txt = {
         name = 'Rubber to Gold',
@@ -665,7 +668,7 @@ SMODS.Joker { --Rubber to Gold
 }
 
 SMODS.Joker { --Bloon Master Alchemist
-    key = 'bma',
+    key = 'bloon_master_alchemist',
     name = 'Bloon Master Alchemist',
 	loc_txt = {
         name = 'Bloon Master Alchemist',

@@ -1,5 +1,5 @@
 SMODS.Joker { --Heli Pilot
-    key = 'heli',
+    key = 'heli_pilot',
     name = 'Heli Pilot',
 	loc_txt = {
         name = 'Heli Pilot',
@@ -42,7 +42,7 @@ SMODS.Joker { --Heli Pilot
 }
 
 SMODS.Joker { --Quad Darts
-    key = 'quad',
+    key = 'quad_darts',
     name = 'Quad Darts',
     loc_txt = {
         name = 'Quad Darts',
@@ -93,7 +93,7 @@ SMODS.Joker { --Quad Darts
 }
 
 SMODS.Joker { --Apache Prime
-    key = 'aprime',
+    key = 'apache_prime',
     name = 'Apache Prime',
 	loc_txt = {
         name = 'Apache Prime',
@@ -141,7 +141,7 @@ SMODS.Joker { --Apache Prime
 }
 
 SMODS.Joker { --Downdraft
-    key = 'draft',
+    key = 'downdraft',
     name = 'Downdraft',
     loc_txt = {
         name = 'Downdraft',
@@ -211,7 +211,7 @@ SMODS.Joker { --Downdraft
 }
 
 SMODS.Joker { --Special Poperations
-    key = 'spop',
+    key = 'special_poperations',
     name = 'Special Poperations',
 	loc_txt = {
         name = 'Special Poperations',
@@ -281,7 +281,7 @@ SMODS.Joker { --Special Poperations
 }
 
 SMODS.Joker { --Comanche Defense
-    key = 'comdef',
+    key = 'comanche_defense',
     name = 'Comanche Defense',
 	loc_txt = {
         name = 'Comanche Defense',

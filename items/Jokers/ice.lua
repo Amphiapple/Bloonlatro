@@ -1,5 +1,5 @@
 SMODS.Joker { --Ice Monkey
-    key = 'ice',
+    key = 'ice_monkey',
     name = 'Ice Monkey',
 	loc_txt = {
         name = 'Ice Monkey',
@@ -66,7 +66,7 @@ SMODS.Joker { --Ice Monkey
 }
 
 SMODS.Joker { --Permafrost
-    key = 'pfrost',
+    key = 'permafrost',
     name = 'Permafrost',
 	loc_txt = {
         name = 'Permafrost',
@@ -105,7 +105,7 @@ SMODS.Joker { --Permafrost
 }
 
 SMODS.Joker { --Cold Snap
-    key = 'snap',
+    key = 'cold_snap',
     name = 'Cold Snap',
 	loc_txt = {
         name = 'Cold Snap',
@@ -143,7 +143,7 @@ SMODS.Joker { --Cold Snap
 }
 
 SMODS.Joker { --Ice Shards
-    key = 'shards',
+    key = 'ice_shards',
     name = 'Ice Shards',
 	loc_txt = {
         name = 'Ice Shards',
@@ -243,7 +243,7 @@ SMODS.Joker { --Ice Shards
 }
 
 SMODS.Joker { --Embrittlement
-    key = 'embrit',
+    key = 'embrittlement',
     name = 'Embrittlement',
 	loc_txt = {
         name = 'Embrittlement',
@@ -322,7 +322,7 @@ SMODS.Joker { --Embrittlement
 }
 
 SMODS.Joker { --Super Brittle
-    key = 'sbrit',
+    key = 'super_brittle',
     name = 'Super Brittle',
 	loc_txt = {
         name = 'Super Brittle',
@@ -374,7 +374,7 @@ SMODS.Joker { --Super Brittle
 }
 
 SMODS.Joker { --Enhanced Freeze
-    key = 'enhanced',
+    key = 'enhanced_freeze',
     name = 'Enhanced Freeze',
 	loc_txt = {
         name = 'Enhanced Freeze',
@@ -440,7 +440,7 @@ SMODS.Joker { --Enhanced Freeze
     end
 }
 SMODS.Joker { --Deep Freeze
-    key = 'deep',
+    key = 'deep_freeze',
     name = 'Deep Freeze',
 	loc_txt = {
         name = 'Deep Freeze',
@@ -469,7 +469,7 @@ SMODS.Joker { --Deep Freeze
 }
 
 SMODS.Joker { --Arctic Wind
-    key = 'awind',
+    key = 'arctic_wind',
     name = 'Arctic Wind',
 	loc_txt = {
         name = 'Arctic Wind',
@@ -517,7 +517,7 @@ SMODS.Joker { --Arctic Wind
 }
 
 SMODS.Joker { --Snowstorm
-    key = 'snorm',
+    key = 'snowstorm',
     name = 'Snowstorm',
 	loc_txt = {
         name = 'Snowstorm',
@@ -579,7 +579,7 @@ SMODS.Joker { --Snowstorm
 }
 
 SMODS.Joker { --Absolute Zero
-    key = 'az',
+    key = 'absolute_zero',
     name = 'Absolute Zero',
 	loc_txt = {
         name = 'Absolute Zero',
@@ -665,7 +665,7 @@ SMODS.Joker { --Absolute Zero
 }
 
 SMODS.Joker { --Larger Radius
-    key = 'rangeice',
+    key = 'larger_radius',
     name = 'Larger Radius',
     loc_txt = {
         name = 'Larger Radius',
@@ -731,8 +731,8 @@ SMODS.Joker { --Larger Radius
     end
 }
 
-SMODS.Joker { --Refreeze
-    key = 'refreeze',
+SMODS.Joker { --Re-freeze
+    key = 're_freeze',
     name = 'Re-Freeze',
     loc_txt = {
         name = 'Re-Freeze',
@@ -766,7 +766,7 @@ SMODS.Joker { --Refreeze
 }
 
 SMODS.Joker { --Cryo Cannon
-    key = 'cryo',
+    key = 'cryo_cannon',
     name = 'Cryo Cannon',
     loc_txt = {
         name = 'Cryo Cannon',
@@ -850,7 +850,7 @@ SMODS.Joker { --Icicles
 }
 
 SMODS.Joker { --Icicle Impale
-    key = 'impale',
+    key = 'icicle_impale',
     name = 'Icicle Impale',
     loc_txt = {
         name = 'Icicle Impale',

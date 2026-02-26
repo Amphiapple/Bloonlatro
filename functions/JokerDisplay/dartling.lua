@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_dartling"] = { --Dartling Gunner
+JokerDisplay.Definitions["j_bloons_dartling_gunner"] = { --Dartling Gunner
     text = {
         { text = "+", colour = G.C.CHIPS },
         {
@@ -25,7 +25,7 @@ JokerDisplay.Definitions["j_bloons_dartling"] = { --Dartling Gunner
     }
 }
 
-JokerDisplay.Definitions["j_bloons_focus"] = { --Focused Firing
+JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
     text = {
         { text = "+", colour = G.C.CHIPS },
         {
@@ -55,21 +55,21 @@ JokerDisplay.Definitions["j_bloons_focus"] = { --Focused Firing
     }
 }
 
-JokerDisplay.Definitions["j_bloons_lshock"] = { --Laser Shock
+JokerDisplay.Definitions["j_bloons_laser_shock"] = { --Laser Shock
     text = {
         { text = "+",                       colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_lcan"] = { --Laser Cannon
+JokerDisplay.Definitions["j_bloons_laser_cannon"] = { --Laser Cannon
     text = {
         { text = "+",                       colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_paccel"] = { --Plasma Accelerator
+JokerDisplay.Definitions["j_bloons_plasma_accelerator"] = { --Plasma Accelerator
     text = {
         { text = "+",                              colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -97,7 +97,7 @@ JokerDisplay.Definitions["j_bloons_paccel"] = { --Plasma Accelerator
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rod"] = { --Ray of Doom
+JokerDisplay.Definitions["j_bloons_ray_of_doom"] = { --Ray of Doom
     text = {
         {
             border_nodes = {
@@ -130,7 +130,7 @@ JokerDisplay.Definitions["j_bloons_rod"] = { --Ray of Doom
     end
 }
 
-JokerDisplay.Definitions["j_bloons_advanced"] = { --Advanced Targeting
+JokerDisplay.Definitions["j_bloons_advanced_targeting"] = { --Advanced Targeting
     text = {
         { text = "+", colour = G.C.CHIPS },
         {
@@ -157,7 +157,7 @@ JokerDisplay.Definitions["j_bloons_advanced"] = { --Advanced Targeting
     }
 }
 
-JokerDisplay.Definitions["j_bloons_fastspin"] = { --Faster Barrel Spin
+JokerDisplay.Definitions["j_bloons_faster_barrel_spin"] = { --Faster Barrel Spin
     text = {
         { text = "+", colour = G.C.CHIPS },
         {
@@ -184,7 +184,7 @@ JokerDisplay.Definitions["j_bloons_fastspin"] = { --Faster Barrel Spin
     }
 }
 
-JokerDisplay.Definitions["j_bloons_hrp"] = { --Hydra Rocket Pods
+JokerDisplay.Definitions["j_bloons_hydra_rocket_pods"] = { --Hydra Rocket Pods
     text = {
         { text = "+",                       colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
@@ -196,7 +196,7 @@ JokerDisplay.Definitions["j_bloons_hrp"] = { --Hydra Rocket Pods
     }
 }
 
-JokerDisplay.Definitions["j_bloons_rorm"] = { --Rocket Storm
+JokerDisplay.Definitions["j_bloons_rocket_storm"] = { --Rocket Storm
     text = {
         {
             border_nodes = {
@@ -223,7 +223,7 @@ JokerDisplay.Definitions["j_bloons_mad"] = { --MAD
     },
 }
 
-JokerDisplay.Definitions["j_bloons_swivel"] = { --Faster Swivel
+JokerDisplay.Definitions["j_bloons_faster_swivel"] = { --Faster Swivel
     text = {
         { text = "+", colour = G.C.CHIPS },
         {
@@ -253,7 +253,7 @@ JokerDisplay.Definitions["j_bloons_swivel"] = { --Faster Swivel
     }
 }
 
-JokerDisplay.Definitions["j_bloons_powerful"] = { --Powerful Darts
+JokerDisplay.Definitions["j_bloons_powerful_darts"] = { --Powerful Darts
     text = {
         { text = "+", colour = G.C.CHIPS },
         {
@@ -322,7 +322,7 @@ JokerDisplay.Definitions["j_bloons_buckshot"] = { --Buckshot
     }
 }
 
-JokerDisplay.Definitions["j_bloons_bads"] = { --Bloon Area Denial System
+JokerDisplay.Definitions["j_bloons_bloon_area_denial_system"] = { --Bloon Area Denial System
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x",                              scale = 0.35 },
@@ -395,7 +395,7 @@ JokerDisplay.Definitions["j_bloons_bads"] = { --Bloon Area Denial System
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bez"] = { --Bloon Exclusion Zone
+JokerDisplay.Definitions["j_bloons_bloon_exclusion_zone"] = { --Bloon Exclusion Zone
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x",                              scale = 0.35 },

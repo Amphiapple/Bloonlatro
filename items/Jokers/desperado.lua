@@ -1,5 +1,5 @@
 SMODS.Joker { --Desperado
-    key = 'desp',
+    key = 'desperado',
     name = 'Desperado',
     loc_txt = {
         name = 'Desperado',
@@ -105,7 +105,7 @@ SMODS.Joker { --Standoff
 }
 
 SMODS.Joker { --Big Iron
-    key = 'bigiron',
+    key = 'big_iron',
     name = 'Big Iron',
 	loc_txt = {
         name = 'Big Iron',
@@ -142,7 +142,7 @@ SMODS.Joker { --Big Iron
 }
 
 SMODS.Joker { --Twin Sixes
-    key = 'twix',
+    key = 'twin_sixes',
     name = 'Twin Sixes',
 	loc_txt = {
         name = 'Twin Sixes',
@@ -185,7 +185,7 @@ SMODS.Joker { --Twin Sixes
 }
 
 SMODS.Joker { --The Blazing Sun
-    key = 'tbs',
+    key = 'the_blazing_sun',
     name = 'The Blazing Sun',
 	loc_txt = {
         name = 'The Blazing Sun',
@@ -219,7 +219,7 @@ SMODS.Joker { --The Blazing Sun
 }
 
 SMODS.Joker { --Eagle Eye
-    key = 'eagleeye',
+    key = 'eagle_eye',
     name = 'Eagle Eye',
     loc_txt = {
         name = 'Eagle Eye',
@@ -334,7 +334,7 @@ SMODS.Joker { --Deadeye
 }
 
 SMODS.Joker { --Bounty Hunter
-    key = 'bhunter',
+    key = 'bounty_hunter',
     name = 'Bounty Hunter',
     loc_txt = {
         name = 'Bounty Hunter',
@@ -369,7 +369,7 @@ SMODS.Joker { --Bounty Hunter
 }
 
 SMODS.Joker { --Golden Justice
-    key = 'gustice',
+    key = 'golden_justice',
     name = 'Golden Justice',
 	loc_txt = {
         name = 'Golden Justice',
@@ -658,7 +658,7 @@ SMODS.Joker { --Avenger
 }
 
 SMODS.Joker { --The Desert Phantom
-    key = 'phantom',
+    key = 'the_desert_phantom',
     name = 'The Desert Phantom',
 	loc_txt = {
         name = 'The Desert Phantom',

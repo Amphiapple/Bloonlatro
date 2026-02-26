@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_bomb"] = { --Bomb Shooter
+JokerDisplay.Definitions["j_bloons_bomb_shooter"] = { --Bomb Shooter
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
@@ -20,7 +20,7 @@ JokerDisplay.Definitions["j_bloons_bomb"] = { --Bomb Shooter
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bigbomb"] = { --Bigger Bombs
+JokerDisplay.Definitions["j_bloons_bigger_bombs"] = { --Bigger Bombs
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
@@ -42,7 +42,7 @@ JokerDisplay.Definitions["j_bloons_bigbomb"] = { --Bigger Bombs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_heavybomb"] = { --Heavy Bombs
+JokerDisplay.Definitions["j_bloons_heavy_bombs"] = { --Heavy Bombs
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
@@ -64,7 +64,7 @@ JokerDisplay.Definitions["j_bloons_heavybomb"] = { --Heavy Bombs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rbb"] = { --Really Big Bombs
+JokerDisplay.Definitions["j_bloons_really_big_bombs"] = { --Really Big Bombs
     text = {
         {
             border_nodes = {
@@ -94,7 +94,7 @@ JokerDisplay.Definitions["j_bloons_rbb"] = { --Really Big Bombs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_blimpact"] = { --Bloon Impact
+JokerDisplay.Definitions["j_bloons_bloon_impact"] = { --Bloon Impact
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
@@ -106,7 +106,7 @@ JokerDisplay.Definitions["j_bloons_blimpact"] = { --Bloon Impact
     },
 }
 
-JokerDisplay.Definitions["j_bloons_crush"] = { --Bloon Crush
+JokerDisplay.Definitions["j_bloons_bloon_crush"] = { --Bloon Crush
     text = {
         {
             border_nodes = {
@@ -130,7 +130,7 @@ JokerDisplay.Definitions["j_bloons_crush"] = { --Bloon Crush
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fastbomb"] = { --Faster Reload
+JokerDisplay.Definitions["j_bloons_faster_reload_bomb"] = { --Faster Reload
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
@@ -152,7 +152,7 @@ JokerDisplay.Definitions["j_bloons_fastbomb"] = { --Faster Reload
     end
 }
 
-JokerDisplay.Definitions["j_bloons_missile"] = { --Missile launcher
+JokerDisplay.Definitions["j_bloons_missile_launcher"] = { --Missile launcher
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
@@ -174,7 +174,7 @@ JokerDisplay.Definitions["j_bloons_missile"] = { --Missile launcher
     end
 }
 
-JokerDisplay.Definitions["j_bloons_mauler"] = { --MOAB Mauler
+JokerDisplay.Definitions["j_bloons_moab_mauler"] = { --MOAB Mauler
     text = {
         {
             border_nodes = {
@@ -205,7 +205,7 @@ JokerDisplay.Definitions["j_bloons_mauler"] = { --MOAB Mauler
     end
 }
 
-JokerDisplay.Definitions["j_bloons_assassin"] = { --MOAB Assassin
+JokerDisplay.Definitions["j_bloons_moab_assassin"] = { --MOAB Assassin
     text = {
         {
             border_nodes = {
@@ -241,7 +241,7 @@ JokerDisplay.Definitions["j_bloons_assassin"] = { --MOAB Assassin
     end
 }
 
-JokerDisplay.Definitions["j_bloons_elim"] = { --MOAB Eliminator
+JokerDisplay.Definitions["j_bloons_moab_eliminator"] = { --MOAB Eliminator
     text = {
         {
             border_nodes = {
@@ -272,7 +272,7 @@ JokerDisplay.Definitions["j_bloons_elim"] = { --MOAB Eliminator
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangebomb"] = { --Extra Range
+JokerDisplay.Definitions["j_bloons_extra_range"] = { --Extra Range
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
@@ -294,7 +294,7 @@ JokerDisplay.Definitions["j_bloons_rangebomb"] = { --Extra Range
     end
 }
 
-JokerDisplay.Definitions["j_bloons_frags"] = { --Frag Bombs
+JokerDisplay.Definitions["j_bloons_frag_bombs"] = { --Frag Bombs
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
@@ -326,7 +326,7 @@ JokerDisplay.Definitions["j_bloons_frags"] = { --Frag Bombs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cluster"] = { --Cluster Bombs
+JokerDisplay.Definitions["j_bloons_cluster_bombs"] = { --Cluster Bombs
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
@@ -345,7 +345,7 @@ JokerDisplay.Definitions["j_bloons_cluster"] = { --Cluster Bombs
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_recursive"] = { --Recursive Cluster
+JokerDisplay.Definitions["j_bloons_recursive_cluster"] = { --Recursive Cluster
     text = {
         {
             border_nodes = {
@@ -370,7 +370,7 @@ JokerDisplay.Definitions["j_bloons_recursive"] = { --Recursive Cluster
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_blitz"] = { --Bomb Blitz
+JokerDisplay.Definitions["j_bloons_bomb_blitz"] = { --Bomb Blitz
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },

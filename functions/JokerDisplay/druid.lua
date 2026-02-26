@@ -18,7 +18,7 @@ JokerDisplay.Definitions["j_bloons_druid"] = { --Druid
     end
 }
 
-JokerDisplay.Definitions["j_bloons_thunder"] = { --Heart of Thunder
+JokerDisplay.Definitions["j_bloons_heart_of_thunder"] = { --Heart of Thunder
     extra = {
         {
             { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -32,7 +32,7 @@ JokerDisplay.Definitions["j_bloons_thunder"] = { --Heart of Thunder
     end
 }
 
-JokerDisplay.Definitions["j_bloons_dots"] = { --Druid of the Storm
+JokerDisplay.Definitions["j_bloons_druid_of_the_storm"] = { --Druid of the Storm
     text = {
         { text = "+", colour = G.C.BLUE },
         { ref_table = "card.joker_display_values", ref_value = "hands", colour = G.C.BLUE }
@@ -53,7 +53,7 @@ JokerDisplay.Definitions["j_bloons_dots"] = { --Druid of the Storm
     end
 }
 
-JokerDisplay.Definitions["j_bloons_jbounty"] = { --Jungle's Bounty
+JokerDisplay.Definitions["j_bloons_jungles_bounty"] = { --Jungle's Bounty
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -87,7 +87,7 @@ JokerDisplay.Definitions["j_bloons_jbounty"] = { --Jungle's Bounty
     end
 }
 
-JokerDisplay.Definitions["j_bloons_aow"] = { --Avatar of Wrath
+JokerDisplay.Definitions["j_bloons_avatar_of_wrath"] = { --Avatar of Wrath
     text = {
         {
             border_nodes = {

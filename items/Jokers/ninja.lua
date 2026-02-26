@@ -1,5 +1,5 @@
 SMODS.Joker { --Ninja Monkey
-    key = 'ninja',
+    key = 'ninja_monkey',
     name = 'Ninja Monkey',
 	loc_txt = {
         name = 'Ninja Monkey',
@@ -38,7 +38,7 @@ SMODS.Joker { --Ninja Monkey
 }
 
 SMODS.Joker { --Ninja Discipline
-    key = 'discipline',
+    key = 'ninja_discipline',
     name = 'Ninja Discipline',
 	loc_txt = {
         name = 'Ninja Discipline',
@@ -77,7 +77,7 @@ SMODS.Joker { --Ninja Discipline
 }
 
 SMODS.Joker { --Sharp Shurikens
-    key = 'sharpshur',
+    key = 'sharp_shurikens',
     name = 'Sharp Shurikens',
 	loc_txt = {
         name = 'Sharp Shurikens',
@@ -118,8 +118,8 @@ SMODS.Joker { --Sharp Shurikens
 }
 
 SMODS.Joker { --Double Shot
-    key = 'doubleshur',
-    name = 'Double Shot',
+    key = 'double_shot_ninja',
+    name = 'Double Shot (Ninja)',
 	loc_txt = {
         name = 'Double Shot',
         text = {
@@ -162,7 +162,7 @@ SMODS.Joker { --Double Shot
 }
 
 SMODS.Joker { --Bloonjitsu
-    key = 'jitsu',
+    key = 'bloonjitsu',
     name = 'Bloonjitsu',
 	loc_txt = {
         name = 'Bloonjitsu',
@@ -206,7 +206,7 @@ SMODS.Joker { --Bloonjitsu
 }
 
 SMODS.Joker { --Grandmaster Ninja
-    key = 'gmn',
+    key = 'grandmaster_ninja',
     name = 'Grandmaster Ninja',
 	loc_txt = {
         name = 'Grandmaster Ninja',
@@ -247,7 +247,7 @@ SMODS.Joker { --Grandmaster Ninja
 }
 
 SMODS.Joker { --Distraction
-    key = 'distract',
+    key = 'distraction',
     name = 'Distraction',
 	loc_txt = {
         name = 'Distraction',
@@ -370,7 +370,7 @@ SMODS.Joker { --Counter Espionage
 }
 ]]
 SMODS.Joker { --Counter Espionage
-    key = 'espionage',
+    key = 'counter_espionage',
     name = 'Counter Espionage',
     loc_txt = {
         name = 'Counter Espionage',
@@ -418,7 +418,7 @@ SMODS.Joker { --Counter Espionage
 }
 
 SMODS.Joker { --Shinobi Tactics
-    key = 'shinobi',
+    key = 'shinobi_tactics',
     name = 'Shinobi Tactics',
 	loc_txt = {
         name = 'Shinobi Tactics',
@@ -457,7 +457,7 @@ SMODS.Joker { --Shinobi Tactics
 }
 
 SMODS.Joker { --Bloon Sabotage
-    key = 'sabo',
+    key = 'bloon_sabotage',
     name = 'Bloon Sabotage',
 	loc_txt = {
         name = 'Bloon Sabotage',
@@ -501,7 +501,7 @@ SMODS.Joker { --Bloon Sabotage
 }
 
 SMODS.Joker { --Grand Saboteur
-    key = 'gsabo',
+    key = 'grand_saboteur',
     name = 'Grand Saboteur',
 	loc_txt = {
         name = 'Grand Saboteur',
@@ -523,7 +523,7 @@ SMODS.Joker { --Grand Saboteur
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.tag_bloons_sabotage
+        info_queue[#info_queue+1] = G.P_TAGS.tag_bloons_sabotage
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gsabo')
         return { vars = { n, d, card.ability.extra.number } }
     end,
@@ -553,7 +553,7 @@ SMODS.Joker { --Grand Saboteur
 }
 
 SMODS.Joker { --Seeking Shuriken
-    key = 'seeking',
+    key = 'seeking_shuriken',
     name = 'Seeking Shuriken',
 	loc_txt = {
         name = 'Seeking Shuriken',
@@ -642,7 +642,7 @@ SMODS.Joker { --Caltrops
 }
 
 SMODS.Joker { --Flash Bomb
-    key = 'flash',
+    key = 'flash_bomb',
     name = 'Flash Bomb',
 	loc_txt = {
         name = 'Flash Bomb',
@@ -708,7 +708,7 @@ SMODS.Joker { --Flash Bomb
 }
 
 SMODS.Joker { --Sticky Bomb
-    key = 'sticky',
+    key = 'sticky_bomb',
     name = 'Sticky Bomb',
 	loc_txt = {
         name = 'Sticky Bomb',
@@ -766,7 +766,7 @@ SMODS.Joker { --Sticky Bomb
 }
 
 SMODS.Joker { --Master Bomber
-    key = 'mbomber',
+    key = 'master_bomber',
     name = 'Master Bomber',
 	loc_txt = {
         name = 'Master Bomber',

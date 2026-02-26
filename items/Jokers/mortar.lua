@@ -1,5 +1,5 @@
 SMODS.Joker { --Mortar Monkey
-    key = 'mortar',
+    key = 'mortar_monkey',
     name = 'Mortar Monkey',
 	loc_txt = {
         name = 'Mortar Monkey',
@@ -33,7 +33,7 @@ SMODS.Joker { --Mortar Monkey
 }
 
 SMODS.Joker { --Burny Stuff
-    key = 'burny',
+    key = 'burny_stuff',
     name = 'Burny Stuff',
     loc_txt = {
         name = 'Burny Stuff',
@@ -65,7 +65,7 @@ SMODS.Joker { --Burny Stuff
 }
 
 SMODS.Joker { --Shell Shock
-    key = 'sshock',
+    key = 'shell_shock',
     name = 'Shell Shock',
     loc_txt = {
         name = 'Shell Shock',
@@ -101,7 +101,7 @@ SMODS.Joker { --Shell Shock
 }
 
 SMODS.Joker { --Artillery Battery
-    key = 'abatt',
+    key = 'artillery_battery',
     name = 'Artillery Battery',
 	loc_txt = {
         name = 'Artillery Battery',
@@ -156,7 +156,7 @@ SMODS.Joker { --Artillery Battery
 }
 
 SMODS.Joker { --Blooncineration
-    key = 'cin',
+    key = 'blooncineration',
     name = 'Blooncineration',
 	loc_txt = {
         name = 'Blooncineration',

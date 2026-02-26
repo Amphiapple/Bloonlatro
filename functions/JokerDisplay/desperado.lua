@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_desp"] = { --Desperado
+JokerDisplay.Definitions["j_bloons_desperado"] = { --Desperado
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -99,7 +99,7 @@ JokerDisplay.Definitions["j_bloons_standoff"] = { --Standoff
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bigiron"] = { --Big Iron
+JokerDisplay.Definitions["j_bloons_big_iron"] = { --Big Iron
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -122,7 +122,7 @@ JokerDisplay.Definitions["j_bloons_bigiron"] = { --Big Iron
     end
 }
 
-JokerDisplay.Definitions["j_bloons_twix"] = { --Twin Sixes
+JokerDisplay.Definitions["j_bloons_twin_sixes"] = { --Twin Sixes
     text = {
         {
             border_nodes = {
@@ -152,7 +152,7 @@ JokerDisplay.Definitions["j_bloons_twix"] = { --Twin Sixes
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tbs"] = { --The Blazing Sun
+JokerDisplay.Definitions["j_bloons_the_blazing_sun"] = { --The Blazing Sun
     text = {
         {
             border_nodes = {
@@ -188,7 +188,7 @@ JokerDisplay.Definitions["j_bloons_tbs"] = { --The Blazing Sun
     end
 }
 
-JokerDisplay.Definitions["j_bloons_eagleeye"] = { --Eagle Eye
+JokerDisplay.Definitions["j_bloons_eagle_eye"] = { --Eagle Eye
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -277,7 +277,7 @@ JokerDisplay.Definitions["j_bloons_deadeye"] = { --Deadeye
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bhunter"] = { --Bounty Hunter
+JokerDisplay.Definitions["j_bloons_bounty_hunter"] = { --Bounty Hunter
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "dollars", retrigger_type = "mult", colour = G.C.MONEY },
@@ -302,7 +302,7 @@ JokerDisplay.Definitions["j_bloons_bhunter"] = { --Bounty Hunter
     end
 }
 
-JokerDisplay.Definitions["j_bloons_gustice"] = { --Golden Justice
+JokerDisplay.Definitions["j_bloons_golden_justice"] = { --Golden Justice
 }
 
 JokerDisplay.Definitions["j_bloons_wanderer"] = { --Wanderer
@@ -364,7 +364,7 @@ JokerDisplay.Definitions["j_bloons_avenger"] = { --Avenger
     end
 }
 
-JokerDisplay.Definitions["j_bloons_phantom"] = { --The Desert Phantom
+JokerDisplay.Definitions["j_bloons_the_desert_phantom"] = { --The Desert Phantom
     text = {
         {
             border_nodes = {

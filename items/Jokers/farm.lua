@@ -1,5 +1,5 @@
 SMODS.Joker { --Banana Farm
-    key = 'farm',
+    key = 'banana_farm',
     name = 'Banana Farm',
 	loc_txt = {
         name = 'Banana Farm',
@@ -27,7 +27,7 @@ SMODS.Joker { --Banana Farm
 }
 
 SMODS.Joker { --Increased Production
-    key = 'iproduct',
+    key = 'increased_product',
     name = 'Increased Production',
 	loc_txt = {
         name = 'Increased Production',
@@ -55,7 +55,7 @@ SMODS.Joker { --Increased Production
 }
 
 SMODS.Joker { --Greater Production
-    key = 'gproduct',
+    key = 'greater_product',
     name = 'Greater Production',
 	loc_txt = {
         name = 'Greater Production',
@@ -83,7 +83,7 @@ SMODS.Joker { --Greater Production
 }
 
 SMODS.Joker { --Banana Plantation
-    key = 'plantation',
+    key = 'banana_plantation',
     name = 'Banana Plantation',
     loc_txt = {
         name = 'Banana Plantation',
@@ -112,7 +112,7 @@ SMODS.Joker { --Banana Plantation
 }
 
 SMODS.Joker { --BRF
-    key = 'brf',
+    key = 'banana_research_facility',
     name = 'Banana Research Facility',
 	loc_txt = { 
         name = 'Banana Research Facility',
@@ -146,7 +146,7 @@ SMODS.Joker { --BRF
 }
 
 SMODS.Joker { --Banana Central
-    key = 'central',
+    key = 'banana_central',
     name = 'Banana Central',
 	loc_txt = { 
         name = 'Banana Central',
@@ -188,7 +188,7 @@ SMODS.Joker { --Banana Central
 }
 
 SMODS.Joker { --Long Life Bananas
-    key = 'longlife',
+    key = 'long_life_bananas',
     name = 'Long Life Bananas',
     loc_txt = {
         name = 'Long Life Bananas',
@@ -255,7 +255,7 @@ SMODS.Joker { --Long Life Bananas
 }
 
 SMODS.Joker { --Valuable Bananas
-    key = 'valuable',
+    key = 'valuable_bananas',
     name = 'Valuable Bananas',
     loc_txt = {
         name = 'Valuable Bananas',
@@ -322,7 +322,7 @@ SMODS.Joker { --Valuable Bananas
 }
 
 SMODS.Joker { --Monkey Bank
-    key = 'bank',
+    key = 'monkey_bank',
     name = 'Monkey Bank',
 	loc_txt = {
         name = 'Monkey Bank',
@@ -383,7 +383,7 @@ SMODS.Joker { --Monkey Bank
 }
 
 SMODS.Joker { --IMF Loan
-    key = 'imf',
+    key = 'imf_loan',
     name = 'IMF Loan',
 	loc_txt = {
         name = 'IMF Loan',
@@ -434,7 +434,7 @@ SMODS.Joker { --IMF Loan
 }
 
 SMODS.Joker { --Monkey-Nomics
-    key = 'nomics',
+    key = 'monkey_nomics',
     name = 'Monkey-Nomics',
 	loc_txt = {
         name = 'Monkey-Nomics',
@@ -477,7 +477,7 @@ SMODS.Joker { --Monkey-Nomics
 }
 
 SMODS.Joker { --EZ Collect
-    key = 'ez',
+    key = 'ez_collect',
     name = 'EZ Collect',
 	loc_txt = {
         name = 'EZ Collect',
@@ -516,7 +516,7 @@ SMODS.Joker { --EZ Collect
 }
 
 SMODS.Joker { --Banana Salvage
-    key = 'salvage',
+    key = 'banana_salvage',
     name = 'Banana Salvage',
     loc_txt = {
         name = 'Banana Salvage',
@@ -553,7 +553,7 @@ SMODS.Joker { --Banana Salvage
 }
 
 SMODS.Joker { --Marketplace
-    key = 'market',
+    key = 'marketplace',
     name = 'Marketplace',
 	loc_txt = {
         name = 'Marketplace',
@@ -596,7 +596,7 @@ SMODS.Joker { --Marketplace
 }
 
 SMODS.Joker { --Central Market
-    key = 'cmarket',
+    key = 'central_market',
     name = 'Central Market',
 	loc_txt = {
         name = 'Central Market',
@@ -648,8 +648,8 @@ SMODS.Joker { --Central Market
     end
 }
 
-SMODS.Joker { --Wall Street
-    key = 'wallstreet',
+SMODS.Joker { --Monkey Wall Street
+    key = 'monkey_wall_street',
     name = 'Monkey Wall Street',
     loc_txt = {
         name = 'Monkey Wall Street',

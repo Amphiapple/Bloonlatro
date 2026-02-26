@@ -1,5 +1,5 @@
 SMODS.Joker { --Dartling Gunner
-    key = 'dartling',
+    key = 'dartling_gunner',
     name = 'Dartling Gunner',
 	atlas = 'Joker',
 	pos = { x = 0, y = 13 },
@@ -58,7 +58,7 @@ SMODS.Joker { --Dartling Gunner
 }
 
 SMODS.Joker { --Focused Firing
-    key = 'focus',
+    key = 'focused_firing',
     name = 'Focused Firing',
 	atlas = 'Joker',
 	pos = { x = 1, y = 13 },
@@ -132,7 +132,7 @@ SMODS.Joker { --Focused Firing
 }
 
 SMODS.Joker { --Laser Shock
-    key = 'lshock',
+    key = 'laser_shock',
     name = 'Laser Shock',
     atlas = 'Joker',
 	pos = { x = 2, y = 13 },
@@ -223,7 +223,7 @@ SMODS.Joker { --Laser Shock
 }
 
 SMODS.Joker { --Laser Cannon
-    key = 'lcan',
+    key = 'laser_cannon',
     name = 'Laser Cannon',
     atlas = 'Joker',
 	pos = { x = 3, y = 13 },
@@ -311,7 +311,7 @@ SMODS.Joker { --Laser Cannon
 }
 
 SMODS.Joker { --Plasma Accelerator
-    key = 'paccel',
+    key = 'plasma_accelerator',
     name = 'Plasma Accelerator',
 	loc_txt = {
         name = 'Plasma Accelerator',
@@ -358,7 +358,7 @@ SMODS.Joker { --Plasma Accelerator
 }
 
 SMODS.Joker { --Ray of Doom
-    key = 'rod',
+    key = 'ray_of_doom',
     name = 'Ray of Doom',
 	loc_txt = {
         name = 'Ray of Doom',
@@ -405,7 +405,7 @@ SMODS.Joker { --Ray of Doom
 }
 
 SMODS.Joker { --Advanced Targeting
-    key = 'advanced',
+    key = 'advanced_targeting',
     name = 'Advanced Targeting',
 	atlas = 'Joker',
 	pos = { x = 6, y = 13 },
@@ -467,7 +467,7 @@ SMODS.Joker { --Advanced Targeting
 }
 
 SMODS.Joker { --Faster Barrel Spin
-    key = 'fastspin',
+    key = 'faster_barrel_spin',
     name = 'Faster Barrel Spin',
 	atlas = 'Joker',
 	pos = { x = 7, y = 13 },
@@ -529,7 +529,7 @@ SMODS.Joker { --Faster Barrel Spin
 }
 
 SMODS.Joker { --Hydra Rocket Pods
-    key = 'hrp',
+    key = 'hydra_rocket_pods',
     name = 'Hydra Rocket Pods',
 	atlas = 'Joker',
 	pos = { x = 8, y = 13 },
@@ -615,7 +615,7 @@ SMODS.Joker { --Hydra Rocket Pods
 }
 
 SMODS.Joker { --Rocket Storm
-    key = 'rorm',
+    key = 'rocket_storm',
     name = 'Rocket Storm',
 	atlas = 'Joker',
 	pos = { x = 9, y = 13 },
@@ -808,7 +808,7 @@ SMODS.Joker { --M.A.D
 }
 
 SMODS.Joker { --Faster Swivel
-    key = 'swivel',
+    key = 'faster_swivel',
     name = 'Faster Swivel',
 	atlas = 'Joker',
 	pos = { x = 11, y = 13 },
@@ -884,7 +884,7 @@ SMODS.Joker { --Faster Swivel
 }
 
 SMODS.Joker { --Powerful Darts
-    key = 'powerful',
+    key = 'powerful_darts',
     name = 'Powerful Darts',
 	atlas = 'Joker',
 	pos = { x = 12, y = 13 },
@@ -1014,7 +1014,7 @@ SMODS.Joker { --Buckshot
 }
 
 SMODS.Joker { --Bloon Area Denial System
-    key = 'bads',
+    key = 'bloon_area_denial_system',
     name = 'Bloon Area Denial System',
 	atlas = 'Joker',
 	pos = { x = 14, y = 13 },
@@ -1120,7 +1120,7 @@ SMODS.Joker { --Bloon Area Denial System
 }
 
 SMODS.Joker { --Bloon Exclusion Zone
-    key = 'bez',
+    key = 'bloon_exclusion_zone',
     name = 'Bloon Exclusion Zone',
 	atlas = 'Joker',
 	pos = { x = 15, y = 13 },

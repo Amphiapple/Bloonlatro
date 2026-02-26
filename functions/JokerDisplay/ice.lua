@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_ice"] = { --Ice Monkey
+JokerDisplay.Definitions["j_bloons_ice_monkey"] = { --Ice Monkey
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS }
@@ -19,10 +19,10 @@ JokerDisplay.Definitions["j_bloons_ice"] = { --Ice Monkey
     end
 }
 
-JokerDisplay.Definitions["j_bloons_pfrost"] = { --Permafrost
+JokerDisplay.Definitions["j_bloons_permafrost"] = { --Permafrost
 }
 
-JokerDisplay.Definitions["j_bloons_snap"] = { --Cold Snap
+JokerDisplay.Definitions["j_bloons_cold_snap"] = { --Cold Snap
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY }
@@ -46,14 +46,14 @@ JokerDisplay.Definitions["j_bloons_snap"] = { --Cold Snap
     end
 }
 
-JokerDisplay.Definitions["j_bloons_shards"] = { --Ice Shards
+JokerDisplay.Definitions["j_bloons_ice_shards"] = { --Ice Shards
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
     },
 }
 
-JokerDisplay.Definitions["j_bloons_embrit"] = { --Embrittlement
+JokerDisplay.Definitions["j_bloons_embrittlement"] = { --Embrittlement
     text = {
         {
             border_nodes = {
@@ -64,7 +64,7 @@ JokerDisplay.Definitions["j_bloons_embrit"] = { --Embrittlement
     },
 }
 
-JokerDisplay.Definitions["j_bloons_sbrit"] = { --Super Brittle
+JokerDisplay.Definitions["j_bloons_super_brittle"] = { --Super Brittle
     extra = {
         {
             { text = "(" },
@@ -79,7 +79,7 @@ JokerDisplay.Definitions["j_bloons_sbrit"] = { --Super Brittle
     end
 }
 
-JokerDisplay.Definitions["j_bloons_enhanced"] = { --Enhanced Freeze
+JokerDisplay.Definitions["j_bloons_enhanced_freeze"] = { --Enhanced Freeze
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS }
@@ -100,7 +100,7 @@ JokerDisplay.Definitions["j_bloons_enhanced"] = { --Enhanced Freeze
     end
 }
 
-JokerDisplay.Definitions["j_bloons_deep"] = { --Deep Freeze
+JokerDisplay.Definitions["j_bloons_deep_freeze"] = { --Deep Freeze
     extra = {
         {
             { text = "(" },
@@ -115,7 +115,7 @@ JokerDisplay.Definitions["j_bloons_deep"] = { --Deep Freeze
     end
 }
 
-JokerDisplay.Definitions["j_bloons_awind"] = { --Arctic Wind
+JokerDisplay.Definitions["j_bloons_arctic_wind"] = { --Arctic Wind
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -127,7 +127,7 @@ JokerDisplay.Definitions["j_bloons_awind"] = { --Arctic Wind
     end
 }
 
-JokerDisplay.Definitions["j_bloons_snorm"] = { --Snowstorm
+JokerDisplay.Definitions["j_bloons_snowstorm"] = { --Snowstorm
     text = {
         { text = "+", colour = G.C.ORANGE },
         { ref_table = "card.joker_display_values", ref_value = "hand_size", colour = G.C.ORANGE },
@@ -139,7 +139,7 @@ JokerDisplay.Definitions["j_bloons_snorm"] = { --Snowstorm
     end
 }
 
-JokerDisplay.Definitions["j_bloons_az"] = { --Absolute Zero
+JokerDisplay.Definitions["j_bloons_absolute_zero"] = { --Absolute Zero
     text = {
         { text = "+", colour = G.C.SECONDARY_SET.Spectral },
         { ref_table = "card.joker_display_values", ref_value = "spectrals", colour = G.C.SECONDARY_SET.Spectral }
@@ -155,7 +155,7 @@ JokerDisplay.Definitions["j_bloons_az"] = { --Absolute Zero
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangeice"] = { --Larger Radius
+JokerDisplay.Definitions["j_bloons_larger_radius"] = { --Larger Radius
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -176,7 +176,7 @@ JokerDisplay.Definitions["j_bloons_rangeice"] = { --Larger Radius
     end
 }
 
-JokerDisplay.Definitions["j_bloons_refreeze"] = { --Refreeze
+JokerDisplay.Definitions["j_bloons_re_freeze"] = { --Refreeze
     reminder_text = {
         { text = "(" },
         { text = "Frozen", colour = G.C.ORANGE },
@@ -198,7 +198,7 @@ JokerDisplay.Definitions["j_bloons_refreeze"] = { --Refreeze
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cryo"] = { --Cryo Cannon
+JokerDisplay.Definitions["j_bloons_cryo_cannon"] = { --Cryo Cannon
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -260,7 +260,7 @@ JokerDisplay.Definitions["j_bloons_icicles"] = { --Icicles
     end
 }
 
-JokerDisplay.Definitions["j_bloons_impale"] = { --Icicle Impale
+JokerDisplay.Definitions["j_bloons_icicle_impale"] = { --Icicle Impale
     text = {
         {
             border_nodes = {

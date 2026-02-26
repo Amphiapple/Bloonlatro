@@ -1,5 +1,5 @@
 SMODS.Joker { --Bomb Shooter
-    key = 'bomb',
+    key = 'bomb_shooter',
     name = 'Bomb Shooter',
 	loc_txt = {
         name = 'Bomb Shooter',
@@ -32,7 +32,7 @@ SMODS.Joker { --Bomb Shooter
 }
 
 SMODS.Joker { --Bigger Bombs
-    key = 'bigbomb',
+    key = 'bigger_bombs',
     name = 'Bigger Bombs',
 	loc_txt = {
         name = 'Bigger Bombs',
@@ -65,7 +65,7 @@ SMODS.Joker { --Bigger Bombs
 }
 
 SMODS.Joker { --Heavy Bombs
-    key = 'heavybomb',
+    key = 'heavy_bombs',
     name = 'Heavy Bombs',
 	loc_txt = {
         name = 'Heavy Bombs',
@@ -98,7 +98,7 @@ SMODS.Joker { --Heavy Bombs
 }
 
 SMODS.Joker { --Really Big Bombs
-    key = 'rbb',
+    key = 'really_big_bombs',
     name = 'Really Big Bombs',
 	loc_txt = {
         name = 'Really Big Bombs',
@@ -138,7 +138,7 @@ SMODS.Joker { --Really Big Bombs
 }
 
 SMODS.Joker { --Bloon Impact
-    key = 'blimpact',
+    key = 'bloon_impact',
     name = 'Bloon Impact',
     loc_txt = {
         name = 'Bloon Impact',
@@ -189,7 +189,7 @@ SMODS.Joker { --Bloon Impact
 }
 
 SMODS.Joker { --Bloon Crush
-    key = 'crush',
+    key = 'bloon_crush',
     name = 'Bloon Crush',
     loc_txt = {
         name = 'Bloon Crush',
@@ -237,8 +237,8 @@ SMODS.Joker { --Bloon Crush
 }
 
 SMODS.Joker { --Faster Reload
-    key = 'fastbomb',
-    name = 'Faster Reload',
+    key = 'faster_reload_bomb',
+    name = 'Faster Reload (Bomb)',
     loc_txt = {
         name = 'Faster Reload',
         text = {
@@ -270,7 +270,7 @@ SMODS.Joker { --Faster Reload
 }
 
 SMODS.Joker { --Missile Launcher
-    key = 'missile',
+    key = 'missile_launcher',
     name = 'Missile Launcher',
     loc_txt = {
         name = 'Missile Launcher',
@@ -303,7 +303,7 @@ SMODS.Joker { --Missile Launcher
 }
 
 SMODS.Joker { --MOAB Mauler
-    key = 'mauler',
+    key = 'moab_mauler',
     name = 'MOAB Mauler',
 	loc_txt = {
         name = 'MOAB Mauler',
@@ -335,7 +335,7 @@ SMODS.Joker { --MOAB Mauler
 }
 
 SMODS.Joker { --MOAB Assassin
-    key = 'assassin',
+    key = 'moab_assassin',
     name = 'MOAB Assassin',
 	loc_txt = {
         name = 'MOAB Assassin',
@@ -390,7 +390,7 @@ SMODS.Joker { --MOAB Assassin
 }
 
 SMODS.Joker { --MOAB Eliminator
-    key = 'elim',
+    key = 'moab_eliminator',
     name = 'MOAB Eliminator',
 	loc_txt = {
         name = 'MOAB Eliminator',
@@ -429,7 +429,7 @@ SMODS.Joker { --MOAB Eliminator
 }
 
 SMODS.Joker { --Extra Range
-    key = 'rangebomb',
+    key = 'extra_range',
     name = 'Extra Range',
 	loc_txt = {
         name = 'Extra Range',
@@ -462,7 +462,7 @@ SMODS.Joker { --Extra Range
 }
 
 SMODS.Joker { --Frag Bombs
-    key = 'frags',
+    key = 'frag_bombs',
     name = 'Frag Bombs',
 	loc_txt = {
         name = 'Frag Bombs',
@@ -506,7 +506,7 @@ SMODS.Joker { --Frag Bombs
 }
 
 SMODS.Joker { --Cluster Bombs
-    key = 'cluster',
+    key = 'cluster_bombs',
     name = 'Cluster Bombs',
 	loc_txt = {
         name = 'Cluster Bombs',
@@ -547,7 +547,7 @@ SMODS.Joker { --Cluster Bombs
 }
 
 SMODS.Joker { --Recursive Cluster
-    key = 'recursive',
+    key = 'recursive_cluster',
     name = 'Recursive Cluster',
 	loc_txt = {
         name = 'Recursive Cluster',
@@ -598,7 +598,7 @@ SMODS.Joker { --Recursive Cluster
 }
 
 SMODS.Joker { --Bomb Blitz
-    key = 'blitz',
+    key = 'bomb_blitz',
     name = 'Bomb Blitz',
 	loc_txt = {
         name = 'Bomb Blitz',

@@ -1,5 +1,5 @@
 SMODS.Joker { --Tack Shooter
-    key = 'tack',
+    key = 'tack_shooter',
     name = 'Tack Shooter',
 	loc_txt = {
         name = 'Tack Shooter',
@@ -33,8 +33,8 @@ SMODS.Joker { --Tack Shooter
 }
 
 SMODS.Joker { --Faster Shooting
-    key = 'fasttack',
-    name = 'Faster Shooting',
+    key = 'faster_shooting_tack',
+    name = 'Faster Shooting (Tack)',
 	loc_txt = {
         name = 'Faster Shooting',
         text = {
@@ -67,7 +67,7 @@ SMODS.Joker { --Faster Shooting
 }
 
 SMODS.Joker { --Even Faster Shooting
-    key = 'eventack',
+    key = 'even_faster_shooting',
     name = 'Even Faster Shooting',
 	loc_txt = {
         name = 'Even Faster Shooting',
@@ -100,7 +100,7 @@ SMODS.Joker { --Even Faster Shooting
 }
 
 SMODS.Joker { --Hot Shots
-    key = 'hotshots',
+    key = 'hot_shots',
     name = 'Hot Shots',
 	loc_txt = {
         name = 'Hot Shots',
@@ -131,7 +131,7 @@ SMODS.Joker { --Hot Shots
 }
 
 SMODS.Joker { --Ring of Fire
-    key = 'rof',
+    key = 'ring_of_fire',
     name = 'Ring of Fire',
 	loc_txt = {
         name = 'Ring of Fire',
@@ -172,7 +172,7 @@ SMODS.Joker { --Ring of Fire
 }
 
 SMODS.Joker { --Inferno Ring
-    key = 'iring',
+    key = 'inferno_ring',
     name = 'Inferno Ring',
 	loc_txt = {
         name = 'Inferno Ring',
@@ -222,7 +222,7 @@ SMODS.Joker { --Inferno Ring
 }
 
 SMODS.Joker { --Long Range Tacks
-    key = 'rangetack',
+    key = 'long_range_tacks',
     name = 'Long Range Tacks',
 	loc_txt = {
         name = 'Long Range Tacks',
@@ -271,7 +271,7 @@ SMODS.Joker { --Long Range Tacks
 }
 
 SMODS.Joker { --Super Range Tacks
-    key = 'supertack',
+    key = 'super_range_tacks',
     name = 'Super Range Tacks',
 	loc_txt = {
         name = 'Super Range Tacks',
@@ -320,7 +320,7 @@ SMODS.Joker { --Super Range Tacks
 }
 
 SMODS.Joker { --Blade Shooter
-    key = 'blade',
+    key = 'blade_shooter',
     name = 'Blade Shooter',
 	loc_txt = {
         name = 'Blade Shooter',
@@ -371,7 +371,7 @@ SMODS.Joker { --Blade Shooter
 }
 
 SMODS.Joker { --Blade Maelstrom
-    key = 'mael',
+    key = 'blade_maelstrom',
     name = 'Blade Maelstrom',
 	loc_txt = {
         name = 'Blade Maelstrom',
@@ -407,7 +407,7 @@ SMODS.Joker { --Blade Maelstrom
 }
 
 SMODS.Joker { --Super Maelstrom
-    key = 'smael',
+    key = 'super_maelstrom',
     name = 'Super Maelstrom',
 	loc_txt = {
         name = 'Super Maelstrom',
@@ -469,7 +469,7 @@ SMODS.Joker { --Super Maelstrom
 }
 
 SMODS.Joker { --More Tacks
-    key = 'moretacks',
+    key = 'more_tacks',
     name = 'More Tacks',
 	loc_txt = {
         name = 'More Tacks',
@@ -503,7 +503,7 @@ SMODS.Joker { --More Tacks
 }
 
 SMODS.Joker { --Even More Tacks
-    key = 'evenmore',
+    key = 'even_more_tacks',
     name = 'Even More Tacks',
 	loc_txt = {
         name = 'Even More Tacks',
@@ -537,7 +537,7 @@ SMODS.Joker { --Even More Tacks
 }
 
 SMODS.Joker { --Tack Sprayer
-    key = 'sprayer',
+    key = 'tack_sprayer',
     name = 'Tack Sprayer',
 	loc_txt = {
         name = 'Tack Sprayer',
@@ -572,7 +572,7 @@ SMODS.Joker { --Tack Sprayer
 }
 
 SMODS.Joker { --Overdrive
-    key = 'od',
+    key = 'overdrive',
     name = 'Overdrive',
     loc_txt = {
         name = 'Overdrive',
@@ -618,7 +618,7 @@ SMODS.Joker { --Overdrive
 }
 
 SMODS.Joker { --The Tack Zone
-    key = 'tz',
+    key = 'the_tack_zone',
     name = 'The Tack Zone',
     loc_txt = {
         name = 'The Tack Zone',

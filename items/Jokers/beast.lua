@@ -1,5 +1,5 @@
 SMODS.Joker { --Beast Handler
-    key = 'beast',
+    key = 'beast_handler',
     name = 'Beast Handler',
 	loc_txt = {
         name = 'Beast Handler',
@@ -103,7 +103,7 @@ SMODS.Joker { --Barracuda
 }
 
 SMODS.Joker { --Great White
-    key = 'greatwhite',
+    key = 'great_white',
     name = 'Great White',
 	loc_txt = {
         name = 'Great White',
@@ -192,7 +192,7 @@ SMODS.Joker { --Orca
 }
 
 SMODS.Joker { --Megalodon
-    key = 'meg',
+    key = 'megalodon',
     name = 'Megalodon',
 	loc_txt = {
         name = 'Megalodon',
@@ -234,7 +234,7 @@ SMODS.Joker { --Megalodon
 }
 
 SMODS.Joker { --Microraptor
-    key = 'micro',
+    key = 'microraptor',
     name = 'Microraptor',
 	loc_txt = {
         name = 'Microraptor',
@@ -273,7 +273,7 @@ SMODS.Joker { --Microraptor
 }
 
 SMODS.Joker { --Adasaurus
-    key = 'ada',
+    key = 'adasaurus',
     name = 'Adasaurus',
 	loc_txt = {
         name = 'Adasaurus',
@@ -307,7 +307,7 @@ SMODS.Joker { --Adasaurus
 }
 
 SMODS.Joker { --Velociraptor
-    key = 'velo',
+    key = 'velociraptor',
     name = 'Velociraptor',
 	loc_txt = {
         name = 'Velociraptor',
@@ -367,7 +367,7 @@ SMODS.Joker { --Velociraptor
 }
 
 SMODS.Joker { --Tyrannosaurus Rex
-    key = 't-rex',
+    key = 'tyrannosaurus_rex',
     name = 'Tyrannosaurus Rex',
 	loc_txt = {
         name = 'Tyrannosaurus Rex',
@@ -404,7 +404,7 @@ SMODS.Joker { --Tyrannosaurus Rex
 }
 
 SMODS.Joker { --Giganotosaurus
-    key = 'giga',
+    key = 'giganotosaurus',
     name = 'Giganotosaurus',
 	loc_txt = {
         name = 'Giganotosaurus',
@@ -489,7 +489,7 @@ SMODS.Joker { --Gyrfalcon
 }
 
 SMODS.Joker { --Horned Owl
-    key = 'owl',
+    key = 'horned_owl',
     name = 'Horned Owl',
     loc_txt = {
         name = 'Horned Owl',
@@ -541,7 +541,7 @@ SMODS.Joker { --Horned Owl
 }
 
 SMODS.Joker { --Golden Eagle
-    key = 'geagle',
+    key = 'golden_eagle',
     name = 'Golden Eagle',
     loc_txt = {
         name = 'Golden Eagle',
@@ -563,6 +563,9 @@ SMODS.Joker { --Golden Eagle
         extra = { retrigger = 1 } --Variables: retrigger = retrigger count
     },
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
+    end,
     update = function(self, card, dt)
         if G.playing_cards then
             for k, v in pairs(G.playing_cards) do
@@ -583,7 +586,7 @@ SMODS.Joker { --Golden Eagle
 }
 
 SMODS.Joker { --Giant Condor
-    key = 'condor',
+    key = 'giant_condor',
     name = 'Giant Condor',
 	loc_txt = {
         name = 'Giant Condor',

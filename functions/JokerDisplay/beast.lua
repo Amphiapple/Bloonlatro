@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_beast"] = { --Beast Handler
+JokerDisplay.Definitions["j_bloons_beast_handler"] = { --Beast Handler
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult", },
@@ -46,7 +46,7 @@ JokerDisplay.Definitions["j_bloons_barracuda"] = { --Barracuda
     end
 }
 
-JokerDisplay.Definitions["j_bloons_greatwhite"] = { --Great White
+JokerDisplay.Definitions["j_bloons_great_white"] = { --Great White
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         local retrigger = false
@@ -115,7 +115,7 @@ JokerDisplay.Definitions["j_bloons_meg"] = { --Megalodon
     end
 }
 
-JokerDisplay.Definitions["j_bloons_micro"] = { --Microraptor
+JokerDisplay.Definitions["j_bloons_microraptor"] = { --Microraptor
     text = {
         { text = "+"},
         { ref_table = "card.joker_display_values", ref_value = "chips" },
@@ -135,7 +135,7 @@ JokerDisplay.Definitions["j_bloons_micro"] = { --Microraptor
     end
 }
 
-JokerDisplay.Definitions["j_bloons_ada"] = { --Adasaurus
+JokerDisplay.Definitions["j_bloons_adasaurus"] = { --Adasaurus
     text = {
         { text = "+"},
         { ref_table = "card.joker_display_values", ref_value = "chips" },
@@ -155,7 +155,7 @@ JokerDisplay.Definitions["j_bloons_ada"] = { --Adasaurus
     end
 }
 
-JokerDisplay.Definitions["j_bloons_velo"] = { --Velociraptor
+JokerDisplay.Definitions["j_bloons_velociraptor"] = { --Velociraptor
     text = {
         { text = "+"},
         { ref_table = "card.joker_display_values", ref_value = "planets" },
@@ -175,10 +175,10 @@ JokerDisplay.Definitions["j_bloons_velo"] = { --Velociraptor
     end
 }
 
-JokerDisplay.Definitions["j_bloons_trex"] = { --Tyrannosaurus Rex
+JokerDisplay.Definitions["j_bloons_tyrannosaurus_rex"] = { --Tyrannosaurus Rex
 }
 
-JokerDisplay.Definitions["j_bloons_giga"] = { --Giganotosaurus
+JokerDisplay.Definitions["j_bloons_giganotosaurus"] = { --Giganotosaurus
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
             { text = "x",                              scale = 0.35 },
@@ -242,7 +242,7 @@ JokerDisplay.Definitions["j_bloons_gyrfalcon"] = { --Gyrfalcon
     end
 }
 
-JokerDisplay.Definitions["j_bloons_owl"] = { --Horned Owl
+JokerDisplay.Definitions["j_bloons_horned_owl"] = { --Horned Owl
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "tarots" },
@@ -262,14 +262,14 @@ JokerDisplay.Definitions["j_bloons_owl"] = { --Horned Owl
     end
 }
 
-JokerDisplay.Definitions["j_bloons_geagle"] = { --Golden Eagle
+JokerDisplay.Definitions["j_bloons_golden_eagle"] = { --Golden Eagle
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         return playing_card.ability.name == 'Wild Card' and joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 
-JokerDisplay.Definitions["j_bloons_condor"] = { --Giant Condor
+JokerDisplay.Definitions["j_bloons_giant_condor"] = { --Giant Condor
     extra = {
         {
             { text = "(", colour = G.C.GREEN, scale = 0.3 },

@@ -1,5 +1,5 @@
 SMODS.Joker { --Monkey Buccaneer
-    key = 'boat',
+    key = 'monkey_buccaneer',
     name = 'Monkey Buccaneer',
 	loc_txt = {
         name = 'Monkey Buccaneer',
@@ -32,8 +32,8 @@ SMODS.Joker { --Monkey Buccaneer
 }
 
 SMODS.Joker { --Faster Shooting
-    key = 'fastboat',
-    name = 'Faster Shooting',
+    key = 'faster_shooting_buccaneer',
+    name = 'Faster Shooting (Buccaneer)',
 	loc_txt = {
         name = 'Faster Shooting',
         text = {
@@ -67,8 +67,8 @@ SMODS.Joker { --Faster Shooting
 }
 
 SMODS.Joker { --Double Shot
-    key = 'doubleboat',
-    name = 'Double Shot',
+    key = 'double_shot_buccaneer',
+    name = 'Double Shot (Buccaneer)',
 	loc_txt = {
         name = 'Double Shot',
         text = {
@@ -190,7 +190,7 @@ SMODS.Joker { --Destroyer
 }
 
 SMODS.Joker { --Aircraft Carrier
-    key = 'airrier',
+    key = 'aircraft_carrier',
     name = 'Aircraft Carrier',
     loc_txt = {
         name = 'Aircraft Carrier',
@@ -248,7 +248,7 @@ SMODS.Joker { --Aircraft Carrier
 }
 
 SMODS.Joker { --Carrier Flagship
-    key = 'flag',
+    key = 'carrier_flagship',
     name = 'Carrier Flagship',
     loc_txt = {
         name = 'Carrier Flagship',
@@ -315,7 +315,7 @@ SMODS.Joker { --Carrier Flagship
 }
 
 SMODS.Joker { --Grape Shot
-    key = 'grape',
+    key = 'grape_shot',
     name = 'Grape Shot',
     loc_txt = {
         name = 'Grape Shot',
@@ -362,7 +362,7 @@ SMODS.Joker { --Grape Shot
 }
 
 SMODS.Joker { --Hot Shot
-    key = 'hotshot',
+    key = 'hot_shot',
     name = 'Hot Shot',
     loc_txt = {
         name = 'Hot Shot',
@@ -409,7 +409,7 @@ SMODS.Joker { --Hot Shot
 }
 
 SMODS.Joker { --Cannon Ship
-    key = 'cannon',
+    key = 'cannon_ship',
     name = 'Cannon Ship',
     loc_txt = {
         name = 'Cannon Ship',
@@ -445,7 +445,7 @@ SMODS.Joker { --Cannon Ship
 }
 
 SMODS.Joker { --Monkey Pirates
-    key = 'pirates',
+    key = 'monkey_pirates',
     name = 'Monkey Pirates',
     loc_txt = {
         name = 'Monkey Pirates',
@@ -492,7 +492,7 @@ SMODS.Joker { --Monkey Pirates
 }
 
 SMODS.Joker { --Pirate Lord
-    key = 'plord',
+    key = 'pirate_lord',
     name = 'Pirate Lord',
 	loc_txt = {
         name = 'Pirate Lord',
@@ -547,7 +547,7 @@ SMODS.Joker { --Pirate Lord
 }
 
 SMODS.Joker { --Long Range
-    key = 'rangeboat',
+    key = 'long_range',
     name = 'Long Range',
 	loc_txt = {
         name = 'Long Range',
@@ -580,7 +580,7 @@ SMODS.Joker { --Long Range
 }
 
 SMODS.Joker { --Crow's Nest
-    key = 'crowsnest',
+    key = 'crows_nest',
     name = "Crow's Nest",
 	loc_txt = {
         name = "Crow's Nest",
@@ -614,7 +614,7 @@ SMODS.Joker { --Crow's Nest
 }
 
 SMODS.Joker { --Merchantman
-    key = 'merchant',
+    key = 'merchantman',
     name = "Merchantman",
 	loc_txt = {
         name = "Merchantman",
@@ -634,7 +634,7 @@ SMODS.Joker { --Merchantman
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.tag_voucher
+        info_queue[#info_queue+1] = G.P_TAGS.tag_voucher
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
@@ -651,7 +651,7 @@ SMODS.Joker { --Merchantman
 }
 
 SMODS.Joker { --Favored Trades
-    key = 'flavored',
+    key = 'favored_trades',
     name = "Favored Trades",
 	loc_txt = {
         name = "Favored Trades",
@@ -705,7 +705,7 @@ SMODS.Joker { --Favored Trades
 }
 
 SMODS.Joker { --Trade Empire
-    key = 'empire',
+    key = 'trade_empire',
     name = "Trade Empire",
 	loc_txt = {
         name = "Trade Empire",

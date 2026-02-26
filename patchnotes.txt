@@ -6,15 +6,12 @@ Added Jokers:
 General Changes:
 - Bloonlatro challenge has been replaced with a new challenge as you can turn on and off base game jokers at will
 - Crash of the Titans banned cards adjusted
+- Joker keys renamed, you may need to reset your profile for accurate stats to be tracked
 
 Balance Changes:
 - Glaive Lord chip gain 3 > 2
 - Bionic Boomerang reworked
-- Base Bomb, Missile Launcher, and Frag Bombs reworked
-- Bomb Blitz cost 7 > 8
-- Bomb Blitz chips scored percent 50 > 25
-- Super Brittle no longer provides permanent Xmult held in hand
-- Absolute Zero reworked
+- Most Bomb shoters reworked
 - Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
 - Bounty Hunter money 5 > 3
 - Ground Zero chips 350 > 300, first hand > final hand

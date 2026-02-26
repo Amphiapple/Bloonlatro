@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_super"] = { --Super Monkey
+JokerDisplay.Definitions["j_bloons_super_monkey"] = { --Super Monkey
     text = {
         {
             border_nodes = {
@@ -9,13 +9,13 @@ JokerDisplay.Definitions["j_bloons_super"] = { --Super Monkey
     }
 }
 
-JokerDisplay.Definitions["j_bloons_range"] = { --Super Range
+JokerDisplay.Definitions["j_bloons_super_range"] = { --Super Range
 }
 
-JokerDisplay.Definitions["j_bloons_uv"] = { --Ultravision
+JokerDisplay.Definitions["j_bloons_ultravision"] = { --Ultravision
 }
 
-JokerDisplay.Definitions["j_bloons_sav"] = { --Sun Avatar
+JokerDisplay.Definitions["j_bloons_sun_avatar"] = { --Sun Avatar
     text = {
         {
             border_nodes = {
@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_sav"] = { --Sun Avatar
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tech"] = { --Tech Terror
+JokerDisplay.Definitions["j_bloons_tech_terror"] = { --Tech Terror
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
@@ -50,5 +50,5 @@ JokerDisplay.Definitions["j_bloons_tech"] = { --Tech Terror
     end
 }
 
-JokerDisplay.Definitions["j_bloons_lotn"] = { --Legend of the Night
+JokerDisplay.Definitions["j_bloons_legend_of_the_night"] = { --Legend of the Night
 }

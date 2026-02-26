@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_spac"] = { --Spike Factory
+JokerDisplay.Definitions["j_bloons_spike_factory"] = { --Spike Factory
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -6,7 +6,7 @@ JokerDisplay.Definitions["j_bloons_spac"] = { --Spike Factory
     text_config = { colour = G.C.CHIPS }
 }
 
-JokerDisplay.Definitions["j_bloons_stacks"] = { --Bigger Stacks
+JokerDisplay.Definitions["j_bloons_bigger_tacks"] = { --Bigger Stacks
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -14,7 +14,7 @@ JokerDisplay.Definitions["j_bloons_stacks"] = { --Bigger Stacks
     text_config = { colour = G.C.CHIPS }
 }
 
-JokerDisplay.Definitions["j_bloons_whitehot"] = { --White Hot Spikes
+JokerDisplay.Definitions["j_bloons_white_hot_spikes"] = { --White Hot Spikes
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "chips" },
@@ -26,7 +26,7 @@ JokerDisplay.Definitions["j_bloons_whitehot"] = { --White Hot Spikes
     end
 }
 
-JokerDisplay.Definitions["j_bloons_spalls"] = { --Spiked Balls
+JokerDisplay.Definitions["j_bloons_spiked_balls"] = { --Spiked Balls
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -34,7 +34,7 @@ JokerDisplay.Definitions["j_bloons_spalls"] = { --Spiked Balls
     text_config = { colour = G.C.CHIPS }
 }
 
-JokerDisplay.Definitions["j_bloons_spines"] = { --Spiked Mines
+JokerDisplay.Definitions["j_bloons_spiked_mines"] = { --Spiked Mines
     text = {
         {
             border_nodes = {
@@ -48,7 +48,7 @@ JokerDisplay.Definitions["j_bloons_spines"] = { --Spiked Mines
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fastspac"] = { --Faster Production
+JokerDisplay.Definitions["j_bloons_faster_production"] = { --Faster Production
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -56,7 +56,7 @@ JokerDisplay.Definitions["j_bloons_fastspac"] = { --Faster Production
     text_config = { colour = G.C.MULT }
 }
 
-JokerDisplay.Definitions["j_bloons_evenspac"] = { --Even Faster Production
+JokerDisplay.Definitions["j_bloons_even_faster_production"] = { --Even Faster Production
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -64,7 +64,7 @@ JokerDisplay.Definitions["j_bloons_evenspac"] = { --Even Faster Production
     text_config = { colour = G.C.MULT }
 }
 
-JokerDisplay.Definitions["j_bloons_shredr"] = { --MOAB SHREDR
+JokerDisplay.Definitions["j_bloons_moab_shredr"] = { --MOAB SHREDR
     text = {
         {
             border_nodes = {
@@ -75,7 +75,7 @@ JokerDisplay.Definitions["j_bloons_shredr"] = { --MOAB SHREDR
     },
 }
 
-JokerDisplay.Definitions["j_bloons_sporm"] = { --Spike Storm
+JokerDisplay.Definitions["j_bloons_spike_storm"] = { --Spike Storm
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x",                              scale = 0.35 },
@@ -111,7 +111,7 @@ JokerDisplay.Definitions["j_bloons_sporm"] = { --Spike Storm
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cos"] = { --Carpet of Spikes
+JokerDisplay.Definitions["j_bloons_carpet_of_spikes"] = { --Carpet of Spikes
     text = {
         {
             border_nodes = {
@@ -133,10 +133,10 @@ JokerDisplay.Definitions["j_bloons_cos"] = { --Carpet of Spikes
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangespac"] = { --Long Reach
+JokerDisplay.Definitions["j_bloons_long_reach"] = { --Long Reach
 }
 
-JokerDisplay.Definitions["j_bloons_smart"] = { --Smart Spikes
+JokerDisplay.Definitions["j_bloons_smart_spikes"] = { --Smart Spikes
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" }
@@ -144,7 +144,7 @@ JokerDisplay.Definitions["j_bloons_smart"] = { --Smart Spikes
     text_config = { colour = G.C.MULT }
 }
 
-JokerDisplay.Definitions["j_bloons_lls"] = { --Long Life Spikes
+JokerDisplay.Definitions["j_bloons_long_life_spikes"] = { --Long Life Spikes
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -152,7 +152,7 @@ JokerDisplay.Definitions["j_bloons_lls"] = { --Long Life Spikes
     text_config = { colour = G.C.MULT }
 }
 
-JokerDisplay.Definitions["j_bloons_deadly"] = { --Deadly Spikes
+JokerDisplay.Definitions["j_bloons_deadly_spikes"] = { --Deadly Spikes
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
@@ -160,7 +160,7 @@ JokerDisplay.Definitions["j_bloons_deadly"] = { --Deadly Spikes
     text_config = { colour = G.C.MULT }
 }
 
-JokerDisplay.Definitions["j_bloons_pspike"] = { --Perma Spike
+JokerDisplay.Definitions["j_bloons_perma_spike"] = { --Perma Spike
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" }

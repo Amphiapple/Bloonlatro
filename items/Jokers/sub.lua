@@ -1,5 +1,5 @@
 SMODS.Joker { --Monkey Sub
-    key = 'sub',
+    key = 'monkey_sub',
     name = 'Monkey Sub',
 	loc_txt = {
         name = 'Monkey Sub',
@@ -39,7 +39,7 @@ SMODS.Joker { --Monkey Sub
 }
 
 SMODS.Joker { --Longer Range
-    key = 'rangesub',
+    key = 'longer_range',
     name = 'Longer Range',
     loc_txt = {
         name = 'Longer Range',
@@ -87,7 +87,7 @@ SMODS.Joker { --Longer Range
 }
 
 SMODS.Joker { --Advanced Intel
-    key = 'intel',
+    key = 'advanced_intel',
     name = 'Advanced Intel',
     loc_txt = {
         name = 'Advanced Intel',
@@ -123,7 +123,7 @@ SMODS.Joker { --Advanced Intel
 }
 
 SMODS.Joker { --Submerge and Support
-    key = 'sns',
+    key = 'submerge_and_support',
     name = 'Submerge and Support',
     loc_txt = {
         name = 'Submerge and Support',
@@ -165,7 +165,7 @@ SMODS.Joker { --Submerge and Support
 }
 
 SMODS.Joker { --Bloontonium Reactor
-    key = 'reactor',
+    key = 'bloontonium_reactor',
     name = 'Bloontonium Reactor',
     loc_txt = {
         name = 'Bloontonium Reactor',
@@ -204,7 +204,7 @@ SMODS.Joker { --Bloontonium Reactor
 }
 
 SMODS.Joker { --Energizer
-    key = 'gizer',
+    key = 'energizer',
     name = 'Energizer',
 	loc_txt = {
         name = 'Energizer',
@@ -235,7 +235,7 @@ SMODS.Joker { --Energizer
 }
 
 SMODS.Joker { --Barbed Darts
-    key = 'barbed',
+    key = 'barbed_darts',
     name = 'Barbed Darts',
 	loc_txt = {
         name = 'Barbed Darts',
@@ -275,7 +275,7 @@ SMODS.Joker { --Barbed Darts
 }
 
 SMODS.Joker { --Heat-tipped Darts
-    key = 'heattip',
+    key = 'heat_tipped_darts',
     name = 'Heat-tipped Darts',
 	loc_txt = {
         name = 'Heat-tipped Darts',
@@ -315,7 +315,7 @@ SMODS.Joker { --Heat-tipped Darts
 }
 
 SMODS.Joker { --Ballistic Missile
-    key = 'ballistic',
+    key = 'ballistic_missile',
     name = 'Ballistic Missile',
 	loc_txt = {
         name = 'Ballistic Missile',
@@ -363,7 +363,7 @@ SMODS.Joker { --Ballistic Missile
 }
 
 SMODS.Joker { --First Strike Capability
-    key = 'fs',
+    key = 'first_strike_capability',
     name = 'First Strike Capability',
 	loc_txt = {
         name = 'First Strike Capability',
@@ -403,7 +403,7 @@ SMODS.Joker { --First Strike Capability
 }
 
 SMODS.Joker { --Pre-emptive Strike
-    key = 'preemp',
+    key = 'pre_emptive_strike',
     name = 'Pre-emptive Strike',
 	loc_txt = {
         name = 'Pre-emptive Strike',
@@ -435,7 +435,7 @@ SMODS.Joker { --Pre-emptive Strike
 }
 
 SMODS.Joker { --Twin Guns
-    key = 'twinguns',
+    key = 'twin_guns',
     name = 'Twin Guns',
 	loc_txt = {
         name = 'Twin Guns',
@@ -485,7 +485,7 @@ SMODS.Joker { --Twin Guns
 }
 
 SMODS.Joker { --Airburst Darts
-    key = 'airburst',
+    key = 'airburst_darts',
     name = 'Airburst Darts',
     loc_txt = {
         name = 'Airburst Darts',
@@ -545,7 +545,7 @@ SMODS.Joker { --Airburst Darts
 }
 
 SMODS.Joker { --Triple Guns
-    key = 'tripguns',
+    key = 'triple_guns',
     name = 'Triple Guns',
     loc_txt = {
         name = 'Triple Guns',
@@ -605,7 +605,7 @@ SMODS.Joker { --Triple Guns
 }
 
 SMODS.Joker { --Armor Piercing Darts
-    key = 'apd',
+    key = 'armor_piercing_darts',
     name = 'Armor Piercing Darts',
     loc_txt = {
         name = 'Armor Piercing Darts',
@@ -658,7 +658,7 @@ SMODS.Joker { --Armor Piercing Darts
 }
 
 SMODS.Joker { --Sub Commander
-    key = 'subcom',
+    key = 'sub_commander',
     name = 'Sub Commander',
     loc_txt = {
         name = 'Sub Commander',
