@@ -13,6 +13,8 @@ Balance Changes:
 - Bionic Boomerang reworked
 - Most Bomb shoters reworked
 - Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
+- Super Maelstrom Xmult 2 > 3, rarity Uncommon > Rare
+- Super Brittle and Absolute Zero reworked
 - Bounty Hunter money 5 > 3
 - Ground Zero chips 350 > 300, first hand > final hand
 - Spiked Balls and Spiked Mines reworked

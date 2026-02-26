@@ -106,7 +106,7 @@ SMODS.Joker { --Banana Plantation
         return { vars = { card.ability.extra.min, card.ability.extra.max } }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = pseudorandom('plantation', card.ability.extra.min, card.ability.extra.max)
+        local dollars = pseudorandom('banana_plantation', card.ability.extra.min, card.ability.extra.max)
         return dollars
     end
 }
@@ -137,7 +137,7 @@ SMODS.Joker { --BRF
     calc_dollar_bonus = function(self, card)
         local dollars = card.ability.extra.money * card.ability.extra.min
         for i = card.ability.extra.min + 1, card.ability.extra.crates do
-            if pseudorandom('brf') > 0.5 then
+            if pseudorandom('banana_research_facility') > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
         end
@@ -211,12 +211,12 @@ SMODS.Joker { --Long Life Bananas
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'longlife')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'long_life_bananas')
         return { vars = { n, d, card.ability.extra.money, card.ability.extra.bananas } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'longlife', card.ability.extra.num, card.ability.extra.denom, 'longlife') then
+            if SMODS.pseudorandom_probability(card, 'long_life_bananas', card.ability.extra.num, card.ability.extra.denom, 'long_life_bananas') then
                 card.ability.extra.bananas = card.ability.extra.bananas - 1
                 if card.ability.extra.bananas <= 0 then
                     G.E_MANAGER:add_event(Event({
@@ -278,12 +278,12 @@ SMODS.Joker { --Valuable Bananas
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuable')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuable_bananas')
         return { vars = { n, d, card.ability.extra.money, card.ability.extra.bananas } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'valuable', card.ability.extra.num, card.ability.extra.denom, 'valuable') then
+            if SMODS.pseudorandom_probability(card, 'valuvaluable_bananasable', card.ability.extra.num, card.ability.extra.denom, 'valuable_bananas') then
                 card.ability.extra.bananas = card.ability.extra.bananas - 1
                 if card.ability.extra.bananas <= 0 then
                     G.E_MANAGER:add_event(Event({
@@ -368,7 +368,7 @@ SMODS.Joker { --Monkey Bank
         elseif context.selling_self and to_big(card.sell_cost) >= to_big(card.ability.extra.sell_limit) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local card = create_card('j_bloons_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_bank', 'bank')
+                    local card = create_card('j_bloons_monkey_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_monkey_bank', 'monkey_bank')
                     card.ability.extra_value = card.ability.extra_value - card.sell_cost
                     card:set_cost()
                     card:add_to_deck()
@@ -464,7 +464,7 @@ SMODS.Joker { --Monkey-Nomics
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local card = create_card('c_hermit', G.consumeables, nil, nil, nil, nil, 'c_hermit', 'nomics')
+                    local card = create_card('c_hermit', G.consumeables, nil, nil, nil, nil, 'c_hermit', 'monkey_nomics')
                     card:add_to_deck()
                     G.consumeables:emplace(card)
                     G.GAME.consumeable_buffer = 0

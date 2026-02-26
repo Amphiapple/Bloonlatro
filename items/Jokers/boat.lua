@@ -53,11 +53,11 @@ SMODS.Joker { --Faster Shooting
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'fastboat')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer')
         return { vars = { n, d, card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and SMODS.pseudorandom_probability(card, 'fastboat', card.ability.extra.num, card.ability.extra.denom, 'fastboat') then
+        if context.joker_main and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
             return {
                 dollars = card.ability.extra.money,
                 colour = G.C.MONEY
@@ -211,13 +211,13 @@ SMODS.Joker { --Aircraft Carrier
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'airrier')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'aircraft_carrier')
         return { vars = { n, d, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             for i = 1, card.ability.extra.planes do
-                if SMODS.pseudorandom_probability(card, 'airrier', card.ability.extra.num, card.ability.extra.denom, 'airrier') then
+                if SMODS.pseudorandom_probability(card, 'aircraft_carrier', card.ability.extra.num, card.ability.extra.denom, 'aircraft_carrier') then
                     mult = mod_mult(mult * card.ability.extra.Xmult)
                     update_hand_text( { delay = 0 }, { mult = mult } )
                     G.E_MANAGER:add_event(Event({
@@ -270,7 +270,7 @@ SMODS.Joker { --Carrier Flagship
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'flagship')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'carrier_flagship')
         return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -282,7 +282,7 @@ SMODS.Joker { --Carrier Flagship
     calculate = function(self, card, context)
         if context.joker_main then
             for i = 1, card.ability.extra.planes do
-                if SMODS.pseudorandom_probability(card, 'flagship', card.ability.extra.num, card.ability.extra.denom, 'flagship') then
+                if SMODS.pseudorandom_probability(card, 'carrier_flagship', card.ability.extra.num, card.ability.extra.denom, 'carrier_flagship') then
                     mult = mod_mult(mult * card.ability.extra.Xmult)
                     update_hand_text( { delay = 0 }, { mult = mult } )
                     G.E_MANAGER:add_event(Event({
@@ -385,7 +385,7 @@ SMODS.Joker { --Hot Shot
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'hotshot')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'hot_shot')
 		return { vars = { n, d, card.ability.extra.money } }
     end,
     calc_dollar_bonus = function(self, card)
@@ -393,7 +393,7 @@ SMODS.Joker { --Hot Shot
     end,
     calculate = function(self, card, context)
         if context.starting_shop and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'hotshot', card.ability.extra.num, card.ability.extra.denom, 'hotshot') then
+            if SMODS.pseudorandom_probability(card, 'hot_shot', card.ability.extra.num, card.ability.extra.denom, 'hot_shot') then
                 SMODS.destroy_cards(self, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),

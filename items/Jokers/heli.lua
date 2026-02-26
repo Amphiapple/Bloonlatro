@@ -253,7 +253,7 @@ SMODS.Joker { --Special Poperations
             if card.ability.extra.counter % card.ability.extra.marine == 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local card = create_card('j_bloons_marine', G.jokers, nil, 0, nil, nil, 'j_bloons_marine', 'spop')
+                        local card = create_card('j_bloons_marine', G.jokers, nil, 0, nil, nil, 'j_bloons_marine', 'special_poperations')
                         card:add_to_deck()
                         G.jokers:emplace(card)
                         card:start_materialize()
@@ -267,7 +267,7 @@ SMODS.Joker { --Special Poperations
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash', 'spop')
+                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash', 'special_poperations')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0

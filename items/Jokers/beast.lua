@@ -216,7 +216,7 @@ SMODS.Joker { --Megalodon
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'meg')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'megalodon')
         return { vars = { card.ability.extra.Xmult, n, d } }
     end,
     calculate = function(self, card, context)
@@ -225,7 +225,7 @@ SMODS.Joker { --Megalodon
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.destroying_card and not context.blueprint then
-            if context.destroying_card.ability.name == 'Bonus' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'meg', card.ability.extra.num, card.ability.extra.denom, 'meg') then
+            if context.destroying_card.ability.name == 'Bonus' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'megalodon', card.ability.extra.num, card.ability.extra.denom, 'megalodon') then
                 return true
             end
             return nil
@@ -353,7 +353,7 @@ SMODS.Joker { --Velociraptor
                                 planet = v.key
                             end
                         end
-                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'velo')
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'velociraptor')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -428,12 +428,12 @@ SMODS.Joker { --Giganotosaurus
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giga')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giganotosaurus')
         return { vars = { card.ability.extra.Xmult1, n, d, card.ability.extra.Xmult2 } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Mult' and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'giga', card.ability.extra.num, card.ability.extra.denom, 'giga') then
+            if SMODS.pseudorandom_probability(card, 'giganotosaurus', card.ability.extra.num, card.ability.extra.denom, 'giganotosaurus') then
                 return {
                     x_mult = card.ability.extra.Xmult2
                 }
@@ -527,7 +527,7 @@ SMODS.Joker { --Horned Owl
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'owl')
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'horned_owl')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -610,13 +610,13 @@ SMODS.Joker { --Giant Condor
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'condor')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giant_condor')
         return { vars = { n, d, card.ability.extra.hand_size } }
     end,
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-			if context.other_card.ability.name == 'Wild Card' and SMODS.pseudorandom_probability(card, 'condor', card.ability.extra.num, card.ability.extra.denom, 'condor') then
+			if context.other_card.ability.name == 'Wild Card' and SMODS.pseudorandom_probability(card, 'giant_condor', card.ability.extra.num, card.ability.extra.denom, 'giant_condor') then
                 G.hand:change_size(card.ability.extra.hand_size)
                 G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.hand_size
                 return {

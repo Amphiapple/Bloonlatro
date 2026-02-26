@@ -317,7 +317,7 @@ SMODS.Joker { --Triple Shot
                             trigger = 'before',
                             delay = 0.0,
                             func = (function()
-                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'tripshot')
+                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'triple_shot')
                                 card:add_to_deck()
                                 G.consumeables:emplace(card)
                                 G.GAME.consumeable_buffer = 0

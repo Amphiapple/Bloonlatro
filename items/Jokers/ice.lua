@@ -327,9 +327,9 @@ SMODS.Joker { --Super Brittle
 	loc_txt = {
         name = 'Super Brittle',
         text = {
-            '{C:attention}Frozen Cards{} permanently',
-            'gain {X:mult,C:white}X#1#{} Hand Mult',
-            'when thawed out and',
+            '{C:attention}Frozen Cards{} give',
+            '{X:mult,C:white}X#1#{} Mult when',
+            'held in hand and',
             '{C:green}#2# in #3#{} chance to be destroyed',
         }
     },
@@ -341,17 +341,21 @@ SMODS.Joker { --Super Brittle
     enhancement_gate = 'm_bloons_frozen',
     config = {
         base = 'ice',
-        extra = { Xmult = 0.5, num = 1, denom = 4 } --Variables: Xmult = Xmult gain per frozen, num/denom = probability fraction
+        extra = { Xmult = 1.5, num = 1, denom = 4 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sbrit')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'super_brittle')
         return { vars = { card.ability.extra.Xmult, n, d } }
     end,
     calculate = function(self, card, context)
-        if context.destroy_card and context.cardarea == G.hand and not context.blueprint then
-            if context.destroy_card.ability.name == 'Frozen Card' and not context.destroy_card.debuff and SMODS.pseudorandom_probability(card, 'sbrit', card.ability.extra.num, card.ability.extra.denom, 'sbrit') then
+        if context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' and not context.end_of_round then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.destroy_card and context.cardarea == G.hand and not context.blueprint then
+            if context.destroy_card.ability.name == 'Frozen Card' and not context.destroy_card.debuff and SMODS.pseudorandom_probability(card, 'super_brittle', card.ability.extra.num, card.ability.extra.denom, 'super_brittle') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()
@@ -362,13 +366,6 @@ SMODS.Joker { --Super Brittle
                 return true
             end
             return nil
-        elseif context.after then
-            for k, v in ipairs(G.hand.cards) do
-                if v.ability.name == 'Frozen Card' and not v.debuff then
-                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult or 1
-                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult + card.ability.extra.Xmult
-                end
-            end
         end
     end
 }
@@ -463,7 +460,7 @@ SMODS.Joker { --Deep Freeze
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'deep')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'deep_freeze')
         return { vars = { n, d } }
     end,
 }
@@ -584,12 +581,9 @@ SMODS.Joker { --Absolute Zero
 	loc_txt = {
         name = 'Absolute Zero',
         text = {
-            'If {C:attention}first hand{} of round',
-            'has {C:attention}#1#{} scoring cards,',
-            'score {C:attention}#2#{} chips, {C:attention}Freeze{}',
-            'all scoring cards, and',
-            'create a {C:spectral}Spectral{} card',
-            '{C:inactive}(Must have room){}'
+            '{C:attention}Frozen{} cards permanently',
+            'gain {X:mult,C:white}X#1#{} Mult',
+            'when thawed out',
         }
     },
 	atlas = 'Joker',
@@ -599,67 +593,21 @@ SMODS.Joker { --Absolute Zero
     blueprint_compat = true,
     config = {
         base = 'ice',
-        extra = { number = 5, chips = 0 } --Variables: number = required cards for spectral
+        extra = { Xmult = 0.25 } --Variables: Xmult = Xmult gain
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.number, card.ability.extra.chips } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.before and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 then
-            if not context.blueprint then
-                for k, v in pairs(context.scoring_hand) do
-                    if not v.debuff then
-                        v:set_ability('m_bloons_frozen', nil, true)
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                v:juice_up()
-                                return true
-                            end
-                        }))
-                    end
+        if context.after then
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Frozen Card' and not v.debuff then
+                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult or 1
+                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult + card.ability.extra.Xmult
                 end
             end
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
-                    func = (function()
-                        local card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'az')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        G.GAME.consumeable_buffer = 0
-                        return true
-                    end)
-                }))
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
-            end
-        elseif context.final_scoring_step and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 and not context.blueprint then
-            hand_chips = mod_chips(card.ability.extra.chips)
-            hand_mult = mod_mult(card.ability.extra.chips)
-            update_hand_text( { delay = 0 }, { chips = hand_chips, mult = hand_mult } )
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound("timpani", 1)
-                    attention_text({
-                        scale = 1.4,
-                        text = "Frozen",
-                        hold = 0.45,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
-            delay(0.6)
         end
     end
 }
@@ -789,7 +737,7 @@ SMODS.Joker { --Cryo Cannon
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo_cannon')
         return { vars = { card.ability.extra.mult, n, d } }
     end,
     calculate = function(self, card, context)
@@ -797,7 +745,7 @@ SMODS.Joker { --Cryo Cannon
             return {
                 mult = card.ability.extra.mult
             }
-        elseif context.discard and not context.other_card.debuff and SMODS.pseudorandom_probability(card, 'cryo', card.ability.extra.num, card.ability.extra.denom, 'cryo') then
+        elseif context.discard and not context.other_card.debuff and SMODS.pseudorandom_probability(card, 'cryo_cannon', card.ability.extra.num, card.ability.extra.denom, 'cryo_cannon') then
             context.other_card:set_ability('m_bloons_frozen', nil, true)
             return {
                 message = 'Freeze!',

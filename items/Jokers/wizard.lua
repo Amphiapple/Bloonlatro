@@ -20,7 +20,7 @@ SMODS.Joker { --Wizard Monkey
     calculate = function(self, card, context)
         if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
             local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
-            local enhancement = pseudorandom_element(enhancement_pool, pseudoseed('wiz'))
+            local enhancement = pseudorandom_element(enhancement_pool, pseudoseed('wiz'..G.GAME.round_resets.ante))
             context.scoring_hand[1]:set_ability(enhancement, nil, true)
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -83,7 +83,7 @@ SMODS.Joker { --Guided Magic
             }
         elseif context.after then
             local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
-            card.ability.extra.enhancement = pseudorandom_element(enhancement_pool, pseudoseed('guided'))
+            card.ability.extra.enhancement = pseudorandom_element(enhancement_pool, pseudoseed('guided'..G.GAME.round_resets.ante))
         end
     end
 }
@@ -163,7 +163,7 @@ SMODS.Joker { --Arcane Mastery
                     if next(enhancements) == nil then
                         enhancements[1] = 'c_strength'
                     end
-                    local tarot = pseudorandom_element(enhancements, pseudoseed('amast'))
+                    local tarot = pseudorandom_element(enhancements, pseudoseed('amast'..G.GAME.round_resets.ante))
                     local card = create_card(tarot, G.consumeables, nil, nil, nil, nil, tarot, 'amast')
                     card:add_to_deck()
                     G.consumeables:emplace(card)

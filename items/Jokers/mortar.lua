@@ -20,11 +20,11 @@ SMODS.Joker { --Mortar Monkey
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mortar')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mortar_monkey')
         return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'mortar', card.ability.extra.num, card.ability.extra.denom, 'mortar') then
+        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'mortar_monkey', card.ability.extra.num, card.ability.extra.denom, 'mortar_monkey') then
             return {
                 mult = card.ability.extra.mult,
             }
@@ -54,11 +54,11 @@ SMODS.Joker { --Burny Stuff
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'burny')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'burny_stuff')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.destroy_card and context.destroy_card == context.full_hand[1] and SMODS.pseudorandom_probability(card, 'burny', card.ability.extra.num, card.ability.extra.denom, 'burny') then
+        if context.destroy_card and context.destroy_card == context.full_hand[1] and SMODS.pseudorandom_probability(card, 'burny_stuff', card.ability.extra.num, card.ability.extra.denom, 'burny_stuff') then
             return {remove = true}
         end
     end
@@ -87,11 +87,11 @@ SMODS.Joker { --Shell Shock
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sshock')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sshoshell_shockck')
         return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'sshock', card.ability.extra.num, card.ability.extra.denom, 'sshock') and not context.other_card.debuff then
+        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'shell_shock', card.ability.extra.num, card.ability.extra.denom, 'shell_shock') and not context.other_card.debuff then
             context.other_card:set_ability('m_bloons_stunned', nil, true)
             return {
                 mult = card.ability.extra.mult
@@ -123,7 +123,7 @@ SMODS.Joker { --Artillery Battery
 
     },
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'abatt')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'artillery_battery')
         return {
             vars = {
                 n,
@@ -137,13 +137,13 @@ SMODS.Joker { --Artillery Battery
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             local temp_chips, temp_mult, temp_Xmult = 0, 0, 1
-            if SMODS.pseudorandom_probability(card, 'abatt1', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
+            if SMODS.pseudorandom_probability(card, 'artillery_battery_1', card.ability.extra.num, card.ability.extra.denom, 'artillery_battery') then
                 temp_chips = card.ability.extra.chips
             end
-            if SMODS.pseudorandom_probability(card, 'abatt2', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
+            if SMODS.pseudorandom_probability(card, 'artillery_battery_2', card.ability.extra.num, card.ability.extra.denom, 'artillery_battery') then
                 temp_mult = card.ability.extra.mult
             end
-            if SMODS.pseudorandom_probability(card, 'abatt3', card.ability.extra.num, card.ability.extra.denom, 'abatt') then
+            if SMODS.pseudorandom_probability(card, 'artillery_battery_3', card.ability.extra.num, card.ability.extra.denom, 'artillery_battery') then
                 temp_Xmult = card.ability.extra.Xmult
             end
                 return {

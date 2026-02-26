@@ -400,7 +400,7 @@ SMODS.Joker { --Golden Justice
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
         info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gustice')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'golden_justice')
         return { vars = { card.ability.extra.Xmult, n, d, card.ability.extra.gold_money, card.ability.extra.destroy_money } }
     end,
     calculate = function(self, card, context)
@@ -409,7 +409,7 @@ SMODS.Joker { --Golden Justice
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.destroying_card and not context.blueprint then
-            if context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
+            if context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'golden_justice', card.ability.extra.num, card.ability.extra.denom, 'golden_justice') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()

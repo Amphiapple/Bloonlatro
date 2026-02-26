@@ -65,7 +65,7 @@ SMODS.Joker { --Sentry Gun
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sentries')
+                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sentry_gun')
                     joker:add_to_deck()
                     G.jokers:emplace(joker)
                     joker:start_materialize()
@@ -101,16 +101,16 @@ SMODS.Joker { --Faster Engineering
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.j_bloons_sentry
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'amd')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'faster_engineering')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced then
-            local num = SMODS.pseudorandom_probability(card, 'fastengi', card.ability.extra.num, card.ability.extra.denom, 'fastengi') and 2 or 1
+            local num = SMODS.pseudorandom_probability(card, 'faster_engineering', card.ability.extra.num, card.ability.extra.denom, 'faster_engineering') and 2 or 1
             for i = 1, num do
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sentries')
+                        local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'faster_engineering')
                         joker:add_to_deck()
                         G.jokers:emplace(joker)
                         joker:start_materialize()
@@ -151,7 +151,7 @@ SMODS.Joker { --Sprockets
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sentries')
+                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sprockets')
                     joker:add_to_deck()
                     joker.ability.extra.chips = joker.ability.extra.chips * card.ability.extra.multiplier
                     joker.ability.extra.mult = joker.ability.extra.mult * card.ability.extra.multiplier
@@ -193,10 +193,10 @@ SMODS.Joker { --Sentry Expert
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced then
-            local sentry = pseudorandom_element(card.ability.extra.sentries, pseudoseed('sexpert'))
+            local sentry = pseudorandom_element(card.ability.extra.sentries, pseudoseed('sentry_expert'..G.GAME.round_resets.ante))
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local joker = create_card(sentry, G.jokers, nil, 0, nil, nil, sentry, 'sexpert')
+                    local joker = create_card(sentry, G.jokers, nil, 0, nil, nil, sentry, 'sentry_expert')
                     joker:add_to_deck()
                     G.jokers:emplace(joker)
                     joker:start_materialize()
@@ -234,7 +234,7 @@ SMODS.Joker { --Sentry Champion
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local joker = create_card('j_bloons_champion_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_champion_sentry', 'sexpert')
+                    local joker = create_card('j_bloons_champion_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_champion_sentry', 'sentry_champion')
                     joker:add_to_deck()
                     G.jokers:emplace(joker)
                     joker:start_materialize()
@@ -276,7 +276,7 @@ SMODS.Joker { --Larger Service Area
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'sentries')
+                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'larger_service_area')
                     joker:add_to_deck()
                     joker.ability.extra.rounds = joker.ability.extra.rounds + 1
                     G.jokers:emplace(joker)

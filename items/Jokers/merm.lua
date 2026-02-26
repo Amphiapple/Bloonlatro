@@ -346,7 +346,7 @@ SMODS.Joker { --Tidal Chill
                 end
             end
             if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('chill'..G.GAME.round_resets.ante))
+                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('tidal_chill'..G.GAME.round_resets.ante))
                 frozen_card:set_ability('m_bloons_frozen', nil, true)
             end
         end
@@ -386,7 +386,7 @@ SMODS.Joker { --Riptide Champion
                 end
             end
             if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('chill'..G.GAME.round_resets.ante))
+                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('riptide_champion'..G.GAME.round_resets.ante))
                 local left_card = nil
                 local right_card = nil
                 for k, v in ipairs(G.hand.cards) do
@@ -434,13 +434,13 @@ SMODS.Joker { --Arctic Knight
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'arknight')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'arctic_knight')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
         if context.before then
             for k, v in ipairs(context.scoring_hand) do
-                if SMODS.pseudorandom_probability(card, 'arknight', card.ability.extra.num, card.ability.extra.denom, 'arknight') and not v.debuff then
+                if SMODS.pseudorandom_probability(card, 'arctic_knight', card.ability.extra.num, card.ability.extra.denom, 'arctic_knight') and not v.debuff then
                     v:set_ability('m_bloons_frozen', nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -451,7 +451,7 @@ SMODS.Joker { --Arctic Knight
                 end
             end
             for k, v in ipairs(G.hand.cards) do
-                if SMODS.pseudorandom_probability(card, 'arknight', card.ability.extra.num, card.ability.extra.denom, 'arknight') and not v.debuff then
+                if SMODS.pseudorandom_probability(card, 'arctic_knight', card.ability.extra.num, card.ability.extra.denom, 'arctic_knight') and not v.debuff then
                     v:set_ability('m_bloons_frozen', nil, true)
                 end
             end

@@ -54,11 +54,11 @@ SMODS.Joker { --Heart of Thunder
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_TAGS.tag_double
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'thunder')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'heart_of_thunder')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.skip_blind and SMODS.pseudorandom_probability(card, 'thunder', card.ability.extra.num, card.ability.extra.denom, 'thunder') then
+        if context.skip_blind and SMODS.pseudorandom_probability(card, 'heart_of_thunder', card.ability.extra.num, card.ability.extra.denom, 'heart_of_thunder') then
             add_tag(Tag('tag_double'))
         end
     end

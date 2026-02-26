@@ -79,7 +79,7 @@ SMODS.Joker { --Primary Expertise
     },
     
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'pex')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'primary_expertise')
         return { vars = { n, d, card.ability.extra.Xmult } }
     end,
     update = function(self, card, dt)
@@ -100,7 +100,7 @@ SMODS.Joker { --Primary Expertise
         recalc_all_costs()
     end,
     calculate = function(self, card, context)
-        if context.joker_main and SMODS.pseudorandom_probability(card, 'pex', card.ability.extra.num, card.ability.extra.denom, 'pex') then
+        if context.joker_main and SMODS.pseudorandom_probability(card, 'primary_expertise', card.ability.extra.num, card.ability.extra.denom, 'primary_expertise') then
             return {
                 x_mult = card.ability.extra.Xmult
             }
@@ -230,7 +230,7 @@ SMODS.Joker { --Monkey City
             G.GAME.joker_buffer = G.GAME.joker_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local card = create_card('j_bloons_dart', G.jokers, nil, nil, nil, nil, 'j_bloons_dart', 'city')
+                    local card = create_card('j_bloons_dart_monkey', G.jokers, nil, nil, nil, nil, 'j_bloons_dart_monkey', 'monkey_city')
                     card.extra_cost = -card.base_cost
                     card.sell_cost = 0
                     card:add_to_deck()

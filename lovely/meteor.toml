@@ -10,7 +10,7 @@ target = 'functions/UI_definitions.lua'
 pattern = '''if (v.type == 'Base' or v.type == 'Enhanced') and G.GAME.used_vouchers["v_illusion"] and pseudorandom(pseudoseed('illusion')) > 0.8 then'''
 position = 'before'
 payload = '''
-if (v.type == 'Base' or v.type == 'Enhanced') and (#find_joker('Ring of Fire') > 0 or #find_joker('Inferno Ring') > 0) and pseudorandom(pseudoseed('rof')) < 4 / G.GAME.playing_card_rate then
+if (v.type == 'Base' or v.type == 'Enhanced') and (#find_joker('Ring of Fire') > 0 or #find_joker('Inferno Ring') > 0) and pseudorandom(pseudoseed('ring_of_fire'..G.GAME.round_resets.ante)) < 4 / G.GAME.playing_card_rate then
     card:set_ability('m_bloons_meteor', nil, true)
 end
 '''

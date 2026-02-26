@@ -270,7 +270,7 @@ SMODS.Joker { --Distraction
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'distract')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'distraction')
         return { vars = { n, d, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -280,7 +280,7 @@ SMODS.Joker { --Distraction
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'distract', card.ability.extra.num, card.ability.extra.denom, 'distract') then
+        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'distraction', card.ability.extra.num, card.ability.extra.denom, 'distraction') then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,
@@ -478,12 +478,12 @@ SMODS.Joker { --Bloon Sabotage
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage')
         return { vars = { n, d, card.ability.extra.discards } }
     end,
 
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'sabo', card.ability.extra.num, card.ability.extra.denom, 'sabo') then
+        if context.before and SMODS.pseudorandom_probability(card, 'bloon_sabotage', card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage') then
             local hasheart = false
             for k, v in ipairs(context.scoring_hand) do
                 if v:is_suit('Hearts') then
@@ -524,7 +524,7 @@ SMODS.Joker { --Grand Saboteur
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_TAGS.tag_bloons_sabotage
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gsabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'grand_saboteur')
         return { vars = { n, d, card.ability.extra.number } }
     end,
 
@@ -538,7 +538,7 @@ SMODS.Joker { --Grand Saboteur
                     end
                 end
             end
-            if count >= card.ability.extra.number and SMODS.pseudorandom_probability(card, 'gsabo', card.ability.extra.num, card.ability.extra.denom, 'gsabo') then
+            if count >= card.ability.extra.number and SMODS.pseudorandom_probability(card, 'grand_saboteur', card.ability.extra.num, card.ability.extra.denom, 'grand_saboteur') then
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         add_tag(Tag('tag_bloons_sabotage'))
@@ -751,7 +751,7 @@ SMODS.Joker { --Sticky Bomb
                 end
             end
             if next(eligible_cards) then
-                card.ability.extra.stickied = pseudorandom_element(eligible_cards, pseudoseed('sticky'))
+                card.ability.extra.stickied = pseudorandom_element(eligible_cards, pseudoseed('sticky_bomb'..G.GAME.round_resets.ante))
                 card.ability.extra.stickied:set_ability(G.P_CENTERS.m_bloons_stunned)
                 card_eval_status_text(card.ability.extra.stickied, 'extra', nil, nil, nil, {
                     message = 'Stickied!'

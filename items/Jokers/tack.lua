@@ -198,7 +198,7 @@ SMODS.Joker { --Inferno Ring
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function() 
-                    local front = pseudorandom_element(G.P_CARDS, pseudoseed('iring'))
+                    local front = pseudorandom_element(G.P_CARDS, pseudoseed('inferno_ring'..G.GAME.round_resets.ante))
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.m_bloons_meteor, {playing_card = G.playing_card})
                     card:start_materialize({G.C.SECONDARY_SET.Enhanced})
@@ -392,13 +392,13 @@ SMODS.Joker { --Blade Maelstrom
     },
 
     loc_vars = function(self, info_queue, card)
-		local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mael')
+		local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'blade_maelstrom')
         return { vars = { n, d, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             context.other_card:get_id() >= 0 and (context.other_card:get_id() <= 10 or context.other_card:get_id() == 14) and
-            SMODS.pseudorandom_probability(card, 'mael', card.ability.extra.num, card.ability.extra.denom, 'mael') then
+            SMODS.pseudorandom_probability(card, 'blade_maelstrom', card.ability.extra.num, card.ability.extra.denom, 'blade_maelstrom') then
             return {
                 x_mult = card.ability.extra.Xmult
             }
@@ -419,12 +419,12 @@ SMODS.Joker { --Super Maelstrom
     },
 	atlas = 'Joker',
 	pos = { x = 10, y = 3 },
-    rarity = 2,
+    rarity = 3,
 	cost = 7,
     blueprint_compat = true,
     config = {
         base = 'tack',
-        extra = { Xmult = 2, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { Xmult = 3, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)

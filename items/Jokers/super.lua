@@ -222,7 +222,7 @@ SMODS.Joker { --Legend of the Night
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('c_black_hole', G.consumeables, nil, nil, nil, nil, 'c_black_hole', 'lotn')
+                        local card = create_card('c_black_hole', G.consumeables, nil, nil, nil, nil, 'c_black_hole', 'legend_of_the_night')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0

@@ -26,7 +26,7 @@ SMODS.Joker { --Alchemist
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alchemist')
                     tarot:add_to_deck()
                     G.consumeables:emplace(tarot)
                     G.GAME.consumeable_buffer = 0
@@ -72,7 +72,7 @@ SMODS.Joker { --Larger Potions
                         trigger = 'before',
                         delay = 0.0,
                         func = (function()
-                            local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alch')
+                            local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'larger_potions')
                             tarot:add_to_deck()
                             G.consumeables:emplace(tarot)
                             G.GAME.consumeable_buffer = 0
@@ -113,14 +113,14 @@ SMODS.Joker { --Acidic Mixture Dip
         info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
         info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'amd')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'acidic_mixture_dip')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'amd', card.ability.extra.num, card.ability.extra.denom, 'amd') and not context.blueprint then
+        if context.before and SMODS.pseudorandom_probability(card, 'acidic_mixture_dip', card.ability.extra.num, card.ability.extra.denom, 'acidic_mixture_dip') and not context.blueprint then
             local other_card = context.scoring_hand[# context.scoring_hand]
             if not other_card.edition and not other_card.debuff then
-                local edition = poll_edition('amd', nil, true, true)
+                local edition = poll_edition('acidic_mixture_dip', nil, true, true)
                 other_card:set_edition(edition, true)
             end
         end
@@ -167,9 +167,9 @@ SMODS.Joker { --Berserker Brew
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('brew'))
+                    local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('berserker_brew'..G.GAME.round_resets.ante))
                     if joker then
-                        local edition = poll_edition('brew', nil, true, true)
+                        local edition = poll_edition('berserker_brew', nil, true, true)
                         joker:set_edition(edition, true)
                     end
                     return true
@@ -216,7 +216,7 @@ SMODS.Joker { --Stronger Stimulant
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('brew'))
+                    local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('stronger_stimulant'..G.GAME.round_resets.ante))
                     if joker then
                         joker:set_edition('e_polychrome', true)
                     end
@@ -251,18 +251,18 @@ SMODS.Joker { --Stronger Acid
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'acid')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'stronger_acid')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            if SMODS.pseudorandom_probability(card, 'acid', card.ability.extra.num, card.ability.extra.denom, 'acid') then
+            if SMODS.pseudorandom_probability(card, 'stronger_acid', card.ability.extra.num, card.ability.extra.denom, 'stronger_acid') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'acid')
+                        local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'stronger_acid')
                         spectral:add_to_deck()
                         G.consumeables:emplace(spectral)
                         G.GAME.consumeable_buffer = 0
@@ -275,7 +275,7 @@ SMODS.Joker { --Stronger Acid
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'acid')
+                        local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'stronger_acid')
                         tarot:add_to_deck()
                         G.consumeables:emplace(tarot)
                         G.GAME.consumeable_buffer = 0
@@ -352,7 +352,7 @@ SMODS.Joker { --Unstable Concoction
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         G.GAME.joker_buffer = 0
-                        context.full_hand[1]:set_seal(SMODS.poll_seal({type_key = 'conc', guaranteed = true}), nil, true)
+                        context.full_hand[1]:set_seal(SMODS.poll_seal({type_key = 'unstable_concoction', guaranteed = true}), nil, true)
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
                         play_sound('tarot2', 0.96+math.random()*0.08)
@@ -545,7 +545,7 @@ SMODS.Joker { --Faster Throwing
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'fastalch')
+                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'faster_throwing_alchemist')
                     tarot:add_to_deck()
                     G.consumeables:emplace(tarot)
                     G.GAME.consumeable_buffer = 0
@@ -584,7 +584,7 @@ SMODS.Joker { --Acid Pools
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'pools')
+                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'acid_pools')
                     tarot:add_to_deck()
                     G.consumeables:emplace(tarot)
                     G.GAME.consumeable_buffer = 0
@@ -692,7 +692,7 @@ SMODS.Joker { --Bloon Master Alchemist
         if context.before and G.GAME.current_round.hands_left == 0 then
             ease_dollars(-G.GAME.dollars, true)
             for k, v in ipairs(context.scoring_hand) do
-                v:set_seal(SMODS.poll_seal({type_key = 'bma', guaranteed = true}), nil, true)
+                v:set_seal(SMODS.poll_seal({type_key = 'bloon_master_alchemist', guaranteed = true}), nil, true)
             end
         end
     end
