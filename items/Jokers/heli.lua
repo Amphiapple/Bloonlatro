@@ -267,7 +267,7 @@ SMODS.Joker { --Special Poperations
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash', 'special_poperations')
+                        local card = create_card('c_bloons_cash_drop', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash_drop', 'special_poperations')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0

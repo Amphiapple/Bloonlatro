@@ -167,7 +167,7 @@ SMODS.Joker { --Berserker Brew
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('berserker_brew'..G.GAME.round_resets.ante))
+                    local joker = pseudorandom_element(card.eligible_jokers, 'berserker_brew')
                     if joker then
                         local edition = poll_edition('berserker_brew', nil, true, true)
                         joker:set_edition(edition, true)
@@ -216,7 +216,7 @@ SMODS.Joker { --Stronger Stimulant
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    local joker = pseudorandom_element(card.eligible_jokers, pseudoseed('stronger_stimulant'..G.GAME.round_resets.ante))
+                    local joker = pseudorandom_element(card.eligible_jokers, 'stronger_stimulant')
                     if joker then
                         joker:set_edition('e_polychrome', true)
                     end

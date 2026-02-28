@@ -117,7 +117,7 @@ SMODS.Joker { --Focused Firing
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local r = pseudorandom(pseudoseed('focused_firing'..G.GAME.round_resets.ante))
+            local r = pseudorandom('focused_firing')
             local temp_chips
             if r < 0.5 then
                 temp_chips = pseudorandom('focused_firing', card.ability.extra.q1, card.ability.extra.q3)
@@ -867,7 +867,7 @@ SMODS.Joker { --Faster Swivel
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local r = pseudorandom(pseudoseed('faster_swivel'..G.GAME.round_resets.ante))
+            local r = pseudorandom('faster_swivel')
             local temp_chips
             if r < 0.25 then
                 temp_chips = pseudorandom('faster_swivel', card.ability.extra.min, card.ability.extra.q1)

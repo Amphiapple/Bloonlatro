@@ -6,8 +6,7 @@ SMODS.Joker { --Bloonprint
         text = {
             'Copies ability of',
             '{C:attention}Joker{} in position {C:attention}#1#{}',
-            '{S:0.8}position changes{}',
-            '{S:0.8}at end of round{}'
+            '{S:0.8}position changes every round{}'
         }
     },
 	atlas = 'Joker',
@@ -17,35 +16,28 @@ SMODS.Joker { --Bloonprint
     blueprint_compat = true,
     config = {
         base = 'other',
-        extra = {current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
+        extra = { current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
     },
 
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
 			local other_joker = G.jokers.cards[card.ability.extra.current]
 			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-			main_end = {{
-                n = G.UIT.C,
-                config = { align = "bm", minh = 0.4 },
-                nodes = {{
+			main_end = {
+                {
                     n = G.UIT.C,
-                    config = {
-                        ref_table = card,
-                        align = "m",
-                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
-                        r = 0.05,
-                        padding = 0.06,
-                    },
-                    nodes = {{
-                        n = G.UIT.T,
-                        config = {
-                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
-                            colour = G.C.UI.TEXT_LIGHT,
-                            scale = 0.32 * 0.8,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
                         }
-                    }}
-                }}
-			}}
+                    }
+                }
+            }
 		end
         return { vars = { card.ability.extra.current }, main_end = main_end }
     end,
@@ -98,7 +90,7 @@ SMODS.Joker { --Marine
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -147,7 +139,7 @@ SMODS.Joker { --Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -195,7 +187,7 @@ SMODS.Joker { --Crushing Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -250,7 +242,7 @@ SMODS.Joker { --Boom Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -302,7 +294,7 @@ SMODS.Joker { --Cold Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -351,7 +343,7 @@ SMODS.Joker { --Energy Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -400,7 +392,7 @@ SMODS.Joker { --Champion Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
             else
                 card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
             end

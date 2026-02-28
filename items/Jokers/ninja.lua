@@ -751,7 +751,7 @@ SMODS.Joker { --Sticky Bomb
                 end
             end
             if next(eligible_cards) then
-                card.ability.extra.stickied = pseudorandom_element(eligible_cards, pseudoseed('sticky_bomb'..G.GAME.round_resets.ante))
+                card.ability.extra.stickied = pseudorandom_element(eligible_cards, 'sticky_bomb')
                 card.ability.extra.stickied:set_ability(G.P_CENTERS.m_bloons_stunned)
                 card_eval_status_text(card.ability.extra.stickied, 'extra', nil, nil, nil, {
                     message = 'Stickied!'

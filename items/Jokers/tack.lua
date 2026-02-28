@@ -198,7 +198,7 @@ SMODS.Joker { --Inferno Ring
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function() 
-                    local front = pseudorandom_element(G.P_CARDS, pseudoseed('inferno_ring'..G.GAME.round_resets.ante))
+                    local front = pseudorandom_element(G.P_CARDS, 'inferno_ring')
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.m_bloons_meteor, {playing_card = G.playing_card})
                     card:start_materialize({G.C.SECONDARY_SET.Enhanced})

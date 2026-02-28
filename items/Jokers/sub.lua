@@ -92,8 +92,8 @@ SMODS.Joker { --Advanced Intel
     loc_txt = {
         name = 'Advanced Intel',
         text = {
-            '{C:attention}+#1#{} card slot',
-            'available in shop',
+            '{C:attention}#1#{} free {C:green}Reroll{}',
+            'per shop',
         }
     },
     atlas = 'Joker',
@@ -103,22 +103,19 @@ SMODS.Joker { --Advanced Intel
     blueprint_compat = false,
     config = {
         base = 'sub',
-        extra = { slots = 1 } --Variables: slots = extra shop slots
+        extra = { freerolls = 1 } --Variables: freerolls = free rerolls
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.slots } }
+        return { vars = { card.ability.extra.freerolls } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        change_shop_size(card.ability.extra.slots)
+        SMODS.change_free_rerolls(card.ability.extra.freerolls)
+        calculate_reroll_cost(true)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.shop.joker_max = G.GAME.shop.joker_max - card.ability.extra.slots
-        if G.shop_jokers and G.shop_jokers.cards then
-            G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
-            G.shop_jokers.T.w = G.GAME.shop.joker_max*1.01*G.CARD_W
-            G.shop:recalculate()
-        end
+        SMODS.change_free_rerolls(-card.ability.extra.freerolls)
+        calculate_reroll_cost(true)
     end
 }
 
@@ -128,7 +125,7 @@ SMODS.Joker { --Submerge and Support
     loc_txt = {
         name = 'Submerge and Support',
         text = {
-            'Rerolls cost {C:money}$#1#{} less',
+            '{C:green}Rerolls{} cost {C:money}$#1#{} less',
         }
     },
     atlas = 'Joker',
@@ -171,7 +168,7 @@ SMODS.Joker { --Bloontonium Reactor
         name = 'Bloontonium Reactor',
         text = {
             'This Joker gains {C:chips}+#1#{} Chips',
-            'per {C:attention}reroll{} in the shop',
+            'per {C:green}Reroll{} in the shop',
             '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
         }
     },

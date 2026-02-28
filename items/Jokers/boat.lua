@@ -345,7 +345,7 @@ SMODS.Joker { --Grape Shot
     calculate = function(self, card, context)
         if context.starting_shop and not context.blueprint then
             if card.ability.extra.money - card.ability.extra.loss <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -394,7 +394,7 @@ SMODS.Joker { --Hot Shot
     calculate = function(self, card, context)
         if context.starting_shop and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'hot_shot', card.ability.extra.num, card.ability.extra.denom, 'hot_shot') then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED

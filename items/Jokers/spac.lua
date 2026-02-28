@@ -540,8 +540,8 @@ SMODS.Joker { --Long Life Spikes
         text = {
             'This joker gains {C:mult}+#1#{} Mult',
             'per discarded {V:1}#2#{}',
-            '{C:mult}-#3#{} Mult and suit changes',
-            'at end of round',
+            '{C:mult}-#3#{} Mult at end of round',
+            '{S:0.8}Suit changes every round{}',
             '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
         }
     },
@@ -602,8 +602,8 @@ SMODS.Joker { --Deadly Spikes
         text = {
             'This joker gains {C:mult}+#1#{} Mult',
             'per discarded {C:attention}#2#{} of {V:1}#3#{}',
-            '{C:mult}-#4#{} Mult and card changes',
-            'at end of round',
+            '{C:mult}-#4#{} Mult at end of round',
+            '{S:0.8}Card changes every round{}',
             '{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)'
         }
     },

@@ -5,7 +5,7 @@ JokerDisplay.Definitions["j_bloons_dartling_gunner"] = { --Dartling Gunner
             dynatext = {
                 string = (
                     function()
-                        local card = SMODS.Centers["j_bloons_dartling"]
+                        local card = SMODS.Centers["j_bloons_dartling_gunner"]
                         local r_chips = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_chips[#r_chips + 1] = tostring(i)
@@ -32,7 +32,7 @@ JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
             dynatext = {
                 string = (
                     function()
-                        local card = SMODS.Centers["j_bloons_focus"]
+                        local card = SMODS.Centers["j_bloons_focused_firing"]
                         local r_chips = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_chips[#r_chips + 1] = tostring(i)
@@ -137,7 +137,7 @@ JokerDisplay.Definitions["j_bloons_advanced_targeting"] = { --Advanced Targeting
             dynatext = {
                 string = (
                     function()
-                        local card = SMODS.Centers["j_bloons_advanced"]
+                        local card = SMODS.Centers["j_bloons_advanced_targeting"]
                         local r_chips = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_chips[#r_chips + 1] = tostring(i)
@@ -164,7 +164,7 @@ JokerDisplay.Definitions["j_bloons_faster_barrel_spin"] = { --Faster Barrel Spin
             dynatext = {
                 string = (
                     function()
-                        local card = SMODS.Centers["j_bloons_fastspin"]
+                        local card = SMODS.Centers["j_bloons_faster_barrel_spin"]
                         local r_chips = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_chips[#r_chips + 1] = tostring(i)
@@ -230,7 +230,7 @@ JokerDisplay.Definitions["j_bloons_faster_swivel"] = { --Faster Swivel
             dynatext = {
                 string = (
                     function()
-                        local card = SMODS.Centers["j_bloons_swivel"]
+                        local card = SMODS.Centers["j_bloons_faster_swivel"]
                         local r_chips = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_chips[#r_chips + 1] = tostring(i)
@@ -260,7 +260,7 @@ JokerDisplay.Definitions["j_bloons_powerful_darts"] = { --Powerful Darts
             dynatext = {
                 string = (
                     function()
-                        local card = SMODS.Centers["j_bloons_powerful"]
+                        local card = SMODS.Centers["j_bloons_powerful_darts"]
                         local r_chips = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_chips[#r_chips + 1] = tostring(i)
@@ -333,7 +333,7 @@ JokerDisplay.Definitions["j_bloons_bloon_area_denial_system"] = { --Bloon Area D
                     dynatext = {
                         string = (
                             function()
-                                local card = SMODS.Centers["j_bloons_bads"]
+                                local card = SMODS.Centers["j_bloons_bloon_area_denial_system"]
                                 local r_xmult = {}
                                 for i = card.config.extra.min, card.config.extra.max do
                                     r_xmult[#r_xmult + 1] = tostring(i/100)
@@ -406,7 +406,7 @@ JokerDisplay.Definitions["j_bloons_bloon_exclusion_zone"] = { --Bloon Exclusion 
                     dynatext = {
                         string = (
                             function()
-                                local card = SMODS.Centers["j_bloons_bez"]
+                                local card = SMODS.Centers["j_bloons_bloon_exclusion_zone"]
                                 local r_xmult = {}
                                 for i = card.config.extra.min, card.config.extra.max do
                                     r_xmult[#r_xmult + 1] = tostring(i/100)

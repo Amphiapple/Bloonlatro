@@ -136,7 +136,7 @@ SMODS.Joker { --Sprockets
     },
     atlas = 'Joker',
 	pos = { x = 3, y = 23 },
-    rarity = 1,
+    rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     config = {
@@ -193,7 +193,7 @@ SMODS.Joker { --Sentry Expert
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced then
-            local sentry = pseudorandom_element(card.ability.extra.sentries, pseudoseed('sentry_expert'..G.GAME.round_resets.ante))
+            local sentry = pseudorandom_element(card.ability.extra.sentries, 'sentry_expert')
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local joker = create_card(sentry, G.jokers, nil, 0, nil, nil, sentry, 'sentry_expert')
@@ -384,6 +384,7 @@ SMODS.Joker { --Overclock
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
+    eternal_compat = false,
     config = {
         base = 'engi',
         extra = { Xmult = 3, hands = 10 } --Variables: Xmult = Xmult, hands = hands remaining
@@ -400,7 +401,7 @@ SMODS.Joker { --Overclock
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED

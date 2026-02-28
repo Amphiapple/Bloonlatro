@@ -121,9 +121,9 @@ SMODS.Joker { --Fighter Plane
         base = 'ace',
     },
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and G.GAME.current_round.hands_played == 0 then
             local faces = {}
-            for k, v in ipairs(scoring_hand) do
+            for k, v in ipairs(context.scoring_hand) do
                 if v:is_face() then
                     faces[#faces+1] = v
                 end
@@ -152,8 +152,8 @@ SMODS.Joker { --Fighter Plane
                         elseif rank_suffix == 14 then rank_suffix = 'A'
                         end
                         v:set_base(G.P_CARDS[suit_prefix..rank_suffix])
-                        return true
                     end
+                    return true
                 end
             }))
             G.E_MANAGER:add_event(Event({
@@ -298,7 +298,7 @@ SMODS.Joker { --Exploding Pineapple
     end,
     calculate = function(self, card, context)
         if context.destroying_card and card.ability.extra.hands <= 1 and not context.blueprint then
-            SMODS.destroy_cards(self, nil, nil, true)
+            SMODS.destroy_cards(card, nil, nil, true)
         elseif context.after and card.ability.extra.hands > 1 and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             return {

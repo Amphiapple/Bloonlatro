@@ -28,3 +28,4 @@ Fixes:
 - Ballistic Missile Joker Display should correctly account for highlighted cards
 - Sky Shredder should no longer stop counting Aces when it upgrades
 - Enforcer no longer has a shadow clone in the code
+- Lots of text fixes and standardizations

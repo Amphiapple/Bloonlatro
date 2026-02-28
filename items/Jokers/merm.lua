@@ -346,7 +346,7 @@ SMODS.Joker { --Tidal Chill
                 end
             end
             if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('tidal_chill'..G.GAME.round_resets.ante))
+                local frozen_card = pseudorandom_element(valid_cards, 'tidal_chill')
                 frozen_card:set_ability('m_bloons_frozen', nil, true)
             end
         end
@@ -386,7 +386,7 @@ SMODS.Joker { --Riptide Champion
                 end
             end
             if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('riptide_champion'..G.GAME.round_resets.ante))
+                local frozen_card = pseudorandom_element(valid_cards, 'riptide_champion')
                 local left_card = nil
                 local right_card = nil
                 for k, v in ipairs(G.hand.cards) do
