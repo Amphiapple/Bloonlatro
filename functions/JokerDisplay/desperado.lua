@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_desp"] = { --Desperado
+JokerDisplay.Definitions["j_bloons_desperado"] = { --Desperado
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -36,8 +36,22 @@ JokerDisplay.Definitions["j_bloons_quickdraw"] = { --Quickdraw
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        local unscoring = #G.hand.highlighted - #scoring_hand
-        if text ~= 'Unknown' then
+        local playing_hand = next(G.play.cards)
+        local unscoring = 0
+        if playing_hand then
+            for k, v in ipairs(G.play.cards) do
+                if not SMODS.in_scoring(v, scoring_hand) then
+                    unscoring = unscoring + 1
+                end
+            end
+            for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
+                local scoring_card = scoring_hand[i]
+                if scoring_card then
+                    count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                end
+            end
+        elseif text ~= 'Unknown' then
+            unscoring = #G.hand.highlighted - #scoring_hand
             for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
                 local scoring_card = scoring_hand[i]
                 if scoring_card then
@@ -62,8 +76,18 @@ JokerDisplay.Definitions["j_bloons_standoff"] = { --Standoff
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        local missing = 5 - #G.hand.highlighted
-        if text ~= 'Unknown' then
+        local playing_hand = next(G.play.cards)
+        local missing = 0
+        if playing_hand then
+            missing = 5 - #G.play.cards
+            for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
+                local scoring_card = scoring_hand[i]
+                if scoring_card then
+                    count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                end
+            end
+        elseif text ~= 'Unknown' then
+            missing = 5 - #G.hand.highlighted
             for i = 1, math.min(card.ability.extra.number, #scoring_hand) do
                 local scoring_card = scoring_hand[i]
                 if scoring_card then
@@ -75,7 +99,7 @@ JokerDisplay.Definitions["j_bloons_standoff"] = { --Standoff
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bigiron"] = { --Big Iron
+JokerDisplay.Definitions["j_bloons_big_iron"] = { --Big Iron
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -98,7 +122,7 @@ JokerDisplay.Definitions["j_bloons_bigiron"] = { --Big Iron
     end
 }
 
-JokerDisplay.Definitions["j_bloons_twix"] = { --Twin Sixes
+JokerDisplay.Definitions["j_bloons_twin_sixes"] = { --Twin Sixes
     text = {
         {
             border_nodes = {
@@ -128,7 +152,7 @@ JokerDisplay.Definitions["j_bloons_twix"] = { --Twin Sixes
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tbs"] = { --The Blazing Sun
+JokerDisplay.Definitions["j_bloons_the_blazing_sun"] = { --The Blazing Sun
     text = {
         {
             border_nodes = {
@@ -164,7 +188,7 @@ JokerDisplay.Definitions["j_bloons_tbs"] = { --The Blazing Sun
     end
 }
 
-JokerDisplay.Definitions["j_bloons_eagleeye"] = { --Eagle Eye
+JokerDisplay.Definitions["j_bloons_eagle_eye"] = { --Eagle Eye
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -233,7 +257,6 @@ JokerDisplay.Definitions["j_bloons_deadeye"] = { --Deadeye
             }
         }
     },
-    text_config = { colour = G.C.GOLD },
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "desperado_card_rank", },
@@ -254,7 +277,7 @@ JokerDisplay.Definitions["j_bloons_deadeye"] = { --Deadeye
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bhunter"] = { --Bounty Hunter
+JokerDisplay.Definitions["j_bloons_bounty_hunter"] = { --Bounty Hunter
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "dollars", retrigger_type = "mult", colour = G.C.MONEY },
@@ -279,7 +302,7 @@ JokerDisplay.Definitions["j_bloons_bhunter"] = { --Bounty Hunter
     end
 }
 
-JokerDisplay.Definitions["j_bloons_gustice"] = { --Golden Justice
+JokerDisplay.Definitions["j_bloons_golden_justice"] = { --Golden Justice
 }
 
 JokerDisplay.Definitions["j_bloons_wanderer"] = { --Wanderer
@@ -341,7 +364,7 @@ JokerDisplay.Definitions["j_bloons_avenger"] = { --Avenger
     end
 }
 
-JokerDisplay.Definitions["j_bloons_phantom"] = { --The Desert Phantom
+JokerDisplay.Definitions["j_bloons_the_desert_phantom"] = { --The Desert Phantom
     text = {
         {
             border_nodes = {

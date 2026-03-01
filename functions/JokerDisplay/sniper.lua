@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_sniper"] = { --Sniper Monkey
+JokerDisplay.Definitions["j_bloons_sniper_monkey"] = { --Sniper Monkey
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -19,7 +19,7 @@ JokerDisplay.Definitions["j_bloons_sniper"] = { --Sniper Monkey
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fmj"] = { --Full Metal Jacket
+JokerDisplay.Definitions["j_bloons_full_metal_jacket"] = { --Full Metal Jacket
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_fmj"] = { --Full Metal Jacket
     end
 }
 
-JokerDisplay.Definitions["j_bloons_calibre"] = { --Large Calibre
+JokerDisplay.Definitions["j_bloons_large_calibre"] = { --Large Calibre
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
@@ -65,7 +65,7 @@ JokerDisplay.Definitions["j_bloons_calibre"] = { --Large Calibre
     end
 }
 
-JokerDisplay.Definitions["j_bloons_dprec"] = { --Deadly Precision
+JokerDisplay.Definitions["j_bloons_deadly_precision"] = { --Deadly Precision
     text = {
         {
             border_nodes = {
@@ -90,7 +90,7 @@ JokerDisplay.Definitions["j_bloons_dprec"] = { --Deadly Precision
     end
 }
 
-JokerDisplay.Definitions["j_bloons_maim"] = { --Maim MOAB
+JokerDisplay.Definitions["j_bloons_maim_moab"] = { --Maim MOAB
     text = {
         {
             border_nodes = {
@@ -119,7 +119,7 @@ JokerDisplay.Definitions["j_bloons_maim"] = { --Maim MOAB
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cripple"] = { --Cripple MOAB
+JokerDisplay.Definitions["j_bloons_cripple_moab"] = { --Cripple MOAB
     text = {
         {
             border_nodes = {
@@ -144,10 +144,10 @@ JokerDisplay.Definitions["j_bloons_cripple"] = { --Cripple MOAB
     end
 }
 
-JokerDisplay.Definitions["j_bloons_nightvis"] = { --Night Vision Goggles
+JokerDisplay.Definitions["j_bloons_night_vision_goggles"] = { --Night Vision Goggles
 }
 
-JokerDisplay.Definitions["j_bloons_shraps"] = { --Shrapnel Shot
+JokerDisplay.Definitions["j_bloons_shrapnel_shot"] = { --Shrapnel Shot
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -169,7 +169,7 @@ JokerDisplay.Definitions["j_bloons_shraps"] = { --Shrapnel Shot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bouncing"] = { --Bouncing Bullets
+JokerDisplay.Definitions["j_bloons_bouncing_bullet"] = { --Bouncing Bullet
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
@@ -193,7 +193,7 @@ JokerDisplay.Definitions["j_bloons_bouncing"] = { --Bouncing Bullets
     end
 }
 
-JokerDisplay.Definitions["j_bloons_supply"] = { --Supply Drop
+JokerDisplay.Definitions["j_bloons_supply_drop"] = { --Supply Drop
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -218,7 +218,7 @@ JokerDisplay.Definitions["j_bloons_supply"] = { --Supply Drop
     end
 }
 
-JokerDisplay.Definitions["j_bloons_esniper"] = { --Elite Sniper
+JokerDisplay.Definitions["j_bloons_elite_sniper"] = { --Elite Sniper
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -243,7 +243,7 @@ JokerDisplay.Definitions["j_bloons_esniper"] = { --Elite Sniper
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fastsniper"] = { --Fast Firing
+JokerDisplay.Definitions["j_bloons_fast_firing_sniper"] = { --Fast Firing
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -264,7 +264,7 @@ JokerDisplay.Definitions["j_bloons_fastsniper"] = { --Fast Firing
     end
 }
 
-JokerDisplay.Definitions["j_bloons_evensniper"] = { --Even Faster Firing
+JokerDisplay.Definitions["j_bloons_even_faster_firing"] = { --Even Faster Firing
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -285,7 +285,7 @@ JokerDisplay.Definitions["j_bloons_evensniper"] = { --Even Faster Firing
     end
 }
 
-JokerDisplay.Definitions["j_bloons_semiauto"] = { --Semi Automatic
+JokerDisplay.Definitions["j_bloons_semi_automatic"] = { --Semi Automatic
     text = {
         {
             border_nodes = {
@@ -310,7 +310,7 @@ JokerDisplay.Definitions["j_bloons_semiauto"] = { --Semi Automatic
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fauto"] = { --Full Auto Rifle
+JokerDisplay.Definitions["j_bloons_full_auto_rifle"] = { --Full Auto Rifle
     text = {
         {
             border_nodes = {
@@ -330,7 +330,7 @@ JokerDisplay.Definitions["j_bloons_fauto"] = { --Full Auto Rifle
     end
 }
 
-JokerDisplay.Definitions["j_bloons_edef"] = { --Elite Defender
+JokerDisplay.Definitions["j_bloons_elite_defender"] = { --Elite Defender
     text = {
         {
             border_nodes = {

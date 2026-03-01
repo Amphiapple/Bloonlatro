@@ -26,8 +26,8 @@ SMODS.Atlas {
     py = 95,
 }
 
-SMODS.Consumable { --SMS
-    key = 'sms',
+SMODS.Consumable { --Super Monkey Storm
+    key = 'super_monkey_storm',
     set = 'Power',
     name = 'Super Monkey Storm',
     loc_txt = {
@@ -94,8 +94,8 @@ SMODS.Consumable { --SMS
     end
 }
 
-SMODS.Consumable { --Mboost
-    key = 'mboost',
+SMODS.Consumable { --Monkey_boost
+    key = 'monkey_boost',
     set = 'Power',
     name = 'Monkey Boost',
     loc_txt = {
@@ -252,8 +252,8 @@ SMODS.Consumable { --Thrive
     end
 }
 
-SMODS.Consumable { --Time
-    key = 'time',
+SMODS.Consumable { --Time Stop
+    key = 'time_stop',
     set = 'Power',
     name = 'Time Stop',
     loc_txt = {
@@ -283,8 +283,8 @@ SMODS.Consumable { --Time
     end,
 }
 
-SMODS.Consumable { --Cash
-    key = 'cash',
+SMODS.Consumable { --Cash Drop
+    key = 'cash_drop',
     set = 'Power',
     name = 'Cash Drop',
     loc_txt = {
@@ -319,8 +319,8 @@ SMODS.Consumable { --Cash
     end
 }
 
-SMODS.Consumable { --Farmer
-    key = 'farmer',
+SMODS.Consumable { --Banana Farmer
+    key = 'banana_farmer',
     set = 'Power',
     name = 'Banana Farmer',
     loc_txt = {
@@ -373,8 +373,8 @@ SMODS.Consumable { --Farmer
     end
 }
 
-SMODS.Consumable { --Lake
-    key = 'lake',
+SMODS.Consumable { --Portable Lake
+    key = 'portable_lake',
     set = 'Power',
     name = 'Portable Lake',
     loc_txt = {
@@ -415,8 +415,8 @@ SMODS.Consumable { --Lake
     end
 }
 
-SMODS.Consumable { --Spikes
-    key = 'spikes',
+SMODS.Consumable { --Road Spikes
+    key = 'road_spikes',
     set = 'Power',
     name = 'Road Spikes',
     loc_txt = {
@@ -468,8 +468,8 @@ SMODS.Consumable { --Spikes
     end
 }
 
-SMODS.Consumable { --Glue
-    key = 'gtrap',
+SMODS.Consumable { --Glue Trap
+    key = 'glue_trap',
     set = 'Power',
     name = 'Glue Trap',
     loc_txt = {
@@ -490,8 +490,8 @@ SMODS.Consumable { --Glue
     end,
 }
 
-SMODS.Consumable { --Psychic
-    key = 'psychic',
+SMODS.Consumable { --Psychic Blast
+    key = 'psychic_blast',
     set = 'Power',
     name = 'Psychic Blast',
     loc_txt = {
@@ -568,8 +568,8 @@ SMODS.Consumable { --Psychic
     end
 }
 
-SMODS.Consumable { --Freezing
-    key = 'ftrap',
+SMODS.Consumable { --Freezing Trap
+    key = 'freezing_trap',
     set = 'Power',
     name = 'Freezing Trap',
     loc_txt = {
@@ -640,8 +640,8 @@ SMODS.Consumable { --Pontoon
     end,
 }
 
-SMODS.Consumable { --Tech
-    key = 'tech',
+SMODS.Consumable { --Tech Bot
+    key = 'tech_bot',
     set = 'Power',
     name = 'Tech Bot',
     loc_txt = {
@@ -705,8 +705,8 @@ SMODS.Consumable { --Tech
     end
 }
 
-SMODS.Consumable { --Totem
-    key = 'etotem',
+SMODS.Consumable { --Energizing Totem
+    key = 'energizing_totem',
     set = 'Power',
     name = 'Energizing Totem',
     loc_txt = {
@@ -765,7 +765,7 @@ SMODS.Consumable { --Totem
 }
 
 SMODS.Consumable { --Cave Monkey
-    key = 'cave',
+    key = 'cave_monkey',
     set = 'Power',
     name = 'Cave Monkey',
     loc_txt = {

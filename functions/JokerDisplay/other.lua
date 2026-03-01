@@ -110,7 +110,7 @@ JokerDisplay.Definitions["j_bloons_boom_sentry"] = { --Boom Sentry
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cold_sentry"] = {--Cold Sentry
+JokerDisplay.Definitions["j_bloons_cold_sentry"] = { --Cold Sentry
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "duration" },
@@ -136,12 +136,31 @@ JokerDisplay.Definitions["j_bloons_cold_sentry"] = {--Cold Sentry
     end
 }
 
-JokerDisplay.Definitions["j_bloons_energy_sentry"] = {--Energy Sentry
+JokerDisplay.Definitions["j_bloons_energy_sentry"] = { --Energy Sentry
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
         { text = " +", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "duration" },
+        { text = ")" }
+    },
+    calc_function = function(card)
+        card.joker_display_values.duration = card.ability.extra.rounds .. " round" .. (card.ability.extra.rounds ~= 1 and "s" or "") .. " left"
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_champion_sentry"] = { --Champion Sentry
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
+            }
+        }
     },
     reminder_text = {
         { text = "(" },

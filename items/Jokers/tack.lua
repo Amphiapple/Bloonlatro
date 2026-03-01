@@ -1,5 +1,5 @@
 SMODS.Joker { --Tack Shooter
-    key = 'tack',
+    key = 'tack_shooter',
     name = 'Tack Shooter',
 	loc_txt = {
         name = 'Tack Shooter',
@@ -33,8 +33,8 @@ SMODS.Joker { --Tack Shooter
 }
 
 SMODS.Joker { --Faster Shooting
-    key = 'fasttack',
-    name = 'Faster Shooting',
+    key = 'faster_shooting_tack',
+    name = 'Faster Shooting (Tack)',
 	loc_txt = {
         name = 'Faster Shooting',
         text = {
@@ -67,7 +67,7 @@ SMODS.Joker { --Faster Shooting
 }
 
 SMODS.Joker { --Even Faster Shooting
-    key = 'eventack',
+    key = 'even_faster_shooting',
     name = 'Even Faster Shooting',
 	loc_txt = {
         name = 'Even Faster Shooting',
@@ -100,7 +100,7 @@ SMODS.Joker { --Even Faster Shooting
 }
 
 SMODS.Joker { --Hot Shots
-    key = 'hotshots',
+    key = 'hot_shots',
     name = 'Hot Shots',
 	loc_txt = {
         name = 'Hot Shots',
@@ -131,7 +131,7 @@ SMODS.Joker { --Hot Shots
 }
 
 SMODS.Joker { --Ring of Fire
-    key = 'rof',
+    key = 'ring_of_fire',
     name = 'Ring of Fire',
 	loc_txt = {
         name = 'Ring of Fire',
@@ -172,7 +172,7 @@ SMODS.Joker { --Ring of Fire
 }
 
 SMODS.Joker { --Inferno Ring
-    key = 'iring',
+    key = 'inferno_ring',
     name = 'Inferno Ring',
 	loc_txt = {
         name = 'Inferno Ring',
@@ -198,7 +198,7 @@ SMODS.Joker { --Inferno Ring
         if context.setting_blind and not card.getting_sliced then
             G.E_MANAGER:add_event(Event({
                 func = function() 
-                    local front = pseudorandom_element(G.P_CARDS, pseudoseed('iring'))
+                    local front = pseudorandom_element(G.P_CARDS, 'inferno_ring')
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     local card = Card(G.play.T.x + G.play.T.w/2, G.play.T.y, G.CARD_W, G.CARD_H, front, G.P_CENTERS.m_bloons_meteor, {playing_card = G.playing_card})
                     card:start_materialize({G.C.SECONDARY_SET.Enhanced})
@@ -222,7 +222,7 @@ SMODS.Joker { --Inferno Ring
 }
 
 SMODS.Joker { --Long Range Tacks
-    key = 'rangetack',
+    key = 'long_range_tacks',
     name = 'Long Range Tacks',
 	loc_txt = {
         name = 'Long Range Tacks',
@@ -271,7 +271,7 @@ SMODS.Joker { --Long Range Tacks
 }
 
 SMODS.Joker { --Super Range Tacks
-    key = 'supertack',
+    key = 'super_range_tacks',
     name = 'Super Range Tacks',
 	loc_txt = {
         name = 'Super Range Tacks',
@@ -320,14 +320,15 @@ SMODS.Joker { --Super Range Tacks
 }
 
 SMODS.Joker { --Blade Shooter
-    key = 'blade',
+    key = 'blade_shooter',
     name = 'Blade Shooter',
 	loc_txt = {
         name = 'Blade Shooter',
         text = {
             'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
             'if scoring hand contains',
-            'at least {C:attention}#2# number{} cards',
+            '{C:attention}#2#{} cards with rank',
+            'between {C:attention}6{} and {C:attention}10{}',
             '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
         }
     },
@@ -350,10 +351,7 @@ SMODS.Joker { --Blade Shooter
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() >= 0 and
-                        (v:get_id() <= 10 or
-                        v:get_id() == 14) and
-                        not v.debuff then
+                    if v:get_id() >= 6 and v:get_id() <= 10 and not v.debuff then
                         count = count + 1
                     end
                 end
@@ -373,7 +371,7 @@ SMODS.Joker { --Blade Shooter
 }
 
 SMODS.Joker { --Blade Maelstrom
-    key = 'mael',
+    key = 'blade_maelstrom',
     name = 'Blade Maelstrom',
 	loc_txt = {
         name = 'Blade Maelstrom',
@@ -394,13 +392,13 @@ SMODS.Joker { --Blade Maelstrom
     },
 
     loc_vars = function(self, info_queue, card)
-		local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'mael')
+		local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'blade_maelstrom')
         return { vars = { n, d, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             context.other_card:get_id() >= 0 and (context.other_card:get_id() <= 10 or context.other_card:get_id() == 14) and
-            SMODS.pseudorandom_probability(card, 'mael', card.ability.extra.num, card.ability.extra.denom, 'mael') then
+            SMODS.pseudorandom_probability(card, 'blade_maelstrom', card.ability.extra.num, card.ability.extra.denom, 'blade_maelstrom') then
             return {
                 x_mult = card.ability.extra.Xmult
             }
@@ -409,7 +407,7 @@ SMODS.Joker { --Blade Maelstrom
 }
 
 SMODS.Joker { --Super Maelstrom
-    key = 'smael',
+    key = 'super_maelstrom',
     name = 'Super Maelstrom',
 	loc_txt = {
         name = 'Super Maelstrom',
@@ -421,12 +419,12 @@ SMODS.Joker { --Super Maelstrom
     },
 	atlas = 'Joker',
 	pos = { x = 10, y = 3 },
-    rarity = 2,
+    rarity = 3,
 	cost = 7,
     blueprint_compat = true,
     config = {
         base = 'tack',
-        extra = { Xmult = 2, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { Xmult = 3, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -471,7 +469,7 @@ SMODS.Joker { --Super Maelstrom
 }
 
 SMODS.Joker { --More Tacks
-    key = 'moretacks',
+    key = 'more_tacks',
     name = 'More Tacks',
 	loc_txt = {
         name = 'More Tacks',
@@ -505,7 +503,7 @@ SMODS.Joker { --More Tacks
 }
 
 SMODS.Joker { --Even More Tacks
-    key = 'evenmore',
+    key = 'even_more_tacks',
     name = 'Even More Tacks',
 	loc_txt = {
         name = 'Even More Tacks',
@@ -539,7 +537,7 @@ SMODS.Joker { --Even More Tacks
 }
 
 SMODS.Joker { --Tack Sprayer
-    key = 'sprayer',
+    key = 'tack_sprayer',
     name = 'Tack Sprayer',
 	loc_txt = {
         name = 'Tack Sprayer',
@@ -574,7 +572,7 @@ SMODS.Joker { --Tack Sprayer
 }
 
 SMODS.Joker { --Overdrive
-    key = 'od',
+    key = 'overdrive',
     name = 'Overdrive',
     loc_txt = {
         name = 'Overdrive',
@@ -620,7 +618,7 @@ SMODS.Joker { --Overdrive
 }
 
 SMODS.Joker { --The Tack Zone
-    key = 'tz',
+    key = 'the_tack_zone',
     name = 'The Tack Zone',
     loc_txt = {
         name = 'The Tack Zone',

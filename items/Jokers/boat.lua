@@ -1,5 +1,5 @@
 SMODS.Joker { --Monkey Buccaneer
-    key = 'boat',
+    key = 'monkey_buccaneer',
     name = 'Monkey Buccaneer',
 	loc_txt = {
         name = 'Monkey Buccaneer',
@@ -32,8 +32,8 @@ SMODS.Joker { --Monkey Buccaneer
 }
 
 SMODS.Joker { --Faster Shooting
-    key = 'fastboat',
-    name = 'Faster Shooting',
+    key = 'faster_shooting_buccaneer',
+    name = 'Faster Shooting (Buccaneer)',
 	loc_txt = {
         name = 'Faster Shooting',
         text = {
@@ -53,11 +53,11 @@ SMODS.Joker { --Faster Shooting
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'fastboat')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer')
         return { vars = { n, d, card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and SMODS.pseudorandom_probability(card, 'fastboat', card.ability.extra.num, card.ability.extra.denom, 'fastboat') then
+        if context.joker_main and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
             return {
                 dollars = card.ability.extra.money,
                 colour = G.C.MONEY
@@ -67,8 +67,8 @@ SMODS.Joker { --Faster Shooting
 }
 
 SMODS.Joker { --Double Shot
-    key = 'doubleboat',
-    name = 'Double Shot',
+    key = 'double_shot_buccaneer',
+    name = 'Double Shot (Buccaneer)',
 	loc_txt = {
         name = 'Double Shot',
         text = {
@@ -190,7 +190,7 @@ SMODS.Joker { --Destroyer
 }
 
 SMODS.Joker { --Aircraft Carrier
-    key = 'airrier',
+    key = 'aircraft_carrier',
     name = 'Aircraft Carrier',
     loc_txt = {
         name = 'Aircraft Carrier',
@@ -211,13 +211,13 @@ SMODS.Joker { --Aircraft Carrier
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'airrier')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'aircraft_carrier')
         return { vars = { n, d, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             for i = 1, card.ability.extra.planes do
-                if SMODS.pseudorandom_probability(card, 'airrier', card.ability.extra.num, card.ability.extra.denom, 'airrier') then
+                if SMODS.pseudorandom_probability(card, 'aircraft_carrier', card.ability.extra.num, card.ability.extra.denom, 'aircraft_carrier') then
                     mult = mod_mult(mult * card.ability.extra.Xmult)
                     update_hand_text( { delay = 0 }, { mult = mult } )
                     G.E_MANAGER:add_event(Event({
@@ -248,7 +248,7 @@ SMODS.Joker { --Aircraft Carrier
 }
 
 SMODS.Joker { --Carrier Flagship
-    key = 'flag',
+    key = 'carrier_flagship',
     name = 'Carrier Flagship',
     loc_txt = {
         name = 'Carrier Flagship',
@@ -270,7 +270,7 @@ SMODS.Joker { --Carrier Flagship
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'flagship')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'carrier_flagship')
         return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -282,7 +282,7 @@ SMODS.Joker { --Carrier Flagship
     calculate = function(self, card, context)
         if context.joker_main then
             for i = 1, card.ability.extra.planes do
-                if SMODS.pseudorandom_probability(card, 'flagship', card.ability.extra.num, card.ability.extra.denom, 'flagship') then
+                if SMODS.pseudorandom_probability(card, 'carrier_flagship', card.ability.extra.num, card.ability.extra.denom, 'carrier_flagship') then
                     mult = mod_mult(mult * card.ability.extra.Xmult)
                     update_hand_text( { delay = 0 }, { mult = mult } )
                     G.E_MANAGER:add_event(Event({
@@ -315,7 +315,7 @@ SMODS.Joker { --Carrier Flagship
 }
 
 SMODS.Joker { --Grape Shot
-    key = 'grape',
+    key = 'grape_shot',
     name = 'Grape Shot',
     loc_txt = {
         name = 'Grape Shot',
@@ -345,27 +345,7 @@ SMODS.Joker { --Grape Shot
     calculate = function(self, card, context)
         if context.starting_shop and not context.blueprint then
             if card.ability.extra.money - card.ability.extra.loss <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -382,7 +362,7 @@ SMODS.Joker { --Grape Shot
 }
 
 SMODS.Joker { --Hot Shot
-    key = 'hotshot',
+    key = 'hot_shot',
     name = 'Hot Shot',
     loc_txt = {
         name = 'Hot Shot',
@@ -405,7 +385,7 @@ SMODS.Joker { --Hot Shot
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'hotshot')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'hot_shot')
 		return { vars = { n, d, card.ability.extra.money } }
     end,
     calc_dollar_bonus = function(self, card)
@@ -413,28 +393,8 @@ SMODS.Joker { --Hot Shot
     end,
     calculate = function(self, card, context)
         if context.starting_shop and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'hotshot', card.ability.extra.num, card.ability.extra.denom, 'hotshot') then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+            if SMODS.pseudorandom_probability(card, 'hot_shot', card.ability.extra.num, card.ability.extra.denom, 'hot_shot') then
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -449,7 +409,7 @@ SMODS.Joker { --Hot Shot
 }
 
 SMODS.Joker { --Cannon Ship
-    key = 'cannon',
+    key = 'cannon_ship',
     name = 'Cannon Ship',
     loc_txt = {
         name = 'Cannon Ship',
@@ -485,7 +445,7 @@ SMODS.Joker { --Cannon Ship
 }
 
 SMODS.Joker { --Monkey Pirates
-    key = 'pirates',
+    key = 'monkey_pirates',
     name = 'Monkey Pirates',
     loc_txt = {
         name = 'Monkey Pirates',
@@ -532,7 +492,7 @@ SMODS.Joker { --Monkey Pirates
 }
 
 SMODS.Joker { --Pirate Lord
-    key = 'plord',
+    key = 'pirate_lord',
     name = 'Pirate Lord',
 	loc_txt = {
         name = 'Pirate Lord',
@@ -587,7 +547,7 @@ SMODS.Joker { --Pirate Lord
 }
 
 SMODS.Joker { --Long Range
-    key = 'rangeboat',
+    key = 'long_range',
     name = 'Long Range',
 	loc_txt = {
         name = 'Long Range',
@@ -620,7 +580,7 @@ SMODS.Joker { --Long Range
 }
 
 SMODS.Joker { --Crow's Nest
-    key = 'crowsnest',
+    key = 'crows_nest',
     name = "Crow's Nest",
 	loc_txt = {
         name = "Crow's Nest",
@@ -654,7 +614,7 @@ SMODS.Joker { --Crow's Nest
 }
 
 SMODS.Joker { --Merchantman
-    key = 'merchant',
+    key = 'merchantman',
     name = "Merchantman",
 	loc_txt = {
         name = "Merchantman",
@@ -674,7 +634,7 @@ SMODS.Joker { --Merchantman
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.tag_voucher
+        info_queue[#info_queue+1] = G.P_TAGS.tag_voucher
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
@@ -691,7 +651,7 @@ SMODS.Joker { --Merchantman
 }
 
 SMODS.Joker { --Favored Trades
-    key = 'flavored',
+    key = 'favored_trades',
     name = "Favored Trades",
 	loc_txt = {
         name = "Favored Trades",
@@ -745,7 +705,7 @@ SMODS.Joker { --Favored Trades
 }
 
 SMODS.Joker { --Trade Empire
-    key = 'empire',
+    key = 'trade_empire',
     name = "Trade Empire",
 	loc_txt = {
         name = "Trade Empire",

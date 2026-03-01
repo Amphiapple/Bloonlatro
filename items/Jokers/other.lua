@@ -6,8 +6,7 @@ SMODS.Joker { --Bloonprint
         text = {
             'Copies ability of',
             '{C:attention}Joker{} in position {C:attention}#1#{}',
-            '{S:0.8}position changes{}',
-            '{S:0.8}at end of round{}'
+            '{S:0.8}position changes every round{}'
         }
     },
 	atlas = 'Joker',
@@ -17,35 +16,28 @@ SMODS.Joker { --Bloonprint
     blueprint_compat = true,
     config = {
         base = 'other',
-        extra = {current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
+        extra = { current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
     },
 
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
 			local other_joker = G.jokers.cards[card.ability.extra.current]
 			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-			main_end = {{
-                n = G.UIT.C,
-                config = { align = "bm", minh = 0.4 },
-                nodes = {{
+			main_end = {
+                {
                     n = G.UIT.C,
-                    config = {
-                        ref_table = card,
-                        align = "m",
-                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
-                        r = 0.05,
-                        padding = 0.06,
-                    },
-                    nodes = {{
-                        n = G.UIT.T,
-                        config = {
-                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
-                            colour = G.C.UI.TEXT_LIGHT,
-                            scale = 0.32 * 0.8,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
                         }
-                    }}
-                }}
-			}}
+                    }
+                }
+            }
 		end
         return { vars = { card.ability.extra.current }, main_end = main_end }
     end,
@@ -98,27 +90,7 @@ SMODS.Joker { --Marine
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -142,7 +114,7 @@ SMODS.Joker { --Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        base = 'sentry',
         extra = { chips = 20, mult = 2, slots = 1, rounds = 2 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -167,27 +139,7 @@ SMODS.Joker { --Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -211,7 +163,7 @@ SMODS.Joker { --Crushing Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        base = 'sentry',
         extra = { mult = 4, slots = 1, rounds = 3 } --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
     },
 
@@ -235,27 +187,7 @@ SMODS.Joker { --Crushing Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -279,7 +211,7 @@ SMODS.Joker { --Boom Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        base = 'sentry',
         extra = { Xmult = 1.5, slots = 1, rounds = 3 } --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
     },
 
@@ -310,27 +242,7 @@ SMODS.Joker { --Boom Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -354,7 +266,7 @@ SMODS.Joker { --Cold Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        base = 'sentry',
         extra = { retrigger = 1, slots = 1, rounds = 3 } --Variables: retrigger = retrigger amount, slots = joker slots, rounds = rounds remaining
     },
 
@@ -382,27 +294,7 @@ SMODS.Joker { --Cold Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
             end
         end
     end
@@ -426,7 +318,7 @@ SMODS.Joker { --Energy Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        base = 'sentry',
         extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -451,27 +343,58 @@ SMODS.Joker { --Energy Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Champion Sentry
+    key = 'champion_sentry',
+    name = 'Champion Sentry',
+	loc_txt = {
+        name = 'Champion Sentry',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult',
+            'Gains {X:mult,C:white}X#2#{} Mult',
+            'at end of round',
+            '{C:dark_edition}+#3#{} Joker Slot',
+            'Lasts {C:attention}#4#{} rounds'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 25 },
+    rarity = 3,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        base = 'sentry',
+        extra = { Xmult = 0.2, current = 1.2, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.current, card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.current
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds - 1
+            if card.ability.extra.rounds <= 0 then
+                SMODS.destroy_cards(card, nil, nil, true)
+            else
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
             end
         end
     end

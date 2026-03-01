@@ -1,11 +1,11 @@
-JokerDisplay.Definitions["j_bloons_boat"] = { --Monkey Buccaneer
+JokerDisplay.Definitions["j_bloons_monkey_buccaneer"] = { --Monkey Buccaneer
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
     },
 }
 
-JokerDisplay.Definitions["j_bloons_fastboat"] = { --Faster Shooting
+JokerDisplay.Definitions["j_bloons_faster_shooting_buccaneer"] = { --Faster Shooting
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -23,7 +23,7 @@ JokerDisplay.Definitions["j_bloons_fastboat"] = { --Faster Shooting
     end
 }
 
-JokerDisplay.Definitions["j_bloons_doubleboat"] = { --Double Shot
+JokerDisplay.Definitions["j_bloons_double_shot_buccaneer"] = { --Double Shot
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -61,7 +61,7 @@ JokerDisplay.Definitions["j_bloons_destroyer"] = { --Destroyer
     end
 }
 
-JokerDisplay.Definitions["j_bloons_airrier"] = { --Airtcraft Carrier
+JokerDisplay.Definitions["j_bloons_aircraft_carrier"] = { --Airtcraft Carrier
     text = {
         { ref_table = "card.ability.extra", ref_value = "planes", retrigger_type = "mult" },
             { text = "x", scale = 0.35 },
@@ -85,7 +85,7 @@ JokerDisplay.Definitions["j_bloons_airrier"] = { --Airtcraft Carrier
     end
 }
 
-JokerDisplay.Definitions["j_bloons_flag"] = { --Carrier Flagship
+JokerDisplay.Definitions["j_bloons_carrier_flagship"] = { --Carrier Flagship
     text = {
         { ref_table = "card.ability.extra", ref_value = "planes", retrigger_type = "mult" },
             { text = "x", scale = 0.35 },
@@ -109,7 +109,7 @@ JokerDisplay.Definitions["j_bloons_flag"] = { --Carrier Flagship
     end
 }
 
-JokerDisplay.Definitions["j_bloons_grape"] = { --Grape Shot
+JokerDisplay.Definitions["j_bloons_grape_shot"] = { --Grape Shot
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -119,7 +119,7 @@ JokerDisplay.Definitions["j_bloons_grape"] = { --Grape Shot
     }
 }
 
-JokerDisplay.Definitions["j_bloons_hotshot"] = { --Hot Shot
+JokerDisplay.Definitions["j_bloons_hot_shot"] = { --Hot Shot
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -140,7 +140,7 @@ JokerDisplay.Definitions["j_bloons_hotshot"] = { --Hot Shot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cannon"] = { --Cannon Ship
+JokerDisplay.Definitions["j_bloons_cannon_ship"] = { --Cannon Ship
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
@@ -149,7 +149,7 @@ JokerDisplay.Definitions["j_bloons_cannon"] = { --Cannon Ship
     },
 }
 
-JokerDisplay.Definitions["j_bloons_pirates"] = { --Monkey Pirates
+JokerDisplay.Definitions["j_bloons_monkey_pirates"] = { --Monkey Pirates
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -164,7 +164,7 @@ JokerDisplay.Definitions["j_bloons_pirates"] = { --Monkey Pirates
     end
 }
 
-JokerDisplay.Definitions["j_bloons_plord"] = { --Pirate Lord
+JokerDisplay.Definitions["j_bloons_pirate_lord"] = { --Pirate Lord
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
@@ -177,7 +177,7 @@ JokerDisplay.Definitions["j_bloons_plord"] = { --Pirate Lord
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangeboat"] = { --Long Range
+JokerDisplay.Definitions["j_bloons_long_range"] = { --Long Range
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "dollars", colour = G.C.MONEY },
@@ -187,7 +187,7 @@ JokerDisplay.Definitions["j_bloons_rangeboat"] = { --Long Range
     end
 }
 
-JokerDisplay.Definitions["j_bloons_crowsnest"] = { --Crow's Nest
+JokerDisplay.Definitions["j_bloons_crows_nest"] = { --Crow's Nest
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "dollars", colour = G.C.MONEY },
@@ -197,10 +197,10 @@ JokerDisplay.Definitions["j_bloons_crowsnest"] = { --Crow's Nest
     end
 }
 
-JokerDisplay.Definitions["j_bloons_merchant"] = { --Merchantman
+JokerDisplay.Definitions["j_bloons_merchantman"] = { --Merchantman
 }
 
-JokerDisplay.Definitions["j_bloons_flavored"] = { --Favored Trades
+JokerDisplay.Definitions["j_bloons_favored_trades"] = { --Favored Trades
     text = {
         {
             border_nodes = {
@@ -211,5 +211,5 @@ JokerDisplay.Definitions["j_bloons_flavored"] = { --Favored Trades
     }
 }
 
-JokerDisplay.Definitions["j_bloons_empire"] = { --Trade Empire
+JokerDisplay.Definitions["j_bloons_trade_empire"] = { --Trade Empire
 }

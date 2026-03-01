@@ -1,5 +1,5 @@
 SMODS.Joker { --Monkey Sub
-    key = 'sub',
+    key = 'monkey_sub',
     name = 'Monkey Sub',
 	loc_txt = {
         name = 'Monkey Sub',
@@ -39,7 +39,7 @@ SMODS.Joker { --Monkey Sub
 }
 
 SMODS.Joker { --Longer Range
-    key = 'rangesub',
+    key = 'longer_range',
     name = 'Longer Range',
     loc_txt = {
         name = 'Longer Range',
@@ -87,13 +87,13 @@ SMODS.Joker { --Longer Range
 }
 
 SMODS.Joker { --Advanced Intel
-    key = 'intel',
+    key = 'advanced_intel',
     name = 'Advanced Intel',
     loc_txt = {
         name = 'Advanced Intel',
         text = {
-            '{C:attention}+#1#{} card slot',
-            'available in shop',
+            '{C:attention}#1#{} free {C:green}Reroll{}',
+            'per shop',
         }
     },
     atlas = 'Joker',
@@ -103,32 +103,29 @@ SMODS.Joker { --Advanced Intel
     blueprint_compat = false,
     config = {
         base = 'sub',
-        extra = { slots = 1 } --Variables: slots = extra shop slots
+        extra = { freerolls = 1 } --Variables: freerolls = free rerolls
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.slots } }
+        return { vars = { card.ability.extra.freerolls } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        change_shop_size(card.ability.extra.slots)
+        SMODS.change_free_rerolls(card.ability.extra.freerolls)
+        calculate_reroll_cost(true)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.shop.joker_max = G.GAME.shop.joker_max - card.ability.extra.slots
-        if G.shop_jokers and G.shop_jokers.cards then
-            G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
-            G.shop_jokers.T.w = G.GAME.shop.joker_max*1.01*G.CARD_W
-            G.shop:recalculate()
-        end
+        SMODS.change_free_rerolls(-card.ability.extra.freerolls)
+        calculate_reroll_cost(true)
     end
 }
 
 SMODS.Joker { --Submerge and Support
-    key = 'sns',
+    key = 'submerge_and_support',
     name = 'Submerge and Support',
     loc_txt = {
         name = 'Submerge and Support',
         text = {
-            'Rerolls cost {C:money}$#1#{} less',
+            '{C:green}Rerolls{} cost {C:money}$#1#{} less',
         }
     },
     atlas = 'Joker',
@@ -165,13 +162,13 @@ SMODS.Joker { --Submerge and Support
 }
 
 SMODS.Joker { --Bloontonium Reactor
-    key = 'reactor',
+    key = 'bloontonium_reactor',
     name = 'Bloontonium Reactor',
     loc_txt = {
         name = 'Bloontonium Reactor',
         text = {
             'This Joker gains {C:chips}+#1#{} Chips',
-            'per {C:attention}reroll{} in the shop',
+            'per {C:green}Reroll{} in the shop',
             '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
         }
     },
@@ -204,7 +201,7 @@ SMODS.Joker { --Bloontonium Reactor
 }
 
 SMODS.Joker { --Energizer
-    key = 'gizer',
+    key = 'energizer',
     name = 'Energizer',
 	loc_txt = {
         name = 'Energizer',
@@ -235,7 +232,7 @@ SMODS.Joker { --Energizer
 }
 
 SMODS.Joker { --Barbed Darts
-    key = 'barbed',
+    key = 'barbed_darts',
     name = 'Barbed Darts',
 	loc_txt = {
         name = 'Barbed Darts',
@@ -275,7 +272,7 @@ SMODS.Joker { --Barbed Darts
 }
 
 SMODS.Joker { --Heat-tipped Darts
-    key = 'heattip',
+    key = 'heat_tipped_darts',
     name = 'Heat-tipped Darts',
 	loc_txt = {
         name = 'Heat-tipped Darts',
@@ -315,7 +312,7 @@ SMODS.Joker { --Heat-tipped Darts
 }
 
 SMODS.Joker { --Ballistic Missile
-    key = 'ballistic',
+    key = 'ballistic_missile',
     name = 'Ballistic Missile',
 	loc_txt = {
         name = 'Ballistic Missile',
@@ -363,7 +360,7 @@ SMODS.Joker { --Ballistic Missile
 }
 
 SMODS.Joker { --First Strike Capability
-    key = 'fs',
+    key = 'first_strike_capability',
     name = 'First Strike Capability',
 	loc_txt = {
         name = 'First Strike Capability',
@@ -403,7 +400,7 @@ SMODS.Joker { --First Strike Capability
 }
 
 SMODS.Joker { --Pre-emptive Strike
-    key = 'preemp',
+    key = 'pre_emptive_strike',
     name = 'Pre-emptive Strike',
 	loc_txt = {
         name = 'Pre-emptive Strike',
@@ -435,7 +432,7 @@ SMODS.Joker { --Pre-emptive Strike
 }
 
 SMODS.Joker { --Twin Guns
-    key = 'twinguns',
+    key = 'twin_guns',
     name = 'Twin Guns',
 	loc_txt = {
         name = 'Twin Guns',
@@ -485,7 +482,7 @@ SMODS.Joker { --Twin Guns
 }
 
 SMODS.Joker { --Airburst Darts
-    key = 'airburst',
+    key = 'airburst_darts',
     name = 'Airburst Darts',
     loc_txt = {
         name = 'Airburst Darts',
@@ -545,7 +542,7 @@ SMODS.Joker { --Airburst Darts
 }
 
 SMODS.Joker { --Triple Guns
-    key = 'tripguns',
+    key = 'triple_guns',
     name = 'Triple Guns',
     loc_txt = {
         name = 'Triple Guns',
@@ -605,7 +602,7 @@ SMODS.Joker { --Triple Guns
 }
 
 SMODS.Joker { --Armor Piercing Darts
-    key = 'apd',
+    key = 'armor_piercing_darts',
     name = 'Armor Piercing Darts',
     loc_txt = {
         name = 'Armor Piercing Darts',
@@ -658,7 +655,7 @@ SMODS.Joker { --Armor Piercing Darts
 }
 
 SMODS.Joker { --Sub Commander
-    key = 'subcom',
+    key = 'sub_commander',
     name = 'Sub Commander',
     loc_txt = {
         name = 'Sub Commander',

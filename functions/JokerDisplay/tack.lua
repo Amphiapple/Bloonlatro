@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_tack"] = { --Tack Shooter
+JokerDisplay.Definitions["j_bloons_tack_shooter"] = { --Tack Shooter
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -24,7 +24,7 @@ JokerDisplay.Definitions["j_bloons_tack"] = { --Tack Shooter
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_fasttack"] = { --Faster Shooting
+JokerDisplay.Definitions["j_bloons_faster_shooting_tack"] = { --Faster Shooting
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -50,7 +50,7 @@ JokerDisplay.Definitions["j_bloons_fasttack"] = { --Faster Shooting
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_eventack"] = { --Even Faster Shooting
+JokerDisplay.Definitions["j_bloons_even_faster_shooting"] = { --Even Faster Shooting
     text = {
         {
             border_nodes = {
@@ -77,7 +77,7 @@ JokerDisplay.Definitions["j_bloons_eventack"] = { --Even Faster Shooting
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_hotshots"] = { --Hot Shots
+JokerDisplay.Definitions["j_bloons_hot_shots"] = { --Hot Shots
     text = {
         { text = "(8)", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
     },
@@ -91,13 +91,13 @@ JokerDisplay.Definitions["j_bloons_hotshots"] = { --Hot Shots
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rof"] = { --Ring of Fire
+JokerDisplay.Definitions["j_bloons_ring_of_fire"] = { --Ring of Fire
 }
 
-JokerDisplay.Definitions["j_bloons_iring"] = { --Inferno Ring
+JokerDisplay.Definitions["j_bloons_inderno_ring"] = { --Inferno Ring
 }
 
-JokerDisplay.Definitions["j_bloons_rangetack"] = { --Long Range Tacks
+JokerDisplay.Definitions["j_bloons_long_range_tacks"] = { --Long Range Tacks
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
@@ -107,7 +107,7 @@ JokerDisplay.Definitions["j_bloons_rangetack"] = { --Long Range Tacks
     }
 }
 
-JokerDisplay.Definitions["j_bloons_supertack"] = { --Super Range Tacks
+JokerDisplay.Definitions["j_bloons_super_range_tacks"] = { --Super Range Tacks
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
@@ -117,7 +117,7 @@ JokerDisplay.Definitions["j_bloons_supertack"] = { --Super Range Tacks
     }
 }
 
-JokerDisplay.Definitions["j_bloons_blade"] = { --Blade Shooter
+JokerDisplay.Definitions["j_bloons_blade_shooter"] = { --Blade Shooter
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
@@ -129,7 +129,7 @@ JokerDisplay.Definitions["j_bloons_blade"] = { --Blade Shooter
     }
 }
 
-JokerDisplay.Definitions["j_bloons_mael"] = { --Blade Maelstrom
+JokerDisplay.Definitions["j_bloons_blade_maelstrom"] = { --Blade Maelstrom
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         { text = "x",                              scale = 0.35 },
@@ -170,7 +170,7 @@ JokerDisplay.Definitions["j_bloons_mael"] = { --Blade Maelstrom
     end
 }
 
-JokerDisplay.Definitions["j_bloons_smael"] = { --Super Maelstrom
+JokerDisplay.Definitions["j_bloons_super_maelstrom"] = { --Super Maelstrom
     text = {
         {
             border_nodes = {
@@ -184,7 +184,7 @@ JokerDisplay.Definitions["j_bloons_smael"] = { --Super Maelstrom
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_moretacks"] = { --More Tacks
+JokerDisplay.Definitions["j_bloons_more_tacks"] = { --More Tacks
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -210,7 +210,7 @@ JokerDisplay.Definitions["j_bloons_moretacks"] = { --More Tacks
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_evenmore"] = { --Even More Tacks
+JokerDisplay.Definitions["j_bloons_even_more_tacks"] = { --Even More Tacks
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -236,7 +236,7 @@ JokerDisplay.Definitions["j_bloons_evenmore"] = { --Even More Tacks
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_sprayer"] = { --Tack Sprayer
+JokerDisplay.Definitions["j_bloons_tack_sprayer"] = { --Tack Sprayer
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -262,7 +262,7 @@ JokerDisplay.Definitions["j_bloons_sprayer"] = { --Tack Sprayer
     end,
 }
 
-JokerDisplay.Definitions["j_bloons_od"] = { --Overdrive
+JokerDisplay.Definitions["j_bloons_overdrive"] = { --Overdrive
     text = {
         {
             border_nodes = {
@@ -276,7 +276,7 @@ JokerDisplay.Definitions["j_bloons_od"] = { --Overdrive
     }
 }
 
-JokerDisplay.Definitions["j_bloons_tz"] = { --The Tack Zone
+JokerDisplay.Definitions["j_bloons_the_tack_zone"] = { --The Tack Zone
     text = {
         {
             border_nodes = {

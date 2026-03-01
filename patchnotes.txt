@@ -1,49 +1,31 @@
 Added Jokers:
-- All remaining Ice Monkeys
-- All remaining Desperados
-- All remaining Dartling Gunners
-- All remaining Mermonkeys
-- All remaining Spike Factories
-- All remaining Beast Handlers
+- All remaining Bomb Shooters
+- All remaining Monkey Aces
+- All remaining Engineer Monkeys
 
 General Changes:
-- Many balance changes to Jokers in preparation for the upgrading mechanic
+- Bloonlatro challenge has been replaced with a new challenge as you can turn on and off base game jokers at will
+- Crash of the Titans banned cards adjusted
+- Joker keys renamed, you may need to reset your profile for accurate stats to be tracked
 
 Balance Changes:
-- Sharp Shooter crit mult 30 > 40
-- Kylie Boomerang no longer retriggfers first card
-- MOAB Mauler mult 2.5 > 2
-- Tack Sprayer chips 40 > 24
-- Ice Monkey now freezes every 3 hands instead of first hand of round
-- Ice Shards mult 2 > 1, cost 6 > 5
-- Absolute Zero rarity Uncommon > Rare
-- Desperado gives 3 Mult instead of 20 Chips
-- Pre-emptive Strike reworked
-- Ground Zero rarity Rare > Uncommon, cost 7 > 8
-- Quad Darts mult loss 1 > 2
-- Ray of Doom no longer has any random spread
-- Buckshot cost 7 > 6, maximum 3.3X > 3X
-- Mermonkey reworked completely
-- Marketplace rate every $2 of sell price > $3 of sell price
-- Spike Factory cost 5 > 4
-- Bigger Stacks reworked
-- Long Life Spikes cost 6 > 5, suit changes every round
-- Jungle Drums Xmult 1.15 > 1.1
-- MOAB Domination scaling 0.5 > 0.25
-- Vengeful True Sun God has been reworked
-- Gwendolin Deck no longer gives -1 hand size, instead gives -1 hand
-- Silas Deck freezes 2 cards in hand rather than 3 random cards
-- Dark Titan debuff change 1 in 4 > 1 in 3
+- Glaive Lord chip gain 3 > 2
+- Bionic Boomerang reworked
+- Most Bomb shoters reworked
+- Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
+- Super Maelstrom Xmult 2 > 3, rarity Uncommon > Rare
+- Super Brittle and Absolute Zero reworked
+- Bounty Hunter money 5 > 3
+- Ground Zero chips 350 > 300, first hand > final hand
+- Spiked Balls and Spiked Mines reworked
+- Carpet of Spikes X0.2 per discard > X1.3 if 0 discards remaining
+- VTSG no longer defaults non-towers to Primary category sacrifices
 
 Fixes:
-- Glue enhancement should no longer remove itself if it hasn't been scored
-- Double Shot buccaneer Joker Display should calculate retriggers correctly
-- Wall of Fire should no longer stone other unscoring cards outside the first
-- Wall of Fire and Shimmer Joker Display no longer have inner demons (text fixed)
-- Dragon's Breath should no longer have perishable stickers
-- Transforming Tonic text fixed
-- EZ Collect should no longer show athe incorrect value in the shop
-- Banana Research Facility Joker Display should show the correct values
-- Monkey City should no longer cash out when it gives no money
-- MOAB Domination replaying bosses should trigger boss defeat effects both times
-- Many Jokers should no longer activate effects if being destroyed
+- Ice Monkey and Larger Radius should no longer be Enhanced Freeze
+- Embrittlement should correctly display Xmult instead of +mult when destroying cards
+- Deep Freeze should no longer guarantee thawing frozen cards when probability is increased
+- Ballistic Missile Joker Display should correctly account for highlighted cards
+- Sky Shredder should no longer stop counting Aces when it upgrades
+- Enforcer no longer has a shadow clone in the code
+- Lots of text fixes and standardizations

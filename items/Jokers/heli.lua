@@ -1,5 +1,5 @@
 SMODS.Joker { --Heli Pilot
-    key = 'heli',
+    key = 'heli_pilot',
     name = 'Heli Pilot',
 	loc_txt = {
         name = 'Heli Pilot',
@@ -42,7 +42,7 @@ SMODS.Joker { --Heli Pilot
 }
 
 SMODS.Joker { --Quad Darts
-    key = 'quad',
+    key = 'quad_darts',
     name = 'Quad Darts',
     loc_txt = {
         name = 'Quad Darts',
@@ -92,8 +92,56 @@ SMODS.Joker { --Quad Darts
     end
 }
 
+SMODS.Joker { --Apache Prime
+    key = 'apache_prime',
+    name = 'Apache Prime',
+	loc_txt = {
+        name = 'Apache Prime',
+        text = {
+            'Each played {C:attention}2{}, {C:attention}3{}, {C:attention}5{},',
+            'or {C:attention}7{} gives {X:mult,C:white}X#1#{}, {X:mult,C:white}X#2#{},',
+            '{X:mult,C:white}X#3#{}, or {X:mult,C:white}X#4#{} Mult',
+            'respectively when scored'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 11 },
+    rarity = 3,
+	cost = 9,
+    blueprint_compat = true,
+    config = {
+        base = 'heli',
+        extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } --Variables: Xmult = Xmult for each rank
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3, card.ability.extra.Xmult4 } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 2 then
+                return {
+                    x_mult = card.ability.extra.Xmult1
+                }
+            elseif context.other_card:get_id() == 3 then
+                return {
+                    x_mult = card.ability.extra.Xmult2
+                }
+            elseif context.other_card:get_id() == 5 then
+                return {
+                    x_mult = card.ability.extra.Xmult3
+                }
+            elseif context.other_card:get_id() == 7 then
+                return {
+                    x_mult = card.ability.extra.Xmult4
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Downdraft
-    key = 'draft',
+    key = 'downdraft',
     name = 'Downdraft',
     loc_txt = {
         name = 'Downdraft',
@@ -162,102 +210,8 @@ SMODS.Joker { --Downdraft
     end
 }
 
-SMODS.Joker { --Comanche Defense
-    key = 'comdef',
-    name = 'Comanche Defense',
-	loc_txt = {
-        name = 'Comanche Defense',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            'This Joker gains {C:chips}+#2#{} Chips after',
-            '{C:attention}first hand{} of round, resets when',
-            '{C:attention}Boss Blind{} is defeated'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 14, y = 11 },
-    rarity = 2,
-	cost = 7,
-    blueprint_compat = true,
-    config = {
-        base = 'heli',
-        extra = { chips = 30, current = 30, mini_chips = 40 } --Variables: chips = base chips
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current, card.ability.extra.mini_chips } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                chips = card.ability.extra.current
-            }
-        elseif context.after and G.GAME.current_round.hands_played == 0 and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mini_chips
-            return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                colour = G.C.CHIPS,
-            }
-        elseif context.end_of_round and context.beat_boss and card.ability.extra.current > card.ability.extra.chips and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.chips
-            return {
-                message = localize('k_reset'),
-                colour = G.C.RED
-            }
-        end
-    end
-}
-
-SMODS.Joker { --Apache Prime
-    key = 'aprime',
-    name = 'Apache Prime',
-	loc_txt = {
-        name = 'Apache Prime',
-        text = {
-            'Each played {C:attention}2{}, {C:attention}3{}, {C:attention}5{},',
-            'or {C:attention}7{} gives {X:mult,C:white}X#1#{}, {X:mult,C:white}X#2#{},',
-            '{X:mult,C:white}X#3#{}, or {X:mult,C:white}X#4#{} Mult',
-            'respectively when scored'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 5, y = 11 },
-    rarity = 3,
-	cost = 9,
-    blueprint_compat = true,
-    config = {
-        base = 'heli',
-        extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } --Variables: Xmult = Xmult for each rank
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2, card.ability.extra.Xmult3, card.ability.extra.Xmult4 } }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 2 then
-                return {
-                    x_mult = card.ability.extra.Xmult1
-                }
-            elseif context.other_card:get_id() == 3 then
-                return {
-                    x_mult = card.ability.extra.Xmult2
-                }
-            elseif context.other_card:get_id() == 5 then
-                return {
-                    x_mult = card.ability.extra.Xmult3
-                }
-            elseif context.other_card:get_id() == 7 then
-                return {
-                    x_mult = card.ability.extra.Xmult4
-                }
-            end
-        end
-    end
-}
-
 SMODS.Joker { --Special Poperations
-    key = 'spop',
+    key = 'special_poperations',
     name = 'Special Poperations',
 	loc_txt = {
         name = 'Special Poperations',
@@ -299,7 +253,7 @@ SMODS.Joker { --Special Poperations
             if card.ability.extra.counter % card.ability.extra.marine == 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local card = create_card('j_bloons_marine', G.jokers, nil, 0, nil, nil, 'j_bloons_marine', 'spop')
+                        local card = create_card('j_bloons_marine', G.jokers, nil, 0, nil, nil, 'j_bloons_marine', 'special_poperations')
                         card:add_to_deck()
                         G.jokers:emplace(card)
                         card:start_materialize()
@@ -313,7 +267,7 @@ SMODS.Joker { --Special Poperations
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('c_bloons_cash', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash', 'spop')
+                        local card = create_card('c_bloons_cash_drop', G.consumeables, nil, nil, nil, nil, 'c_bloons_cash_drop', 'special_poperations')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -322,6 +276,52 @@ SMODS.Joker { --Special Poperations
                 }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.POWER})
             end
+        end
+    end
+}
+
+SMODS.Joker { --Comanche Defense
+    key = 'comanche_defense',
+    name = 'Comanche Defense',
+	loc_txt = {
+        name = 'Comanche Defense',
+        text = {
+            '{C:chips}+#1#{} Chips',
+            'This Joker gains {C:chips}+#2#{} Chips after',
+            '{C:attention}first hand{} of round, resets when',
+            '{C:attention}Boss Blind{} is defeated'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 14, y = 11 },
+    rarity = 2,
+	cost = 7,
+    blueprint_compat = true,
+    config = {
+        base = 'heli',
+        extra = { chips = 30, current = 30, mini_chips = 40 } --Variables: chips = base chips
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.current, card.ability.extra.mini_chips } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.current
+            }
+        elseif context.after and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.mini_chips
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+            }
+        elseif context.end_of_round and context.beat_boss and card.ability.extra.current > card.ability.extra.chips and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.chips
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
     end
 }

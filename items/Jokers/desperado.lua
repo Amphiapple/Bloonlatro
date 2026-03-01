@@ -1,5 +1,5 @@
 SMODS.Joker { --Desperado
-    key = 'desp',
+    key = 'desperado',
     name = 'Desperado',
     loc_txt = {
         name = 'Desperado',
@@ -58,9 +58,11 @@ SMODS.Joker { --Quickdraw
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and (context.other_card == context.scoring_hand[1] or context.other_card == context.scoring_hand[2]) then
             local temp_mult = card.ability.extra.mult * (#context.full_hand - #context.scoring_hand)
-            return {
-                mult = temp_mult
-            }
+            if temp_mult > 0 then
+                return {
+                    mult = temp_mult
+                }
+            end
 		end
     end
 }
@@ -93,15 +95,17 @@ SMODS.Joker { --Standoff
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and (context.other_card == context.scoring_hand[1] or context.other_card == context.scoring_hand[2]) then
             local temp_mult = card.ability.extra.mult * (5 - #context.full_hand)
-            return {
-                mult = temp_mult
-            }
+            if temp_mult > 0 then
+                return {
+                    mult = temp_mult
+                }
+            end
 		end
     end
 }
 
 SMODS.Joker { --Big Iron
-    key = 'bigiron',
+    key = 'big_iron',
     name = 'Big Iron',
 	loc_txt = {
         name = 'Big Iron',
@@ -138,7 +142,7 @@ SMODS.Joker { --Big Iron
 }
 
 SMODS.Joker { --Twin Sixes
-    key = 'twix',
+    key = 'twin_sixes',
     name = 'Twin Sixes',
 	loc_txt = {
         name = 'Twin Sixes',
@@ -181,15 +185,15 @@ SMODS.Joker { --Twin Sixes
 }
 
 SMODS.Joker { --The Blazing Sun
-    key = 'tbs',
+    key = 'the_blazing_sun',
     name = 'The Blazing Sun',
 	loc_txt = {
         name = 'The Blazing Sun',
         text = {
             'Each played {C:attention}#2#{}',
             'of {C:hearts}Hearts{} gives',
-            '{X:mult,C:white}X#1#{} Mult when scored,',
-            'rank changes every round',
+            '{X:mult,C:white}X#1#{} Mult when scored',
+            '{S:0.8}Rank changes every round{}',
         }
     },
 	atlas = 'Joker',
@@ -215,7 +219,7 @@ SMODS.Joker { --The Blazing Sun
 }
 
 SMODS.Joker { --Eagle Eye
-    key = 'eagleeye',
+    key = 'eagle_eye',
     name = 'Eagle Eye',
     loc_txt = {
         name = 'Eagle Eye',
@@ -223,7 +227,7 @@ SMODS.Joker { --Eagle Eye
             '{C:attention}First #1#{} played cards',
             'give {C:mult}+#2#{} Mult when scored,',
             '{C:mult}+#3#{} if rank is {C:attention}#4#{}',
-            'rank changes every round',
+            '{S:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -263,7 +267,7 @@ SMODS.Joker { --Bullseye
             '{C:attention}First #1#{} played cards',
             'give {C:mult}+#2#{} Mult when scored,',
             '{C:mult}+#3#{} if rank is {C:attention}#4#{}',
-            'rank changes every round',
+            '{S:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -301,8 +305,8 @@ SMODS.Joker { --Deadeye
         name = 'Deadeye',
         text = {
             'Played {C:attention}#1#s{} give',
-            '{X:mult,C:white}X#2#{} Mult when scored,',
-            'rank changes every round',
+            '{X:mult,C:white}X#2#{} Mult when scored',
+            '{S:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -330,14 +334,14 @@ SMODS.Joker { --Deadeye
 }
 
 SMODS.Joker { --Bounty Hunter
-    key = 'bhunter',
+    key = 'bounty_hunter',
     name = 'Bounty Hunter',
     loc_txt = {
         name = 'Bounty Hunter',
         text = {
             'Played {C:attention}#1#s{} give',
-            '{C:money}$#2#{} when scored,',
-            'rank changes every round',
+            '{C:money}$#2#{} when scored',
+            '{S:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -347,7 +351,7 @@ SMODS.Joker { --Bounty Hunter
     blueprint_compat = true,
     config = {
         base = 'desperado',
-        extra = { money = 5 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
+        extra = { money = 3 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -365,7 +369,7 @@ SMODS.Joker { --Bounty Hunter
 }
 
 SMODS.Joker { --Golden Justice
-    key = 'gustice',
+    key = 'golden_justice',
     name = 'Golden Justice',
 	loc_txt = {
         name = 'Golden Justice',
@@ -396,7 +400,7 @@ SMODS.Joker { --Golden Justice
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
         info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gustice')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'golden_justice')
         return { vars = { card.ability.extra.Xmult, n, d, card.ability.extra.gold_money, card.ability.extra.destroy_money } }
     end,
     calculate = function(self, card, context)
@@ -405,7 +409,7 @@ SMODS.Joker { --Golden Justice
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.destroying_card and not context.blueprint then
-            if context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'gustice', card.ability.extra.num, card.ability.extra.denom, 'gustice') then
+            if context.destroying_card.ability.name == 'Gold Card' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'golden_justice', card.ability.extra.num, card.ability.extra.denom, 'golden_justice') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()
@@ -512,10 +516,10 @@ SMODS.Joker { --Nomad
     },
 
     loc_vars = function(self, info_queue, card)
-        local function process_vars(poker_hand)
+        local function process_var(poker_hand)
             return poker_hand ~= '' and '[' .. poker_hand .. ']' or poker_hand
         end
-		return { vars = { card.ability.extra.chips, card.ability.extra.current, process_vars(card.ability.extra.poker_hand) } }
+		return { vars = { card.ability.extra.chips, card.ability.extra.current, process_var(card.ability.extra.poker_hand) } }
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -544,48 +548,6 @@ SMODS.Joker { --Enforcer
             'Mult if scoring hand',
             'contains {C:attention}#2#{} cards',
             '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 13, y = 6 },
-    rarity = 2,
-	cost = 6,
-    blueprint_compat = true,
-    perishable_compat = false,
-    config = {
-        base = 'desperado',
-        extra = { Xmult = 0.1, number = 5, current = 1 } --Variables: Xmult = Xmult gain, number = required scoring cards, current = current Xmult
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.number, card.ability.extra.current } }
-    end,
-    calculate = function(self, card, context)
-        if context.before and #context.scoring_hand == card.ability.extra.number and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-            return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.current}},
-                colour = G.C.MULT,
-                delay = 0.45,
-            }
-        elseif context.joker_main then
-            return {
-                x_mult = card.ability.extra.current,
-            }
-        end
-    end
-}
-
-SMODS.Joker { --Enforcer
-    key = 'enforcer',
-    name = 'Enforcer',
-	loc_txt = {
-        name = 'Enforcer',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{}',
-            'Mult if scoring hand',
-            'contains {C:attention}#2#{} cards',
-            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)',
         }
     },
 	atlas = 'Joker',
@@ -696,7 +658,7 @@ SMODS.Joker { --Avenger
 }
 
 SMODS.Joker { --The Desert Phantom
-    key = 'phantom',
+    key = 'the_desert_phantom',
     name = 'The Desert Phantom',
 	loc_txt = {
         name = 'The Desert Phantom',

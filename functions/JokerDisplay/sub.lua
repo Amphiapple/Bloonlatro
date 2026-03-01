@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_sub"] = { --Monkey Sub
+JokerDisplay.Definitions["j_bloons_monkey_sub"] = { --Monkey Sub
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -17,16 +17,16 @@ JokerDisplay.Definitions["j_bloons_sub"] = { --Monkey Sub
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangesub"] = { --Longer Range
+JokerDisplay.Definitions["j_bloons_longer_range"] = { --Longer Range
 }
 
-JokerDisplay.Definitions["j_bloons_intel"] = { --Advanced Intel
+JokerDisplay.Definitions["j_bloons_advanced_intel"] = { --Advanced Intel
 }
 
-JokerDisplay.Definitions["j_bloons_sns"] = { --Submerge and Support
+JokerDisplay.Definitions["j_bloons_submerge_and_support"] = { --Submerge and Support
 }
 
-JokerDisplay.Definitions["j_bloons_reactor"] = { --Bloontonium Reactor
+JokerDisplay.Definitions["j_bloons_bloontonium_reactor"] = { --Bloontonium Reactor
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -36,10 +36,10 @@ JokerDisplay.Definitions["j_bloons_reactor"] = { --Bloontonium Reactor
     end
 }
 
-JokerDisplay.Definitions["j_bloons_gizer"] = { --Energizer
+JokerDisplay.Definitions["j_bloons_energizer"] = { --Energizer
 }
 
-JokerDisplay.Definitions["j_bloons_barbed"] = { --Barbed Darts
+JokerDisplay.Definitions["j_bloons_barbed_darts"] = { --Barbed Darts
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -58,7 +58,7 @@ JokerDisplay.Definitions["j_bloons_barbed"] = { --Barbed Darts
     end
 }
 
-JokerDisplay.Definitions["j_bloons_heattip"] = { --Heat-tipped Darts
+JokerDisplay.Definitions["j_bloons_heat_tipped_darts"] = { --Heat-tipped Darts
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
@@ -77,7 +77,7 @@ JokerDisplay.Definitions["j_bloons_heattip"] = { --Heat-tipped Darts
     end
 }
 
-JokerDisplay.Definitions["j_bloons_ballistic"] = { --Ballistic Missile
+JokerDisplay.Definitions["j_bloons_ballistic_missile"] = { --Ballistic Missile
     text = {
         {
             border_nodes = {
@@ -96,7 +96,7 @@ JokerDisplay.Definitions["j_bloons_ballistic"] = { --Ballistic Missile
         end
         local max = 1
         local idx_by_id = {}
-        for k, v in ipairs(G.hand.cards) do
+        for k, v in ipairs(held_cards) do
             local id = v:get_id()
             if idx_by_id[id] then
                 idx_by_id[id] = idx_by_id[id] + 1
@@ -111,7 +111,7 @@ JokerDisplay.Definitions["j_bloons_ballistic"] = { --Ballistic Missile
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fs"] = { --First Strike Capability
+JokerDisplay.Definitions["j_bloons_first_strike_capability"] = { --First Strike Capability
     text = {
         {
             border_nodes = {
@@ -125,7 +125,7 @@ JokerDisplay.Definitions["j_bloons_fs"] = { --First Strike Capability
     end
 }
 
-JokerDisplay.Definitions["j_bloons_preemp"] = { --Pre-emptive Strike
+JokerDisplay.Definitions["j_bloons_pre_emptive_strike"] = { --Pre-emptive Strike
     text = {
         {
             border_nodes = {
@@ -139,7 +139,7 @@ JokerDisplay.Definitions["j_bloons_preemp"] = { --Pre-emptive Strike
     end
 }
 
-JokerDisplay.Definitions["j_bloons_twinguns"] = { --Twin Guns
+JokerDisplay.Definitions["j_bloons_twin_guns"] = { --Twin Guns
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -167,7 +167,7 @@ JokerDisplay.Definitions["j_bloons_twinguns"] = { --Twin Guns
     end
 }
 
-JokerDisplay.Definitions["j_bloons_airburst"] = { --Airburst Darts
+JokerDisplay.Definitions["j_bloons_airburst_darts"] = { --Airburst Darts
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -177,7 +177,7 @@ JokerDisplay.Definitions["j_bloons_airburst"] = { --Airburst Darts
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tripguns"] = { --Triple guns
+JokerDisplay.Definitions["j_bloons_triple_guns"] = { --Triple guns
     text = {
         {
             border_nodes = {
@@ -191,7 +191,7 @@ JokerDisplay.Definitions["j_bloons_tripguns"] = { --Triple guns
     end
 }
 
-JokerDisplay.Definitions["j_bloons_apd"] = { --Armor Piercing Darts
+JokerDisplay.Definitions["j_bloons_armor_piercing_darts"] = { --Armor Piercing Darts
     text = {
         {
             border_nodes = {
@@ -226,5 +226,5 @@ JokerDisplay.Definitions["j_bloons_apd"] = { --Armor Piercing Darts
     end
 }
 
-JokerDisplay.Definitions["j_bloons_subcom"] = { --Sub Commander
+JokerDisplay.Definitions["j_bloons_sub_commander"] = { --Sub Commander
 }

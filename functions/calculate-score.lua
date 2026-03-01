@@ -69,7 +69,7 @@ SMODS.Scoring_Calculation({
 					heat = heat + 3
 				end
 				
-                local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash'))
+                local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash')) or next(find_joker('Echosense Precision'))
                 local unsplashed = SMODS.never_scores(G.play.cards[i])
                 if not splashed then
                     for _, card in pairs(scoring_hand) do

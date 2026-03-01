@@ -1,5 +1,5 @@
 SMODS.Joker { --Banana Farm
-    key = 'farm',
+    key = 'banana_farm',
     name = 'Banana Farm',
 	loc_txt = {
         name = 'Banana Farm',
@@ -27,7 +27,7 @@ SMODS.Joker { --Banana Farm
 }
 
 SMODS.Joker { --Increased Production
-    key = 'iproduct',
+    key = 'increased_product',
     name = 'Increased Production',
 	loc_txt = {
         name = 'Increased Production',
@@ -55,7 +55,7 @@ SMODS.Joker { --Increased Production
 }
 
 SMODS.Joker { --Greater Production
-    key = 'gproduct',
+    key = 'greater_product',
     name = 'Greater Production',
 	loc_txt = {
         name = 'Greater Production',
@@ -83,7 +83,7 @@ SMODS.Joker { --Greater Production
 }
 
 SMODS.Joker { --Banana Plantation
-    key = 'plantation',
+    key = 'banana_plantation',
     name = 'Banana Plantation',
     loc_txt = {
         name = 'Banana Plantation',
@@ -106,13 +106,13 @@ SMODS.Joker { --Banana Plantation
         return { vars = { card.ability.extra.min, card.ability.extra.max } }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = pseudorandom('plantation', card.ability.extra.min, card.ability.extra.max)
+        local dollars = pseudorandom('banana_plantation', card.ability.extra.min, card.ability.extra.max)
         return dollars
     end
 }
 
 SMODS.Joker { --BRF
-    key = 'brf',
+    key = 'banana_research_facility',
     name = 'Banana Research Facility',
 	loc_txt = { 
         name = 'Banana Research Facility',
@@ -137,7 +137,7 @@ SMODS.Joker { --BRF
     calc_dollar_bonus = function(self, card)
         local dollars = card.ability.extra.money * card.ability.extra.min
         for i = card.ability.extra.min + 1, card.ability.extra.crates do
-            if pseudorandom('brf') > 0.5 then
+            if pseudorandom('banana_research_facility') > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
         end
@@ -146,7 +146,7 @@ SMODS.Joker { --BRF
 }
 
 SMODS.Joker { --Banana Central
-    key = 'central',
+    key = 'banana_central',
     name = 'Banana Central',
 	loc_txt = { 
         name = 'Banana Central',
@@ -188,7 +188,7 @@ SMODS.Joker { --Banana Central
 }
 
 SMODS.Joker { --Long Life Bananas
-    key = 'longlife',
+    key = 'long_life_bananas',
     name = 'Long Life Bananas',
     loc_txt = {
         name = 'Long Life Bananas',
@@ -211,12 +211,12 @@ SMODS.Joker { --Long Life Bananas
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'longlife')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'long_life_bananas')
         return { vars = { n, d, card.ability.extra.money, card.ability.extra.bananas } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'longlife', card.ability.extra.num, card.ability.extra.denom, 'longlife') then
+            if SMODS.pseudorandom_probability(card, 'long_life_bananas', card.ability.extra.num, card.ability.extra.denom, 'long_life_bananas') then
                 card.ability.extra.bananas = card.ability.extra.bananas - 1
                 if card.ability.extra.bananas <= 0 then
                     G.E_MANAGER:add_event(Event({
@@ -255,7 +255,7 @@ SMODS.Joker { --Long Life Bananas
 }
 
 SMODS.Joker { --Valuable Bananas
-    key = 'valuable',
+    key = 'valuable_bananas',
     name = 'Valuable Bananas',
     loc_txt = {
         name = 'Valuable Bananas',
@@ -278,12 +278,12 @@ SMODS.Joker { --Valuable Bananas
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuable')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'valuable_bananas')
         return { vars = { n, d, card.ability.extra.money, card.ability.extra.bananas } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'valuable', card.ability.extra.num, card.ability.extra.denom, 'valuable') then
+            if SMODS.pseudorandom_probability(card, 'valuvaluable_bananasable', card.ability.extra.num, card.ability.extra.denom, 'valuable_bananas') then
                 card.ability.extra.bananas = card.ability.extra.bananas - 1
                 if card.ability.extra.bananas <= 0 then
                     G.E_MANAGER:add_event(Event({
@@ -322,7 +322,7 @@ SMODS.Joker { --Valuable Bananas
 }
 
 SMODS.Joker { --Monkey Bank
-    key = 'bank',
+    key = 'monkey_bank',
     name = 'Monkey Bank',
 	loc_txt = {
         name = 'Monkey Bank',
@@ -368,7 +368,7 @@ SMODS.Joker { --Monkey Bank
         elseif context.selling_self and to_big(card.sell_cost) >= to_big(card.ability.extra.sell_limit) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local card = create_card('j_bloons_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_bank', 'bank')
+                    local card = create_card('j_bloons_monkey_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_monkey_bank', 'monkey_bank')
                     card.ability.extra_value = card.ability.extra_value - card.sell_cost
                     card:set_cost()
                     card:add_to_deck()
@@ -383,7 +383,7 @@ SMODS.Joker { --Monkey Bank
 }
 
 SMODS.Joker { --IMF Loan
-    key = 'imf',
+    key = 'imf_loan',
     name = 'IMF Loan',
 	loc_txt = {
         name = 'IMF Loan',
@@ -434,7 +434,7 @@ SMODS.Joker { --IMF Loan
 }
 
 SMODS.Joker { --Monkey-Nomics
-    key = 'nomics',
+    key = 'monkey_nomics',
     name = 'Monkey-Nomics',
 	loc_txt = {
         name = 'Monkey-Nomics',
@@ -464,7 +464,7 @@ SMODS.Joker { --Monkey-Nomics
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local card = create_card('c_hermit', G.consumeables, nil, nil, nil, nil, 'c_hermit', 'nomics')
+                    local card = create_card('c_hermit', G.consumeables, nil, nil, nil, nil, 'c_hermit', 'monkey_nomics')
                     card:add_to_deck()
                     G.consumeables:emplace(card)
                     G.GAME.consumeable_buffer = 0
@@ -477,7 +477,7 @@ SMODS.Joker { --Monkey-Nomics
 }
 
 SMODS.Joker { --EZ Collect
-    key = 'ez',
+    key = 'ez_collect',
     name = 'EZ Collect',
 	loc_txt = {
         name = 'EZ Collect',
@@ -516,7 +516,7 @@ SMODS.Joker { --EZ Collect
 }
 
 SMODS.Joker { --Banana Salvage
-    key = 'salvage',
+    key = 'banana_salvage',
     name = 'Banana Salvage',
     loc_txt = {
         name = 'Banana Salvage',
@@ -553,7 +553,7 @@ SMODS.Joker { --Banana Salvage
 }
 
 SMODS.Joker { --Marketplace
-    key = 'market',
+    key = 'marketplace',
     name = 'Marketplace',
 	loc_txt = {
         name = 'Marketplace',
@@ -596,7 +596,7 @@ SMODS.Joker { --Marketplace
 }
 
 SMODS.Joker { --Central Market
-    key = 'cmarket',
+    key = 'central_market',
     name = 'Central Market',
 	loc_txt = {
         name = 'Central Market',
@@ -648,8 +648,8 @@ SMODS.Joker { --Central Market
     end
 }
 
-SMODS.Joker { --Wall Street
-    key = 'wallstreet',
+SMODS.Joker { --Monkey Wall Street
+    key = 'monkey_wall_street',
     name = 'Monkey Wall Street',
     loc_txt = {
         name = 'Monkey Wall Street',

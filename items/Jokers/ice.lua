@@ -1,5 +1,5 @@
 SMODS.Joker { --Ice Monkey
-    key = 'ice',
+    key = 'ice_monkey',
     name = 'Ice Monkey',
 	loc_txt = {
         name = 'Ice Monkey',
@@ -11,7 +11,7 @@ SMODS.Joker { --Ice Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 4 },
+	pos = { x = 0, y = 4 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -66,7 +66,7 @@ SMODS.Joker { --Ice Monkey
 }
 
 SMODS.Joker { --Permafrost
-    key = 'pfrost',
+    key = 'permafrost',
     name = 'Permafrost',
 	loc_txt = {
         name = 'Permafrost',
@@ -105,7 +105,7 @@ SMODS.Joker { --Permafrost
 }
 
 SMODS.Joker { --Cold Snap
-    key = 'snap',
+    key = 'cold_snap',
     name = 'Cold Snap',
 	loc_txt = {
         name = 'Cold Snap',
@@ -143,7 +143,7 @@ SMODS.Joker { --Cold Snap
 }
 
 SMODS.Joker { --Ice Shards
-    key = 'shards',
+    key = 'ice_shards',
     name = 'Ice Shards',
 	loc_txt = {
         name = 'Ice Shards',
@@ -243,7 +243,7 @@ SMODS.Joker { --Ice Shards
 }
 
 SMODS.Joker { --Embrittlement
-    key = 'embrit',
+    key = 'embrittlement',
     name = 'Embrittlement',
 	loc_txt = {
         name = 'Embrittlement',
@@ -291,7 +291,7 @@ SMODS.Joker { --Embrittlement
                                 return true
                             end
                         }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
                         return true
                     end
                 }))
@@ -322,14 +322,14 @@ SMODS.Joker { --Embrittlement
 }
 
 SMODS.Joker { --Super Brittle
-    key = 'sbrit',
+    key = 'super_brittle',
     name = 'Super Brittle',
 	loc_txt = {
         name = 'Super Brittle',
         text = {
-            '{C:attention}Frozen Cards{} permanently',
-            'gain {X:mult,C:white}X#1#{} Hand Mult',
-            'when thawed out and',
+            '{C:attention}Frozen Cards{} give',
+            '{X:mult,C:white}X#1#{} Mult when',
+            'held in hand and',
             '{C:green}#2# in #3#{} chance to be destroyed',
         }
     },
@@ -341,17 +341,21 @@ SMODS.Joker { --Super Brittle
     enhancement_gate = 'm_bloons_frozen',
     config = {
         base = 'ice',
-        extra = { Xmult = 0.5, num = 1, denom = 4 } --Variables: Xmult = Xmult gain per frozen, num/denom = probability fraction
+        extra = { Xmult = 1.5, num = 1, denom = 4 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sbrit')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'super_brittle')
         return { vars = { card.ability.extra.Xmult, n, d } }
     end,
     calculate = function(self, card, context)
-        if context.destroy_card and context.cardarea == G.hand and not context.blueprint then
-            if context.destroy_card.ability.name == 'Frozen Card' and not context.destroy_card.debuff and SMODS.pseudorandom_probability(card, 'sbrit', card.ability.extra.num, card.ability.extra.denom, 'sbrit') then
+        if context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' and not context.end_of_round then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.destroy_card and context.cardarea == G.hand and not context.blueprint then
+            if context.destroy_card.ability.name == 'Frozen Card' and not context.destroy_card.debuff and SMODS.pseudorandom_probability(card, 'super_brittle', card.ability.extra.num, card.ability.extra.denom, 'super_brittle') then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function()
@@ -362,19 +366,12 @@ SMODS.Joker { --Super Brittle
                 return true
             end
             return nil
-        elseif context.after then
-            for k, v in ipairs(G.hand.cards) do
-                if v.ability.name == 'Frozen Card' and not v.debuff then
-                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult or 1
-                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult + card.ability.extra.Xmult
-                end
-            end
         end
     end
 }
 
 SMODS.Joker { --Enhanced Freeze
-    key = 'enhanced',
+    key = 'enhanced_freeze',
     name = 'Enhanced Freeze',
 	loc_txt = {
         name = 'Enhanced Freeze',
@@ -440,7 +437,7 @@ SMODS.Joker { --Enhanced Freeze
     end
 }
 SMODS.Joker { --Deep Freeze
-    key = 'deep',
+    key = 'deep_freeze',
     name = 'Deep Freeze',
 	loc_txt = {
         name = 'Deep Freeze',
@@ -463,13 +460,13 @@ SMODS.Joker { --Deep Freeze
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'deep')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'deep_freeze')
         return { vars = { n, d } }
     end,
 }
 
 SMODS.Joker { --Arctic Wind
-    key = 'awind',
+    key = 'arctic_wind',
     name = 'Arctic Wind',
 	loc_txt = {
         name = 'Arctic Wind',
@@ -517,7 +514,7 @@ SMODS.Joker { --Arctic Wind
 }
 
 SMODS.Joker { --Snowstorm
-    key = 'snorm',
+    key = 'snowstorm',
     name = 'Snowstorm',
 	loc_txt = {
         name = 'Snowstorm',
@@ -579,17 +576,14 @@ SMODS.Joker { --Snowstorm
 }
 
 SMODS.Joker { --Absolute Zero
-    key = 'az',
+    key = 'absolute_zero',
     name = 'Absolute Zero',
 	loc_txt = {
         name = 'Absolute Zero',
         text = {
-            'If {C:attention}first hand{} of round',
-            'has {C:attention}#1#{} scoring cards,',
-            'score {C:attention}#2#{} chips, {C:attention}Freeze{}',
-            'all scoring cards, and',
-            'create a {C:spectral}Spectral{} card',
-            '{C:inactive}(Must have room){}'
+            '{C:attention}Frozen{} cards permanently',
+            'gain {X:mult,C:white}X#1#{} Mult',
+            'when thawed out',
         }
     },
 	atlas = 'Joker',
@@ -599,73 +593,27 @@ SMODS.Joker { --Absolute Zero
     blueprint_compat = true,
     config = {
         base = 'ice',
-        extra = { number = 5, chips = 0 } --Variables: number = required cards for spectral
+        extra = { Xmult = 0.25 } --Variables: Xmult = Xmult gain
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.number, card.ability.extra.chips } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.before and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 then
-            if not context.blueprint then
-                for k, v in pairs(context.scoring_hand) do
-                    if not v.debuff then
-                        v:set_ability('m_bloons_frozen', nil, true)
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                v:juice_up()
-                                return true
-                            end
-                        }))
-                    end
+        if context.after then
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Frozen Card' and not v.debuff then
+                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult or 1
+                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult + card.ability.extra.Xmult
                 end
             end
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
-                    func = (function()
-                        local card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'az')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        G.GAME.consumeable_buffer = 0
-                        return true
-                    end)
-                }))
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
-            end
-        elseif context.final_scoring_step and #context.scoring_hand == 5 and G.GAME.current_round.hands_played == 0 and not context.blueprint then
-            hand_chips = mod_chips(card.ability.extra.chips)
-            hand_mult = mod_mult(card.ability.extra.chips)
-            update_hand_text( { delay = 0 }, { chips = hand_chips, mult = hand_mult } )
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound("timpani", 1)
-                    attention_text({
-                        scale = 1.4,
-                        text = "Frozen",
-                        hold = 0.45,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
-            delay(0.6)
         end
     end
 }
 
 SMODS.Joker { --Larger Radius
-    key = 'rangeice',
+    key = 'larger_radius',
     name = 'Larger Radius',
     loc_txt = {
         name = 'Larger Radius',
@@ -677,7 +625,7 @@ SMODS.Joker { --Larger Radius
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 4 },
+	pos = { x = 11, y = 4 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -731,8 +679,8 @@ SMODS.Joker { --Larger Radius
     end
 }
 
-SMODS.Joker { --Refreeze
-    key = 'refreeze',
+SMODS.Joker { --Re-freeze
+    key = 're_freeze',
     name = 'Re-Freeze',
     loc_txt = {
         name = 'Re-Freeze',
@@ -766,7 +714,7 @@ SMODS.Joker { --Refreeze
 }
 
 SMODS.Joker { --Cryo Cannon
-    key = 'cryo',
+    key = 'cryo_cannon',
     name = 'Cryo Cannon',
     loc_txt = {
         name = 'Cryo Cannon',
@@ -789,7 +737,7 @@ SMODS.Joker { --Cryo Cannon
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo_cannon')
         return { vars = { card.ability.extra.mult, n, d } }
     end,
     calculate = function(self, card, context)
@@ -797,7 +745,7 @@ SMODS.Joker { --Cryo Cannon
             return {
                 mult = card.ability.extra.mult
             }
-        elseif context.discard and not context.other_card.debuff and SMODS.pseudorandom_probability(card, 'cryo', card.ability.extra.num, card.ability.extra.denom, 'cryo') then
+        elseif context.discard and not context.other_card.debuff and SMODS.pseudorandom_probability(card, 'cryo_cannon', card.ability.extra.num, card.ability.extra.denom, 'cryo_cannon') then
             context.other_card:set_ability('m_bloons_frozen', nil, true)
             return {
                 message = 'Freeze!',
@@ -850,7 +798,7 @@ SMODS.Joker { --Icicles
 }
 
 SMODS.Joker { --Icicle Impale
-    key = 'impale',
+    key = 'icicle_impale',
     name = 'Icicle Impale',
     loc_txt = {
         name = 'Icicle Impale',

@@ -1,5 +1,4 @@
 Challenge_stakes = {
-    c_bloons_bloonlatro = {stake = 8},
     c_bloons_gorgon_storm = {stake = 8},
     c_bloons_joshs_constant = {stake = 8},
     c_bloons_inflated_expert = {stake = 8},
@@ -8,80 +7,89 @@ Challenge_stakes = {
     c_bloons__2mp_expert = {stake = 8},
 }
 
-local vanilla_jokers = {}
-for key, _ in pairs(G.P_CENTERS or {}) do
-    if key:sub(1,2) == "j_" and not key:find("^j_bloons") then
-        table.insert(vanilla_jokers, { id = key })
-    end
-end
-
 local banned_hand_cards = {
-    { id = 'j_bloons_espionage' },
-    { id = 'j_bloons_draft' },
-    { id = 'j_bloons_dots' },
-    { id = 'j_bloons_spop' },
-    { id = 'j_bloons_pspike' },
-    { id = 'j_burglar' },
-    { id = 'v_grabber' },
-    { id = 'v_nacho_tong' },
-    { id = 'c_bloons_time' }
+    {id = 'j_bloons_downdraft'},
+    {id = 'j_bloons_counter_espionage'},
+    {id = 'j_bloons_druid_of_the_storm'},
+    {id = 'j_bloons_long_reach'},
+    {id = 'j_bloons_perma_spike'},
+    {id = 'j_burglar'},
+    {id = 'v_grabber'},
+    {id = 'v_nacho_tong'},
+    {id = 'c_bloons_time_stop'}
 }
 
 local monkeyopolis_tags = {
-    { id = 'tag_rare'},
-    { id = 'tag_uncommon'},
-    { id = 'tag_holo'},
-    { id = 'tag_polychrome'},
-    { id = 'tag_negative'},
-    { id = 'tag_foil'},
-    { id = 'tag_buffoon'},
-    { id = 'tag_top_up'},
-    { id = 'tag_bloons_cleansing'},
-    { id = 'tag_investment' },
-    { id = 'tag_handy' },
-    { id = 'tag_garbage' },
-    { id = 'tag_skip' },
-    { id = 'tag_economy' }
+    {id = 'tag_rare'},
+    {id = 'tag_uncommon'},
+    {id = 'tag_holo'},
+    {id = 'tag_polychrome'},
+    {id = 'tag_negative'},
+    {id = 'tag_foil'},
+    {id = 'tag_buffoon'},
+    {id = 'tag_top_up'},
+    {id = 'tag_bloons_cleansing'},
+    {id = 'tag_investment'},
+    {id = 'tag_handy'},
+    {id = 'tag_garbage'},
+    {id = 'tag_skip'},
+    {id = 'tag_economy'}
 }
 
 local crash_of_the_titans_cards = {
-    { id = 'c_hanged_man' },
-    { id = 'c_incantation' },
-    { id = 'c_grim' },
-    { id = 'c_familiar' },
-    { id = 'c_immolate'},
-    { id = 'c_bloons_volcano' },
-    { id = 'c_bloons_cave'},
-    { id = 'p_standard_normal_1',
+    {id = 'c_hanged_man'},
+    {id = 'c_incantation'},
+    {id = 'c_grim'},
+    {id = 'c_familiar'},
+    {id = 'c_immolate'},
+    {id = 'c_bloons_volcano'},
+    {id = 'c_bloons_cave_monkey'},
+    {id = 'p_standard_normal_1',
         ids = {'p_standard_normal_1','p_standard_normal_2','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_1','p_standard_jumbo_2','p_standard_mega_1','p_standard_mega_2'},
     },
-    { id = 'j_marble' },
-    { id = 'j_certificate' },
-    { id = 'j_trading' },
-    { id = 'j_erosion'},
-    { id = 'j_dna'},
-    { id = 'j_bloons_necro'},
-    { id = 'j_bloons_iring' },
-    { id = 'j_bloons_wlp' },
-    { id = 'j_bloons_tt5'},
-    { id = 'j_bloons_mdom' },
-    { id = 'v_magic_trick' },
-    { id = 'v_illusion' },
-    { id = 'v_hieroglyph' },
-    { id = 'v_petroglyph' }
+    {id = 'j_marble'},
+    {id = 'j_certificate'},
+    {id = 'j_trading'},
+    {id = 'j_erosion'},
+    {id = 'j_dna'},
+    {id = 'j_bloons_bomb_blitz'},
+    {id = 'j_bloons_ring_of_fire'},
+    {id = 'j_bloons_inferno_ring'},
+    {id = 'j_bloons_super_brittle'},
+    {id = 'j_bloons_exploding_pineapple'},
+    {id = 'j_bloons_burny_stuff'},
+    {id = 'j_bloons_necromancer'},
+    {id = 'j_bloons_wizard_lord_phoenix'},
+    {id = 'j_bloons_total_transformation'},
+    {id = 'j_bloons_cleansing_foam'},
+    {id = 'j_bloons_megalodon'},
+    {id = 'j_bloons_mdom'},
+    {id = 'v_magic_trick'},
+    {id = 'v_illusion'},
+    {id = 'v_hieroglyph'},
+    {id = 'v_petroglyph'}
 }
 
 for _, joker in ipairs(banned_hand_cards) do
     table.insert(crash_of_the_titans_cards, joker)
 end
 
+local joshs_constant_cards = {
+    { id = 'j_bloons_total_transformation'},
+    { id = 'j_bloons_cleansing_foam'},
+}
+
+for _, joker in ipairs(banned_hand_cards) do
+    table.insert(joshs_constant_cards, joker)
+end
+
 local inflated_cards = {
-    { id = 'j_juggler' },
-    { id = 'j_troubadour' },
-    { id = 'j_turtle_bean' },
-    { id = 'j_bloons_condor' },
-    { id = 'v_paint_brush' },
-    { id = 'v_palette' },
+    {id = 'j_juggler'},
+    {id = 'j_troubadour'},
+    {id = 'j_turtle_bean'},
+    {id = 'j_bloons_giant_condor'},
+    {id = 'v_paint_brush'},
+    {id = 'v_palette'},
 }
 
 for _, joker in ipairs(banned_hand_cards) do
@@ -90,11 +98,11 @@ end
 
 local survivor_cards = {
     {id = 'j_chaos'},
-    {id = 'j_bloons_rangesub'},
-    {id = 'j_bloons_intel'},
-    {id = 'j_bloons_sns'},
-    {id = 'j_bloons_gizer'},
-    {id = 'j_bloons_range'},
+    {id = 'j_bloons_longer_range'},
+    {id = 'j_bloons_advanced_intel'},
+    {id = 'j_bloons_submerge_and_support'},
+    {id = 'j_bloons_energizer'},
+    {id = 'j_bloons_super_range'},
     {id = 'v_overstock_norm'},
     {id = 'v_overstock_plus'},
     {id = 'v_reroll_surplus'},
@@ -102,25 +110,25 @@ local survivor_cards = {
 }
 
 local banned_2tc_cards = {
-    { id = 'c_ectoplasm' },
-    { id = 'c_bloons_pontoon' },
-    { id = 'j_bloons_flag' },
-    { id = 'j_bloons_ninja' },
-    { id = 'j_bloons_discipline' },
-    { id = 'j_bloons_sharpshur' },
-    { id = 'j_bloons_distract' },
-    { id = 'j_bloons_espionage' },
-    { id = 'j_bloons_seeking' },
-    { id = 'j_bloons_caltrops' },
-    { id = 'v_antimatter' },
+    {id = 'c_ectoplasm'},
+    {id = 'c_bloons_pontoon'},
+    {id = 'j_bloons_carrier_flagship'},
+    {id = 'j_bloons_ninja_monkey'},
+    {id = 'j_bloons_ninja_discipline'},
+    {id = 'j_bloons_sharp_shurikens'},
+    {id = 'j_bloons_distraction'},
+    {id = 'j_bloons_counter_espionage'},
+    {id = 'j_bloons_seeking_shuriken'},
+    {id = 'j_bloons_caltrops'},
+    {id = 'v_antimatter'},
 }
 
 local boss_jokers = {
-    { id = 'j_luchador' },
-    { id = 'j_chicot' },
-    { id = 'j_mr_bones' },
-    { id = 'j_bloons_blitz' },
-    { id = 'j_bloons_cripple' },
+    {id = 'j_luchador'},
+    {id = 'j_chicot'},
+    {id = 'j_mr_bones'},
+    {id = 'j_bloons_bomb_blitz'},
+    {id = 'j_bloons_cripple_moab'},
 }
 
 local boss_bans = {
@@ -139,23 +147,33 @@ for _, card in ipairs(banned_hand_cards) do
 end
 
 SMODS.Challenge {
-    key = 'bloonlatro',
+    key = 'glorious_gold',
     loc_txt = {
-        name = 'Bloonlatro',
+        name = 'Glorious Gold',
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
-            { id = 'bloonlatro' }
+            { id = 'discard_cost', value = 3 },
+        },
+        modifiers = {
+            { id = 'discards', value = 1 },
         }
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
-        banned_cards = vanilla_jokers,
+        banned_cards = {
+            { id = 'j_bloons_total_transformation'},
+            { id = 'j_bloons_cleansing_foam'},
+        },
+        banned_tags = {
+            { id = 'tag_bloons_cleansing' },
+        },
     },
+    jokers = {
+        { id = 'j_bloons_rubber_to_gold', eternal = true }
+    },
+    vouchers = {},
     deck = {
-        type = 'Challenge Deck'
+        type = 'Challenge Deck',
     },
 }
 
@@ -182,8 +200,8 @@ SMODS.Challenge {
             {id = 'c_temperance'},
             {id = 'c_wraith'},
             {id = 'c_soul'},
-            {id = 'c_bloons_cash'},
-            {id = 'c_bloons_farmer'},
+            {id = 'c_bloons_cash_drop'},
+            {id = 'c_bloons_banana_farmer'},
             {id = 'v_antimatter'},
             {id = 'v_bloons_grand_prix_spree'},
             {id = 'p_buffoon_normal_1',
@@ -193,7 +211,7 @@ SMODS.Challenge {
         banned_tags = monkeyopolis_tags,
     },
     jokers = {
-        { id = 'j_bloons_city', eternal = true }
+        { id = 'j_bloons_monkey_city', eternal = true }
     }
 }
 
@@ -209,12 +227,13 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_rorm', eternal = true }
+        { id = 'j_bloons_rocket_storm', eternal = true }
     },
     vouchers = {},
     restrictions = {
         banned_cards = {
-            { id = 'j_bloons_tt5'},
+            { id = 'j_bloons_total_transformation'},
+            { id = 'j_bloons_cleansing_foam'},
         },
         banned_tags = {
             { id = 'tag_bloons_cleansing' },
@@ -225,52 +244,15 @@ SMODS.Challenge {
     },
 
     calculate = function(self, context)
-        if context.initial_scoring_step and not context.blueprint then
-            if G.play and G.play.cards then
-                local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
-
-                local final_scoring_hand = {}
-                for i=1, #G.play.cards do
-                    local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash'))
-                    local unsplashed = SMODS.never_scores(G.play.cards[i])
-                    if not splashed then
-                        for _, card in pairs(scoring_hand) do
-                            if card == G.play.cards[i] then splashed = true end
-                        end
-                    end
-                    local effects = {}
-                    SMODS.calculate_context({modify_scoring_hand = true, other_card =  G.play.cards[i], full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true}, effects)
-                    local flags = SMODS.trigger_effects(effects, G.play.cards[i])
-                    if flags and flags.add_to_hand then splashed = true end
-                    if flags and flags.remove_from_hand then unsplashed = true end
-                    if splashed and not unsplashed then table.insert(final_scoring_hand, G.play.cards[i]) end
+        if context.initial_scoring_step and context.poker_hands and not next(context.poker_hands['Pair']) then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.STATE = G.STATES.GAME_OVER
+                    G.STATE_COMPLETE = false
+                    return true
                 end
-                -- TARGET: adding to hand effects
-                scoring_hand = final_scoring_hand
-
-                local value_counts = {}
-                local duplicate_found = false
-                for _, card in ipairs(scoring_hand) do
-                    local v = card.base.value
-                    value_counts[v] = (value_counts[v] or 0) + 1
-                end
-                for _, count in pairs(value_counts) do
-                    if count > 1 then
-                        duplicate_found = true
-                    end
-                end
-
-                if not duplicate_found then
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        func = function()
-                            G.STATE = G.STATES.GAME_OVER
-                            G.STATE_COMPLETE = false
-                            return true
-                        end
-                    }))
-                end
-            end
+            }))
         end
     end,
 }
@@ -286,7 +268,9 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_intel' }
+        { id = 'j_bloons_longer_range' },
+        { id = 'j_bloons_advanced_intel' },
+        { id = 'j_bloons_super_range'},
     },
     vouchers = {},
     restrictions = {
@@ -321,7 +305,7 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_cin', eternal = true }
+        { id = 'j_bloons_blooncineration', eternal = true }
     },
     vouchers = {},
     restrictions = {
@@ -359,11 +343,11 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_pspike', eternal = true }
+        { id = 'j_bloons_perma_spike', eternal = true }
     },
     vouchers = {},
     restrictions = {
-        banned_cards = banned_hand_cards,
+        banned_cards = joshs_constant_cards,
         banned_tags = {
             { id = 'tag_bloons_cleansing' },
         },

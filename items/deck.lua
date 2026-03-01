@@ -47,8 +47,8 @@ SMODS.Back { --Quincy
 	end
 }
 
-SMODS.Back { --Gwen
-    key = "gwen",
+SMODS.Back { --Gwendolin
+    key = "gwendolin",
     name = "Gwendolin Deck",
 	loc_txt = {
         name = 'Gwendolin Deck',
@@ -106,8 +106,8 @@ SMODS.Back { --Obyn
     config = { vouchers = {'v_seed_money','v_money_tree'} }
 }
 
-SMODS.Back { --Church
-    key = "church",
+SMODS.Back { --Churchill
+    key = "churchill",
     name = "Churchill Deck",
 	loc_txt = {
         name = 'Churchill Deck',
@@ -147,8 +147,8 @@ SMODS.Back { --Church
 	end
 }
 
-SMODS.Back { --Ben
-    key = "ben",
+SMODS.Back { --Benjamin
+    key = "benjamin",
     name = "Benjamin Deck",
 	loc_txt = {
         name = 'Benjamin Deck',
@@ -184,8 +184,8 @@ SMODS.Back { --Ezili
     config = { vouchers = {'v_magic_trick','v_illusion','v_hone','v_glow_up'} }
 }
 
-SMODS.Back { --Pat
-    key = "pat",
+SMODS.Back { --Pat Fusty
+    key = "pat_fusty",
     name = "Pat Fusty Deck",
 	loc_txt = {
         name = 'Pat Fusty Deck',
@@ -249,8 +249,8 @@ SMODS.Back { --Adora
     end
 }
 
-SMODS.Back { --Brick
-    key = "brick",
+SMODS.Back { --Brickell
+    key = "brickell",
     name = "Brickell Deck",
 	loc_txt = {
         name = 'Brickell Deck',
@@ -340,8 +340,8 @@ SMODS.Back { --Psi
     order = 29,
 }
 
-SMODS.Back { --Gerry
-    key = "gerry",
+SMODS.Back { --Geraldo
+    key = "geraldo",
     name = "Geraldo Deck",
 	loc_txt = {
         name = 'Geraldo Deck',
@@ -401,8 +401,8 @@ SMODS.Back { --Corvus
     end
 }
 
-SMODS.Back { --Rose
-    key = "rose",
+SMODS.Back { --Rosalia
+    key = "rosalia",
     name = "Rosalia Deck",
 	loc_txt = {
         name = 'Rosalia Deck',
