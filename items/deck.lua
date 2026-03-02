@@ -54,7 +54,7 @@ SMODS.Back { --Gwendolin
         name = 'Gwendolin Deck',
         text = {
             'Start run with',
-            'an {C:spectral}Immolate{} card',
+            'an {C:spectral,T:c_immolate}Immolate{} card',
             '{C:blue}-1{} hand every round'
         }
     },
@@ -70,7 +70,7 @@ SMODS.Back { --Jones
 	loc_txt = {
         name = 'Jones Deck',
         text = {
-            '{C:attention}Stun{} all {C:spades}Spades{}',
+            '{C:attention,T:m_bloons_stunned}Stun{} all {C:spades}Spades{}',
             'when drawn to hand'
         }
     },
@@ -96,8 +96,8 @@ SMODS.Back { --Obyn
 	loc_txt = {
         name = 'Obyn Deck',
         text = {
-            'Start run with {C:money}Seed Money{}',
-            'and {C:money}Money Tree{}'
+            'Start run with {C:money,T:v_seed_money}Seed Money{}',
+            'and {C:money,T:v_money_tree}Money Tree{}'
         }
     },
 	atlas = "Back",
@@ -153,7 +153,7 @@ SMODS.Back { --Benjamin
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            'Start with {C:attention}Monkey Bank{}',
+            'Start with {C:attention,T:j_bloons_bank}Monkey Bank{}',
             'and extra {C:money}$#1#'
         }
     },
@@ -174,8 +174,8 @@ SMODS.Back { --Ezili
         name = 'Ezili Deck',
         text = {
             'Start run with',
-            '{C:attention}Magic Trick{}, {C:enhanced}Illusion{},',
-            '{C:dark_edition}Hone{}, and {C:dark_edition}Glow Up{}'
+            '{C:attention,T:v_magic_trick}Magic Trick{}, {C:enhanced,T:v_illusion}Illusion{},',
+            '{C:dark_edition,T:v_hone}Hone{}, and {C:dark_edition,T:v_glow_up}Glow Up{}'
         }
     },
 	atlas = "Back",
@@ -282,8 +282,8 @@ SMODS.Back { --Brickell
     end,
 }
 
-SMODS.Back { --French
-    key = "french",
+SMODS.Back { --Etienne
+    key = "etienne",
     name = "Etienne Deck",
 	loc_txt = {
         name = 'Etienne Deck',
@@ -346,12 +346,15 @@ SMODS.Back { --Geraldo
 	loc_txt = {
         name = 'Geraldo Deck',
         text = {
-            "{C:red}G{} {C:blue}A{} {C:green}Y{}"
+            'Start run with',
+            '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
+            '{C:attention,T:v_crystal_ball}Crystal Ball{}'
         }
     },
 	atlas = "Back",
 	pos = { x = 3, y = 2 },
     order = 30,
+    config = { vouchers = {'v_bloons_power_merchant', 'v_crystal_ball'} }
 }
 
 SMODS.Back { --Corvus
@@ -407,61 +410,31 @@ SMODS.Back { --Rosalia
 	loc_txt = {
         name = 'Rosalia Deck',
         text = {
-            'Switch between retriggering',
-            '{C:attention}first{} played card and',
-            '{X:mult,C:white}X#1#{} Mult each hand',
-            '{C:inactive}(Retrigger first)'
+            'Toggle Rosalia\'s weapons',
+            '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
+            '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
         }
     },
 	atlas = "Back",
 	pos = { x = 0, y = 3 },
     order = 32,
-    config = { extra = { Xmult = 1.2, retrigger = 1, counter = 0 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
+    config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.Xmult } }
     end,
     apply = function (self, back)
-        self.config.extra.counter = 0
+        G.GAME.rosalia_weapon = "laser"
     end,
     calculate = function (self, back, context)
-        if context.repetition and self.config.extra.counter == 0 and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    attention_text({
-                        scale = 1.4,
-                        text = "Laser!",
-                        hold = 1,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
-            return {
-                repetitions = self.config.extra.retrigger,
-            }
-        elseif context.final_scoring_step and self.config.extra.counter == 1 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('multhit2', 1)
-                    attention_text({
-                        scale = 1.4,
-                        text = "Grenade!",
-                        hold = 1,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
+        if G.GAME.rosalia_weapon == "laser" and context.final_scoring_step then
             return {
                 x_mult = self.config.extra.Xmult,
             }
-        elseif context.after then
-            self.config.extra.counter = (self.config.extra.counter+1) % 2
+        elseif G.GAME.rosalia_weapon == "grenade" and context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
+            return {
+                repetitions = self.config.extra.retrigger,
+            }
         end
     end
 }
@@ -472,7 +445,7 @@ SMODS.Back { --Silas
 	loc_txt = {
         name = 'Silas Deck',
         text = {
-            '{C:attention}Freeze #1#{} cards',
+            '{C:attention,T:m_bloons_frozen}Freeze #1#{} cards',
             'held in hand at',
             'end of round'
         }

@@ -7,6 +7,7 @@ local functions = {
     'config_tab',
     'hook',
     'deck_ui',
+    'collection',
 
     --Crossmod files
     'bunco',
@@ -36,7 +37,7 @@ local items = {
     'deck',
     'enhancement',
     'stake',
-    'sticker',
+    'blind_modifiers',
     'tag',
     'voucher'
 }

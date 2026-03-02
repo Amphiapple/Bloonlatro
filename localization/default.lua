@@ -4,7 +4,7 @@ return {
             stake_bloons_chimps = {
                 name = "CHIMPS Stake",
                 text = {
-                    '{C:attention}Boss Blinds{} can have {C:attention}Stickers{}',
+                    '{C:attention}Boss Blinds{} can have {C:attention}Modifiers{}',
                     '{s:0.8}Applies all previous Stakes{}'
                 }
             }
