@@ -1,11 +1,14 @@
 Added Jokers:
+- Paragons are now replacing certain T5 towers as Legendary rarity Jokers
 - All remaining Bomb Shooters
 - All remaining Monkey Aces
+- Most Super Monkeys
 - All remaining Engineer Monkeys
+- MOAB Domination, Flying Fortress, Permanent Brew, and Super Mines as Rare Jokers
+- Card Storm
 
 General Changes:
 - Bloonlatro challenge has been replaced with a new challenge as you can turn on and off base game jokers at will
-- Crash of the Titans banned cards adjusted
 - Joker keys renamed, you may need to reset your profile for accurate stats to be tracked
 
 Balance Changes:
@@ -14,6 +17,7 @@ Balance Changes:
 - Most Bomb shoters reworked
 - Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
 - Super Maelstrom Xmult 2 > 3, rarity Uncommon > Rare
+- Snowstorm increases hand size starting from the 2nd card instead of 1st
 - Super Brittle and Absolute Zero reworked
 - Bounty Hunter money 5 > 3
 - Ground Zero chips 350 > 300, first hand > final hand
@@ -28,4 +32,5 @@ Fixes:
 - Ballistic Missile Joker Display should correctly account for highlighted cards
 - Sky Shredder should no longer stop counting Aces when it upgrades
 - Enforcer no longer has a shadow clone in the code
+- Challenge bans adjusted
 - Lots of text fixes and standardizations

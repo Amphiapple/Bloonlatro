@@ -40,6 +40,14 @@ JokerDisplay.Definitions["j_bloons_sentry_champion"] = { --Sentry Champion
 }
 
 JokerDisplay.Definitions["j_bloons_larger_service_area"] = { --Larger Service Area
+    text = {
+        { text = "+$", colour = G.C.MONEY },
+        { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
+    },
+    calc_function = function(card)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        card.joker_display_values.money = text ~= 'Unknown' and #scoring_hand == 5 and card.ability.extra.money or 0
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_deconstruction"] = { --Deconstruction
@@ -102,9 +110,24 @@ JokerDisplay.Definitions["j_bloons_oversize_nails"] = { --Oversize Nails
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
     },
+    reminder_text = {
+        { text = "(" },
+        { text = "Straight, Flush", colour = G.C.ORANGE },
+        { text = ")" }
+    },
     calc_function = function(card)
-        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        card.joker_display_values.money = text ~= 'Unknown' and #scoring_hand == 5 and card.ability.extra.money or 0
+        local money = 0
+        local _, poker_hands, _ = JokerDisplay.evaluate_hand()
+
+        if poker_hands['Straight'] and poker_hands['Flush'] then
+            if next(poker_hands['Straight']) and next(poker_hands['Flush']) then
+                money = card.ability.extra.money * 2
+            elseif next(poker_hands['Straight']) or next(poker_hands['Flush']) then
+                money = card.ability.extra.money
+            end
+        end
+
+        card.joker_display_values.money = money
     end
 }
 

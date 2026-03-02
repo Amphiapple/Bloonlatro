@@ -606,7 +606,7 @@ SMODS.Joker { --Bomb Blitz
             'Prevents Death if chips scored',
             'are at least {C:attention}#1#%{} of required chips',
             'and destroy all cards held in hand',
-            '{S:1.1,C:red,E:2}self destructs{}'
+            '{s:1.1,C:red,E:2}self destructs{}'
         }
     },
 	atlas = 'Joker',

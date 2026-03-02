@@ -40,6 +40,9 @@ JokerDisplay.Definitions["j_bloons_berserker_brew"] = { --Berserker Brew
 JokerDisplay.Definitions["j_bloons_stronger_stimulant"] = { --Stronger Stimulant
 }
 
+JokerDisplay.Definitions["j_bloons_permanent_brew"] = { --Permanent Brew
+}
+
 JokerDisplay.Definitions["j_bloons_stronger_acid"] = { --Stronger Acid
     text = {
         { text = "+" },

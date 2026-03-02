@@ -215,8 +215,8 @@ SMODS.Joker { --Robo Monkey
 	loc_txt = {
         name = 'Robo Monkey',
         text = {
-            'Copies ability of',
-            'a random {C:attention}Joker{} when',
+            'Copies the ability',
+            'of a random {C:attention}Joker{} when',
             'hand is played',
         }
     },
@@ -242,7 +242,12 @@ SMODS.Joker { --Robo Monkey
                 card.ability.extra.copy = pseudorandom_element(eligible_jokers, 'robo_monkey'..G.GAME.round_resets.ante)
             end
         elseif context.after and not context.blueprint then
-            card.ability.extra.copy = nil
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    card.ability.extra.copy = nil
+                    return true
+                end
+            }))
         end
         if card.ability.extra.copy then
             return SMODS.blueprint_effect(card, card.ability.extra.copy, context)
@@ -256,8 +261,8 @@ SMODS.Joker { --Tech Terror
 	loc_txt = {
         name = 'Tech Terror',
         text = {
-            'Copies ability of',
-            '{C:attention}Joker{} to the right',
+            'Copies the ability',
+            'of {C:attention}Joker{} to the right',
             'or to the left when',
             'hand is played',
         }
@@ -287,7 +292,12 @@ SMODS.Joker { --Tech Terror
                 card.ability.extra.copy = G.jokers.cards[pos - 1]
             end
         elseif context.after and not context.blueprint then
-            card.ability.extra.copy = nil
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    card.ability.extra.copy = nil
+                    return true
+                end
+            }))
         end
         if card.ability.extra.copy then
             return SMODS.blueprint_effect(card, card.ability.extra.copy, context)
@@ -301,9 +311,9 @@ SMODS.Joker { --The Anti-Bloon
 	loc_txt = {
         name = 'The Anti-Bloon',
         text = {
-            'Copies ability of',
-            '{C:attention}Joker{} to the {C:attention}#1#{}',
-            '{S:0.8}Direction changes every round{}'
+            'Copies the ability',
+            'of {C:attention}Joker{} to the {C:attention}#1#{}',
+            '{s:0.8}Direction changes every round{}'
         }
     },
 	atlas = 'Joker',
@@ -383,7 +393,7 @@ SMODS.Joker { --Knockback
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
             for k, v in ipairs(context.scoring_hand) do
-                if k % 2 == 1 then
+                if k % 2 == 0 then
                     card.ability.extra.retriggered_cards[#card.ability.extra.retriggered_cards+1] = v
                 end
             end

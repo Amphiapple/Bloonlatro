@@ -11,10 +11,10 @@ pattern = "G.GAME.blind.in_blind = false"
 position = 'before'
 payload = '''
 local replay_boss = false
-local mdoms = find_joker('MOAB Domination')
-if #mdoms > 0 then
+local dominus = find_joker('Glaive Dominus')
+if #dominus > 0 then
     replay_boss = true
-    for k, v in pairs(mdoms) do
+    for k, v in pairs(dominus) do
         if v.ability.extra.active == false then
             replay_boss = false
         end
@@ -55,7 +55,7 @@ end
 position = 'at'
 payload = '''
 if replay_boss then
-    for k, v in pairs(mdoms) do
+    for k, v in pairs(dominus) do
         v.ability.extra.active = false
     end
 else

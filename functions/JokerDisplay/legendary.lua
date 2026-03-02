@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_mdom"] = { --Moab Domination
+JokerDisplay.Definitions["j_bloons_glaive_dominus"] = { --Glaive Dominus
     text = {
         {
             border_nodes = {
@@ -9,7 +9,7 @@ JokerDisplay.Definitions["j_bloons_mdom"] = { --Moab Domination
     }
 }
 
-JokerDisplay.Definitions["j_bloons_fortress"] = { --Flying Fortress
+JokerDisplay.Definitions["j_bloons_goliath_doomship"] = { --Goliath Doomship
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY, retrigger_type = "mult" },
@@ -49,10 +49,10 @@ JokerDisplay.Definitions["j_bloons_fortress"] = { --Flying Fortress
     end
 }
 
-JokerDisplay.Definitions["j_bloons_pbrew"] = { --Permanent Brew
+JokerDisplay.Definitions["j_bloons_magus_perfectus"] = { --Magus Perfectus
 }
 
-JokerDisplay.Definitions["j_bloons_smines"] = { --Super Mines
+JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Mega Massive Munitions Factory
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
         { ref_table = "card.ability.extra", ref_value = "mines", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
@@ -72,7 +72,7 @@ JokerDisplay.Definitions["j_bloons_smines"] = { --Super Mines
     end
 }
 
-JokerDisplay.Definitions["j_bloons_vtsg"] = { --Vengeful True Sun God
+JokerDisplay.Definitions["j_bloons_vengeful_true_sun_god"] = { --Vengeful True Sun God
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "sacrifices" },

@@ -132,7 +132,7 @@ JokerDisplay.Definitions["j_bloons_ground_zero"] = { --Ground Zero
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS }
     },
     calc_function = function(card)
-        card.joker_display_values.chips = G.GAME.current_round.hands_left == 0 and card.ability.extra.chips or 0
+        card.joker_display_values.chips = G.GAME.current_round.hands_left <= 1 and card.ability.extra.chips or 0
     end
 }
 
@@ -146,7 +146,7 @@ JokerDisplay.Definitions["j_bloons_tsar_bomba"] = { --Tsar Bomba
         }
     },
     calc_function = function(card)
-        card.joker_display_values.Xmult = G.GAME.current_round.hands_left == 0 and card.ability.extra.Xmult or 1
+        card.joker_display_values.Xmult = G.GAME.current_round.hands_left <= 1 and card.ability.extra.Xmult or 1
     end
 }
 
@@ -175,7 +175,7 @@ JokerDisplay.Definitions["j_bloons_centered_path"] = { --Centered Path
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "tarots", retrigger_type = "mult" }
     },
-    text_config = { G.C.SECONDARY_SET.Tarot },
+    text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card) 
         local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
         card.joker_display_values.tarots = G.GAME and G.GAME.chips and G.GAME.blind.chips and blind_percent
@@ -189,7 +189,7 @@ JokerDisplay.Definitions["j_bloons_neva_miss_targeting"] = { --Neva-miss Targeti
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "tarots", retrigger_type = "mult" }
     },
-    text_config = { G.C.SECONDARY_SET.Tarot },
+    text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card) 
         local blind_percent = to_big(G.GAME.chips / G.GAME.blind.chips * 100)
         card.joker_display_values.tarots = G.GAME and G.GAME.chips and G.GAME.blind.chips and blind_percent
@@ -203,7 +203,7 @@ JokerDisplay.Definitions["j_bloons_spectre"] = { --Spectre
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
     },
-    text_config = { G.C.SECONDARY_SET.Spectral },
+    text_config = { colour = G.C.SECONDARY_SET.Spectral },
     calc_function = function(card) 
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
@@ -215,5 +215,38 @@ JokerDisplay.Definitions["j_bloons_spectre"] = { --Spectre
             end
         end
         card.joker_display_values.count = count >= card.ability.extra.number and 1 or 0
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_flying_fortress"] = { --Flying Fortress
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local count = 0
+        if text ~= 'Unknown' then
+            for _, playing_card in ipairs(scoring_hand) do
+                if playing_hand or not playing_card.highlighted then
+                    if not playing_card.debuff and playing_card:get_id() == 14 then
+                        count = count * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                    end
+                end
+            end
+            for _, playing_card in ipairs(G.hand.cards) do
+                if playing_hand or not playing_card.highlighted then
+                    if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and playing_card:get_id() == 14 then
+                        count = count * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                    end
+                end
+            end
+        end
+        card.joker_display_values.chips = card.ability.extra.Xmult ^ count
     end
 }

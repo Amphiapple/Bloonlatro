@@ -370,7 +370,7 @@ SMODS.Joker { --Hot Shot
             'Earn {C:money}$#3#{} at',
             'end of round',
             '{C:green}#1# in #2#{} chance to',
-            '{S:1.1,C:red,E:2}self destruct{}'
+            '{s:1.1,C:red,E:2}self destruct{}'
         }
     },
     atlas = 'Joker',

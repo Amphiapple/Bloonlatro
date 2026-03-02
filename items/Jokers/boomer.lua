@@ -603,3 +603,61 @@ SMODS.Joker { --MOAB Press
         end
     end
 }
+
+SMODS.Joker { --MOAB Domination
+    key = 'moab_domination',
+    name = 'MOAB Domination',
+    loc_txt = {
+        name = 'MOAB Domination',
+        text = {
+            'Retrigger scoring cards',
+            'until rank is not higher',
+            'than the previous card',
+            'and give {X:mult,C:white}X#1#{} Mult',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 15, y = 1 },
+    rarity = 3,
+	cost = 9,
+    blueprint_compat = true,
+    config = {
+        base = 'boomer',
+        extra = { retrigger = 1, Xmult = 2, active = true } --Variables: retrigger = retrigger amount, Xmult = Xmult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and card.ability.extra.active then
+            local last_card = nil
+            for k, v in ipairs(context.scoring_hand) do
+                if v == context.other_card then
+                    last_card = context.scoring_hand[k-1]
+                end
+            end
+            if not (last_card and context.other_card:get_id() <= last_card:get_id() or SMODS.has_no_rank(context.other_card)) then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retrigger,
+                }
+            end
+        elseif context.individual and context.cardarea == G.play and card.ability.extra.active then
+            local last_card = nil
+            for k, v in ipairs(context.scoring_hand) do
+                if v == context.other_card then
+                    last_card = context.scoring_hand[k-1]
+                end
+            end
+            if last_card and context.other_card:get_id() <= last_card:get_id() or SMODS.has_no_rank(context.other_card) then
+                card.ability.extra.active = false
+                return {
+                    x_mult = card.ability.extra.Xmult
+                }
+            end
+        elseif context.after then
+            card.ability.extra.active = true
+        end
+    end
+}

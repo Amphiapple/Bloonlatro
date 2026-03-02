@@ -279,7 +279,7 @@ SMODS.Joker { --Exploding Pineapple
         text = {
             'Destroy all scoring',
             'cards after {C:attention}#1#{} hands',
-            '{S:1.1,C:red,E:2}self destructs{}'
+            '{s:1.1,C:red,E:2}self destructs{}'
         }
     },
     atlas = 'Joker',
@@ -299,6 +299,7 @@ SMODS.Joker { --Exploding Pineapple
     calculate = function(self, card, context)
         if context.destroying_card and card.ability.extra.hands <= 1 and not context.blueprint then
             SMODS.destroy_cards(card, nil, nil, true)
+            return true
         elseif context.after and card.ability.extra.hands > 1 and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             return {
@@ -656,5 +657,50 @@ SMODS.Joker { --Spectre
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
             end
         end
+    end
+}
+
+SMODS.Joker { --Flying Fortress
+    key = 'flying_fortress',
+    name = 'Flying Fortress',
+	loc_txt = {
+        name = 'Flying Fortress',
+        text = {
+            'Each {C:attention}Ace{} played',
+            'or held in hand',
+            'gives {X:mult,C:white}X#1#{} Mult'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 15, y = 10 },
+    rarity = 3,
+	cost = 10,
+    blueprint_compat = true,
+    config = {
+        base = 'ace',
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.other_card:get_id() == 14 and not context.end_of_round then
+            if context.cardarea == G.play then
+                return {
+                    x_mult = card.ability.extra.Xmult
+                }
+            elseif context.cardarea == G.hand then
+                if context.other_card.debuff then
+                    return {
+                        message = localize('k_debuffed'),
+                        colour = G.C.RED
+                    }
+                else
+                    return {
+                        x_mult = card.ability.extra.Xmult
+                    }
+                end
+            end
+		end
     end
 }
