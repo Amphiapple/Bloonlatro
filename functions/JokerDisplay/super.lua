@@ -6,7 +6,7 @@ JokerDisplay.Definitions["j_bloons_super_monkey"] = { --Super Monkey
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_super_monkey"] = { --Laser Blasts
+JokerDisplay.Definitions["j_bloons_laser_blasts"] = { --Laser Blasts
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", },
@@ -14,7 +14,7 @@ JokerDisplay.Definitions["j_bloons_super_monkey"] = { --Laser Blasts
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_super_monkey"] = { --Plasma Blasts
+JokerDisplay.Definitions["j_bloons_plasma_blasts"] = { --Plasma Blasts
     text = {
         {
             border_nodes = {
@@ -61,7 +61,7 @@ JokerDisplay.Definitions["j_bloons_sun_avatar"] = { --Sun Avatar
 JokerDisplay.Definitions["j_bloons_super_range"] = { --Super Range
 }
 
-JokerDisplay.Definitions["j_bloons_super_range"] = { --Epic Range
+JokerDisplay.Definitions["j_bloons_epic_range"] = { --Epic Range
 }
 
 JokerDisplay.Definitions["j_bloons_robo_monkey"] = { --Robo Monkey

@@ -16,11 +16,11 @@ Balance Changes:
 - Bionic Boomerang reworked
 - Most Bomb shoters reworked
 - Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
-- Super Maelstrom Xmult 2 > 3, rarity Uncommon > Rare
+- Super Maelstrom Xmult rarity Uncommon > Rare
 - Snowstorm increases hand size starting from the 2nd card instead of 1st
 - Super Brittle and Absolute Zero reworked
 - Bounty Hunter money 5 > 3
-- Ground Zero chips 350 > 300, first hand > final hand
+- Ground Zero chips 350 > 250, first hand > final hand
 - Spiked Balls and Spiked Mines reworked
 - Carpet of Spikes X0.2 per discard > X1.3 if 0 discards remaining
 - VTSG no longer defaults non-towers to Primary category sacrifices

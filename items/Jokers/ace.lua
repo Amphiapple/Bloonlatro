@@ -415,7 +415,7 @@ SMODS.Joker { --Ground Zero
     blueprint_compat = true,
     config = {
         base = 'ace',
-        extra = { chips = 300 } --Variables: chips = +chips
+        extra = { chips = 250 } --Variables: chips = +chips
     },
 
     loc_vars = function(self, info_queue, card)

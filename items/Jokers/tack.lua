@@ -424,7 +424,7 @@ SMODS.Joker { --Super Maelstrom
     blueprint_compat = true,
     config = {
         base = 'tack',
-        extra = { Xmult = 3, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { Xmult = 2, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
