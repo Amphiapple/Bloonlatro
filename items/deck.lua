@@ -282,8 +282,8 @@ SMODS.Back { --Brickell
     end,
 }
 
-SMODS.Back { --French
-    key = "french",
+SMODS.Back { --Etienne
+    key = "etienne",
     name = "Etienne Deck",
 	loc_txt = {
         name = 'Etienne Deck',
@@ -346,12 +346,15 @@ SMODS.Back { --Geraldo
 	loc_txt = {
         name = 'Geraldo Deck',
         text = {
-            "{C:red}G{} {C:blue}A{} {C:green}Y{}"
+            'Start run with',
+            '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
+            '{C:attention,T:v_crystal_ball}Crystal Ball{}'
         }
     },
 	atlas = "Back",
 	pos = { x = 3, y = 2 },
     order = 30,
+    config = { vouchers = {'v_bloons_power_merchant', 'v_crystal_ball'} }
 }
 
 SMODS.Back { --Corvus
@@ -407,61 +410,29 @@ SMODS.Back { --Rosalia
 	loc_txt = {
         name = 'Rosalia Deck',
         text = {
-            'Switch between retriggering',
-            '{C:attention}first{} played card and',
-            '{X:mult,C:white}X#1#{} Mult each hand',
-            '{C:inactive}(Retrigger first)'
+            'Toggle Rosalia\'s weapons',
+            '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
+            '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
         }
     },
 	atlas = "Back",
 	pos = { x = 0, y = 3 },
     order = 32,
-    config = { extra = { Xmult = 1.2, retrigger = 1, counter = 0 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
+    config = { extra = { Xmult = 1.1, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.Xmult } }
     end,
     apply = function (self, back)
-        self.config.extra.counter = 0
+        G.GAME.rosalia_weapon = "laser"
     end,
     calculate = function (self, back, context)
-        if context.repetition and self.config.extra.counter == 0 and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    attention_text({
-                        scale = 1.4,
-                        text = "Laser!",
-                        hold = 1,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
-            return {
-                repetitions = self.config.extra.retrigger,
-            }
-        elseif context.final_scoring_step and self.config.extra.counter == 1 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('multhit2', 1)
-                    attention_text({
-                        scale = 1.4,
-                        text = "Grenade!",
-                        hold = 1,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
-            return {
-                x_mult = self.config.extra.Xmult,
-            }
-        elseif context.after then
-            self.config.extra.counter = (self.config.extra.counter+1) % 2
+        if context.final_scoring_step then
+            if G.GAME.rosalia_weapon == "laser" then
+                return { mult = self.config.extra.mult }
+            elseif G.GAME.rosalia_weapon == "grenade" then
+                return { chips = self.config.extra.chips }
+            end
         end
     end
 }
