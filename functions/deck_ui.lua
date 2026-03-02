@@ -120,8 +120,8 @@ function generate_rosalia_ui()
     if not G.GAME then return nil end
 
     local weapons = {
-        laser   = { icon_x = 2, colour = G.C.ORANGE },   -- icon 1
-        grenade = { icon_x = 1, colour = G.C.BLUE }   -- icon 2
+        laser   = { icon_x = 2, colour = G.C.ORANGE },
+        grenade = { icon_x = 1, colour = G.C.BLUE }
     }
 
     G.GAME.rosalia_weapon = (G.GAME.rosalia_weapon == "grenade") and "grenade" or "laser"
@@ -138,8 +138,6 @@ function generate_rosalia_ui()
         if G.GAME.rosalia_weapon_button_cfg then
             G.GAME.rosalia_weapon_button_cfg.colour = d.colour
         end
-
-        print(G.GAME.rosalia_weapon)
     end
 
     local data = weapons[G.GAME.rosalia_weapon]

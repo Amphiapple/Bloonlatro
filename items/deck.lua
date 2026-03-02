@@ -427,12 +427,14 @@ SMODS.Back { --Rosalia
         G.GAME.rosalia_weapon = "laser"
     end,
     calculate = function (self, back, context)
-        if context.final_scoring_step then
-            if G.GAME.rosalia_weapon == "laser" then
-                return { mult = self.config.extra.mult }
-            elseif G.GAME.rosalia_weapon == "grenade" then
-                return { chips = self.config.extra.chips }
-            end
+        if G.GAME.rosalia_weapon == "laser" and context.final_scoring_step then
+            return {
+                x_mult = self.config.extra.Xmult,
+            }
+        elseif G.GAME.rosalia_weapon == "grenade" and context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
+            return {
+                repetitions = self.config.extra.retrigger,
+            }
         end
     end
 }
