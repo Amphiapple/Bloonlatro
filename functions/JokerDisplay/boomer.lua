@@ -176,3 +176,44 @@ JokerDisplay.Definitions["j_bloons_moab_press"] = { --MOAB Press
         return false
     end
 }
+
+JokerDisplay.Definitions["j_bloons_moab_domination"] = { --MOAB Domination
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    calc_function = function(card)
+        local count = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+        if text ~= 'Unknown' then
+            for k, v in ipairs(sorted_cards) do
+                local last_card = sorted_cards[k-1] or nil
+                if (last_card and v:get_id() <= last_card:get_id() or SMODS.has_no_rank(v)) and not v.debuff then
+                    count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
+                    break
+                end
+            end
+        end
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
+    end,
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        local last_card = nil
+        local active = true
+        local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+        for k, v in ipairs(sorted_cards) do
+            last_card = sorted_cards[k-1]
+            if last_card and v:get_id() <= last_card:get_id() or SMODS.has_no_rank(v) and not v.debuff then
+                active = false
+            end
+            if v == playing_card then
+                return SMODS.in_scoring(playing_card, scoring_hand) and active and joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+            end
+        end
+    end,
+}

@@ -6,11 +6,11 @@ SMODS.Joker { --Alchemist
         text = {
             'Create a {C:tarot}Tarot{} card',
             'on {C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}'
+            '{C:inactive}(Must have room){}',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 17 },
+	pos = { x = 0, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -46,11 +46,11 @@ SMODS.Joker { --Larger Potions
         text = {
             'Create {C:attention}#1# {C:tarot}Tarot{} cards',
             'on {C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}'
+            '{C:inactive}(Must have room){}',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 17 },
+	pos = { x = 1, y = 18 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -96,11 +96,11 @@ SMODS.Joker { --Acidic Mixture Dip
             '{C:green}#1# in #2#{} chance to',
             'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
             'or {C:dark_edition}Polychrome{} effect to',
-            '{C:attention}last{} played card that scores'
+            '{C:attention}last{} played card that scores',
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 17 },
+	pos = { x = 2, y = 18 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = false,
@@ -136,11 +136,11 @@ SMODS.Joker { --Berserker Brew
             'Sell this card to add',
             '{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
             '{C:dark_edition}Polychrome{} edition',
-            'to a random {C:attention}Joker{}'
+            'to a random {C:attention}Joker{}',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 17 },
+	pos = { x = 3, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -187,11 +187,11 @@ SMODS.Joker { --Stronger Stimulant
         text = {
             'Sell this card to add',
             '{C:dark_edition}Polychrome{} edition',
-            'to a random {C:attention}Joker{}'
+            'to a random {C:attention}Joker{}',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 17 },
+	pos = { x = 4, y = 18 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -227,6 +227,43 @@ SMODS.Joker { --Stronger Stimulant
     end
 }
 
+SMODS.Joker { --Permanent Brew
+    key = 'permanent_brew',
+    name = 'Permanent Brew',
+	loc_txt = {
+        name = 'Permanent Brew',
+        text = {
+            'Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
+            'or {C:dark_edition}Polychrome{} effect to',
+            '{C:attention}last{} played card that scores',
+            '{s:0.8}May apply over an existing edition{}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 18 },
+    rarity = 3,
+	cost = 9,
+    blueprint_compat = true,
+    config = {
+        base = 'alch',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local other_card = context.scoring_hand[#context.scoring_hand]
+            if not other_card.debuff then
+                local edition = poll_edition('permanent_brew', nil, true, true)
+                other_card:set_edition(edition, true)
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Stronger Acid
     key = 'stronger_acid',
     name = 'Stronger Acid',
@@ -241,7 +278,7 @@ SMODS.Joker { --Stronger Acid
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 17 },
+	pos = { x = 6, y = 18 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -300,7 +337,7 @@ SMODS.Joker { --Perishing Potions
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 17 },
+	pos = { x = 7, y = 18 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -331,7 +368,7 @@ SMODS.Joker { --Unstable Concoction
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 17 },
+	pos = { x = 8, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -378,7 +415,7 @@ SMODS.Joker { --Transforming Tonic
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 17 },
+	pos = { x = 9, y = 18 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -443,7 +480,7 @@ SMODS.Joker { --Total Transformation
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 17 },
+	pos = { x = 10, y = 18 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,
@@ -530,7 +567,7 @@ SMODS.Joker { --Faster Throwing
         }
     },
 	atlas = 'Joker',
-	pos = { x = 11, y = 17 },
+	pos = { x = 11, y = 18 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -569,7 +606,7 @@ SMODS.Joker { --Acid Pools
         }
     },
 	atlas = 'Joker',
-	pos = { x = 12, y = 17 },
+	pos = { x = 12, y = 18 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -608,7 +645,7 @@ SMODS.Joker { --Lead to Gold
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 17 },
+	pos = { x = 13, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -641,7 +678,7 @@ SMODS.Joker { --Rubber to Gold
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 17 },
+	pos = { x = 14, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -680,7 +717,7 @@ SMODS.Joker { --Bloon Master Alchemist
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 17 },
+	pos = { x = 15, y = 18 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

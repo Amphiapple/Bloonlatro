@@ -9,7 +9,7 @@ SMODS.Joker { --Monkey Village
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 22 },
+	pos = { x = 0, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -29,7 +29,7 @@ SMODS.Joker { --Jungle Drums
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 22 },
+	pos = { x = 2, y = 23 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -64,12 +64,12 @@ SMODS.Joker { --Primary Expertise
         text = {
             '{C:blue}Common{} Jokers are free',
             '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#3#{} Mult,',
-            '{C:green,E:1,S:1.1}Probability{} increases for',
+            '{C:green,E:1,s:1.1}Probability{} increases for',
             'each {C:blue}Common{} Joker'
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 22 },
+	pos = { x = 5, y = 23 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -114,14 +114,14 @@ SMODS.Joker { --Monkey Intelligence Bureau
     loc_txt = {
         name = 'Monkey Intelligence Bureau',
         text = {
-            '{C:attention}Listed {C:green,E:1,S:1.1}probabilities{} are',
+            '{C:attention}Listed {C:green,E:1,s:1.1}probabilities{} are',
             'multiplied by the number of unique ',
             'rarities in other owned {C:attention}Jokers',
             '{C:inactive}(Currently {X:green,C:white}X#1#{C:inactive})',
         }
     },
     atlas = 'Joker',
-    pos = { x = 8, y = 22 },
+    pos = { x = 8, y = 23 },
     rarity = 2,
     cost = 7,
     blueprint_compat = false,
@@ -173,7 +173,7 @@ SMODS.Joker { --Monkey Business
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 22 },
+	pos = { x = 11, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -207,7 +207,7 @@ SMODS.Joker { --Monkey City
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 22 },
+	pos = { x = 14, y = 23 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,

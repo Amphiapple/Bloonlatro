@@ -48,6 +48,20 @@ JokerDisplay.Definitions["j_bloons_spiked_mines"] = { --Spiked Mines
     end
 }
 
+JokerDisplay.Definitions["j_bloons_super_mines"] = { --Super Mines
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+            }
+        }
+    },
+    calc_function = function(card)
+        card.joker_display_values.Xmult = #G.deck.cards == 0 and card.ability.extra.Xmult or 1
+    end
+}
+
 JokerDisplay.Definitions["j_bloons_faster_production"] = { --Faster Production
     text = {
         { text = "+" },
@@ -149,7 +163,21 @@ JokerDisplay.Definitions["j_bloons_long_life_spikes"] = { --Long Life Spikes
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
     },
-    text_config = { colour = G.C.MULT }
+    text_config = { colour = G.C.MULT },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "spike_factory_card_suit" },
+        { text = ")" }
+    },
+    calc_function = function(card)
+        card.joker_display_values.spike_factory_card_suit = localize(G.GAME.current_round.spike_factory_card.suit, 'suits_singular')
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if reminder_text and reminder_text.children[2] then
+            reminder_text.children[2].config.colour = lighten(G.C.SUITS[G.GAME.current_round.spike_factory_card.suit], 0.35)
+        end
+        return false
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_deadly_spikes"] = { --Deadly Spikes
@@ -157,7 +185,22 @@ JokerDisplay.Definitions["j_bloons_deadly_spikes"] = { --Deadly Spikes
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },
     },
-    text_config = { colour = G.C.MULT }
+    text_config = { colour = G.C.MULT },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "spike_factory_card", colour = G.C.FILTER },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.spike_factory_card = localize{
+                type = 'variable', key = "jdis_rank_of_suit", vars = { localize(G.GAME.current_round.spike_factory_card.rank, 'ranks'), localize(G.GAME.current_round.spike_factory_card.suit, 'suits_plural') } }
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if reminder_text and reminder_text.children[2] then
+            reminder_text.children[2].config.colour = lighten(G.C.SUITS[G.GAME.current_round.spike_factory_card.suit], 0.35)
+        end
+        return false
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_perma_spike"] = { --Perma Spike

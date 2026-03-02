@@ -559,7 +559,7 @@ SMODS.Joker { --Snowstorm
                     }))
                 end
             end
-            count = math.ceil(count / 2)
+            count = math.floor(count / 2)
             G.hand:change_size(card.ability.extra.hand_size * count)
             G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.hand_size * count
             return {
@@ -591,6 +591,7 @@ SMODS.Joker { --Absolute Zero
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
+    enhancement_gate = 'm_bloons_frozen',
     config = {
         base = 'ice',
         extra = { Xmult = 0.25 } --Variables: Xmult = Xmult gain

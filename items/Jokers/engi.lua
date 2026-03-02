@@ -10,7 +10,7 @@ SMODS.Joker { --Engineer Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 23 },
+	pos = { x = 0, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -50,7 +50,7 @@ SMODS.Joker { --Sentry Gun
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 23 },
+	pos = { x = 1, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -90,7 +90,7 @@ SMODS.Joker { --Faster Engineering
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 23 },
+	pos = { x = 2, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -135,7 +135,7 @@ SMODS.Joker { --Sprockets
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 23 },
+	pos = { x = 3, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -176,7 +176,7 @@ SMODS.Joker { --Sentry Expert
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 23 },
+	pos = { x = 4, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -219,7 +219,7 @@ SMODS.Joker { --Sentry Champion
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 23 },
+	pos = { x = 5, y = 24 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -252,39 +252,29 @@ SMODS.Joker { --Larger Service Area
     loc_txt = {
         name = 'Larger Service Area',
         text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}Nail Sentry{}',
-            'and increase its lifespan',
-            'by {C:attention}#1#{} round',
+            'Earn {C:money}$#1#{} if scoring',
+            'hand contains {C:attention}#2#{} cards'
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 23 },
+	pos = { x = 6, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
     config = {
         base = 'engi',
-        extra = { lifespan = 1 } --Variables: lifespan = extra sentry lifespan
+        extra = { money = 3, number = 5 } --Variables: money = dollars, number = required cards
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.j_bloons_sentry
-        return { vars = { card.ability.extra.lifespan } }
+        return { vars = { card.ability.extra.money, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not card.getting_sliced then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    local joker = create_card('j_bloons_sentry', G.jokers, nil, 0, nil, nil, 'j_bloons_sentry', 'larger_service_area')
-                    joker:add_to_deck()
-                    joker.ability.extra.rounds = joker.ability.extra.rounds + 1
-                    G.jokers:emplace(joker)
-                    joker:start_materialize()
-                    return true
-                end
-            }))
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+        if context.before and #context.scoring_hand == 5 then
+            return {
+                dollars = card.ability.extra.money,
+                colour = G.C.MONEY
+            }
         end
     end
 }
@@ -301,7 +291,7 @@ SMODS.Joker { --Deconstruction
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 23 },
+	pos = { x = 7, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -341,7 +331,7 @@ SMODS.Joker { --Cleansing Foam
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 23 },
+	pos = { x = 8, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -380,7 +370,7 @@ SMODS.Joker { --Overclock
         }
     },
     atlas = 'Joker',
-	pos = { x = 9, y = 23 },
+	pos = { x = 9, y = 24 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
@@ -428,7 +418,7 @@ SMODS.Joker { --Ultraboost
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 23 },
+	pos = { x = 10, y = 24 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -463,31 +453,39 @@ SMODS.Joker { --Oversize Nails
 	loc_txt = {
         name = 'Oversize Nails',
         text = {
-            'Earn {C:money}$#1#{} if scoring',
-            'hand contains {C:attention}#2#{} cards'
+            'Earn {C:money}$#1#{} if {C:attention}poker hand{}',
+            'contains a {C:attention}Straight{}',
+            'or a {C:attention}Flush{}'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 11, y = 23 },
+	pos = { x = 11, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
     config = {
         base = 'engi',
-        extra = { money = 3, number = 5 } --Variables: money = dollars, number = required cards
+        extra = { money = 4 } --Variables: money = dollars
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.money, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.before and #context.scoring_hand == 5 then
-            return {
-                dollars = card.ability.extra.money,
-                colour = G.C.MONEY
-            }
+		if context.before and context.poker_hands then
+            if next(context.poker_hands['Straight Flush']) then
+                return {
+                    dollars = card.ability.extra.money * 2,
+                    colour = G.C.MONEY
+                }
+            elseif next(context.poker_hands['Straight']) or next(context.poker_hands['Flush']) then
+                return {
+                    dollars = card.ability.extra.money,
+                    colour = G.C.MONEY
+                }
+            end
         end
-    end
+	end
 }
 
 SMODS.Joker { --Pin
@@ -502,7 +500,7 @@ SMODS.Joker { --Pin
         }
     },
 	atlas = 'Joker',
-	pos = { x = 12, y = 23 },
+	pos = { x = 12, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -538,7 +536,7 @@ SMODS.Joker { --Double Gun
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 23 },
+	pos = { x = 13, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -597,7 +595,7 @@ SMODS.Joker { --Bloon Trap
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 23 },
+	pos = { x = 14, y = 24 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -648,7 +646,7 @@ SMODS.Joker { --XXXL Trap
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 23 },
+	pos = { x = 15, y = 24 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,

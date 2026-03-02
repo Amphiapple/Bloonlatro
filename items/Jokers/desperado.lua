@@ -193,7 +193,7 @@ SMODS.Joker { --The Blazing Sun
             'Each played {C:attention}#2#{}',
             'of {C:hearts}Hearts{} gives',
             '{X:mult,C:white}X#1#{} Mult when scored',
-            '{S:0.8}Rank changes every round{}',
+            '{s:0.8}Rank changes every round{}',
         }
     },
 	atlas = 'Joker',
@@ -227,7 +227,7 @@ SMODS.Joker { --Eagle Eye
             '{C:attention}First #1#{} played cards',
             'give {C:mult}+#2#{} Mult when scored,',
             '{C:mult}+#3#{} if rank is {C:attention}#4#{}',
-            '{S:0.8}Rank changes every round{}',
+            '{s:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -267,7 +267,7 @@ SMODS.Joker { --Bullseye
             '{C:attention}First #1#{} played cards',
             'give {C:mult}+#2#{} Mult when scored,',
             '{C:mult}+#3#{} if rank is {C:attention}#4#{}',
-            '{S:0.8}Rank changes every round{}',
+            '{s:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -306,7 +306,7 @@ SMODS.Joker { --Deadeye
         text = {
             'Played {C:attention}#1#s{} give',
             '{X:mult,C:white}X#2#{} Mult when scored',
-            '{S:0.8}Rank changes every round{}',
+            '{s:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',
@@ -341,7 +341,7 @@ SMODS.Joker { --Bounty Hunter
         text = {
             'Played {C:attention}#1#s{} give',
             '{C:money}$#2#{} when scored',
-            '{S:0.8}Rank changes every round{}',
+            '{s:0.8}Rank changes every round{}',
         }
     },
     atlas = 'Joker',

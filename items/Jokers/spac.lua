@@ -11,7 +11,7 @@ SMODS.Joker { --Spike Factory
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 21 },
+	pos = { x = 0, y = 22 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -58,7 +58,7 @@ SMODS.Joker { --Bigger Stacks
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 21 },
+	pos = { x = 1, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -104,7 +104,7 @@ SMODS.Joker { --White Hot Spikes
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 21 },
+	pos = { x = 2, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -138,7 +138,7 @@ SMODS.Joker { --Spiked Balls
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 21 },
+	pos = { x = 3, y = 22 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -184,7 +184,7 @@ SMODS.Joker { --Spiked Mines
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 21 },
+	pos = { x = 4, y = 22 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -210,6 +210,38 @@ SMODS.Joker { --Spiked Mines
     end
 }
 
+SMODS.Joker { --Super Mines
+    key = 'super_mines',
+    name = 'Super Mines',
+    loc_txt = {
+        name = 'Super Mines',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult if',
+            'your deck is empty',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 5, y = 22 },
+    rarity = 3,
+	cost = 10,
+    blueprint_compat = true,
+    config = {
+        base = 'spac',
+        extra = { Xmult = 5 } --Variables: Xmult = Xmult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and #G.deck.cards == 0 then
+            return {
+                x_mult = card.ability.extra.Xmult,
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Faster Production
     key = 'faster_production',
     name = 'Faster Production',
@@ -223,7 +255,7 @@ SMODS.Joker { --Faster Production
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 21 },
+	pos = { x = 6, y = 22 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -270,7 +302,7 @@ SMODS.Joker { --Even Faster Production
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 21 },
+	pos = { x = 7, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -319,7 +351,7 @@ SMODS.Joker { --MOAB SHREDR
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 21 },
+	pos = { x = 8, y = 22 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -379,7 +411,7 @@ SMODS.Joker { --Spike Storm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 21 },
+	pos = { x = 9, y = 22 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -426,13 +458,13 @@ SMODS.Joker { --Carpet of Spikes
 	loc_txt = {
         name = 'Carpet of Spikes',
         text = {
-            'Each played card gives',
-            '{X:mult,C:white}X#1#{} Mult when {C:attention}#2#{} discards',
-            'discards remaining',
+            'Each played card',
+            'gives {X:mult,C:white}X#1#{} Mult when',
+            '{C:attention}#2#{} discards remaining',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 21 },
+	pos = { x = 10, y = 22 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -465,7 +497,7 @@ SMODS.Joker { --Long Reach
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 21 },
+	pos = { x = 11, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -505,7 +537,7 @@ SMODS.Joker { --Smart Spikes
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 21 },
+	pos = { x = 12, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -541,12 +573,12 @@ SMODS.Joker { --Long Life Spikes
             'This joker gains {C:mult}+#1#{} Mult',
             'per discarded {V:1}#2#{}',
             '{C:mult}-#3#{} Mult at end of round',
-            '{S:0.8}Suit changes every round{}',
+            '{s:0.8}Suit changes every round{}',
             '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 21 },
+	pos = { x = 13, y = 22 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -603,12 +635,12 @@ SMODS.Joker { --Deadly Spikes
             'This joker gains {C:mult}+#1#{} Mult',
             'per discarded {C:attention}#2#{} of {V:1}#3#{}',
             '{C:mult}-#4#{} Mult at end of round',
-            '{S:0.8}Card changes every round{}',
+            '{s:0.8}Card changes every round{}',
             '{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 21 },
+	pos = { x = 14, y = 22 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -671,7 +703,7 @@ SMODS.Joker { --Perma-Spike
         }
     },
     atlas = 'Joker',
-	pos = { x = 15, y = 21 },
+	pos = { x = 15, y = 22 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

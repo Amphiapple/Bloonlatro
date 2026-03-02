@@ -44,7 +44,7 @@ SMODS.Joker { --Guided Magic
         text = {
             'Enhances {C:attention}first{} played card',
             'into a {C:attention}#1#{}',
-            '{S:0.8}Enhancement changes every hand{}'
+            '{s:0.8}Enhancement changes every hand{}'
         }
     },
 	atlas = 'Joker',

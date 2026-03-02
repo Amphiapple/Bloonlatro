@@ -568,7 +568,8 @@ SMODS.Joker { --Elite Sniper
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         return true
-                    end}))
+                    end
+                }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.YELLOW})
                 return {
                     dollars = card.ability.extra.money,
