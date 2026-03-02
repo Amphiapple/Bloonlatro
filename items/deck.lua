@@ -418,7 +418,7 @@ SMODS.Back { --Rosalia
 	atlas = "Back",
 	pos = { x = 0, y = 3 },
     order = 32,
-    config = { extra = { Xmult = 1.1, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
+    config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.Xmult } }
