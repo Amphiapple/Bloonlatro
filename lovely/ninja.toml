@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Ninja full slots buy
+# Ninja full slots select
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
@@ -21,7 +21,7 @@ payload = '''
 '''
 match_indent = true
 
-# Ninja full slots select
+# Ninja full slots buy
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
