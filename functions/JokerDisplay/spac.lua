@@ -6,7 +6,7 @@ JokerDisplay.Definitions["j_bloons_spike_factory"] = { --Spike Factory
     text_config = { colour = G.C.CHIPS }
 }
 
-JokerDisplay.Definitions["j_bloons_bigger_tacks"] = { --Bigger Stacks
+JokerDisplay.Definitions["j_bloons_bigger_stacks"] = { --Bigger Stacks
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current" },

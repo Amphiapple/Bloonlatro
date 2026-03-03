@@ -298,13 +298,15 @@ SMODS.Joker { --Exploding Pineapple
     end,
     calculate = function(self, card, context)
         if context.destroying_card and card.ability.extra.hands <= 1 and not context.blueprint then
-            SMODS.destroy_cards(card, nil, nil, true)
             return true
-        elseif context.after and card.ability.extra.hands > 1 and not context.blueprint then
+        elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
+            if card.ability.extra.hands <= 0 then
+                SMODS.destroy_cards(card, nil, nil, true)
+            end
             return {
-                message = localize{type='variable',key='a_chips_minus',vars={1}},
-                colour = G.C.RED
+                message = card.ability.extra.hands..'',
+                colour = G.C.FILTER
             }
         end
     end

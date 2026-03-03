@@ -156,19 +156,20 @@ SMODS.Joker { --Magus Perfectus
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local eligible_cards = {}
-                    for k, v in pairs(G.hand.cards) do
+                    for k, v in ipairs(G.hand.cards) do
                         if not v.debuff then
                             table.insert(eligible_cards, v)
                         end
                     end
-                    local card = pseudorandom_element(eligible_cards, 'magus_perfectus')
+                    local card = pseudorandom_element(eligible_cards, 'magus_perfectus') or G.hand.cards[1]
                     local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
                     local enhancement = pseudorandom_element(enhancement_pool, 'magus_perfectus')
                     local edition = poll_edition('magus_perfectus', nil, true, true)
                     local seal = SMODS.poll_seal({type_key = 'magus_perfectus', guaranteed = true})
-                    card.set_ability(enhancement, nil, true)
-                    card.set_edition(edition, true)
-                    card.set_seal(seal, nil, true)
+                    card:set_ability(enhancement, nil, true)
+                    card:set_edition(edition, true)
+                    card:set_seal(seal, nil, true)
+                    return true
                 end
             }))
         end

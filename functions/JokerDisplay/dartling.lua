@@ -58,15 +58,37 @@ JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
 JokerDisplay.Definitions["j_bloons_laser_shock"] = { --Laser Shock
     text = {
         { text = "+",                       colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
-    }
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
+    },
+    reminder_text = {
+        { text = "(Shock damage)" }
+    },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.mult = card.joker_display_values and card.joker_display_values.mult or 0
+            return
+        end
+        card.joker_display_values.mult = card.ability.extra.mult
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_laser_cannon"] = { --Laser Cannon
     text = {
         { text = "+",                       colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
-    }
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
+    },
+    reminder_text = {
+        { text = "(Shock damage)" }
+    },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.mult = card.joker_display_values and card.joker_display_values.mult or 0
+            return
+        end
+        card.joker_display_values.mult = card.ability.extra.mult
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_plasma_accelerator"] = { --Plasma Accelerator

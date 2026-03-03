@@ -153,14 +153,14 @@ SMODS.Back { --Benjamin
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            'Start with {C:attention,T:j_bloons_bank}Monkey Bank{}',
+            'Start with {C:attention,T:j_bloons_monkey_bank}Monkey Bank{}',
             'and extra {C:money}$#1#'
         }
     },
 	atlas = "Back",
 	pos = { x = 0, y = 1 },
     order = 22,
-    config = { jokers = {'j_bloons_bank'}, dollars = 1 },
+    config = { jokers = {'j_bloons_monkey_bank'}, dollars = 1 },
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.dollars } }

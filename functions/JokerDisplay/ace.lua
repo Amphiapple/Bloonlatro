@@ -234,21 +234,19 @@ JokerDisplay.Definitions["j_bloons_flying_fortress"] = { --Flying Fortress
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         local count = 0
         if text ~= 'Unknown' then
-            for _, playing_card in ipairs(scoring_hand) do
-                if playing_hand or not playing_card.highlighted then
-                    if not playing_card.debuff and playing_card:get_id() == 14 then
-                        count = count * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
-                    end
-                end
-            end
-            for _, playing_card in ipairs(G.hand.cards) do
-                if playing_hand or not playing_card.highlighted then
-                    if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and playing_card:get_id() == 14 then
-                        count = count * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
-                    end
+            for _, scoring_card in ipairs(scoring_hand) do
+                if not scoring_card.debuff and scoring_card:get_id() == 14 then
+                    count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                 end
             end
         end
-        card.joker_display_values.chips = card.ability.extra.Xmult ^ count
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and playing_card:get_id() == 14 then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
+            end
+        end
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
     end
 }

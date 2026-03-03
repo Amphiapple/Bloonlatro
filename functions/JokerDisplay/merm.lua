@@ -112,9 +112,13 @@ JokerDisplay.Definitions["j_bloons_popseidon"] = { --Popseidon
     text_config = { colour = G.C.CHIPS },
     calc_function = function(card)
         local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.chips = card.joker_display_values and card.joker_display_values.chips or 0
+            return
+        end
         local count = 0
         for _, playing_card in ipairs(G.hand.cards) do
-            if playing_hand or not playing_card.highlighted then
+            if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
                     count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
