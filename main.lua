@@ -1,6 +1,13 @@
 Bloonlatro = {}
 Bloonlatro.config = SMODS.current_mod.config
 
+SMODS.Atlas({
+	key = "modicon",
+	path = "icon.png",
+	px = 32,
+	py = 32,
+})
+
 local functions = {
     'base',
     'calculate-score',
