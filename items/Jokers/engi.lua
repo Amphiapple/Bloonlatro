@@ -589,9 +589,9 @@ SMODS.Joker { --Bloon Trap
         text = {
             'If {C:attention}first discard{} of',
             'round has only {C:attention}1{} card,',
-            'destroy it and collect {C:money}$#1#',
-            'Earn {C:money}$#2#{} after defeating',
-            '{C:attention}Boss Blind{}'
+            'destroy it and store {C:money}$#1#',
+            'Earn stored money {C:inactive}({C:money}$#2#{C:inactive}){} after',
+            'defeating {C:attention}Boss Blind{}'
         }
     },
 	atlas = 'Joker',
@@ -640,9 +640,9 @@ SMODS.Joker { --XXXL Trap
         name = 'XXXL Trap',
         text = {
             'Destroy last {C:attention}discarded{}',
-            'card and collect {C:money}$#1#',
-            'Earn {C:money}$#2#{} after defeating',
-            '{C:attention}Boss Blind{}'
+            'card and and store {C:money}$#1#',
+            'Earn stored money {C:inactive}({C:money}$#2#{C:inactive}){} after',
+            'defeating {C:attention}Boss Blind{}'
         }
     },
 	atlas = 'Joker',

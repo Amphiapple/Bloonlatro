@@ -123,7 +123,7 @@ SMODS.Joker { --Sun Avatar
                     red_suits = red_suits + 1
                 end
             end
-            if red_suits == #context.full_hand then
+            if red_suits > 0 and red_suits == #context.full_hand then
                 return {
                     x_mult = card.ability.extra.Xmult,
                 }

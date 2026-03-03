@@ -22,24 +22,28 @@ JokerDisplay.Definitions["j_bloons_goliath_doomship"] = { --Goliath Doomship
         { text = "(Ace)" }
     },
     calc_function = function(card)
-        local held_count, played_count = 0, 0
+        local held_count, scoring_count = 0, 0
         local highlighted_aces = {}
         local _, _, scoring_hand = JokerDisplay.evaluate_hand()
-
+        local playing_hand = next(G.play.cards)
+        for _, scoring_card in pairs(scoring_hand) do
+            if scoring_card:get_id() == 14 then
+                scoring_count = scoring_count + JokerDisplay.calculate_card_triggers(scoring_card, nil, true)
+            end
+        end
         for _, hand_card in pairs(G.hand.cards) do
             if hand_card:get_id() == 14 then
                 if hand_card.highlighted then
-                    table.insert(highlighted_aces, hand_card)
-                    played_count = played_count + JokerDisplay.calculate_card_triggers(hand_card, scoring_hand, false)
+                    if not playing_hand then
+                        table.insert(highlighted_aces, hand_card)
+                    end
                 else
                     held_count = held_count + JokerDisplay.calculate_card_triggers(hand_card, nil, true)
                 end
             end
         end
 
-        card.joker_display_values.money = G.STATE ~= G.STATES.HAND_PLAYED and played_count * card.ability.extra.money
-                                            or card.joker_display_values and card.joker_display_values.money
-                                            or 0
+        card.joker_display_values.money = card.ability.extra.money * scoring_count
         card.joker_display_values.tarots = #highlighted_aces
         card.joker_display_values.planets = held_count
     end,

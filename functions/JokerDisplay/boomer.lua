@@ -90,15 +90,12 @@ JokerDisplay.Definitions["j_bloons_turbo_charge"] = { --Turbo Charge
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.active = G.GAME and
-                ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
-                (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and "Active!" or "Inactive"
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.active = active and "Active!" or "Inactive"
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        return held_in_hand and
-                ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
-                (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
-                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        return held_in_hand and active and joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 

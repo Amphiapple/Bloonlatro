@@ -603,7 +603,6 @@ SMODS.Joker { --Caltrops
             'when {C:attention}Blind{} is selected',
             '{C:dark_edition}+#2#{} Joker Slot',
             '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
-
         }
     },
 	atlas = 'Joker',

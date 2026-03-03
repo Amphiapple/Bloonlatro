@@ -132,7 +132,8 @@ JokerDisplay.Definitions["j_bloons_ground_zero"] = { --Ground Zero
         { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS }
     },
     calc_function = function(card)
-        card.joker_display_values.chips = G.GAME.current_round.hands_left <= 1 and card.ability.extra.chips or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.chips = active and card.ability.extra.chips or 0
     end
 }
 
@@ -146,7 +147,8 @@ JokerDisplay.Definitions["j_bloons_tsar_bomba"] = { --Tsar Bomba
         }
     },
     calc_function = function(card)
-        card.joker_display_values.Xmult = G.GAME.current_round.hands_left <= 1 and card.ability.extra.Xmult or 1
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.chips = active and card.ability.extra.Xmult or 1
     end
 }
 

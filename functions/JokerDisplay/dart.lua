@@ -223,8 +223,8 @@ JokerDisplay.Definitions["j_bloons_sharp_shooter"] = { --Sharp Shooter
     calc_function = function(card)
         local limit = card.ability.extra.limit
         local counter = card.ability.extra.counter
-
-        if G.STATE and G.STATE == G.STATES.HAND_PLAYED then
+        local playing_hand = next(G.play.cards)
+        if playing_hand then
             card.joker_display_values.mult = card.joker_display_values and card.joker_display_values.mult or 0
             card.joker_display_values.counter = counter <= limit - 1 and limit - counter % limit .. " remaining" or "Next!"
             return
@@ -265,8 +265,8 @@ JokerDisplay.Definitions["j_bloons_crossbow_master"] = { --Crossbow Master
     calc_function = function(card)
         local limit = card.ability.extra.limit
         local counter = card.ability.extra.counter
-
-        if G.STATE and G.STATE == G.STATES.HAND_PLAYED then
+        local playing_hand = next(G.play.cards)
+        if playing_hand then
             card.joker_display_values.Xmult = card.joker_display_values and card.joker_display_values.Xmult or 1
             card.joker_display_values.counter = counter <= limit - 1 and limit - counter % limit .. " remaining" or "Next!"
             return

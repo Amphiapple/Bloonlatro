@@ -34,9 +34,13 @@ JokerDisplay.Definitions["j_bloons_cold_snap"] = { --Cold Snap
     },
     calc_function = function(card)
         local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.Xmult = card.joker_display_values and card.joker_display_values.money or 0
+            return
+        end
         local count = 0
         for _, playing_card in ipairs(G.hand.cards) do
-            if playing_hand or not playing_card.highlighted then
+            if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
                     count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
@@ -74,7 +78,7 @@ JokerDisplay.Definitions["j_bloons_super_brittle"] = { --Super Brittle
     },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sbrit')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'super_brittle')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
@@ -110,7 +114,7 @@ JokerDisplay.Definitions["j_bloons_deep_freeze"] = { --Deep Freeze
     },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'deep')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'deep_freeze')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
@@ -213,16 +217,22 @@ JokerDisplay.Definitions["j_bloons_cryo_cannon"] = { --Cryo Cannon
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.Xmult = card.joker_display_values and card.joker_display_values.Xmult or 1
+            local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo_cannon')
+            card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
+            return
+        end
         local count = 0
         for _, playing_card in ipairs(G.hand.cards) do
-            if playing_hand or not playing_card.highlighted then
+            if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
                     count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
             end
         end
         card.joker_display_values.mult = card.ability.extra.mult * count
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'cryo_cannon')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
@@ -246,9 +256,15 @@ JokerDisplay.Definitions["j_bloons_icicles"] = { --Icicles
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.Xmult = card.joker_display_values and card.joker_display_values.Xmult or 1
+            local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'icicles')
+            card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
+            return
+        end
         local count = 0
         for _, playing_card in ipairs(G.hand.cards) do
-            if playing_hand or not playing_card.highlighted then
+            if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
                     count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
@@ -271,9 +287,13 @@ JokerDisplay.Definitions["j_bloons_icicle_impale"] = { --Icicle Impale
     },
     calc_function = function(card)
         local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.Xmult = card.joker_display_values and card.joker_display_values.Xmult or 1
+            return
+        end
         local has_frozen = false
         for _, playing_card in ipairs(G.hand.cards) do
-            if playing_hand or not playing_card.highlighted then
+            if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
                     has_frozen = true
                 end

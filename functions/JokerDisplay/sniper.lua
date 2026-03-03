@@ -319,14 +319,9 @@ JokerDisplay.Definitions["j_bloons_full_auto_rifle"] = { --Full Auto Rifle
             }
         }
     },
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "active" },
-        { text = ")" }
-    },
     calc_function = function(card)
-        card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_played > 0 and "Active!" or "Inactive"
-        card.joker_display_values.Xmult = G.GAME and G.GAME.current_round.hands_played > 0 and card.ability.extra.Xmult or 1
+        local active = G.GAME and (G.GAME.current_round.hands_played == 1 and not next(G.play.cards) or G.GAME.current_round.hands_played > 1)
+        card.joker_display_values.Xmult = active and card.ability.extra.Xmult or 1
     end
 }
 
@@ -340,21 +335,18 @@ JokerDisplay.Definitions["j_bloons_elite_defender"] = { --Elite Defender
         }
     },
     calc_function = function(card)
-        if G.STATE and G.STATE ~= G.STATES.SELECTING_HAND then
-            local state = G.STATE == G.STATES.HAND_PLAYED or G.STATE == G.STATES.DRAW_TO_HAND
-            card.joker_display_values.Xmult = state and card.joker_display_values and card.joker_display_values.Xmult or 1
-            return
-        end
-
+        local playing_hand = next(G.play.cards)
         local Xmult = 1
-        if G.GAME.current_round.hands_left <= 1 then
-            if G.GAME.chips/G.GAME.blind.chips <= to_big(0.25) then
-                Xmult = card.ability.extra.Xmult3
-            else
-                Xmult = card.ability.extra.Xmult2
+        if G.GAME and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) then
+            if (G.GAME.current_round.hands_left == 1 and not playing_hand or G.GAME.current_round.hands_left == 0 and playing_hand) then
+                if G.GAME.chips/G.GAME.blind.chips <= to_big(0.25) then
+                    Xmult = card.ability.extra.Xmult3
+                else
+                    Xmult = card.ability.extra.Xmult2
+                end
+            elseif (G.GAME.current_round.hands_played == 1 and not playing_hand or G.GAME.current_round.hands_played > 1) then
+                Xmult = card.ability.extra.Xmult1
             end
-        elseif G.GAME.current_round.hands_played ~= 0 then
-            Xmult = card.ability.extra.Xmult1
         end
 
         card.joker_display_values.Xmult = Xmult

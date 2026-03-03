@@ -45,14 +45,14 @@ JokerDisplay.Definitions["j_bloons_sun_avatar"] = { --Sun Avatar
                     red_suits = red_suits + 1
                 end
             end
-            is_all_red_suits = red_suits == #G.play.cards
+            is_all_red_suits = red_suits > 0 and red_suits == #G.play.cards
         elseif text ~= 'Unknown' then
             for _, playing_card in ipairs(G.hand.cards) do
                 if playing_card.highlighted and playing_card.facing and not (playing_card.facing == 'back') and (playing_card:is_suit('Hearts', nil, true) or playing_card:is_suit('Diamonds', nil, true)) then
                     red_suits = red_suits + 1
                 end
             end
-            is_all_red_suits = red_suits == #G.hand.highlighted
+            is_all_red_suits = red_suits > 0 and red_suits == #G.hand.highlighted
         end
         card.joker_display_values.x_mult = is_all_red_suits and card.ability.extra.Xmult or 1
     end

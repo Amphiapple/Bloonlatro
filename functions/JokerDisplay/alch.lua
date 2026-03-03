@@ -5,7 +5,8 @@ JokerDisplay.Definitions["j_bloons_alchemist"] = { --Alchemist
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 1 and 1 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.count = active and 1 or 0
     end
 }
 
@@ -16,7 +17,8 @@ JokerDisplay.Definitions["j_bloons_larger_potions"] = { --Larger Potions
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 1 and 2 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.count = active and 2 or 0
     end
 }
 
@@ -58,7 +60,8 @@ JokerDisplay.Definitions["j_bloons_stronger_acid"] = { --Stronger Acid
     },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 1 and 1 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.count = active and 1 or 0
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'acid')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
@@ -123,7 +126,8 @@ JokerDisplay.Definitions["j_bloons_faster_throwing"] = { --Faster Throwing
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left == 2 and 1 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 2 and not next(G.play.cards) or G.GAME.current_round.hands_left == 1 and next(G.play.cards))
+        card.joker_display_values.count = active and 1 or 0
     end
 }
 JokerDisplay.Definitions["j_bloons_acid_pools"] = { --Acid Pools
@@ -155,6 +159,7 @@ JokerDisplay.Definitions["j_bloons_bloon_master_alchemist"] = { --Bloon Master A
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_left <= 1 and "Active!" or "Inactive"
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.active = active and "Active!" or "Inactive"
     end
 }

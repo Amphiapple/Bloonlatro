@@ -3,12 +3,18 @@ JokerDisplay.Definitions["j_bloons_monkey_buccaneer"] = { --Monkey Buccaneer
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
     },
+    reminder_text = {
+        { text = "(Play)" }
+    },
 }
 
 JokerDisplay.Definitions["j_bloons_faster_shooting_buccaneer"] = { --Faster Shooting
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "(Play)" }
     },
     extra = {
         {
@@ -27,6 +33,9 @@ JokerDisplay.Definitions["j_bloons_double_shot_buccaneer"] = { --Double Shot
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "(Play)" }
     },
     calc_function = function(card)
         local count = 0
@@ -180,20 +189,26 @@ JokerDisplay.Definitions["j_bloons_pirate_lord"] = { --Pirate Lord
 JokerDisplay.Definitions["j_bloons_long_range"] = { --Long Range
     text = {
         { text = "+$", colour = G.C.MONEY },
-        { ref_table = "card.joker_display_values", ref_value = "dollars", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "(Discard)" }
     },
     calc_function = function(card)
-        card.joker_display_values.dollars = G.GAME.current_round.discards_left > 0 and card.ability.extra.dollars or 0
+        card.joker_display_values.money = G.GAME.current_round.discards_left > 0 and card.ability.extra.money or 0
     end
 }
 
 JokerDisplay.Definitions["j_bloons_crows_nest"] = { --Crow's Nest
     text = {
         { text = "+$", colour = G.C.MONEY },
-        { ref_table = "card.joker_display_values", ref_value = "dollars", colour = G.C.MONEY },
+        { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "(Discard)" }
     },
     calc_function = function(card)
-        card.joker_display_values.dollars = G.GAME.current_round.discards_left > 0 and #G.hand.highlighted == 1 and card.ability.extra.dollars or 0
+        card.joker_display_values.money = G.GAME.current_round.discards_left > 0 and #G.hand.highlighted == 1 and card.ability.extra.money or 0
     end
 }
 

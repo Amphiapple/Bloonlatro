@@ -340,7 +340,7 @@ SMODS.Joker { --Vengeful True Sun God
                 }
             end
         elseif context.ending_shop then
-            local count = math.floor(card.ability.extra.sacrifices['military'] * 2 / 9)
+            local count = math.floor(card.ability.extra.sacrifices['magic'] * 2 / 9)
             for i = 1, count do
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -352,7 +352,9 @@ SMODS.Joker { --Vengeful True Sun God
                     end
                 }))
             end
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*count, colour = G.C.DARK_EDITION})
+            if count > 0 then
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*count, colour = G.C.DARK_EDITION})
+            end
         end
     end,
     calc_dollar_bonus = function(self, card)
