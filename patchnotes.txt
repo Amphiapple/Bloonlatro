@@ -34,3 +34,4 @@ Fixes:
 - Challenge bans adjusted
 - Lots of text fixes and standardizations
 - Many Joker Display text fixes
+- Common ninjas can be bought again at full Joker slots on the latest SMODS version 
