@@ -331,9 +331,9 @@ SMODS.Joker { --Vengeful True Sun God
                 mult = card.ability.extra.mult * mult,
                 x_mult = 1 + card.ability.extra.Xmult * Xmult
             }
-        elseif context.repetition and context.card_area == G.play then
+        elseif context.repetition and context.cardarea == G.play then
             local retrigger = math.floor(card.ability.extra.sacrifices['military'] * 2 / 9)
-            if retrigger > 1 then
+            if retrigger >= 1 then
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retrigger * retrigger,

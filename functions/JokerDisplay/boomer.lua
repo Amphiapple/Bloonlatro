@@ -9,7 +9,7 @@ JokerDisplay.Definitions["j_bloons_boomerang_monkey"] = { --Boomerang Monkey
 
 JokerDisplay.Definitions["j_bloons_improved_rangs"] = { --Improved Rangs
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        if held_in_hand then return 0 end 
+        if held_in_hand then return 0 end
         local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
         local last_card = scoring_hand and sorted_cards[#sorted_cards]
         local second_last_card = scoring_hand and #scoring_hand >= 2 and sorted_cards[#sorted_cards - 1]

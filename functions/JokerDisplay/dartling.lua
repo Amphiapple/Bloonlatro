@@ -385,7 +385,7 @@ JokerDisplay.Definitions["j_bloons_bloon_area_denial_system"] = { --Bloon Area D
             for k, v in ipairs(scoring_hand) do
                 for i, j in pairs(trigger_cards) do
                     if v == j then
-                        count = count + 1
+                        count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
                         break
                     end
                 end
@@ -474,10 +474,18 @@ JokerDisplay.Definitions["j_bloons_bloon_exclusion_zone"] = { --Bloon Exclusion 
                 end
             end
         end
-        for k, v in ipairs(G.hand.cards) do
+        for k, v in ipairs(scoring_hand) do
             for i, j in pairs(trigger_cards) do
                 if v == j then
-                    count = count + 1
+                    count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
+                    break
+                end
+            end
+        end
+        for k, v in ipairs(held_cards) do
+            for i, j in pairs(trigger_cards) do
+                if v == j then
+                    count = count + JokerDisplay.calculate_card_triggers(v, nil, true)
                     break
                 end
             end

@@ -82,6 +82,11 @@ JokerDisplay.Definitions["j_bloons_vengeful_true_sun_god"] = { --Vengeful True S
         { ref_table = "card.joker_display_values", ref_value = "sacrifices" },
         { text = ")" },
     },
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        local retrigger = math.floor(joker_card.ability.extra.sacrifices['military'] * 2 / 9)
+        return joker_card.ability.extra.retrigger * retrigger * JokerDisplay.calculate_joker_triggers(joker_card)
+    end,
     calc_function = function(card)
         local sacs = card.ability.extra.sacrifices
         card.joker_display_values.sacrifices =
