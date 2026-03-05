@@ -180,7 +180,7 @@ JokerDisplay.Definitions["j_bloons_bouncing_bullet"] = { --Bouncing Bullet
         local mult_value = 0
         if text ~= 'Unknown' then
             local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
-            for i, scoring_card in ipairs(sorted_cards) do
+            for _, scoring_card in ipairs(sorted_cards) do
                 total_mult = total_mult + JokerDisplay.calculate_card_triggers(scoring_card, sorted_cards, false) * mult_value
                 if scoring_card.facing ~= 'back' and not SMODS.has_no_rank(scoring_card) then
                     mult_value = scoring_card.base.nominal

@@ -484,6 +484,7 @@ SMODS.Challenge {
     vouchers = {},
     restrictions = {
         banned_cards = {
+            {id = 'j_bloons_grand_saboteur'},
             {id = 'v_bloons_big_bloon_sabotage'},
             {id = 'v_bloons_big_bloon_blueprints'},
         },
@@ -769,6 +770,7 @@ SMODS.Challenge {
     vouchers = {},
     restrictions = {
         banned_cards = {
+            {id = 'j_bloons_grand_saboteur'},
             {id = 'v_bloons_big_bloon_sabotage'},
             {id = 'v_bloons_big_bloon_blueprints'},
         },

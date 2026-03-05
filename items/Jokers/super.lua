@@ -406,6 +406,8 @@ SMODS.Joker { --Knockback
                     }
                 end
             end
+        elseif context.after then
+            card.ability.extra.retriggered_cards = {}
         end
     end,
 }

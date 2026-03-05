@@ -319,9 +319,14 @@ SMODS.Back { --Sauda
     order = 28,
 
     apply = function(self)
-        for k, v in pairs(G.GAME.hands) do
-            level_up_hand(self, k, true)
-        end
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for k, v in pairs(G.GAME.hands) do
+                    level_up_hand(G.deck.cards[1], k, true, 1)
+                end
+                return true
+            end
+        }))
     end
 }
 
