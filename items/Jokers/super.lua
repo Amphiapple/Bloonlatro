@@ -200,12 +200,7 @@ SMODS.Joker { --Epic Range
         }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                SMODS.change_booster_limit(-card.ability.extra.booster_slots)
-                return true
-            end
-        }))
+        SMODS.change_booster_limit(-card.ability.extra.booster_slots)
     end
 }
 

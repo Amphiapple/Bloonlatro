@@ -573,7 +573,10 @@ SMODS.Joker { --Recursive Cluster
 			if next(poker_hands) == nil then
 				return 'None'
 			end
-            local hands_string = poker_hands[1] .. ' ' .. poker_hands[2]
+            local hands_string = poker_hands[1]
+            if poker_hands[2] then
+                hands_string = hands_string .. ' ' .. poker_hands[2]
+            end
 			return hands_string
 		end
 		return { vars = { card.ability.extra.Xmult, process_var(card.ability.extra.poker_hands) } }

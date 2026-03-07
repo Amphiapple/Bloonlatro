@@ -611,7 +611,7 @@ SMODS.Joker { --Central Market
 	pos = { x = 14, y = 21 },
     rarity = 2,
 	cost = 8,
-    blueprint_compat = true,
+    blueprint_compat = false,
     config = {
         base = 'farm',
         extra = { money = 2, current = 0 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
