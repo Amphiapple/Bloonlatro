@@ -39,7 +39,13 @@ SMODS.Joker { --Marine
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -88,7 +94,13 @@ SMODS.Joker { --Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -136,7 +148,13 @@ SMODS.Joker { --Crushing Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -191,7 +209,13 @@ SMODS.Joker { --Boom Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -243,7 +267,13 @@ SMODS.Joker { --Cold Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -292,7 +322,13 @@ SMODS.Joker { --Energy Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end
@@ -384,7 +420,13 @@ SMODS.Joker { --Champion Sentry
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
         end
     end

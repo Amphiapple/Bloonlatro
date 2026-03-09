@@ -34,9 +34,6 @@ JokerDisplay.Definitions["j_bloons_double_shot_buccaneer"] = { --Double Shot
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY },
     },
-    reminder_text = {
-        { text = "(Play)" }
-    },
     calc_function = function(card)
         local count = 0
         local idx_by_id = {}

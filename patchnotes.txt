@@ -32,7 +32,10 @@ Fixes:
 - Sky Shredder should no longer stop counting Aces when it upgrades
 - Enforcer no longer has a shadow clone in the code
 - Common Ninjas can be bought again at full Joker slots on the latest SMODS version
+- Double Shot and Bloonjitsu should now work with blueprint effects
 - Central Market should no longer be blueprint compatible
+- Multiple sentries expiring simultaneously should no longer keep extra joker slots
+- Goliath Doomship should no longer give effects to debuffed Aces
 - VTSG military sacrifice should correctly retrigger cards
 - VTSG magic sacrifice should correctly create consumables
 - Challenge bans adjusted for new jokers

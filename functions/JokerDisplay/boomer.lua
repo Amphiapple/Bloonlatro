@@ -190,7 +190,7 @@ JokerDisplay.Definitions["j_bloons_moab_domination"] = { --MOAB Domination
         if text ~= 'Unknown' then
             for k, v in ipairs(sorted_cards) do
                 local last_card = sorted_cards[k-1] or nil
-                if (last_card and v:get_id() <= last_card:get_id() or SMODS.has_no_rank(v)) and not v.debuff then
+                if (last_card and v:get_id() >= last_card:get_id() or SMODS.has_no_rank(v)) and not v.debuff then
                     count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
                     break
                 end
@@ -205,7 +205,7 @@ JokerDisplay.Definitions["j_bloons_moab_domination"] = { --MOAB Domination
         local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
         for k, v in ipairs(sorted_cards) do
             last_card = sorted_cards[k-1]
-            if last_card and v:get_id() <= last_card:get_id() or SMODS.has_no_rank(v) and not v.debuff then
+            if last_card and v:get_id() >= last_card:get_id() or SMODS.has_no_rank(v) and not v.debuff then
                 active = false
             end
             if v == playing_card then

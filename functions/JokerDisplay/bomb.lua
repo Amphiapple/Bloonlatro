@@ -340,7 +340,7 @@ JokerDisplay.Definitions["j_bloons_cluster_bombs"] = { --Cluster Bombs
     calc_function = function(card)
         local text, _, _ = JokerDisplay.evaluate_hand()
         local repeat_hand = text == card.ability.extra.poker_hand
-        card.joker_display_values.chips = repeat_hand and card.ability.extra.chips or 1
+        card.joker_display_values.chips = repeat_hand and card.ability.extra.chips or 0
         card.joker_display_values.poker_hand = card.ability.extra.poker_hand ~= "" and card.ability.extra.poker_hand or "None"
     end,
 }

@@ -611,9 +611,10 @@ SMODS.Joker { --MOAB Domination
         name = 'MOAB Domination',
         text = {
             'Retrigger scoring cards',
-            'until rank is not higher',
-            'than the previous card',
-            'and give {X:mult,C:white}X#1#{} Mult',
+            'with a lower rank than',
+            'all previously scored cards',
+            'First card without a lower',
+            'rank gives {X:mult,C:white}X#1#{} Mult',
         }
     },
 	atlas = 'Joker',
@@ -637,7 +638,7 @@ SMODS.Joker { --MOAB Domination
                     last_card = context.scoring_hand[k-1]
                 end
             end
-            if not (last_card and context.other_card:get_id() <= last_card:get_id() or SMODS.has_no_rank(context.other_card)) then
+            if not (last_card and context.other_card:get_id() >= last_card:get_id() or SMODS.has_no_rank(context.other_card)) then
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retrigger,
@@ -650,7 +651,7 @@ SMODS.Joker { --MOAB Domination
                     last_card = context.scoring_hand[k-1]
                 end
             end
-            if last_card and context.other_card:get_id() <= last_card:get_id() or SMODS.has_no_rank(context.other_card) then
+            if last_card and context.other_card:get_id() >= last_card:get_id() or SMODS.has_no_rank(context.other_card) then
                 card.ability.extra.active = false
                 return {
                     x_mult = card.ability.extra.Xmult

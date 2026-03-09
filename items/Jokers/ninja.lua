@@ -145,11 +145,9 @@ SMODS.Joker { --Double Shot
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if not context.blueprint then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Diamonds') then
-                        count = count + 1
-                    end
+            for k, v in ipairs(context.scoring_hand) do
+                if v:is_suit('Diamonds') then
+                    count = count + 1
                 end
             end
             if count >= card.ability.extra.number then
@@ -189,11 +187,9 @@ SMODS.Joker { --Bloonjitsu
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if not context.blueprint then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Diamonds') then
-                        count = count + 1
-                    end
+            for k, v in ipairs(context.scoring_hand) do
+                if v:is_suit('Diamonds') then
+                    count = count + 1
                 end
             end
             if count >= card.ability.extra.number then

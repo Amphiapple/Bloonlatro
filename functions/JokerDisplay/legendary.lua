@@ -24,15 +24,17 @@ JokerDisplay.Definitions["j_bloons_goliath_doomship"] = { --Goliath Doomship
     calc_function = function(card)
         local held_count, scoring_count = 0, 0
         local highlighted_aces = {}
-        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         local playing_hand = next(G.play.cards)
-        for _, scoring_card in pairs(scoring_hand) do
-            if scoring_card:get_id() == 14 then
-                scoring_count = scoring_count + JokerDisplay.calculate_card_triggers(scoring_card, nil, true)
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if scoring_card:get_id() == 14 then
+                    scoring_count = scoring_count + JokerDisplay.calculate_card_triggers(scoring_card, nil, true)
+                end
             end
         end
         for _, hand_card in pairs(G.hand.cards) do
-            if hand_card:get_id() == 14 then
+            if hand_card:get_id() == 14 and not (hand_card.facing == 'back') and not hand_card.debuff then
                 if hand_card.highlighted then
                     if not playing_hand then
                         table.insert(highlighted_aces, hand_card)

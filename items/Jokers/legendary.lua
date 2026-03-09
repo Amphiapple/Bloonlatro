@@ -83,20 +83,22 @@ SMODS.Joker { --Goliath Doomship
                 }
             end
         end
-        if context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.blueprint then
+        if context.discard and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                    local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                    G.GAME.consumeable_buffer = 0
-                    return true
-                end)
-            }))
-            card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+            end
         end
         if context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -166,9 +168,16 @@ SMODS.Joker { --Magus Perfectus
                     local enhancement = pseudorandom_element(enhancement_pool, 'magus_perfectus')
                     local edition = poll_edition('magus_perfectus', nil, true, true)
                     local seal = SMODS.poll_seal({type_key = 'magus_perfectus', guaranteed = true})
+                    local flip = card.facing == 'back'
+                    if flip then
+                        card:flip()
+                    end
                     card:set_ability(enhancement, nil, true)
                     card:set_edition(edition, true)
                     card:set_seal(seal, nil, true)
+                    if flip then
+                        card:flip()
+                    end
                     return true
                 end
             }))

@@ -520,9 +520,9 @@ SMODS.Joker { --Snowstorm
         name = 'Snowstorm',
         text = {
             '{C:attention}Freeze{} all scoring cards',
-            'on {C:attention}first hand{} of round, gain',
-            '{C:attention}+#1#{} hand size this round',
-            'per {C:attention}#2#{} cards frozen',
+            'on {C:attention}first hand{} of round and',
+            'gain {C:attention}+#1#{} hand size every other',
+            'card this Joker {C:attention}Freezes{}'
         }
     }, 
 	atlas = 'Joker',
@@ -532,12 +532,12 @@ SMODS.Joker { --Snowstorm
     blueprint_compat = true,
     config = {
         base = 'ice',
-        extra = { hand_size = 1, rate = 2 } --Variables: hand_size = extra hand size, rate = hand size rate
+        extra = { hand_size = 1 } --Variables: hand_size = extra hand size
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.hand_size, card.ability.extra.rate } }
+        return { vars = { card.ability.extra.hand_size } }
     end,
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
