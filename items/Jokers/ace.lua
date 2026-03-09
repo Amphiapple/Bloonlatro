@@ -302,7 +302,13 @@ SMODS.Joker { --Exploding Pineapple
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
             end
             return {
                 message = card.ability.extra.hands..'',

@@ -42,7 +42,7 @@ JokerDisplay.Definitions["j_bloons_cold_snap"] = { --Cold Snap
         for _, playing_card in ipairs(G.hand.cards) do
             if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
-                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                    count = count + 1
                 end
             end
         end
