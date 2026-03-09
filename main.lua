@@ -1,5 +1,10 @@
 Bloonlatro = {}
 Bloonlatro.config = SMODS.current_mod.config
+G.SETTINGS.bloonlatro_tutorial_complete = false
+G.SETTINGS.bloonlatro_tutorial_progress = {
+    hold_parts = {},
+    completed_parts = {},
+}
 
 SMODS.Atlas({
 	key = "modicon",
@@ -15,6 +20,8 @@ local functions = {
     'hook',
     'deck_ui',
     'collection',
+    'tutorial',
+    'badges',
 
     --Crossmod files
     'bunco',
