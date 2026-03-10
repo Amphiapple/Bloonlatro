@@ -15,7 +15,7 @@ SMODS.Joker { --Boomerang Monkey
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -46,7 +46,7 @@ SMODS.Joker { --Improved Rangs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1, number = 2 } --Variables: retrigger = retrigger amount, number = number of cards retriggered
     },
 
@@ -81,7 +81,7 @@ SMODS.Joker { --Glaives
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { chips = 1, current = 0 } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -118,7 +118,7 @@ SMODS.Joker { --Glaive Ricochet
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { chips = 2, current = 0, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -170,7 +170,7 @@ SMODS.Joker { --MOAR Glaives
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { chips = 2, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 } } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -236,7 +236,7 @@ SMODS.Joker { --Glaive Lord
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { chips = 2, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -324,7 +324,7 @@ SMODS.Joker { --Faster Throwing
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -354,7 +354,7 @@ SMODS.Joker { --Faster Rangs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1, number = 2 } --Variables: retrigger = retrigger amount
     },
 
@@ -388,7 +388,7 @@ SMODS.Joker { --Bionic Boomerang
     blueprint_compat = true,
     enhancement_gate = 'm_steel',
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -422,7 +422,7 @@ SMODS.Joker { --Turbo Charge
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -456,7 +456,7 @@ SMODS.Joker { --Perma Charge
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 3 } --Variables: retrigger = retrigger amount
     },
 
@@ -490,7 +490,7 @@ SMODS.Joker { --Long Range Rangs
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -521,7 +521,7 @@ SMODS.Joker { --Red Hot Rangs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -559,7 +559,7 @@ SMODS.Joker { --Kylie Boomerang
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -590,7 +590,7 @@ SMODS.Joker { --MOAB Press
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -623,7 +623,7 @@ SMODS.Joker { --MOAB Domination
 	cost = 9,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { retrigger = 1, Xmult = 2, active = true } --Variables: retrigger = retrigger amount, Xmult = Xmult
     },
 

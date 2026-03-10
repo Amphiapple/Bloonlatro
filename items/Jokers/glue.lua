@@ -15,7 +15,7 @@ SMODS.Joker { --Glue Gunner
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'glue',
+        tower_info = { base = "Glue Gunner", category = "primary" },
         extra = { mult = 10 } --Variables: mult = +mult
     },
 
@@ -56,7 +56,7 @@ SMODS.Joker { --Corrosive Glue
     perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        base = 'glue',
+        tower_info = { base = "Glue Gunner", category = "primary" },
         extra = { chips = 8, current = 0 } --Variables: chips = +chip gain for each glued card, current = current +chips
     },
 
@@ -97,7 +97,7 @@ SMODS.Joker { --The Bloon Solver
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'glue',
+        tower_info = { base = "Glue Gunner", category = "primary" },
         extra = { mult = 2 } --Variables: mult = permanent +mult
     },
 
@@ -139,7 +139,7 @@ SMODS.Joker { --Glue Hose
 	cost = 6,
     blueprint_compat = false,
     config = {
-        base = 'glue',
+        tower_info = { base = "Glue Gunner", category = "primary" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -181,7 +181,7 @@ SMODS.Joker { --MOAB Glue
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'glue',
+        tower_info = { base = "Glue Gunner", category = "primary" },
         extra = { Xmult = 2, face = false } --Variables: Xmult = 2, face = if face cards score
     },
 
@@ -224,7 +224,7 @@ SMODS.Joker { --Relentless Glue
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        base = 'glue',
+        tower_info = { base = "Glue Gunner", category = "primary" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 

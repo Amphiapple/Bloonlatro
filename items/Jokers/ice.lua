@@ -16,7 +16,7 @@ SMODS.Joker { --Ice Monkey
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { chips = 40, limit = 3, counter = 3 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
     },
 
@@ -84,7 +84,7 @@ SMODS.Joker { --Permafrost
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { chips = 20 } --Variables: money = dollars, chips = +chips
     },
 
@@ -122,7 +122,7 @@ SMODS.Joker { --Cold Snap
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { money = 1 } --Variables: money = dollars
     },
 
@@ -162,7 +162,7 @@ SMODS.Joker { --Ice Shards
     perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult per thawed frozen card, current = current +mult
     },
 
@@ -262,7 +262,7 @@ SMODS.Joker { --Embrittlement
     perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult per destroyed frozen card, current = current Xmult
     },
 
@@ -340,7 +340,7 @@ SMODS.Joker { --Super Brittle
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { Xmult = 1.5, num = 1, denom = 4 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
@@ -388,7 +388,7 @@ SMODS.Joker { --Enhanced Freeze
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { chips = 40, limit = 2, counter = 2 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
     },
 
@@ -454,7 +454,7 @@ SMODS.Joker { --Deep Freeze
     blueprint_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -483,7 +483,7 @@ SMODS.Joker { --Arctic Wind
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         h_size = 1, --Variables: h_size == hand size
     },
 
@@ -531,8 +531,8 @@ SMODS.Joker { --Snowstorm
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ice',
-        extra = { hand_size = 1 } --Variables: hand_size = extra hand size
+        tower_info = { base = "Ice Monkey", category = "primary" },
+        extra = { hand_size = 1, rate = 2 } --Variables: hand_size = extra hand size, rate = hand size rate
     },
 
     loc_vars = function(self, info_queue, card)
@@ -593,7 +593,7 @@ SMODS.Joker { --Absolute Zero
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { Xmult = 0.25 } --Variables: Xmult = Xmult gain
     },
 
@@ -631,7 +631,7 @@ SMODS.Joker { --Larger Radius
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { mult = 10, limit = 3, counter = 3 } --Variables: mult = +mult, limit = number of hands for freeze, counter = hand index
     },
 
@@ -697,7 +697,7 @@ SMODS.Joker { --Re-freeze
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { retrigger = 1 } --Variables = retrigger = retrigger amount
     },
 
@@ -732,7 +732,7 @@ SMODS.Joker { --Cryo Cannon
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { mult = 10, num = 1, denom = 3 } --Variables: mult = +mult, num/denom = probability fraction
     },
 
@@ -774,7 +774,7 @@ SMODS.Joker { --Icicles
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { Xmult = 1.3, num = 1, denom = 2 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
@@ -815,7 +815,7 @@ SMODS.Joker { --Icicle Impale
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'ice',
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 

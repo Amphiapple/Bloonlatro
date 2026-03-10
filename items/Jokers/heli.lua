@@ -15,7 +15,7 @@ SMODS.Joker { --Heli Pilot
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'heli',
+        tower_info = { base = "Heli Pilot", category = "military" },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -60,7 +60,7 @@ SMODS.Joker { --Quad Darts
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'heli',
+        tower_info = { base = "Heli Pilot", category = "military" },
         extra = { mult = 1, number = 4, loss = 2, current = 0 } --Variables: mult = +mult gain or loss, current = current +mult
     },
 
@@ -110,7 +110,7 @@ SMODS.Joker { --Apache Prime
 	cost = 9,
     blueprint_compat = true,
     config = {
-        base = 'heli',
+        tower_info = { base = "Heli Pilot", category = "military" },
         extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } --Variables: Xmult = Xmult for each rank
     },
 
@@ -158,7 +158,7 @@ SMODS.Joker { --Downdraft
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'heli',
+        tower_info = { base = "Heli Pilot", category = "military" },
         extra = { hands = 1, boss_hands = 2, counter = 0 } --Variables: hands = extra hands, scored_chips = chips for first hands, counter = amount of blowback hands left
     },
 
@@ -228,7 +228,7 @@ SMODS.Joker { --Special Poperations
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'heli',
+        tower_info = { base = "Heli Pilot", category = "military" },
         extra = {marine = 5, cash = 9, counter = 0 } --Variables: hands = extra hands, marine = hands for marine, cash = hands for cash drop, current = current hands
     },
 
@@ -298,7 +298,7 @@ SMODS.Joker { --Comanche Defense
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'heli',
+        tower_info = { base = "Heli Pilot", category = "military" },
         extra = { chips = 30, current = 30, mini_chips = 40 } --Variables: chips = base chips
     },
 

@@ -15,7 +15,7 @@ SMODS.Joker { --Mortar Monkey
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'mortar',
+        tower_info = { base = "Mortar Monkey", category = "military" },
         extra = { num = 1, denom = 2, mult = 6 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
@@ -49,7 +49,7 @@ SMODS.Joker { --Burny Stuff
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'mortar',
+        tower_info = { base = "Mortar Monkey", category = "military" },
         extra = { num = 1, denom = 4 } --Variables: num/denom = probability fraction 
     },
 
@@ -81,7 +81,7 @@ SMODS.Joker { --Shell Shock
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'mortar',
+        tower_info = { base = "Mortar Monkey", category = "military" },
         extra = { num = 1, denom = 2, mult = 8 } --Variables: num/denom = probability fraction 
     },
 
@@ -118,7 +118,7 @@ SMODS.Joker { --Artillery Battery
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'mortar',
+        tower_info = { base = "Mortar Monkey", category = "military" },
         extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 } --Variables: num/denom = probability fraction, chips = +chips, mult = +mult, Xmult = Xmult
 
     },
@@ -173,7 +173,7 @@ SMODS.Joker { --Blooncineration
 	cost = 8,
     blueprint_compat = false,
     config = {
-        base = 'mortar',
+        tower_info = { base = "Mortar Monkey", category = "military" },
         extra = { Xmult = 1 } --Variables: Xmult = Xmult
     },
 
