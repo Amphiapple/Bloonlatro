@@ -1,26 +1,28 @@
-JokerDisplay.Definitions["j_bloons_alch"] = { --Alchemist
+JokerDisplay.Definitions["j_bloons_alchemist"] = { --Alchemist
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 1 and 1 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.count = active and 1 or 0
     end
 }
 
-JokerDisplay.Definitions["j_bloons_largerpots"] = { --Larger Potions
+JokerDisplay.Definitions["j_bloons_larger_potions"] = { --Larger Potions
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 1 and 2 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.count = active and 2 or 0
     end
 }
 
-JokerDisplay.Definitions["j_bloons_amd"] = { --Acidic Mixture Dip
+JokerDisplay.Definitions["j_bloons_acidic_mixture_dip"] = { --Acidic Mixture Dip
     extra = {
         {
             { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -34,13 +36,16 @@ JokerDisplay.Definitions["j_bloons_amd"] = { --Acidic Mixture Dip
     end
 }
 
-JokerDisplay.Definitions["j_bloons_brew"] = { --Berserker Brew
+JokerDisplay.Definitions["j_bloons_berserker_brew"] = { --Berserker Brew
 }
 
-JokerDisplay.Definitions["j_bloons_stim"] = { --Stronger Stimulant
+JokerDisplay.Definitions["j_bloons_stronger_stimulant"] = { --Stronger Stimulant
 }
 
-JokerDisplay.Definitions["j_bloons_acid"] = { --Stronger Acid
+JokerDisplay.Definitions["j_bloons_permanent_brew"] = { --Permanent Brew
+}
+
+JokerDisplay.Definitions["j_bloons_stronger_acid"] = { --Stronger Acid
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
@@ -55,16 +60,17 @@ JokerDisplay.Definitions["j_bloons_acid"] = { --Stronger Acid
     },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left <= 1 and 1 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.count = active and 1 or 0
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'acid')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
 
-JokerDisplay.Definitions["j_bloons_perishing"] = { --Perishing Potions
+JokerDisplay.Definitions["j_bloons_perishing_potions"] = { --Perishing Potions
 }
 
-JokerDisplay.Definitions["j_bloons_conc"] = { --Unstable Concoction
+JokerDisplay.Definitions["j_bloons_unstable_concoction"] = { --Unstable Concoction
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -89,7 +95,7 @@ JokerDisplay.Definitions["j_bloons_conc"] = { --Unstable Concoction
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tt4"] = { --Transforming Tonic
+JokerDisplay.Definitions["j_bloons_transforming_tonic"] = { --Transforming Tonic
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -100,7 +106,7 @@ JokerDisplay.Definitions["j_bloons_tt4"] = { --Transforming Tonic
     end
 }
 
-JokerDisplay.Definitions["j_bloons_tt5"] = { --Total Transformation
+JokerDisplay.Definitions["j_bloons_total_transformation"] = { --Total Transformation
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -113,20 +119,21 @@ JokerDisplay.Definitions["j_bloons_tt5"] = { --Total Transformation
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fastalch"] = { --Faster Throwing
+JokerDisplay.Definitions["j_bloons_faster_throwing"] = { --Faster Throwing
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
     },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.count = G.GAME and G.GAME.current_round.hands_left == 2 and 1 or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 2 and not next(G.play.cards) or G.GAME.current_round.hands_left == 1 and next(G.play.cards))
+        card.joker_display_values.count = active and 1 or 0
     end
 }
-JokerDisplay.Definitions["j_bloons_pools"] = { --Acid Pools
+JokerDisplay.Definitions["j_bloons_acid_pools"] = { --Acid Pools
 }
 
-JokerDisplay.Definitions["j_bloons_l2g"] = { --Lead to Gold
+JokerDisplay.Definitions["j_bloons_lead_to_gold"] = { --Lead to Gold
     reminder_text = {
         { text = "(" },
         { text = "Steel", colour = G.C.ORANGE },
@@ -134,7 +141,7 @@ JokerDisplay.Definitions["j_bloons_l2g"] = { --Lead to Gold
     },
 }
 
-JokerDisplay.Definitions["j_bloons_r2g"] = { --Rubber to Gold
+JokerDisplay.Definitions["j_bloons_rubber_to_gold"] = { --Rubber to Gold
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -145,13 +152,14 @@ JokerDisplay.Definitions["j_bloons_r2g"] = { --Rubber to Gold
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bma"] = { --Lead to Gold
+JokerDisplay.Definitions["j_bloons_bloon_master_alchemist"] = { --Bloon Master Alchemist
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_left <= 1 and "Active!" or "Inactive"
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.active = active and "Active!" or "Inactive"
     end
 }

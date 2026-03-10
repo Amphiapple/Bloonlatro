@@ -1,5 +1,5 @@
 SMODS.Joker { --Sniper Monkey
-    key = 'sniper',
+    key = 'sniper_monkey',
     name = 'Sniper Monkey',
 	loc_txt = {
         name = 'Sniper Monkey',
@@ -53,7 +53,7 @@ SMODS.Joker { --Sniper Monkey
 }
 
 SMODS.Joker { --Full Metal Jacket
-    key = 'fmj',
+    key = 'full_metal_jacket',
     name = 'Full Metal Jacket',
 	loc_txt = {
         name = 'Full Metal Jacket',
@@ -107,7 +107,7 @@ SMODS.Joker { --Full Metal Jacket
 }
 
 SMODS.Joker { --Large Calibre
-    key = 'calibre',
+    key = 'large_calibre',
     name = 'Large Calibre',
 	loc_txt = {
         name = 'Large Calibre',
@@ -164,7 +164,7 @@ SMODS.Joker { --Large Calibre
 }
 
 SMODS.Joker { --Deadly Precision
-    key = 'dprec',
+    key = 'deadly_precision',
     name = 'Deadly Precision',
 	loc_txt = {
         name = 'Deadly Precision',
@@ -218,7 +218,7 @@ SMODS.Joker { --Deadly Precision
 }
 
 SMODS.Joker { --Maim MOAB
-    key = 'maim',
+    key = 'maim_moab',
     name = 'Maim MOAB',
 	loc_txt = {
         name = 'Maim MOAB',
@@ -281,7 +281,7 @@ SMODS.Joker { --Maim MOAB
 }
 
 SMODS.Joker { --Cripple MOAB
-    key = 'cripple',
+    key = 'cripple_moab',
     name = 'Cripple MOAB',
 	loc_txt = {
         name = 'Cripple MOAB',
@@ -339,7 +339,7 @@ SMODS.Joker { --Cripple MOAB
             if card.ability.extra.counter == card.ability.extra.limit then
                 if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then 
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
-                    G.GAME.blind:disable_blind_stickers()
+                    G.GAME.blind:disable_blind_modifiers()
                     G.GAME.blind:disable()
                 end
                 return {
@@ -351,7 +351,7 @@ SMODS.Joker { --Cripple MOAB
 }
 
 SMODS.Joker { --Night Vision Goggles
-    key = 'nightvis',
+    key = 'night_vision_goggles',
     name = 'Night Vision Goggles',
     loc_txt = {
         name = 'Night Vision Goggles',
@@ -381,7 +381,7 @@ SMODS.Joker { --Night Vision Goggles
 }
 
 SMODS.Joker { --Shrapnel Shot
-    key = 'shraps',
+    key = 'shrapnel_shot',
     name = 'Shrapnel Shot',
     loc_txt = {
         name = 'Shrapnel Shot',
@@ -414,7 +414,7 @@ SMODS.Joker { --Shrapnel Shot
 }
 
 SMODS.Joker { --Bouncing Bullet
-    key = 'bouncing',
+    key = 'bouncing_bullet',
     name = 'Bouncing Bullet',
     loc_txt = {
         name = 'Bouncing Bullet',
@@ -452,7 +452,7 @@ SMODS.Joker { --Bouncing Bullet
 }
 
 SMODS.Joker { --Supply Drop
-    key = 'supply',
+    key = 'supply_drop',
     name = 'Supply Drop',
     loc_txt = {
         name = 'Supply Drop',
@@ -500,7 +500,7 @@ SMODS.Joker { --Supply Drop
             if card.ability.extra.counter == card.ability.extra.limit and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.E_MANAGER:add_event(Event({
                     func = function() 
-                        local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'supply')
+                        local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'supply_drop')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         return true
@@ -516,7 +516,7 @@ SMODS.Joker { --Supply Drop
 }
 
 SMODS.Joker { --Elite Sniper
-    key = 'esniper',
+    key = 'elite_sniper',
     name = 'Elite Sniper',
     loc_txt = {
         name = 'Elite Sniper',
@@ -564,11 +564,12 @@ SMODS.Joker { --Elite Sniper
             if card.ability.extra.counter == card.ability.extra.limit and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.E_MANAGER:add_event(Event({
                     func = function() 
-                        local card = create_card('Power', G.consumeables, nil, nil, nil, nil, nil, 'esniper')
+                        local card = create_card('Power', G.consumeables, nil, nil, nil, nil, nil, 'elite_sniper')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         return true
-                    end}))
+                    end
+                }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.YELLOW})
                 return {
                     dollars = card.ability.extra.money,
@@ -580,8 +581,8 @@ SMODS.Joker { --Elite Sniper
 }
 
 SMODS.Joker { --Fast Firing
-    key = 'fastsniper',
-    name = 'Fast Firing',
+    key = 'fast_firing_sniper',
+    name = 'Fast Firing (Sniper)',
 	loc_txt = {
         name = 'Fast Firing',
         text = {
@@ -633,7 +634,7 @@ SMODS.Joker { --Fast Firing
 }
 
 SMODS.Joker { --Even Faster Firing
-    key = 'evensniper',
+    key = 'even_faster_firing',
     name = 'Even Faster Firing',
 	loc_txt = {
         name = 'Even Faster Firing',
@@ -687,7 +688,7 @@ SMODS.Joker { --Even Faster Firing
 }
 
 SMODS.Joker { --Semi Automatic
-    key = 'semiauto',
+    key = 'semi_automatic',
     name = 'Semi Automatic',
 	loc_txt = {
         name = 'Semi Automatic',
@@ -741,7 +742,7 @@ SMODS.Joker { --Semi Automatic
 }
 
 SMODS.Joker { --Full Auto Rifle
-    key = 'fauto',
+    key = 'full_auto_rifle',
     name = 'Full Auto Rifle',
 	loc_txt = {
         name = 'Full Auto Rifle',
@@ -773,7 +774,7 @@ SMODS.Joker { --Full Auto Rifle
 }
 
 SMODS.Joker { --Elite Defender
-    key = 'edef',
+    key = 'elite_defender',
     name = 'Elite Defender',
     loc_txt = {
         name = 'Elite Defender',

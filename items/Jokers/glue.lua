@@ -1,5 +1,5 @@
 SMODS.Joker { --Glue Gunner
-    key = 'glue',
+    key = 'glue_gunner',
     name = 'Glue Gunner',
 	loc_txt = {
         name = 'Glue Gunner',
@@ -37,7 +37,7 @@ SMODS.Joker { --Glue Gunner
 }
 
 SMODS.Joker { --Corrosive Glue
-    key = 'corrosive',
+    key = 'corrosive_glue',
     name = 'Corrosive Glue',
     loc_txt = {
         name = 'Corrosive Glue',
@@ -79,8 +79,92 @@ SMODS.Joker { --Corrosive Glue
     end
 }
 
+SMODS.Joker { --The Bloon Solver
+    key = 'the_bloon_solver',
+    name = 'The Bloon Solver',
+	loc_txt = {
+        name = 'The Bloon Solver',
+        text = {
+            'Played {C:attention}cards{}',
+            'become {C:attention}Glued{} and',
+            'permanently gain {C:mult}+#1#{}',
+            'Mult when scored'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 5 },
+    rarity = 3,
+	cost = 7,
+    blueprint_compat = true,
+    config = {
+        base = 'glue',
+        extra = { mult = 2 } --Variables: mult = permanent +mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            context.other_card:set_ability('m_bloons_glued', nil, true)
+            if not context.other_card.glued then
+                context.other_card.glued = true
+            end 
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult
+            return {
+                extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
+                colour = G.C.CMULT,
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Glue Hose
+    key = 'glue_hose',
+    name = 'Glue Hose',
+	loc_txt = {
+        name = '#1#',
+        text = {
+            '{C:attention}Glue{} all cards',
+            'in first discard',
+            '{C:attention}Glued{} cards no longer',
+            'lose money when discarded'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 5 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = false,
+    config = {
+        base = 'glue',
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
+        local horse = SMODS.Mods['horse_mod'] and SMODS.Mods['horse_mod'].can_load and HORSEMOD
+        return { vars = { horse and 'Glue Horse' or 'Glue Hose' } }
+    end,
+    calculate = function(self, card, context)
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff and not context.blueprint then
+            context.other_card:set_ability('m_bloons_glued', nil, true)
+            return {
+                message = 'Glued!',
+                colour = G.C.MONEY
+            }
+        end
+    end
+}
+
 SMODS.Joker { --MOAB Glue
-    key = 'mglue',
+    key = 'moab_glue',
     name = 'MOAB Glue',
 	loc_txt = {
         name = 'MOAB Glue',
@@ -122,50 +206,8 @@ SMODS.Joker { --MOAB Glue
     end
 }
 
-SMODS.Joker { --Glue Hose
-    key = 'glose',
-    name = 'Glue Hose',
-	loc_txt = {
-        name = '#1#',
-        text = {
-            '{C:attention}Glue{} all cards',
-            'in first discard',
-            '{C:attention}Glued{} cards no longer',
-            'lose money when discarded'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 8, y = 5 },
-    rarity = 2,
-	cost = 6,
-    blueprint_compat = false,
-    config = {
-        base = 'glue',
-    },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
-        local horse = SMODS.Mods['horse_mod'] and SMODS.Mods['horse_mod'].can_load and HORSEMOD
-        return { vars = { horse and 'Glue Horse' or 'Glue Hose' } }
-    end,
-    calculate = function(self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            local eval = function()
-                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.discard and G.GAME.current_round.discards_used == 0 and not context.other_card.debuff and not context.blueprint then
-            context.other_card:set_ability('m_bloons_glued', nil, true)
-            return {
-                message = 'Glued!',
-                colour = G.C.MONEY
-            }
-        end
-    end
-}
-
 SMODS.Joker { --Relentless Glue
-    key = 'relentless',
+    key = 'relentless_glue',
     name = 'Relentless Glue',
     loc_txt = {
         name = 'Relentless Glue',
@@ -194,48 +236,6 @@ SMODS.Joker { --Relentless Glue
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger
-            }
-        end
-    end
-}
-
-SMODS.Joker { --The Bloon Solver
-    key = 'solver',
-    name = 'The Bloon Solver',
-	loc_txt = {
-        name = 'The Bloon Solver',
-        text = {
-            'Played {C:attention}cards{}',
-            'become {C:attention}Glued{} and',
-            'permanently gain {C:mult}+#1#{}',
-            'Mult when scored'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 5, y = 5 },
-    rarity = 3,
-	cost = 7,
-    blueprint_compat = true,
-    config = {
-        base = 'glue',
-        extra = { mult = 2 } --Variables: mult = permanent +mult
-    },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
-        return { vars = { card.ability.extra.mult } }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            context.other_card:set_ability('m_bloons_glued', nil, true)
-            if not context.other_card.glued then
-                context.other_card.glued = true
-            end 
-            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
-            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult
-            return {
-                extra = {message = localize('k_upgrade_ex'), colour = G.C.MULT},
-                colour = G.C.CMULT,
             }
         end
     end

@@ -1,8 +1,8 @@
-SMODS.Joker { --MOAB Domination
-    key = 'mdom',
-    name = 'MOAB Domination',
+SMODS.Joker { --Glaive Dominus
+    key = 'glaive_dominus',
+    name = 'Glaive Dominus',
 	loc_txt = {
-        name = 'MOAB Domination',
+        name = 'Glaive Dominus',
         text = {
             'Play each {C:attention}Boss Blind{} twice,',
             'This Joker gains {X:mult,C:white}X#1#{} Mult',
@@ -11,8 +11,8 @@ SMODS.Joker { --MOAB Domination
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 26 },
-    soul_pos = { x = 0, y = 27 },
+	pos = { x = 1, y = 27 },
+    soul_pos = { x = 1, y = 28 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -41,19 +41,19 @@ SMODS.Joker { --MOAB Domination
     end
 }
 
-SMODS.Joker { --Flying Fortress
-    key = 'fortress',
-    name = 'Flying Fortress',
+SMODS.Joker { --Goliath Doomship
+    key = 'goliath_doomship',
+    name = 'Goliath Doomship',
 	loc_txt = {
-        name = 'Flying Fortress',
+        name = 'Goliath Doomship',
         text = {
             'Apply the effects',
             'of all {C:attention}Seals{} to {C:attention}Aces{}',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 26 },
-    soul_pos = { x = 1, y = 27 },
+	pos = { x = 10, y = 27 },
+    soul_pos = { x = 10, y = 28 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = false,
@@ -83,20 +83,22 @@ SMODS.Joker { --Flying Fortress
                 }
             end
         end
-        if context.discard and context.other_card:get_id() == 14 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.blueprint then
+        if context.discard and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                    local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                    G.GAME.consumeable_buffer = 0
-                    return true
-                end)
-            }))
-            card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.0,
+                    func = (function()
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+            end
         end
         if context.end_of_round and context.cardarea == G.hand and context.other_card:get_id() == 14 and not context.other_card.debuff and not context.blueprint then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -129,58 +131,65 @@ SMODS.Joker { --Flying Fortress
     end
 }
 
-SMODS.Joker { --Permanent Brew
-    key = 'pbrew',
-    name = 'Permanent Brew',
+SMODS.Joker { --Magus Perfectus
+    key = 'magus_perfectus',
+    name = 'Magus Perfectus',
 	loc_txt = {
-        name = 'Permanent Brew',
+        name = 'Magus Perfectus',
         text = {
-            'Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
-            '{C:dark_edition}Polychrome{} to all scoring cards',
-            'Cards with {C:dark_edition}Foil{} or {C:dark_edition}Holographic{}',
-            'always become {C:dark_edition}Polychrome{}'
+            'When round begins,',
+            'add a random {C:enhanced}Enhancement{},',
+            '{C:dark_edition}Edition{}, and a {C:attention}Seal{} to a',
+            'random card in hand',
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 26 },
-    soul_pos = { x = 2, y = 27 },
+	pos = { x = 0, y = 29 },
+    soul_pos = { x = 0, y = 30 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        base = 'wiz',
     },
 
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
-    end,
     calculate = function(self, card, context)
-        if context.before then
-            for k, v in pairs(context.scoring_hand) do
-                if not v.debuff then
-                    if not v.edition then
-                        local edition = poll_edition('pbrew', nil, true, true)
-                        v:set_edition(edition, true)
-                    elseif v.edition.foil or v.edition.holo then
-                        v:set_edition('e_polychrome', true)
+        if context.first_hand_drawn then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local eligible_cards = {}
+                    for k, v in ipairs(G.hand.cards) do
+                        if not v.debuff then
+                            table.insert(eligible_cards, v)
+                        end
                     end
+                    local card = pseudorandom_element(eligible_cards, 'magus_perfectus') or G.hand.cards[1]
+                    local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
+                    local enhancement = pseudorandom_element(enhancement_pool, 'magus_perfectus')
+                    local edition = poll_edition('magus_perfectus', nil, true, true)
+                    local seal = SMODS.poll_seal({type_key = 'magus_perfectus', guaranteed = true})
+                    local flip = card.facing == 'back'
+                    if flip then
+                        card:flip()
+                    end
+                    card:set_ability(enhancement, nil, true)
+                    card:set_edition(edition, true)
+                    card:set_seal(seal, nil, true)
+                    if flip then
+                        card:flip()
+                    end
+                    return true
                 end
-            end
-            return {
-                message = 'Brewed!',
-                colour = G.C.MONEY
-            }
+            }))
         end
     end
 }
 
-SMODS.Joker { --Super Mines
-    key = 'smines',
-    name = 'Super Mines',
+SMODS.Joker { --Mega Massive Munitions Factory
+    key = 'mega_massive_munitions_factory',
+    name = 'Mega Massive Munitions Factory',
 	loc_txt = {
-        name = 'Super Mines',
+        name = 'Mega Massive Munitions Factory',
         text = {
             'Creates a {C:attention}Mine{} every {C:attention}#1#{C:inactive}#2#{} hands',
             'Spend mines to give {X:mult,C:white}X#3#{} Mult until',
@@ -190,8 +199,8 @@ SMODS.Joker { --Super Mines
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 26 },
-    soul_pos = { x = 3, y = 27 },
+	pos = { x = 9, y = 29 },
+    soul_pos = { x = 9, y = 30 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -255,19 +264,19 @@ SMODS.Joker { --Super Mines
 }
 
 SMODS.Joker { --Vengeful True Sun God
-    key = 'vtsg',
+    key = 'vengeful_true_sun_god',
     name = 'Vengeful True Sun God',
 	loc_txt = {
         name = 'Vengeful True Sun God',
         text = {
             'Sacrifice {C:attention}ALL{} other {C:attention}Jokers{}',
-            'to the {C:legendary,E:1,S:1.1}Vengeful True Sun God{}',
+            'to the {C:legendary,E:1,s:1.1}Vengeful True Sun God{}',
             '{C:inactive}(#1# #2# #3# #4#){}'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 26 },
-    soul_pos = { x = 4, y = 27 },
+	pos = { x = 15, y = 29 },
+    soul_pos = { x = 15, y = 30 },
     rarity = 4,
 	cost = 20,
 	blueprint_compat = true,
@@ -332,20 +341,20 @@ SMODS.Joker { --Vengeful True Sun God
                 mult = card.ability.extra.mult * mult,
                 x_mult = 1 + card.ability.extra.Xmult * Xmult
             }
-        elseif context.repetition and context.card_area == G.play then
+        elseif context.repetition and context.cardarea == G.play then
             local retrigger = math.floor(card.ability.extra.sacrifices['military'] * 2 / 9)
-            if retrigger > 1 then
+            if retrigger >= 1 then
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retrigger * retrigger,
                 }
             end
         elseif context.ending_shop then
-            local count = math.floor(card.ability.extra.sacrifices['military'] * 2 / 9)
+            local count = math.floor(card.ability.extra.sacrifices['magic'] * 2 / 9)
             for i = 1, count do
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local card = create_card('Consumeables',G.consumeables, nil, nil, nil, nil, nil, 'vtsg')
+                        local card = create_card('Consumeables',G.consumeables, nil, nil, nil, nil, nil, 'vengeful_true_sun_god')
                         card:set_edition({negative = true}, true)
                         card:add_to_deck()
                         G.consumeables:emplace(card)
@@ -353,7 +362,9 @@ SMODS.Joker { --Vengeful True Sun God
                     end
                 }))
             end
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*count, colour = G.C.DARK_EDITION})
+            if count > 0 then
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.consumable*count, colour = G.C.DARK_EDITION})
+            end
         end
     end,
     calc_dollar_bonus = function(self, card)

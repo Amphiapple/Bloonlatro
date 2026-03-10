@@ -1,18 +1,18 @@
-JokerDisplay.Definitions["j_bloons_ninja"] = { --Ninja Monkey
+JokerDisplay.Definitions["j_bloons_ninja_monkey"] = { --Ninja Monkey
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
     }
 }
 
-JokerDisplay.Definitions["j_bloons_discipline"] = { --Ninja Discipline
+JokerDisplay.Definitions["j_bloons_ninja_discipline"] = { --Ninja Discipline
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
     }
 }
 
-JokerDisplay.Definitions["j_bloons_sharpshur"] = { --Sharp Shurikens
+JokerDisplay.Definitions["j_bloons_sharp_shurikens"] = { --Sharp Shurikens
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -21,7 +21,7 @@ JokerDisplay.Definitions["j_bloons_sharpshur"] = { --Sharp Shurikens
     }
 }
 
-JokerDisplay.Definitions["j_bloons_doubleshur"] = { --Double Shot
+JokerDisplay.Definitions["j_bloons_double_shot_ninja"] = { --Double Shot
     text = {
         {
             border_nodes = {
@@ -50,7 +50,7 @@ JokerDisplay.Definitions["j_bloons_doubleshur"] = { --Double Shot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_jitsu"] = { --Bloonjitsu
+JokerDisplay.Definitions["j_bloons_bloonjitsu"] = { --Bloonjitsu
     text = {
         {
             border_nodes = {
@@ -79,7 +79,7 @@ JokerDisplay.Definitions["j_bloons_jitsu"] = { --Bloonjitsu
     end
 }
 
-JokerDisplay.Definitions["j_bloons_gmn"] = { --Grandmaster Ninja
+JokerDisplay.Definitions["j_bloons_grandmaster_ninja"] = { --Grandmaster Ninja
     text = {
         {
             border_nodes = {
@@ -102,7 +102,7 @@ JokerDisplay.Definitions["j_bloons_gmn"] = { --Grandmaster Ninja
     end
 }
 
-JokerDisplay.Definitions["j_bloons_distract"] = { --Distraction
+JokerDisplay.Definitions["j_bloons_distraction"] = { --Distraction
     extra = {
         {
             { text = "(", colour = G.C.GREEN, scale = 0.3 },
@@ -116,10 +116,10 @@ JokerDisplay.Definitions["j_bloons_distract"] = { --Distraction
     end
 }
 
-JokerDisplay.Definitions["j_bloons_espionage"] = { --Counter Espionage
+JokerDisplay.Definitions["j_bloons_counter_espionage"] = { --Counter Espionage
 }
 
-JokerDisplay.Definitions["j_bloons_shinobi"] = { --Shinobi Tactics
+JokerDisplay.Definitions["j_bloons_shinobi_tactics"] = { --Shinobi Tactics
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
@@ -143,7 +143,7 @@ JokerDisplay.Definitions["j_bloons_shinobi"] = { --Shinobi Tactics
     end
 }
 
-JokerDisplay.Definitions["j_bloons_sabo"] = { --Bloon Sabotage
+JokerDisplay.Definitions["j_bloons_bloon_sabotage"] = { --Bloon Sabotage
     reminder_text = {
         { text = "(" },
         { text = "Heart", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
@@ -162,7 +162,7 @@ JokerDisplay.Definitions["j_bloons_sabo"] = { --Bloon Sabotage
     end
 }
 
-JokerDisplay.Definitions["j_bloons_gsabo"] = { --Grand Saboteur
+JokerDisplay.Definitions["j_bloons_grand_saboteur"] = { --Grand Saboteur
     reminder_text = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "number", colour = G.C.ORANGE },
@@ -182,7 +182,7 @@ JokerDisplay.Definitions["j_bloons_gsabo"] = { --Grand Saboteur
     end
 }
 
-JokerDisplay.Definitions["j_bloons_seeking"] = { --Seeking Shuriken
+JokerDisplay.Definitions["j_bloons_seeking_shuriken"] = { --Seeking Shuriken
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -207,7 +207,7 @@ JokerDisplay.Definitions["j_bloons_caltrops"] = { --Caltrops
     },
 }
 
-JokerDisplay.Definitions["j_bloons_flash"] = { --Flash Bomb
+JokerDisplay.Definitions["j_bloons_flash_bomb"] = { --Flash Bomb
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
@@ -228,7 +228,7 @@ JokerDisplay.Definitions["j_bloons_flash"] = { --Flash Bomb
     end
 }
 
-JokerDisplay.Definitions["j_bloons_sticky"] = { --Sticky Bomb
+JokerDisplay.Definitions["j_bloons_sticky_bomb"] = { --Sticky Bomb
     text = {
         {
             border_nodes = {
@@ -251,7 +251,7 @@ JokerDisplay.Definitions["j_bloons_sticky"] = { --Sticky Bomb
     end
 }
 
-JokerDisplay.Definitions["j_bloons_mbomber"] = { --Master Bomber
+JokerDisplay.Definitions["j_bloons_master_bomber"] = { --Master Bomber
     text = {
         {
             border_nodes = {

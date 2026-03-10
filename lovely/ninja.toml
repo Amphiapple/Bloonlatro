@@ -3,22 +3,37 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Ninja full slots buy
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used) and"
-position = 'at'
-payload = "not (card.ability.set == 'Joker' and (card.ability.base == 'ninja' and card:is_rarity('Common') or #G.jokers.cards < G.jokers.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used)) and"
-match_indent = true
-
 # Ninja full slots select
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
-pattern = "if card.ability.set ~= 'Joker' or #G.jokers.cards < G.jokers.config.card_limit + card_limit then"
-position = 'at'
-payload = "if card.ability.set ~= 'Joker' or card.ability.base == 'ninja' and card:is_rarity('Common') or #G.jokers.cards < G.jokers.config.card_limit + card_limit then" 
+pattern = '''
+G.FUNCS.can_select_card = function(e)
+  local card = e.config.ref_table
+'''
+position = 'after'
+payload = '''
+  if card.ability.set == 'Joker' and card.ability.base and card.ability.base == 'ninja' and card:is_rarity('Common') then
+    e.config.colour = G.C.GREEN
+    e.config.button = 'use_card'
+    return
+  end
+'''
+match_indent = true
+
+# Ninja full slots buy
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''
+G.FUNCS.check_for_buy_space = function(card)
+'''
+position = 'after'
+payload = '''
+  if card.ability.set == 'Joker' and card.ability.base and card.ability.base == 'ninja' and card:is_rarity('Common') then
+    return true
+  end
+'''
 match_indent = true
 
 # Reappear check

@@ -112,7 +112,7 @@ function reset_spike_factory_card()
         end
     end
     if valid_spike_factory_cards[1] then
-        local spike_factory_card = pseudorandom_element(valid_spike_factory_cards, pseudoseed('spac'..G.GAME.round_resets.ante))
+        local spike_factory_card = pseudorandom_element(valid_spike_factory_cards, pseudoseed('spike_factory'..G.GAME.round_resets.ante))
         G.GAME.current_round.spike_factory_card.suit = spike_factory_card.base.suit
         G.GAME.current_round.spike_factory_card.rank = spike_factory_card.base.value
         G.GAME.current_round.spike_factory_card.id = spike_factory_card.base.id

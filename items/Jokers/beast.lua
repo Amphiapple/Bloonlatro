@@ -1,5 +1,5 @@
 SMODS.Joker { --Beast Handler
-    key = 'beast',
+    key = 'beast_handler',
     name = 'Beast Handler',
 	loc_txt = {
         name = 'Beast Handler',
@@ -8,7 +8,7 @@ SMODS.Joker { --Beast Handler
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 24 },
+	pos = { x = 0, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -41,7 +41,7 @@ SMODS.Joker { --Piranha
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 24 },
+	pos = { x = 1, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -79,7 +79,7 @@ SMODS.Joker { --Barracuda
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 24 },
+	pos = { x = 2, y = 25 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -103,7 +103,7 @@ SMODS.Joker { --Barracuda
 }
 
 SMODS.Joker { --Great White
-    key = 'greatwhite',
+    key = 'great_white',
     name = 'Great White',
 	loc_txt = {
         name = 'Great White',
@@ -114,7 +114,7 @@ SMODS.Joker { --Great White
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 24 },
+	pos = { x = 3, y = 25 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -130,10 +130,10 @@ SMODS.Joker { --Great White
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
-            for i = 1, #context.scoring_hand do
-                if context.other_card == context.scoring_hand[i] and
-                ((i > 1 and context.scoring_hand[i-1].ability.name == 'Bonus') or
-                (i < #context.scoring_hand and context.scoring_hand[i+1].ability.name == 'Bonus')) then
+            for k, v in ipairs(context.scoring_hand) do
+                if context.other_card == context.scoring_hand[k] and
+                ((k > 1 and context.scoring_hand[i-1].ability.name == 'Bonus') or
+                (k < #context.scoring_hand and context.scoring_hand[k+1].ability.name == 'Bonus')) then
                     return {
                         message = localize('k_again_ex'),
                         repetitions = card.ability.extra.retrigger
@@ -157,7 +157,7 @@ SMODS.Joker { --Orca
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 24 },
+	pos = { x = 4, y = 25 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
@@ -192,7 +192,7 @@ SMODS.Joker { --Orca
 }
 
 SMODS.Joker { --Megalodon
-    key = 'meg',
+    key = 'megalodon',
     name = 'Megalodon',
 	loc_txt = {
         name = 'Megalodon',
@@ -204,7 +204,7 @@ SMODS.Joker { --Megalodon
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 24 },
+	pos = { x = 5, y = 25 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -216,7 +216,7 @@ SMODS.Joker { --Megalodon
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'meg')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'megalodon')
         return { vars = { card.ability.extra.Xmult, n, d } }
     end,
     calculate = function(self, card, context)
@@ -225,7 +225,7 @@ SMODS.Joker { --Megalodon
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.destroying_card and not context.blueprint then
-            if context.destroying_card.ability.name == 'Bonus' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'meg', card.ability.extra.num, card.ability.extra.denom, 'meg') then
+            if context.destroying_card.ability.name == 'Bonus' and not context.destroying_card.debuff and SMODS.pseudorandom_probability(card, 'megalodon', card.ability.extra.num, card.ability.extra.denom, 'megalodon') then
                 return true
             end
             return nil
@@ -234,7 +234,7 @@ SMODS.Joker { --Megalodon
 }
 
 SMODS.Joker { --Microraptor
-    key = 'micro',
+    key = 'microraptor',
     name = 'Microraptor',
 	loc_txt = {
         name = 'Microraptor',
@@ -245,7 +245,7 @@ SMODS.Joker { --Microraptor
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 24 },
+	pos = { x = 6, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -273,7 +273,7 @@ SMODS.Joker { --Microraptor
 }
 
 SMODS.Joker { --Adasaurus
-    key = 'ada',
+    key = 'adasaurus',
     name = 'Adasaurus',
 	loc_txt = {
         name = 'Adasaurus',
@@ -283,7 +283,7 @@ SMODS.Joker { --Adasaurus
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 24 },
+	pos = { x = 7, y = 25 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -307,7 +307,7 @@ SMODS.Joker { --Adasaurus
 }
 
 SMODS.Joker { --Velociraptor
-    key = 'velo',
+    key = 'velociraptor',
     name = 'Velociraptor',
 	loc_txt = {
         name = 'Velociraptor',
@@ -319,7 +319,7 @@ SMODS.Joker { --Velociraptor
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 24 },
+	pos = { x = 8, y = 25 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -353,7 +353,7 @@ SMODS.Joker { --Velociraptor
                                 planet = v.key
                             end
                         end
-                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'velo')
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'velociraptor')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -367,7 +367,7 @@ SMODS.Joker { --Velociraptor
 }
 
 SMODS.Joker { --Tyrannosaurus Rex
-    key = 't-rex',
+    key = 'tyrannosaurus_rex',
     name = 'Tyrannosaurus Rex',
 	loc_txt = {
         name = 'Tyrannosaurus Rex',
@@ -377,7 +377,7 @@ SMODS.Joker { --Tyrannosaurus Rex
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 24 },
+	pos = { x = 9, y = 25 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -404,7 +404,7 @@ SMODS.Joker { --Tyrannosaurus Rex
 }
 
 SMODS.Joker { --Giganotosaurus
-    key = 'giga',
+    key = 'giganotosaurus',
     name = 'Giganotosaurus',
 	loc_txt = {
         name = 'Giganotosaurus',
@@ -416,7 +416,7 @@ SMODS.Joker { --Giganotosaurus
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 24 },
+	pos = { x = 10, y = 25 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -428,12 +428,12 @@ SMODS.Joker { --Giganotosaurus
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giga')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giganotosaurus')
         return { vars = { card.ability.extra.Xmult1, n, d, card.ability.extra.Xmult2 } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Mult' and not context.blueprint then
-            if SMODS.pseudorandom_probability(card, 'giga', card.ability.extra.num, card.ability.extra.denom, 'giga') then
+            if SMODS.pseudorandom_probability(card, 'giganotosaurus', card.ability.extra.num, card.ability.extra.denom, 'giganotosaurus') then
                 return {
                     x_mult = card.ability.extra.Xmult2
                 }
@@ -459,7 +459,7 @@ SMODS.Joker { --Gyrfalcon
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 24 },
+	pos = { x = 11, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -489,7 +489,7 @@ SMODS.Joker { --Gyrfalcon
 }
 
 SMODS.Joker { --Horned Owl
-    key = 'owl',
+    key = 'horned_owl',
     name = 'Horned Owl',
     loc_txt = {
         name = 'Horned Owl',
@@ -501,7 +501,7 @@ SMODS.Joker { --Horned Owl
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 24 },
+	pos = { x = 12, y = 25 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -527,7 +527,7 @@ SMODS.Joker { --Horned Owl
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'owl')
+                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'horned_owl')
                         card:add_to_deck()
                         G.consumeables:emplace(card)
                         G.GAME.consumeable_buffer = 0
@@ -541,7 +541,7 @@ SMODS.Joker { --Horned Owl
 }
 
 SMODS.Joker { --Golden Eagle
-    key = 'geagle',
+    key = 'golden_eagle',
     name = 'Golden Eagle',
     loc_txt = {
         name = 'Golden Eagle',
@@ -553,7 +553,7 @@ SMODS.Joker { --Golden Eagle
         }
     },
     atlas = 'Joker',
-	pos = { x = 13, y = 24 },
+	pos = { x = 13, y = 25 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -563,6 +563,9 @@ SMODS.Joker { --Golden Eagle
         extra = { retrigger = 1 } --Variables: retrigger = retrigger count
     },
 
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
+    end,
     update = function(self, card, dt)
         if G.playing_cards then
             for k, v in pairs(G.playing_cards) do
@@ -583,7 +586,7 @@ SMODS.Joker { --Golden Eagle
 }
 
 SMODS.Joker { --Giant Condor
-    key = 'condor',
+    key = 'giant_condor',
     name = 'Giant Condor',
 	loc_txt = {
         name = 'Giant Condor',
@@ -595,7 +598,7 @@ SMODS.Joker { --Giant Condor
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 24 },
+	pos = { x = 14, y = 25 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -607,13 +610,13 @@ SMODS.Joker { --Giant Condor
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'condor')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giant_condor')
         return { vars = { n, d, card.ability.extra.hand_size } }
     end,
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-			if context.other_card.ability.name == 'Wild Card' and SMODS.pseudorandom_probability(card, 'condor', card.ability.extra.num, card.ability.extra.denom, 'condor') then
+			if context.other_card.ability.name == 'Wild Card' and SMODS.pseudorandom_probability(card, 'giant_condor', card.ability.extra.num, card.ability.extra.denom, 'giant_condor') then
                 G.hand:change_size(card.ability.extra.hand_size)
                 G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.hand_size
                 return {
@@ -642,7 +645,7 @@ SMODS.Joker { --Pouākai
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 24 },
+	pos = { x = 15, y = 25 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

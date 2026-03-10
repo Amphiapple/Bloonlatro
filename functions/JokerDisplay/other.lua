@@ -1,24 +1,3 @@
-JokerDisplay.Definitions["j_bloons_bloonprint"] = {--Bloonprint
-    text = {
-        { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
-        { ref_table = "card.joker_display_values", ref_value = "blueprint_compat", colour = G.C.RED, scale = 0.3 },
-        { text = ")", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 }
-    },
-    reminder_text = {
-        { text = "(Position " },
-        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.ORANGE },
-        { text = ")" },
-    },
-    calc_function = function(card)
-        local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
-        card.joker_display_values.blueprint_compat = localize('k_incompatible')
-        JokerDisplay.copy_display(card, copied_joker, copied_debuff)
-    end,
-    get_blueprint_joker = function(card)
-        return G.jokers.cards[card.ability.extra.current] or nil
-    end
-}
-
 JokerDisplay.Definitions["j_bloons_marine"] = { --Marine
     text = {
         {
@@ -110,7 +89,7 @@ JokerDisplay.Definitions["j_bloons_boom_sentry"] = { --Boom Sentry
     end
 }
 
-JokerDisplay.Definitions["j_bloons_cold_sentry"] = {--Cold Sentry
+JokerDisplay.Definitions["j_bloons_cold_sentry"] = { --Cold Sentry
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "duration" },
@@ -136,7 +115,7 @@ JokerDisplay.Definitions["j_bloons_cold_sentry"] = {--Cold Sentry
     end
 }
 
-JokerDisplay.Definitions["j_bloons_energy_sentry"] = {--Energy Sentry
+JokerDisplay.Definitions["j_bloons_energy_sentry"] = { --Energy Sentry
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
@@ -150,5 +129,73 @@ JokerDisplay.Definitions["j_bloons_energy_sentry"] = {--Energy Sentry
     },
     calc_function = function(card)
         card.joker_display_values.duration = card.ability.extra.rounds .. " round" .. (card.ability.extra.rounds ~= 1 and "s" or "") .. " left"
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_champion_sentry"] = { --Champion Sentry
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "duration" },
+        { text = ")" }
+    },
+    calc_function = function(card)
+        card.joker_display_values.duration = card.ability.extra.rounds .. " round" .. (card.ability.extra.rounds ~= 1 and "s" or "") .. " left"
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_bloonprint"] = {--Bloonprint
+    text = {
+        { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
+        { ref_table = "card.joker_display_values", ref_value = "blueprint_compat", colour = G.C.RED, scale = 0.3 },
+        { text = ")", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 }
+    },
+    reminder_text = {
+        { text = "(Position " },
+        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
+        card.joker_display_values.blueprint_compat = localize('k_incompatible')
+        JokerDisplay.copy_display(card, copied_joker, copied_debuff)
+    end,
+    get_blueprint_joker = function(card)
+        return G.jokers.cards[card.ability.extra.current] or nil
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_card_storm"] = {--Card Storm
+    text = {
+        { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
+        { ref_table = "card.joker_display_values", ref_value = "blueprint_compat", colour = G.C.RED, scale = 0.3 },
+        { text = ")", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "copy_pos", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
+        card.joker_display_values.blueprint_compat = localize('k_incompatible')
+        card.joker_display_values.copy_pos = card.ability.extra.current == 1 and 'rightmost' or 'leftmost'
+        JokerDisplay.copy_display(card, copied_joker, copied_debuff)
+    end,
+    get_blueprint_joker = function(card)
+        local other_joker = nil
+        if card.ability.extra.current == 1 then
+            other_joker = G.jokers.cards[#G.jokers.cards]
+        else
+            other_joker = G.jokers.cards[1]
+        end
+        return other_joker
     end
 }

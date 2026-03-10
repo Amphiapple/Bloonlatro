@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_heli"] = { --Heli Pilot
+JokerDisplay.Definitions["j_bloons_heli_pilot"] = { --Heli Pilot
     text = {
         {
             border_nodes = {
@@ -28,14 +28,50 @@ JokerDisplay.Definitions["j_bloons_heli"] = { --Heli Pilot
     end
 }
 
-JokerDisplay.Definitions["j_bloons_quad"] = { --Quad Darts
+JokerDisplay.Definitions["j_bloons_quad_darts"] = { --Quad Darts
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT },
     },
 }
 
-JokerDisplay.Definitions["j_bloons_draft"] = { --Downdraft
+JokerDisplay.Definitions["j_bloons_apache_prime"] = { --Apache Prime
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(2,3,5,7)" }
+    },
+    calc_function = function(card)
+        local total_Xmult = 1
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                local triggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) or 0
+                if triggers > 0 then
+                    local id = scoring_card:get_id()
+                    if id == 2 then
+                        total_Xmult = total_Xmult * (card.ability.extra.Xmult1 ^ triggers)
+                    elseif id == 3 then
+                        total_Xmult = total_Xmult * (card.ability.extra.Xmult2 ^ triggers)
+                    elseif id == 5 then
+                        total_Xmult = total_Xmult * (card.ability.extra.Xmult3 ^ triggers)
+                    elseif id == 7 then
+                        total_Xmult = total_Xmult * (card.ability.extra.Xmult4 ^ triggers)
+                    end
+                end
+            end
+        end
+        card.joker_display_values.Xmult = total_Xmult
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_downdraft"] = { --Downdraft
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -46,14 +82,7 @@ JokerDisplay.Definitions["j_bloons_draft"] = { --Downdraft
     end
 }
 
-JokerDisplay.Definitions["j_bloons_comdef"] = { --Comanche Defense
-    text = {
-        { text = "+", colour = G.C.CHIPS },
-        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
-    },
-}
-
-JokerDisplay.Definitions["j_bloons_spop"] = { --Special Poperations
+JokerDisplay.Definitions["j_bloons_special_poperations"] = { --Special Poperations
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
         { ref_table = "card.joker_display_values", ref_value = "active_marine", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
@@ -94,38 +123,9 @@ JokerDisplay.Definitions["j_bloons_spop"] = { --Special Poperations
     end
 }
 
-JokerDisplay.Definitions["j_bloons_aprime"] = { --Apache Prime
+JokerDisplay.Definitions["j_bloons_comanche_defense"] = { --Comanche Defense
     text = {
-        {
-            border_nodes = {
-                { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
-            }
-        }
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
     },
-    reminder_text = {
-        { text = "(2,3,5,7)" }
-    },
-    calc_function = function(card)
-        local total_Xmult = 1
-        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        if text ~= 'Unknown' then
-            for _, scoring_card in pairs(scoring_hand) do
-                local triggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) or 0
-                if triggers > 0 then
-                    local id = scoring_card:get_id()
-                    if id == 2 then
-                        total_Xmult = total_Xmult * (card.ability.extra.Xmult1 ^ triggers)
-                    elseif id == 3 then
-                        total_Xmult = total_Xmult * (card.ability.extra.Xmult2 ^ triggers)
-                    elseif id == 5 then
-                        total_Xmult = total_Xmult * (card.ability.extra.Xmult3 ^ triggers)
-                    elseif id == 7 then
-                        total_Xmult = total_Xmult * (card.ability.extra.Xmult4 ^ triggers)
-                    end
-                end
-            end
-        end
-        card.joker_display_values.Xmult = total_Xmult
-    end
 }

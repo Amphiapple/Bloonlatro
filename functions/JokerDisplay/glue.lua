@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_glue"] = { --Glue Monkey
+JokerDisplay.Definitions["j_bloons_glue_gunner"] = { --Glue Monkey
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
@@ -16,7 +16,7 @@ JokerDisplay.Definitions["j_bloons_glue"] = { --Glue Monkey
     end
 }
 
-JokerDisplay.Definitions["j_bloons_corrosive"] = { --Corrosive Glue
+JokerDisplay.Definitions["j_bloons_corrosive_glue"] = { --Corrosive Glue
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS },
@@ -28,7 +28,13 @@ JokerDisplay.Definitions["j_bloons_corrosive"] = { --Corrosive Glue
     }
 }
 
-JokerDisplay.Definitions["j_bloons_mglue"] = { --Moab Glue
+JokerDisplay.Definitions["j_bloons_the_bloon_solver"] = { --The Bloon Solver
+}
+
+JokerDisplay.Definitions["j_bloons_glue_hose"] = { --Glue Hose
+}
+
+JokerDisplay.Definitions["j_bloons_moab_glue"] = { --Moab Glue
     text = {
         {
             border_nodes = {
@@ -57,11 +63,5 @@ JokerDisplay.Definitions["j_bloons_mglue"] = { --Moab Glue
     end
 }
 
-JokerDisplay.Definitions["j_bloons_glose"] = { --Glue Hose
-}
-
-JokerDisplay.Definitions["j_bloons_relentless"] = { --Relentless Glue
-}
-
-JokerDisplay.Definitions["j_bloons_solver"] = { --The Bloon Solver
+JokerDisplay.Definitions["j_bloons_relentless_glue"] = { --Relentless Glue
 }

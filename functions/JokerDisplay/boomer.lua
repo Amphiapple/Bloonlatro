@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_boomer"] = { --Boomerang Monkey
+JokerDisplay.Definitions["j_bloons_boomerang_monkey"] = { --Boomerang Monkey
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
@@ -7,9 +7,9 @@ JokerDisplay.Definitions["j_bloons_boomer"] = { --Boomerang Monkey
     end
 }
 
-JokerDisplay.Definitions["j_bloons_improved"] = { --Improved Rangs
+JokerDisplay.Definitions["j_bloons_improved_rangs"] = { --Improved Rangs
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        if held_in_hand then return 0 end 
+        if held_in_hand then return 0 end
         local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
         local last_card = scoring_hand and sorted_cards[#sorted_cards]
         local second_last_card = scoring_hand and #scoring_hand >= 2 and sorted_cards[#sorted_cards - 1]
@@ -25,28 +25,28 @@ JokerDisplay.Definitions["j_bloons_glaives"] = { --Glaives
     }
 }
 
-JokerDisplay.Definitions["j_bloons_rico"] = { --Glaive Ricochet
+JokerDisplay.Definitions["j_bloons_glaive_ricochet"] = { --Glaive Ricochet
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_moar"] = { --MOAR Glaives
+JokerDisplay.Definitions["j_bloons_moar_glaives"] = { --MOAR Glaives
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_glord"] = { --Glaive Lord
+JokerDisplay.Definitions["j_bloons_glaive_lord"] = { --Glaive Lord
     text = {
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_fastboomer"] = { --Faster Throwing
+JokerDisplay.Definitions["j_bloons_faster_throwing_boomerang"] = { --Faster Throwing
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         local held_cards = {}
         for i = 1, #G.hand.cards do
@@ -60,7 +60,7 @@ JokerDisplay.Definitions["j_bloons_fastboomer"] = { --Faster Throwing
     end
 }
 
-JokerDisplay.Definitions["j_bloons_fastrangs"] = { --Faster Rangs
+JokerDisplay.Definitions["j_bloons_faster_rangs"] = { --Faster Rangs
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         local held_cards = {}
         for i = 1, #G.hand.cards do
@@ -76,39 +76,31 @@ JokerDisplay.Definitions["j_bloons_fastrangs"] = { --Faster Rangs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bioboomer"] = { --Bionic Boomerang
-    text = {
-        { text = "+", colour = G.C.CHIPS },
-        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.CHIPS }
-    },
-    reminder_text = {
-        { text = "(" },
-        { text = "Steel", colour = G.C.ORANGE },
-        { text = ")" }
-    }
+JokerDisplay.Definitions["j_bloons_bionic_boomerang"] = { --Bionic Boomerang
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        return held_in_hand and playing_card.ability.name == 'Steel Card' and
+                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
 }
 
-JokerDisplay.Definitions["j_bloons_tcharge"] = { --Turbo Charge
+JokerDisplay.Definitions["j_bloons_turbo_charge"] = { --Turbo Charge
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.active = G.GAME and
-                ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
-                (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and "Active!" or "Inactive"
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        card.joker_display_values.active = active and "Active!" or "Inactive"
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        return held_in_hand and
-                ((G.GAME.current_round.hands_left == 1 and not next(G.play.cards)) or
-                (G.GAME.current_round.hands_left == 0 and next(G.play.cards))) and
-                joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
+        return held_in_hand and active and joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 
 
-JokerDisplay.Definitions["j_bloons_pcharge"] = { --Perma Charge
+JokerDisplay.Definitions["j_bloons_perma_charge"] = { --Perma Charge
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         local held_cards = {}
         for i = 1, #G.hand.cards do
@@ -122,7 +114,7 @@ JokerDisplay.Definitions["j_bloons_pcharge"] = { --Perma Charge
     end
 }
 
-JokerDisplay.Definitions["j_bloons_rangerangs"] = { --Long Range Rangs
+JokerDisplay.Definitions["j_bloons_long_range_rangs"] = { --Long Range Rangs
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
@@ -131,7 +123,7 @@ JokerDisplay.Definitions["j_bloons_rangerangs"] = { --Long Range Rangs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_redhot"] = { --Red Hot Rangs
+JokerDisplay.Definitions["j_bloons_red_hot_rangs"] = { --Red Hot Rangs
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
@@ -148,7 +140,7 @@ JokerDisplay.Definitions["j_bloons_redhot"] = { --Red Hot Rangs
     end
 }
 
-JokerDisplay.Definitions["j_bloons_kylie"] = { --Kylie Boomerang
+JokerDisplay.Definitions["j_bloons_kylie_boomerang"] = { --Kylie Boomerang
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
         local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
@@ -158,7 +150,7 @@ JokerDisplay.Definitions["j_bloons_kylie"] = { --Kylie Boomerang
     end
 }
 
-JokerDisplay.Definitions["j_bloons_press"] = { --MOAB Press
+JokerDisplay.Definitions["j_bloons_moab_press"] = { --MOAB Press
     reminder_text = {
         { ref_table = "card.joker_display_values", ref_value = "active_text" },
     },
@@ -182,31 +174,43 @@ JokerDisplay.Definitions["j_bloons_press"] = { --MOAB Press
     end
 }
 
---[[
-JokerDisplay.Definitions["j_bloons_press"] = { --MOAB Press
-    reminder_text = {
-        { ref_table = "card.joker_display_values", ref_value = "active_text" },
+JokerDisplay.Definitions["j_bloons_moab_domination"] = { --MOAB Domination
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
     },
     calc_function = function(card)
+        local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        local will_apply = false
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
-            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
-
-        will_apply = #G.hand.highlighted == 1 and scoring_hand and scoring_hand[1]
-
-        card.joker_display_values.active = boss_active and will_apply
-
-        card.joker_display_values.active_text = boss_active and will_apply and "active" or boss_active and "inactive" or "no boss active"
-    end,
-    style_function = function(card, text, reminder_text, extra)
-        if reminder_text and reminder_text.children[1] and card.joker_display_values then
-            reminder_text.children[1].config.colour = card.joker_display_values.active and G.C.GREEN or
-                G.C.RED
-            reminder_text.children[1].config.scale = card.joker_display_values.active and 0.35 or 0.3
-            return true
+        local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+        if text ~= 'Unknown' then
+            for k, v in ipairs(sorted_cards) do
+                local last_card = sorted_cards[k-1] or nil
+                if (last_card and v:get_id() >= last_card:get_id() or SMODS.has_no_rank(v)) and not v.debuff then
+                    count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
+                    break
+                end
+            end
         end
-        return false
-    end
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
+    end,
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        local last_card = nil
+        local active = true
+        local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
+        for k, v in ipairs(sorted_cards) do
+            last_card = sorted_cards[k-1]
+            if last_card and v:get_id() >= last_card:get_id() or SMODS.has_no_rank(v) and not v.debuff then
+                active = false
+            end
+            if v == playing_card then
+                return SMODS.in_scoring(playing_card, scoring_hand) and active and joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+            end
+        end
+    end,
 }
-]]

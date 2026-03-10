@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_mdom"] = { --Moab Domination
+JokerDisplay.Definitions["j_bloons_glaive_dominus"] = { --Glaive Dominus
     text = {
         {
             border_nodes = {
@@ -9,7 +9,7 @@ JokerDisplay.Definitions["j_bloons_mdom"] = { --Moab Domination
     }
 }
 
-JokerDisplay.Definitions["j_bloons_fortress"] = { --Flying Fortress
+JokerDisplay.Definitions["j_bloons_goliath_doomship"] = { --Goliath Doomship
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.joker_display_values", ref_value = "money", colour = G.C.MONEY, retrigger_type = "mult" },
@@ -22,24 +22,30 @@ JokerDisplay.Definitions["j_bloons_fortress"] = { --Flying Fortress
         { text = "(Ace)" }
     },
     calc_function = function(card)
-        local held_count, played_count = 0, 0
+        local held_count, scoring_count = 0, 0
         local highlighted_aces = {}
-        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
-
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local playing_hand = next(G.play.cards)
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if scoring_card:get_id() == 14 then
+                    scoring_count = scoring_count + JokerDisplay.calculate_card_triggers(scoring_card, nil, true)
+                end
+            end
+        end
         for _, hand_card in pairs(G.hand.cards) do
-            if hand_card:get_id() == 14 then
+            if hand_card:get_id() == 14 and not (hand_card.facing == 'back') and not hand_card.debuff then
                 if hand_card.highlighted then
-                    table.insert(highlighted_aces, hand_card)
-                    played_count = played_count + JokerDisplay.calculate_card_triggers(hand_card, scoring_hand, false)
+                    if not playing_hand then
+                        table.insert(highlighted_aces, hand_card)
+                    end
                 else
                     held_count = held_count + JokerDisplay.calculate_card_triggers(hand_card, nil, true)
                 end
             end
         end
 
-        card.joker_display_values.money = G.STATE ~= G.STATES.HAND_PLAYED and played_count * card.ability.extra.money
-                                            or card.joker_display_values and card.joker_display_values.money
-                                            or 0
+        card.joker_display_values.money = card.ability.extra.money * scoring_count
         card.joker_display_values.tarots = #highlighted_aces
         card.joker_display_values.planets = held_count
     end,
@@ -49,10 +55,10 @@ JokerDisplay.Definitions["j_bloons_fortress"] = { --Flying Fortress
     end
 }
 
-JokerDisplay.Definitions["j_bloons_pbrew"] = { --Permanent Brew
+JokerDisplay.Definitions["j_bloons_magus_perfectus"] = { --Magus Perfectus
 }
 
-JokerDisplay.Definitions["j_bloons_smines"] = { --Super Mines
+JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Mega Massive Munitions Factory
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
         { ref_table = "card.ability.extra", ref_value = "mines", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
@@ -72,12 +78,17 @@ JokerDisplay.Definitions["j_bloons_smines"] = { --Super Mines
     end
 }
 
-JokerDisplay.Definitions["j_bloons_vtsg"] = { --Vengeful True Sun God
+JokerDisplay.Definitions["j_bloons_vengeful_true_sun_god"] = { --Vengeful True Sun God
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "sacrifices" },
         { text = ")" },
     },
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        local retrigger = math.floor(joker_card.ability.extra.sacrifices['military'] * 2 / 9)
+        return joker_card.ability.extra.retrigger * retrigger * JokerDisplay.calculate_joker_triggers(joker_card)
+    end,
     calc_function = function(card)
         local sacs = card.ability.extra.sacrifices
         card.joker_display_values.sacrifices =

@@ -1,7 +1,7 @@
-JokerDisplay.Definitions["j_bloons_village"] = { --Monkey Village
+JokerDisplay.Definitions["j_bloons_monkey_village"] = { --Monkey Village
 }
 
-JokerDisplay.Definitions["j_bloons_drums"] = { --Jungle Drums
+JokerDisplay.Definitions["j_bloons_jungle_drums"] = { --Jungle Drums
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
@@ -25,10 +25,10 @@ JokerDisplay.Definitions["j_bloons_drums"] = { --Jungle Drums
     end
 }
 
-JokerDisplay.Definitions["j_bloons_discount"] = { --Monkey Commerce
+JokerDisplay.Definitions["j_bloons_monkey_business"] = { --Monkey Commerce
 }
 
-JokerDisplay.Definitions["j_bloons_mib"] = { --Monkey Intelligence Bureau
+JokerDisplay.Definitions["j_bloons_monkey_intelligence_bureau"] = { --Monkey Intelligence Bureau
     text = {
         {
             border_nodes = {
@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_mib"] = { --Monkey Intelligence Bureau
     },
 }
 
-JokerDisplay.Definitions["j_bloons_city"] = { --Monkey City
+JokerDisplay.Definitions["j_bloons_monkey_city"] = { --Monkey City
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -50,7 +50,7 @@ JokerDisplay.Definitions["j_bloons_city"] = { --Monkey City
     }
 }
 
-JokerDisplay.Definitions["j_bloons_pex"] = { --Primary Expertise
+JokerDisplay.Definitions["j_bloons_primary_expertise"] = { --Primary Expertise
     text = {
         {
             border_nodes = {

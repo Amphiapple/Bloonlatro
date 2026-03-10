@@ -1,5 +1,5 @@
 SMODS.Joker { --Wizard Monkey
-    key = 'wiz',
+    key = 'wizard_monkey',
     name = 'Wizard Monkey',
 	loc_txt = {
         name = 'Wizard Monkey',
@@ -20,7 +20,7 @@ SMODS.Joker { --Wizard Monkey
     calculate = function(self, card, context)
         if context.before and not context.blueprint and not context.scoring_hand[1].debuff then
             local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
-            local enhancement = pseudorandom_element(enhancement_pool, pseudoseed('wiz'))
+            local enhancement = pseudorandom_element(enhancement_pool, 'wiz')
             context.scoring_hand[1]:set_ability(enhancement, nil, true)
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -37,7 +37,7 @@ SMODS.Joker { --Wizard Monkey
 }
 
 SMODS.Joker { --Guided Magic
-    key = 'guided',
+    key = 'guided_magic',
     name = 'Guided Magic',
 	loc_txt = {
         name = 'Guided Magic',
@@ -58,6 +58,7 @@ SMODS.Joker { --Guided Magic
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = card.ability.extra.enhancement
         local function process_var(e)
             return e.effect or e.name
         end
@@ -82,18 +83,18 @@ SMODS.Joker { --Guided Magic
             }
         elseif context.after then
             local enhancement_pool = G.P_CENTER_POOLS['Enhanced']
-            card.ability.extra.enhancement = pseudorandom_element(enhancement_pool, pseudoseed('guided'))
+            card.ability.extra.enhancement = pseudorandom_element(enhancement_pool, 'guided')
         end
     end
 }
 
 SMODS.Joker { --Arcane Blast
-    key = 'ablast',
+    key = 'arcane_blast',
     name = 'Arcane Blast',
 	loc_txt = {
         name = 'Arcane Blast',
         text = {
-            'Played enhanced cards give',
+            'Played {C:enhanced}Enhanced{} cards give',
             '{C:chips}+#1#{} Chips when scored'
         }
     },
@@ -120,7 +121,7 @@ SMODS.Joker { --Arcane Blast
 }
 
 SMODS.Joker { --Arcane Mastery
-    key = 'amast',
+    key = 'arcane_mastery',
     name = 'Arcane Mastery',
 	loc_txt = {
         name = 'Arcane Mastery',
@@ -162,7 +163,7 @@ SMODS.Joker { --Arcane Mastery
                     if next(enhancements) == nil then
                         enhancements[1] = 'c_strength'
                     end
-                    local tarot = pseudorandom_element(enhancements, pseudoseed('amast'))
+                    local tarot = pseudorandom_element(enhancements, 'amast')
                     local card = create_card(tarot, G.consumeables, nil, nil, nil, nil, tarot, 'amast')
                     card:add_to_deck()
                     G.consumeables:emplace(card)
@@ -175,52 +176,8 @@ SMODS.Joker { --Arcane Mastery
     end
 }
 
---[[
-SMODS.Joker { --Arcane Mastery
-    key = 'amast',
-    name = 'Arcane Mastery',
-	loc_txt = {
-        name = 'Arcane Mastery',
-        text = {
-            'If {C:attention}first discard{} of round',
-            'contains only {C:attention}1{} card,',
-            'destroy first {C:attention}Consumable{} to',
-            'add a {C:attention}Purple Seal{} to it',
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 3, y = 14 },
-    rarity = 2,
-	cost = 6,
-    blueprint_compat = false,
-    config = {
-        base = 'wizard',
-    },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_SEALS.Purple
-    end,
-    calculate = function(self, card, context)
-        if context.discard and G.GAME.current_round.discards_used == 0 and
-                #context.full_hand == 1 and not context.full_hand[1].debuff and
-                G.consumeables.cards[1] and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    G.consumeables.cards[1]:start_dissolve({G.C.RED}, nil)
-                    context.full_hand[1]:set_seal('Purple', nil, true)
-                    return true
-                end
-            }))
-            delay(0.5)
-        end
-    end
-}
-]]
-
 SMODS.Joker { --Arcane Spike
-    key = 'aspike',
+    key = 'arcane_spike',
     name = 'Arcane Spike',
 	loc_txt = {
         name = 'Arcane Spike',
@@ -265,13 +222,13 @@ SMODS.Joker { --Arcane Spike
 }
 
 SMODS.Joker { --Archmage
-    key = 'arch',
+    key = 'archmage',
     name = 'Archmage',
 	loc_txt = {
         name = 'Archmage',
         text = {
             'Retrigger all played',
-            '{C:attention}Enhanced cards{}',
+            '{C:enhanced}Enhanced{} cards',
         }
     },
 	atlas = 'Joker',
@@ -316,6 +273,7 @@ SMODS.Joker { --Fireball
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
@@ -328,7 +286,7 @@ SMODS.Joker { --Fireball
 }
 
 SMODS.Joker { --Wall of Fire
-    key = 'wof',
+    key = 'wall_of_fire',
     name = 'Wall of Fire',
     loc_txt = {
         name = 'Wall of Fire',
@@ -372,7 +330,7 @@ SMODS.Joker { --Wall of Fire
 }
 
 SMODS.Joker { --Dragon's Breath
-    key = 'dbreath',
+    key = 'dragons_breath',
     name = "Dragon's Breath",
     loc_txt = {
         name = "Dragon's Breath",
@@ -411,7 +369,7 @@ SMODS.Joker { --Dragon's Breath
 }
 
 SMODS.Joker { --Summon Phoenix
-    key = 'phoenix',
+    key = 'summon_phoenix',
     name = "Summon Phoenix",
     loc_txt = {
         name = "Summon Phoenix",
@@ -446,7 +404,7 @@ SMODS.Joker { --Summon Phoenix
 }
 
 SMODS.Joker { --Wizard Lord Phoenix
-    key = 'wlp',
+    key = 'wizard_lord_phoenix',
     name = 'Wizard Lord Phoenix',
 	loc_txt = {
         name = 'Wizard Lord Phoenix',
@@ -488,12 +446,12 @@ SMODS.Joker { --Wizard Lord Phoenix
 }
 
 SMODS.Joker { --Intense Magic
-    key = 'intense',
+    key = 'intense_magic',
     name = 'Intense Magic',
 	loc_txt = {
         name = 'Intense Magic',
         text = {
-            'Played enhanced cards give',
+            'Played {C:enhanced}Enhanced{} cards give',
             '{C:mult}+#1#{} Mult when scored'
         }
     },
@@ -520,7 +478,7 @@ SMODS.Joker { --Intense Magic
 }
 
 SMODS.Joker { --Monkey Sense
-    key = 'sense',
+    key = 'monkey_sense',
     name = 'Monkey Sense',
     loc_txt = {
         name = 'Monkey Sense',
@@ -596,7 +554,7 @@ SMODS.Joker { --Shimmer
 }
 
 SMODS.Joker { --Necromancer
-    key = 'necro',
+    key = 'necromancer',
     name = 'Necromancer',
 	loc_txt = {
         name = 'Necromancer',
@@ -642,7 +600,7 @@ SMODS.Joker { --Necromancer
 }
 
 SMODS.Joker { --Prince of Darkness
-    key = 'pod',
+    key = 'prince_of_darkness',
     name = 'Prince of Darkness',
 	loc_txt = {
         name = 'Prince of Darkness',

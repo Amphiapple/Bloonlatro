@@ -1,5 +1,5 @@
 SMODS.Joker { --Ninja Monkey
-    key = 'ninja',
+    key = 'ninja_monkey',
     name = 'Ninja Monkey',
 	loc_txt = {
         name = 'Ninja Monkey',
@@ -10,7 +10,7 @@ SMODS.Joker { --Ninja Monkey
     },
 	atlas = 'Joker',
 	pos = { x = 0, y = 16 },
-    soul_pos = { x = 5, y = 27 },
+    soul_pos = { x = 0, y = 17 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -38,7 +38,7 @@ SMODS.Joker { --Ninja Monkey
 }
 
 SMODS.Joker { --Ninja Discipline
-    key = 'discipline',
+    key = 'ninja_discipline',
     name = 'Ninja Discipline',
 	loc_txt = {
         name = 'Ninja Discipline',
@@ -49,7 +49,7 @@ SMODS.Joker { --Ninja Discipline
     },
 	atlas = 'Joker',
 	pos = { x = 1, y = 16 },
-    soul_pos = { x = 6, y = 27 },
+    soul_pos = { x = 1, y = 17 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -77,7 +77,7 @@ SMODS.Joker { --Ninja Discipline
 }
 
 SMODS.Joker { --Sharp Shurikens
-    key = 'sharpshur',
+    key = 'sharp_shurikens',
     name = 'Sharp Shurikens',
 	loc_txt = {
         name = 'Sharp Shurikens',
@@ -89,7 +89,7 @@ SMODS.Joker { --Sharp Shurikens
     },
 	atlas = 'Joker',
 	pos = { x = 2, y = 16 },
-    soul_pos = { x = 7, y = 27 },
+    soul_pos = { x = 2, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -118,8 +118,8 @@ SMODS.Joker { --Sharp Shurikens
 }
 
 SMODS.Joker { --Double Shot
-    key = 'doubleshur',
-    name = 'Double Shot',
+    key = 'double_shot_ninja',
+    name = 'Double Shot (Ninja)',
 	loc_txt = {
         name = 'Double Shot',
         text = {
@@ -145,11 +145,9 @@ SMODS.Joker { --Double Shot
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if not context.blueprint then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Diamonds') then
-                        count = count + 1
-                    end
+            for k, v in ipairs(context.scoring_hand) do
+                if v:is_suit('Diamonds') then
+                    count = count + 1
                 end
             end
             if count >= card.ability.extra.number then
@@ -162,15 +160,15 @@ SMODS.Joker { --Double Shot
 }
 
 SMODS.Joker { --Bloonjitsu
-    key = 'jitsu',
+    key = 'bloonjitsu',
     name = 'Bloonjitsu',
 	loc_txt = {
         name = 'Bloonjitsu',
         text = {
             '{X:mult,C:white}X#1#{} Mult if',
-            'scoring hand contains',
-            'at least {C:attention}#2#',
-            '{C:diamonds}Diamond{} cards'
+            'scoring hand',
+            'contains at least',
+            '{C:attention}#2# {C:diamonds}Diamond{} cards'
         }
     },
 	atlas = 'Joker',
@@ -189,11 +187,9 @@ SMODS.Joker { --Bloonjitsu
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if not context.blueprint then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Diamonds') then
-                        count = count + 1
-                    end
+            for k, v in ipairs(context.scoring_hand) do
+                if v:is_suit('Diamonds') then
+                    count = count + 1
                 end
             end
             if count >= card.ability.extra.number then
@@ -206,7 +202,7 @@ SMODS.Joker { --Bloonjitsu
 }
 
 SMODS.Joker { --Grandmaster Ninja
-    key = 'gmn',
+    key = 'grandmaster_ninja',
     name = 'Grandmaster Ninja',
 	loc_txt = {
         name = 'Grandmaster Ninja',
@@ -247,7 +243,7 @@ SMODS.Joker { --Grandmaster Ninja
 }
 
 SMODS.Joker { --Distraction
-    key = 'distract',
+    key = 'distraction',
     name = 'Distraction',
 	loc_txt = {
         name = 'Distraction',
@@ -260,7 +256,7 @@ SMODS.Joker { --Distraction
     },
 	atlas = 'Joker',
 	pos = { x = 6, y = 16 },
-    soul_pos = { x = 8, y = 27 },
+    soul_pos = { x = 6, y = 17 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -270,7 +266,7 @@ SMODS.Joker { --Distraction
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'distract')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'distraction')
         return { vars = { n, d, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -280,7 +276,7 @@ SMODS.Joker { --Distraction
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'distract', card.ability.extra.num, card.ability.extra.denom, 'distract') then
+        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'distraction', card.ability.extra.num, card.ability.extra.denom, 'distraction') then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,
@@ -370,7 +366,7 @@ SMODS.Joker { --Counter Espionage
 }
 ]]
 SMODS.Joker { --Counter Espionage
-    key = 'espionage',
+    key = 'counter_espionage',
     name = 'Counter Espionage',
     loc_txt = {
         name = 'Counter Espionage',
@@ -383,7 +379,7 @@ SMODS.Joker { --Counter Espionage
     },
     atlas = 'Joker',
 	pos = { x = 7, y = 16 },
-    soul_pos = { x = 9, y = 27 },
+    soul_pos = { x = 7, y = 17 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -418,7 +414,7 @@ SMODS.Joker { --Counter Espionage
 }
 
 SMODS.Joker { --Shinobi Tactics
-    key = 'shinobi',
+    key = 'shinobi_tactics',
     name = 'Shinobi Tactics',
 	loc_txt = {
         name = 'Shinobi Tactics',
@@ -457,7 +453,7 @@ SMODS.Joker { --Shinobi Tactics
 }
 
 SMODS.Joker { --Bloon Sabotage
-    key = 'sabo',
+    key = 'bloon_sabotage',
     name = 'Bloon Sabotage',
 	loc_txt = {
         name = 'Bloon Sabotage',
@@ -478,12 +474,12 @@ SMODS.Joker { --Bloon Sabotage
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage')
         return { vars = { n, d, card.ability.extra.discards } }
     end,
 
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'sabo', card.ability.extra.num, card.ability.extra.denom, 'sabo') then
+        if context.before and SMODS.pseudorandom_probability(card, 'bloon_sabotage', card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage') then
             local hasheart = false
             for k, v in ipairs(context.scoring_hand) do
                 if v:is_suit('Hearts') then
@@ -501,7 +497,7 @@ SMODS.Joker { --Bloon Sabotage
 }
 
 SMODS.Joker { --Grand Saboteur
-    key = 'gsabo',
+    key = 'grand_saboteur',
     name = 'Grand Saboteur',
 	loc_txt = {
         name = 'Grand Saboteur',
@@ -523,8 +519,8 @@ SMODS.Joker { --Grand Saboteur
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.tag_bloons_sabotage
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gsabo')
+        info_queue[#info_queue+1] = G.P_TAGS.tag_bloons_sabotage
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'grand_saboteur')
         return { vars = { n, d, card.ability.extra.number } }
     end,
 
@@ -538,7 +534,7 @@ SMODS.Joker { --Grand Saboteur
                     end
                 end
             end
-            if count >= card.ability.extra.number and SMODS.pseudorandom_probability(card, 'gsabo', card.ability.extra.num, card.ability.extra.denom, 'gsabo') then
+            if count >= card.ability.extra.number and SMODS.pseudorandom_probability(card, 'grand_saboteur', card.ability.extra.num, card.ability.extra.denom, 'grand_saboteur') then
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         add_tag(Tag('tag_bloons_sabotage'))
@@ -553,7 +549,7 @@ SMODS.Joker { --Grand Saboteur
 }
 
 SMODS.Joker { --Seeking Shuriken
-    key = 'seeking',
+    key = 'seeking_shuriken',
     name = 'Seeking Shuriken',
 	loc_txt = {
         name = 'Seeking Shuriken',
@@ -566,7 +562,7 @@ SMODS.Joker { --Seeking Shuriken
     },
 	atlas = 'Joker',
 	pos = { x = 11, y = 16 },
-    soul_pos = { x = 10, y = 27 },
+    soul_pos = { x = 11, y = 17 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -603,12 +599,11 @@ SMODS.Joker { --Caltrops
             'when {C:attention}Blind{} is selected',
             '{C:dark_edition}+#2#{} Joker Slot',
             '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
-
         }
     },
 	atlas = 'Joker',
 	pos = { x = 12, y = 16 },
-    soul_pos = { x = 11, y = 27 },
+    soul_pos = { x = 12, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -642,7 +637,7 @@ SMODS.Joker { --Caltrops
 }
 
 SMODS.Joker { --Flash Bomb
-    key = 'flash',
+    key = 'flash_bomb',
     name = 'Flash Bomb',
 	loc_txt = {
         name = 'Flash Bomb',
@@ -708,7 +703,7 @@ SMODS.Joker { --Flash Bomb
 }
 
 SMODS.Joker { --Sticky Bomb
-    key = 'sticky',
+    key = 'sticky_bomb',
     name = 'Sticky Bomb',
 	loc_txt = {
         name = 'Sticky Bomb',
@@ -751,7 +746,7 @@ SMODS.Joker { --Sticky Bomb
                 end
             end
             if next(eligible_cards) then
-                card.ability.extra.stickied = pseudorandom_element(eligible_cards, pseudoseed('sticky'))
+                card.ability.extra.stickied = pseudorandom_element(eligible_cards, 'sticky_bomb')
                 card.ability.extra.stickied:set_ability(G.P_CENTERS.m_bloons_stunned)
                 card_eval_status_text(card.ability.extra.stickied, 'extra', nil, nil, nil, {
                     message = 'Stickied!'
@@ -766,7 +761,7 @@ SMODS.Joker { --Sticky Bomb
 }
 
 SMODS.Joker { --Master Bomber
-    key = 'mbomber',
+    key = 'master_bomber',
     name = 'Master Bomber',
 	loc_txt = {
         name = 'Master Bomber',

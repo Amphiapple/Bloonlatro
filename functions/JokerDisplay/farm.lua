@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_farm"] = { --Banana Farm
+JokerDisplay.Definitions["j_bloons_banana_farm"] = { --Banana Farm
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -8,7 +8,7 @@ JokerDisplay.Definitions["j_bloons_farm"] = { --Banana Farm
     }
 }
 
-JokerDisplay.Definitions["j_bloons_iproduct"] = { --Increased Production
+JokerDisplay.Definitions["j_bloons_increased_product"] = { --Increased Production
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -18,7 +18,7 @@ JokerDisplay.Definitions["j_bloons_iproduct"] = { --Increased Production
     }
 }
 
-JokerDisplay.Definitions["j_bloons_gproduct"] = { --Greater Production
+JokerDisplay.Definitions["j_bloons_greater_product"] = { --Greater Production
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -28,7 +28,7 @@ JokerDisplay.Definitions["j_bloons_gproduct"] = { --Greater Production
     }
 }
 
-JokerDisplay.Definitions["j_bloons_plantation"] = { --Banana Plantation
+JokerDisplay.Definitions["j_bloons_banana_plantation"] = { --Banana Plantation
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "min", colour = G.C.MONEY },
@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_plantation"] = { --Banana Plantation
     }
 }
 
-JokerDisplay.Definitions["j_bloons_brf"] = { --Banana Research Facility
+JokerDisplay.Definitions["j_bloons_banana_research_facility"] = { --Banana Research Facility
     text = {
         { ref_table = "card.ability.extra", ref_value = "min" },
         { text = "-" },
@@ -54,7 +54,7 @@ JokerDisplay.Definitions["j_bloons_brf"] = { --Banana Research Facility
     }
 }
 
-JokerDisplay.Definitions["j_bloons_central"] = { --Banana Central
+JokerDisplay.Definitions["j_bloons_banana_central"] = { --Banana Central
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -64,7 +64,7 @@ JokerDisplay.Definitions["j_bloons_central"] = { --Banana Central
     }
 }
 
-JokerDisplay.Definitions["j_bloons_longlife"] = { --Long Life Bananas
+JokerDisplay.Definitions["j_bloons_long_life_bananas"] = { --Long Life Bananas
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -87,7 +87,7 @@ JokerDisplay.Definitions["j_bloons_longlife"] = { --Long Life Bananas
     end
 }
 
-JokerDisplay.Definitions["j_bloons_valuable"] = { --Valuable Bananas
+JokerDisplay.Definitions["j_bloons_valuable_bananas"] = { --Valuable Bananas
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -110,24 +110,24 @@ JokerDisplay.Definitions["j_bloons_valuable"] = { --Valuable Bananas
     end
 }
 
-JokerDisplay.Definitions["j_bloons_bank"] = { --Monkey Bank
+JokerDisplay.Definitions["j_bloons_monkey_bank"] = { --Monkey Bank
     text = {
         { text = "$", colour = G.C.MONEY },
         { ref_table = "card", ref_value = "sell_cost", colour = G.C.MONEY }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_imf"] = { --IMF Loan
+JokerDisplay.Definitions["j_bloons_imf_loan"] = { --IMF Loan
     text = {
         { text = "$", colour = G.C.MONEY },
         { ref_table = "card", ref_value = "sell_cost", colour = G.C.MONEY }
     }
 }
 
-JokerDisplay.Definitions["j_bloons_nomics"] = { --Monkey-Nomics
+JokerDisplay.Definitions["j_bloons_monkey_nomics"] = { --Monkey-Nomics
 }
 
-JokerDisplay.Definitions["j_bloons_central"] = { --Banana Central
+JokerDisplay.Definitions["j_bloons_ez_collect"] = { --EZ Collect
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -137,10 +137,10 @@ JokerDisplay.Definitions["j_bloons_central"] = { --Banana Central
     }
 }
 
-JokerDisplay.Definitions["j_bloons_salvage"] = { --Banana Salvage
+JokerDisplay.Definitions["j_bloons_banana_salvage"] = { --Banana Salvage
 }
 
-JokerDisplay.Definitions["j_bloons_market"] = { --Marketplace
+JokerDisplay.Definitions["j_bloons_marketplace"] = { --Marketplace
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -150,7 +150,7 @@ JokerDisplay.Definitions["j_bloons_market"] = { --Marketplace
     }
 }
 
-JokerDisplay.Definitions["j_bloons_cmarket"] = { --Central Market
+JokerDisplay.Definitions["j_bloons_central_market"] = { --Central Market
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MONEY },
@@ -160,5 +160,5 @@ JokerDisplay.Definitions["j_bloons_cmarket"] = { --Central Market
     }
 }
 
-JokerDisplay.Definitions["j_bloons_wallstreet"] = { --Monkey Wall Street
+JokerDisplay.Definitions["j_bloons_monkey_wall_street"] = { --Monkey Wall Street
 }

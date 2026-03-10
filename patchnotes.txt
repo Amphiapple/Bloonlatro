@@ -1,17 +1,44 @@
 Added Jokers:
+- Paragons are now replacing certain T5 towers as Legendary rarity Jokers
+- All remaining Bomb Shooters
+- All remaining Monkey Aces
+- Most Super Monkeys
+- All remaining Engineer Monkeys
+- MOAB Domination, Flying Fortress, Permanent Brew, and Super Mines as Rare Jokers
+- Card Storm
 
 General Changes:
 - Bloonlatro challenge has been replaced with a new challenge as you can turn on and off base game jokers at will
-- Crash of the Titans banned cards adjusted
+- Joker keys renamed, you may need to reset your profile for accurate stats to be tracked
 
 Balance Changes:
+- Glaive Lord chip gain 3 > 2
+- Bionic Boomerang reworked
+- Most Bomb shoters reworked
+- Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
+- Super Maelstrom Xmult rarity Uncommon > Rare
+- Snowstorm increases hand size starting from the 2nd card instead of 1st
+- Super Brittle and Absolute Zero reworked
 - Bounty Hunter money 5 > 3
+- Ground Zero chips 350 > 250, first hand > final hand
+- Spiked Balls and Spiked Mines reworked
+- Carpet of Spikes X0.2 per discard > X1.3 if 0 discards remaining
 - VTSG no longer defaults non-towers to Primary category sacrifices
 
 Fixes:
 - Ice Monkey and Larger Radius should no longer be Enhanced Freeze
 - Embrittlement should correctly display Xmult instead of +mult when destroying cards
 - Deep Freeze should no longer guarantee thawing frozen cards when probability is increased
-- Ballistic Missile Joker Display should correctly account for highlighted cards
 - Sky Shredder should no longer stop counting Aces when it upgrades
 - Enforcer no longer has a shadow clone in the code
+- Common Ninjas can be bought again at full Joker slots on the latest SMODS version
+- Double Shot and Bloonjitsu should now work with blueprint effects
+- Riptide Champion should corectly freeze adjacent cards
+- Central Market should no longer be blueprint compatible
+- Multiple sentries expiring simultaneously should no longer keep extra joker slots
+- Goliath Doomship should no longer give effects to debuffed Aces
+- VTSG military sacrifice should correctly retrigger cards
+- VTSG magic sacrifice should correctly create consumables
+- Challenge bans adjusted for new jokers
+- Lots of text fixes and standardizations
+- Many Joker Display text fixes

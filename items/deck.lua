@@ -47,14 +47,14 @@ SMODS.Back { --Quincy
 	end
 }
 
-SMODS.Back { --Gwen
-    key = "gwen",
+SMODS.Back { --Gwendolin
+    key = "gwendolin",
     name = "Gwendolin Deck",
 	loc_txt = {
         name = 'Gwendolin Deck',
         text = {
             'Start run with',
-            'an {C:spectral}Immolate{} card',
+            'an {C:spectral,T:c_immolate}Immolate{} card',
             '{C:blue}-1{} hand every round'
         }
     },
@@ -70,7 +70,7 @@ SMODS.Back { --Jones
 	loc_txt = {
         name = 'Jones Deck',
         text = {
-            '{C:attention}Stun{} all {C:spades}Spades{}',
+            '{C:attention,T:m_bloons_stunned}Stun{} all {C:spades}Spades{}',
             'when drawn to hand'
         }
     },
@@ -96,8 +96,8 @@ SMODS.Back { --Obyn
 	loc_txt = {
         name = 'Obyn Deck',
         text = {
-            'Start run with {C:money}Seed Money{}',
-            'and {C:money}Money Tree{}'
+            'Start run with {C:money,T:v_seed_money}Seed Money{}',
+            'and {C:money,T:v_money_tree}Money Tree{}'
         }
     },
 	atlas = "Back",
@@ -106,8 +106,8 @@ SMODS.Back { --Obyn
     config = { vouchers = {'v_seed_money','v_money_tree'} }
 }
 
-SMODS.Back { --Church
-    key = "church",
+SMODS.Back { --Churchill
+    key = "churchill",
     name = "Churchill Deck",
 	loc_txt = {
         name = 'Churchill Deck',
@@ -147,20 +147,20 @@ SMODS.Back { --Church
 	end
 }
 
-SMODS.Back { --Ben
-    key = "ben",
+SMODS.Back { --Benjamin
+    key = "benjamin",
     name = "Benjamin Deck",
 	loc_txt = {
         name = 'Benjamin Deck',
         text = {
-            'Start with {C:attention}Monkey Bank{}',
+            'Start with {C:attention,T:j_bloons_monkey_bank}Monkey Bank{}',
             'and extra {C:money}$#1#'
         }
     },
 	atlas = "Back",
 	pos = { x = 0, y = 1 },
     order = 22,
-    config = { jokers = {'j_bloons_bank'}, dollars = 1 },
+    config = { jokers = {'j_bloons_monkey_bank'}, dollars = 1 },
 
     loc_vars = function(self, info_queue, card)
 		return { vars = { self.config.dollars } }
@@ -174,8 +174,8 @@ SMODS.Back { --Ezili
         name = 'Ezili Deck',
         text = {
             'Start run with',
-            '{C:attention}Magic Trick{}, {C:enhanced}Illusion{},',
-            '{C:dark_edition}Hone{}, and {C:dark_edition}Glow Up{}'
+            '{C:attention,T:v_magic_trick}Magic Trick{}, {C:enhanced,T:v_illusion}Illusion{},',
+            '{C:dark_edition,T:v_hone}Hone{}, and {C:dark_edition,T:v_glow_up}Glow Up{}'
         }
     },
 	atlas = "Back",
@@ -184,8 +184,8 @@ SMODS.Back { --Ezili
     config = { vouchers = {'v_magic_trick','v_illusion','v_hone','v_glow_up'} }
 }
 
-SMODS.Back { --Pat
-    key = "pat",
+SMODS.Back { --Pat Fusty
+    key = "pat_fusty",
     name = "Pat Fusty Deck",
 	loc_txt = {
         name = 'Pat Fusty Deck',
@@ -249,8 +249,8 @@ SMODS.Back { --Adora
     end
 }
 
-SMODS.Back { --Brick
-    key = "brick",
+SMODS.Back { --Brickell
+    key = "brickell",
     name = "Brickell Deck",
 	loc_txt = {
         name = 'Brickell Deck',
@@ -282,8 +282,8 @@ SMODS.Back { --Brick
     end,
 }
 
-SMODS.Back { --French
-    key = "french",
+SMODS.Back { --Etienne
+    key = "etienne",
     name = "Etienne Deck",
 	loc_txt = {
         name = 'Etienne Deck',
@@ -319,9 +319,14 @@ SMODS.Back { --Sauda
     order = 28,
 
     apply = function(self)
-        for k, v in pairs(G.GAME.hands) do
-            level_up_hand(self, k, true)
-        end
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for k, v in pairs(G.GAME.hands) do
+                    level_up_hand(G.deck.cards[1], k, true, 1)
+                end
+                return true
+            end
+        }))
     end
 }
 
@@ -340,83 +345,101 @@ SMODS.Back { --Psi
     order = 29,
 }
 
---[[
-SMODS.Back { --Gerry
-    key = "gerry",
+SMODS.Back { --Geraldo
+    key = "geraldo",
     name = "Geraldo Deck",
 	loc_txt = {
         name = 'Geraldo Deck',
         text = {
-            '{C:red}G{C:green}a{C:blue}y{}'
+            'Start run with',
+            '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
+            '{C:attention,T:v_crystal_ball}Crystal Ball{}'
         }
     },
 	atlas = "Back",
 	pos = { x = 3, y = 2 },
     order = 30,
+    config = { vouchers = {'v_bloons_power_merchant', 'v_crystal_ball'} }
 }
-]]
 
-SMODS.Back { --Rose
-    key = "rose",
+SMODS.Back { --Corvus
+    key = "corvus",
+    name = "Corvus Deck",
+	loc_txt = {
+        name = 'Corvus Deck',
+        text = {
+            'Played cards give',
+            '{C:attention}#1#{} mana when scored',
+            'Consume {C:attention}#2#{} mana to',
+            'create a {C:spectral}Spectral{} card',
+        }
+    },
+	atlas = "Back",
+	pos = { x = 4, y = 2 },
+    order = 31,
+    config = { extra = { max_mana = 25, mana_per_card = 1 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra.mana_per_card, self.config.extra.max_mana } }
+    end,
+
+    apply = function(self)
+        G.GAME.corvus_mana = { current_mana = 0, max_mana = self.config.extra.max_mana, mana_per_card = self.config.extra.mana_per_card }
+    end,
+
+    calculate = function(self, back, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.corvus_mana.current_mana = G.GAME.corvus_mana.current_mana + G.GAME.corvus_mana.mana_per_card
+                    if G.GAME.corvus_mana.current_mana >= G.GAME.corvus_mana.max_mana then
+                        G.GAME.corvus_mana.current_mana = 0
+                        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                            local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'acid')
+                            spectral:add_to_deck()
+                            G.consumeables:emplace(spectral)
+                            G.GAME.consumeable_buffer = 0
+                        end
+                    end
+                    return true
+                end,
+            }))
+        end
+    end
+}
+
+SMODS.Back { --Rosalia
+    key = "rosalia",
     name = "Rosalia Deck",
 	loc_txt = {
         name = 'Rosalia Deck',
         text = {
-            'Switch between retriggering',
-            '{C:attention}first{} played card and',
-            '{X:mult,C:white}X#1#{} Mult each hand',
-            '{C:inactive}(Retrigger first)'
+            'Toggle Rosalia\'s weapons',
+            '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
+            '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
         }
     },
 	atlas = "Back",
 	pos = { x = 0, y = 3 },
     order = 32,
-    config = { extra = { Xmult = 1.2, retrigger = 1, counter = 0 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
+    config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.Xmult } }
     end,
     apply = function (self, back)
-        self.config.extra.counter = 0
+        G.GAME.rosalia_weapon = "laser"
     end,
     calculate = function (self, back, context)
-        if context.repetition and self.config.extra.counter == 0 and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    attention_text({
-                        scale = 1.4,
-                        text = "Laser!",
-                        hold = 1,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
-            return {
-                repetitions = self.config.extra.retrigger,
-            }
-        elseif context.final_scoring_step and self.config.extra.counter == 1 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('multhit2', 1)
-                    attention_text({
-                        scale = 1.4,
-                        text = "Grenade!",
-                        hold = 1,
-                        align = "cm",
-                        offset = { x = 0, y = -2.7 },
-                        major = G.play,
-                    })
-                    return true
-                end,
-            }))
+        if G.GAME.rosalia_weapon == "laser" and context.final_scoring_step then
             return {
                 x_mult = self.config.extra.Xmult,
             }
-        elseif context.after then
-            self.config.extra.counter = (self.config.extra.counter+1) % 2
+        elseif G.GAME.rosalia_weapon == "grenade" and context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
+            return {
+                repetitions = self.config.extra.retrigger,
+            }
         end
     end
 }
@@ -427,7 +450,7 @@ SMODS.Back { --Silas
 	loc_txt = {
         name = 'Silas Deck',
         text = {
-            '{C:attention}Freeze #1#{} cards',
+            '{C:attention,T:m_bloons_frozen}Freeze #1#{} cards',
             'held in hand at',
             'end of round'
         }

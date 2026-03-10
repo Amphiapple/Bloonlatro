@@ -1,5 +1,5 @@
 SMODS.Joker { --Mermonkey
-    key = 'merm',
+    key = 'mermonkey',
     name = 'Mermonkey',
 	loc_txt = {
         name = 'Mermonkey',
@@ -10,7 +10,7 @@ SMODS.Joker { --Mermonkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 19 },
+	pos = { x = 0, y = 20 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -37,7 +37,7 @@ SMODS.Joker { --Mermonkey
 }
 
 SMODS.Joker { --Trident Efficiency
-    key = 'fastmerm',
+    key = 'trident_efficiency',
     name = 'Trident Efficiency',
 	loc_txt = {
         name = 'Trident Efficiency',
@@ -48,7 +48,7 @@ SMODS.Joker { --Trident Efficiency
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 19 },
+	pos = { x = 1, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -75,7 +75,7 @@ SMODS.Joker { --Trident Efficiency
 }
 
 SMODS.Joker { --Trident Swiftness
-    key = 'swiftmerm',
+    key = 'trident_swiftness',
     name = 'Trident Swiftness',
 	loc_txt = {
         name = 'Trident Swiftness',
@@ -86,7 +86,7 @@ SMODS.Joker { --Trident Swiftness
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 19 },
+	pos = { x = 2, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -119,7 +119,7 @@ SMODS.Joker { --Trident Swiftness
 }
 
 SMODS.Joker { --Abyss Dweller
-    key = 'dweller',
+    key = 'abyss_dweller',
     name = 'Abyss Dweller',
     loc_txt = {
         name = 'Abyss Dweller',
@@ -129,7 +129,7 @@ SMODS.Joker { --Abyss Dweller
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 19 },
+	pos = { x = 3, y = 20 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -165,7 +165,7 @@ SMODS.Joker { --Abyss Dweller
 }
 
 SMODS.Joker { --Abyssal Warrior
-    key = 'awarrior',
+    key = 'abyssal_warrior',
     name = 'Abyss Dweller',
     loc_txt = {
         name = 'Abyss Dweller',
@@ -176,7 +176,7 @@ SMODS.Joker { --Abyssal Warrior
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 19 },
+	pos = { x = 4, y = 20 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -216,7 +216,7 @@ SMODS.Joker { --Abyssal Warrior
 }
 
 SMODS.Joker { --Lord of the Abyss
-    key = 'lota',
+    key = 'lord_of_the_abyss',
     name = 'Lord of the Abyss',
     loc_txt = {
         name = 'Lord of the Abyss',
@@ -228,7 +228,7 @@ SMODS.Joker { --Lord of the Abyss
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 19 },
+	pos = { x = 5, y = 20 },
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
@@ -259,8 +259,8 @@ SMODS.Joker { --Lord of the Abyss
                 end
             end
             local return_list = {
-                'chips', 'h_chips', 'chips_mod',
-                'mult', 'h_mult', 'mult_mod',
+                'chips', 'h_chips', 's_chips', 't_chips', 'chips_mod',
+                'mult', 'h_mult', 's_mult', 't_mult', 'mult_mod',
                 'xmult', 'Xmult', 'x_mult', 'x_mult_mod', 'Xmult_mod',
             }
             if left_joker and context.other_card == left_joker or right_joker and context.other_card == right_joker then
@@ -277,7 +277,7 @@ SMODS.Joker { --Lord of the Abyss
 }
 
 SMODS.Joker { --Sharper Prongs
-    key = 'prongs',
+    key = 'sharper_prongs',
     name = 'Sharper Prongs',
 	loc_txt = {
         name = 'Sharper Prongs',
@@ -288,7 +288,7 @@ SMODS.Joker { --Sharper Prongs
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 19 },
+	pos = { x = 6, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -315,7 +315,7 @@ SMODS.Joker { --Sharper Prongs
 }
 
 SMODS.Joker { --Tidal Chill
-    key = 'chill',
+    key = 'tidal_chill',
     name = 'Tidal Chill',
 	loc_txt = {
         name = 'Tidal Chill',
@@ -326,7 +326,7 @@ SMODS.Joker { --Tidal Chill
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 19 },
+	pos = { x = 7, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -346,7 +346,7 @@ SMODS.Joker { --Tidal Chill
                 end
             end
             if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('chill'..G.GAME.round_resets.ante))
+                local frozen_card = pseudorandom_element(valid_cards, 'tidal_chill')
                 frozen_card:set_ability('m_bloons_frozen', nil, true)
             end
         end
@@ -354,7 +354,7 @@ SMODS.Joker { --Tidal Chill
 }
 
 SMODS.Joker { --Riptide Champion
-    key = 'ripchamp',
+    key = 'riptide_champion',
     name = 'Riptide Champion',
 	loc_txt = {
         name = 'Riptide Champion',
@@ -366,7 +366,7 @@ SMODS.Joker { --Riptide Champion
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 19 },
+	pos = { x = 8, y = 20 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -386,11 +386,11 @@ SMODS.Joker { --Riptide Champion
                 end
             end
             if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, pseudoseed('chill'..G.GAME.round_resets.ante))
+                local frozen_card = pseudorandom_element(valid_cards, 'riptide_champion')
                 local left_card = nil
                 local right_card = nil
                 for k, v in ipairs(G.hand.cards) do
-                    if v == card then
+                    if v == frozen_card then
                         if k > 1 then
                             left_card = G.hand.cards[k - 1]
                         end
@@ -412,7 +412,7 @@ SMODS.Joker { --Riptide Champion
 }
 
 SMODS.Joker { --Arctic Knight
-    key = 'arknight',
+    key = 'arctic_knight',
     name = 'Arctic Knight',
 	loc_txt = {
         name = 'Arctic Knight',
@@ -423,7 +423,7 @@ SMODS.Joker { --Arctic Knight
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 19 },
+	pos = { x = 9, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -434,13 +434,13 @@ SMODS.Joker { --Arctic Knight
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'arknight')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'arctic_knight')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
         if context.before then
             for k, v in ipairs(context.scoring_hand) do
-                if SMODS.pseudorandom_probability(card, 'arknight', card.ability.extra.num, card.ability.extra.denom, 'arknight') and not v.debuff then
+                if SMODS.pseudorandom_probability(card, 'arctic_knight', card.ability.extra.num, card.ability.extra.denom, 'arctic_knight') and not v.debuff then
                     v:set_ability('m_bloons_frozen', nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -451,7 +451,7 @@ SMODS.Joker { --Arctic Knight
                 end
             end
             for k, v in ipairs(G.hand.cards) do
-                if SMODS.pseudorandom_probability(card, 'arknight', card.ability.extra.num, card.ability.extra.denom, 'arknight') and not v.debuff then
+                if SMODS.pseudorandom_probability(card, 'arctic_knight', card.ability.extra.num, card.ability.extra.denom, 'arctic_knight') and not v.debuff then
                     v:set_ability('m_bloons_frozen', nil, true)
                 end
             end
@@ -472,7 +472,7 @@ SMODS.Joker { --Popseidon
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 19 },
+	pos = { x = 10, y = 20 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -502,7 +502,7 @@ SMODS.Joker { --Popseidon
 }
 
 SMODS.Joker { --Echosense Precision
-    key = 'echosense',
+    key = 'echosense_precision',
     name = 'Echosense Precision',
     loc_txt = {
         name = 'Echosense Precision',
@@ -512,7 +512,7 @@ SMODS.Joker { --Echosense Precision
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 19 },
+	pos = { x = 11, y = 20 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -522,7 +522,7 @@ SMODS.Joker { --Echosense Precision
 }
 
 SMODS.Joker { --Echosense Network
-    key = 'network',
+    key = 'echosense_network',
     name = 'Echosense Network',
     loc_txt = {
         name = 'Echosense Network',
@@ -533,7 +533,7 @@ SMODS.Joker { --Echosense Network
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 19 },
+	pos = { x = 12, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -566,19 +566,19 @@ SMODS.Joker { --Echosense Network
 }
 
 SMODS.Joker { --Alluring Melody
-    key = 'melody',
+    key = 'alluring_melody',
     name = 'Alluring Melody',
     loc_txt = {
         name = 'Alluring Melody',
         text = {
             "This Joker gains {C:mult}+#1#{} Mult",
-            "per scoring {C:attention}Enhanced card{} played,",
-            "removes card {C:attention}Enhancement",
+            "per scoring {C:enhanced}Enhanced{} card played,",
+            "removes card {C:enhanced}Enhancement",
             "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
         }
     },
     atlas = 'Joker',
-	pos = { x = 13, y = 19 },
+	pos = { x = 13, y = 20 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -633,20 +633,20 @@ SMODS.Joker { --Alluring Melody
 }
 
 SMODS.Joker { --Symphonic Resonance
-    key = 'symphres',
+    key = 'symphonic_resonance',
     name = 'Symphonic Resonance',
     loc_txt = {
         name = 'Symphonic Resonance',
         text = {
             "This Joker gains {X:mult,C:white}X#1#{} Mult",
-            "per scoring {C:attention}Enhanced card{} played,",
-            "removes card {C:attention}Enhancement",
+            "per scoring {C:enhanced}Enhanced{} card played,",
+            "removes card {C:enhanced}Enhancement",
             'and returns card to hand',
             "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
         }
     },
     atlas = 'Joker',
-	pos = { x = 14, y = 19 },
+	pos = { x = 14, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -698,18 +698,18 @@ SMODS.Joker { --Symphonic Resonance
 }
 
 SMODS.Joker { --The Final Harmonic
-    key = 'tfh',
+    key = 'the_final_harmonic',
     name = 'The Final Harmonic',
     loc_txt = {
         name = 'The Final Harmonic',
         text = {
-            'Return {C:attention}Enhanced{}',
+            'Return {C:enhanced}Enhanced{}',
             'cards to hand after',
             'being scored',
         }
     },
     atlas = 'Joker',
-	pos = { x = 15, y = 19 },
+	pos = { x = 15, y = 20 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

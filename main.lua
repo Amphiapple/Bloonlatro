@@ -1,12 +1,20 @@
 Bloonlatro = {}
 Bloonlatro.config = SMODS.current_mod.config
 
+SMODS.Atlas({
+	key = "modicon",
+	path = "icon.png",
+	px = 32,
+	py = 32,
+})
+
 local functions = {
     'base',
     'calculate-score',
     'config_tab',
     'hook',
-    'corvus',
+    'deck_ui',
+    'collection',
 
     --Crossmod files
     'bunco',
@@ -36,7 +44,7 @@ local items = {
     'deck',
     'enhancement',
     'stake',
-    'sticker',
+    'blind_modifiers',
     'tag',
     'voucher'
 }

@@ -1,160 +1,152 @@
 SMODS.Joker { --Bomb Shooter
-    key = 'bomb',
+    key = 'bomb_shooter',
     name = 'Bomb Shooter',
 	loc_txt = {
         name = 'Bomb Shooter',
         text = {
-            '{C:gray}Steel{} cards give',
-            '{X:mult,C:white}X#1#{} Mult when scored'
+            '{C:mult}+#1#{} Mult if played',
+            'hand contains',
+            'a {C:attention}#2#{}'
         }
     },
 	atlas = 'Joker',
 	pos = { x = 0, y = 2 },
     rarity = 1,
-	cost = 4,
+	cost = 3,
     blueprint_compat = true,
-    enhancement_gate = 'm_steel',
     config = {
         base = 'bomb',
-        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
+        extra = { mult = 8, poker_hand = 'Pair' } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.m_steel
-        return { vars = { card.ability.extra.Xmult} }
+        return { vars = { card.ability.extra.mult, localize(card.ability.extra.poker_hand, 'poker_hands') } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Steel Card' then
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
             return {
-                x_mult = card.ability.extra.Xmult
+                mult = card.ability.extra.mult
             }
         end
     end
 }
 
-SMODS.Joker { --Missile Launcher
-    key = 'missile',
-    name = 'Missile Launcher',
-    loc_txt = {
-        name = 'Missile Launcher',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'earn {C:money}$#3#{} for each',
-            'discarded {C:attention}4{}'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 7, y = 2 },
-    rarity = 1,
-	cost = 4,
-    blueprint_compat = true,
-    config = {
-        base = 'bomb',
-        extra = { num = 1, denom = 2, money = 5 } --Variables: num/denom = probability fraction, money = dollars
-    },
-
-    loc_vars = function(self, info_queue, card) 
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'missile')
-        return { vars = { n, d, card.ability.extra.money } }
-    end,
-    calculate = function(self, card, context)
-        if context.discard and context.other_card:get_id() == 4 and not context.other_card.debuff and
-                SMODS.pseudorandom_probability(card, 'missile', card.ability.extra.num, card.ability.extra.denom, 'missile') then
-            ease_dollars(card.ability.extra.money)
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('$')..(card.ability.extra.money),colour = G.C.MONEY, delay = 0.45})
-        end
-    end
-}
-
-SMODS.Joker { --Frag Bombs
-    key = 'frags',
-    name = 'Frag Bombs',
+SMODS.Joker { --Bigger Bombs
+    key = 'bigger_bombs',
+    name = 'Bigger Bombs',
 	loc_txt = {
-        name = 'Frag Bombs',
+        name = 'Bigger Bombs',
         text = {
-            '{C:green}#1# in #2#{} chance to',
-            'create a {C:planet}Planet{} card',
-            'for each discarded {C:attention}4{}'
+            '{C:mult}+#1#{} Mult if played',
+            'hand contains',
+            'a {C:attention}#2#{}'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 12, y = 2 },
+	pos = { x = 1, y = 2 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
     config = {
         base = 'bomb',
-        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
+        extra = { mult = 15, poker_hand = 'Three of a Kind' } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'frags')
-        return { vars = { n, d } }
+        return { vars = { card.ability.extra.mult, localize(card.ability.extra.poker_hand, 'poker_hands') } }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card:get_id() == 4 and not context.other_card.debuff and
-                SMODS.pseudorandom_probability(card, 'frags', card.ability.extra.num, card.ability.extra.denom, 'frags') and
-                #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                    local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'frags')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                    G.GAME.consumeable_buffer = 0
-                    return true
-                end)
-            }))
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                mult = card.ability.extra.mult
+            }
         end
     end
 }
 
-SMODS.Joker { --MOAB Mauler
-    key = 'mauler',
-    name = 'MOAB Mauler',
+SMODS.Joker { --Heavy Bombs
+    key = 'heavy_bombs',
+    name = 'Heavy Bombs',
 	loc_txt = {
-        name = 'MOAB Mauler',
+        name = 'Heavy Bombs',
         text = {
-            '{X:mult,C:white}X#1#{} Mult against',
-            '{C:attention}Boss Blinds{}'
+            '{C:mult}+#1#{} Mult if played',
+            'hand contains',
+            'a {C:attention}#2#{}'
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 2 },
+	pos = { x = 2, y = 2 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
     config = {
         base = 'bomb',
-        extra = { Xmult = 2 } --Variables: Xmult = Xmult
+        extra = { mult = 20, poker_hand = 'Three of a Kind' } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
-        
-		return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.mult, localize(card.ability.extra.poker_hand, 'poker_hands') } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.blind.boss then
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
             return {
-                x_mult = card.ability.extra.Xmult
+                mult = card.ability.extra.mult
             }
         end
     end
 }
 
+SMODS.Joker { --Really Big Bombs
+    key = 'really_big_bombs',
+    name = 'Really Big Bombs',
+	loc_txt = {
+        name = 'Really Big Bombs',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult if played hand',
+            'contains a {C:attention}#2#{}',
+            '{X:mult,C:white}X#3#{} Mult instead if played hand',
+            'contains a {C:attention}#4#{}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 3, y = 2 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { Xmult1 = 2, Xmult2 = 3, poker_hand1 = 'Three of a Kind', poker_hand2 = 'Four of a Kind' } --Variables: Xmult 1 = Xmult if 3oak, Xmult 2 = Xmult if 4oak
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult1, localize(card.ability.extra.poker_hand1, 'poker_hands'), card.ability.extra.Xmult2, localize(card.ability.extra.poker_hand2, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands then
+            if next(context.poker_hands[card.ability.extra.poker_hand2]) then
+                return {
+                    x_mult = card.ability.extra.Xmult2
+                }
+            elseif next(context.poker_hands[card.ability.extra.poker_hand1]) then
+                return {
+                    x_mult = card.ability.extra.Xmult1
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Bloon Impact
-    key = 'blimpact',
+    key = 'bloon_impact',
     name = 'Bloon Impact',
     loc_txt = {
         name = 'Bloon Impact',
         text = {
             '{C:attention}Stun{} all cards in',
             '{C:attention}first discard{} of round',
-            'Gain {C:mult}+#1#{} Mult when a',  
-            '{C;attention}Stunned{} card wears off',
+            'Gain {C:mult}+#1#{} Mult when a',
+            '{C:attention}Stunned{} card wears off',
             '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
         }
     },
@@ -196,8 +188,420 @@ SMODS.Joker { --Bloon Impact
     end
 }
 
+SMODS.Joker { --Bloon Crush
+    key = 'bloon_crush',
+    name = 'Bloon Crush',
+    loc_txt = {
+        name = 'Bloon Crush',
+        text = {
+            '{C:attention}Stun{} all cards in',
+            '{C:attention}first discard{} of round',
+            '{X:mult,C:white}X#1#{} Mult if any {C:attention}Stunned{}',
+            'cards wear off',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 5, y = 2 },
+    rarity = 3,
+	cost = 9,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { Xmult = 3 } --Variables: Xmult = Xmult if any stunned
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
+            if G.GAME.current_round.discards_used == 0 then
+                context.other_card:set_ability('m_bloons_stunned', nil, true)
+                return {
+                    message = 'Stunned!',
+                    colour = G.C.RED
+                }
+            end
+        elseif context.joker_main then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Faster Reload
+    key = 'faster_reload_bomb',
+    name = 'Faster Reload (Bomb)',
+    loc_txt = {
+        name = 'Faster Reload',
+        text = {
+            '{C:mult}+#1#{} Mult if played',
+            'hand contains',
+            'a {C:attention}#2#{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 6, y = 2 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { mult = 12, poker_hand = 'Pair' } --Variables: mult = +mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, localize(card.ability.extra.poker_hand, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Missile Launcher
+    key = 'missile_launcher',
+    name = 'Missile Launcher',
+    loc_txt = {
+        name = 'Missile Launcher',
+        text = {
+            '{C:mult}+#1#{} Mult if played',
+            'hand contains',
+            'a {C:attention}#2#{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 2 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { mult = 15, poker_hand = 'Two Pair' } --Variables: mult = +mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, localize(card.ability.extra.poker_hand, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --MOAB Mauler
+    key = 'moab_mauler',
+    name = 'MOAB Mauler',
+	loc_txt = {
+        name = 'MOAB Mauler',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult against',
+            '{C:attention}Boss Blinds{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 2 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { Xmult = 2 } --Variables: Xmult = Xmult
+    },
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.blind.boss then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --MOAB Assassin
+    key = 'moab_assassin',
+    name = 'MOAB Assassin',
+	loc_txt = {
+        name = 'MOAB Assassin',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult against',
+            '{C:attention}Boss Blinds{} every',
+            '{C:attention}#2#{} hands played',
+            '{C:inactive}(#3#)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 2 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { Xmult = 3, limit = 2, counter = 2 } --Variables: Xmult = Xmult, limit = number of hands for tarot, counter = hand index
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(count, cap)
+			if count == cap - 1 then
+				return 'Active!'
+			end
+			return cap - count%cap - 1 .. ' remaining'
+		end
+		return {
+			vars = {
+				card.ability.extra.Xmult,
+				card.ability.extra.limit,
+                process_var(card.ability.extra.counter, card.ability.extra.limit)
+			},
+		}
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            card.ability.extra.counter = (G.GAME.hands_played - card.ability.hands_played_at_create)%(card.ability.extra.limit) + 1
+            if not context.blueprint then
+                local eval = function()
+                    return (card.ability.extra.counter == card.ability.extra.limit - 1 and G.GAME.blind and G.GAME.blind.boss)
+                end
+                juice_card_until(card, eval, true)
+            end
+            if card.ability.extra.counter == card.ability.extra.limit and G.GAME.blind.boss then
+                return {
+                    x_mult = card.ability.extra.Xmult,
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker { --MOAB Eliminator
+    key = 'moab_eliminator',
+    name = 'MOAB Eliminator',
+	loc_txt = {
+        name = 'MOAB Eliminator',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult against',
+            '{C:attention}Boss Blinds{}',
+            '{X:mult,C:white}X#2#{} Mult otherwise',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 10, y = 2 },
+    rarity = 3,
+	cost = 8,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { Xmult1 = 4, Xmult2 = 0.75 } --Variables: Xmult1 = Xmult for bosses, Xmult2 = Xmult for non-bosses
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult1, card.ability.extra.Xmult2 } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if G.GAME.blind.boss then
+                return {
+                    x_mult = card.ability.extra.Xmult1,
+                }
+            else
+                return {
+                    x_mult = card.ability.extra.Xmult2,
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Extra Range
+    key = 'extra_range',
+    name = 'Extra Range',
+	loc_txt = {
+        name = 'Extra Range',
+        text = {
+            '{C:chips}+#1#{} Chips if played',
+            'hand contains',
+            'a {C:attention}#2#{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 11, y = 2 },
+    rarity = 1,
+	cost = 3,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { chips = 50, poker_hand = 'Pair' } --Variables: chips = +chips
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, localize(card.ability.extra.poker_hand, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Frag Bombs
+    key = 'frag_bombs',
+    name = 'Frag Bombs',
+	loc_txt = {
+        name = 'Frag Bombs',
+        text = {
+            '{C:chips}+#1#{} Chips times the',
+            'rank of the highest',
+            'played {C:attention}#2#{}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 12, y = 2 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { chips = 8, poker_hand = 'Pair' } --Variables: chips = +chips
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, localize(card.ability.extra.poker_hand, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            local idx_by_id = {}
+            local max = 0
+            for k, v in ipairs(context.scoring_hand) do
+                local id = v:get_id()
+                local rank = SMODS.has_no_rank(v) and 0 or v.base.nominal
+                if idx_by_id[id] and rank > max then
+                    max = rank
+                else
+                    idx_by_id[id] = k
+                end
+            end
+            return {
+                chips = card.ability.extra.chips * max
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Cluster Bombs
+    key = 'cluster_bombs',
+    name = 'Cluster Bombs',
+	loc_txt = {
+        name = 'Cluster Bombs',
+        text = {
+            '{C:chips}+#1#{} Chips if',
+            '{C:attention}poker hand{} is the',
+            'same as previous',
+            '{C:attention}poker hand {C:inactive}#2#{}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 13, y = 2 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { chips = 100, poker_hand = '' } --Variables: chips = +chips, poker_hand = previous poker hand
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(poker_hand)
+            return poker_hand ~= '' and '[' .. poker_hand .. ']' or poker_hand
+        end
+		return { vars = { card.ability.extra.chips, process_var(card.ability.extra.poker_hand) } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if context.scoring_name == card.ability.extra.poker_hand then
+                return {
+                    chips = card.ability.extra.chips
+                }
+            else
+                card.ability.extra.poker_hand = context.scoring_name
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Recursive Cluster
+    key = 'recursive_cluster',
+    name = 'Recursive Cluster',
+	loc_txt = {
+        name = 'Recursive Cluster',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult if',
+            '{C:attention}poker hand{} is the same',
+            '{C:attention}3{} times in a row',
+            '{C:inactive}(#2#){}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 14, y = 2 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        base = 'bomb',
+        extra = { Xmult = 3, poker_hands = {} } --Variables: Xmult = Xmult, poker_hand1 = previous poker hand
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(poker_hands)
+			if next(poker_hands) == nil then
+				return 'None'
+			end
+            local hands_string = poker_hands[1]
+            if poker_hands[2] then
+                hands_string = hands_string .. ' ' .. poker_hands[2]
+            end
+			return hands_string
+		end
+		return { vars = { card.ability.extra.Xmult, process_var(card.ability.extra.poker_hands) } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            card.ability.extra.poker_hands[#card.ability.extra.poker_hands+1] = context.scoring_name
+            if #card.ability.extra.poker_hands >= 3 then
+                local active = false
+                if context.scoring_name == card.ability.extra.poker_hands[1] and context.scoring_name == card.ability.extra.poker_hands[2] then
+                    active = true
+                end
+                table.remove(card.ability.extra.poker_hands, 1)
+                if active then
+                    return {
+                        x_mult = card.ability.extra.Xmult
+                    }
+                end
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Bomb Blitz
-    key = 'blitz',
+    key = 'bomb_blitz',
     name = 'Bomb Blitz',
 	loc_txt = {
         name = 'Bomb Blitz',
@@ -205,18 +609,18 @@ SMODS.Joker { --Bomb Blitz
             'Prevents Death if chips scored',
             'are at least {C:attention}#1#%{} of required chips',
             'and destroy all cards held in hand',
-            '{S:1.1,C:red,E:2}self destructs{}'
+            '{s:1.1,C:red,E:2}self destructs{}'
         }
     },
 	atlas = 'Joker',
 	pos = { x = 15, y = 2 },
     rarity = 3,
-	cost = 7,
+	cost = 8,
     blueprint_compat = false,
     eternal_compat = false,
     config = {
         base = 'bomb',
-        extra = { percent = 50 } --Variables: percent = percent of required chips scored
+        extra = { percent = 25 } --Variables: percent = percent of required chips scored
     },
 
     loc_vars = function(self, info_queue, card)

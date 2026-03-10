@@ -1,4 +1,4 @@
-JokerDisplay.Definitions["j_bloons_merm"] = { --Mermonkey
+JokerDisplay.Definitions["j_bloons_mermonkey"] = { --Mermonkey
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "mult", },
@@ -6,7 +6,7 @@ JokerDisplay.Definitions["j_bloons_merm"] = { --Mermonkey
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_fastmerm"] = { --Trident Efficiency
+JokerDisplay.Definitions["j_bloons_trident_efficiency"] = { --Trident Efficiency
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "mult", },
@@ -14,7 +14,7 @@ JokerDisplay.Definitions["j_bloons_fastmerm"] = { --Trident Efficiency
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_swiftmerm"] = { --Trident Swiftness
+JokerDisplay.Definitions["j_bloons_trident_swiftness"] = { --Trident Swiftness
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "mult", },
@@ -22,7 +22,7 @@ JokerDisplay.Definitions["j_bloons_swiftmerm"] = { --Trident Swiftness
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_dweller"] = { --Abyss Dweller
+JokerDisplay.Definitions["j_bloons_abyss_dweller"] = { --Abyss Dweller
     text = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", },
@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_dweller"] = { --Abyss Dweller
     end
 }
 
-JokerDisplay.Definitions["j_bloons_awarrior"] = { --Abyssal Warrior
+JokerDisplay.Definitions["j_bloons_abyssal_warrior"] = { --Abyssal Warrior
     text = {
         {
             border_nodes = {
@@ -61,7 +61,7 @@ JokerDisplay.Definitions["j_bloons_awarrior"] = { --Abyssal Warrior
     end
 }
 
-JokerDisplay.Definitions["j_bloons_lota"] = { --Lord of the Abyss
+JokerDisplay.Definitions["j_bloons_lord_of_the_abyss"] = { --Lord of the Abyss
     text = {
         {
             border_nodes = {
@@ -75,7 +75,7 @@ JokerDisplay.Definitions["j_bloons_lota"] = { --Lord of the Abyss
     },
 }
 
-JokerDisplay.Definitions["j_bloons_prongs"] = { --Sharper Prongs
+JokerDisplay.Definitions["j_bloons_sharper_prongs"] = { --Sharper Prongs
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "mult", },
@@ -83,13 +83,13 @@ JokerDisplay.Definitions["j_bloons_prongs"] = { --Sharper Prongs
     text_config = { colour = G.C.CHIPS },
 }
 
-JokerDisplay.Definitions["j_bloons_chill"] = { --Tidal Chill
+JokerDisplay.Definitions["j_bloons_tidal_chill"] = { --Tidal Chill
 }
 
-JokerDisplay.Definitions["j_bloons_ripchamp"] = { --Riptide Champion
+JokerDisplay.Definitions["j_bloons_riptide_champion"] = { --Riptide Champion
 }
 
-JokerDisplay.Definitions["j_bloons_arknight"] = { --Arctic Knight
+JokerDisplay.Definitions["j_bloons_arctic_knight"] = { --Arctic Knight
     extra = {
         {
             { text = "(" },
@@ -112,9 +112,13 @@ JokerDisplay.Definitions["j_bloons_popseidon"] = { --Popseidon
     text_config = { colour = G.C.CHIPS },
     calc_function = function(card)
         local playing_hand = next(G.play.cards)
+        if playing_hand then
+            card.joker_display_values.chips = card.joker_display_values and card.joker_display_values.chips or 0
+            return
+        end
         local count = 0
         for _, playing_card in ipairs(G.hand.cards) do
-            if playing_hand or not playing_card.highlighted then
+            if not playing_card.highlighted then
                 if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability and playing_card.ability.name == 'Frozen Card' then
                     count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
@@ -124,10 +128,10 @@ JokerDisplay.Definitions["j_bloons_popseidon"] = { --Popseidon
     end
 }
 
-JokerDisplay.Definitions["j_bloons_echosense"] = { --Echosense Precision
+JokerDisplay.Definitions["j_bloons_echosense_precision"] = { --Echosense Precision
 }
 
-JokerDisplay.Definitions["j_bloons_network"] = { --Echosense Network
+JokerDisplay.Definitions["j_bloons_echosense_network"] = { --Echosense Network
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "mult", },
@@ -135,7 +139,7 @@ JokerDisplay.Definitions["j_bloons_network"] = { --Echosense Network
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_melody"] = { --Alluring Melody
+JokerDisplay.Definitions["j_bloons_alluring_melody"] = { --Alluring Melody
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "mult", },
@@ -143,7 +147,7 @@ JokerDisplay.Definitions["j_bloons_melody"] = { --Alluring Melody
     text_config = { colour = G.C.MULT },
 }
 
-JokerDisplay.Definitions["j_bloons_symphres"] = { --Symphonic Resonance
+JokerDisplay.Definitions["j_bloons_symphonic_resonance"] = { --Symphonic Resonance
     text = {
         {
             border_nodes = {
@@ -154,5 +158,5 @@ JokerDisplay.Definitions["j_bloons_symphres"] = { --Symphonic Resonance
     },
 }
 
-JokerDisplay.Definitions["j_bloons_tfh"] = { --The Final Harmonic
+JokerDisplay.Definitions["j_bloons_the_final_harmonic"] = { --The Final Harmonic
 }

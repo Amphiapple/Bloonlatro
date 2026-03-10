@@ -1,6 +1,6 @@
 
 SMODS.Joker { --Dart Monkey
-    key = 'dart',
+    key = 'dart_monkey',
     name = 'Dart Monkey',
 	loc_txt = {
         name = 'Dart Monkey',
@@ -33,7 +33,7 @@ SMODS.Joker { --Dart Monkey
 }
 
 SMODS.Joker { --Sharp Shots
-    key = 'sharp',
+    key = 'sharp_shots',
     name = 'Sharp Shots',
     loc_txt = {
         name = 'Sharp Shots',
@@ -66,7 +66,7 @@ SMODS.Joker { --Sharp Shots
 }
 
 SMODS.Joker { --Razor Sharp Shots
-    key = 'razor',
+    key = 'razor_sharp_shots',
     name = 'Razor Sharp Shots',
     loc_txt = {
         name = 'Razor Sharp Shots',
@@ -99,7 +99,7 @@ SMODS.Joker { --Razor Sharp Shots
 }
 
 SMODS.Joker { --Spike-o-pult
-    key = 'spult',
+    key = 'spike_o_pult',
     name = 'Spike-o-pult',
 	loc_txt = {
         name = 'Spike-o-pult',
@@ -131,7 +131,7 @@ SMODS.Joker { --Spike-o-pult
 }
 
 SMODS.Joker { --Juggernaut
-    key = 'jugg',
+    key = 'juggernaut',
     name = 'Juggernaut',
 	loc_txt = {
         name = 'Juggernaut',
@@ -170,7 +170,7 @@ SMODS.Joker { --Juggernaut
 }
 
 SMODS.Joker { --Ultra-Juggernaut
-    key = 'ujugg',
+    key = 'ultra_juggernaut',
     name = 'Ultra-Juggernaut',
 	loc_txt = {
         name = 'Ultra-Juggernaut',
@@ -209,7 +209,7 @@ SMODS.Joker { --Ultra-Juggernaut
 }
 
 SMODS.Joker { --Quick Shots
-    key = 'quick',
+    key = 'quick_shots',
     name = 'Quick Shots',
     loc_txt = {
         name = 'Quick Shots',
@@ -242,7 +242,7 @@ SMODS.Joker { --Quick Shots
 }
 
 SMODS.Joker { --Very Quick Shots
-    key = 'veryquick',
+    key = 'very_quick_shots',
     name = 'Very Quick Shots',
     loc_txt = {
         name = 'Very Quick Shots',
@@ -275,7 +275,7 @@ SMODS.Joker { --Very Quick Shots
 }
 
 SMODS.Joker { --Triple Shot
-    key = 'tripshot',
+    key = 'triple_shot',
     name = 'Triple Shot',
 	loc_txt = {
         name = 'Triple Shot',
@@ -317,7 +317,7 @@ SMODS.Joker { --Triple Shot
                             trigger = 'before',
                             delay = 0.0,
                             func = (function()
-                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'tripshot')
+                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'triple_shot')
                                 card:add_to_deck()
                                 G.consumeables:emplace(card)
                                 G.GAME.consumeable_buffer = 0
@@ -333,7 +333,7 @@ SMODS.Joker { --Triple Shot
 }
 
 SMODS.Joker { --Super Monkey Fan Club
-    key = 'smfc',
+    key = 'super_monkey_fan_club',
     name = 'Super Monkey Fan Club',
 	loc_txt = {
         name = 'Super Monkey Fan Club',
@@ -375,7 +375,7 @@ SMODS.Joker { --Super Monkey Fan Club
 }
 
 SMODS.Joker { --Plasma Monkey Fan Club
-    key = 'pmfc',
+    key = 'plasma_monkey_fan_club',
     name = 'Plasma Monkey Fan Club',
 	loc_txt = {
         name = 'Plasma Monkey Fan Club',
@@ -417,7 +417,7 @@ SMODS.Joker { --Plasma Monkey Fan Club
 }
 
 SMODS.Joker { --Long Range Darts
-    key = 'rangedart',
+    key = 'long_range_darts',
     name = 'Long Range Darts',
     loc_txt = {
         name = 'Long Range Darts',
@@ -457,7 +457,7 @@ SMODS.Joker { --Long Range Darts
 }
 
 SMODS.Joker { --Enhanced Eyesight
-    key = 'eyesight',
+    key = 'enhanced_eyesight',
     name = 'Enhanced Eyesight',
     loc_txt = {
         name = 'Enhanced Eyesight',
@@ -487,7 +487,7 @@ SMODS.Joker { --Enhanced Eyesight
 }
 
 SMODS.Joker { --Crossbow
-    key = 'xbow',
+    key = 'crossbow',
     name = 'Crossbow',
 	loc_txt = {
         name = 'Crossbow',
@@ -521,7 +521,7 @@ SMODS.Joker { --Crossbow
 }
 
 SMODS.Joker { --Sharp Shooter
-    key = 'sshooter',
+    key = 'sharp_shooter',
     name = 'Sharp Shooter',
 	loc_txt = {
         name = 'Sharp Shooter',
@@ -599,7 +599,7 @@ SMODS.Joker { --Sharp Shooter
 }
 
 SMODS.Joker { --Crossbow Master
-    key = 'xbm',
+    key = 'crossbow_master',
     name = 'Crossbow Master',
 	loc_txt = {
         name = 'Crossbow Master',

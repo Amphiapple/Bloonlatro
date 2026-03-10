@@ -10,7 +10,7 @@ SMODS.Joker { --Druid
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 18 },
+	pos = { x = 0, y = 19 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -32,7 +32,7 @@ SMODS.Joker { --Druid
 }
 
 SMODS.Joker { --Heart of Thunder
-    key = 'thunder',
+    key = 'heart_of_thunder',
     name = 'Heart of Thunder',
     loc_txt = {
         name = 'Heart of Thunder',
@@ -43,7 +43,7 @@ SMODS.Joker { --Heart of Thunder
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 18 },
+	pos = { x = 2, y = 19 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -53,18 +53,19 @@ SMODS.Joker { --Heart of Thunder
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'thunder')
+        info_queue[#info_queue+1] = G.P_TAGS.tag_double
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'heart_of_thunder')
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.skip_blind and SMODS.pseudorandom_probability(card, 'thunder', card.ability.extra.num, card.ability.extra.denom, 'thunder') then
+        if context.skip_blind and SMODS.pseudorandom_probability(card, 'heart_of_thunder', card.ability.extra.num, card.ability.extra.denom, 'heart_of_thunder') then
             add_tag(Tag('tag_double'))
         end
     end
 }
 
 SMODS.Joker { --Druid of the Storm
-    key = 'dots',
+    key = 'druid_of_the_storm',
     name = 'Druid of the Storm',
 	loc_txt = {
         name = 'Druid of the Storm',
@@ -76,7 +77,7 @@ SMODS.Joker { --Druid of the Storm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 18 },
+	pos = { x = 3, y = 19 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -117,7 +118,7 @@ SMODS.Joker { --Druid of the Storm
 }
 
 SMODS.Joker { --Jungle's Bounty
-    key = 'jbounty',
+    key = 'jungles_bounty',
     name = "Jungle's Bounty",
 	loc_txt = {
         name = "Jungle's Bounty",
@@ -129,7 +130,7 @@ SMODS.Joker { --Jungle's Bounty
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 18 },
+	pos = { x = 9, y = 19 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -158,7 +159,7 @@ SMODS.Joker { --Jungle's Bounty
 }
 
 SMODS.Joker { --Avatar of Wrath
-    key = 'aow',
+    key = 'avatar_of_wrath',
     name = 'Avatar of Wrath',
 	loc_txt = {
         name = 'Avatar of Wrath',
@@ -169,7 +170,7 @@ SMODS.Joker { --Avatar of Wrath
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 18 },
+	pos = { x = 15, y = 19 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
