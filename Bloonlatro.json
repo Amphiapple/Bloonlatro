@@ -9,7 +9,7 @@
 	"badge_colour": "EF5050",
 	"badge_text_colour": "F0F0F0",
 	"display_name": "Bloons",
-	"version": "0.4.3",
+	"version": "0.4.4",
 	"dependencies": ["Steamodded (>=1.0.0~BETA-1224a)", "Lovely (>=0.8.0)"],
 	"conflicts": [],
 	"provides": [],
