@@ -390,7 +390,7 @@ SMODS.Joker { --Riptide Champion
                 local left_card = nil
                 local right_card = nil
                 for k, v in ipairs(G.hand.cards) do
-                    if v == card then
+                    if v == frozen_card then
                         if k > 1 then
                             left_card = G.hand.cards[k - 1]
                         end
