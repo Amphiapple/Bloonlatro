@@ -14,7 +14,7 @@ SMODS.Joker { --Monkey Buccaneer
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { money = 1 } --Variables: money = dollars per hand
     },
 
@@ -48,7 +48,7 @@ SMODS.Joker { --Faster Shooting
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { num = 1, denom = 2, money = 2 } --Variables: num/denom = probability fraction, money = dollars per hand
     },
 
@@ -83,7 +83,7 @@ SMODS.Joker { --Double Shot
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { money = 1, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
     },
 
@@ -143,7 +143,7 @@ SMODS.Joker { --Destroyer
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { Xmult = 2.5, active = false } --Variables: Xmult = Xmult, active = joker destroyed
     },
 
@@ -206,7 +206,7 @@ SMODS.Joker { --Aircraft Carrier
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { num = 1, denom = 3, Xmult = 1.75, planes = 3 } --Variables: num/denom = probability fraction, money = dollars per hand, planes = Xmult retriggers
     },
 
@@ -265,7 +265,7 @@ SMODS.Joker { --Carrier Flagship
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { num = 1, denom = 3, Xmult = 1.5, slots = 1, planes = 3 } --Variables: num/denom = probability fraction, money = dollars per hand, slots = extra joker slots, planes = Xmult retriggers
     },
 
@@ -332,7 +332,7 @@ SMODS.Joker { --Grape Shot
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { money = 5, loss = 1 } --Variables: money = dollars, loss = money reduction
     },
 
@@ -380,7 +380,7 @@ SMODS.Joker { --Hot Shot
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { num = 1, denom = 3, money = 5 } --Variables: num/denom = probability fraction, money = dollars
     },
 
@@ -425,7 +425,7 @@ SMODS.Joker { --Cannon Ship
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { mult = 12, money = 3 } --Variables: mult = +mult, money = dollars
     },
 
@@ -462,7 +462,7 @@ SMODS.Joker { --Monkey Pirates
 	cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { percent = 50 } --Variables: percent = percent of required chips scored
     },
 
@@ -509,7 +509,7 @@ SMODS.Joker { --Pirate Lord
 	cost = 8,
     blueprint_compat = false,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { percent = 50, money = 0 } --Variables: percent = percent of required chips scored, money = reward dollars
     },
 
@@ -562,7 +562,7 @@ SMODS.Joker { --Long Range
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { money = 1 } --Variables: money = dollars per hand
     },
 
@@ -596,7 +596,7 @@ SMODS.Joker { --Crow's Nest
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { money = 2 } --Variables: money = dollars per hand
     },
 
@@ -630,7 +630,7 @@ SMODS.Joker { --Merchantman
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -667,7 +667,7 @@ SMODS.Joker { --Favored Trades
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { Xmult = 0.25, current = 1 } --Variables: Xmult = Xmult per voucher, current = current Xmult
     },
 
@@ -720,7 +720,7 @@ SMODS.Joker { --Trade Empire
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'boat',
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { slots = 1 } --Variables: slots = extra voucher slots
     },
 

@@ -131,7 +131,7 @@ JokerDisplay.Definitions["j_bloons_shinobi_tactics"] = { --Shinobi Tactics
         local count = 0
         if G.jokers then
             for _, joker_card in ipairs(G.jokers.cards) do
-                if joker_card.ability.base and joker_card.ability.base == 'ninja' then
+                if joker_card.ability.tower_info and joker_card.ability.tower_info.base and joker_card.ability.tower_info.base == 'Ninja Monkey' then
                     count = count + 1
                 end
             end
@@ -139,7 +139,7 @@ JokerDisplay.Definitions["j_bloons_shinobi_tactics"] = { --Shinobi Tactics
         card.joker_display_values.count = count
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = (card.ability.base and card.ability.base == 'ninja' and mod_joker.ability.extra.Xmult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+        return { x_mult = (card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Ninja Monkey' and mod_joker.ability.extra.Xmult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end
 }
 

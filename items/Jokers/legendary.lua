@@ -17,7 +17,7 @@ SMODS.Joker { --Glaive Dominus
 	cost = 20,
     blueprint_compat = true,
     config = {
-        base = 'boomer',
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { Xmult = 0.25, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
     },
 
@@ -58,7 +58,7 @@ SMODS.Joker { --Goliath Doomship
 	cost = 20,
     blueprint_compat = false,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { retrigger = 1, money = 3 } --Variables: retrigger = retrigger amount (red), money = dollars (gold)
 
     },
@@ -148,7 +148,7 @@ SMODS.Joker { --Magus Perfectus
 	cost = 20,
     blueprint_compat = true,
     config = {
-        base = 'wiz',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -196,7 +196,7 @@ SMODS.Joker { --Mega Massive Munitions Factory
 	cost = 20,
     blueprint_compat = true,
     config = {
-        base = 'spac',
+        tower_info = { base = "Spike Factory", category = "support" },
         extra = { limit = 3, counter = 3, Xmult = 2, mines = 0 } --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
     },
 
@@ -272,7 +272,7 @@ SMODS.Joker { --Vengeful True Sun God
 	cost = 20,
 	blueprint_compat = true,
     config = {
-        base = 'super',
+        tower_info = { base = "Super Monkey", category = "magic" },
         extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 } --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
     },
 
@@ -294,16 +294,15 @@ SMODS.Joker { --Vengeful True Sun God
     end,
     sac_to_vtsg = function(card)
         local deletable_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if v ~= card then
-                local category = v:get_category_vtsg()
-                if category and card.ability.extra.sacrifices[category] then
-                    card.ability.extra.sacrifices[category] = card.ability.extra.sacrifices[category] + v.base_cost
-                    if card.ability.extra.sacrifices[category] > 9 then
-                        card.ability.extra.sacrifices[category] = 9
+        for _, joker in pairs(G.jokers.cards) do
+            if joker ~= card and joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
+                if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                    local category = joker.ability.tower_info.category
+                    if category and card.ability.extra.sacrifices[category] then
+                        card.ability.extra.sacrifices[category] = math.min(card.ability.extra.sacrifices[category] + joker.base_cost, 9)
                     end
+                    deletable_jokers[#deletable_jokers + 1] = joker
                 end
-                deletable_jokers[#deletable_jokers + 1] = v
             end
         end
         local _first_dissolve = nil

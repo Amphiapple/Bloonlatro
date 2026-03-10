@@ -15,7 +15,7 @@ SMODS.Joker { --Mermonkey
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 2, current = 0 } --Variables: mult = +mult
     },
 
@@ -53,7 +53,7 @@ SMODS.Joker { --Trident Efficiency
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 3, current = 0 } --Variables: mult = +mult
     },
 
@@ -91,7 +91,7 @@ SMODS.Joker { --Trident Swiftness
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 5, current = 0 } --Variables: mult = +mult
     },
 
@@ -134,7 +134,7 @@ SMODS.Joker { --Abyss Dweller
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 9 } --Variables: mult = +mult per adjacent joker
     },
     
@@ -181,7 +181,7 @@ SMODS.Joker { --Abyssal Warrior
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { Xmult = 1.2 } --Variables: Xmult = Xmult and per adjacent joker
     },
 
@@ -233,7 +233,7 @@ SMODS.Joker { --Lord of the Abyss
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { Xmult = 1.2 } --Variables: Xmult = Xmult and per adjacent joker
     },
 
@@ -293,7 +293,7 @@ SMODS.Joker { --Sharper Prongs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { chips = 15, current = 0 } --Variables: mult = +mult
     },
 
@@ -331,7 +331,7 @@ SMODS.Joker { --Tidal Chill
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -371,7 +371,7 @@ SMODS.Joker { --Riptide Champion
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -428,7 +428,7 @@ SMODS.Joker { --Arctic Knight
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -477,7 +477,7 @@ SMODS.Joker { --Popseidon
 	cost = 9,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { chips = 40 } --Variables: chips = +chips per frozen card
     },
 
@@ -517,7 +517,7 @@ SMODS.Joker { --Echosense Precision
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
     },
 }
 
@@ -538,7 +538,7 @@ SMODS.Joker { --Echosense Network
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 10, current = 0 } --Variables: mult = +mult per mermonkey
     },
 
@@ -549,7 +549,7 @@ SMODS.Joker { --Echosense Network
         if G.STAGE == G.STAGES.RUN then
             local count = 0
             for k, v in ipairs(G.jokers.cards) do
-                if v.ability.base == 'merm' then
+                if v.ability.tower_info and v.ability.tower_info.base and v.ability.tower_info.base == "Mermonkey" then
                     count = count + 1
                 end
             end
@@ -583,7 +583,7 @@ SMODS.Joker { --Alluring Melody
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 3, current = 0 } --Variables: mult = +mult per enhanced card, current = current mult
     },
 
@@ -651,7 +651,7 @@ SMODS.Joker { --Symphonic Resonance
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
         extra = { Xmult = 0.1, current = 1 } --Variables: mult = +mult per enhanced card, current = current mult
     },
 
@@ -714,7 +714,7 @@ SMODS.Joker { --The Final Harmonic
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'merm',
+        tower_info = { base = "Mermonkey", category = "magic" },
     },
 
     calculate = function(self, card, context)

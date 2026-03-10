@@ -1,66 +1,3 @@
-Primary_towers = {
-    'dart',
-    'boomer',
-    'bomb',
-    'tack',
-    'ice',
-    'glue',
-    'desperado',
-}
-
-Military_towers = {
-    'sniper',
-    'sub',
-    'boat',
-    'ace',
-    'heli',
-    'mortar',
-    'dartling',
-}
-
-Magic_towers = {
-    'wizard',
-    'super',
-    'ninja',
-    'alch',
-    'druid',
-    'merm',
-}
-
-Support_towers = {
-    'farm',
-    'spac',
-    'village',
-    'engi',
-    'beast',
-}
-
---Tower effects function
-function Card.get_category_vtsg(self)
-    local category = self.ability.base
-    for k, v in ipairs(Primary_towers) do
-        if category == v then
-            return 'primary'
-        end
-    end
-    for k, v in ipairs(Military_towers) do
-        if category == v then
-            return 'military'
-        end
-    end
-    for k, v in ipairs(Magic_towers) do
-        if category == v then
-            return 'magic'
-        end
-    end
-    for k, v in ipairs(Support_towers) do
-        if category == v then
-            return 'support'
-        end
-    end
-    return nil
-end
-
 --Challenge id function
 function get_challenge_stake(e)
     local key = G.CHALLENGES[e.config.id].id
@@ -91,7 +28,7 @@ function reset_desperado_card()
     G.GAME.current_round.desperado_card.rank = 'Ace'
     local valid_desperado_cards = {}
     for k, v in ipairs(G.playing_cards) do
-        if not SMODS.has_no_rank(v) then
+        if not SMODS.has_no_rank(v) and v:is_suit("hearts") then
             valid_desperado_cards[#valid_desperado_cards+1] = v
         end
     end

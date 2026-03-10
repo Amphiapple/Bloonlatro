@@ -15,7 +15,7 @@ SMODS.Joker { --Monkey Ace
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { chips = 50 } --Variables: chips = +chips
     },
     loc_vars = function(self, info_queue, card)
@@ -54,7 +54,7 @@ SMODS.Joker { --Rapid Fire
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { chips = 30 } --Variables: chips = +chips
     },
     loc_vars = function(self, info_queue, card)
@@ -86,7 +86,7 @@ SMODS.Joker { --Lots More Darts
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { chips = 50 } --Variables: chips = +chips
     },
     loc_vars = function(self, info_queue, card)
@@ -118,7 +118,7 @@ SMODS.Joker { --Fighter Plane
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
     },
     calculate = function(self, card, context)
         if context.before and G.GAME.current_round.hands_played == 0 then
@@ -187,7 +187,7 @@ SMODS.Joker { --Operation: Dart Storm
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { chips = 6, current = 0 } --Variables: chips = chip gain, current = current chips
     },
     loc_vars = function(self, info_queue, card)
@@ -228,7 +228,7 @@ SMODS.Joker { --Sky Shredder
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { Xmult = 1, limit = 4, counter = 0, current = 1 } --Variables: Xmult = Xmult gain, limit = aces for next level, counter = aces scored, current = current Xmult
     },
 
@@ -289,7 +289,7 @@ SMODS.Joker { --Exploding Pineapple
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { hands = 3 } --Variables: hands = hands remaining
     },
 
@@ -329,7 +329,7 @@ SMODS.Joker { --Spy Plane
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { number = 2 } --Variables: number = number of cards revealed
     },
 
@@ -368,7 +368,7 @@ SMODS.Joker { --Bomber Ace
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
     },
 
     calculate = function(self, card, context)
@@ -416,7 +416,7 @@ SMODS.Joker { --Ground Zero
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { chips = 250 } --Variables: chips = +chips
     },
 
@@ -449,7 +449,7 @@ SMODS.Joker { --Tsar Bomba
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { Xmult = 4 } --Variables: chips = +chips
     },
 
@@ -495,7 +495,7 @@ SMODS.Joker { --Sharper Darts
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { mult = 15 } --Variables: mult = +mult
     },
     loc_vars = function(self, info_queue, card)
@@ -535,7 +535,7 @@ SMODS.Joker { --Centered Path
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { percent_min = 40, percent_max = 60 } --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
     },
 
@@ -581,7 +581,7 @@ SMODS.Joker { --Neva-Miss Targeting
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { percent_min = 75, percent_max = 125 } --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
     },
 
@@ -626,7 +626,7 @@ SMODS.Joker { --Spectre
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { number = 4 } --Variables: number = required aces for spectral
     },
 
@@ -679,7 +679,7 @@ SMODS.Joker { --Flying Fortress
 	cost = 10,
     blueprint_compat = true,
     config = {
-        base = 'ace',
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
     loc_vars = function(self, info_queue, card)

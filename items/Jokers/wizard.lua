@@ -14,7 +14,7 @@ SMODS.Joker { --Wizard Monkey
 	cost = 3,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -53,7 +53,7 @@ SMODS.Joker { --Guided Magic
 	cost = 3,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { enhancement = G.P_CENTERS.m_bonus } --Variables: enhancement = enhancement to apply
     },
 
@@ -104,7 +104,7 @@ SMODS.Joker { --Arcane Blast
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { chips = 30 } --Variables: chips = +chips for enhanced cards
     },
 
@@ -137,7 +137,7 @@ SMODS.Joker { --Arcane Mastery
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -193,7 +193,7 @@ SMODS.Joker { --Arcane Spike
 	cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { retrigger = 1, enhancements = {} } --Variables: retrigger = retrigger amount
     },
 
@@ -237,7 +237,7 @@ SMODS.Joker { --Archmage
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -268,7 +268,7 @@ SMODS.Joker { --Fireball
     blueprint_compat = true,
     enhancement_gate = 'm_stone',
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { mult = 12 } --Variables: mult = +mult for stone cards
     },
 
@@ -302,7 +302,7 @@ SMODS.Joker { --Wall of Fire
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { num = 1, denom = 3 } --Variables: num/denom = probability fraction
     },
 
@@ -349,7 +349,7 @@ SMODS.Joker { --Dragon's Breath
     perishable_compat = false,
     enhancement_gate = 'm_stone',
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult gain for each stone, current = current Xmult
     },
 
@@ -385,7 +385,7 @@ SMODS.Joker { --Summon Phoenix
     blueprint_compat = false,
     enhancement_gate = 'm_stone',
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -420,7 +420,7 @@ SMODS.Joker { --Wizard Lord Phoenix
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -461,7 +461,7 @@ SMODS.Joker { --Intense Magic
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { mult = 6 } --Variables: mult = +mult for enhanced cards
     },
 
@@ -493,7 +493,7 @@ SMODS.Joker { --Monkey Sense
 	cost = 4,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     update = function(self, card, dt)
@@ -525,7 +525,7 @@ SMODS.Joker { --Shimmer
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { num = 1, denom = 2, fool = nil } --Variables: fool = temporary fool
     },
 
@@ -571,7 +571,7 @@ SMODS.Joker { --Necromancer
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -616,7 +616,7 @@ SMODS.Joker { --Prince of Darkness
 	cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)

@@ -203,7 +203,7 @@ SMODS.Joker { --The Blazing Sun
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { Xmult = 2 } --Variables: Xmult = Xmult, number = required 6s for Xmult
+        extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)

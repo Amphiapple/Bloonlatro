@@ -5,10 +5,12 @@ G.C.PRIMARY  = HEX("25ACE8")
 G.C.MILITARY = HEX("3DD228")
 G.C.MAGIC    = HEX("7E4AF4")
 G.C.SUPPORT  = HEX("EE882B")
+G.C.MISC     = HEX("FF6FAE")
 
 
 local function split_two_lines(text)
     text = tostring(text or "")
+    if text == "Card Storm" then return text end --Special case for Card Storm as it looks worse with the line break
 
     local words = {}
     for w in text:gmatch("%S+") do

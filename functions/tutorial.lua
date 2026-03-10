@@ -25,9 +25,9 @@ local function ensure_bloonlatro_overlay()
                     config = { align = "tr", minh = G.ROOM.T.h, minw = G.ROOM.T.w },
                     nodes = {
                         UIBox_button({
-                            label = { localize("b_skip") .. " >" },
-                            button = "skip_tutorial_section",
-                            minw = 1.3,
+                            label = { "Skip Tutorial" },
+                            button = "skip_bloonlatro_tutorial",
+                            minw = 2,
                             scale = 0.45,
                             colour = G.C.JOKER_GREY,
                         }),
@@ -46,6 +46,27 @@ local function ensure_bloonlatro_overlay()
     G.OVERLAY_TUTORIAL.step = G.OVERLAY_TUTORIAL.step or 1
     G.OVERLAY_TUTORIAL.step_complete = false
     return G.OVERLAY_TUTORIAL
+end
+
+G.FUNCS.skip_bloonlatro_tutorial = function(e)
+    local overlay = G.OVERLAY_TUTORIAL
+    if overlay then
+        overlay.skip_steps = true
+        if overlay.Jimbo then overlay.Jimbo:remove() end
+        if overlay.content then overlay.content:remove() end
+        overlay:remove()
+        G.OVERLAY_TUTORIAL = nil
+    end
+
+    G.E_MANAGER:clear_queue("tutorial")
+
+    -- Mark tutorial fully done
+    G.SETTINGS.bloonlatro_tutorial_complete = true
+    G.SETTINGS.bloonlatro_tutorial_progress = nil
+    G.SETTINGS.run_stake_stickers = true
+    G.SETTINGS.paused = false
+
+    G:save_progress()
 end
 
 local function has_owned_dart()
@@ -116,12 +137,6 @@ G.FUNCS.start_bloonlatro_tutorial_run = function(e, args)
 end
 
 G.FUNCS.bloonlatro_tutorial_controller = function()
-    if G.F_SKIP_TUTORIAL then
-        G.SETTINGS.bloonlatro_tutorial_complete = true
-        G.SETTINGS.bloonlatro_tutorial_progress = nil
-        return
-    end
-
     local progress = ensure_bloonlatro_tutorial_progress()
     if G.SETTINGS.paused or G.SETTINGS.bloonlatro_tutorial_complete then
         return

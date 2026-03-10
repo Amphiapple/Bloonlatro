@@ -14,7 +14,7 @@ SMODS.Joker { --Monkey Village
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'village',
+        tower_info = { base = "Monkey Village", category = "support" },
     },
 }
 
@@ -34,7 +34,7 @@ SMODS.Joker { --Jungle Drums
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'village',
+        tower_info = { base = "Monkey Village", category = "support" },
         extra = { Xmult = 1.1 } --Variables: Xmult = Xmult per joker
     },
 
@@ -74,7 +74,7 @@ SMODS.Joker { --Primary Expertise
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'village',
+        tower_info = { base = "Monkey Village", category = "support" },
         extra = { num = 1, denom = 5, Xmult = 3 } --Variables: num/denom = probability fraction, Xmult = Xmult
     },
     
@@ -126,7 +126,7 @@ SMODS.Joker { --Monkey Intelligence Bureau
     cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'village',
+        tower_info = { base = "Monkey Village", category = "support" },
         extra = { num = 1 } --Variables: num = number of different rarities
     },
 
@@ -178,7 +178,7 @@ SMODS.Joker { --Monkey Business
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'village',
+        tower_info = { base = "Monkey Village", category = "support" },
         extra = { cost = 1 } --Variables: cost = discount amount
     },
 
@@ -212,7 +212,7 @@ SMODS.Joker { --Monkey City
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'village',
+        tower_info = { base = "Monkey Village", category = "support" },
         extra = { money = 1, current = 0 } --Variables: money = dollars per dart, current = current dollars
     },
 
