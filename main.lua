@@ -1,10 +1,19 @@
 Bloonlatro = {}
 Bloonlatro.config = SMODS.current_mod.config
-G.SETTINGS.bloonlatro_tutorial_complete = false
-G.SETTINGS.bloonlatro_tutorial_progress = {
-    hold_parts = {},
-    completed_parts = {},
-}
+
+-- category colors
+G.C.PRIMARY  = HEX("25ACE8")
+G.C.MILITARY = HEX("3DD228")
+G.C.MAGIC    = HEX("7E4AF4")
+G.C.SUPPORT  = HEX("EE882B")
+G.C.MISC     = HEX("FF6FAE")
+
+G.ARGS.LOC_COLOURS          = G.ARGS.LOC_COLOURS or {}
+G.ARGS.LOC_COLOURS.primary  = G.C.PRIMARY
+G.ARGS.LOC_COLOURS.military = G.C.MILITARY
+G.ARGS.LOC_COLOURS.magic    = G.C.MAGIC
+G.ARGS.LOC_COLOURS.support  = G.C.SUPPORT
+G.ARGS.LOC_COLOURS.misc     = G.C.MISC
 
 SMODS.Atlas({
 	key = "modicon",

@@ -29,19 +29,6 @@ payload = '''
 if not G.SETTINGS.bloonlatro_tutorial_complete then G.FUNCS.bloonlatro_tutorial_controller() end
 '''
 
-# TUTORIAL - No skips
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = '''
-if _tag_container and not G.SETTINGS.tutorial_complete and not G.SETTINGS.tutorial_progress.completed_parts['shop_1'] then _tag_container.states.visible = false
-'''
-match_indent = true
-position = 'after'
-payload = '''
-elseif _tag_container and not G.SETTINGS.bloonlatro_tutorial_complete and not G.SETTINGS.bloonlatro_tutorial_progress.completed_parts['shop_3'] then _tag_container.states.visible = false
-'''
-
 # TUTORIAL - Forced generation
 [[patches]]
 [patches.pattern]
@@ -110,19 +97,6 @@ if area == G.shop_jokers and G.SETTINGS.bloonlatro_tutorial_progress and G.SETTI
         return card
 '''
 
-# TUTORIAL - cannot buy booster
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = '''
-if (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
-'''
-match_indent = true
-position = 'at'
-payload = '''
-if (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) or ((not G.SETTINGS.bloonlatro_tutorial_complete and not G.SETTINGS.bloonlatro_tutorial_progress.hold_parts['shop_3'])) then
-'''
-
 # TUTORIAL - tutorial autocomplete
 [[patches]]
 [patches.pattern]
@@ -149,5 +123,5 @@ self.GAME.pseudorandom.seed = args.seed or (not (G.SETTINGS.tutorial_complete or
 match_indent = true
 position = 'after'
 payload = '''
-self.GAME.pseudorandom.seed = (not (G.SETTINGS.bloonlatro_tutorial_complete or G.SETTINGS.bloonlatro_tutorial_progress.completed_parts['shop_3']) and "BLOONLATRO") or self.GAME.pseudorandom.seed
+self.GAME.pseudorandom.seed = (not (G.SETTINGS.bloonlatro_tutorial_complete or G.SETTINGS.bloonlatro_tutorial_progress.completed_parts['shop_3']) and "FANCLUB") or self.GAME.pseudorandom.seed
 '''

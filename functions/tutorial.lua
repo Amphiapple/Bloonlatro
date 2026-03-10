@@ -1,16 +1,3 @@
-local function ensure_bloonlatro_tutorial_progress()
-    local p = G.SETTINGS.bloonlatro_tutorial_progress or {}
-
-    p.forced_shop = p.forced_shop or { "c_empress", "j_bloons_dart_monkey" }
-    p.forced_voucher = p.forced_voucher or "v_grabber"
-    p.forced_tags = p.forced_tags or { "tag_handy", "tag_garbage" }
-    p.hold_parts = p.hold_parts or {}
-    p.completed_parts = p.completed_parts or {}
-
-    G.SETTINGS.bloonlatro_tutorial_progress = p
-    return p
-end
-
 local function ensure_bloonlatro_overlay()
     local overlay_colour = { 0.32, 0.36, 0.41, 0 }
     ease_value(overlay_colour, 4, 0.6, nil, "REAL", true, 0.4)
@@ -48,6 +35,46 @@ local function ensure_bloonlatro_overlay()
     return G.OVERLAY_TUTORIAL
 end
 
+G.FUNCS.end_bloonlatro_tutorial = function()
+    local dart = G.jokers and G.jokers.cards and G.jokers.cards[1] or nil
+    if not dart.states.hover.can then
+        dart.states.hover.can = true
+        dart:stop_hover()
+    end
+
+    G.SETTINGS.bloonlatro_tutorial_complete = true
+    local p = G.SETTINGS.bloonlatro_tutorial_progress or {}
+
+    p.forced_shop = {}
+    p.forced_voucher = {}
+    p.forced_tags = {}
+    p.hold_parts = {}
+    p.completed_parts = {}
+
+    G.SETTINGS.bloonlatro_tutorial_progress = nil
+
+    G.SETTINGS.run_stake_stickers = true
+    G:save_progress()
+end
+
+-- Block pause/escape while tutorial overlay is active
+local _bloonlatro_button_press_update_ref = Controller.button_press_update
+function Controller:button_press_update(button, dt)
+    if button == "start" and G and G.OVERLAY_TUTORIAL then
+        return
+    end
+    return _bloonlatro_button_press_update_ref(self, button, dt)
+end
+
+-- Block pause/escape while tutorial overlay is active
+local _bloonlatro_key_press_update_ref = Controller.key_press_update
+function Controller:key_press_update(key, dt)
+    if key == "escape" and G and G.OVERLAY_TUTORIAL then
+        return
+    end
+    return _bloonlatro_key_press_update_ref(self, key, dt)
+end
+
 G.FUNCS.skip_bloonlatro_tutorial = function(e)
     local overlay = G.OVERLAY_TUTORIAL
     if overlay then
@@ -60,13 +87,7 @@ G.FUNCS.skip_bloonlatro_tutorial = function(e)
 
     G.E_MANAGER:clear_queue("tutorial")
 
-    -- Mark tutorial fully done
-    G.SETTINGS.bloonlatro_tutorial_complete = true
-    G.SETTINGS.bloonlatro_tutorial_progress = nil
-    G.SETTINGS.run_stake_stickers = true
-    G.SETTINGS.paused = false
-
-    G:save_progress()
+    G.FUNCS.end_bloonlatro_tutorial()
 end
 
 local function has_owned_dart()
@@ -102,7 +123,13 @@ local function ensure_dynamic_tutorial_text(key, lines)
 end
 
 G.FUNCS.start_bloonlatro_tutorial_run = function(e, args)
-    ensure_bloonlatro_tutorial_progress()
+    local p = G.SETTINGS.bloonlatro_tutorial_progress or {}
+    p.forced_shop = p.forced_shop or { "c_empress", "j_bloons_dart_monkey" }
+    p.forced_voucher = p.forced_voucher or "v_grabber"
+    p.forced_tags = p.forced_tags or { "tag_handy", "tag_garbage" }
+    p.completed_parts = {}
+    p.hold_parts = {}
+
     G.SETTINGS.paused = true
     G.SETTINGS.run_stake_stickers = false
     if e and e.config and e.config.id == "restart_button" then
@@ -137,7 +164,7 @@ G.FUNCS.start_bloonlatro_tutorial_run = function(e, args)
 end
 
 G.FUNCS.bloonlatro_tutorial_controller = function()
-    local progress = ensure_bloonlatro_tutorial_progress()
+    local progress = G.SETTINGS.bloonlatro_tutorial_progress
     if G.SETTINGS.paused or G.SETTINGS.bloonlatro_tutorial_complete then
         return
     end
@@ -151,35 +178,24 @@ G.FUNCS.bloonlatro_tutorial_controller = function()
     end
 
     if progress.hold_parts["welcome"]
-        and not progress.completed_parts["buy_dart_monkey"] then
-        progress.section = "buy_dart_monkey"
-        G.FUNCS.bloonlatro_tutorial_part("buy_dart_monkey")
-        progress.completed_parts["buy_dart_monkey"] = true
-        G:save_progress()
-    end
-
-    if progress.hold_parts["buy_dart_monkey"]
-        and has_owned_dart()
-        and not progress.completed_parts["joker_information"] then
+        and not progress.completed_parts["joker_information"]
+        and has_owned_dart() then
         progress.section = "joker_information"
         G.FUNCS.bloonlatro_tutorial_part("joker_information")
         progress.completed_parts["joker_information"] = true
         G:save_progress()
     end
 
-    if progress.hold_parts["joker_information"] 
-        and not progress.hold_parts["placeholder"] then
-        progress.section = "placeholder"
-        G.FUNCS.bloonlatro_tutorial_part("placeholder")
-        progress.hold_parts["placeholder"] = true
+    if progress.hold_parts["joker_information"]
+        and not progress.hold_parts["conclusion"] then
+        progress.section = "conclusion"
+        G.FUNCS.bloonlatro_tutorial_part("conclusion")
+        progress.hold_parts["conclusion"] = true
         G:save_progress()
     end
 
-    if progress.hold_parts["placeholder"] then
-        G.SETTINGS.bloonlatro_tutorial_complete = true
-        G.SETTINGS.bloonlatro_tutorial_progress = nil
-        G.SETTINGS.run_stake_stickers = true
-        G:save_progress()
+    if progress.hold_parts["conclusion"] then
+        G.FUNCS.end_bloonlatro_tutorial()
     end
 end
 
@@ -249,11 +265,16 @@ G.FUNCS.bloonlatro_tutorial_part = function(part)
 
     if part == "welcome" then
         ensure_dynamic_tutorial_text("bloons_welcome_1", {
-            "Welcome to Bloonlatro!",
+            "Welcome to {C:attention}Bloonlatro{}!",
         })
 
         ensure_dynamic_tutorial_text("bloons_welcome_2", {
-            "In this tutorial, you'll learn the basics of playing Bloonlatro.",
+            "This tutorial will teach you",
+            "the basics of playing {C:attention}Bloonlatro{}."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_buy_dart_monkey_1", {
+            "Start by buying a {C:attention}Dart Monkey{}.",
         })
 
         step = G.FUNCS.bloonlatro_tutorial_info({
@@ -267,20 +288,14 @@ G.FUNCS.bloonlatro_tutorial_part = function(part)
             attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = 0, y = 0 } },
             step = step,
         })
-    end
-
-    if part == "buy_dart_monkey" then
-        ensure_dynamic_tutorial_text("bloons_buy_dart_monkey_1", {
-            "Now let's buy a Dart Monkey!",
-        })
-
-        local dart = G.shop_jokers and G.shop_jokers.cards and G.shop_jokers.cards[1] or nil
 
         step = G.FUNCS.bloonlatro_tutorial_info({
             text_key = "bloons_buy_dart_monkey_1",
             attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
             highlight = function()
-                return { dart }
+                return {
+                    G.shop_jokers and G.shop_jokers.cards and G.shop_jokers.cards[1] or nil
+                }
             end,
             no_button = true,
             button_listen = "buy_from_shop",
@@ -290,10 +305,47 @@ G.FUNCS.bloonlatro_tutorial_part = function(part)
 
     if part == "joker_information" then
         ensure_dynamic_tutorial_text("bloons_joker_information_1", {
-            "Joker information!",
+            "Bloonlatro Jokers each have a",
+            "{C:attention}base tower{} and a {C:attention}category{}."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_joker_information_2", {
+            "The {C:attention}badge{} at the bottom shows",
+            "the {C:attention}base tower{}, and its colour",
+            "shows the {C:attention}category{}."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_base_information_1", {
+            "For example, {C:attention}Dart Monkey{}",
+            "is the base tower for",
+            "all {C:attention}Dart Monkey{} upgrades."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_base_information_2", {
+            "Because of this, all {C:attention}Dart Monkey{}",
+            "upgrades count as {C:attention}Dart Monkeys{}",
+            "for effects and synergies."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_category_information_1", {
+            "There are {C:attention}5{} categories:",
+            "{C:primary}Primary{}, {C:military}Military{}, {C:magic}Magic{},",
+            "{C:support}Support{}, and {C:misc}Miscellaneous{}."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_category_information_2", {
+            "The {C:attention}badge colour{} of this {C:attention}Dart Monkey{}",
+            "shows that it is a {C:primary}Primary{} tower."
+        })
+
+        ensure_dynamic_tutorial_text("bloons_category_information_3", {
+            "{C:attention}Categories{}, like {C:attention}base towers{}, are",
+            "used for effects and synergies."
         })
 
         local dart = G.jokers and G.jokers.cards and G.jokers.cards[1] or nil
+        dart.states.hover.can = false
+        dart:hover()
 
         step = G.FUNCS.bloonlatro_tutorial_info({
             text_key = "bloons_joker_information_1",
@@ -303,15 +355,87 @@ G.FUNCS.bloonlatro_tutorial_part = function(part)
             end,
             step = step,
         })
-        
-        dart.states.hover.can = false
-        dart:hover()
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_joker_information_2",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
+            highlight = function()
+                return { dart }
+            end,
+            step = step,
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_base_information_1",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
+            highlight = function()
+                return { dart }
+            end,
+            step = step,
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_base_information_2",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
+            highlight = function()
+                return { dart }
+            end,
+            step = step,
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_category_information_1",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
+            highlight = function()
+                return { dart }
+            end,
+            step = step,
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_category_information_2",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
+            highlight = function()
+                return { dart }
+            end,
+            step = step,
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_category_information_3",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = -5, y = 0 } },
+            highlight = function()
+                return { dart }
+            end,
+            step = step,
+        })
     end
 
-    if part == "placeholder" then
+    if part == "conclusion" then
         local dart = G.jokers and G.jokers.cards and G.jokers.cards[1] or nil
         dart.states.hover.can = true
         dart:stop_hover()
+
+        ensure_dynamic_tutorial_text("bloons_conclusion_1", {
+            "You've learned the",
+            "basics of {C:attention}Bloonlatro{}!"
+        })
+
+        ensure_dynamic_tutorial_text("bloons_conclusion_2", {
+            "This concludes the tutorial."
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_conclusion_1",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = 0, y = 0 } },
+            step = step,
+        })
+
+        step = G.FUNCS.bloonlatro_tutorial_info({
+            text_key = "bloons_conclusion_2",
+            attach = { major = G.ROOM_ATTACH, type = "cm", offset = { x = 0, y = 0 } },
+            step = step,
+        })
     end
 
     G.E_MANAGER:add_event(Event({
@@ -329,7 +453,7 @@ G.FUNCS.bloonlatro_tutorial_part = function(part)
                 overlay:remove()
                 G.OVERLAY_TUTORIAL = nil
 
-                local progress = ensure_bloonlatro_tutorial_progress()
+                local progress = G.SETTINGS.bloonlatro_tutorial_progress
                 progress.hold_parts[part] = true
                 return true
             end

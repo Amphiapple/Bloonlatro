@@ -1,13 +1,5 @@
 local create_mod_badges_old = SMODS.create_mod_badges
 
--- Register category colours
-G.C.PRIMARY  = HEX("25ACE8")
-G.C.MILITARY = HEX("3DD228")
-G.C.MAGIC    = HEX("7E4AF4")
-G.C.SUPPORT  = HEX("EE882B")
-G.C.MISC     = HEX("FF6FAE")
-
-
 local function split_two_lines(text)
     text = tostring(text or "")
     if text == "Card Storm" then return text end --Special case for Card Storm as it looks worse with the line break
@@ -94,9 +86,8 @@ function SMODS.create_mod_badges(obj, badges)
     local info = (obj.config and obj.config.tower_info)
     if not info then return end
 
-    local base     = info.base or "placeholder base"
-    local upgrade  = info.upgrade or "placeholder upgrade"
-    local category = info.category or "placeholder category"
+    local base     = info.base
+    local category = info.category
 
     local colour = G.C[category:upper()] or G.C.JOKER_GREY
 
