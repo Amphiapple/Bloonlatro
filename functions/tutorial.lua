@@ -1,3 +1,16 @@
+local function ensure_bloonlatro_tutorial_progress()
+    local p = G.SETTINGS.bloonlatro_tutorial_progress or {}
+
+    p.forced_shop = p.forced_shop or {}
+    p.forced_voucher = p.forced_voucher or ""
+    p.forced_tags = p.forced_tags or {}
+    p.hold_parts = p.hold_parts or {}
+    p.completed_parts = p.completed_parts or {}
+
+    G.SETTINGS.bloonlatro_tutorial_progress = p
+    return p
+end
+
 local function ensure_bloonlatro_overlay()
     local overlay_colour = { 0.32, 0.36, 0.41, 0 }
     ease_value(overlay_colour, 4, 0.6, nil, "REAL", true, 0.4)
@@ -43,7 +56,7 @@ G.FUNCS.end_bloonlatro_tutorial = function()
     end
 
     G.SETTINGS.bloonlatro_tutorial_complete = true
-    local p = G.SETTINGS.bloonlatro_tutorial_progress or {}
+    local p = ensure_bloonlatro_tutorial_progress()
 
     p.forced_shop = {}
     p.forced_voucher = {}
@@ -123,12 +136,12 @@ local function ensure_dynamic_tutorial_text(key, lines)
 end
 
 G.FUNCS.start_bloonlatro_tutorial_run = function(e, args)
-    local p = G.SETTINGS.bloonlatro_tutorial_progress or {}
-    p.forced_shop = p.forced_shop or { "c_empress", "j_bloons_dart_monkey" }
-    p.forced_voucher = p.forced_voucher or "v_grabber"
-    p.forced_tags = p.forced_tags or { "tag_handy", "tag_garbage" }
-    p.completed_parts = {}
+    local p = ensure_bloonlatro_tutorial_progress()
     p.hold_parts = {}
+    p.completed_parts = {}
+    p.forced_shop = { "c_empress", "j_bloons_dart_monkey" }
+    p.forced_voucher = "v_grabber"
+    p.forced_tags = { "tag_handy", "tag_garbage" }
 
     G.SETTINGS.paused = true
     G.SETTINGS.run_stake_stickers = false
@@ -164,7 +177,7 @@ G.FUNCS.start_bloonlatro_tutorial_run = function(e, args)
 end
 
 G.FUNCS.bloonlatro_tutorial_controller = function()
-    local progress = G.SETTINGS.bloonlatro_tutorial_progress
+    local progress = ensure_bloonlatro_tutorial_progress()
     if G.SETTINGS.paused or G.SETTINGS.bloonlatro_tutorial_complete then
         return
     end
@@ -453,7 +466,7 @@ G.FUNCS.bloonlatro_tutorial_part = function(part)
                 overlay:remove()
                 G.OVERLAY_TUTORIAL = nil
 
-                local progress = G.SETTINGS.bloonlatro_tutorial_progress
+                local progress = ensure_bloonlatro_tutorial_progress()
                 progress.hold_parts[part] = true
                 return true
             end
