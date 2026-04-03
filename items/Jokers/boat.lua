@@ -140,7 +140,7 @@ SMODS.Joker { --Destroyer
 	atlas = 'Joker',
 	pos = { x = 3, y = 9 },
     rarity = 2,
-	cost = 6,
+	cost = 7,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
@@ -435,7 +435,7 @@ SMODS.Joker { --Cannon Ship
 	pos = { x = 8, y = 9 },
     rarity = 2,
 	cost = 5,
-    blueprint_compat = false,
+    blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { mult = 12, money = 3 } --Variables: mult = +mult, money = dollars
@@ -484,7 +484,7 @@ SMODS.Joker { --Monkey Pirates
     calculate = function(self, card, context)
         if context.after and G.GAME.current_round.hands_left == 0 and not context.blueprint and
                 (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips >= to_big(card.ability.extra.percent / 100.0) and
-                (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < 1 then
+                (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < to_big(1) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'ease',
                 blocking = false,
@@ -512,7 +512,7 @@ SMODS.Joker { --Pirate Lord
             'If chips scored are at least',
             '{C:attention}#1#%{} of required chips,',
             'take down the {C:attention}Blind{} and',
-            'plunder its reward'
+            'plunder its reward money'
         }
     },
 	atlas = 'Joker',
@@ -538,7 +538,7 @@ SMODS.Joker { --Pirate Lord
     calculate = function(self, card, context)
         if context.after and not context.blueprint and 
                 (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips >= to_big(card.ability.extra.percent / 100.0) and
-                (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < 1 then
+                (G.GAME.chips + hand_chips*mult)/G.GAME.blind.chips < to_big(1) then
             card.ability.extra.money = G.GAME.blind.dollars
             G.E_MANAGER:add_event(Event({
                 trigger = 'ease',
@@ -575,7 +575,7 @@ SMODS.Joker { --Long Range
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 1 } --Variables: money = dollars per hand
+        extra = { money = 2 } --Variables: money = dollars per hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -609,7 +609,7 @@ SMODS.Joker { --Crow's Nest
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 2 } --Variables: money = dollars per hand
+        extra = { money = 3 } --Variables: money = dollars per hand
     },
 
     loc_vars = function(self, info_queue, card)

@@ -582,6 +582,7 @@ SMODS.Joker { --Alluring Melody
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Mermonkey", category = "magic" },
         extra = { mult = 3, current = 0 } --Variables: mult = +mult per enhanced card, current = current mult
@@ -650,6 +651,7 @@ SMODS.Joker { --Symphonic Resonance
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Mermonkey", category = "magic" },
         extra = { Xmult = 0.1, current = 1 } --Variables: mult = +mult per enhanced card, current = current mult

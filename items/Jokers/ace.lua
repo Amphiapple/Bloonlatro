@@ -326,7 +326,7 @@ SMODS.Joker { --Spy Plane
         text = {
             'Reveal the top {C:attention}#1#{}',
             'cards in your deck',
-            '{C:inactive}#2# #3#{}'
+            '{C:inactive}#2# #3# #4#{}'
         }
     },
     atlas = 'Joker',
@@ -336,7 +336,7 @@ SMODS.Joker { --Spy Plane
     blueprint_compat = false,
     config = {
         tower_info = { base = "Monkey Ace", category = "military" },
-        extra = { number = 2 } --Variables: number = number of cards revealed
+        extra = { number = 3 } --Variables: number = number of cards revealed
     },
 
     loc_vars = function(self, info_queue, card)
@@ -351,7 +351,8 @@ SMODS.Joker { --Spy Plane
             vars = {
                 card.ability.extra.number,
                 process_var(1),
-                process_var(2)
+                process_var(2),
+                process_var(3),
             }
         }
     end,
@@ -502,7 +503,7 @@ SMODS.Joker { --Sharper Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Ace", category = "military" },
-        extra = { mult = 15 } --Variables: mult = +mult
+        extra = { mult = 11 } --Variables: mult = +mult
     },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }

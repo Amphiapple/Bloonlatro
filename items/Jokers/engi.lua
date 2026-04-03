@@ -545,7 +545,7 @@ SMODS.Joker { --Double Gun
     },
 	atlas = 'Joker',
 	pos = { x = 13, y = 24 },
-    rarity = 1,
+    rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     config = {
@@ -647,9 +647,10 @@ SMODS.Joker { --XXXL Trap
 	loc_txt = {
         name = 'XXXL Trap',
         text = {
-            'Destroy last {C:attention}discarded{}',
-            'card and and store {C:money}$#1#',
-            'Earn stored money {C:inactive}({C:money}$#2#{C:inactive}){} after',
+            'If {C:attention}first discard{} of round',
+            'has only {C:attention}1{} card, destroy it and',
+            'store money equal to its rank',
+            'Earn stored money {C:inactive}({C:money}$#1#{C:inactive}){} after',
             'defeating {C:attention}Boss Blind{}'
         }
     },
@@ -660,11 +661,11 @@ SMODS.Joker { --XXXL Trap
     blueprint_compat = true,
     config = {
         tower_info = { base = "Engineer Monkey", category = "support" },
-        extra = { money = 4, current = 0 } --Variables: money = dollars per card, current = current collected money
+        extra = { current = 0 } --Variables: current = current collected money
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money, card.ability.extra.current } }
+        return { vars = { card.ability.extra.current } }
     end,
     
     calc_dollar_bonus = function(self, card)
@@ -675,8 +676,14 @@ SMODS.Joker { --XXXL Trap
         end
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card == context.full_hand[#context.full_hand] then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.money
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 then
+            local money = SMODS.has_no_rank(context.full_hand[1]) and 0 or context.full_hand[1]:get_id()
+            card.ability.extra.current = card.ability.extra.current + money
             return {
                 message = localize('$')..card.ability.extra.current,
                 colour = G.C.MONEY,

@@ -339,7 +339,7 @@ SMODS.Joker { --Shinobi Tactics
 	loc_txt = {
         name = 'Shinobi Tactics',
         text = {
-            '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
+            '{C:attention}Ninja Monkeys{} give {X:mult,C:white}X#1#{} Mult',
             'All {C:attention}Ninjas{} may appear',
             'multiple times'
         }
@@ -358,7 +358,7 @@ SMODS.Joker { --Shinobi Tactics
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.ability.tower_info.base == 'Ninja Monkey' then
+        if context.other_joker and context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.base == 'Ninja Monkey' then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)
@@ -641,7 +641,7 @@ SMODS.Joker { --Sticky Bomb
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ninja Monkey", category = "magic" },
-        extra = { Xmult = 3, stickied = nil, active = false } --Variables: Xmult = Xmult
+        extra = { Xmult = 3, active = false } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -649,9 +649,16 @@ SMODS.Joker { --Sticky Bomb
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
-            if context.other_card == card.ability.extra.stickied and context.stun then
-                card.ability.extra.active = true
+        if context.discard and context.other_card.ability.sticky_bomb and not context.blueprint then
+            if card.ability.extra.active then
+                if not context.stun or context.other_card.debuff then
+                    context.other_card.ability.sticky_bomb = false
+                end
+            else
+                context.other_card.ability.sticky_bomb = false
+                if context.stun and not context.other_card.debuff then
+                    card.ability.extra.active = true
+                end
             end
         elseif context.joker_main and card.ability.extra.active then
             return {
@@ -661,21 +668,18 @@ SMODS.Joker { --Sticky Bomb
             card.ability.extra.active = false
             local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
-                if v:is_suit('Spades') and v ~= card.ability.extra.stickied and not v.debuff then
+                if v:is_suit('Spades') and not v.ability.sticky_bomb and not v.debuff then
                     eligible_cards[#eligible_cards+1] = v
                 end
             end
             if next(eligible_cards) then
-                card.ability.extra.stickied = pseudorandom_element(eligible_cards, 'sticky_bomb')
-                card.ability.extra.stickied:set_ability(G.P_CENTERS.m_bloons_stunned)
-                card_eval_status_text(card.ability.extra.stickied, 'extra', nil, nil, nil, {
+                local stickied_card = pseudorandom_element(eligible_cards, 'sticky_bomb')
+                stickied_card:set_ability(G.P_CENTERS.m_bloons_stunned)
+                stickied_card.ability.sticky_bomb = true
+                card_eval_status_text(stickied_card, 'extra', nil, nil, nil, {
                     message = 'Stickied!'
                 })
-            else
-                card.ability.extra.stickied = nil
             end
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.stickied = nil
         end
     end
 }
@@ -699,7 +703,7 @@ SMODS.Joker { --Master Bomber
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ninja Monkey", category = "magic" },
-        extra = { Xmult = 1, current = 1 } --Variables: Xmult = Xmult per stickied, current = 
+        extra = { Xmult = 1, current = 1 } --Variables: Xmult = Xmult per stickied, current = current stickied cards
     },
 
     loc_vars = function(self, info_queue, card)

@@ -141,6 +141,7 @@ JokerDisplay.Definitions["j_bloons_super_monkey_fan_club"] = { --Super Monkey Fa
             for _, joker_card in ipairs(G.jokers.cards) do
                 if joker_card.ability.tower_info and joker_card.ability.tower_info.base and joker_card.ability.tower_info.base == 'Dart Monkey' and
                         joker_card.config.center.rarity and joker_card.config.center.rarity == 1 or
+                        joker_card.ability.name == "Triple Shot" or
                         joker_card.ability.name == "Super Monkey Fan Club" or
                         joker_card.ability.name == "Plasma Monkey Fan Club" then
                     count = count + 1
@@ -150,8 +151,8 @@ JokerDisplay.Definitions["j_bloons_super_monkey_fan_club"] = { --Super Monkey Fa
         card.joker_display_values.count = count
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = ((card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Dart Monkey' and 
-                card.config.center.rarity and card.config.center.rarity == 1 or 
+        return { x_mult = ((card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Dart Monkey' and
+                card.config.center.rarity and card.config.center.rarity == 1 or card.ability.name == "Triple Shot" or
                 card.ability.name == "Super Monkey Fan Club" or card.ability.name == "Plasma Monkey Fan Club") and
                 mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end
@@ -171,6 +172,7 @@ JokerDisplay.Definitions["j_bloons_plasma_monkey_fan_club"] = { --Plasma Monkey 
             for _, joker_card in ipairs(G.jokers.cards) do
                 if joker_card.ability.tower_info and joker_card.ability.tower_info.base and joker_card.ability.tower_info.base == 'Dart Monkey' and
                         joker_card.config.center.rarity and joker_card.config.center.rarity == 1 or
+                        joker_card.ability.name == "Triple Shot" or
                         joker_card.ability.name == "Super Monkey Fan Club" or
                         joker_card.ability.name == "Plasma Monkey Fan Club" then
                     count = count + 1
@@ -180,8 +182,8 @@ JokerDisplay.Definitions["j_bloons_plasma_monkey_fan_club"] = { --Plasma Monkey 
         card.joker_display_values.count = count
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = ((card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Dart Monkey' and 
-                card.config.center.rarity and card.config.center.rarity == 1 or 
+        return { x_mult = ((card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Dart Monkey' and
+                card.config.center.rarity and card.config.center.rarity == 1 or card.ability.name == "Triple Shot" or
                 card.ability.name == "Super Monkey Fan Club" or card.ability.name == "Plasma Monkey Fan Club") and
                 mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end

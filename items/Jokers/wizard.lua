@@ -526,7 +526,7 @@ SMODS.Joker { --Shimmer
     blueprint_compat = false,
     config = {
         tower_info = { base = "Wizard Monkey", category = "magic" },
-        extra = { num = 1, denom = 2, fool = nil } --Variables: fool = temporary fool
+        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
@@ -537,17 +537,21 @@ SMODS.Joker { --Shimmer
     end,
     calculate = function(self, card, context)
         if context.starting_shop and SMODS.pseudorandom_probability(card, 'shimmer', card.ability.extra.num, card.ability.extra.denom, 'shimmer')then
-            card.ability.extra.fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
-            card.ability.extra.fool:set_edition({negative = true}, true)
-            card.ability.extra.fool.extra_cost = -card.base_cost
-            card.ability.extra.fool.sell_cost = 0
-            card.ability.extra.fool:add_to_deck()
-            G.consumeables:emplace(card.ability.extra.fool)
+            local fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
+            fool:set_edition({negative = true}, true)
+            fool.extra_cost = -card.base_cost
+            fool.sell_cost = 0
+            fool:add_to_deck()
+            fool.ability.shimmer = true
+            G.consumeables:emplace(fool)
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
         elseif context.ending_shop then
-            if card.ability.extra.fool then
-                card.ability.extra.fool:start_dissolve({G.C.RED}, nil)
-                card.ability.extra.fool = nil
+            for k, v in ipairs(G.consumeables.cards) do
+                if v.ability.shimmer then
+                    v.ability.shimmer = false
+                    v:start_dissolve({G.C.RED}, nil)
+                    break
+                end
             end
         end
     end

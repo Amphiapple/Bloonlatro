@@ -444,7 +444,7 @@ SMODS.Joker { --Deep Freeze
         text = {
             '{C:attention}Frozen{} cards have',
             'a {C:green}#1# in #2#{} chance',
-            'to remain frozen',
+            'to remain {C:attention}Frozen{}',
         }
     },
 	atlas = 'Joker',
@@ -520,9 +520,9 @@ SMODS.Joker { --Snowstorm
         name = 'Snowstorm',
         text = {
             '{C:attention}Freeze{} all scoring cards',
-            'on {C:attention}first hand{} of round and',
-            'gain {C:attention}+#1#{} hand size every other',
-            'card this Joker {C:attention}Freezes{}'
+            'on {C:attention}first hand{} of round and gain',
+            '{C:attention}+#1#{} hand size this round every',
+            'other card this Joker {C:attention}Freezes{}'
         }
     }, 
 	atlas = 'Joker',
@@ -532,7 +532,7 @@ SMODS.Joker { --Snowstorm
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { hand_size = 1, rate = 2 } --Variables: hand_size = extra hand size, rate = hand size rate
+        extra = { hand_size = 1 } --Variables: hand_size = extra hand size
     },
 
     loc_vars = function(self, info_queue, card)

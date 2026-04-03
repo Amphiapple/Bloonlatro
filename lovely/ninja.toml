@@ -45,6 +45,7 @@ position = 'at'
 payload = '''elseif (not G.GAME.used_jokers[v.key] or
     (v.config.tower_info and v.config.tower_info.base == 'Ninja Monkey' and #find_joker('Shinobi Tactics') > 0) or
     (v.set == 'Joker' and #find_joker('Monkey Village') > 0) or
+    (v.set == 'Joker' and #find_joker('Bigger Radius') > 0 and (v.rarity == 'Uncommon' or v.rarity == 'Rare')) or
     pool_opts.allow_duplicates or
     SMODS.showman(v.key)) and
 '''

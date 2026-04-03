@@ -94,9 +94,9 @@ SMODS.Joker { --Acidic Mixture Dip
         name = 'Acidic Mixture Dip',
         text = {
             '{C:green}#1# in #2#{} chance to',
-            'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
-            'or {C:dark_edition}Polychrome{} effect to',
-            '{C:attention}last{} played card that scores',
+            'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
+            '{C:dark_edition}Polychrome{} effect to {C:attention}last{}',
+            'played card that scores',
         }
     },
     atlas = 'Joker',
@@ -382,7 +382,7 @@ SMODS.Joker { --Unstable Concoction
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then my_pos = i; break end
             end
-            if my_pos and G.jokers.cards[my_pos+1] and not SMODS.is_eternal(G.jokers.cards[my_pos+1], self) then
+            if my_pos and G.jokers.cards[my_pos+1] and not SMODS.is_eternal(G.jokers.cards[my_pos+1], card) and not G.jokers.cards[my_pos+1].getting_sliced then
                 local sliced_card = G.jokers.cards[my_pos+1]
                 sliced_card.getting_sliced = true
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1

@@ -565,7 +565,7 @@ SMODS.Joker { --Recursive Cluster
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { Xmult = 3, poker_hands = {} } --Variables: Xmult = Xmult, poker_hand1 = previous poker hand
+        extra = { Xmult = 2.5, poker_hands = {} } --Variables: Xmult = Xmult, poker_hand1 = previous poker hand
     },
 
     loc_vars = function(self, info_queue, card)

@@ -1,3 +1,4 @@
+--[[
 JokerDisplay.Definitions["j_bloons_heli_pilot"] = { --Heli Pilot
     text = {
         {
@@ -34,7 +35,7 @@ JokerDisplay.Definitions["j_bloons_quad_darts"] = { --Quad Darts
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT },
     },
 }
-
+]]
 JokerDisplay.Definitions["j_bloons_apache_prime"] = { --Apache Prime
     text = {
         {
@@ -70,7 +71,7 @@ JokerDisplay.Definitions["j_bloons_apache_prime"] = { --Apache Prime
         card.joker_display_values.Xmult = total_Xmult
     end
 }
-
+--[[
 JokerDisplay.Definitions["j_bloons_downdraft"] = { --Downdraft
     reminder_text = {
         { text = "(" },
@@ -81,7 +82,7 @@ JokerDisplay.Definitions["j_bloons_downdraft"] = { --Downdraft
         card.joker_display_values.active = card.ability.extra.counter >= 1 and "Active!" or "Inactive"
     end
 }
-
+]]
 JokerDisplay.Definitions["j_bloons_special_poperations"] = { --Special Poperations
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },

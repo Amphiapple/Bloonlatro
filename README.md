@@ -18,5 +18,5 @@ As well as all the contributors to this mod
 - Braces (Artist)
 - Geeph (Artist)
 - Greenkookie56 (Artist)
-- Thisisrealnow (Artist)
+- Tisisrealnow (Artist)
 - Villain7 (Artist)

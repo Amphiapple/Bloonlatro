@@ -375,8 +375,8 @@ SMODS.Joker { --Golden Justice
         name = 'Golden Justice',
         text = {
             '{C:attention}Gold Cards{} and {C:attention}Glass Cards{}',
-            "inherit each others' abilities,",
-            'both give {C:money}$#5#{} when destroyed',
+            "inherit each others' abilities",
+            'Both give {C:money}$#5#{} when destroyed',
         }
     },
 	atlas = 'Joker',
@@ -421,9 +421,9 @@ SMODS.Joker { --Golden Justice
             end
             return nil
         elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
-            ease_dollars(card.ability.extra.gold_money)
-            card_eval_status_text(context.other_card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.gold_money,colour = G.C.MONEY, delay = 0.45})
-            delay(0.3)
+            return {
+                dollars = card.ability.extra.gold_money
+            }
         elseif context.cards_destroyed and not context.blueprint then
             local glass = 0
             for k, v in ipairs(context.glass_shattered) do

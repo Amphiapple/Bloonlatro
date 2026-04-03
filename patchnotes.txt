@@ -1,7 +1,29 @@
 Added Jokers:
+- All remaining Glue Gunners
+- All remaining Heli Pilots
+- All remaining Monkey Villages
+- 4 more paragons!
 
 General Changes:
 
 Balance Changes:
+- Triple Shot reworked
+- Glaive Lord chips 2 > 3
+- Recursive Cluster Xmult 3 > 2.5
+- Relentless Glue cost 6 > 7
+- Spy Plane top 2 > top 3 cards
+- Sharper Darts mult 15 > 11
+- Even Faster Production mult 8 > 7
+- Double Gun Common > Uncommon
+- XXXL trap reworked
+- Invisible Tag immediate > when boss blind is defeated
 
 Fixes:
+- Desperado's chosen card should work in the latest SMODS update (1503a)
+- Golden Justice should correctly work with red seals
+- Ring of Fire should now allow Meteor cards to be bought in the lastest SMODS update (1503a)
+- Cannon ship should now be blueprint compatible
+- Shimmer and Sticky Bomb should no longer debuff themselves when entering a blind
+- Alluring Melody and Symphonic Resonance should no longer be perishable compatible
+- Great White should no longer crash
+- Inflated should no longer softlock if you destroy or play all cards in hand and still have hands remaining 

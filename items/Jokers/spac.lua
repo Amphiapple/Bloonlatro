@@ -308,7 +308,7 @@ SMODS.Joker { --Even Faster Production
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { mult = 8, current = 0 } --Variables: mult = +mult for each discard used, current = current +mult
+        extra = { mult = 7, current = 0 } --Variables: mult = +mult for each discard used, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)

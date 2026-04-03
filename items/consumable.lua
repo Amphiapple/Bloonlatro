@@ -73,24 +73,22 @@ SMODS.Consumable { --Super Monkey Storm
                 return true
             end
         }))
-        if G.GAME.chips/G.GAME.blind.chips >= to_big(1) then
-            G.E_MANAGER:add_event(
-                Event({
-                    trigger = "immediate",
-                    func = function()
-                        if G.STATE ~= G.STATES.SELECTING_HAND then
-                            return false
-                        end
+        G.E_MANAGER:add_event(
+            Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
                         G.GAME.current_round.semicolon = true
                         G.STATE = G.STATES.HAND_PLAYED
                         G.STATE_COMPLETE = true
                         end_round()
                         return true
-                    end,
-                }),
-                "other"
-            )
-        end
+                    end
+                    return false
+                end,
+            }),
+            "other"
+        )
     end
 }
 
@@ -783,7 +781,7 @@ SMODS.Consumable { --Cave Monkey
         return true
     end,
     use = function (self, card, area, copier)
-        local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave'))
+        local front = pseudorandom_element(G.P_CARDS, pseudoseed('cave_monkey'))
         local stone = SMODS.add_card({
             set = 'Playing Card',
             front = front,
@@ -791,7 +789,7 @@ SMODS.Consumable { --Cave Monkey
             skip_materialize = false,
         })
         stone:set_ability(G.P_CENTERS.m_stone, nil, true)
-        local edition = poll_edition('cave', nil, true, true)
+        local edition = poll_edition('cave_monkey', nil, true, true)
         stone:set_edition(edition, true)
         card_eval_status_text(stone, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
 

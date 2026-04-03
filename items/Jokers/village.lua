@@ -18,6 +18,27 @@ SMODS.Joker { --Monkey Village
     },
 }
 
+SMODS.Joker { --Bigger Radius
+    key = 'bigger_radius',
+    name = 'Bigger Radius',
+    loc_txt = {
+        name = 'Bigger Radius',
+        text = {
+            '{C:green}Uncommon{} and {C:red}Rare{}',
+            '{C:attention}Joker{} cards may',
+            'appear multiple times'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 1, y = 23 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+    },
+}
+
 SMODS.Joker { --Jungle Drums
     key = 'jungle_drums',
     name = 'Jungle Drums',
@@ -56,16 +77,94 @@ SMODS.Joker { --Jungle Drums
     end
 }
 
+SMODS.Joker { --Primary Training
+    key = 'primary_training',
+    name = 'Primary Training',
+    loc_txt = {
+        name = 'Primary Training',
+        text = {
+            '{C:primary}Primary {C:attention}Jokers{} each',
+            'give {X:mult,C:white}X#1#{} Mult'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 3, y = 23 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+        extra = { Xmult = 1.2 } --Variables: Xmult = Xmult per primary joker
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.category == 'primary' then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Primary Mentoring
+    key = 'primary_mentoring',
+    name = 'Primary Mentoring',
+    loc_txt = {
+        name = 'Primary Mentoring',
+        text = {
+            '{C:blue}Common {C:primary}Primary',
+            '{C:attention}Jokers{} cost {C:attention}1{}',
+            '{C:primary}Primary {C:attention}Jokers{} each',
+            'give {X:mult,C:white}X#1#{} Mult'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 4, y = 23 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+        extra = { Xmult = 1.1 } --Variables: Xmult = Xmult per primary joker
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.category == 'primary' then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
+            return {
+                Xmult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Primary Expertise
     key = 'primary_expertise',
     name = 'Primary Expertise',
     loc_txt = {
         name = 'Primary Expertise',
         text = {
-            '{C:blue}Common{} Jokers are free',
+            '{C:blue}Common {C:primary}Primary {C:attention}Jokers{} cost {C:money}$1{}',
             '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#3#{} Mult,',
             '{C:green,E:1,s:1.1}Probability{} increases for',
-            'each {C:blue}Common{} Joker'
+            'each {C:primary}Primary Joker'
         }
     },
     atlas = 'Joker',
@@ -84,13 +183,14 @@ SMODS.Joker { --Primary Expertise
     end,
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
-            local commons = 0
+            local primaries = 0
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config.center.rarity == 1 then
-                    commons = commons + 1
+                local joker = G.jokers.cards[i]
+                if joker.ability.tower_info and joker.ability.tower_info.category == 'primary' then
+                    primaries = primaries + 1
                 end
             end
-            card.ability.extra.num = commons + 1
+            card.ability.extra.num = primaries + 1
         end
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -103,6 +203,64 @@ SMODS.Joker { --Primary Expertise
         if context.joker_main and SMODS.pseudorandom_probability(card, 'primary_expertise', card.ability.extra.num, card.ability.extra.denom, 'primary_expertise') then
             return {
                 x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Grow Blocker
+    key = 'grow_blocker',
+    name = 'Grow Blocker',
+    loc_txt = {
+        name = 'Grow Blocker',
+        text = {
+            'Halves all {C:attention}listed',
+            '{C:green,E:1,s:1.1}probabilities',
+            '{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}1 in 6{C:inactive})',
+        }
+    },
+    atlas = 'Joker',
+    pos = { x = 6, y = 23 },
+    rarity = 1,
+    cost = 5,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+    },
+
+    calculate = function(self, card, context)
+        if context.mod_probability and not context.blueprint then
+            return {
+                denominator = context.denominator * 2
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Radar Scanner
+    key = 'radar_scanner',
+    name = 'Radar Scanner',
+    loc_txt = {
+        name = 'Radar Scanner',
+        text = {
+            'Doubles all {C:attention}listed',
+            '{C:green,E:1,s:1.1}probabilities',
+            '{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}2 in 3{C:inactive})',
+        }
+    },
+    atlas = 'Joker',
+    pos = { x = 7, y = 23 },
+    rarity = 1,
+    cost = 6,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+    },
+
+    calculate = function(self, card, context)
+        if context.mod_probability and not context.blueprint then
+            return {
+                numerator = context.numerator * 2
             }
         end
     end
@@ -130,8 +288,8 @@ SMODS.Joker { --Monkey Intelligence Bureau
         extra = { num = 1 } --Variables: num = number of different rarities
     },
 
-    loc_vars = function(self, info_queue, center)
-        return { vars = { center.ability.extra.num } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.num } }
     end,
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
@@ -158,6 +316,83 @@ SMODS.Joker { --Monkey Intelligence Bureau
         if context.mod_probability and not context.blueprint then
             return {
                 numerator = context.numerator * card.ability.extra.num
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Call to Arms
+    key = 'call_to_arms',
+    name = 'Call to Arms',
+    loc_txt = {
+        name = 'Call to Arms',
+        text = {
+            '{C:green}#1# in #2#{} chance to',
+            'upgrade level of',
+            'played {C:attention}poker hand{} on',
+            '{C:attention}final hand{} of round',
+        }
+    },
+    atlas = 'Joker',
+    pos = { x = 9, y = 23 },
+    rarity = 2,
+    cost = 8,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'call_to_arms')
+        return { vars = { n, d } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and G.GAME.current_round.hands_left == 0 and SMODS.pseudorandom_probability(card, 'call_to_arms', card.ability.extra.num, card.ability.extra.denom, 'call_to_arms') then
+            return {
+                level_up = true,
+                message = localize('k_level_up_ex')
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Homeland Defense
+    key = 'homeland_defense',
+    name = 'Homeland Defense',
+    loc_txt = {
+        name = 'Homeland Defense',
+        text = {
+            '{C:green}#1# in #2#{} chance to',
+            'upgrade level of',
+            'all {C:attention}poker hands{} on',
+            '{C:attention}final hand{} of round',
+        }
+    },
+    atlas = 'Joker',
+    pos = { x = 10, y = 23 },
+    rarity = 3,
+    cost = 8,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'homeland_defense')
+        return { vars = { n, d } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and G.GAME.current_round.hands_left == 0 and SMODS.pseudorandom_probability(card, 'homeland_defense', card.ability.extra.num, card.ability.extra.denom, 'homeland_defense') then
+            for k, v in pairs(G.GAME.hands) do
+                if k ~= context.scoring_name then
+                    level_up_hand(card, k, true, 1)
+                end
+            end
+            return {
+                level_up = true,
+                message = localize('k_level_up_ex')
             }
         end
     end
@@ -193,6 +428,72 @@ SMODS.Joker { --Monkey Business
     end,
 }
 
+SMODS.Joker { --Monkey Commerce
+    key = 'monkey_commerce',
+    name = 'Monkey Commerce',
+    loc_txt = {
+        name = 'Monkey Commerce',
+        text = {
+            'Shop items cost {C:attention}#1#%{} less'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 12, y = 23 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+        extra = { percent = 25 } --Variables: percent = discount percent
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.percent } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.discount_percent = G.GAME.discount_percent + card.ability.extra.percent
+                return true
+            end
+        }))
+        recalc_all_costs()
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.discount_percent = G.GAME.discount_percent - card.ability.extra.percent
+                return true
+            end
+        }))
+        recalc_all_costs()
+    end,
+}
+
+SMODS.Joker { --Monkey Town
+    key = 'monkey_town',
+    name = 'Monkey Town',
+	loc_txt = {
+        name = 'Monkey Town',
+        text = {
+            'Earn {C:attention}#1#%{} more money',
+            'at end of round',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 13, y = 23 },
+    rarity = 2,
+	cost = 8,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+        extra = { percent = 50 } --Variables: percent = percent extra money
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.percent } }
+    end,
+}
+
 SMODS.Joker { --Monkey City
     key = 'monkey_city',
     name = 'Monkey City',
@@ -209,7 +510,7 @@ SMODS.Joker { --Monkey City
 	atlas = 'Joker',
 	pos = { x = 14, y = 23 },
     rarity = 2,
-	cost = 7,
+	cost = 6,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Village", category = "support" },
@@ -218,7 +519,7 @@ SMODS.Joker { --Monkey City
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.j_bloons_dart_monkey
-        return { vars = { card.ability.extra.money, card.ability.extra.current } } --Variables: money = dollars per dart, current = current end of round dollars
+        return { vars = { card.ability.extra.money, card.ability.extra.current } }
     end,
     calc_dollar_bonus = function(self, card)
         if card.ability.extra.current > 0 then
@@ -242,6 +543,67 @@ SMODS.Joker { --Monkey City
             }))
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.money
+        end
+    end
+}
+
+SMODS.Joker { --Monkeyopolis
+    key = 'monkeyopolis',
+    name = 'Monkeyopolis',
+	loc_txt = {
+        name = 'Monkeyopolis',
+        text = {
+            'When {C:attention}Blind{} is selected,',
+            'destroy {C:attention}Joker{} to the right and',
+            'add its sell value to this {C:attention}Joker{}',
+            "Earn money equal to this {C:attention}Joker{}'s",
+            'sell value at end of round',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 15, y = 23 },
+    rarity = 3,
+	cost = 1,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Monkey Village", category = "support" },
+    },
+
+    calc_dollar_bonus = function(self, card)
+        if card.sell_cost > 0 then
+            return card.sell_cost
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind and not card.getting_sliced and not context.blueprint then
+            local my_pos = nil
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then my_pos = i; break end
+            end
+            if my_pos and G.jokers.cards[my_pos+1] and not SMODS.is_eternal(G.jokers.cards[my_pos+1], card) and not G.jokers.cards[my_pos+1].getting_sliced then
+                local sliced_card = G.jokers.cards[my_pos+1]
+                sliced_card.getting_sliced = true
+                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.joker_buffer = 0
+                        card:juice_up(0.8, 0.8)
+                        sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+                        play_sound('slice1', 0.96+math.random()*0.08)
+                    return true end
+                }))
+                SMODS.scale_card(card, {
+                    ref_table = card.ability,
+                    ref_value = "extra_value",
+                    scalar_table = sliced_card,
+                    scalar_value = "sell_cost",
+                    scaling_message = {
+                        message = localize('k_val_up'),
+                        colour = G.C.MONEY
+                    }
+                })
+                return nil, true
+            end
         end
     end
 }

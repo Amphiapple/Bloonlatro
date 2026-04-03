@@ -28,11 +28,11 @@ function reset_desperado_card()
     G.GAME.current_round.desperado_card.rank = 'Ace'
     local valid_desperado_cards = {}
     for k, v in ipairs(G.playing_cards) do
-        if not SMODS.has_no_rank(v) and v:is_suit("hearts") then
+        if not SMODS.has_no_rank(v) then
             valid_desperado_cards[#valid_desperado_cards+1] = v
         end
     end
-    if valid_desperado_cards[1] then 
+    if valid_desperado_cards[1] then
         local desperado_card = pseudorandom_element(valid_desperado_cards, pseudoseed('desperado'..G.GAME.round_resets.ante))
         G.GAME.current_round.desperado_card.rank = desperado_card.base.value
         G.GAME.current_round.desperado_card.id = desperado_card.base.id

@@ -669,7 +669,7 @@ SMODS.Joker { --Sub Commander
 	pos = { x = 15, y = 8 },
     rarity = 3,
 	cost = 7,
-    blueprint_compat = true,
+    blueprint_compat = false,
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
         extra = { multiplier = 2 } --Variables: multiplier = effect multiplier

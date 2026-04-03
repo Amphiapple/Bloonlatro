@@ -390,7 +390,7 @@ SMODS.Joker { --IMF Loan
         text = {
             'Go up to {C:red}-$#1#{} in debt',
             'When {C:attention}Blind{} is selected,',
-            'add all debt to {C:attention}sell value{}',
+            'subtract debt from sell value',
             'Gains {C:money}$#2#{} of {C:attention}sell value{}',
             'at end of round',
         }

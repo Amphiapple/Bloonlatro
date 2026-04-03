@@ -1,3 +1,5 @@
+SMODS.Sound({key = "sentryexplode", path = "sentryexplode.ogg",})
+
 SMODS.Joker { --Marine
     key = 'marine',
     name = 'Marine',
@@ -382,6 +384,13 @@ SMODS.Joker { --Champion Sentry
             end
             G.GAME.chips = G.GAME.chips + score
             G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('bloons_sentryexplode')
+                    delay(0.1)
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
                 trigger = 'ease',
                 blocking = false,
                 ref_table = G.GAME,
@@ -392,31 +401,22 @@ SMODS.Joker { --Champion Sentry
                     return math.floor(t)
                 end
             }))
-            G.E_MANAGER:add_event(Event({
+            G.E_MANAGER:add_event(
+            Event({
+                trigger = "immediate",
                 func = function()
-                    play_sound('whoosh1')
-                    delay(0.1)
-                    return true
-                end
-            }))
-            if G.GAME.chips/G.GAME.blind.chips >= to_big(1) then
-                G.E_MANAGER:add_event(
-                    Event({
-                        trigger = "immediate",
-                        func = function()
-                            if G.STATE ~= G.STATES.SELECTING_HAND then
-                                return false
-                            end
-                            G.GAME.current_round.semicolon = true
-                            G.STATE = G.STATES.HAND_PLAYED
-                            G.STATE_COMPLETE = true
-                            end_round()
-                            return true
-                        end,
-                    }),
-                    "other"
-                )
-            end
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }),
+            "other"
+        )
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
@@ -428,6 +428,280 @@ SMODS.Joker { --Champion Sentry
                     end
                 }))
             end
+        end
+    end
+}
+
+SMODS.Joker { --Mega Green Sentry
+    key = 'mega_green_sentry',
+    name = 'Mega Green Sentry',
+	loc_txt = {
+        name = 'Mega Green Sentry',
+        text = {
+            '{C:dark_edition}+#1#{} Joker Slot',
+            '{X:mult,C:white}X#2#{} Mult if played',
+            'hand contains a {C:attention}#3#{}',
+            'Remove this {C:attention}Joker{} to score',
+            '{C:attention}#4#%{} of the required chips',
+            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 26 },
+    rarity = 4,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { slots = 1, Xmult = 2, poker_hand = 'Straight', percent = 40, max = 40000 } --Variables: slots = joker slots,
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.slots,
+                card.ability.extra.Xmult,
+                localize(card.ability.extra.poker_hand, 'poker_hands'),
+                card.ability.extra.percent,
+                card.ability.extra.max
+            }
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
+        if score > to_big(card.ability.extra.max) then
+            score = to_big(card.ability.extra.max)
+        end
+        G.GAME.chips = G.GAME.chips + score
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('bloons_sentryexplode')
+                delay(0.1)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips,
+            delay = 0.5,
+            func = function(t)
+                return math.floor(t)
+            end
+        }))
+        G.E_MANAGER:add_event(
+            Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }),
+            "other"
+        )
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Mega Red Sentry
+    key = 'mega_red_sentry',
+    name = 'Mega Red Sentry',
+	loc_txt = {
+        name = 'Mega Red Sentry',
+        text = {
+            '{C:dark_edition}+#1#{} Joker Slot',
+            '{X:mult,C:white}X#2#{} Mult if played',
+            'hand contains a {C:attention}#3#{}',
+            'Remove this {C:attention}Joker{} to score',
+            '{C:attention}#4#%{} of the required chips',
+            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 8, y = 26 },
+    rarity = 4,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { slots = 1, Xmult = 2, poker_hand = 'Flush', percent = 40, max = 40000 } --Variables: slots = joker slots
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.slots,
+                card.ability.extra.Xmult,
+                localize(card.ability.extra.poker_hand, 'poker_hands'),
+                card.ability.extra.percent,
+                card.ability.extra.max
+            }
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
+        if score > to_big(card.ability.extra.max) then
+            score = to_big(card.ability.extra.max)
+        end
+        G.GAME.chips = G.GAME.chips + score
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('bloons_sentryexplode')
+                delay(0.1)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips,
+            delay = 0.5,
+            func = function(t)
+                return math.floor(t)
+            end
+        }))
+        G.E_MANAGER:add_event(
+            Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }),
+            "other"
+        )
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Mega Blue Sentry
+    key = 'mega_blue_sentry',
+    name = 'Mega Blue Sentry',
+	loc_txt = {
+        name = 'Mega Blue Sentry',
+        text = {
+            '{C:dark_edition}+#1#{} Joker Slot',
+            '{X:mult,C:white}X#2#{} Mult against {C:attention}Boss Blinds{}',
+            'Remove this {C:attention}Joker{} to score',
+            '{C:attention}#3#%{} of the required chips',
+            '{C:inactive}(Max of {C:attention}#4#{C:inactive}){}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 26 },
+    rarity = 4,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { slots = 1, Xmult = 2, percent = 40, max = 40000 } --Variables: slots = joker slots,
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.slots,
+                card.ability.extra.Xmult,
+                card.ability.extra.percent,
+                card.ability.extra.max
+            }
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
+        if score > to_big(card.ability.extra.max) then
+            score = to_big(card.ability.extra.max)
+        end
+        G.GAME.chips = G.GAME.chips + score
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('bloons_sentryexplode')
+                delay(0.1)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips,
+            delay = 0.5,
+            func = function(t)
+                return math.floor(t)
+            end
+        }))
+        G.E_MANAGER:add_event(
+            Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }),
+            "other"
+        )
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.blind.boss then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
         end
     end
 }

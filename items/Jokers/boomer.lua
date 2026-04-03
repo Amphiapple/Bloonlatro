@@ -237,7 +237,7 @@ SMODS.Joker { --Glaive Lord
     perishable_compat = false,
     config = {
         tower_info = { base = "Boomerang Monkey", category = "primary" },
-        extra = { chips = 2, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
+        extra = { chips = 3, current = 0, suits = { ['Wild'] = 0, ['Hearts'] = 0, ['Diamonds'] = 0, ['Spades'] = 0, ['Clubs'] = 0 }, ranks = {} } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)
