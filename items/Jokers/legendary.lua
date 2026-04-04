@@ -474,7 +474,7 @@ SMODS.Joker { --Master Builder
 	cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { sentries = { 'j_bloons_mega_green_sentry', 'j_bloons_mega_red_sentry', 'j_bloons_mega_blue_sentry' }, counter = 1, Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult gain, current = current Xmult
     },
 
