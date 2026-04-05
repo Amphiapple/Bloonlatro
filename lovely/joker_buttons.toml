@@ -1,0 +1,67 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local sell = nil
+local use = nil
+'''
+position = "at"
+payload = '''
+    local sell, use, adora_sac, vtsg_sac = nil, nil, nil, nil
+
+    local is_adora_deck = G.GAME and G.GAME.selected_back and G.GAME.selected_back.name and G.GAME.selected_back.name == 'Adora Deck'
+    local is_vtsg = card and card.ability and card.ability.name == 'Vengeful True Sun God'
+
+    if is_adora_deck then
+        adora_sac = build_button({
+            card = card,
+            can = 'can_adora_sac',
+            ["function"] = 'adora_sac',
+            colour = HEX("FFCE00"),
+            text = 'SAC'
+        })
+    end
+
+    if is_vtsg then
+        vtsg_sac = build_button({
+            card = card,
+            can = 'can_vtsg_sac',
+            ["function"] = 'vtsg_sac',
+            colour = HEX("383C76"),
+            text = 'SAC'
+        })
+    end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "if card.area and card.area.config.type == 'joker' then"
+position = "at"
+payload = "if card.area and card.area.config.type == 'joker' and not (G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  sell
+}},
+'''
+position = "after"
+payload = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  adora_sac
+}},
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  vtsg_sac
+}},
+'''
+match_indent = true
