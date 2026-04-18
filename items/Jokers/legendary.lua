@@ -161,6 +161,70 @@ SMODS.Joker { --Herald of Everfrost
 }
 ]]
 
+SMODS.Joker { -- Nautic Siege Core
+    key = 'nautic_siege_core',
+    name = 'Nautic Siege Core',
+
+    loc_txt = {
+        name = 'Nautic Siege Core',
+        text = {
+            'placeholder'
+        }
+    },
+
+    atlas = 'Joker',
+    pos = { x = 8, y = 27 },
+    soul_pos = { x = 8, y = 28 },
+
+    rarity = 4,
+    cost = 20,
+    blueprint_compat = true,
+
+    config = {
+        tower_info = { base = "Monkey Sub", category = "military" },
+        extra = { submerged = false }
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+
+    set_sprites = function(self, card, front)
+        if not card or not card.ability or not card.ability.extra then return end
+        if card.ability.extra.submerged then
+            card.children.center:set_sprite_pos({ x = 6, y = 27 })
+        else
+            card.children.center:set_sprite_pos({ x = 8, y = 27 })
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if card.ability.extra.submerged then
+            G.GAME.subcom_mult = 10
+        else
+            G.GAME.subcom_mult = 1
+
+            if context.joker_main then
+                return {
+                    x_mult = 10
+                }
+            end
+        end
+    end,
+
+    submerge = function(card)
+        if not card or not card.children or not card.children.center then return end
+        
+        card.ability.extra.submerged = not card.ability.extra.submerged
+
+        if card.ability.extra.submerged then
+            card.children.center:set_sprite_pos({ x = 6, y = 27 })
+        else
+            card.children.center:set_sprite_pos({ x = 8, y = 27 })
+        end
+    end
+}
+
 SMODS.Joker { --Goliath Doomship
     key = 'goliath_doomship',
     name = 'Goliath Doomship',

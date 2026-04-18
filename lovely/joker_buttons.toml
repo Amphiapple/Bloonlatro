@@ -12,10 +12,11 @@ local use = nil
 '''
 position = "at"
 payload = '''
-    local sell, use, adora_sac, vtsg_sac = nil, nil, nil, nil
+    local sell, use, adora_sac, vtsg_sac, nsc_submerge = nil, nil, nil, nil, nil
 
     local is_adora_deck = G.GAME and G.GAME.selected_back and G.GAME.selected_back.name and G.GAME.selected_back.name == 'Adora Deck'
     local is_vtsg = card and card.ability and card.ability.name == 'Vengeful True Sun God'
+    local is_nsc = card and card.ability and card.ability.name == "Nautic Siege Core"
 
     if is_adora_deck then
         adora_sac = build_button({
@@ -36,6 +37,16 @@ payload = '''
             text = 'SAC'
         })
     end
+
+    if is_nsc then
+        nsc_submerge = build_button({
+            card = card,
+            can = 'can_nsc_submerge',
+            ["function"] = 'nsc_submerge',
+            colour = G.C.GREEN,
+            text = 'SUB'
+        })
+    end
 '''
 match_indent = true
 
@@ -44,7 +55,7 @@ match_indent = true
 target = "functions/UI_definitions.lua"
 pattern = "if card.area and card.area.config.type == 'joker' then"
 position = "at"
-payload = "if card.area and card.area.config.type == 'joker' and not (G.GAME.selected_back and G.GAME.selected_back.name == 'Adora Deck') then"
+payload = "if card.area and card.area.config.type == 'joker' and not is_adora_deck then"
 match_indent = true
 
 [[patches]]
@@ -62,6 +73,9 @@ payload = '''
 }},
 {n=G.UIT.R, config={align = 'cl'}, nodes={
   vtsg_sac
+}},
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  nsc_submerge
 }},
 '''
 match_indent = true

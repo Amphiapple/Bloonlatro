@@ -8,7 +8,7 @@ local function can_interact_with_card(card)
     return true
 end
 
-local function can_adora_sacrifice(card)
+local function valid_adora_sacrifice(card)
     local is_adora_deck = G.GAME and G.GAME.selected_back and G.GAME.selected_back.name and G.GAME.selected_back.name == 'Adora Deck'
 
     if not can_interact_with_card(card) then return false end
@@ -20,7 +20,7 @@ local function can_adora_sacrifice(card)
     return center and type(center.sac_to_adora) == 'function'
 end
 
-local function can_vtsg_sacrifice(card)
+local function valid_vtsg_sacrifice(card)
     local is_vtsg = card and card.ability and card.ability.name == 'Vengeful True Sun God'
 
     if not can_interact_with_card(card) then return false end
@@ -60,6 +60,16 @@ local function can_vtsg_sacrifice(card)
     return has_valid_target
 end
 
+local function valid_nsc_submerge(card)
+    local is_nsc = card and card.ability and card.ability.name == "Nautic Siege Core"
+
+    if not can_interact_with_card(card) then return false end
+    if not is_nsc then return false end
+
+    local center = card.config and card.config.center
+    return center and type(center.submerge) == 'function'
+end
+
 local function set_button_state(e, is_enabled, fallback_action)
     if is_enabled then
         e.config.colour = e.config.active_colour or G.C.GREEN
@@ -71,16 +81,20 @@ local function set_button_state(e, is_enabled, fallback_action)
 end
 
 G.FUNCS.can_adora_sac = function(e)
-    set_button_state(e, can_adora_sacrifice(e.config.ref_table), 'adora_sac')
+    set_button_state(e, valid_adora_sacrifice(e.config.ref_table), 'adora_sac')
 end
 
 G.FUNCS.can_vtsg_sac = function(e)
-    set_button_state(e, can_vtsg_sacrifice(e.config.ref_table), 'vtsg_sac')
+    set_button_state(e, valid_vtsg_sacrifice(e.config.ref_table), 'vtsg_sac')
+end
+
+G.FUNCS.can_nsc_submerge = function(e)
+    set_button_state(e, valid_nsc_submerge(e.config.ref_table), 'nsc_submerge')
 end
 
 G.FUNCS.adora_sac = function(e)
     local card = e.config.ref_table
-    if not can_adora_sacrifice(card) then return end
+    if not valid_adora_sacrifice(card) then return end
 
     local center = G.GAME.selected_back.effect.center
     center.sac_to_adora(card)
@@ -88,9 +102,17 @@ end
 
 G.FUNCS.vtsg_sac = function(e)
     local card = e.config.ref_table
-    if not can_vtsg_sacrifice(card) then return end
+    if not valid_vtsg_sacrifice(card) then return end
 
     card.config.center.sac_to_vtsg(card)
+    card.highlighted = false
+end
+
+G.FUNCS.nsc_submerge = function(e)
+    local card = e.config.ref_table
+    if not valid_nsc_submerge(card) then return end
+
+    card.config.center.submerge(card)
     card.highlighted = false
 end
 
