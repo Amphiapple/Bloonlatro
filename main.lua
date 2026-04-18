@@ -1,14 +1,13 @@
 Bloonlatro = {}
 Bloonlatro.config = SMODS.current_mod.config
 
--- category colors
+loc_colour()
 G.C.PRIMARY  = HEX("25ACE8")
 G.C.MILITARY = HEX("3DD228")
 G.C.MAGIC    = HEX("7E4AF4")
 G.C.SUPPORT  = HEX("EE882B")
 G.C.MISC     = HEX("FF6FAE")
 
-G.ARGS.LOC_COLOURS          = G.ARGS.LOC_COLOURS or {}
 G.ARGS.LOC_COLOURS.primary  = G.C.PRIMARY
 G.ARGS.LOC_COLOURS.military = G.C.MILITARY
 G.ARGS.LOC_COLOURS.magic    = G.C.MAGIC

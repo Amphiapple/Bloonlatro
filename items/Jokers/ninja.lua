@@ -668,7 +668,10 @@ SMODS.Joker { --Sticky Bomb
             card.ability.extra.active = false
             local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
-                if v:is_suit('Spades') and not v.ability.sticky_bomb and not v.debuff then
+                if v.ability.sticky_bomb then
+                    v.ability.sticky_bomb = false
+                end
+                if v:is_suit('Spades') and not v.debuff then
                     eligible_cards[#eligible_cards+1] = v
                 end
             end
