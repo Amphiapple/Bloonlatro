@@ -10,9 +10,12 @@ Balance Changes:
 - Triple Shot reworked
 - Glaive Lord chips 2 > 3
 - Recursive Cluster Xmult 3 > 2.5
+- Absolute Zero also gives +1 hand size
+- MOAB Glue Xmult 3 > 2
 - Relentless Glue cost 6 > 7
 - Spy Plane top 2 > top 3 cards
 - Sharper Darts mult 15 > 11
+- Echosense Network mult 10 > 7
 - Even Faster Production mult 8 > 7
 - Double Gun Common > Uncommon
 - XXXL trap reworked
@@ -24,6 +27,8 @@ Fixes:
 - Ring of Fire should now allow Meteor cards to be bought in the lastest SMODS update (1503a)
 - Cannon ship should now be blueprint compatible
 - Shimmer and Sticky Bomb should no longer debuff themselves when entering a blind
+- Sticky Bomb should no longer save stickies if they aren't activated
 - Alluring Melody and Symphonic Resonance should no longer be perishable compatible
 - Great White should no longer crash
+- Master Builder should no longer be a Spike Factory
 - Inflated should no longer softlock if you destroy or play all cards in hand and still have hands remaining 

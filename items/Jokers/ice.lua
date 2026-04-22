@@ -581,8 +581,9 @@ SMODS.Joker { --Absolute Zero
 	loc_txt = {
         name = 'Absolute Zero',
         text = {
+            '{C:attention}+#1#{} hand size',
             '{C:attention}Frozen{} cards permanently',
-            'gain {X:mult,C:white}X#1#{} Mult',
+            'gain {X:mult,C:white}X#2#{} Mult',
             'when thawed out',
         }
     },
@@ -594,12 +595,13 @@ SMODS.Joker { --Absolute Zero
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { Xmult = 0.25 } --Variables: Xmult = Xmult gain
+        h_size = 1, --Variables: h_size == hand size
+        extra = { Xmult = 0.2 } --Variables: Xmult = Xmult gain
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.h_size, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.after then

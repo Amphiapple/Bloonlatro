@@ -122,7 +122,7 @@ SMODS.Joker { --Primary Mentoring
         name = 'Primary Mentoring',
         text = {
             '{C:blue}Common {C:primary}Primary',
-            '{C:attention}Jokers{} cost {C:attention}1{}',
+            '{C:attention}Jokers{} cost {C:money}$1{}',
             '{C:primary}Primary {C:attention}Jokers{} each',
             'give {X:mult,C:white}X#1#{} Mult'
         }
@@ -556,7 +556,7 @@ SMODS.Joker { --Monkeyopolis
             'When {C:attention}Blind{} is selected,',
             'destroy {C:attention}Joker{} to the right and',
             'add its sell value to this {C:attention}Joker{}',
-            "Earn money equal to this {C:attention}Joker{}'s",
+            "Earn money equal to half this {C:attention}Joker{}'s",
             'sell value at end of round',
         }
     },
@@ -571,7 +571,7 @@ SMODS.Joker { --Monkeyopolis
 
     calc_dollar_bonus = function(self, card)
         if card.sell_cost > 0 then
-            return card.sell_cost
+            return math.ceil(card.sell_cost / 2)
         end
     end,
     calculate = function(self, card, context)

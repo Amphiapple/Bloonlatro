@@ -69,6 +69,14 @@ JokerDisplay.Definitions["j_bloons_embrittlement"] = { --Embrittlement
 }
 
 JokerDisplay.Definitions["j_bloons_super_brittle"] = { --Super Brittle
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
     extra = {
         {
             { text = "(" },
@@ -78,6 +86,16 @@ JokerDisplay.Definitions["j_bloons_super_brittle"] = { --Super Brittle
     },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        local count = 0
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.name == 'Frozen Card' then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
+            end
+        end
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'super_brittle')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
@@ -144,19 +162,6 @@ JokerDisplay.Definitions["j_bloons_snowstorm"] = { --Snowstorm
 }
 
 JokerDisplay.Definitions["j_bloons_absolute_zero"] = { --Absolute Zero
-    text = {
-        { text = "+", colour = G.C.SECONDARY_SET.Spectral },
-        { ref_table = "card.joker_display_values", ref_value = "spectrals", colour = G.C.SECONDARY_SET.Spectral }
-    },
-    calc_function = function(card)
-        local cards_needed = false
-        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        if text ~= 'Unknown' then
-            cards_needed = #scoring_hand == card.ability.extra.number
-        end
-        local first_hand = G.GAME and G.GAME.current_round.hands_played == 0
-        card.joker_display_values.spectrals = first_hand and cards_needed and 1 or 0
-    end
 }
 
 JokerDisplay.Definitions["j_bloons_larger_radius"] = { --Larger Radius

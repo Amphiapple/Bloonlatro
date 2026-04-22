@@ -10,11 +10,11 @@ SMODS.Joker { --Super Monkey
 	atlas = 'Joker',
 	pos = { x = 0, y = 15 },
     rarity = 1,
-	cost = 6,
+	cost = 5,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { mult = 15 } --Variables: mult = +mult
+        extra = { mult = 12 } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -45,7 +45,7 @@ SMODS.Joker { --Laser Blasts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { mult = 20 } --Variables: mult = +mult
+        extra = { mult = 16 } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)

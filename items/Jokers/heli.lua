@@ -49,7 +49,7 @@ SMODS.Joker { --Quad Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Heli Pilot", category = "military" },
-        extra = { mult = 8 } --Variables: mult = +mult
+        extra = { mult = 6 } --Variables: mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)

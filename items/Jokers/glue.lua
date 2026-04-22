@@ -339,7 +339,7 @@ SMODS.Joker { --Glue Hose
             context.other_card:set_ability(G.P_CENTERS.m_bloons_glued, nil, true)
             return {
                 message = 'Glued!',
-                colour = G.C.MONEY
+                colour = G.C.YELLOW
             }
         end
     end
@@ -387,7 +387,7 @@ SMODS.Joker { --Glue Storm
 	loc_txt = {
         name = 'Glue Storm',
         text = {
-            '{C:attention}Glue{} all cards when drawn',
+            '{C:attention}Glue{} all discarded cards',
             '{C:attention}Glued{} cards no longer',
             'lose money when discarded'
         }
@@ -405,13 +405,12 @@ SMODS.Joker { --Glue Storm
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_glued
     end,
     calculate = function(self, card, context)
-        if context.hand_drawn and not context.blueprint then
-            for k, v in pairs(G.hand.cards) do
-                if v.ability.name ~= 'Glued Card' and not v.debuff then
-                    v:set_ability(G.P_CENTERS.m_bloons_glued, nil, true)
-                    v:juice_up()
-                end
-            end
+        if context.discard and not context.other_card.debuff and not context.blueprint then
+            context.other_card:set_ability(G.P_CENTERS.m_bloons_glued, nil, true)
+            return {
+                message = 'Glued!',
+                colour = G.C.YELLOW
+            }
         end
     end
 }
@@ -507,7 +506,7 @@ SMODS.Joker { --MOAB Glue
     blueprint_compat = true,
     config = {
         tower_info = { base = "Glue Gunner", category = "primary" },
-        extra = { Xmult = 3 } --Variables: Xmult = Xmult
+        extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)

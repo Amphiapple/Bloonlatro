@@ -1,5 +1,3 @@
-
-
 --Challenge id function
 function get_challenge_stake(e)
     local key = G.CHALLENGES[e.config.id].id

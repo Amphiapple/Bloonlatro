@@ -539,7 +539,7 @@ SMODS.Joker { --Echosense Network
     blueprint_compat = true,
     config = {
         tower_info = { base = "Mermonkey", category = "magic" },
-        extra = { mult = 10, current = 0 } --Variables: mult = +mult per mermonkey
+        extra = { mult = 7, current = 0 } --Variables: mult = +mult per mermonkey
     },
 
     loc_vars = function(self, info_queue, card)
