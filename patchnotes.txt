@@ -15,6 +15,9 @@ Balance Changes:
 - Relentless Glue cost 6 > 7
 - Spy Plane top 2 > top 3 cards
 - Sharper Darts mult 15 > 11
+- Super Monkey cost 6 > 5, mult 15 > 12
+- Laser Blasts mult 20 > 16
+- Acid Pools now requires at least 1 unused hand
 - Echosense Network mult 10 > 7
 - Even Faster Production mult 8 > 7
 - Double Gun Common > Uncommon

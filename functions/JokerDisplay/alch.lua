@@ -130,7 +130,17 @@ JokerDisplay.Definitions["j_bloons_faster_throwing"] = { --Faster Throwing
         card.joker_display_values.count = active and 1 or 0
     end
 }
+
 JokerDisplay.Definitions["j_bloons_acid_pools"] = { --Acid Pools
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.SECONDARY_SET.Tarot },
+    calc_function = function(card)
+        local active = G.GAME and G.GAME.current_round.hands_left > 0
+        card.joker_display_values.count = active and 1 or 0
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_lead_to_gold"] = { --Lead to Gold
