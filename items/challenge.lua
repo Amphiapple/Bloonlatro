@@ -9,6 +9,8 @@ Challenge_stakes = {
 
 local banned_hand_cards = {
     {id = 'j_bloons_downdraft'},
+    {id = 'j_bloons_support_chinook'},
+    {id = 'j_bloons_moab_shove'},
     {id = 'j_bloons_counter_espionage'},
     {id = 'j_bloons_druid_of_the_storm'},
     {id = 'j_bloons_long_reach'},
@@ -395,6 +397,19 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+    calculate = function(self, context)
+        if context.drawing_cards and #G.hand.cards == 0 and
+                not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.STATE = G.STATES.GAME_OVER
+                    G.STATE_COMPLETE = false
+                    return true
+                end
+            }))
+        end
+    end,
 }
 
 SMODS.Challenge {
@@ -675,6 +690,19 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
     },
+    calculate = function(self, context)
+        if context.drawing_cards and #G.hand.cards == 0 and
+                not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.STATE = G.STATES.GAME_OVER
+                    G.STATE_COMPLETE = false
+                    return true
+                end
+            }))
+        end
+    end,
 }
 
 SMODS.Challenge {

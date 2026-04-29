@@ -117,10 +117,11 @@ JokerDisplay.Definitions["j_bloons_spy_plane"] = { --Spy Plane
         local card_string = (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.id or 11)..
                 (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.suit:sub(1,1) or 'D') .. ' ' ..
                 (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-1].base.id or 11) ..
-                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-1].base.suit:sub(1,1) or 'D')
+                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-1].base.suit:sub(1,1) or 'D') .. ' ' ..
+                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-2].base.id or 11) ..
+                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-2].base.suit:sub(1,1) or 'D')
         card.joker_display_values.cards = card_string
     end,
-    
 }
 
 JokerDisplay.Definitions["j_bloons_bomber_ace"] = { --Bomber Ace

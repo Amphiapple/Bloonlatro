@@ -15,7 +15,7 @@ SMODS.Joker { --Ninja Monkey
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { mult = 4, slots = 1 } --Variables: mult = +mult, slots = extra joker slots
     },
 
@@ -54,7 +54,7 @@ SMODS.Joker { --Ninja Discipline
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { chips = 20, slots = 1 } --Variables: chips = +chips, slots = extra joker slots
     },
 
@@ -94,7 +94,7 @@ SMODS.Joker { --Sharp Shurikens
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { chips = 20, mult = 4, slots = 1 } --Variables: chips = +chips, mult = +mult, slots = extra joker slots
     },
 
@@ -135,7 +135,7 @@ SMODS.Joker { --Double Shot
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { Xmult = 2, number = 2 } --Variables: Xmult = Xmult, number = required diamonds for Xmult
     },
 
@@ -177,7 +177,7 @@ SMODS.Joker { --Bloonjitsu
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { Xmult = 3, number = 3 } --Variables: Xmult = Xmult, number = required diamonds for Xmult
     },
 
@@ -217,8 +217,8 @@ SMODS.Joker { --Grandmaster Ninja
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
-    config = { 
-        base = 'ninja',
+    config = {
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { Xmult = 0.5 }--Variables: Xmult = Xmult
     },
 
@@ -261,7 +261,7 @@ SMODS.Joker { --Distraction
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { num = 1, denom = 2, slots = 1, retrigger = 1 } --Variables: num/denom = probability fraction, slots = extra joker slots, retrigger = retrigger count
     },
 
@@ -284,87 +284,7 @@ SMODS.Joker { --Distraction
         end
     end
 }
---[[
-SMODS.Joker { --Counter Espionage
-    key = 'espionage',
-    name = 'Counter Espionage',
-    loc_txt = {
-        name = 'Counter Espionage',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'combine hands and discards',
-            'Lose all hands and discards',
-            'at the end of round'
-        }
-    },
-    atlas = 'Joker',
-	pos = { x = 7, y = 16 },
-    rarity = 1,
-	cost = 5,
-    blueprint_compat = false,
-    config = {
-        base = 'ninja',
-        extra = { ready = true, active = false, hands = 0, discards = 0 } --Variables: ready = ready to combine hands and discards, active = hands merged with discards, hands = added hands, discards = added discards
-    },
 
-    remove_from_deck = function(self, card, from_debuff)
-        if card.ability.extra.active then
-            if G.GAME.round_resets.hands - G.GAME.current_round.hands_played <= 0 then
-                ease_hands_played(1 - G.GAME.current_round.hands_left)
-            else
-                ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_played - G.GAME.current_round.hands_left)
-            end
-            if G.GAME.round_resets.discards - G.GAME.current_round.discards_used < 0 then
-                ease_discard(-G.GAME.current_round.discards_left)
-            else
-                ease_discard(G.GAME.round_resets.discards - G.GAME.current_round.discards_used - G.GAME.current_round.discards_left)
-            end
-        end
-    end,
-    calculate = function(self, card, context)
-        if context.setting_blind and card.ability.extra.ready and not card.getting_sliced and not context.blueprint then
-            local espionages = find_joker('Counter Espionage')
-            for k, v in pairs(espionages) do
-                if v ~= card then
-                    v.ability.extra.ready = false
-                end
-            end
-            card.ability.extra.active = true
-            card.ability.extra.hands = G.GAME.current_round.discards_left
-            card.ability.extra.discard = G.GAME.current_round.hands_left
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    ease_hands_played(G.GAME.current_round.discards_left)
-                    ease_discard(G.GAME.current_round.hands_left)
-                    return true
-                end 
-            }))
-        elseif context.before and card.ability.extra.active and G.GAME.current_round.discards_left > G.GAME.current_round.hands_left and not context.blueprint then
-            ease_discard(-1)
-        elseif context.pre_discard and card.ability.extra.active and G.GAME.current_round.hands_left >= G.GAME.current_round.discards_left then
-            ease_hands_played(-1)
-            if G.GAME.current_round.hands_left <= 1 then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 1,
-                    func = function()
-                        G.STATE = G.STATES.GAME_OVER
-                        G.STATE_COMPLETE = false
-                        return true
-                    end
-                }))
-            end
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if card.ability.extra.active then
-                ease_hands_played(-G.GAME.current_round.hands_left)
-                ease_discard(-G.GAME.current_round.discards_left)
-            end
-            card.ability.extra.active = false
-            card.ability.extra.ready = true
-        end
-    end
-}
-]]
 SMODS.Joker { --Counter Espionage
     key = 'counter_espionage',
     name = 'Counter Espionage',
@@ -384,7 +304,7 @@ SMODS.Joker { --Counter Espionage
 	cost = 4,
     blueprint_compat = false,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { slots = 1 } --Variables: slots = extra joker slots
     },
 
@@ -419,7 +339,7 @@ SMODS.Joker { --Shinobi Tactics
 	loc_txt = {
         name = 'Shinobi Tactics',
         text = {
-            '{C:attention}Ninjas{} give {X:mult,C:white}X#1#{} Mult',
+            '{C:attention}Ninja Monkeys{} give {X:mult,C:white}X#1#{} Mult',
             'All {C:attention}Ninjas{} may appear',
             'multiple times'
         }
@@ -430,7 +350,7 @@ SMODS.Joker { --Shinobi Tactics
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { Xmult = 1.25 } --Variables: Xmult = Xmult for each ninja
     },
 
@@ -438,7 +358,7 @@ SMODS.Joker { --Shinobi Tactics
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.ability.base == 'ninja' then
+        if context.other_joker and context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.base == 'Ninja Monkey' then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)
@@ -469,7 +389,7 @@ SMODS.Joker { --Bloon Sabotage
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { num = 1, denom = 2, discards = 1 } --Variables: num/denom = probability fraction, discards = number of discards gained
     },
 
@@ -514,7 +434,7 @@ SMODS.Joker { --Grand Saboteur
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { num = 1, denom = 2, number = 2 } --Variables: num/denom = probability fraction, number = number of hearts for sabotage
     },
 
@@ -567,7 +487,7 @@ SMODS.Joker { --Seeking Shuriken
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { mult = 4, slots = 1 } --Variables: num/denom = probability fraction slots = extra joker slots
     },
 
@@ -609,7 +529,7 @@ SMODS.Joker { --Caltrops
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { mult = 1, current = 0, slots = 1 } --Variables: mult = +mult each round, current = current +mult, slots = extra joker slots
     },
 
@@ -654,7 +574,7 @@ SMODS.Joker { --Flash Bomb
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { mult = 40, limit = 3, counter = 3 } --Variables: mult = +mult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -720,8 +640,8 @@ SMODS.Joker { --Sticky Bomb
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
-        extra = { Xmult = 3, stickied = nil, active = false } --Variables: Xmult = Xmult
+        tower_info = { base = "Ninja Monkey", category = "magic" },
+        extra = { Xmult = 3, active = false } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -729,9 +649,16 @@ SMODS.Joker { --Sticky Bomb
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
-            if context.other_card == card.ability.extra.stickied and context.stun then
-                card.ability.extra.active = true
+        if context.discard and context.other_card.ability.sticky_bomb and not context.blueprint then
+            if card.ability.extra.active then
+                if not context.stun or context.other_card.debuff then
+                    context.other_card.ability.sticky_bomb = false
+                end
+            else
+                context.other_card.ability.sticky_bomb = false
+                if context.stun and not context.other_card.debuff then
+                    card.ability.extra.active = true
+                end
             end
         elseif context.joker_main and card.ability.extra.active then
             return {
@@ -741,21 +668,21 @@ SMODS.Joker { --Sticky Bomb
             card.ability.extra.active = false
             local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
-                if v:is_suit('Spades') and v ~= card.ability.extra.stickied and not v.debuff then
+                if v.ability.sticky_bomb then
+                    v.ability.sticky_bomb = false
+                end
+                if v:is_suit('Spades') and not v.debuff then
                     eligible_cards[#eligible_cards+1] = v
                 end
             end
             if next(eligible_cards) then
-                card.ability.extra.stickied = pseudorandom_element(eligible_cards, 'sticky_bomb')
-                card.ability.extra.stickied:set_ability(G.P_CENTERS.m_bloons_stunned)
-                card_eval_status_text(card.ability.extra.stickied, 'extra', nil, nil, nil, {
+                local stickied_card = pseudorandom_element(eligible_cards, 'sticky_bomb')
+                stickied_card:set_ability(G.P_CENTERS.m_bloons_stunned)
+                stickied_card.ability.sticky_bomb = true
+                card_eval_status_text(stickied_card, 'extra', nil, nil, nil, {
                     message = 'Stickied!'
                 })
-            else
-                card.ability.extra.stickied = nil
             end
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.stickied = nil
         end
     end
 }
@@ -778,8 +705,8 @@ SMODS.Joker { --Master Bomber
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'ninja',
-        extra = { Xmult = 1, current = 1 } --Variables: Xmult = Xmult per stickied, current = 
+        tower_info = { base = "Ninja Monkey", category = "magic" },
+        extra = { Xmult = 1, current = 1 } --Variables: Xmult = Xmult per stickied, current = current stickied cards
     },
 
     loc_vars = function(self, info_queue, card)

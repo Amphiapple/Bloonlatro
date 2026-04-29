@@ -1,44 +1,37 @@
 Added Jokers:
-- Paragons are now replacing certain T5 towers as Legendary rarity Jokers
-- All remaining Bomb Shooters
-- All remaining Monkey Aces
-- Most Super Monkeys
-- All remaining Engineer Monkeys
-- MOAB Domination, Flying Fortress, Permanent Brew, and Super Mines as Rare Jokers
-- Card Storm
+- All remaining Glue Gunners
+- All remaining Heli Pilots
+- All remaining Monkey Villages
+- 4 more paragons!
 
 General Changes:
-- Bloonlatro challenge has been replaced with a new challenge as you can turn on and off base game jokers at will
-- Joker keys renamed, you may need to reset your profile for accurate stats to be tracked
 
 Balance Changes:
-- Glaive Lord chip gain 3 > 2
-- Bionic Boomerang reworked
-- Most Bomb shoters reworked
-- Blade Shooter requirement 3 number cards > 3 cards with ranks 6-10
-- Super Maelstrom Xmult rarity Uncommon > Rare
-- Snowstorm increases hand size starting from the 2nd card instead of 1st
-- Super Brittle and Absolute Zero reworked
-- Bounty Hunter money 5 > 3
-- Ground Zero chips 350 > 250, first hand > final hand
-- Spiked Balls and Spiked Mines reworked
-- Carpet of Spikes X0.2 per discard > X1.3 if 0 discards remaining
-- VTSG no longer defaults non-towers to Primary category sacrifices
+- Triple Shot reworked
+- Glaive Lord chips 2 > 3
+- Recursive Cluster Xmult 3 > 2.5
+- Absolute Zero also gives +1 hand size
+- MOAB Glue Xmult 3 > 2
+- Relentless Glue cost 6 > 7
+- Spy Plane top 2 > top 3 cards
+- Sharper Darts mult 15 > 11
+- Super Monkey cost 6 > 5, mult 15 > 12
+- Laser Blasts mult 20 > 16
+- Acid Pools now requires at least 1 unused hand
+- Echosense Network mult 10 > 7
+- Even Faster Production mult 8 > 7
+- Double Gun Common > Uncommon
+- XXXL trap reworked
+- Invisible Tag immediate > when boss blind is defeated
 
 Fixes:
-- Ice Monkey and Larger Radius should no longer be Enhanced Freeze
-- Embrittlement should correctly display Xmult instead of +mult when destroying cards
-- Deep Freeze should no longer guarantee thawing frozen cards when probability is increased
-- Sky Shredder should no longer stop counting Aces when it upgrades
-- Enforcer no longer has a shadow clone in the code
-- Common Ninjas can be bought again at full Joker slots on the latest SMODS version
-- Double Shot and Bloonjitsu should now work with blueprint effects
-- Riptide Champion should corectly freeze adjacent cards
-- Central Market should no longer be blueprint compatible
-- Multiple sentries expiring simultaneously should no longer keep extra joker slots
-- Goliath Doomship should no longer give effects to debuffed Aces
-- VTSG military sacrifice should correctly retrigger cards
-- VTSG magic sacrifice should correctly create consumables
-- Challenge bans adjusted for new jokers
-- Lots of text fixes and standardizations
-- Many Joker Display text fixes
+- Desperado's chosen card should work in the latest SMODS update (1503a)
+- Golden Justice should correctly work with red seals
+- Ring of Fire should now allow Meteor cards to be bought in the lastest SMODS update (1503a)
+- Cannon ship should now be blueprint compatible
+- Shimmer and Sticky Bomb should no longer debuff themselves when entering a blind
+- Sticky Bomb should no longer save stickies if they aren't activated
+- Alluring Melody and Symphonic Resonance should no longer be perishable compatible
+- Great White should no longer crash
+- Master Builder should no longer be a Spike Factory
+- Inflated should no longer softlock if you destroy or play all cards in hand and still have hands remaining 

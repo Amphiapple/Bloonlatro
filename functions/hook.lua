@@ -1,4 +1,3 @@
-
 --Skip tag effects
 G.FUNCS.skip_blind = function(e)
     stop_use()

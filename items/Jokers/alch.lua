@@ -15,7 +15,7 @@ SMODS.Joker { --Alchemist
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         extra = {}
     },
 
@@ -55,7 +55,7 @@ SMODS.Joker { --Larger Potions
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         extra = { number = 2 } --Variables: number = number of tarots
     },
 
@@ -94,9 +94,9 @@ SMODS.Joker { --Acidic Mixture Dip
         name = 'Acidic Mixture Dip',
         text = {
             '{C:green}#1# in #2#{} chance to',
-            'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
-            'or {C:dark_edition}Polychrome{} effect to',
-            '{C:attention}last{} played card that scores',
+            'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
+            '{C:dark_edition}Polychrome{} effect to {C:attention}last{}',
+            'played card that scores',
         }
     },
     atlas = 'Joker',
@@ -105,7 +105,7 @@ SMODS.Joker { --Acidic Mixture Dip
 	cost = 6,
     blueprint_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         extra = { num = 1, denom = 4 } --Variables: num/denom = probability fraction
     },
 
@@ -146,7 +146,7 @@ SMODS.Joker { --Berserker Brew
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         eligible_jokers = {} --Variables: eligible_jokers = possible jokers to give polychrome
     },
 
@@ -197,7 +197,7 @@ SMODS.Joker { --Stronger Stimulant
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         eligible_jokers = {} --Variables: eligible_jokers = possible jokers to give polychrome
     },
 
@@ -245,7 +245,7 @@ SMODS.Joker { --Permanent Brew
 	cost = 9,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -283,7 +283,7 @@ SMODS.Joker { --Stronger Acid
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -343,7 +343,7 @@ SMODS.Joker { --Perishing Potions
     blueprint_compat = true,
     eternal_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -373,7 +373,7 @@ SMODS.Joker { --Unstable Concoction
 	cost = 6,
     blueprint_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -382,7 +382,7 @@ SMODS.Joker { --Unstable Concoction
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then my_pos = i; break end
             end
-            if my_pos and G.jokers.cards[my_pos+1] and not SMODS.is_eternal(G.jokers.cards[my_pos+1], self) then
+            if my_pos and G.jokers.cards[my_pos+1] and not SMODS.is_eternal(G.jokers.cards[my_pos+1], card) and not G.jokers.cards[my_pos+1].getting_sliced then
                 local sliced_card = G.jokers.cards[my_pos+1]
                 sliced_card.getting_sliced = true
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
@@ -421,7 +421,7 @@ SMODS.Joker { --Transforming Tonic
 	cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -487,7 +487,7 @@ SMODS.Joker { --Total Transformation
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
         extra = { rounds = 2, current = 0 } --Variables: rounds = rounds until active, current = current rounds
     },
 
@@ -573,7 +573,7 @@ SMODS.Joker { --Faster Throwing
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -602,7 +602,8 @@ SMODS.Joker { --Acid Pools
         name = 'Acid Pools',
         text = {
             'Create a {C:tarot}Tarot{} card',
-            'at end of round',
+            'at end of round if any',
+            'hands are unused',
             '{C:inactive}(Must have room){}'
         }
     },
@@ -612,11 +613,11 @@ SMODS.Joker { --Acid Pools
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.end_of_round and not context.individual and not context.repetition and G.GAME.current_round.hands_left > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -652,7 +653,7 @@ SMODS.Joker { --Lead to Gold
     blueprint_compat = false,
     enhancement_gate = 'm_steel',
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -684,7 +685,7 @@ SMODS.Joker { --Rubber to Gold
 	cost = 6,
     blueprint_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -723,7 +724,7 @@ SMODS.Joker { --Bloon Master Alchemist
 	cost = 8,
     blueprint_compat = false,
     config = {
-        base = 'alch',
+        tower_info = { base = "Alchemist", category = "magic" },
     },
 
     calculate = function(self, card, context)
