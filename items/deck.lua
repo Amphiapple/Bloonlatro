@@ -246,6 +246,7 @@ SMODS.Back { --Adora
             )
         end
         card:sell_card()
+        SMODS.calculate_context({selling_card = true, card = card})
     end
 }
 
