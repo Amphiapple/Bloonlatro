@@ -3,5 +3,6 @@ Added Jokers:
 General Changes:
 
 Balance Changes:
+- Shell Shock rarity Common > Uncommon, mult 8 > 12
 
 Fixes:

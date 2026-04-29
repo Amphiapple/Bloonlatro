@@ -130,7 +130,7 @@ SMODS.Enhancement ({ --Stunned
                 end
             end
             if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
-            local count = math.min(#stunned, G.discard.config.card_limit - #G.play.cards)
+            local count = #stunned
             if count > 0 then 
                 table.sort(stunned, function(a,b) return a.T.x < b.T.x end)
                 inc_career_stat('c_cards_discarded', count)
