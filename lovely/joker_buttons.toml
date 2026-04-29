@@ -43,7 +43,7 @@ payload = '''
             card = card,
             can = 'can_nsc_submerge',
             ["function"] = 'nsc_submerge',
-            colour = G.C.GREEN,
+            colour = G.C.BLUE,
             text = 'SUB'
         })
     end
