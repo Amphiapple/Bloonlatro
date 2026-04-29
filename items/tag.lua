@@ -17,7 +17,6 @@ SMODS.Tag {
     },
     atlas = 'Tag',
 	pos = { x = 0, y = 0 },
-	order = 25,
     min_ante = nil,
     config = { type = 'immediate' },
 
@@ -63,33 +62,38 @@ SMODS.Tag {
     loc_txt = {
         name = 'Invisible Tag',
         text = {
-            '{C:attention}Duplicates{} a',
-            'random {C:attention}Joker{}',
+            '{C:attention}Duplicates{} a random',
+            '{C:attention}Joker{} after defeating',
+			'the {C:attention}Boss Blind{}',
 			'{C:inactive}(Must have room)',
         }
     },
     atlas = 'Tag',
 	pos = { x = 1, y = 0 },
-	order = 26,
     min_ante = 2,
-    config = { type = 'immediate' },
+    config = { type = 'eval' },
 
     apply = function(self, tag, context)
-        if context.type == 'immediate' then
-			local lock = tag.ID
-            G.CONTROLLER.locks[lock] = true
-			tag:yep("+", G.C.PURPLE, function()
-				if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit and #G.jokers.cards > 0 then
-					local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'))
-					local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
-					card:add_to_deck()
-					G.jokers:emplace(card)
-				end
-				G.CONTROLLER.locks[lock] = nil
-				return true
-			end)
-			tag.triggered = true
-			return true
+        if context.type == 'eval' then
+			if G.GAME.last_blind and G.GAME.last_blind.boss then
+				local lock = tag.ID
+            	G.CONTROLLER.locks[lock] = true
+				tag:yep("+", G.C.PURPLE, function()
+					if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit and #G.jokers.cards > 0 then
+						local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'))
+						local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
+						card:add_to_deck()
+						G.jokers:emplace(card)
+					end
+					G.CONTROLLER.locks[lock] = nil
+					return true
+				end)
+				tag.triggered = true
+				return {
+                    dollars = 0,
+                    condition = localize('ph_defeat_the_boss'),
+                }
+			end
 		end
     end
 }
@@ -106,7 +110,6 @@ SMODS.Tag {
     },
     atlas = 'Tag',
 	pos = { x = 2, y = 0 },
-	order = 27,
     min_ante = 2,
     config = {type = 'new_blind_choice' },
 
@@ -154,7 +157,6 @@ SMODS.Tag {
     },
     atlas = 'Tag',
 	pos = { x = 3, y = 0 },
-	order = 28,
     min_ante = nil,
     config = { type = 'round_start_bonus', percent = 50 }, --Variables: percent = blind reduction percent
 
@@ -209,7 +211,6 @@ SMODS.Tag {
     },
     atlas = 'Tag',
 	pos = { x = 4, y = 0 },
-	order = 29,
     min_ante = 2,
     config = { type = 'voucher_add' },
 
@@ -260,7 +261,6 @@ SMODS.Tag {
     },
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
-	order = 30,
     min_ante = nil,
     config = { type = 'immediate' },
 

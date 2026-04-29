@@ -15,7 +15,7 @@ SMODS.Joker { --Engineer Monkey
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { money = 3 } --Variables: money = dollars
     },
 
@@ -55,7 +55,7 @@ SMODS.Joker { --Sentry Gun
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -95,7 +95,7 @@ SMODS.Joker { --Faster Engineering
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -140,7 +140,7 @@ SMODS.Joker { --Sprockets
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { multiplier = 2 } --Variables: multiplier = sentry stat multiplier
     },
 
@@ -181,7 +181,7 @@ SMODS.Joker { --Sentry Expert
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { sentries = { 'j_bloons_crushing_sentry', 'j_bloons_boom_sentry', 'j_bloons_cold_sentry', 'j_bloons_energy_sentry' } }
     },
 
@@ -224,7 +224,7 @@ SMODS.Joker { --Sentry Champion
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
     },
 
     loc_vars = function (self, info_queue, card)
@@ -262,7 +262,7 @@ SMODS.Joker { --Larger Service Area
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { money = 3, number = 5 } --Variables: money = dollars, number = required cards
     },
 
@@ -296,7 +296,7 @@ SMODS.Joker { --Deconstruction
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { mult = 4 } --Variables: mult = +mult
     },
 
@@ -304,7 +304,9 @@ SMODS.Joker { --Deconstruction
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'engi' or context.other_joker.ability.base == 'sentry') then
+        if context.other_joker and 
+            (context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.base and context.other_joker.ability.tower_info.base == 'Engineer Monkey' or 
+             context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.base and context.other_joker.ability.tower_info.base == 'Sentry') then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     context.other_joker:juice_up(0.5, 0.5)
@@ -336,7 +338,7 @@ SMODS.Joker { --Cleansing Foam
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { poker_hand = 'Straight Flush' }
     },
 
@@ -376,7 +378,7 @@ SMODS.Joker { --Overclock
     blueprint_compat = true,
     eternal_compat = false,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { Xmult = 3, hands = 10 } --Variables: Xmult = Xmult, hands = hands remaining
     },
 
@@ -429,7 +431,7 @@ SMODS.Joker { --Ultraboost
 	cost = 9,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { Xmult = 0.1, Xmult_max = 1 } --Variables: Xmult = permanent Xmult on cards, Xmult_max = maximum Xmult,
     }, 
 
@@ -470,7 +472,7 @@ SMODS.Joker { --Oversize Nails
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { money = 4 } --Variables: money = dollars
     },
 
@@ -511,7 +513,7 @@ SMODS.Joker { --Pin
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
@@ -543,11 +545,11 @@ SMODS.Joker { --Double Gun
     },
 	atlas = 'Joker',
 	pos = { x = 13, y = 24 },
-    rarity = 1,
+    rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { money = 1, pairs = {} } --Variables: money = dollars per held pair, pairs = held pairs
     },
 
@@ -606,7 +608,7 @@ SMODS.Joker { --Bloon Trap
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'engi',
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { money = 4, current = 0 } --Variables: money = dollars per card, current = current collected money
     },
 
@@ -645,9 +647,10 @@ SMODS.Joker { --XXXL Trap
 	loc_txt = {
         name = 'XXXL Trap',
         text = {
-            'Destroy last {C:attention}discarded{}',
-            'card and and store {C:money}$#1#',
-            'Earn stored money {C:inactive}({C:money}$#2#{C:inactive}){} after',
+            'If {C:attention}first discard{} of round',
+            'has only {C:attention}1{} card, destroy it and',
+            'store money equal to its rank',
+            'Earn stored money {C:inactive}({C:money}$#1#{C:inactive}){} after',
             'defeating {C:attention}Boss Blind{}'
         }
     },
@@ -657,12 +660,12 @@ SMODS.Joker { --XXXL Trap
 	cost = 9,
     blueprint_compat = true,
     config = {
-        base = 'engi',
-        extra = { money = 4, current = 0 } --Variables: money = dollars per card, current = current collected money
+        tower_info = { base = "Engineer Monkey", category = "support" },
+        extra = { current = 0 } --Variables: current = current collected money
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money, card.ability.extra.current } }
+        return { vars = { card.ability.extra.current } }
     end,
     
     calc_dollar_bonus = function(self, card)
@@ -673,8 +676,14 @@ SMODS.Joker { --XXXL Trap
         end
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card == context.full_hand[#context.full_hand] then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.money
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function()
+                return (G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES)
+            end
+            juice_card_until(card, eval, true)
+        elseif context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 then
+            local money = SMODS.has_no_rank(context.full_hand[1]) and 0 or context.full_hand[1]:get_id()
+            card.ability.extra.current = card.ability.extra.current + money
             return {
                 message = localize('$')..card.ability.extra.current,
                 colour = G.C.MONEY,

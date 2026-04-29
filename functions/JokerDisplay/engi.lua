@@ -62,7 +62,8 @@ JokerDisplay.Definitions["j_bloons_deconstruction"] = { --Deconstruction
         local count = 0
         if G.jokers then
             for _, joker_card in ipairs(G.jokers.cards) do
-                if card.ability.base == 'engi' or card.ability.base == 'sentry' then
+                if joker_card.ability.tower_info and joker_card.ability.tower_info.base and joker_card.ability.tower_info.base == 'Engineer Monkey' or
+                    joker_card.ability.tower_info and joker_card.ability.tower_info.base and joker_card.ability.tower_info.base == 'Sentry' then
                     count = count + 1
                 end
             end
@@ -71,7 +72,9 @@ JokerDisplay.Definitions["j_bloons_deconstruction"] = { --Deconstruction
         card.joker_display_values.localized_text = 'Engi/Sentry'
     end,
     mod_function = function(card, mod_joker)
-        return { mult = ((card.ability.base == 'engi' or card.ability.base == 'sentry') and mod_joker.ability.extra.mult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+        return { mult = (card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Engineer Monkey' or
+                         card.ability.tower_info and card.ability.tower_info.base and card.ability.tower_info.base == 'Sentry') and
+                         mod_joker.ability.extra.mult * JokerDisplay.calculate_joker_triggers(mod_joker) or nil }
     end
 }
 

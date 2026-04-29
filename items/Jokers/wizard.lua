@@ -14,7 +14,7 @@ SMODS.Joker { --Wizard Monkey
 	cost = 3,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -53,7 +53,7 @@ SMODS.Joker { --Guided Magic
 	cost = 3,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { enhancement = G.P_CENTERS.m_bonus } --Variables: enhancement = enhancement to apply
     },
 
@@ -104,7 +104,7 @@ SMODS.Joker { --Arcane Blast
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { chips = 30 } --Variables: chips = +chips for enhanced cards
     },
 
@@ -137,7 +137,7 @@ SMODS.Joker { --Arcane Mastery
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -193,7 +193,7 @@ SMODS.Joker { --Arcane Spike
 	cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { retrigger = 1, enhancements = {} } --Variables: retrigger = retrigger amount
     },
 
@@ -237,7 +237,7 @@ SMODS.Joker { --Archmage
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -268,7 +268,7 @@ SMODS.Joker { --Fireball
     blueprint_compat = true,
     enhancement_gate = 'm_stone',
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { mult = 12 } --Variables: mult = +mult for stone cards
     },
 
@@ -302,7 +302,7 @@ SMODS.Joker { --Wall of Fire
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { num = 1, denom = 3 } --Variables: num/denom = probability fraction
     },
 
@@ -349,7 +349,7 @@ SMODS.Joker { --Dragon's Breath
     perishable_compat = false,
     enhancement_gate = 'm_stone',
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult gain for each stone, current = current Xmult
     },
 
@@ -385,7 +385,7 @@ SMODS.Joker { --Summon Phoenix
     blueprint_compat = false,
     enhancement_gate = 'm_stone',
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -420,7 +420,7 @@ SMODS.Joker { --Wizard Lord Phoenix
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -461,7 +461,7 @@ SMODS.Joker { --Intense Magic
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
         extra = { mult = 6 } --Variables: mult = +mult for enhanced cards
     },
 
@@ -493,7 +493,7 @@ SMODS.Joker { --Monkey Sense
 	cost = 4,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     update = function(self, card, dt)
@@ -525,8 +525,8 @@ SMODS.Joker { --Shimmer
 	cost = 5,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
-        extra = { num = 1, denom = 2, fool = nil } --Variables: fool = temporary fool
+        tower_info = { base = "Wizard Monkey", category = "magic" },
+        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
@@ -537,17 +537,21 @@ SMODS.Joker { --Shimmer
     end,
     calculate = function(self, card, context)
         if context.starting_shop and SMODS.pseudorandom_probability(card, 'shimmer', card.ability.extra.num, card.ability.extra.denom, 'shimmer')then
-            card.ability.extra.fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
-            card.ability.extra.fool:set_edition({negative = true}, true)
-            card.ability.extra.fool.extra_cost = -card.base_cost
-            card.ability.extra.fool.sell_cost = 0
-            card.ability.extra.fool:add_to_deck()
-            G.consumeables:emplace(card.ability.extra.fool)
+            local fool = create_card('c_fool', G.consumeables, nil, nil, nil, nil, 'c_fool', 'shimmer')
+            fool:set_edition({negative = true}, true)
+            fool.extra_cost = -card.base_cost
+            fool.sell_cost = 0
+            fool:add_to_deck()
+            fool.ability.shimmer = true
+            G.consumeables:emplace(fool)
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
         elseif context.ending_shop then
-            if card.ability.extra.fool then
-                card.ability.extra.fool:start_dissolve({G.C.RED}, nil)
-                card.ability.extra.fool = nil
+            for k, v in ipairs(G.consumeables.cards) do
+                if v.ability.shimmer then
+                    v.ability.shimmer = false
+                    v:start_dissolve({G.C.RED}, nil)
+                    break
+                end
             end
         end
     end
@@ -571,7 +575,7 @@ SMODS.Joker { --Necromancer
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -616,7 +620,7 @@ SMODS.Joker { --Prince of Darkness
 	cost = 7,
     blueprint_compat = false,
     config = {
-        base = 'wizard',
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)

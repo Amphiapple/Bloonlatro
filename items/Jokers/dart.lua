@@ -15,7 +15,7 @@ SMODS.Joker { --Dart Monkey
 	cost = 2,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 30, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -48,7 +48,7 @@ SMODS.Joker { --Sharp Shots
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 30, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -81,7 +81,7 @@ SMODS.Joker { --Razor Sharp Shots
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 30, mult = 6 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -114,7 +114,7 @@ SMODS.Joker { --Spike-o-pult
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { mult = 4 } --Variables: mult = +mult for each card scored
     },
 
@@ -146,7 +146,7 @@ SMODS.Joker { --Juggernaut
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { mult = 2, current = 0 } --Variables: mult = +mult for each card scored, current = current +mult
     },
 
@@ -185,7 +185,7 @@ SMODS.Joker { --Ultra-Juggernaut
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult for each card scored, current = current Xmult
     },
 
@@ -224,7 +224,7 @@ SMODS.Joker { --Quick Shots
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 45, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -257,7 +257,7 @@ SMODS.Joker { --Very Quick Shots
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 60, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -280,54 +280,30 @@ SMODS.Joker { --Triple Shot
 	loc_txt = {
         name = 'Triple Shot',
         text = {
-            'Create {C:attention}#1# {C:tarot}Tarot{} cards',
-            'if {C:attention}poker hand{} is a',
-            '{C:attention}Three of a Kind #2#{} times',
-            '{C:inactive}(#3# remaining){}'
+            '{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult',
+            'if played hand has',
+            'exactly {C:attention}#3#{} cards',
         }
     },
 	atlas = 'Joker',
 	pos = { x = 8, y = 0 },
-    rarity = 1,
+    rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'dart',
-        extra = { tarots = 3, limit = 3, counter = 3 } --Variables: tarots = number of tarots, limit = number of 3oaks for tarots, counter = current count index
+        tower_info = { base = "Dart Monkey", category = "primary" },
+        extra = { chips = 60, mult = 12, number = 3 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.tarots, card.ability.extra.limit, card.ability.extra.counter } }
+		return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.scoring_name == 'Three of a Kind' then
-            if not context.blueprint then
-                card.ability.extra.counter = card.ability.extra.counter - 1
-                local eval = function()
-                    return card.ability.extra.counter == 1
-                end
-                juice_card_until(card, eval, true)
-            end
-            if card.ability.extra.counter == 0 then
-                card.ability.extra.counter = card.ability.extra.limit
-                for i = 1, card.ability.extra.tarots do
-                    if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 0.0,
-                            func = (function()
-                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'triple_shot')
-                                card:add_to_deck()
-                                G.consumeables:emplace(card)
-                                G.GAME.consumeable_buffer = 0
-                                return true
-                            end)
-                        }))
-                    end
-                end
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+3 Tarots', colour = G.C.PURPLE})
-            end
+        if context.joker_main and #context.full_hand == card.ability.extra.number then
+            return {
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult
+            }
         end
     end
 }
@@ -350,7 +326,7 @@ SMODS.Joker { --Super Monkey Fan Club
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for each transformed Dart
     },
 
@@ -358,7 +334,8 @@ SMODS.Joker { --Super Monkey Fan Club
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity('Common') or
+        if context.other_joker and (context.other_joker.ability.tower_info.base == "Dart Monkey" and context.other_joker:is_rarity('Common') or
+                context.other_joker.ability.name == "Triple Shot" or
                 context.other_joker.ability.name == "Super Monkey Fan Club" or
                 context.other_joker.ability.name == "Plasma Monkey Fan Club") then
             G.E_MANAGER:add_event(Event({
@@ -392,7 +369,7 @@ SMODS.Joker { --Plasma Monkey Fan Club
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult for each transformed Dart
     },
 
@@ -400,7 +377,8 @@ SMODS.Joker { --Plasma Monkey Fan Club
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and (context.other_joker.ability.base == 'dart' and context.other_joker:is_rarity('Common') or
+        if context.other_joker and (context.other_joker.ability.tower_info.base == "Dart Monkey" and context.other_joker:is_rarity('Common') or
+                context.other_joker.ability.name == "Triple Shot" or
                 context.other_joker.ability.name == "Super Monkey Fan Club" or
                 context.other_joker.ability.name == "Plasma Monkey Fan Club") then
             G.E_MANAGER:add_event(Event({
@@ -423,8 +401,8 @@ SMODS.Joker { --Long Range Darts
         name = 'Long Range Darts',
         text = {
             '{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult',
-            'double chips and mult',
-            'after {C:attention}first hand{} of round'
+            'double chips and mult after',
+            '{C:attention}first hand{} of round'
         }
     },
     atlas = 'Joker',
@@ -433,7 +411,7 @@ SMODS.Joker { --Long Range Darts
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 30, mult = 2, current_chips = 30, current_mult = 2 } --Variables: chips = +chips, mult = +mult, current_chips = chips if doubled, current_mult = mult if doubled
     },
 
@@ -471,7 +449,7 @@ SMODS.Joker { --Enhanced Eyesight
 	cost = 4,
     blueprint_compat = false,
     config = { 
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { slots = 1 } --Variables: slots = extra consumable slots
     },
 
@@ -503,7 +481,7 @@ SMODS.Joker { --Crossbow
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { chips = 60, mult = 12 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -537,7 +515,7 @@ SMODS.Joker { --Sharp Shooter
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { mult = 40, limit = 10, counter = 1 } --Variables: mult = mult, limit = number of cards scored for mult, counter = card index
     },
 
@@ -615,7 +593,7 @@ SMODS.Joker { --Crossbow Master
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'dart',
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { Xmult = 3, limit = 5, counter = 1 } --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
     }, 
 

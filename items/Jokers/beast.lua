@@ -13,7 +13,7 @@ SMODS.Joker { --Beast Handler
 	cost = 3,
     blueprint_compat = true,
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { chips = 40 } --Variables: chips = +chips
     },
 
@@ -47,7 +47,7 @@ SMODS.Joker { --Piranha
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { mult = 16 } --Variables: mult = +mult
     },
 
@@ -85,7 +85,7 @@ SMODS.Joker { --Barracuda
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { mult = 8 } --Variables: mult = +mult per bonus card
     },
 
@@ -120,7 +120,7 @@ SMODS.Joker { --Great White
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        base = 'mermonkey',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -132,7 +132,7 @@ SMODS.Joker { --Great White
         if context.repetition and context.cardarea == G.play then
             for k, v in ipairs(context.scoring_hand) do
                 if context.other_card == context.scoring_hand[k] and
-                ((k > 1 and context.scoring_hand[i-1].ability.name == 'Bonus') or
+                ((k > 1 and context.scoring_hand[k-1].ability.name == 'Bonus') or
                 (k < #context.scoring_hand and context.scoring_hand[k+1].ability.name == 'Bonus')) then
                     return {
                         message = localize('k_again_ex'),
@@ -163,7 +163,7 @@ SMODS.Joker { --Orca
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        base = 'mermonkey',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { Xmult = 3, limit = 7, number = 0 } --Variables: mult = +mult, limit = number of bonus required, number = number of bonus cards in deck
     },
 
@@ -210,7 +210,7 @@ SMODS.Joker { --Megalodon
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { Xmult = 2, num = 1, denom = 4 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
@@ -251,7 +251,7 @@ SMODS.Joker { --Microraptor
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { chips = 60 } --Variables: chips = +chips
     },
 
@@ -289,7 +289,7 @@ SMODS.Joker { --Adasaurus
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { chips = 30 } --Variables: chips = +chips per mult card
     },
 
@@ -325,7 +325,7 @@ SMODS.Joker { --Velociraptor
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { number = 2 } --Variables: number = required mult cards for planet
     },
 
@@ -383,7 +383,7 @@ SMODS.Joker { --Tyrannosaurus Rex
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { mult = 4 } --Variables: mult = permanent +mult
     },
 
@@ -422,7 +422,7 @@ SMODS.Joker { --Giganotosaurus
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { Xmult1 = 1.5, Xmult2 = 2, num = 1, denom = 4 } --Variables: Xmult1 = Xmult, Xmult2 = chance Xmult, num/denom = probability fraction
     },
 
@@ -465,7 +465,7 @@ SMODS.Joker { --Gyrfalcon
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = {chips = 30, mult = 8 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -507,7 +507,7 @@ SMODS.Joker { --Horned Owl
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -559,7 +559,7 @@ SMODS.Joker { --Golden Eagle
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger count
     },
 
@@ -604,7 +604,7 @@ SMODS.Joker { --Giant Condor
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { num = 1, denom = 2, hand_size = 1 } --Variables: num/denom = probability fraction, hand_size = extra hand size
     },
 
@@ -650,7 +650,7 @@ SMODS.Joker { --Pouākai
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'beast',
+        tower_info = { base = "Beast Handler", category = "support" },
         extra = { Xmult = 0.2, current = 1 } --Variables: Xmult = Xmult per handsize, current = current handsize
     },
 

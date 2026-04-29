@@ -81,7 +81,7 @@ SMODS.Back { --Jones
     calculate = function(self, back, context)
         if context.hand_drawn then
             for k, v in pairs(G.hand.cards) do
-                if v:is_suit('Spades') and v.ability.name ~= 'Stunned Card' then
+                if v:is_suit('Spades') and v.ability.name ~= 'Stunned Card' and not v.debuff then
                     v:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
                     v:juice_up()
                 end

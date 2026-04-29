@@ -30,8 +30,9 @@ SMODS.Enhancement ({ --Frozen
     end,
     calculate = function(self, card, context)
         if context.after and context.cardarea == G.hand then
-            local deep_freeze = find_joker('Deep Freeze')[1]
-            if not (deep_freeze and SMODS.pseudorandom_probability(deep_freeze, 'deep_freeze', deep_freeze.ability.extra.num, deep_freeze.ability.extra.denom, 'deep_freeze')) then
+            local ice = find_joker('Deep Freeze')[1]
+            local deep_freeze = ice and SMODS.pseudorandom_probability(ice, 'deep_freeze', ice.ability.extra.num, ice.ability.extra.denom, 'deep_freeze')
+            if not deep_freeze then
                 card:set_ability(G.P_CENTERS.c_base, nil, true)
             end
         end
@@ -56,27 +57,40 @@ SMODS.Enhancement ({ --Glued
     
     loc_vars = function(self, info_queue, center)
         local function process_var(cost)
-			if #find_joker('Glue Hose') > 0 then
+            local free_glue = #find_joker('Glue Hose') > 0 or #find_joker('Glue Strike') > 0 or #find_joker('Glue Storm') > 0
+			if free_glue then
                 cost = 0
-            elseif G.GAME.modifiers.sticky_situation then
-                cost = 5
+            elseif #find_joker('Super Glue') > 0 then
+                cost = 3
+            elseif #find_joker('Stronger Glue') > 0 then
+                cost = 2
             end
             return cost
 		end
         return { vars = { self.config.mult, process_var(self.config.cost) } }
     end,
     calculate = function(self, card, context)
-        if context.after and context.cardarea == G.play and #find_joker('Relentless Glue') == 0 then
+        if context.after and context.cardarea == G.play then
             if card.glued then
                 card.glued = false
             else
-                card:set_ability(G.P_CENTERS.c_base, nil, true)
+                local relentless_glue = #find_joker('Relentless Glue') > 0 or #find_joker('Super Glue') > 0
+                local glue = find_joker('Glue Soak')[1]
+                local glue_soak = glue and SMODS.pseudorandom_probability(glue, 'glue_soak', glue.ability.extra.num, glue.ability.extra.denom, 'glue_soak')
+                if not (relentless_glue or glue_soak) then
+                    card:set_ability(G.P_CENTERS.c_base, nil, true)
+                end
             end
-        elseif context.discard and context.other_card == card and #find_joker('Glue Hose') == 0 then
-            if G.GAME.modifiers.sticky_situation then
-                ease_dollars(-5*card.ability.cost)
-            else
-                ease_dollars(-1*card.ability.cost)
+        elseif context.discard and context.other_card == card then
+            local free_glue = #find_joker('Glue Hose') > 0 or #find_joker('Glue Strike') > 0 or #find_joker('Glue Storm') > 0
+			if not free_glue then
+                if #find_joker('Super Glue') > 0 then
+                    ease_dollars(-3*card.ability.cost)
+                elseif #find_joker('Stronger Glue') > 0 then
+                    ease_dollars(-2*card.ability.cost)
+                else
+                    ease_dollars(-1*card.ability.cost)
+                end
             end
             delay(0.3)
         end
@@ -208,6 +222,9 @@ SMODS.Enhancement ({ --Meteor
                 x_mult = card.ability.Xmult
             }
         elseif context.destroying_card and not context.destroying_card.debuff then
+            if #find_joker('Crucible of Steel and Flame') > 0 then
+                return nil
+            end
             return { remove = context.destroying_card.ability.name == 'Meteor Card' }
         end
     end

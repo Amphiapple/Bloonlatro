@@ -15,7 +15,7 @@ SMODS.Joker { --Druid
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'druid',
+        tower_info = { base = "Druid", category = "magic" },
         extra = { mult = 20 } --Variables: mult = +mult
     },
 
@@ -48,7 +48,7 @@ SMODS.Joker { --Heart of Thunder
 	cost = 5,
     blueprint_compat = true,
     config = {
-        base = 'druid',
+        tower_info = { base = "Druid", category = "magic" },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -82,7 +82,7 @@ SMODS.Joker { --Druid of the Storm
 	cost = 6,
     blueprint_compat = true,
     config = {
-        base = 'druid',
+        tower_info = { base = "Druid", category = "magic" },
         extra = { hands = 1, limit = 4, counter = 4 } --Variables: hands = extra hands, limit = number of hands for hand, counter = hand index
     },
 
@@ -135,7 +135,7 @@ SMODS.Joker { --Jungle's Bounty
 	cost = 7,
     blueprint_compat = true,
     config = {
-        base = 'druid',
+        tower_info = { base = "Druid", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -175,7 +175,7 @@ SMODS.Joker { --Avatar of Wrath
 	cost = 8,
     blueprint_compat = true,
     config = {
-        base = 'druid',
+        tower_info = { base = "Druid", category = "magic" },
         extra = { Xmult = 3, current = 3 } --Variables: Xmult = starting Xmult, current = current Xmult,
     },
 

@@ -1,0 +1,27 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -6
+
+# Monkey Town double payout
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars})"
+position = 'before'
+payload = '''
+for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+    local total = 0
+    for _, _card in ipairs(area.cards) do
+        if _card.ability.name == 'Monkey Town' then
+            i = i+1
+            local ret = math.floor(dollars / 2)
+            add_round_eval_row({dollars = ret, bonus = true, name='joker'..i, pitch = pitch, card = _card})
+            pitch = pitch + 0.06
+            total = total + ret
+        end
+    end
+    dollars = dollars + total
+end
+'''
+match_indent = true

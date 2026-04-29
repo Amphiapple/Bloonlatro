@@ -13,7 +13,7 @@ G.FUNCS.can_select_card = function(e)
 '''
 position = 'after'
 payload = '''
-  if card.ability.set == 'Joker' and card.ability.base and card.ability.base == 'ninja' and card:is_rarity('Common') then
+  if card.ability.set == 'Joker' and card.ability.tower_info and card.ability.tower_info.base == 'Ninja Monkey' and card:is_rarity('Common') then
     e.config.colour = G.C.GREEN
     e.config.button = 'use_card'
     return
@@ -30,7 +30,7 @@ G.FUNCS.check_for_buy_space = function(card)
 '''
 position = 'after'
 payload = '''
-  if card.ability.set == 'Joker' and card.ability.base and card.ability.base == 'ninja' and card:is_rarity('Common') then
+  if card.ability.set == 'Joker' and card.ability.tower_info and card.ability.tower_info.base == 'Ninja Monkey' and card:is_rarity('Common') then
     return true
   end
 '''
@@ -43,8 +43,9 @@ target = 'functions/common_events.lua'
 pattern = "elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not SMODS.showman(v.key)) and"
 position = 'at'
 payload = '''elseif (not G.GAME.used_jokers[v.key] or
-    (v.config.base == 'ninja' and #find_joker('Shinobi Tactics') > 0) or
+    (v.config.tower_info and v.config.tower_info.base == 'Ninja Monkey' and #find_joker('Shinobi Tactics') > 0) or
     (v.set == 'Joker' and #find_joker('Monkey Village') > 0) or
+    (v.set == 'Joker' and #find_joker('Bigger Radius') > 0 and (v.rarity == 'Uncommon' or v.rarity == 'Rare')) or
     pool_opts.allow_duplicates or
     SMODS.showman(v.key)) and
 '''
