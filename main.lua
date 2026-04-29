@@ -30,6 +30,7 @@ local functions = {
     'collection',
     'tutorial',
     'badges',
+    'joker_buttons',
 
     --Crossmod files
     'bunco',
