@@ -201,6 +201,7 @@ SMODS.Joker { --The Bloon Solver
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = {
         tower_info = { base = "Glue Gunner", category = "primary" },
