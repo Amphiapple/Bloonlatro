@@ -88,11 +88,11 @@ SMODS.Joker { --Bloon Buster
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'heavy_shells')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'bloon_buster')
         return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'heavy_shells', card.ability.extra.num, card.ability.extra.denom, 'heavy_shells') then
+        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'bloon_buster', card.ability.extra.num, card.ability.extra.denom, 'bloon_buster') then
             return {
                 mult = card.ability.extra.mult,
             }
@@ -306,6 +306,7 @@ SMODS.Joker { --Heavy Shells
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_stunned',
     config = {
         tower_info = { base = "Mortar Monkey", category = "military" },
@@ -407,6 +408,7 @@ SMODS.Joker { --Pop and Awe
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_bloons_stunned',
     config = {
         tower_info = { base = "Mortar Monkey", category = "military" },

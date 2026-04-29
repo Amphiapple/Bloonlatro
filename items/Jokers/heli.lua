@@ -261,6 +261,7 @@ SMODS.Joker { --Bigger Jets
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Heli Pilot", category = "military" },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if hand contains a face, current = current +mult
