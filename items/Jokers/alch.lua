@@ -602,7 +602,8 @@ SMODS.Joker { --Acid Pools
         name = 'Acid Pools',
         text = {
             'Create a {C:tarot}Tarot{} card',
-            'at end of round',
+            'at end of round if any',
+            'hands are unused',
             '{C:inactive}(Must have room){}'
         }
     },
@@ -616,7 +617,7 @@ SMODS.Joker { --Acid Pools
     },
 
     calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.end_of_round and not context.individual and not context.repetition and G.GAME.current_round.hands_left > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',

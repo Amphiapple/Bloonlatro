@@ -47,9 +47,6 @@ JokerDisplay.Definitions["j_bloons_bloon_liquefier"] = { --Bloon Liquefier
         { text = " +", colour = G.C.MULT },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
-    reminder_text = {
-        { text = "(8)" }
-    },
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
