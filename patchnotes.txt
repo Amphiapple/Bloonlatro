@@ -3,6 +3,9 @@ Added Jokers:
 General Changes:
 
 Balance Changes:
-- Shell Shock rarity Common > Uncommon, mult 8 > 12
+- Shell Shock rarity Common > Uncommon, mult 8 > 10
 
 Fixes:
+- Crucible of Steel and Flame now correctly says +1 Meteor instead of +1 Stone
+- Mega Sentries explode quieter
+- Legendary Jokers should now have Joker Display

@@ -118,7 +118,7 @@ SMODS.Joker { --Crucible of Steel and Flame
                 skip_materialize = false,
             })
             meteor:set_ability('m_bloons_meteor', nil, true)
-            card_eval_status_text(meteor, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
+            card_eval_status_text(meteor, 'extra', nil, nil, nil, {message = '+1 Meteor', colour = G.C.SECONDARY_SET.Enhanced})
 
             G.E_MANAGER:add_event(Event({
                 func = function()

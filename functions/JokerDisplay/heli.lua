@@ -287,8 +287,7 @@ JokerDisplay.Definitions["j_bloons_moab_shove"] = { --MOAB Shove
         { ref_table = "card.joker_display_values", ref_value = "active_text" },
     },
     calc_function = function(card)
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
-            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
+        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
         card.joker_display_values.active = boss_active and card.ability.extra.counter > 0
         card.joker_display_values.active_text = boss_active and card.ability.extra.counter > 0 and "active" or boss_active and "inactive" or "no boss active"
     end,

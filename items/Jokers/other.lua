@@ -482,7 +482,7 @@ SMODS.Joker { --Mega Green Sentry
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
             func = function()
-                play_sound('bloons_sentryexplode')
+                play_sound('bloons_sentryexplode', 1, 0.5)
                 delay(0.1)
                 return true
             end
@@ -574,7 +574,7 @@ SMODS.Joker { --Mega Red Sentry
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
             func = function()
-                play_sound('bloons_sentryexplode')
+                play_sound('bloons_sentryexplode', 1, 0.5)
                 delay(0.1)
                 return true
             end
@@ -664,7 +664,7 @@ SMODS.Joker { --Mega Blue Sentry
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
             func = function()
-                play_sound('bloons_sentryexplode')
+                play_sound('bloons_sentryexplode', 1, 0.5)
                 delay(0.1)
                 return true
             end

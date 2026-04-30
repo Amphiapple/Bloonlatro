@@ -187,10 +187,8 @@ JokerDisplay.Definitions["j_bloons_moab_mauler"] = { --MOAB Mauler
         { ref_table = "card.joker_display_values", ref_value = "active_text" },
     },
     calc_function = function(card)
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
-            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
+        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
         card.joker_display_values.active = boss_active
-
         card.joker_display_values.Xmult = boss_active and card.ability.extra.Xmult or 1
         card.joker_display_values.active_text = boss_active and "active" or "no boss active"
     end,
@@ -218,11 +216,9 @@ JokerDisplay.Definitions["j_bloons_moab_assassin"] = { --MOAB Assassin
         { ref_table = "card.joker_display_values", ref_value = "active_text" },
     },
     calc_function = function(card)
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
-            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
+        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
         local ready = card.ability.extra.counter == card.ability.extra.limit - 1
         card.joker_display_values.active = boss_active and ready
-
         card.joker_display_values.Xmult = boss_active and ready and card.ability.extra.Xmult or 1
         if boss_active then
             card.joker_display_values.active_text = ready and "active" or "inactive"
@@ -254,10 +250,8 @@ JokerDisplay.Definitions["j_bloons_moab_eliminator"] = { --MOAB Eliminator
         { ref_table = "card.joker_display_values", ref_value = "active_text" },
     },
     calc_function = function(card)
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
-            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
+        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
         card.joker_display_values.active = boss_active
-
         card.joker_display_values.Xmult = boss_active and card.ability.extra.Xmult1 or card.ability.extra.Xmult2
         card.joker_display_values.active_text = boss_active and "active" or "no boss active"
     end,
