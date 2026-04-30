@@ -1,4 +1,6 @@
 Added Jokers:
+- Even more Paragons!
+- All remaining Mortar Monkeys
 
 General Changes:
 
