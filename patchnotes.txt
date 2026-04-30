@@ -6,6 +6,8 @@ Balance Changes:
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 
 Fixes:
+- Supply Drop and Elite Sniper should no longer create consumables when there is no space
+- Cold Sentry should no longer freeze debuffed cards
 - Crucible of Steel and Flame now correctly says +1 Meteor instead of +1 Stone
 - Mega Sentries explode quieter
 - Legendary Jokers should now have Joker Display

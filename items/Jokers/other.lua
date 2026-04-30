@@ -259,8 +259,11 @@ SMODS.Joker { --Cold Sentry
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.before and G.hand.cards[1] and not context.blueprint then
-            G.hand.cards[1]:set_ability('m_bloons_frozen', nil, true)
+        if context.before and not context.blueprint then
+            local frozen_card = G.hand.cards[1]
+            if frozen_card and not frozen_card.debuff then
+                frozen_card:set_ability('m_bloons_frozen', nil, true)
+            end
         elseif context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
