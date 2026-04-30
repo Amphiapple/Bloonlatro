@@ -13,6 +13,8 @@ Balance Changes:
 - Absolute Zero also gives +1 hand size
 - MOAB Glue Xmult 3 > 2
 - Relentless Glue cost 6 > 7
+- Long Range money $1 > $2
+- Crow's Nest money $2 > $3
 - Spy Plane top 2 > top 3 cards
 - Sharper Darts mult 15 > 11
 - Super Monkey cost 6 > 5, mult 15 > 12
