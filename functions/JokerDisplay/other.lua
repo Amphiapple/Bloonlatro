@@ -151,6 +151,85 @@ JokerDisplay.Definitions["j_bloons_champion_sentry"] = { --Champion Sentry
     end
 }
 
+JokerDisplay.Definitions["j_bloons_mega_green_sentry"] = { --Mega Green Sentry
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local Xmult = 1
+        local _, poker_hands, _ = JokerDisplay.evaluate_hand()
+        if poker_hands[card.ability.extra.poker_hand] and next(poker_hands[card.ability.extra.poker_hand]) then
+            Xmult = card.ability.extra.Xmult
+        end
+        card.joker_display_values.Xmult = Xmult
+        card.joker_display_values.localized_text = localize(card.ability.extra.poker_hand, 'poker_hands')
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_mega_red_sentry"] = { --Mega Red Sentry
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local Xmult = 1
+        local _, poker_hands, _ = JokerDisplay.evaluate_hand()
+        if poker_hands[card.ability.extra.poker_hand] and next(poker_hands[card.ability.extra.poker_hand]) then
+            Xmult = card.ability.extra.Xmult
+        end
+        card.joker_display_values.Xmult = Xmult
+        card.joker_display_values.localized_text = localize(card.ability.extra.poker_hand, 'poker_hands')
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_mega_blue_sentry"] = { --Mega Blue Sentry
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "active_text" },
+    },
+    calc_function = function(card)
+        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
+        card.joker_display_values.active = boss_active
+        card.joker_display_values.Xmult = boss_active and card.ability.extra.Xmult or 1
+        card.joker_display_values.active_text = boss_active and "active" or "no boss active"
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if reminder_text and reminder_text.children[1] and card.joker_display_values then
+            reminder_text.children[1].config.colour = card.joker_display_values.active and G.C.GREEN or
+                G.C.RED
+            reminder_text.children[1].config.scale = card.joker_display_values.active and 0.35 or 0.3
+            return true
+        end
+        return false
+    end
+}
+
 JokerDisplay.Definitions["j_bloons_bloonprint"] = {--Bloonprint
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
