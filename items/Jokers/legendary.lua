@@ -418,11 +418,15 @@ SMODS.Joker { --Ascended Shadow
     update = function(self, card, dt)
         if G.playing_cards then
             for k, v in pairs(G.playing_cards) do
-                if v.facing == 'back' then
-                    v:flip()
-                end
                 if v.debuff then
                     v.debuff = false
+                end
+            end
+        end
+        if G.GAME.blind then
+            for k, v in pairs(G.hand.cards) do
+                if v.facing == 'back' then
+                    v:flip()
                 end
             end
         end

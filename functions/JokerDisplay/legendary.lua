@@ -163,12 +163,12 @@ JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Mega M
     end
 }
 
-JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Master Builder
+JokerDisplay.Definitions["j_bloons_master_builder"] = { --Master Builder
     text = {
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
             }
         }
     },
