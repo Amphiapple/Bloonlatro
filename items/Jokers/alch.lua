@@ -23,15 +23,13 @@ SMODS.Joker { --Alchemist
         if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
+                func = function()
                     local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alchemist')
                     tarot:add_to_deck()
                     G.consumeables:emplace(tarot)
                     G.GAME.consumeable_buffer = 0
                     return true
-                end)
+                end
             }))
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
         end
@@ -69,8 +67,6 @@ SMODS.Joker { --Larger Potions
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
-                        trigger = 'before',
-                        delay = 0.0,
                         func = (function()
                             local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'larger_potions')
                             tarot:add_to_deck()
@@ -82,7 +78,7 @@ SMODS.Joker { --Larger Potions
                 end
                 count = count + 1
             end
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'.. count .. ' Tarot', colour = G.C.PURPLE})
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'.. count .. ' Tarots', colour = G.C.PURPLE})
         end
     end
 }
@@ -296,8 +292,6 @@ SMODS.Joker { --Stronger Acid
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             if SMODS.pseudorandom_probability(card, 'stronger_acid', card.ability.extra.num, card.ability.extra.denom, 'stronger_acid') then
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
                     func = (function()
                         local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'stronger_acid')
                         spectral:add_to_deck()
@@ -309,8 +303,6 @@ SMODS.Joker { --Stronger Acid
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
             else
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
                     func = (function()
                         local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'stronger_acid')
                         tarot:add_to_deck()
@@ -580,8 +572,6 @@ SMODS.Joker { --Faster Throwing
         if context.joker_main and G.GAME.current_round.hands_left == 1 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
                 func = (function()
                     local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'faster_throwing_alchemist')
                     tarot:add_to_deck()
@@ -620,8 +610,6 @@ SMODS.Joker { --Acid Pools
         if context.end_of_round and not context.individual and not context.repetition and G.GAME.current_round.hands_left > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
                 func = (function()
                     local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'acid_pools')
                     tarot:add_to_deck()

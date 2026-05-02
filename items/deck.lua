@@ -210,8 +210,8 @@ SMODS.Back { --Adora
         name = 'Adora Deck',
         text = {
             'Sacrifice cards instead of',
-            'selling them to level up {C:attention}#1#{}',
-            'random {C:attention}poker hands{}'
+            'selling them to upgrade level',
+            'of {C:attention}#1# poker hands{}'
         }
     },
     atlas = "Back",

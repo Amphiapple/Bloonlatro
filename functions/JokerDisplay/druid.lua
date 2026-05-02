@@ -1,3 +1,4 @@
+--[[
 JokerDisplay.Definitions["j_bloons_druid"] = { --Druid
     text = {
         { text = "+", colour = G.C.MULT },
@@ -97,3 +98,4 @@ JokerDisplay.Definitions["j_bloons_avatar_of_wrath"] = { --Avatar of Wrath
         }
     }
 }
+]]
