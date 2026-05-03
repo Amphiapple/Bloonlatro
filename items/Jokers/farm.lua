@@ -9,7 +9,7 @@ SMODS.Joker { --Banana Farm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 21 },
+	pos = { x = 0, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -37,7 +37,7 @@ SMODS.Joker { --Increased Production
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 21 },
+	pos = { x = 1, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -65,7 +65,7 @@ SMODS.Joker { --Greater Production
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 21 },
+	pos = { x = 2, y = 20 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = false,
@@ -93,7 +93,7 @@ SMODS.Joker { --Banana Plantation
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 21 },
+	pos = { x = 3, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -122,7 +122,7 @@ SMODS.Joker { --BRF
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 21 },
+	pos = { x = 4, y = 20 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,
@@ -157,7 +157,7 @@ SMODS.Joker { --Banana Central
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 21 },
+	pos = { x = 5, y = 20 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = false,
@@ -200,7 +200,7 @@ SMODS.Joker { --Long Life Bananas
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 21 },
+	pos = { x = 6, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -267,7 +267,7 @@ SMODS.Joker { --Valuable Bananas
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 21 },
+	pos = { x = 7, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -335,7 +335,7 @@ SMODS.Joker { --Monkey Bank
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 21 },
+	pos = { x = 8, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -396,7 +396,7 @@ SMODS.Joker { --IMF Loan
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 21 },
+	pos = { x = 9, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -446,7 +446,7 @@ SMODS.Joker { --Monkey-Nomics
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 21 },
+	pos = { x = 10, y = 20 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -488,7 +488,7 @@ SMODS.Joker { --EZ Collect
         }
     },
 	atlas = 'Joker',
-	pos = { x = 11, y = 21 },
+	pos = { x = 11, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -525,7 +525,7 @@ SMODS.Joker { --Banana Salvage
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 21 },
+	pos = { x = 12, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -565,7 +565,7 @@ SMODS.Joker { --Marketplace
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 21 },
+	pos = { x = 13, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -608,7 +608,7 @@ SMODS.Joker { --Central Market
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 21 },
+	pos = { x = 14, y = 20 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,
@@ -659,7 +659,7 @@ SMODS.Joker { --Monkey Wall Street
         }
     },
     atlas = 'Joker',
-	pos = { x = 15, y = 21 },
+	pos = { x = 15, y = 20 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = false,

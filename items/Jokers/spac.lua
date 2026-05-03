@@ -11,7 +11,7 @@ SMODS.Joker { --Spike Factory
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 22 },
+	pos = { x = 0, y = 21 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -58,7 +58,7 @@ SMODS.Joker { --Bigger Stacks
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 22 },
+	pos = { x = 1, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -104,7 +104,7 @@ SMODS.Joker { --White Hot Spikes
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 22 },
+	pos = { x = 2, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -138,7 +138,7 @@ SMODS.Joker { --Spiked Balls
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 22 },
+	pos = { x = 3, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -184,7 +184,7 @@ SMODS.Joker { --Spiked Mines
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 22 },
+	pos = { x = 4, y = 21 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -221,7 +221,7 @@ SMODS.Joker { --Super Mines
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 22 },
+	pos = { x = 5, y = 21 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -255,7 +255,7 @@ SMODS.Joker { --Faster Production
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 22 },
+	pos = { x = 6, y = 21 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -302,7 +302,7 @@ SMODS.Joker { --Even Faster Production
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 22 },
+	pos = { x = 7, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -351,7 +351,7 @@ SMODS.Joker { --MOAB SHREDR
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 22 },
+	pos = { x = 8, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -411,7 +411,7 @@ SMODS.Joker { --Spike Storm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 22 },
+	pos = { x = 9, y = 21 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -464,7 +464,7 @@ SMODS.Joker { --Carpet of Spikes
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 22 },
+	pos = { x = 10, y = 21 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -497,7 +497,7 @@ SMODS.Joker { --Long Reach
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 22 },
+	pos = { x = 11, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -537,7 +537,7 @@ SMODS.Joker { --Smart Spikes
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 22 },
+	pos = { x = 12, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -578,7 +578,7 @@ SMODS.Joker { --Long Life Spikes
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 22 },
+	pos = { x = 13, y = 21 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -640,7 +640,7 @@ SMODS.Joker { --Deadly Spikes
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 22 },
+	pos = { x = 14, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -703,7 +703,7 @@ SMODS.Joker { --Perma-Spike
         }
     },
     atlas = 'Joker',
-	pos = { x = 15, y = 22 },
+	pos = { x = 15, y = 21 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

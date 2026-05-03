@@ -1,6 +1,7 @@
 Added Jokers:
 - Even more Paragons!
 - All remaining Mortar Monkeys
+- All remaining Druids
 
 General Changes:
 

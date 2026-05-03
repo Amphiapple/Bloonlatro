@@ -10,7 +10,7 @@ SMODS.Joker { --Engineer Monkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 24 },
+	pos = { x = 0, y = 23 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -50,7 +50,7 @@ SMODS.Joker { --Sentry Gun
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 24 },
+	pos = { x = 1, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -90,7 +90,7 @@ SMODS.Joker { --Faster Engineering
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 24 },
+	pos = { x = 2, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -135,7 +135,7 @@ SMODS.Joker { --Sprockets
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 24 },
+	pos = { x = 3, y = 23 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -176,7 +176,7 @@ SMODS.Joker { --Sentry Expert
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 24 },
+	pos = { x = 4, y = 23 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -219,7 +219,7 @@ SMODS.Joker { --Sentry Champion
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 24 },
+	pos = { x = 5, y = 23 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -257,7 +257,7 @@ SMODS.Joker { --Larger Service Area
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 24 },
+	pos = { x = 6, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -291,7 +291,7 @@ SMODS.Joker { --Deconstruction
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 24 },
+	pos = { x = 7, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -333,7 +333,7 @@ SMODS.Joker { --Cleansing Foam
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 24 },
+	pos = { x = 8, y = 23 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -372,7 +372,7 @@ SMODS.Joker { --Overclock
         }
     },
     atlas = 'Joker',
-	pos = { x = 9, y = 24 },
+	pos = { x = 9, y = 23 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
@@ -426,7 +426,7 @@ SMODS.Joker { --Ultraboost
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 24 },
+	pos = { x = 10, y = 23 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -467,7 +467,7 @@ SMODS.Joker { --Oversize Nails
         }
     },
 	atlas = 'Joker',
-	pos = { x = 11, y = 24 },
+	pos = { x = 11, y = 23 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -508,7 +508,7 @@ SMODS.Joker { --Pin
         }
     },
 	atlas = 'Joker',
-	pos = { x = 12, y = 24 },
+	pos = { x = 12, y = 23 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -544,7 +544,7 @@ SMODS.Joker { --Double Gun
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 24 },
+	pos = { x = 13, y = 23 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -603,7 +603,7 @@ SMODS.Joker { --Bloon Trap
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 24 },
+	pos = { x = 14, y = 23 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -655,7 +655,7 @@ SMODS.Joker { --XXXL Trap
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 24 },
+	pos = { x = 15, y = 23 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,

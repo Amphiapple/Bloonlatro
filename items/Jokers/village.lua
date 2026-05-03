@@ -9,7 +9,7 @@ SMODS.Joker { --Monkey Village
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 23 },
+	pos = { x = 0, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -30,7 +30,7 @@ SMODS.Joker { --Bigger Radius
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 23 },
+	pos = { x = 1, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -50,7 +50,7 @@ SMODS.Joker { --Jungle Drums
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 23 },
+	pos = { x = 2, y = 22 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -88,7 +88,7 @@ SMODS.Joker { --Primary Training
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 23 },
+	pos = { x = 3, y = 22 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -128,7 +128,7 @@ SMODS.Joker { --Primary Mentoring
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 23 },
+	pos = { x = 4, y = 22 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -168,7 +168,7 @@ SMODS.Joker { --Primary Expertise
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 23 },
+	pos = { x = 5, y = 22 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -220,7 +220,7 @@ SMODS.Joker { --Grow Blocker
         }
     },
     atlas = 'Joker',
-    pos = { x = 6, y = 23 },
+    pos = { x = 6, y = 22 },
     rarity = 1,
     cost = 5,
     blueprint_compat = false,
@@ -249,7 +249,7 @@ SMODS.Joker { --Radar Scanner
         }
     },
     atlas = 'Joker',
-    pos = { x = 7, y = 23 },
+    pos = { x = 7, y = 22 },
     rarity = 1,
     cost = 6,
     blueprint_compat = false,
@@ -279,7 +279,7 @@ SMODS.Joker { --Monkey Intelligence Bureau
         }
     },
     atlas = 'Joker',
-    pos = { x = 8, y = 23 },
+    pos = { x = 8, y = 22 },
     rarity = 2,
     cost = 7,
     blueprint_compat = false,
@@ -334,7 +334,7 @@ SMODS.Joker { --Call to Arms
         }
     },
     atlas = 'Joker',
-    pos = { x = 9, y = 23 },
+    pos = { x = 9, y = 22 },
     rarity = 2,
     cost = 8,
     blueprint_compat = true,
@@ -370,7 +370,7 @@ SMODS.Joker { --Homeland Defense
         }
     },
     atlas = 'Joker',
-    pos = { x = 10, y = 23 },
+    pos = { x = 10, y = 22 },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -408,7 +408,7 @@ SMODS.Joker { --Monkey Business
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 23 },
+	pos = { x = 11, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -438,7 +438,7 @@ SMODS.Joker { --Monkey Commerce
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 23 },
+	pos = { x = 12, y = 22 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -481,7 +481,7 @@ SMODS.Joker { --Monkey Town
         }
     },
 	atlas = 'Joker',
-	pos = { x = 13, y = 23 },
+	pos = { x = 13, y = 22 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,
@@ -508,7 +508,7 @@ SMODS.Joker { --Monkey City
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 23 },
+	pos = { x = 14, y = 22 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -561,7 +561,7 @@ SMODS.Joker { --Monkeyopolis
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 23 },
+	pos = { x = 15, y = 22 },
     rarity = 3,
 	cost = 1,
     blueprint_compat = false,

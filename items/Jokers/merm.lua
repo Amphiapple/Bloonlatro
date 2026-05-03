@@ -10,7 +10,7 @@ SMODS.Joker { --Mermonkey
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 20 },
+	pos = { x = 0, y = 19 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -48,7 +48,7 @@ SMODS.Joker { --Trident Efficiency
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 20 },
+	pos = { x = 1, y = 19 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -86,7 +86,7 @@ SMODS.Joker { --Trident Swiftness
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 20 },
+	pos = { x = 2, y = 19 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -129,7 +129,7 @@ SMODS.Joker { --Abyss Dweller
         }
     },
     atlas = 'Joker',
-	pos = { x = 3, y = 20 },
+	pos = { x = 3, y = 19 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -176,7 +176,7 @@ SMODS.Joker { --Abyssal Warrior
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 20 },
+	pos = { x = 4, y = 19 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -228,7 +228,7 @@ SMODS.Joker { --Lord of the Abyss
         }
     },
     atlas = 'Joker',
-	pos = { x = 5, y = 20 },
+	pos = { x = 5, y = 19 },
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
@@ -288,7 +288,7 @@ SMODS.Joker { --Sharper Prongs
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 20 },
+	pos = { x = 6, y = 19 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -326,7 +326,7 @@ SMODS.Joker { --Tidal Chill
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 20 },
+	pos = { x = 7, y = 19 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -366,7 +366,7 @@ SMODS.Joker { --Riptide Champion
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 20 },
+	pos = { x = 8, y = 19 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -423,7 +423,7 @@ SMODS.Joker { --Arctic Knight
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 20 },
+	pos = { x = 9, y = 19 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -472,7 +472,7 @@ SMODS.Joker { --Popseidon
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 20 },
+	pos = { x = 10, y = 19 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -512,7 +512,7 @@ SMODS.Joker { --Echosense Precision
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 20 },
+	pos = { x = 11, y = 19 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -533,7 +533,7 @@ SMODS.Joker { --Echosense Network
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 20 },
+	pos = { x = 12, y = 19 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -578,7 +578,7 @@ SMODS.Joker { --Alluring Melody
         }
     },
     atlas = 'Joker',
-	pos = { x = 13, y = 20 },
+	pos = { x = 13, y = 19 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -647,7 +647,7 @@ SMODS.Joker { --Symphonic Resonance
         }
     },
     atlas = 'Joker',
-	pos = { x = 14, y = 20 },
+	pos = { x = 14, y = 19 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -711,7 +711,7 @@ SMODS.Joker { --The Final Harmonic
         }
     },
     atlas = 'Joker',
-	pos = { x = 15, y = 20 },
+	pos = { x = 15, y = 19 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

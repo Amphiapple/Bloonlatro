@@ -8,7 +8,7 @@ SMODS.Joker { --Beast Handler
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 25 },
+	pos = { x = 0, y = 24 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -41,7 +41,7 @@ SMODS.Joker { --Piranha
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 25 },
+	pos = { x = 1, y = 24 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -79,7 +79,7 @@ SMODS.Joker { --Barracuda
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 25 },
+	pos = { x = 2, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -114,7 +114,7 @@ SMODS.Joker { --Great White
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 25 },
+	pos = { x = 3, y = 24 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -157,7 +157,7 @@ SMODS.Joker { --Orca
         }
     },
     atlas = 'Joker',
-	pos = { x = 4, y = 25 },
+	pos = { x = 4, y = 24 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
@@ -204,7 +204,7 @@ SMODS.Joker { --Megalodon
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 25 },
+	pos = { x = 5, y = 24 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -245,7 +245,7 @@ SMODS.Joker { --Microraptor
         }
     },
 	atlas = 'Joker',
-	pos = { x = 6, y = 25 },
+	pos = { x = 6, y = 24 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -283,7 +283,7 @@ SMODS.Joker { --Adasaurus
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 25 },
+	pos = { x = 7, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -319,7 +319,7 @@ SMODS.Joker { --Velociraptor
         }
     },
 	atlas = 'Joker',
-	pos = { x = 8, y = 25 },
+	pos = { x = 8, y = 24 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -377,7 +377,7 @@ SMODS.Joker { --Tyrannosaurus Rex
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 25 },
+	pos = { x = 9, y = 24 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -416,7 +416,7 @@ SMODS.Joker { --Giganotosaurus
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 25 },
+	pos = { x = 10, y = 24 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -459,7 +459,7 @@ SMODS.Joker { --Gyrfalcon
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 25 },
+	pos = { x = 11, y = 24 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -501,7 +501,7 @@ SMODS.Joker { --Horned Owl
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 25 },
+	pos = { x = 12, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -553,7 +553,7 @@ SMODS.Joker { --Golden Eagle
         }
     },
     atlas = 'Joker',
-	pos = { x = 13, y = 25 },
+	pos = { x = 13, y = 24 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -598,7 +598,7 @@ SMODS.Joker { --Giant Condor
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 25 },
+	pos = { x = 14, y = 24 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -645,7 +645,7 @@ SMODS.Joker { --Pouākai
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 25 },
+	pos = { x = 15, y = 24 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

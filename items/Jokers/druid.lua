@@ -10,7 +10,7 @@ SMODS.Joker { --Druid
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 19 },
+	pos = { x = 0, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -47,7 +47,7 @@ SMODS.Joker { --Hard Thorns
         }
     },
     atlas = 'Joker',
-	pos = { x = 1, y = 19 },
+	pos = { x = 1, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -94,7 +94,7 @@ SMODS.Joker { --Heart of Thunder
         }
     },
     atlas = 'Joker',
-	pos = { x = 2, y = 19 },
+	pos = { x = 2, y = 18 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -146,7 +146,7 @@ SMODS.Joker { --Druid of the Storm
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 19 },
+	pos = { x = 3, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -196,7 +196,7 @@ SMODS.Joker { --Ball Lightning
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 19 },
+	pos = { x = 4, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -236,7 +236,7 @@ SMODS.Joker { --Monarch of Storms
         }
     },
 	atlas = 'Joker',
-	pos = { x = 5, y = 19 },
+	pos = { x = 5, y = 18 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -281,7 +281,7 @@ SMODS.Joker { --Thorn Swarm
         }
     },
     atlas = 'Joker',
-	pos = { x = 6, y = 19 },
+	pos = { x = 6, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -317,7 +317,7 @@ SMODS.Joker { --Heart of Oak
         }
     },
     atlas = 'Joker',
-	pos = { x = 7, y = 19 },
+	pos = { x = 7, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -351,7 +351,7 @@ SMODS.Joker { --Druid of the Jungle
         }
     },
     atlas = 'Joker',
-	pos = { x = 8, y = 19 },
+	pos = { x = 8, y = 18 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = false,
@@ -387,7 +387,7 @@ SMODS.Joker { --Jungle's Bounty
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 19 },
+	pos = { x = 9, y = 18 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -423,7 +423,7 @@ SMODS.Joker { --Spirit of the Forest
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 19 },
+	pos = { x = 10, y = 18 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -461,7 +461,7 @@ SMODS.Joker { --Druidic Reach
         }
     },
     atlas = 'Joker',
-	pos = { x = 11, y = 19 },
+	pos = { x = 11, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -498,7 +498,7 @@ SMODS.Joker { --Heart of Vengeance
         }
     },
     atlas = 'Joker',
-	pos = { x = 12, y = 19 },
+	pos = { x = 12, y = 18 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -538,7 +538,7 @@ SMODS.Joker { --Druid of Wrath
         }
     },
     atlas = 'Joker',
-	pos = { x = 13, y = 19 },
+	pos = { x = 13, y = 18 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -570,7 +570,7 @@ SMODS.Joker { --Poplust
         }
     },
 	atlas = 'Joker',
-	pos = { x = 14, y = 19 },
+	pos = { x = 14, y = 18 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -609,7 +609,7 @@ SMODS.Joker { --Avatar of Wrath
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 19 },
+	pos = { x = 15, y = 18 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,

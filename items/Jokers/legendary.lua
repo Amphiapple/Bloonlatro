@@ -11,8 +11,9 @@ SMODS.Joker { --Apex Plasma Master
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 27 },
-    soul_pos = { x = 0, y = 28 },
+	pos = { x = 0, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 0, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -53,8 +54,9 @@ SMODS.Joker { --Glaive Dominus
         }
     },
 	atlas = 'Joker',
-	pos = { x = 1, y = 27 },
-    soul_pos = { x = 1, y = 28 },
+	pos = { x = 1, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 1, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -95,8 +97,9 @@ SMODS.Joker { --Crucible of Steel and Flame
         }
     },
 	atlas = 'Joker',
-	pos = { x = 3, y = 27 },
-    soul_pos = { x = 3, y = 28 },
+	pos = { x = 3, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 3, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -143,8 +146,9 @@ SMODS.Joker { --Herald of Everfrost
         }
     },
 	atlas = 'Joker',
-	pos = { x = 4, y = 27 },
-    soul_pos = { x = 4, y = 28 },
+	pos = { x = 4, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 4, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -175,8 +179,9 @@ SMODS.Joker { -- Nautic Siege Core
         }
     },
     atlas = 'Joker',
-    pos = { x = 8, y = 27 },
-    soul_pos = { x = 8, y = 28 },
+    pos = { x = 8, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 8, y = 2 },
     rarity = 4,
     cost = 20,
     blueprint_compat = true,
@@ -191,9 +196,9 @@ SMODS.Joker { -- Nautic Siege Core
     set_sprites = function(self, card, front)
         if not card or not card.ability or not card.ability.extra then return end
         if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 27 })
+            card.children.center:set_sprite_pos({ x = 15, y = 26 })
         else
-            card.children.center:set_sprite_pos({ x = 8, y = 27 })
+            card.children.center:set_sprite_pos({ x = 8, y = 26 })
         end
     end,
     calculate = function(self, card, context)
@@ -223,7 +228,7 @@ SMODS.Joker { -- Nautic Siege Core
         if not card or not card.children or not card.children.center then return end
         card.ability.extra.submerged = not card.ability.extra.submerged
         if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 27 })
+            card.children.center:set_sprite_pos({ x = 15, y = 26 })
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
@@ -232,7 +237,7 @@ SMODS.Joker { -- Nautic Siege Core
                 end
             }))
         else
-            card.children.center:set_sprite_pos({ x = 8, y = 27 })
+            card.children.center:set_sprite_pos({ x = 8, y = 26 })
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
@@ -255,8 +260,9 @@ SMODS.Joker { --Goliath Doomship
         }
     },
 	atlas = 'Joker',
-	pos = { x = 10, y = 27 },
-    soul_pos = { x = 10, y = 28 },
+	pos = { x = 10, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 10, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = false,
@@ -347,8 +353,9 @@ SMODS.Joker { --Magus Perfectus
         }
     },
 	atlas = 'Joker',
-	pos = { x = 0, y = 29 },
-    soul_pos = { x = 0, y = 30 },
+	pos = { x = 0, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 0, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -402,8 +409,9 @@ SMODS.Joker { --Ascended Shadow
         }
     },
 	atlas = 'Joker',
-	pos = { x = 2, y = 29 },
-    soul_pos = { x = 2, y = 30 },
+	pos = { x = 2, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 2, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -473,8 +481,9 @@ SMODS.Joker { --Mega Massive Munitions Factory
         }
     },
 	atlas = 'Joker',
-	pos = { x = 7, y = 29 },
-    soul_pos = { x = 7, y = 30 },
+	pos = { x = 7, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 7, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -551,8 +560,9 @@ SMODS.Joker { --Master Builder
         }
     },
 	atlas = 'Joker',
-	pos = { x = 9, y = 29 },
-    soul_pos = { x = 9, y = 30 },
+	pos = { x = 9, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 9, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -632,8 +642,9 @@ SMODS.Joker { --Vengeful True Sun God
         }
     },
 	atlas = 'Joker',
-	pos = { x = 15, y = 29 },
-    soul_pos = { x = 15, y = 30 },
+	pos = { x = 15, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 15, y = 4 },
     rarity = 4,
 	cost = 20,
 	blueprint_compat = true,
