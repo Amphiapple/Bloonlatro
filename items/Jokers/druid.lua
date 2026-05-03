@@ -160,7 +160,8 @@ SMODS.Joker { --Druid of the Storm
         return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and
+                SMODS.pseudorandom_probability(card, 'druid_of_the_storm', card.ability.extra.num, card.ability.extra.denom, 'druid_of_the_storm') then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = (function()
@@ -177,7 +178,7 @@ SMODS.Joker { --Druid of the Storm
                     return true
                 end)
             }))
-            card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
         end
     end
 }
@@ -263,7 +264,7 @@ SMODS.Joker { --Monarch of Storms
                     return true
                 end)
             }))
-            card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
         end
     end
 }
@@ -274,13 +275,13 @@ SMODS.Joker { --Thorn Swarm
     loc_txt = {
         name = 'Thorn Swarm',
         text = {
-            'Create a {C:planet}Planet{} card',
-            'when {C:attention}Blind{} is selected',
-            '{C:inactive}(Must have room)',
+            'Create a {C:planet}Planet{} card when',
+            'any {C:attention}Booster Pack{} is opened',
+            '{C:inactive}(Must have room)'
         }
     },
     atlas = 'Joker',
-	pos = { x = 0, y = 19 },
+	pos = { x = 6, y = 19 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -289,7 +290,7 @@ SMODS.Joker { --Thorn Swarm
     },
 
     calculate = function(self, card, context)
-        if context.setting_blind and not (context.blueprint_card or card).getting_sliced and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.open_booster and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -305,43 +306,145 @@ SMODS.Joker { --Thorn Swarm
     end
 }
 
+SMODS.Joker { --Heart of Oak
+    key = 'heart_of_oak',
+    name = 'Heart of Oak',
+    loc_txt = {
+        name = 'Heart of Oak',
+        text = {
+            'Earn {C:attention}$#1#{} whenever',
+            'a {C:planet}Planet{} card is used',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 7, y = 19 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { money = 2 } --Variables: money = money per used planet
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    calculate = function(self, card, context)
+        if context.using_consumeable and context.consumeable.ability.set == 'Planet' then
+            return {
+                dollars = card.ability.extra.money,
+                colour = G.C.MONEY
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Druid of the Jungle
+    key = 'druid_of_the_jungle',
+    name = 'Druid of the Jungle',
+    loc_txt = {
+        name = 'Druid of the Jungle',
+        text = {
+            '{C:planet}Planet{} cards in your',
+            '{C:attention}consumable{} area earn {C:money}$#1#{}',
+            'at end of round',
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 8, y = 19 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { money = 4 } --Variables: money = money per planet held
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        local count = 0
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability.set == 'Planet' then
+                count = count + 1
+            end
+        end
+        return card.ability.extra.money * count
+    end
+}
+
 SMODS.Joker { --Jungle's Bounty
     key = 'jungles_bounty',
     name = "Jungle's Bounty",
 	loc_txt = {
         name = "Jungle's Bounty",
         text = {
-            'Earn money equal to',
-            'the difference of',
-            'ranks if played hand',
-            'contains a {C:attention}Full House{}'
+            'Destroy all {C:planet}Planet{}',
+            'cards in your {C:attention}consumable{}',
+            'area and earn {C:money}$#1#{} for each',
+            'at end of round',
         }
     },
 	atlas = 'Joker',
 	pos = { x = 9, y = 19 },
     rarity = 2,
 	cost = 7,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { money = 7 } --Variables: money = money per planet destroyed
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        local count = 0
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability.set == 'Planet' then
+                count = count + 1
+                v:start_dissolve({G.C.RED}, nil)
+            end
+        end
+        return card.ability.extra.money * count
+    end
+}
+
+SMODS.Joker { --Spirit of the Forest
+    key = 'spirit_of_the_forest',
+    name = 'Spirit of the Forest',
+	loc_txt = {
+        name = 'Spirit of the Forest',
+        text = {
+            'Earn money equal to the',
+            'level of played {C:attention}poker hand{}',
+            '{C:inactive}(Max of {C:money}$#1#{C:inactive}){}',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 10, y = 19 },
+    rarity = 3,
+	cost = 8,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
+        extra = { max = 7 } --Variables: max = max money
     },
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.max } }
+    end,
     calculate = function(self, card, context)
-        if context.before and next(context.poker_hands['Full House']) then
-            local low, high = context.scoring_hand[1].base.nominal, context.scoring_hand[1].base.nominal
-            for k, v in ipairs(context.scoring_hand) do
-                if v.base.nominal < low then
-                    low = v.base.nominal
-                    break
-                elseif v.base.nominal > high then
-                    high = v.base.nominal
-                    break
-                end
+        if context.before then
+            local dollars = G.GAME.hands[context.scoring_name].level
+            if dollars > card.ability.extra.max then
+                dollars = card.ability.extra.max
             end
-            if high - low > 0 then
-                ease_dollars(high - low)
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('$')..(high-low),colour = G.C.MONEY, delay = 0.45})
-            end
+            return {
+                dollars = dollars,
+                colour = G.C.MONEY
+            }
         end
     end
 }
@@ -411,13 +514,84 @@ SMODS.Joker { --Heart of Vengeance
         if context.using_consumeable and context.consumeable.ability.set == 'Planet' and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={G.GAME.consumeable_usage_total.planet}}});
-                return true
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={G.GAME.consumeable_usage_total.planet}}});
+                    return true
                 end
             }))
         elseif context.joker_main and G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.planet > 0 then
             return {
                 mult = G.GAME.consumeable_usage_total.planet
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Druid of Wrath
+    key = 'druid_of_wrath',
+    name = 'Druid of Wrath',
+    loc_txt = {
+        name = 'Druid of Wrath',
+        text = {
+            '{X:mult,C:white}X#1#{} Mult times the number',
+            'of times {C:attention}poker hand{} has',
+            'been played this run'
+        }
+    },
+    atlas = 'Joker',
+	pos = { x = 13, y = 19 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { Xmult = 0.03 } --Variables: Xmult per time hand is played
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local temp_Xmult = 1 + card.ability.extra.Xmult * G.GAME.hands[context.scoring_name].played
+            return {
+                x_mult = temp_Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Poplust
+    key = 'poplust',
+    name = 'Poplust',
+	loc_txt = {
+        name = 'Poplust',
+        text = {
+            '{C:attention}Druids{} give {X:mult,C:white}X#1#{} Mult',
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 14, y = 19 },
+    rarity = 2,
+	cost = 6,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for each druid
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.base == 'Druid' then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
+            return {
+                x_mult = card.ability.extra.Xmult
             }
         end
     end
