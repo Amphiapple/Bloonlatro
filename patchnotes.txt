@@ -6,6 +6,8 @@ Added Jokers:
 General Changes:
 
 Balance Changes:
+- Long Range money 2 > 1
+- Crow's Nest money 3 > 2
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 
 Fixes:

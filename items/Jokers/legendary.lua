@@ -650,7 +650,8 @@ SMODS.Joker { --Vengeful True Sun God
 	blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 } --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
+        --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
+        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 }
     },
 
     loc_vars = function(self, info_queue, card)
@@ -702,7 +703,8 @@ SMODS.Joker { --Vengeful True Sun God
         if context.joker_main then
             local chips = math.floor(card.ability.extra.sacrifices['primary'] / 2) + math.floor(card.ability.extra.sacrifices['military'] / 2)
             local mult = math.ceil(card.ability.extra.sacrifices['primary'] / 2) + math.floor(card.ability.extra.sacrifices['magic'] / 2)
-            local Xmult = math.floor(card.ability.extra.sacrifices['primary'] * 2 / 9) + math.ceil(card.ability.extra.sacrifices['military'] / 2) + math.ceil(card.ability.extra.sacrifices['magic'] / 2) + math.floor(card.ability.extra.sacrifices['support'] / 3)
+            local Xmult = math.floor(card.ability.extra.sacrifices['primary'] * 2 / 9) + math.ceil(card.ability.extra.sacrifices['military'] / 2) +
+                    math.ceil(card.ability.extra.sacrifices['magic'] / 2) + math.floor(card.ability.extra.sacrifices['support'] / 3)
             return {
                 chips = card.ability.extra.chips * chips,
                 mult = card.ability.extra.mult * mult,
