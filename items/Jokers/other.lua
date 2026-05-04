@@ -381,32 +381,12 @@ SMODS.Joker { --Champion Sentry
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.selling_self then
-            local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-            if score > to_big(card.ability.extra.max) then
-                score = to_big(card.ability.extra.max)
+            local temp_score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
+            if temp_score > to_big(card.ability.extra.max) then
+                temp_score = to_big(card.ability.extra.max)
             end
-            G.GAME.chips = G.GAME.chips + score
             G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('bloons_sentryexplode')
-                    delay(0.1)
-                    return true
-                end
-            }))
-            G.E_MANAGER:add_event(Event({
-                trigger = 'ease',
-                blocking = false,
-                ref_table = G.GAME,
-                ref_value = 'chips',
-                ease_to = G.GAME.chips,
-                delay = 0.5,
-                func = function(t)
-                    return math.floor(t)
-                end
-            }))
-            G.E_MANAGER:add_event(
-            Event({
-                trigger = "immediate",
+                trigger = "after",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
                         G.GAME.current_round.semicolon = true
@@ -417,9 +397,12 @@ SMODS.Joker { --Champion Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+            return {
+                score = temp_score,
+                sound = 'bloons_sentryexplode',
+                volume = 0.5
+            }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then

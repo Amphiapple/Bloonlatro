@@ -242,7 +242,7 @@ JokerDisplay.Definitions["j_bloons_sticky_bomb"] = { --Sticky Bomb
         local stickied = false
         for _, playing_card in ipairs(G.hand.cards) do
             if playing_hand or not playing_card.highlighted then
-                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card == card.ability.extra.stickied then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.sticky_bomb then
                     stickied = true
                 end
             end

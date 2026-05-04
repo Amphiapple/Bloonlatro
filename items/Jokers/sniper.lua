@@ -303,16 +303,6 @@ SMODS.Joker { --Cripple MOAB
     },
 
     loc_vars = function(self, info_queue, card)
-        if card.area and card.area == G.jokers then
-            local disableable = G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
-            main_end = {
-                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={ref_table = self, align = "m", colour = disableable and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(disableable and 'k_active' or 'ph_no_boss_active')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
-                    }}
-                }}
-            }
-        end
         local function process_var(count, cap)
 			if count == cap - 1 then
 				return 'Active!'

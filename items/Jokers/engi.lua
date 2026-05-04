@@ -682,7 +682,7 @@ SMODS.Joker { --XXXL Trap
             end
             juice_card_until(card, eval, true)
         elseif context.discard and G.GAME.current_round.discards_used == 0 and #context.full_hand == 1 then
-            local money = SMODS.has_no_rank(context.full_hand[1]) and 0 or context.full_hand[1]:get_id()
+            local money = SMODS.has_no_rank(context.full_hand[1]) and 0 or context.full_hand[1].base.nominal
             card.ability.extra.current = card.ability.extra.current + money
             return {
                 message = localize('$')..card.ability.extra.current,

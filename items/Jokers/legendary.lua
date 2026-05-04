@@ -5,7 +5,7 @@ SMODS.Joker { --Apex Plasma Master
         name = 'Apex Plasma Master',
         text = {
             'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'every {C:attention}#2#{C:inactive} [#3#]{} cards scored',
+            'every {C:attention}#2#{C:inactive} (#3#){} cards scored',
             'Scaling increases each increment',
             '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive}){}'
         }
@@ -141,7 +141,11 @@ SMODS.Joker { --Herald of Everfrost
 	loc_txt = {
         name = 'Herald of Everfrost',
         text = {
-
+            '{C:attention}Freeze #1#{} scoring cards',
+            'and reduce blind requirement',
+            'by {C:attention}#2#%{} per hand played',
+            'Disable the current {C:attention}Boss Blind{}',
+            'after {C:attention}#3#{C:inactive} (#4#){} hands'
         }
     },
 	atlas = 'Joker',
@@ -153,17 +157,55 @@ SMODS.Joker { --Herald of Everfrost
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = {  } --Variables = 
+        extra = { number = 2, percent = 20, hands = 3, counter = 3 } --Variables = 
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { } }
+        return { vars = { card.ability.extra.number, card.ability.extra.percent, card.ability.extra.hands, card.ability.extra.counter } }
     end,
-    calculate = function(self, card, context)  
+    calculate = function(self, card, context)
+        if context.before then
+            local valid_cards = {}
+            for k, v in ipairs(context.scoring_hand) do
+                if v.ability.effect ~= 'Frozen_card' and not v.debuff then
+                    valid_cards[#valid_cards+1] = v
+                end
+            end
+            pseudoshuffle(valid_cards, 'herald_of_everfrost')
+            for i = 1, card.ability.extra.number do
+                local frozen_card = valid_cards[i]
+                if frozen_card then
+                    frozen_card:set_ability('m_bloons_frozen', nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            frozen_card:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+            if card.ability.extra.counter == 1 and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                G.GAME.blind:disable_blind_modifiers()
+                G.GAME.blind:disable()
+            end
+            return {
+                xblindsize = 1 - card.ability.extra.percent / 100
+            }
+        elseif context.after and card.ability.extra.counter > 0 then
+            card.ability.extra.counter = card.ability.extra.counter - 1
+            if card.ability.extra.charge == 0 then
+                local eval = function()
+                    return card.ability.extra.charge == 0
+                end
+                juice_card_until(card, eval, true)
+            end
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        end
     end
 }
 
-SMODS.Joker { -- Nautic Siege Core
+SMODS.Joker { --Nautic Siege Core
     key = 'nautic_siege_core',
     name = 'Nautic Siege Core',
     loc_txt = {
@@ -245,6 +287,32 @@ SMODS.Joker { -- Nautic Siege Core
             }))
         end
     end
+}
+
+SMODS.Joker { --Navarch of the Seas
+    key = 'navarch_of_the_seas',
+    name = 'Navarch of the Seas',
+    loc_txt = {
+        name = 'Navarch of the Seas',
+        text = {
+            ''
+        }
+    },
+    atlas = 'Joker',
+    pos = { x = 9, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 9, y = 2 },
+    rarity = 4,
+    cost = 20,
+    blueprint_compat = true,
+
+    config = {
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
+        extra = {  }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  } }
+    end,
 }
 
 SMODS.Joker { --Goliath Doomship
