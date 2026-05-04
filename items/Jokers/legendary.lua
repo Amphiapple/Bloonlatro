@@ -228,11 +228,41 @@ SMODS.Joker { --Nautic Siege Core
 
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { submerged = false, Xmult = 2, money = 2, hands = 6, charge = 6, Xmult_nuke = 6 }
+        extra = { submerged = false, Xmult = 2, money = 2, hands = 6, charge = 6, Xmult_nuke = 6 },
+        button = { text = "SUB", colour = G.C.BLUE }
     },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.hands, card.ability.extra.charge, card.ability.extra.Xmult_nuke } }
     end,
+
+    can_use = function(card)
+        return true
+    end,
+
+    use = function(card)
+        if not card or not card.children or not card.children.center then return end
+        card.ability.extra.submerged = not card.ability.extra.submerged
+        if card.ability.extra.submerged then
+            card.children.center:set_sprite_pos({ x = 15, y = 26 })
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
+                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.money)
+                    return true
+                end
+            }))
+        else
+            card.children.center:set_sprite_pos({ x = 8, y = 26 })
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
+                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.money)
+                    return true
+                end
+            }))
+        end
+    end,
+
     set_sprites = function(self, card, front)
         if not card or not card.ability or not card.ability.extra then return end
         if card.ability.extra.submerged then
@@ -262,29 +292,6 @@ SMODS.Joker { --Nautic Siege Core
                 end
                 juice_card_until(card, eval, true)
             end
-        end
-    end,
-    submerge = function(card)
-        if not card or not card.children or not card.children.center then return end
-        card.ability.extra.submerged = not card.ability.extra.submerged
-        if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 26 })
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
-                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.money)
-                    return true
-                end
-            }))
-        else
-            card.children.center:set_sprite_pos({ x = 8, y = 26 })
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
-                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.money)
-                    return true
-                end
-            }))
         end
     end
 }
@@ -717,9 +724,9 @@ SMODS.Joker { --Vengeful True Sun God
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
         --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
-        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 }
+        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 },
+        button = { text = "SAC", colour = HEX("383C76") }
     },
-
     loc_vars = function(self, info_queue, card)
 		return {
             vars = {
@@ -730,13 +737,38 @@ SMODS.Joker { --Vengeful True Sun God
             }
         }
     end,
-    add_to_deck = function(self, card, from_debuff)
-        card.ability.extra.sacrifices['primary'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['primary']) or 0
-        card.ability.extra.sacrifices['military'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['military']) or 0
-        card.ability.extra.sacrifices['magic'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['magic']) or 0
-        card.ability.extra.sacrifices['support'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['support']) or 0
+
+    can_use = function(card)
+        local sacrifices = card.ability and card.ability.extra and card.ability.extra.sacrifices
+        if not sacrifices then return false end
+
+        local no_sacs =
+            (sacrifices.primary or 0) == 0 and
+            (sacrifices.military or 0) == 0 and
+            (sacrifices.magic or 0) == 0 and
+            (sacrifices.support or 0) == 0
+        if not no_sacs then return false end
+
+        local has_valid_target = false
+        for _, joker in pairs(G.jokers.cards or {}) do
+            if joker ~= card then
+                local tower = joker.ability and joker.ability.tower_info
+                local base = tower and tower.base
+                local category = tower and tower.category
+
+                local valid_base = base and base ~= "Sentry" and base ~= "Marine"
+                local valid_category = category and string.lower(tostring(category)) ~= "misc"
+
+                if valid_base and valid_category then
+                    has_valid_target = true
+                    break
+                end
+            end
+        end
+        return has_valid_target
     end,
-    sac_to_vtsg = function(card)
+
+    use = function(card)
         local deletable_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
             if joker ~= card and joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
@@ -761,6 +793,13 @@ SMODS.Joker { --Vengeful True Sun God
             end
         }))
         recalc_all_costs()
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.sacrifices['primary'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['primary']) or 0
+        card.ability.extra.sacrifices['military'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['military']) or 0
+        card.ability.extra.sacrifices['magic'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['magic']) or 0
+        card.ability.extra.sacrifices['support'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['support']) or 0
     end,
     remove_from_deck = function(self, card, from_debuff)
         recalc_all_costs()

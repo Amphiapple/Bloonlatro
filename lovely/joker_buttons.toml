@@ -12,45 +12,42 @@ local use = nil
 '''
 position = "at"
 payload = '''
-    local sell, use, adora_sac, vtsg_sac, nsc_submerge = nil, nil, nil, nil, nil
+    local sell, use, deck_button, joker_button = nil, nil, nil, nil
 
-    local is_adora_deck = G.GAME and G.GAME.selected_back and G.GAME.selected_back.name and G.GAME.selected_back.name == 'Adora Deck'
-    local is_vtsg = card and card.ability and card.ability.name == 'Vengeful True Sun God'
-    local is_nsc = card and card.ability and card.ability.name == "Nautic Siege Core"
+    local deck = G.GAME and G.GAME.selected_back
+    local is_adora_deck =
+        deck
+        and deck.effect
+        and deck.effect.center
+        and deck.effect.center.original_key == 'adora'
 
-    if is_adora_deck then
-        adora_sac = build_button({
+    if deck and deck.effect and deck.effect.config and deck.effect.config.button then
+        deck_button = build_button({
             card = card,
-            can = 'can_adora_sac',
-            ["function"] = 'adora_sac',
-            colour = HEX("FFCE00"),
-            text = 'SAC'
+            can = 'can_deck_use',
+            ["function"] = 'deck_use',
+            text = deck.effect.config.button.text or 'Use',
+            colour = deck.effect.config.button.colour or G.C.GREEN
         })
     end
 
-    if is_vtsg then
-        vtsg_sac = build_button({
-            card = card,
-            can = 'can_vtsg_sac',
-            ["function"] = 'vtsg_sac',
-            colour = HEX("383C76"),
-            text = 'SAC'
-        })
-    end
+    local center = card and card.config and card.config.center
 
-    if is_nsc then
-        nsc_submerge = build_button({
+    if center and center.config and center.config.button then
+        local button = center.config.button
+
+        joker_button = build_button({
             card = card,
-            can = 'can_nsc_submerge',
-            ["function"] = 'nsc_submerge',
-            colour = G.C.BLUE,
-            text = 'SUB'
+            can = 'can_joker_use',
+            ["function"] = 'joker_use',
+            text = button.text or 'Use',
+            colour = button.colour or G.C.GREEN
         })
     end
 '''
 match_indent = true
 
-[[patches]]
+[[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "if card.area and card.area.config.type == 'joker' then"
@@ -69,13 +66,10 @@ pattern = '''
 position = "after"
 payload = '''
 {n=G.UIT.R, config={align = 'cl'}, nodes={
-  adora_sac
+  deck_button
 }},
 {n=G.UIT.R, config={align = 'cl'}, nodes={
-  vtsg_sac
-}},
-{n=G.UIT.R, config={align = 'cl'}, nodes={
-  nsc_submerge
+  joker_button
 }},
 '''
 match_indent = true

@@ -194,9 +194,12 @@ local start_run_ref = Game.start_run
 function Game:start_run(args)
     local result = start_run_ref(self, args)
 
-    if G.GAME and G.GAME.selected_back and G.GAME.selected_back.name == "Corvus Deck" then
+    local deck = G.GAME and G.GAME.selected_back
+    local deck_key = deck and deck.effect and deck.effect.center and deck.effect.center.original_key
+
+    if deck_key == 'corvus' then
         generate_corvus_ui()
-    elseif G.GAME and G.GAME.selected_back and G.GAME.selected_back.name == "Rosalia Deck" then
+    elseif deck_key == 'rosalia' then
         generate_rosalia_ui()
     end
 

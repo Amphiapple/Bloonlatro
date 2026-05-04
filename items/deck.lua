@@ -217,13 +217,21 @@ SMODS.Back { --Adora
     atlas = "Back",
     pos = { x = 3, y = 1 },
     order = 25,
-    config = { extra = { sac_levels = 2 } },
+    config = {
+        extra = { sac_levels = 2 },
+        button = { text = "SAC", colour = HEX("FFCE00") }
+    },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.sac_levels } }
     end,
 
-    sac_to_adora = function(card)
+    can_use = function(card)
+        if card.ability and card.ability.eternal then return false end
+        return true
+    end,
+
+    use = function(card)
         local visible = {}
         for k, v in pairs(G.handlist) do
             if G.GAME.hands[v].visible then
