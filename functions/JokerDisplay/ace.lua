@@ -149,7 +149,7 @@ JokerDisplay.Definitions["j_bloons_tsar_bomba"] = { --Tsar Bomba
     },
     calc_function = function(card)
         local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
-        card.joker_display_values.chips = active and card.ability.extra.Xmult or 1
+        card.joker_display_values.Xmult = active and card.ability.extra.Xmult or 1
     end
 }
 

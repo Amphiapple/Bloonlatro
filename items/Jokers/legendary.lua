@@ -135,7 +135,6 @@ SMODS.Joker { --Crucible of Steel and Flame
     end
 }
 
---[[
 SMODS.Joker { --Herald of Everfrost
     key = 'herald_of_everfrost',
     name = 'Herald of Everfrost',
@@ -163,7 +162,6 @@ SMODS.Joker { --Herald of Everfrost
     calculate = function(self, card, context)  
     end
 }
-]]
 
 SMODS.Joker { -- Nautic Siege Core
     key = 'nautic_siege_core',
