@@ -22,6 +22,7 @@ SMODS.Atlas({
 })
 
 local functions = {
+    'main_menu',
     'base',
     'calculate-score',
     'config_tab',

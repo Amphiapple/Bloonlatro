@@ -1,0 +1,19 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+        G.VIBRATION = G.VIBRATION + 1
+        return true
+end)}))
+'''
+position = 'after'
+payload = '''
+
+Bloonlatro.main_menu(4)
+'''
+match_indent = true
