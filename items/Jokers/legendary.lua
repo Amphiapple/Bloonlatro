@@ -85,6 +85,50 @@ SMODS.Joker { --Glaive Dominus
     end
 }
 
+SMODS.Joker { --Ballistic Obliteration Missile Bunker
+    key = 'b_o_m_b',
+    name = 'Ballistic Obliteration Missile Bunker',
+	loc_txt = {
+        name = 'Ballistic Obliteration Missile Bunker',
+        text = {
+            'Play each {C:attention}Boss Blind{} twice,',
+            'This Joker gains {X:mult,C:white}X#1#{} Mult',
+            'when {C:attention}Boss Blind{} is defeated',
+            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive}){}'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 2, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 2, y = 2 },
+    rarity = 4,
+	cost = 20,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Bomb Shooter", category = "primary" },
+        extra = { Xmult = 0.25, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.current
+            }
+        elseif context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+            card.ability.extra.active = true
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.RED,
+                delay = 0.45,
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Crucible of Steel and Flame
     key = 'crucible_of_steel_and_flame',
     name = 'Crucible of Steel and Flame',
@@ -302,7 +346,11 @@ SMODS.Joker { --Navarch of the Seas
     loc_txt = {
         name = 'Navarch of the Seas',
         text = {
-            ''
+            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
+            'Earn {C:money}$#4#{} and trigger',
+            'this {C:attention}Joker{} an extra time',
+            'when a card is destroyed',
+            '{C:inactive}(Currently {C:attention}#5#{C:inactive} triggers)'
         }
     },
     atlas = 'Joker',
@@ -315,11 +363,57 @@ SMODS.Joker { --Navarch of the Seas
 
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = {  }
+        extra = { num = 1, denom = 3, Xmult = 1.5, money = 5, planes = 1 }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'navarch_of_the_seas')
+        return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.planes } }
     end,
+    calculate = function(self, card, context)
+        if context.remove_playing_cards and not context.blueprint then
+            local count = #context.removed
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = 'planes',
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + count
+                end,
+            })
+            return{
+                dollars = card.ability.extra.money * count
+            }
+        elseif context.joker_main then
+            for i = 1, card.ability.extra.planes do
+                if SMODS.pseudorandom_probability(card, 'navarch_of_the_seas', card.ability.extra.num, card.ability.extra.denom, 'navarch_of_the_seas') then
+                    mult = mod_mult(mult * card.ability.extra.Xmult)
+                    update_hand_text( { delay = 0 }, { mult = mult } )
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('multhit2')
+                            return true
+                        end
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                        message = localize{
+                            type = 'variable',
+                            key = 'a_xmult',
+                            vars = {card.ability.extra.Xmult}
+                        }
+                    })
+                else
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot2', 1, 0.4)
+                            return true
+                        end
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                        message = localize('k_nope_ex')
+                    })
+                end
+            end
+        end
+    end
 }
 
 SMODS.Joker { --Goliath Doomship

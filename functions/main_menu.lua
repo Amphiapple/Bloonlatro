@@ -5,7 +5,10 @@ SMODS.Atlas {
     py = 163/2
 }
 
-SMODS.Sound({key = "pop", path = "pop.ogg",})
+SMODS.Sound({key = "pop01", path = "pop01.ogg",})
+SMODS.Sound({key = "pop02", path = "pop02.ogg",})
+SMODS.Sound({key = "pop03", path = "pop03.ogg",})
+SMODS.Sound({key = "pop04", path = "pop04.ogg",})
 
 function Bloonlatro.main_menu(pos_x)
     if not G.title_top or not G.title_top.cards or not G.title_top.cards[1] then return end
@@ -40,8 +43,8 @@ function Bloonlatro.main_menu(pos_x)
     card.children.center:set_role({ major = card, role_type = 'Glued', draw_major = card })
 
     function card:click()
-        -- replace sound with pop sound
-        play_sound('bloons_sentryexplode')
+        local num = math.random(1, 4)
+        play_sound('bloons_pop0'..num)
         G.E_MANAGER:add_event(Event({
             delay = 0.1,
             func = function()
