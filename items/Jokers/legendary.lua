@@ -86,15 +86,14 @@ SMODS.Joker { --Glaive Dominus
 }
 
 SMODS.Joker { --Ballistic Obliteration Missile Bunker
-    key = 'b_o_m_b',
+    key = 'ballistic_obliteration_missile_bunker',
     name = 'Ballistic Obliteration Missile Bunker',
 	loc_txt = {
         name = 'Ballistic Obliteration Missile Bunker',
         text = {
-            'Play each {C:attention}Boss Blind{} twice,',
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'when {C:attention}Boss Blind{} is defeated',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive}){}'
+            'Played cards give {X:mult,C:white}X#1#{} Mult',
+            'when scored if another card with',
+            'the same rank is scored'
         }
     },
 	atlas = 'Joker',
@@ -106,25 +105,26 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { Xmult = 0.25, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
+        extra = { Xmult = 2 }
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                x_mult = card.ability.extra.current
-            }
-        elseif context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-            card.ability.extra.active = true
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.RED,
-                delay = 0.45,
-            }
+        if context.individual then
+            local paired = false
+            local id = context.other_card:get_id()
+            for k, v in ipairs(context.scoring_hand) do
+                if id == v:get_id() then
+                    paired = true
+                end
+            end
+            if paired then
+                return {
+                    x_mult = card.ability.extra.Xmult
+                }
+            end
         end
     end
 }
