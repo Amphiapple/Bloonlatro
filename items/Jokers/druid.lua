@@ -450,7 +450,7 @@ SMODS.Joker { --Druidic Reach
         name = 'Druidic Reach',
         text = {
             'Create a {C:planet}Planet{} card',
-            'at end of round',
+            'whenever a {C:attention}Joker{} is sold',
             '{C:inactive}(Must have room)',
         }
     },
@@ -464,7 +464,7 @@ SMODS.Joker { --Druidic Reach
     },
 
     calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.selling_card and context.card.ability.set == 'Joker' and context.card ~= card and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = function()

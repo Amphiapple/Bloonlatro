@@ -49,7 +49,7 @@ SMODS.Joker { --Faster Shooting
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { num = 1, denom = 2, money = 2 } --Variables: num/denom = probability fraction, money = dollars per hand
+        extra = { num = 1, denom = 2, money = 3 } --Variables: num/denom = probability fraction, money = dollars per hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -84,7 +84,7 @@ SMODS.Joker { --Double Shot
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 1, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
+        extra = { money = 2, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
     },
 
     loc_vars = function(self, info_queue, card)

@@ -25,11 +25,12 @@ JokerDisplay.Definitions["j_bloons_larger_potions"] = { --Larger Potions
 JokerDisplay.Definitions["j_bloons_acidic_mixture_dip"] = { --Acidic Mixture Dip
     extra = {
         {
-            { text = "(", colour = G.C.GREEN, scale = 0.3 },
-            { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
-            { text = ")", colour = G.C.GREEN, scale = 0.3 },
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
         }
     },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'amd')
         card.joker_display_values.odds = n .. " in " .. d
