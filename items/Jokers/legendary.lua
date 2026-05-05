@@ -112,11 +112,11 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
         return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.individual then
+        if context.individual and context.cardarea == G.play and not SMODS.has_no_rank(context.other_card) then
             local paired = false
             local id = context.other_card:get_id()
             for k, v in ipairs(context.scoring_hand) do
-                if id == v:get_id() then
+                if id == v:get_id() and not context.other_card == v and not SMODS.has_no_rank(v) and not v.debuff then
                     paired = true
                 end
             end
@@ -201,11 +201,11 @@ SMODS.Joker { --Herald of Everfrost
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { number = 2, percent = 20, hands = 3, counter = 3 } --Variables = 
+        extra = { number = 2, percent = 80, hands = 3, counter = 3 } --Variables = 
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.number, card.ability.extra.percent, card.ability.extra.hands, card.ability.extra.counter } }
+        return { vars = { card.ability.extra.number, 100 - card.ability.extra.percent, card.ability.extra.hands, card.ability.extra.counter } }
     end,
     calculate = function(self, card, context)
         if context.before then
@@ -234,7 +234,7 @@ SMODS.Joker { --Herald of Everfrost
                 G.GAME.blind:disable()
             end
             return {
-                xblindsize = 1 - card.ability.extra.percent / 100
+                xblindsize = card.ability.extra.percent / 100
             }
         elseif context.after and card.ability.extra.counter > 0 then
             card.ability.extra.counter = card.ability.extra.counter - 1
