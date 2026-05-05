@@ -2,6 +2,7 @@ Added Jokers:
 - Even more Paragons!
 - All remaining Mortar Monkeys
 - All remaining Druids
+- Adding unique consumables that only appear when playing a specific deck
 
 General Changes:
 
@@ -9,9 +10,12 @@ Balance Changes:
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
+- Pouakai reworked
+- Jones deck reworked
 
 Fixes:
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
+- Bigger Jets should no longer count unscoring face cards
 - Tsar Bomba Joker Display should work
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
 - Sticky Bomb Joker Display should work

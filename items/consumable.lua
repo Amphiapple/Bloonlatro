@@ -40,7 +40,6 @@ SMODS.Consumable { --Super Monkey Storm
     },
     atlas = 'Consumable',
     pos = { x = 0, y = 0 },
-    order = 1,
     config = { percent = 80, max = 20000 }, --Variables: percent = percent of required chips scored, max = maximum chips cap
 
     loc_vars = function(self, info_queue, card)
@@ -104,7 +103,6 @@ SMODS.Consumable { --Monkey_boost
     },
     atlas = 'Consumable',
     pos = { x = 1, y = 0 },
-    order = 2,
     config = { Xmult = 2, active = false }, --Variables: Xmult = Xmult
 
     loc_vars = function(self, info_queue, card)
@@ -173,7 +171,6 @@ SMODS.Consumable { --Thrive
     },
     atlas = 'Consumable',
     pos = { x = 2, y = 0 },
-    order = 3,
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
@@ -262,7 +259,6 @@ SMODS.Consumable { --Time Stop
     },
     atlas = 'Consumable',
     pos = { x = 3, y = 0 },
-    order = 4,
     config = { hands = 3 }, --Variables: hands = extra hands
 
     loc_vars = function(self, info_queue, card)
@@ -293,7 +289,6 @@ SMODS.Consumable { --Cash Drop
     },
     atlas = 'Consumable',
     pos = { x = 4, y = 0 },
-    order = 5,
     config = { money = 15 }, --Variables: money = dollars
 
     loc_vars = function(self, info_queue, card)
@@ -331,7 +326,6 @@ SMODS.Consumable { --Banana Farmer
     },
     atlas = 'Consumable',
     pos = { x = 0, y = 1 },
-    order = 6,
     config = { money = 4, rounds = 5, current = 5 }, --Variables: money = dollars, rounds = total lifespan, current = lifespan remaining
 
     loc_vars = function(self, info_queue, card)
@@ -383,7 +377,6 @@ SMODS.Consumable { --Portable Lake
     },
     atlas = 'Consumable',
     pos = { x = 1, y = 1 },
-    order = 7,
     config = { slots = 1, active = false }, --Variables: slots = extra joker slots
 
     loc_vars = function(self, info_queue, card)
@@ -426,7 +419,6 @@ SMODS.Consumable { --Road Spikes
     },
     atlas = 'Consumable',
     pos = { x = 2, y = 1 },
-    order = 8,
     config = { retrigger = 1, spikes = 10 }, --Variables: retrigger = retrigger count, spikes = number of uses
 
     loc_vars = function(self, info_queue, card)
@@ -479,7 +471,6 @@ SMODS.Consumable { --Glue Trap
     },
     atlas = 'Consumable',
     pos = { x = 3, y = 1 },
-    order = 9,
     config = { mod_conv = "m_bloons_glued", max_highlighted = 5 },
 
     loc_vars = function(self, info_queue, card)
@@ -502,7 +493,6 @@ SMODS.Consumable { --Psychic Blast
     },
     atlas = 'Consumable',
     pos = { x = 4, y = 1 },
-    order = 10,
     config = { max_highlighted = 5, discards = 2 }, --Variables: discards = extra discards
 
     loc_vars = function(self, info_queue, card)
@@ -579,7 +569,6 @@ SMODS.Consumable { --Freezing Trap
     },
     atlas = 'Consumable',
     pos = { x = 0, y = 2 },
-    order = 11,
     config = { mod_conv = "m_bloons_frozen", max_highlighted = 5 },
 
     loc_vars = function(self, info_queue, card)
@@ -602,7 +591,6 @@ SMODS.Consumable { --Pontoon
     },
     atlas = 'Consumable',
     pos = { x = 1, y = 2 },
-    order = 12,
     config = { slots = 1 }, --Variables: slots = extra joker slots
 
     in_pool = function (self, args)
@@ -652,7 +640,6 @@ SMODS.Consumable { --Tech Bot
     },
     atlas = 'Consumable',
     pos = { x = 2, y = 2 },
-    order = 13,
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
@@ -718,7 +705,6 @@ SMODS.Consumable { --Energizing Totem
     },
     atlas = 'Consumable',
     pos = { x = 3, y = 2 },
-    order = 14,
     config = { Xmult = 1.5, rounds = 5, current = 5 }, --Variables: Xmult = Xmult, rounds = total lifespan, current = lifespan remaining
 
     loc_vars = function(self, info_queue, card)
@@ -775,7 +761,6 @@ SMODS.Consumable { --Cave Monkey
     },
     atlas = 'Consumable',
     pos = { x = 4, y = 2 },
-    order = 15,
 
     can_use = function(self, card)
         return true
@@ -804,6 +789,38 @@ SMODS.Consumable { --Cave Monkey
     end
 }
 
+SMODS.Consumable { --Artillery Command
+    key = 'artillery_command',
+    set = 'Power',
+    name = 'Artillery Command',
+    loc_txt = {
+        name = 'Artillery Command',
+        text = {
+            'Set {C:green}reroll{} cost',
+            'to {C:money}$#1#{} this shop',
+            '{s:0.8,C:inactive}Striker Jones power{}'
+        }
+    },
+    atlas = 'Consumable',
+    pos = { x = 2, y = 3 },
+    config = { cost = 0 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Jones Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.cost } }
+    end,
+    can_use = function(self, card)
+        return G.shop_jokers ~= nil
+    end,
+    use = function(self, card, area)
+        G.GAME.round_resets.temp_reroll_cost = 0
+        G.GAME.current_round.reroll_cost_increase = 0
+        calculate_reroll_cost(true)
+    end
+}
+
 SMODS.Consumable { --Volcano
     key = 'volcano',
     set = 'Spectral',
@@ -818,9 +835,8 @@ SMODS.Consumable { --Volcano
         }
     },
     atlas = 'Consumable',
-    pos = { x = 0, y = 3 },
+    pos = { x = 0, y = 7 },
     cost = 4,
-    order = 19,
     config = { max_highlighted = 1 },
 
     loc_vars = function(self, info_queue, card)

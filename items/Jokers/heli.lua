@@ -273,7 +273,7 @@ SMODS.Joker { --Bigger Jets
     calculate = function(self, card, context)
         if context.before and not context.blueprint_card then
             local has_faces = false
-            for k, v in ipairs(context.full_hand) do
+            for k, v in ipairs(context.scoring_hand) do
                 if v:is_face() then
                     has_faces = true
                 end

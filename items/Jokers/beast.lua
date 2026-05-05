@@ -649,9 +649,10 @@ SMODS.Joker { --Pouākai
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
+    enhancement_gate = 'm_wild',
     config = {
         tower_info = { base = "Beast Handler", category = "support" },
-        extra = { Xmult = 0.2, current = 1 } --Variables: Xmult = Xmult per handsize, current = current handsize
+        extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult per handsize, current = current handsize
     },
 
     loc_vars = function(self, info_queue, card)
@@ -660,7 +661,13 @@ SMODS.Joker { --Pouākai
 
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
-            card.ability.extra.current = 1 + G.hand.config.card_limit * card.ability.extra.Xmult
+            local count = 0
+            for k, v in pairs(G.playing_cards) do
+                if v.ability.name == 'Wild Card' then
+                    count = count + 1
+                end
+            end
+            card.ability.extra.current = 1 + card.ability.extra.Xmult * count
         end
     end,
     calculate = function(self, card, context)

@@ -433,7 +433,7 @@ SMODS.Joker { --Wizard Lord Phoenix
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local card = create_card('c_bloons_volcano', G.consumeables, nil, nil, nil, nil, 'c_bloons_volcano', 'wlp')
+                    local card = create_card('c_bloons_volcano', G.consumeables, nil, nil, nil, nil, 'c_bloons_volcano', 'wizard_lord_phoenix')
                     card:add_to_deck()
                     G.consumeables:emplace(card)
                     G.GAME.consumeable_buffer = 0

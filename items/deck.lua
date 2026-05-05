@@ -18,7 +18,6 @@ SMODS.Back { --Quincy
     },
 	atlas = "Back",
 	pos = { x = 0, y = 0 },
-    order = 17,
     config = { extra = { num = 1, denom = 4 }, ante_scaling = 0.75 }, --Variables: num/denom = probability fraction, ante_scaling = score requirement multiplier
 
     loc_vars = function(self, info_queue, card)
@@ -60,7 +59,6 @@ SMODS.Back { --Gwendolin
     },
 	atlas = "Back",
 	pos = { x = 1, y = 0 },
-    order = 18,
     config = { consumables = {'c_immolate'}, hands = -1 }
 }
 
@@ -70,22 +68,26 @@ SMODS.Back { --Jones
 	loc_txt = {
         name = 'Jones Deck',
         text = {
-            '{C:attention,T:m_bloons_stunned}Stun{} all {C:spades}Spades{}',
-            'when drawn to hand'
+            'Create an {C:power,T:c_bloons_artillery_command}Artillery Command{}',
+            'card after defeating',
+            'each {C:attention}Boss Blind{}'
         }
     },
 	atlas = "Back",
 	pos = { x = 2, y = 0 },
-	order = 19,
 
     calculate = function(self, back, context)
-        if context.hand_drawn then
-            for k, v in pairs(G.hand.cards) do
-                if v:is_suit('Spades') and v.ability.name ~= 'Stunned Card' and not v.debuff then
-                    v:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
-                    v:juice_up()
-                end
-            end
+        if context.end_of_round and context.beat_boss and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.individual and not context.repetition then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    local power = create_card('c_bloons_artillery_command', G.consumeables, nil, nil, nil, nil, 'c_bloons_artillery_command', 'jones')
+                    power:add_to_deck()
+                    G.consumeables:emplace(power)
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end)
+            }))
         end
     end
 }
@@ -102,7 +104,6 @@ SMODS.Back { --Obyn
     },
 	atlas = "Back",
 	pos = { x = 3, y = 0 },
-    order = 20,
     config = { vouchers = {'v_seed_money','v_money_tree'} }
 }
 
@@ -118,7 +119,6 @@ SMODS.Back { --Churchill
     },
 	atlas = "Back",
 	pos = { x = 4, y = 0 },
-    order = 21,
     config = { extra = { Xmult = 2 } },
 
     loc_vars = function(self, info_queue, card)
@@ -159,7 +159,6 @@ SMODS.Back { --Benjamin
     },
 	atlas = "Back",
 	pos = { x = 0, y = 1 },
-    order = 22,
     config = { jokers = {'j_bloons_monkey_bank'}, dollars = 1 },
 
     loc_vars = function(self, info_queue, card)
@@ -180,7 +179,6 @@ SMODS.Back { --Ezili
     },
 	atlas = "Back",
 	pos = { x = 1, y = 1 },
-    order = 23,
     config = { vouchers = {'v_magic_trick','v_illusion','v_hone','v_glow_up'} }
 }
 
@@ -195,7 +193,6 @@ SMODS.Back { --Pat Fusty
     },
 	atlas = "Back",
 	pos = { x = 2, y = 1 },
-    order = 24,
     config = { hand_size = 1 },
 
     loc_vars = function(self, info_queue, card)
@@ -216,7 +213,6 @@ SMODS.Back { --Adora
     },
     atlas = "Back",
     pos = { x = 3, y = 1 },
-    order = 25,
     config = {
         extra = { sac_levels = 2 },
         button = { text = "SAC", colour = HEX("FFCE00") }
@@ -271,7 +267,6 @@ SMODS.Back { --Brickell
     },
 	atlas = "Back",
 	pos = { x = 4, y = 1 },
-    order = 26,
     config = { extra = { ante = 0, discards = 0 }, hands = 1, },
 
     loc_vars = function(self, info_queue, card)
@@ -302,7 +297,6 @@ SMODS.Back { --Etienne
     },
 	atlas = "Back",
 	pos = { x = 0, y = 2 },
-    order = 27,
     config = { extra = { slots = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -325,7 +319,6 @@ SMODS.Back { --Sauda
     },
 	atlas = "Back",
 	pos = { x = 1, y = 2 },
-    order = 28,
 
     apply = function(self)
         G.E_MANAGER:add_event(Event({
@@ -351,7 +344,6 @@ SMODS.Back { --Psi
     },
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
-    order = 29,
 }
 
 SMODS.Back { --Geraldo
@@ -367,7 +359,6 @@ SMODS.Back { --Geraldo
     },
 	atlas = "Back",
 	pos = { x = 3, y = 2 },
-    order = 30,
     config = { vouchers = {'v_bloons_power_merchant', 'v_crystal_ball'} }
 }
 
@@ -385,7 +376,6 @@ SMODS.Back { --Corvus
     },
 	atlas = "Back",
 	pos = { x = 4, y = 2 },
-    order = 31,
     config = { extra = { max_mana = 25, mana_per_card = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -431,7 +421,6 @@ SMODS.Back { --Rosalia
     },
 	atlas = "Back",
 	pos = { x = 0, y = 3 },
-    order = 32,
     config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
@@ -466,7 +455,6 @@ SMODS.Back { --Silas
     },
 	atlas = "Back",
 	pos = { x = 1, y = 3 },
-    order = 33,
     config = { extra = { number = 2 } },
 
     loc_vars = function (self, info_queue, card)
