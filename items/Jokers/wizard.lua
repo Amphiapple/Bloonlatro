@@ -198,9 +198,9 @@ SMODS.Joker { --Arcane Spike
     },
 
     calculate = function(self, card, context)
-        if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card.config.center ~= G.P_CENTERS.c_base and not context.other_card.debuff then
-            local new_enhancement = true
+        if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and not context.other_card.debuff then
             local e = context.other_card.config.center.name
+            local new_enhancement = e ~= 'Default Base'
             for k, v in pairs(card.ability.extra.enhancements) do
                 if e == k then
                     new_enhancement = false

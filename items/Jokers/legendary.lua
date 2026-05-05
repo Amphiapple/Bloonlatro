@@ -105,7 +105,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { Xmult = 2 }
+        extra = { Xmult = 1.5 }
     },
 
     loc_vars = function(self, info_queue, card)
@@ -116,7 +116,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
             local paired = false
             local id = context.other_card:get_id()
             for k, v in ipairs(context.scoring_hand) do
-                if id == v:get_id() and not context.other_card == v and not SMODS.has_no_rank(v) and not v.debuff then
+                if id == v:get_id() and context.other_card ~= v and not SMODS.has_no_rank(v) and not v.debuff then
                     paired = true
                 end
             end
