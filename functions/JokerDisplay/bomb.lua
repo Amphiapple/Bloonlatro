@@ -96,14 +96,23 @@ JokerDisplay.Definitions["j_bloons_really_big_bombs"] = { --Really Big Bombs
 
 JokerDisplay.Definitions["j_bloons_bloon_impact"] = { --Bloon Impact
     text = {
-        { text = "+", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "mult" }
     },
-    reminder_text = {
-        { text = "(" },
-        { text = "Stunned", colour = G.C.ORANGE },
-        { text = ")" }
-    },
+    text_config = { colour = G.C.MULT },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        local stunned = false
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.name == 'Stunned Card' then
+                    stunned = true
+                    break
+                end
+            end
+        end
+        card.joker_display_values.mult = stunned and card.ability.extra.mult or 0
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_bloon_crush"] = { --Bloon Crush

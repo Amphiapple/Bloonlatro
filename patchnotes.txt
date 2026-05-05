@@ -10,10 +10,12 @@ Balance Changes:
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
+- Artillery Battery reworked
 - Pouakai reworked
 - Jones deck reworked
 
 Fixes:
+- Triple Shot Joker Display should no longer crash
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
 - Bigger Jets should no longer count unscoring face cards
 - Tsar Bomba Joker Display should work

@@ -145,9 +145,8 @@ SMODS.Joker { --Bloon Impact
         text = {
             '{C:attention}Stun{} all cards in',
             '{C:attention}first discard{} of round',
-            'Gain {C:mult}+#1#{} Mult when a',
-            '{C:attention}Stunned{} card wears off',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+            '{C:mult}+#1#{} Mult if any {C:attention}Stunned{}',
+            'cards wear off',
         }
     },
 	atlas = 'Joker',
@@ -157,12 +156,12 @@ SMODS.Joker { --Bloon Impact
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult for each stunned, current = current +mult
+        extra = { mult = 20 } --Variables: mult = +mult if any stunned
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
-        return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+        return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.first_hand_drawn and not context.blueprint then
@@ -171,9 +170,7 @@ SMODS.Joker { --Bloon Impact
             end
             juice_card_until(card, eval, true)
         elseif context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
-            if context.other_card.ability.name == 'Stunned Card' and context.stun then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
-            elseif G.GAME.current_round.discards_used == 0 then
+            if G.GAME.current_round.discards_used == 0 then
                 context.other_card:set_ability('m_bloons_stunned', nil, true)
                 return {
                     message = 'Stunned!',
@@ -182,7 +179,7 @@ SMODS.Joker { --Bloon Impact
             end
         elseif context.joker_main then
             return {
-                mult = card.ability.extra.current
+                mult = card.ability.extra.mult
             }
         end
     end

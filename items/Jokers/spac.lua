@@ -216,8 +216,10 @@ SMODS.Joker { --Super Mines
     loc_txt = {
         name = 'Super Mines',
         text = {
-            '{X:mult,C:white}X#1#{} Mult if',
-            'your deck is empty',
+            '{X:mult,C:white}X#1#{} Mult',
+            '{C:mult}-{X:mult,C:white}X#2#{} Mult for each',
+            'card in your deck',
+            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult{}'
         }
     },
     atlas = 'Joker',
@@ -227,14 +229,23 @@ SMODS.Joker { --Super Mines
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { Xmult = 5 } --Variables: Xmult = Xmult
+        extra = { Xmult = 5, loss = 0.25, current = 5 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.loss, card.ability.extra.current } }
+    end,
+    update = function(self, card, dt)
+        if G.deck and G.deck.cards then
+            if #G.deck.cards > 16 then
+                card.ability.extra.current = 1
+            else
+                card.ability.extra.current = card.ability.extra.Xmult - card.ability.extra.loss * #G.deck.cards
+            end
+        end
     end,
     calculate = function(self, card, context)
-        if context.joker_main and #G.deck.cards == 0 then
+        if context.joker_main and card.ability.extra.current > 1 then
             return {
                 x_mult = card.ability.extra.Xmult,
             }

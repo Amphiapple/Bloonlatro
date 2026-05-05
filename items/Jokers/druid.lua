@@ -88,8 +88,8 @@ SMODS.Joker { --Heart of Thunder
     loc_txt = {
         name = 'Heart of Thunder',
         text = {
-            'Upgrade level of {C:attention}#1#{}',
-            '{C:attention}poker hands{} every time',
+            'Upgrade level of another',
+            '{C:attention}poker hand{} every time',
             'a {C:planet}Planet{} card is used',
         }
     },
@@ -100,12 +100,8 @@ SMODS.Joker { --Heart of Thunder
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { number = 2 } --Variables: number = number of planets
     },
 
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.number } }
-    end,
     calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == 'Planet' then
             local visible = {}
@@ -114,21 +110,19 @@ SMODS.Joker { --Heart of Thunder
                     table.insert(visible, v)
                 end
             end
-            for i = 1, card.ability.extra.number do
-                local hand = pseudorandom_element(visible, pseudoseed(''))
-                update_hand_text(
-                    { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
-                    { handname = localize(hand, 'poker_hands'),
-                        chips = G.GAME.hands[hand].chips,
-                        mult = G.GAME.hands[hand].mult,
-                        level = G.GAME.hands[hand].level
-                    }
-                )
-                level_up_hand(card, hand)
-                update_hand_text(
-                    {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
-                )
-            end
+            local hand = pseudorandom_element(visible, pseudoseed(''))
+            update_hand_text(
+                { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
+                { handname = localize(hand, 'poker_hands'),
+                    chips = G.GAME.hands[hand].chips,
+                    mult = G.GAME.hands[hand].mult,
+                    level = G.GAME.hands[hand].level
+                }
+            )
+            level_up_hand(card, hand)
+            update_hand_text(
+                {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
+            )
         end
     end
 }

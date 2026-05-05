@@ -296,9 +296,8 @@ SMODS.Joker { --Heavy Shells
     loc_txt = {
         name = 'Heavy Shells',
         text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
-            'when a {C:attention}Stunned{} card wears off',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+            '{C:mult}+#1#{} Mult when a',
+            '{C:attention}Stunned{} card wears off',
         }
     },
 	atlas = 'Joker',
@@ -306,13 +305,51 @@ SMODS.Joker { --Heavy Shells
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
+    enhancement_gate = 'm_bloons_stunned',
+    config = {
+        tower_info = { base = "Mortar Monkey", category = "military" },
+        extra = { mult = 10 } --Variables: mult = +mult for each stunned
+    },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
+            if context.other_card.ability.name == 'Stunned Card' and context.stun then
+                return {
+                    mult = card.ability.extra.mult,
+                }
+            end
+		end
+        
+    end
+}
+
+SMODS.Joker { --Artillery Battery
+    key = 'artillery_battery',
+    name = 'Artillery Battery',
+	loc_txt = {
+        name = 'Artillery Battery',
+        text = {
+            'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
+            'when a {C:attention}Stunned{} card wears off',
+            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 9, y = 12 },
+    rarity = 2,
+	cost = 7,
+    blueprint_compat = true,
     perishable_compat = false,
     enhancement_gate = 'm_bloons_stunned',
     config = {
         tower_info = { base = "Mortar Monkey", category = "military" },
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult for each stunned, current = current +mult
-    },
+        extra = { mult = 2, current = 0 } --Variables: mult = +mult for each stunned, current = current +mult
 
+    },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned
         return { vars = { card.ability.extra.mult, card.ability.extra.current } }
@@ -333,61 +370,6 @@ SMODS.Joker { --Heavy Shells
                 mult = card.ability.extra.current
             }
         end
-    end
-}
-
-SMODS.Joker { --Artillery Battery
-    key = 'artillery_battery',
-    name = 'Artillery Battery',
-	loc_txt = {
-        name = 'Artillery Battery',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'scoring cards to give',
-            '{C:chips}+#3#{} Chips, {C:mult}+#4#{} Mult, and',
-            '{X:mult,C:white}X#5#{} Mult independently'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 9, y = 12 },
-    rarity = 2,
-	cost = 7,
-    blueprint_compat = true,
-    config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
-        extra = { num = 1, denom = 3, chips = 33, mult = 8, Xmult = 1.3 } --Variables: num/denom = probability fraction, chips = +chips, mult = +mult, Xmult = Xmult
-
-    },
-    loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'artillery_battery')
-        return {
-            vars = {
-                n,
-                d,
-                card.ability.extra.chips,
-                card.ability.extra.mult,
-                card.ability.extra.Xmult
-            }
-        }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            local temp_chips, temp_mult, temp_Xmult = 0, 0, 1
-            if SMODS.pseudorandom_probability(card, 'artillery_battery_1', card.ability.extra.num, card.ability.extra.denom, 'artillery_battery') then
-                temp_chips = card.ability.extra.chips
-            end
-            if SMODS.pseudorandom_probability(card, 'artillery_battery_2', card.ability.extra.num, card.ability.extra.denom, 'artillery_battery') then
-                temp_mult = card.ability.extra.mult
-            end
-            if SMODS.pseudorandom_probability(card, 'artillery_battery_3', card.ability.extra.num, card.ability.extra.denom, 'artillery_battery') then
-                temp_Xmult = card.ability.extra.Xmult
-            end
-                return {
-                    chips = temp_chips,
-                    mult = temp_mult,
-                    x_mult = temp_Xmult
-                }
-		end
     end
 }
 

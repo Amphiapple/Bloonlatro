@@ -76,7 +76,7 @@ JokerDisplay.Definitions["j_bloons_shell_shock"] = { --Shell Shock
         card.joker_display_values.odds = numerator .. " in " .. denominator
     end
 }
-
+--[[
 JokerDisplay.Definitions["j_bloons_artillery_battery"] = { --Artillery Battery
     text = {
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
@@ -115,7 +115,7 @@ JokerDisplay.Definitions["j_bloons_artillery_battery"] = { --Artillery Battery
         card.joker_display_values.odds = numerator .. " in " .. denominator
     end
 }
-
+]]
 JokerDisplay.Definitions["j_bloons_blooncineration"] = { --Blooncineration
     text = {
         {
