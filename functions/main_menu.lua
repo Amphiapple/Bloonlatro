@@ -194,6 +194,9 @@ function get_bloonlatro_boss_card_nodes()
 
     if parts and parts.main then
         local main = parts.main
+        table.sort(bosses, function(a, b)
+            return (a.bloonlatro_boss.parts and a.bloonlatro_boss.parts.order or 0) <
+                    (b.bloonlatro_boss.parts and b.bloonlatro_boss.parts.order or 0) end)
 
         for _, boss in ipairs(bosses) do
             local bp = boss.bloonlatro_boss and boss.bloonlatro_boss.parts
