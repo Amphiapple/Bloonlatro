@@ -1,8 +1,8 @@
 SMODS.Atlas {
     key = 'bloons_logo',
     path = 'logos.png',
-    px = 129/2,
-    py = 163/2
+    px = 71,
+    py = 95
 }
 
 SMODS.Sound({key = "pop01", path = "pop01.ogg",})

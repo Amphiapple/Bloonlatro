@@ -308,7 +308,7 @@ SMODS.Joker { --Heavy Shells
     enhancement_gate = 'm_bloons_stunned',
     config = {
         tower_info = { base = "Mortar Monkey", category = "military" },
-        extra = { mult = 10 } --Variables: mult = +mult for each stunned
+        extra = { mult = 10, current = 0 } --Variables: mult = +mult for each stunned
     },
 
     loc_vars = function(self, info_queue, card)
@@ -318,12 +318,13 @@ SMODS.Joker { --Heavy Shells
     calculate = function(self, card, context)
         if context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
             if context.other_card.ability.name == 'Stunned Card' and context.stun then
-                return {
-                    mult = card.ability.extra.mult,
-                }
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             end
-		end
-        
+		elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current,
+            }
+        end
     end
 }
 

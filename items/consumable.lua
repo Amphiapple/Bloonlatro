@@ -812,12 +812,21 @@ SMODS.Consumable { --Artillery Command
         return { vars = { card.ability.cost } }
     end,
     can_use = function(self, card)
-        return G.shop_jokers ~= nil
+        return G.STATE == G.STATES.SHOP
     end,
     use = function(self, card, area)
-        G.GAME.round_resets.temp_reroll_cost = 0
-        G.GAME.current_round.reroll_cost_increase = 0
-        calculate_reroll_cost(true)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                G.GAME.round_resets.temp_reroll_cost = 0
+                G.GAME.current_round.reroll_cost_increase = 0
+                calculate_reroll_cost(true)
+                return true
+            end
+        }))
     end
 }
 
