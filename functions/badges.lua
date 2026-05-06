@@ -1,5 +1,3 @@
-local create_mod_badges_old = SMODS.create_mod_badges
-
 local function split_two_lines(text)
     text = tostring(text or "")
     if text == "Card Storm" then return text end --Special case for Card Storm as it looks worse with the line break
@@ -75,13 +73,9 @@ local function create_bloonlatro_badge(text, colour)
     }
 end
 
-
+local create_mod_badges_old = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
     if not (obj and badges) then return end
-
-    if create_mod_badges_old then
-        create_mod_badges_old(obj, badges)
-    end
 
     local info = (obj.config and obj.config.tower_info)
     if not info then return end
@@ -92,4 +86,8 @@ function SMODS.create_mod_badges(obj, badges)
     local colour = G.C[category:upper()] or G.C.JOKER_GREY
 
     badges[#badges+1] = create_bloonlatro_badge(base, colour)
+
+    if create_mod_badges_old then
+        create_mod_badges_old(obj, badges)
+    end
 end

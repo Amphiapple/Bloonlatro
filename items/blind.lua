@@ -393,6 +393,10 @@ SMODS.Blind {
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
+    bloonlatro_boss = {
+        title = 'Bloonarius the Inflator',
+        index = 1,
+    },
 
     loc_vars = function(self)
         return { vars = { 100 } }
@@ -403,7 +407,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_bloonarius'
+        return Bloonlatro.boss_id == 'bl_bloons_bloonarius'
     end,
     set_blind = function(self)
         while #G.deck.cards < 100 do
@@ -437,9 +441,19 @@ SMODS.Blind {
     mult = 40, -- 40x base score (2 million)
     boss = { showdown = true },
     boss_colour = HEX("BA58BD"),
+    bloonlatro_boss = {
+        title = 'Gravelord Lych',
+        index = 2,
+        challenge_params = {
+            vouchers = {
+                {id = 'v_hone'},
+                {id = 'v_glow_up'}
+            }
+        }
+    },
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_lych'
+        return Bloonlatro.boss_id == 'bl_bloons_lych'
     end,
 
     loc_vars = function(self)
@@ -545,6 +559,13 @@ SMODS.Blind {
     mult = 25, -- 25x base score (500k)
     boss = { showdown = true },
     boss_colour = HEX("63E0FF"),
+    bloonlatro_boss = {
+        title = 'Vortex Master of Air',
+        index = 3,
+        challenge_params = {
+            win_ante = 6
+        }
+    },
 
     loc_vars = function(self)
         return { vars = { 1 } }
@@ -555,7 +576,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_vortex'
+        return Bloonlatro.boss_id == 'bl_bloons_vortex'
     end,
 
     set_blind = function(self)
@@ -599,9 +620,29 @@ SMODS.Blind {
     mult = 8, -- 8x base score (400k)
     boss = { showdown = true },
     boss_colour = HEX("FFDC3F"),
+    bloonlatro_boss = {
+        title = 'Dreadbloon the Armored Behemoth',
+        index = 4,
+        challenge_params = {
+            banned_ids = {
+                {id = 'j_bloons_downdraft'},
+                {id = 'j_bloons_support_chinook'},
+                {id = 'j_bloons_moab_shove'},
+                {id = 'j_bloons_counter_espionage'},
+                {id = 'j_bloons_long_reach'},
+                {id = 'j_bloons_perma_spike'},
+                {id = 'j_burglar'},
+                {id = 'j_troubadour'},
+                {id = 'v_grabber'},
+                {id = 'v_nacho_tong'},
+                {id = 'v_hieroglyph'},
+                {id = 'c_bloons_time_stop'},
+            }
+        }
+    },
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_dreadbloon'
+        return Bloonlatro.boss_id == 'bl_bloons_dreadbloon'
     end,
 
     set_blind = function(self)
@@ -650,9 +691,13 @@ SMODS.Blind {
     mult = 20, -- 20x base score (1 million)
     boss = { showdown = true },
     boss_colour = HEX("000000"),
+    bloonlatro_boss = {
+        title = 'The Reality Warper Phayze',
+        index = 5,
+    },
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_phayze'
+        return Bloonlatro.boss_id == 'bl_bloons_phayze'
     end,
     press_play = function(self)
         if #G.jokers.cards > 1 then
@@ -691,7 +736,10 @@ SMODS.Blind {
     mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },
     boss_colour = HEX("FF862E"),
-
+    bloonlatro_boss = {
+        title = 'Blastapopoulos Demon of the Core',
+        index = 6,
+    },
     loc_vars = function(self)
         return {
             vars = { 10, 1, 3, 3 }
@@ -705,7 +753,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_blastapopoulos'
+        return Bloonlatro.boss_id == 'bl_bloons_blastapopoulos'
     end,
 
     set_blind = function(self)
@@ -736,4 +784,89 @@ SMODS.Blind {
         }))
         draw_card(G.play,G.deck, 90,'up', nil)
     end,
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Diamondback Head',
+        text = {
+            '1'
+        }
+    },
+    key = 'diamondback_head',
+    atlas = 'Blind',
+    pos = { y = 1 },
+    dollars = 8,
+    mult = 60, -- 60x base score (3 million)
+    boss = { showdown = true },
+    boss_colour = G.C.WHITE,
+    bloonlatro_boss = {
+        title = 'Diamondback the Village Devourer',
+        index = 7,
+        parts = {
+            main = "diamondback",
+            segment = "head",
+            order = 1
+        }
+    },
+
+    in_pool = function()
+        return Bloonlatro.boss_id == 'bl_bloons_diamondback'
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Diamondback Body',
+        text = {
+            '2'
+        }
+    },
+    key = 'diamondback_body',
+    atlas = 'Blind',
+    pos = { y = 2 },
+    dollars = 8,
+    mult = 60, -- 60x base score (3 million)
+    boss = { showdown = true },
+    boss_colour = G.C.WHITE,
+    bloonlatro_boss = {
+        index = 7,
+        parts = {
+            main = "diamondback",
+            segment = "body",
+            order = 2
+        }
+    },
+
+    in_pool = function()
+        return Bloonlatro.boss_id == 'bl_bloons_diamondback'
+    end
+}
+
+SMODS.Blind {
+    loc_txt = {
+        name = 'Diamondback Tail',
+        text = {
+            '3'
+        }
+    },
+    key = 'diamondback_tail',
+    atlas = 'Blind',
+    pos = { y = 3 },
+    dollars = 8,
+    mult = 60, -- 60x base score (3 million)
+    boss = { showdown = true },
+    boss_colour = G.C.WHITE,
+    bloonlatro_boss = {
+        index = 7,
+        parts = {
+            main = "diamondback",
+            segment = "tail",
+            order = 3
+        }
+    },
+
+    in_pool = function()
+        return Bloonlatro.boss_id == 'bl_bloons_diamondback'
+    end
 }
