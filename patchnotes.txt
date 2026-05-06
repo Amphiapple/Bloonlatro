@@ -2,7 +2,7 @@ Added Jokers:
 - Even more Paragons!
 - All remaining Mortar Monkeys
 - All remaining Druids
-- Adding unique consumables that only appear when playing a specific deck
+- Some unique consumables that only appear when playing a specific deck
 
 General Changes:
 
