@@ -67,7 +67,7 @@ payload = '''
         or (Bloonlatro.boss_id and #loc_nodes == 0 and {
             n = G.UIT.R,
             config = { align = "cm", padding = 0.1 },
-            nodes = get_bloonlatro_boss_card_nodes_from_id(Bloonlatro.boss_id)
+            nodes = get_bloonlatro_boss_card_nodes()
         })
         or desc_from_rows(loc_nodes, true, min_dims*5)
 '''

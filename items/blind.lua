@@ -811,7 +811,7 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_diamondback'
+        return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
     end
 }
 
@@ -839,7 +839,7 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_diamondback'
+        return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
     end
 }
 
@@ -867,6 +867,6 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_diamondback'
+        return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
     end
 }
