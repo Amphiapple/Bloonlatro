@@ -183,48 +183,36 @@ local function get_bloonlatro_view_data()
     return selected, segments
 end
 
-function get_bloonlatro_boss_card_nodes_from_id(id)
-    if not id then return {} end
+function get_bloonlatro_boss_card_nodes()
+    local nodes = {}
 
     local bosses = get_bloonlatro_bosses()
+    local selected = bosses[Bloonlatro.boss_selected_index]
+    if not selected then return nodes end
 
-    for _, blind in ipairs(bosses) do
-        if blind.key == id then
-            return {
-                {
+    local parts = selected.bloonlatro_boss and selected.bloonlatro_boss.parts
+
+    if parts and parts.main then
+        local main = parts.main
+
+        for _, boss in ipairs(bosses) do
+            local bp = boss.bloonlatro_boss and boss.bloonlatro_boss.parts
+
+            if bp and bp.main == main then
+                nodes[#nodes + 1] = {
                     n = G.UIT.O,
-                    config = { object = create_bloonlatro_boss_card(blind) }
+                    config = {
+                        object = create_bloonlatro_boss_card(boss)
+                    }
                 }
-            }
+            end
         end
-    end
-
-    local prefix = "bl_bloons_"
-    if string.sub(id, 1, #prefix) ~= prefix then
-        return {}
-    end
-
-    local main_id = string.sub(id, #prefix + 1)
-    local matched = {}
-
-    for _, blind in ipairs(bosses) do
-        local parts = blind.bloonlatro_boss and blind.bloonlatro_boss.parts
-        if parts and parts.main == main_id then
-            matched[#matched + 1] = blind
-        end
-    end
-
-    table.sort(matched, function(a, b)
-        local ao = (a.bloonlatro_boss.parts and a.bloonlatro_boss.parts.order) or 0
-        local bo = (b.bloonlatro_boss.parts and b.bloonlatro_boss.parts.order) or 0
-        return ao < bo
-    end)
-
-    local nodes = {}
-    for _, blind in ipairs(matched) do
+    else
         nodes[#nodes + 1] = {
             n = G.UIT.O,
-            config = { object = create_bloonlatro_boss_card(blind) }
+            config = {
+                object = create_bloonlatro_boss_card(selected)
+            }
         }
     end
 
@@ -569,12 +557,8 @@ G.FUNCS.bloonlatro_start_boss_run = function()
         end
     end
 
-    local boss_id = (not selected.bloonlatro_boss.parts and selected.key)
-                    or (selected.bloonlatro_boss.parts and "bl_bloons_" .. selected.bloonlatro_boss.parts.main)
-                    or nil
-
     local args = {
-        boss_id = boss_id,
+        boss_id = selected.key,
         challenge = {
             deck = { type = "Challenge Deck" },
             restrictions = {
