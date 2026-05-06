@@ -14,6 +14,6 @@ end)}))
 position = 'after'
 payload = '''
 
-Bloonlatro.main_menu(4)
+Bloonlatro.main_menu()
 '''
 match_indent = true

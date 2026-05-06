@@ -12,20 +12,8 @@ position = 'after'
 payload = '''
 if G.GAME.selected_back.name == 'Psi Deck' and (G.GAME.round_resets.ante%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2) then
     return "bl_psychic"
-elseif G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-    if G.GAME.modifiers.bloonarius1 then
-        return "bl_bloons_bloonarius"
-    elseif G.GAME.modifiers.lych1 then
-        return "bl_bloons_lych"
-    elseif G.GAME.modifiers.vortex1 then
-        return "bl_bloons_vortex"
-    elseif G.GAME.modifiers.dreadbloon1 then
-        return "bl_bloons_dreadbloon"
-    elseif G.GAME.modifiers.phayze1 then
-        return "bl_bloons_phayze"
-    elseif G.GAME.modifiers.blastapopoulos1 then
-        return "bl_bloons_blastapopoulos"
-    end
+elseif G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_id then
+    return Bloonlatro.boss_id
 end
 '''
 match_indent = true
@@ -48,14 +36,7 @@ pattern = '''
 '''
 position = 'before'
 payload = '''
-if 
-    self.name == 'bl_bloons_bloonarius' or
-    self.name == 'bl_bloons_lych' or
-    self.name == 'bl_bloons_vortex' or
-    self.name == 'bl_bloons_dreadbloon' or
-    self.name == 'bl_bloons_phayze' or
-    self.name == 'bl_bloons_blastapopoulos'
-then
+if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_id then
     self.loc_debuff_text = 'It has all led to this'
 else
 '''
@@ -70,5 +51,24 @@ pattern = '''
 position = 'after'
 payload = '''
 end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''
+        challenge.id and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})
+        or desc_from_rows(loc_nodes, true, min_dims*5)
+'''
+position = 'at'
+payload = '''
+        challenge.id and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})
+        or (Bloonlatro.boss_id and #loc_nodes == 0 and {
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.1 },
+            nodes = get_bloonlatro_boss_card_nodes_from_id(Bloonlatro.boss_id)
+        })
+        or desc_from_rows(loc_nodes, true, min_dims*5)
 '''
 match_indent = true

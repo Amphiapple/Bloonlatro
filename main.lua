@@ -22,7 +22,6 @@ SMODS.Atlas({
 })
 
 local functions = {
-    'main_menu',
     'base',
     'calculate-score',
     'config_tab',
@@ -36,6 +35,9 @@ local functions = {
     --Crossmod files
     'bunco',
     'talisman',
+
+    --Main menu
+    'main_menu',
 }
 
 for k, v in ipairs(functions) do
