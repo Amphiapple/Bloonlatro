@@ -288,7 +288,7 @@ SMODS.Joker { --Triple Shot
 	atlas = 'Joker',
 	pos = { x = 8, y = 0 },
     rarity = 2,
-	cost = 5,
+	cost = 4,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
@@ -512,7 +512,7 @@ SMODS.Joker { --Sharp Shooter
 	atlas = 'Joker',
 	pos = { x = 14, y = 0 },
     rarity = 2,
-	cost = 6,
+	cost = 5,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },

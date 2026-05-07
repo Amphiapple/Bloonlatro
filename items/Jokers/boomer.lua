@@ -166,7 +166,7 @@ SMODS.Joker { --MOAR Glaives
     atlas = 'Joker',
 	pos = { x = 4, y = 1 },
     rarity = 2,
-	cost = 6,
+	cost = 5,
     blueprint_compat = true,
     perishable_compat = false,
     config = {

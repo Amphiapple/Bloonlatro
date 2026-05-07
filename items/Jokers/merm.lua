@@ -320,8 +320,8 @@ SMODS.Joker { --Tidal Chill
 	loc_txt = {
         name = 'Tidal Chill',
         text = {
-            '{C:attention}Freeze{} a random',
-            'card held in hand',
+            '{C:attention}Freeze #1#{} random',
+            'cards held in hand',
             'per hand played',
         }
     },
@@ -332,10 +332,12 @@ SMODS.Joker { --Tidal Chill
     blueprint_compat = true,
     config = {
         tower_info = { base = "Mermonkey", category = "magic" },
+        extra = { number = 2 } --Variables: number = number of cards to freeze
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        return { vars = { card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.before then
@@ -345,9 +347,16 @@ SMODS.Joker { --Tidal Chill
                     valid_cards[#valid_cards+1] = v
                 end
             end
-            if next(valid_cards) then
-                local frozen_card = pseudorandom_element(valid_cards, 'tidal_chill')
-                frozen_card:set_ability('m_bloons_frozen', nil, true)
+            for i = 1, card.ability.extra.number do
+                if next(valid_cards) then
+                    local frozen_card = pseudorandom_element(valid_cards, 'tidal_chill')
+                    frozen_card:set_ability('m_bloons_frozen', nil, true)
+                    for k, v in ipairs(G.hand.cards) do
+                        if v == frozen_card then
+                            table.remove(valid_cards, k)
+                        end
+                    end
+                end
             end
         end
     end
@@ -359,7 +368,7 @@ SMODS.Joker { --Riptide Champion
 	loc_txt = {
         name = 'Riptide Champion',
         text = {
-            '{C:attention}Freeze{} a random',
+            '{C:attention}Freeze} a random',
             'card and ones adjacent',
             'to it held in hand',
             'per hand played',

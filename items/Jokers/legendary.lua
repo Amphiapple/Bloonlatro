@@ -633,7 +633,29 @@ SMODS.Joker { --Ascended Shadow
         end
     end
 }
-
+--[[
+SMODS.Joker { --Root of All Nature
+    key = 'root_of_all_nature',
+    name = 'Root of All Nature',
+	loc_txt = {
+        name = 'Root of All Nature',
+        text = {
+            ''
+        }
+    },
+	atlas = 'Joker',
+	pos = { x = 7, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 7, y = 4 },
+    rarity = 4,
+	cost = 20,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Spike Factory", category = "support" },
+        extra = {  } --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
+    },
+}
+]]
 SMODS.Joker { --Mega Massive Munitions Factory
     key = 'mega_massive_munitions_factory',
     name = 'Mega Massive Munitions Factory',
