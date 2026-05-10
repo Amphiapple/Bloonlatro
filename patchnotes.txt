@@ -10,11 +10,15 @@ Balance Changes:
 - Triple Shot cost 5 > 4
 - Sharp Shooter cost 6 > 5
 - MOAR Glaives cost 6 > 5
+
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 - Artillery Battery reworked
+
+- Larger Potions tarots 2 > 1, 1 in 2 chance for 2
 - Tidal Chill 1 random card > 2 random cards
+
 - Pouakai reworked
 - Jones deck reworked
 

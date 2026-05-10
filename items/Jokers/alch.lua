@@ -42,8 +42,9 @@ SMODS.Joker { --Larger Potions
 	loc_txt = {
         name = 'Larger Potions',
         text = {
-            'Create {C:attention}#1# {C:tarot}Tarot{} cards',
+            'Create a {C:tarot}Tarot{} card',
             'on {C:attention}final hand{} of round',
+            '{C:green}#1# in #2#{} chance to create {C:attention}#3#{}',
             '{C:inactive}(Must have room){}',
         }
     },
@@ -54,16 +55,18 @@ SMODS.Joker { --Larger Potions
     blueprint_compat = true,
     config = {
         tower_info = { base = "Alchemist", category = "magic" },
-        extra = { number = 2 } --Variables: number = number of tarots
+        extra = { num = 1, denom = 2, number = 2 } --Variables: number = number of tarots
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.number } }
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'larger_potions')
+        return { vars = { n, d, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 then
             local count = 0
-            for i = 1, card.ability.extra.number do
+            local number = SMODS.pseudorandom_probability(card, 'larger_potions', card.ability.extra.num, card.ability.extra.denom, 'larger_potions') and not context.blueprint and card.ability.extra.number or 1
+            for i = 1, number do
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
