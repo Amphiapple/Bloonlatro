@@ -637,9 +637,8 @@ SMODS.Joker { --Lead to Gold
 	loc_txt = {
         name = 'Lead to Gold',
         text = {
-            'Remove {C:attention}Steel{} from',
-            'and add a {C:attention}Gold Seal{} to',
-            'played cards when scored',
+            'Add a {C:attention}Gold Seal{} to played',
+            '{C:attention}Steel{} cards when scored',
         }
     },
 	atlas = 'Joker',
@@ -658,7 +657,6 @@ SMODS.Joker { --Lead to Gold
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Steel Card' and not context.other_card.debuff and not context.blueprint then
-            context.other_card:set_ability(G.P_CENTERS.c_base, nil, true)
             context.other_card:set_seal('Gold', nil, true)
         end
     end

@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_primary_training"] = { --Primary Training
         local count = 0
         if G.jokers then
             for _, joker_card in ipairs(G.jokers.cards) do
-                if joker_card ~= card and joker_card.ability.tower_info.category == 'primary' then
+                if joker_card ~= card and joker_card.ability.tower_info and joker_card.ability.tower_info.category == 'primary' then
                     count = count + 1
                 end
             end
@@ -48,7 +48,8 @@ JokerDisplay.Definitions["j_bloons_primary_training"] = { --Primary Training
         card.joker_display_values.count = count
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = (card ~= mod_joker and card.ability.tower_info.category == 'primary' and mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+        return { x_mult = (card ~= mod_joker and card.ability.tower_info and card.ability.tower_info.category == 'primary' and
+                mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end
 }
 
@@ -72,7 +73,8 @@ JokerDisplay.Definitions["j_bloons_primary_mentoring"] = { --Primary Mentoring
         card.joker_display_values.count = count
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = (card ~= mod_joker and card.ability.tower_info.category == 'primary' and mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+        return { x_mult = (card ~= mod_joker and card.ability.tower_info and card.ability.tower_info.category == 'primary' and
+                mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end
 }
 

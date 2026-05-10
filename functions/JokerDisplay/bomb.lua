@@ -313,7 +313,6 @@ JokerDisplay.Definitions["j_bloons_frag_bombs"] = { --Frag Bombs
         local _, poker_hands, scoring_hand = JokerDisplay.evaluate_hand()
         if poker_hands[card.ability.extra.poker_hand] and next(poker_hands[card.ability.extra.poker_hand]) then
             local idx_by_id = {}
-            local max = 0
             for k, v in ipairs(scoring_hand) do
                 local id = v:get_id()
                 local rank = SMODS.has_no_rank(v) and 0 or v.base.nominal

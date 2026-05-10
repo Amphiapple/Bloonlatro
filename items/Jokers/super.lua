@@ -109,7 +109,7 @@ SMODS.Joker { --Sun Avatar
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 3 } --Variables: Xmult = Xmult
+        extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
