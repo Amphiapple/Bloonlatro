@@ -494,7 +494,7 @@ SMODS.Joker { --Horned Owl
     loc_txt = {
         name = 'Horned Owl',
         text = {
-            'Create a random {C:tarot}Tarot{} card',
+            'Create a {C:tarot}Tarot{} card',
             'if played hand contains',
             'a scoring {C:attention}Wild Card{}',
             '{C:inactive}(Must have room){}'

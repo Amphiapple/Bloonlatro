@@ -372,7 +372,7 @@ SMODS.Consumable { --Portable Lake
     loc_txt = {
         name = 'Portable Lake',
         text = {
-            '{C:dark_edition}#1#{}#2#'
+            '{C:dark_edition}#1#{}#2#{C:inactive}#3#{}'
         }
     },
     atlas = 'Consumable',
@@ -381,20 +381,15 @@ SMODS.Consumable { --Portable Lake
 
     loc_vars = function(self, info_queue, card)
         local function process_num(active)
-            if active then
-                return '+' .. card.ability.slots
-            else
-                return ''
-            end
+            return active and '+' .. card.ability.slots or ''
         end
-        local function process_var(active)
-            if active then
-                return ' Joker slot'
-            else
-                return 'Does nothing?'
-            end
+        local function process_var1(active)
+            return active and ' Joker slot' or ''
         end
-        return { vars = { process_num(card.ability.active), process_var(card.ability.active) } }
+        local function process_var2(active)
+            return active and '' or 'Does nothing?'
+        end
+        return { vars = { process_num(card.ability.active), process_var1(card.ability.active), process_var2(card.ability.active) } }
     end,
     add_to_deck = function (self, card, from_debuff)
         card.ability.active = false
@@ -479,12 +474,33 @@ SMODS.Consumable { --Glue Trap
     end,
 }
 
-SMODS.Consumable { --Psychic Blast
-    key = 'psychic_blast',
+SMODS.Consumable { --Freezing Trap
+    key = 'freezing_trap',
     set = 'Power',
-    name = 'Psychic Blast',
+    name = 'Freezing Trap',
     loc_txt = {
-        name = 'Psychic Blast',
+        name = 'Freezing Trap',
+        text = {
+            '{C:attention}Freezes #1#{}',
+            'selected cards'
+        }
+    },
+    atlas = 'Consumable',
+    pos = { x = 4, y = 1 },
+    config = { mod_conv = "m_bloons_frozen", max_highlighted = 5 },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
+}
+
+SMODS.Consumable { --Camo Trap
+    key = 'camo_trap',
+    set = 'Power',
+    name = 'Camo Trap',
+    loc_txt = {
+        name = 'Camo Trap',
         text = {
             '{C:attention}Stuns #1#{}',
             'selected cards',
@@ -492,7 +508,7 @@ SMODS.Consumable { --Psychic Blast
         }
     },
     atlas = 'Consumable',
-    pos = { x = 4, y = 1 },
+    pos = { x = 0, y = 2 },
     config = { max_highlighted = 5, discards = 2 }, --Variables: discards = extra discards
 
     loc_vars = function(self, info_queue, card)
@@ -554,27 +570,6 @@ SMODS.Consumable { --Psychic Blast
         }))
         delay(0.5)
     end
-}
-
-SMODS.Consumable { --Freezing Trap
-    key = 'freezing_trap',
-    set = 'Power',
-    name = 'Freezing Trap',
-    loc_txt = {
-        name = 'Freezing Trap',
-        text = {
-            '{C:attention}Freezes #1#{}',
-            'selected cards'
-        }
-    },
-    atlas = 'Consumable',
-    pos = { x = 0, y = 2 },
-    config = { mod_conv = "m_bloons_frozen", max_highlighted = 5 },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
-    end,
 }
 
 SMODS.Consumable { --Pontoon

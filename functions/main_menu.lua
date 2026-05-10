@@ -22,7 +22,7 @@ SMODS.Sound({ key = "pop04", path = "pop04.ogg" })
 -------------------------------------------------------
 
 function Bloonlatro.main_menu()
-    MAX_LOGO_POS_X = 4
+    MAX_LOGO_POS_X = 8
     create_bloonlatro_logo(MAX_LOGO_POS_X)
     create_bloonlatro_boss_button()
 end
@@ -70,7 +70,16 @@ function create_bloonlatro_logo(pos_x)
         G.E_MANAGER:add_event(Event({
             delay = 0.1,
             func = function()
-                local next_x = (pos_x <= 0 and G.title_top.max_pos_x) or (pos_x - 1)
+                local next_x = 0
+                if pos_x == 0 then
+                    next_x = G.title_top.max_pos_x
+                elseif pos_x == 7 then
+                    next_x = math.random() > 0.5 and 6 or 5
+                elseif pos_x == 6 then
+                    next_x = pos_x - 2
+                else
+                    next_x = pos_x - 1
+                end
                 pos_x = next_x
                 card.children.center:set_sprite_pos({ x = pos_x, y = 0 })
                 return true
