@@ -10,6 +10,11 @@ Balance Changes:
 - Triple Shot cost 5 > 4
 - Sharp Shooter cost 6 > 5
 - MOAR Glaives cost 6 > 5
+- Ice Monkey chips every 3 > 2 hands
+- Cold Snap money $1 > $2
+- Ice Shards mult gain 1 > 2
+- Enhanced Freeze chips 40 > 80
+- Larger Radius every 3 > 2 hands
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
@@ -18,8 +23,8 @@ Balance Changes:
 - Lead to Gold no longer removes steel
 - Tidal Chill 1 random card > 2 random cards
 - Pouakai reworked
-
 - Jones deck reworked
+- Cost reduction minimum is now $0 instead of $1
 
 Fixes:
 - Triple Shot Joker Display should no longer crash

@@ -122,7 +122,7 @@ SMODS.Joker { --Primary Mentoring
         name = 'Primary Mentoring',
         text = {
             '{C:blue}Common {C:primary}Primary',
-            '{C:attention}Jokers{} cost {C:money}$1{}',
+            '{C:attention}Jokers{} are free',
             '{C:primary}Primary {C:attention}Jokers{} each',
             'give {X:mult,C:white}X#1#{} Mult'
         }
@@ -161,7 +161,7 @@ SMODS.Joker { --Primary Expertise
     loc_txt = {
         name = 'Primary Expertise',
         text = {
-            '{C:blue}Common {C:primary}Primary {C:attention}Jokers{} cost {C:money}$1{}',
+            '{C:blue}Common {C:primary}Primary {C:attention}Jokers{} are free',
             '{C:green}#1# in #2#{} chance for {X:mult,C:white}X#3#{} Mult,',
             '{C:green,E:1,s:1.1}Probability{} increases for',
             'each {C:primary}Primary Joker'

@@ -17,7 +17,7 @@ SMODS.Joker { --Ice Monkey
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { chips = 40, limit = 3, counter = 3 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
+        extra = { chips = 40, limit = 2, counter = 2 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)
@@ -123,7 +123,7 @@ SMODS.Joker { --Cold Snap
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { money = 1 } --Variables: money = dollars
+        extra = { money = 2 } --Variables: money = dollars
     },
 
     loc_vars = function(self, info_queue, card)
@@ -163,7 +163,7 @@ SMODS.Joker { --Ice Shards
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult per thawed frozen card, current = current +mult
+        extra = { mult = 2, current = 0 } --Variables: mult = +mult per thawed frozen card, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -389,7 +389,7 @@ SMODS.Joker { --Enhanced Freeze
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { chips = 40, limit = 2, counter = 2 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
+        extra = { chips = 80, limit = 2, counter = 2 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)
@@ -634,7 +634,7 @@ SMODS.Joker { --Larger Radius
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { mult = 10, limit = 3, counter = 3 } --Variables: mult = +mult, limit = number of hands for freeze, counter = hand index
+        extra = { mult = 10, limit = 2, counter = 2 } --Variables: mult = +mult, limit = number of hands for freeze, counter = hand index
     },
 
     loc_vars = function(self, info_queue, card)
