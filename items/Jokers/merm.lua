@@ -166,9 +166,9 @@ SMODS.Joker { --Abyss Dweller
 
 SMODS.Joker { --Abyssal Warrior
     key = 'abyssal_warrior',
-    name = 'Abyss Dweller',
+    name = 'Abyssal Warrior',
     loc_txt = {
-        name = 'Abyss Dweller',
+        name = 'Abyssal Warrior',
         text = {
             '{X:mult,C:white}X#1#{} Mult',
             '{C:attention}Adjacent{} Jokers',

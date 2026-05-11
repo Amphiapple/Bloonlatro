@@ -603,7 +603,7 @@ SMODS.Joker { --Ascended Shadow
         end
     end,
     calculate = function(self, card, context)
-        if context.hand_drawn or context.first_hand_drawn and not context.blueprint then
+        if (context.hand_drawn or context.first_hand_drawn) and not context.blueprint then
             local any_forced = nil
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.forced_selection then
@@ -625,7 +625,7 @@ SMODS.Joker { --Ascended Shadow
         elseif context.after and not context.blueprint then
             for k, v in ipairs(context.full_hand) do
                 if v.ability.ascended_shadow then
-                    v.ability.scended_shadow = false
+                    v.ability.ascended_shadow = false
                 end
             end
         elseif context.discard and context.other_card.ability.ascended_shadow and not context.blueprint then

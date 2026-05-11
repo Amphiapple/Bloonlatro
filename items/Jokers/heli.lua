@@ -251,8 +251,8 @@ SMODS.Joker { --Bigger Jets
         name = 'Bigger Jets',
         text = {
             'This Joker gains {C:mult}+#1#{} Mult',
-            'per {C:attention}consecutive{} hand played',
-            'with a scoring {C:attention}face{} card',
+            'per {C:attention}consecutive{} hand',
+            'played with a {C:attention}face{} card',
             '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
         }
     },
@@ -273,7 +273,7 @@ SMODS.Joker { --Bigger Jets
     calculate = function(self, card, context)
         if context.before and not context.blueprint_card then
             local has_faces = false
-            for k, v in ipairs(context.scoring_hand) do
+            for k, v in ipairs(context.full_hand) do
                 if v:is_face() then
                     has_faces = true
                 end
