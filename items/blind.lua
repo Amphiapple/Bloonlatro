@@ -630,10 +630,8 @@ SMODS.Blind {
     loc_txt = {
         name = 'Diamondback Head',
         text = {
-            'All face cards',
-            'are debuffed',
-            'X1 scoring for',
-            'each undefeated',
+            'All face cards are debuffed',
+            'X1 score for each undefeated',
             'Diamondback blind',
         }
     },
@@ -667,10 +665,8 @@ SMODS.Blind {
     loc_txt = {
         name = 'Diamondback Body',
         text = {
-            'Add #1# random',
-            'cards to your deck',
-            'X1 scoring for',
-            'each undefeated',
+            'Add #1# cards to your deck',
+            'X1 score for each undefeated',
             'Diamondback blind',
         }
     },
@@ -737,8 +733,7 @@ SMODS.Blind {
         name = 'Diamondback Tail',
         text = {
             'Score #1# less chips',
-            'X1 scoring for',
-            'each undefeated',
+            'X1 score for each undefeated',
             'Diamondback blind',
         }
     },
