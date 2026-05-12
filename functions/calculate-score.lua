@@ -163,3 +163,115 @@ SMODS.Scoring_Calculation({
 		}
 	end,
 })
+
+SMODS.Scoring_Calculation({
+	key = "bloons_diamondback_tail",
+	func = function(self, chips, mult, flames)
+		return chips * mult * 3
+	end,
+    replace_ui = function(self)
+		return {
+			n = G.UIT.R,
+			config = { minh = 1.2, align = "cm" },
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = { align = "cm" },
+					nodes = {
+						{
+							n = G.UIT.R,
+							config = { align = "cm", minh = 1, padding = 0.1 },
+							nodes = {
+
+								-- Chips box
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "hand_chips_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = "chips",
+											text = "chip_text",
+											align = "cr",
+											colour = G.C.CHIPS,
+										}),
+									},
+								},
+
+                                -- Operator
+								SMODS.GUI.operator(0.4),
+
+								-- Mult box
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "hand_mult_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = "mult",
+											colour = G.C.MULT,
+										}),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end,
+})
+
+SMODS.Scoring_Calculation({
+	key = "bloons_diamondback_body",
+	func = function(self, chips, mult, flames)
+		return chips * mult * 2
+	end,
+    replace_ui = function(self)
+		return {
+			n = G.UIT.R,
+			config = { minh = 1.2, align = "cm" },
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = { align = "cm" },
+					nodes = {
+						{
+							n = G.UIT.R,
+							config = { align = "cm", minh = 1, padding = 0.1 },
+							nodes = {
+
+								-- Chips box
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "hand_chips_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = "chips",
+											text = "chip_text",
+											align = "cr",
+											colour = G.C.CHIPS,
+										}),
+									},
+								},
+
+                                -- Operator
+								SMODS.GUI.operator(0.4),
+
+								-- Mult box
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "hand_mult_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = "mult",
+											colour = G.C.MULT,
+										}),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end,
+})

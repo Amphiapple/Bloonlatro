@@ -4,7 +4,7 @@ SMODS.Atlas {
     px = 34,
     py = 34,
     atlas_table = 'ANIMATION_ATLAS',
-    frames = 21,
+    frames = 1,
 }
 
 SMODS.Blind {
@@ -17,7 +17,7 @@ SMODS.Blind {
     },
     key = 'final_moab',
     atlas = 'Blind',
-    pos = { y = 12 },
+    pos = { y = 0 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -47,7 +47,7 @@ SMODS.Blind {
     },
     key = 'final_bfb',
     atlas = 'Blind',
-    pos = { y = 13 },
+    pos = { y = 1 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -92,7 +92,7 @@ SMODS.Blind {
     },
     key = 'final_ddt',
     atlas = 'Blind',
-    pos = { y = 14 },
+    pos = { y = 2 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -142,7 +142,7 @@ SMODS.Blind {
     },
     key = 'final_zomg',
     atlas = 'Blind',
-    pos = { y = 15 },
+    pos = { y = 3 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -196,7 +196,7 @@ SMODS.Blind {
     },
     key = 'final_bad',
     atlas = 'Blind',
-    pos = { y = 16 },
+    pos = { y = 4 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -228,7 +228,7 @@ SMODS.Blind {
     },
     key = 'bloonarius',
     atlas = 'Blind',
-    pos = { y = 17 },
+    pos = { y = 5 },
     dollars = 8,
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
@@ -276,7 +276,7 @@ SMODS.Blind {
     },
     key = 'lych',
     atlas = 'Blind',
-    pos = { y = 18 },
+    pos = { y = 6 },
     dollars = 8,
     mult = 40, -- 40x base score (2 million)
     boss = { showdown = true },
@@ -394,7 +394,7 @@ SMODS.Blind {
     },
     key = 'vortex',
     atlas = 'Blind',
-    pos = { y = 19 },
+    pos = { y = 7 },
     dollars = 8,
     mult = 25, -- 25x base score (500k)
     boss = { showdown = true },
@@ -455,7 +455,7 @@ SMODS.Blind {
 
     key = 'dreadbloon',
     atlas = 'Blind',
-    pos = { y = 20 },
+    pos = { y = 8 },
     dollars = 8,
     mult = 8, -- 8x base score (400k)
     boss = { showdown = true },
@@ -526,7 +526,7 @@ SMODS.Blind {
     },
     key = 'phayze',
     atlas = 'Blind',
-    pos = { y = 21 },
+    pos = { y = 9 },
     dollars = 8,
     mult = 20, -- 20x base score (1 million)
     boss = { showdown = true },
@@ -571,7 +571,7 @@ SMODS.Blind {
     },
     key = 'blastapopoulos',
     atlas = 'Blind',
-    pos = { y = 22 },
+    pos = { y = 10 },
     dollars = 8,
     mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },
@@ -630,16 +630,20 @@ SMODS.Blind {
     loc_txt = {
         name = 'Diamondback Head',
         text = {
-            '1'
+            'All face cards',
+            'are debuffed',
+            'X1 scoring for',
+            'each undefeated',
+            'Diamondback blind',
         }
     },
     key = 'diamondback_head',
     atlas = 'Blind',
-    pos = { y = 1 },
+    pos = { y = 11 },
     dollars = 8,
-    mult = 60, -- 60x base score (3 million)
+    mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
-    boss_colour = G.C.WHITE,
+    boss_colour = HEX("D8AF48"),
     bloonlatro_boss = {
         title = 'Diamondback the Village Devourer',
         index = 7,
@@ -648,6 +652,10 @@ SMODS.Blind {
             segment = "head",
             order = 1
         }
+    },
+
+    debuff = {
+        is_face = 'face'
     },
 
     in_pool = function()
@@ -659,16 +667,20 @@ SMODS.Blind {
     loc_txt = {
         name = 'Diamondback Body',
         text = {
-            '2'
+            'Add #1# random',
+            'cards to your deck',
+            'X1 scoring for',
+            'each undefeated',
+            'Diamondback blind',
         }
     },
     key = 'diamondback_body',
     atlas = 'Blind',
-    pos = { y = 2 },
+    pos = { y = 12 },
     dollars = 8,
-    mult = 60, -- 60x base score (3 million)
+    mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
-    boss_colour = G.C.WHITE,
+    boss_colour = HEX("D8AF48"),
     bloonlatro_boss = {
         index = 7,
         parts = {
@@ -678,8 +690,45 @@ SMODS.Blind {
         }
     },
 
+    loc_vars = function(self)
+        return {
+            vars = { 3 }
+        }
+    end,
+
+    collection_loc_vars = function(self)
+        return {
+            vars = { 3 }
+        }
+    end,
+
     in_pool = function()
         return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
+    end,
+
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_diamondback_body")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+
+    calculate = function(self, blind, context)
+        if context.before and not blind.disabled then
+            for i = 1, 3 do
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_' .. tostring(#G.deck.cards)))
+                SMODS.add_card({
+                    set = 'Playing Card',
+                    front = card_front,
+                    area = G.deck,
+                    skip_materialize = false,
+                    enhanced_poll = 1
+                })
+            end
+        end
     end
 }
 
@@ -687,16 +736,19 @@ SMODS.Blind {
     loc_txt = {
         name = 'Diamondback Tail',
         text = {
-            '3'
+            'Score #1# less chips',
+            'X1 scoring for',
+            'each undefeated',
+            'Diamondback blind',
         }
     },
     key = 'diamondback_tail',
     atlas = 'Blind',
-    pos = { y = 3 },
+    pos = { y = 13 },
     dollars = 8,
-    mult = 60, -- 60x base score (3 million)
+    mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
-    boss_colour = G.C.WHITE,
+    boss_colour = HEX("D8AF48"),
     bloonlatro_boss = {
         index = 7,
         parts = {
@@ -706,7 +758,51 @@ SMODS.Blind {
         }
     },
 
+    loc_vars = function(self)
+        return {
+            vars = { 200 }
+        }
+    end,
+
+    collection_loc_vars = function(self)
+        return {
+            vars = { 200 }
+        }
+    end,
+
     in_pool = function()
         return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
+    end,
+
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_diamondback_tail")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+
+    calculate = function(self, blind, context)
+        if context.final_scoring_step and not blind.disabled then
+            hand_chips = mod_chips(math.min(0, hand_chips - 200))
+            update_hand_text( { delay = 0 }, { chips = hand_chips } )
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					play_sound("timpani", 1)
+					attention_text({
+						scale = 1.4,
+						text = "Shielded",
+						hold = 0.45,
+						align = "cm",
+						offset = { x = 0, y = -2.7 },
+						major = G.play,
+					})
+					return true
+				end,
+			}))
+            delay(0.6)
+        end
     end
 }

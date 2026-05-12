@@ -91,7 +91,7 @@ function create_bloonlatro_logo(pos_x)
 end
 
 function create_bloonlatro_boss_button()
-    local pos_y = math.random(17, 22)
+    local pos_y = math.random(5, 13)
 
     local card = Card(
         0, 0,
