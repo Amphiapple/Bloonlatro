@@ -157,7 +157,7 @@ JokerDisplay.Definitions["j_bloons_snowstorm"] = { --Snowstorm
     calc_function = function(card)
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         local first_hand = G.GAME and G.GAME.current_round.hands_played == 0
-        card.joker_display_values.hand_size = first_hand and text ~= 'Unknown' and math.ceil(#scoring_hand / 2) or 0
+        card.joker_display_values.hand_size = first_hand and text ~= 'Unknown' and math.floor(#scoring_hand / 2) or 0
     end
 }
 

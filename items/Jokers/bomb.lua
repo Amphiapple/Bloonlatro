@@ -156,7 +156,7 @@ SMODS.Joker { --Bloon Impact
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { mult = 20 } --Variables: mult = +mult if any stunned
+        extra = { mult = 25 } --Variables: mult = +mult if any stunned
     },
 
     loc_vars = function(self, info_queue, card)
