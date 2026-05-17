@@ -687,25 +687,7 @@ SMODS.Joker { --Favored Trades
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
-        local count = 0
-        for k, v in pairs(G.GAME.used_vouchers) do
-            local redeemed = v
-            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config then
-                if k == G.GAME.selected_back.effect.config.voucher then
-                    redeemed = false
-                elseif G.GAME.selected_back.effect.config.vouchers then
-                    for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                        if k == j then
-                            redeemed = false
-                        end
-                    end
-                end
-            end
-            if redeemed then
-                count = count + 1
-            end
-        end
-        card.ability.extra.current = 1 + card.ability.extra.Xmult * count
+        card.ability.extra.current = 1 + card.ability.extra.Xmult * (#G.vouchers.cards - #G.GAME.selected_back.effect.config.voucher)
     end,
     calculate = function(self, card, context)
         if context.joker_main then

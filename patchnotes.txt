@@ -46,6 +46,7 @@ Fixes:
 - Tsar Bomba Joker Display should work
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
 - Sticky Bomb Joker Display should work
+- Sticky Bomb should no longer keep stickied status on cards between hands
 - Perishing Potions no longer adds Polychrome's cost when bought
 - Abyssal Warrior should have the correct name
 - Primary Training and Primary Mentoring Joker Display should no longer crash when transforming cards

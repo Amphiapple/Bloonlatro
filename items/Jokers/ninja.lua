@@ -656,33 +656,36 @@ SMODS.Joker { --Sticky Bomb
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card.ability.sticky_bomb and not context.blueprint then
-            if card.ability.extra.active then
-                if not context.stun or context.other_card.debuff then
-                    context.other_card.ability.sticky_bomb = false
-                end
-            else
-                context.other_card.ability.sticky_bomb = false
-                if context.stun and not context.other_card.debuff then
-                    card.ability.extra.active = true
+        if context.discard and context.other_card.ability.sticky_bomb and not card.ability.extra.active and not context.blueprint then
+            context.other_card.ability.sticky_bomb = false
+            if context.stun and not context.other_card.debuff and not card.ability.extra.active then
+                card.ability.extra.active = true
+            end
+        elseif context.joker_main then
+            for k, v in ipairs(context.full_hand) do
+                if v.ability.sticky_bomb then
+                    v.ability.sticky_bomb = false
                 end
             end
-        elseif context.joker_main and card.ability.extra.active then
-            return {
-                Xmult = card.ability.extra.Xmult,
-            }
+            for k, v in ipairs(context.G.hand.cards) do
+                if v.ability.sticky_bomb then
+                    v.ability.sticky_bomb = false
+                end
+            end
+            if card.ability.extra.active then
+                return {
+                    Xmult = card.ability.extra.Xmult,
+                }
+            end
         elseif context.after and not context.blueprint then
             card.ability.extra.active = false
             local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
-                if v.ability.sticky_bomb then
-                    v.ability.sticky_bomb = false
-                end
-                if v:is_suit('Spades') and not v.debuff then
+                if v:is_suit('Spades') and not v.debuff and not v.ability.sticky_bomb then
                     eligible_cards[#eligible_cards+1] = v
                 end
             end
-            if next(eligible_cards) then
+            if next(eligible_cards) and G.GAME.chips/G.GAME.blind.chips < to_big(1) then
                 local stickied_card = pseudorandom_element(eligible_cards, 'sticky_bomb')
                 stickied_card:set_ability(G.P_CENTERS.m_bloons_stunned)
                 stickied_card.ability.sticky_bomb = true
