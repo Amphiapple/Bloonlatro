@@ -253,6 +253,7 @@ SMODS.Joker { --Nautic Siege Core
     key = 'nautic_siege_core',
     name = 'Nautic Siege Core',
     loc_txt = {
+
         name = 'Nautic Siege Core',
         text = {
             '{X:mult,C:white}X#1#{} Mult if unsubmerged',
@@ -261,6 +262,7 @@ SMODS.Joker { --Nautic Siege Core
             'hands to give {X:mult,C:white}X#5#{} Mult next',
             'hand once unsubmerged'
         }
+
     },
     atlas = 'Joker',
     pos = { x = 8, y = 26 },
