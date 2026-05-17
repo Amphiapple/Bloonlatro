@@ -5,6 +5,7 @@ Added Jokers:
 - Some unique consumables that only appear when playing a specific deck
 
 General Changes:
+- All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
 
 Balance Changes:
 - Triple Shot cost 5 > 4
@@ -28,6 +29,7 @@ Balance Changes:
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 - Artillery Battery reworked
 
+- Sun Avatar Xmult 3 > 2
 - Larger Potions tarots 2 > 1, 1 in 2 chance for 2
 - Lead to Gold no longer removes steel
 

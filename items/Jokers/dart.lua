@@ -2,13 +2,6 @@
 SMODS.Joker { --Dart Monkey
     key = 'dart_monkey',
     name = 'Dart Monkey',
-	loc_txt = {
-        name = 'Dart Monkey',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 0 },
     rarity = 1,
@@ -68,13 +61,6 @@ SMODS.Joker { --Sharp Shots
 SMODS.Joker { --Razor Sharp Shots
     key = 'razor_sharp_shots',
     name = 'Razor Sharp Shots',
-    loc_txt = {
-        name = 'Razor Sharp Shots',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 0 },
     rarity = 1,
@@ -101,13 +87,6 @@ SMODS.Joker { --Razor Sharp Shots
 SMODS.Joker { --Spike-o-pult
     key = 'spike_o_pult',
     name = 'Spike-o-pult',
-	loc_txt = {
-        name = 'Spike-o-pult',
-        text = {
-            'Each played card gives',
-            '{C:mult}+#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 0 },
     rarity = 2,
@@ -133,13 +112,6 @@ SMODS.Joker { --Spike-o-pult
 SMODS.Joker { --Juggernaut
     key = 'juggernaut',
     name = 'Juggernaut',
-	loc_txt = {
-        name = 'Juggernaut',
-        text = {
-            'Each played card gives',
-            '{C:mult}+#1#{} more Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 0 },
     rarity = 2,
@@ -172,13 +144,6 @@ SMODS.Joker { --Juggernaut
 SMODS.Joker { --Ultra-Juggernaut
     key = 'ultra_juggernaut',
     name = 'Ultra-Juggernaut',
-	loc_txt = {
-        name = 'Ultra-Juggernaut',
-        text = {
-            'Each played card gives',
-            '{X:mult,C:white}X#1#{} more Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 0 },
     rarity = 3,
@@ -211,13 +176,6 @@ SMODS.Joker { --Ultra-Juggernaut
 SMODS.Joker { --Quick Shots
     key = 'quick_shots',
     name = 'Quick Shots',
-    loc_txt = {
-        name = 'Quick Shots',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 0 },
     rarity = 1,
@@ -244,13 +202,6 @@ SMODS.Joker { --Quick Shots
 SMODS.Joker { --Very Quick Shots
     key = 'very_quick_shots',
     name = 'Very Quick Shots',
-    loc_txt = {
-        name = 'Very Quick Shots',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 0 },
     rarity = 1,
@@ -277,14 +228,6 @@ SMODS.Joker { --Very Quick Shots
 SMODS.Joker { --Triple Shot
     key = 'triple_shot',
     name = 'Triple Shot',
-	loc_txt = {
-        name = 'Triple Shot',
-        text = {
-            '{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult',
-            'if played hand has',
-            'exactly {C:attention}#3#{} cards',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 0 },
     rarity = 2,
@@ -311,15 +254,6 @@ SMODS.Joker { --Triple Shot
 SMODS.Joker { --Super Monkey Fan Club
     key = 'super_monkey_fan_club',
     name = 'Super Monkey Fan Club',
-	loc_txt = {
-        name = 'Super Monkey Fan Club',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            'Common {C:attention}Dart Monkeys',
-            'and {C:attention}Fan Club{} members',
-            'give {X:mult,C:white}X#1#{} Mult',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 0 },
     rarity = 2,
@@ -354,15 +288,6 @@ SMODS.Joker { --Super Monkey Fan Club
 SMODS.Joker { --Plasma Monkey Fan Club
     key = 'plasma_monkey_fan_club',
     name = 'Plasma Monkey Fan Club',
-	loc_txt = {
-        name = 'Plasma Monkey Fan Club',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            'Common {C:attention}Dart Monkeys',
-            'and {C:attention}Fan Club{} members',
-            'give {X:mult,C:white}X#1#{} Mult',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 0 },
     rarity = 3,
@@ -397,14 +322,6 @@ SMODS.Joker { --Plasma Monkey Fan Club
 SMODS.Joker { --Long Range Darts
     key = 'long_range_darts',
     name = 'Long Range Darts',
-    loc_txt = {
-        name = 'Long Range Darts',
-        text = {
-            '{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult',
-            'double chips and mult after',
-            '{C:attention}first hand{} of round'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 11, y = 0 },
     rarity = 1,
@@ -437,12 +354,6 @@ SMODS.Joker { --Long Range Darts
 SMODS.Joker { --Enhanced Eyesight
     key = 'enhanced_eyesight',
     name = 'Enhanced Eyesight',
-    loc_txt = {
-        name = 'Enhanced Eyesight',
-        text = {
-            '{C:attention}+#1#{} consumable slot'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 0 },
     rarity = 1,
@@ -467,14 +378,6 @@ SMODS.Joker { --Enhanced Eyesight
 SMODS.Joker { --Crossbow
     key = 'crossbow',
     name = 'Crossbow',
-	loc_txt = {
-        name = 'Crossbow',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult if you',
-            'have a consumable'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 0 },
     rarity = 2,
@@ -501,14 +404,6 @@ SMODS.Joker { --Crossbow
 SMODS.Joker { --Sharp Shooter
     key = 'sharp_shooter',
     name = 'Sharp Shooter',
-	loc_txt = {
-        name = 'Sharp Shooter',
-        text = {
-            '{C:attention}CRITS{} for {C:mult}+#1#{} Mult',
-            'every {C:attention}#2#{} cards scored',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 0 },
     rarity = 2,
@@ -579,14 +474,6 @@ SMODS.Joker { --Sharp Shooter
 SMODS.Joker { --Crossbow Master
     key = 'crossbow_master',
     name = 'Crossbow Master',
-	loc_txt = {
-        name = 'Crossbow Master',
-        text = {
-            '{C:attention}CRITS{} for {X:mult,C:white}X#1#{} Mult',
-            'every {C:attention}#2#{} cards scored',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 0 },
     rarity = 2,

@@ -91,7 +91,7 @@ local jokers = {
     'tack',
     'ice',
     'glue',
-    'desperado',
+    'desp',
     'sniper',
     'sub',
     'boat',
