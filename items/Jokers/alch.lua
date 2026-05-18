@@ -1,14 +1,6 @@
 SMODS.Joker { --Alchemist
     key = 'alchemist',
     name = 'Alchemist',
-	loc_txt = {
-        name = 'Alchemist',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on {C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 17 },
     rarity = 1,
@@ -39,15 +31,6 @@ SMODS.Joker { --Alchemist
 SMODS.Joker { --Larger Potions
     key = 'larger_potions',
     name = 'Larger Potions',
-	loc_txt = {
-        name = 'Larger Potions',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on {C:attention}final hand{} of round',
-            '{C:green}#1# in #2#{} chance to create {C:attention}#3#{}',
-            '{C:inactive}(Must have room){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 17 },
     rarity = 1,
@@ -89,15 +72,6 @@ SMODS.Joker { --Larger Potions
 SMODS.Joker { --Acidic Mixture Dip
     key = 'acidic_mixture_dip',
     name = 'Acidic Mixture Dip',
-    loc_txt = {
-        name = 'Acidic Mixture Dip',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
-            '{C:dark_edition}Polychrome{} effect to {C:attention}last{}',
-            'played card that scores',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 17 },
     rarity = 1,
@@ -129,15 +103,6 @@ SMODS.Joker { --Acidic Mixture Dip
 SMODS.Joker { --Berserker Brew
     key = 'berserker_brew',
     name = 'Berserker Brew',
-	loc_txt = {
-        name = 'Berserker Brew',
-        text = {
-            'Sell this card to add',
-            '{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
-            '{C:dark_edition}Polychrome{} edition',
-            'to a random {C:attention}Joker{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 17 },
     rarity = 2,
@@ -181,14 +146,6 @@ SMODS.Joker { --Berserker Brew
 SMODS.Joker { --Stronger Stimulant
     key = 'stronger_stimulant',
     name = 'Stronger Stimulant',
-	loc_txt = {
-        name = 'Stronger Stimulant',
-        text = {
-            'Sell this card to add',
-            '{C:dark_edition}Polychrome{} edition',
-            'to a random {C:attention}Joker{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 17 },
     rarity = 2,
@@ -229,15 +186,6 @@ SMODS.Joker { --Stronger Stimulant
 SMODS.Joker { --Permanent Brew
     key = 'permanent_brew',
     name = 'Permanent Brew',
-	loc_txt = {
-        name = 'Permanent Brew',
-        text = {
-            'Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
-            'or {C:dark_edition}Polychrome{} effect to',
-            '{C:attention}last{} played card that scores',
-            '{s:0.8}May apply over an existing edition{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 17 },
     rarity = 3,
@@ -266,16 +214,6 @@ SMODS.Joker { --Permanent Brew
 SMODS.Joker { --Stronger Acid
     key = 'stronger_acid',
     name = 'Stronger Acid',
-	loc_txt = {
-        name = 'Stronger Acid',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on {C:attention}final hand{} of round',
-            '{C:green}#1# in #2#{} chance to create',
-            'a {C:spectral}Spectral{} card instead',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 17 },
     rarity = 1,
@@ -323,14 +261,6 @@ SMODS.Joker { --Stronger Acid
 SMODS.Joker { --Perishing Potions
     key = 'perishing_potions',
     name = 'Perishing Potions',
-	loc_txt = {
-        name = 'Perishing Potions',
-        text = {
-            'Add {C:dark_edition}Polychrome{}',
-            'edition and {C:attention}Perishable{}',
-            'to this {C:attention}Joker{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 17 },
     rarity = 1,
@@ -358,15 +288,6 @@ SMODS.Joker { --Perishing Potions
 SMODS.Joker { --Unstable Concoction
     key = 'unstable_concoction',
     name = 'Unstable Concoction',
-	loc_txt = {
-        name = 'Unstable Concoction',
-        text = {
-            'If {C:attention}first hand{} of round',
-            'has only {C:attention}1{} card, destroy',
-            '{C:attention}Joker{} to the right to',
-            'add a random {C:attention}seal{} to it',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 17 },
     rarity = 2,
@@ -406,15 +327,6 @@ SMODS.Joker { --Unstable Concoction
 SMODS.Joker { --Transforming Tonic
     key = 'transforming_tonic',
     name = 'Transforming Tonic',
-	loc_txt = {
-        name = 'Transforming Tonic',
-        text = {
-            'If {C:attention}first hand{} of round',
-            'contains only {C:attention}2{} cards,',
-            '{C:attention}Transform{} the {C:attention}left{} card',
-            'into the {C:attention}right{} card',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 17 },
     rarity = 2,
@@ -470,16 +382,6 @@ SMODS.Joker { --Transforming Tonic
 SMODS.Joker { --Total Transformation
     key = 'total_transformation',
     name = 'Total Transformation',
-	loc_txt = {
-        name = 'Total Transformation',
-        text = {
-            'After {C:attention}#1#{} rounds,',
-            'sell this card to {C:attention}Transform{}',
-            'the {C:attention}Joker{} to the {C:attention}left{} into ',
-            'the {C:attention}Joker{} to the {C:attention}right{}',
-            '{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 17 },
     rarity = 3,
@@ -558,15 +460,6 @@ SMODS.Joker { --Total Transformation
 SMODS.Joker { --Faster Throwing
     key = 'faster_throwing_alchemist',
     name = 'Faster Throwing (Alchemist)',
-	loc_txt = {
-        name = 'Faster Throwing',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on hand before',
-            '{C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 17 },
     rarity = 1,
@@ -596,15 +489,6 @@ SMODS.Joker { --Faster Throwing
 SMODS.Joker { --Acid Pools
     key = 'acid_pools',
     name = 'Acid Pools',
-	loc_txt = {
-        name = 'Acid Pools',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'at end of round if any',
-            'hands are unused',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 17 },
     rarity = 1,
@@ -634,13 +518,6 @@ SMODS.Joker { --Acid Pools
 SMODS.Joker { --Lead to Gold
     key = 'lead_to_gold',
     name = 'Lead to Gold',
-	loc_txt = {
-        name = 'Lead to Gold',
-        text = {
-            'Add a {C:attention}Gold Seal{} to played',
-            '{C:attention}Steel{} cards when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 17 },
     rarity = 2,
@@ -665,14 +542,6 @@ SMODS.Joker { --Lead to Gold
 SMODS.Joker { --Rubber to Gold
     key = 'rubber_to_gold',
     name = 'Rubber to Gold',
-	loc_txt = {
-        name = 'Rubber to Gold',
-        text = {
-            'If {C:attention}final discard{} of',
-            'round has only {C:attention}1{} card,',
-            'add a {C:attention}Gold Seal{} to it'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 17 },
     rarity = 2,
@@ -703,15 +572,6 @@ SMODS.Joker { --Rubber to Gold
 SMODS.Joker { --Bloon Master Alchemist
     key = 'bloon_master_alchemist',
     name = 'Bloon Master Alchemist',
-	loc_txt = {
-        name = 'Bloon Master Alchemist',
-        text = {
-            'Set money to {C:money}$0{}',
-            'and add random {C:attention}seals{}',
-            'to all scoring cards on',
-            '{C:attention}final hand{} of round'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 17 },
     rarity = 3,

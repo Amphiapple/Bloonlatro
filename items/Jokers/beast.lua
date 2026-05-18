@@ -1,12 +1,6 @@
 SMODS.Joker { --Beast Handler
     key = 'beast_handler',
     name = 'Beast Handler',
-	loc_txt = {
-        name = 'Beast Handler',
-        text = {
-            '{C:chips}+#1#{} Chips',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 24 },
     rarity = 1,
@@ -32,14 +26,6 @@ SMODS.Joker { --Beast Handler
 SMODS.Joker { --Piranha
     key = 'piranha',
     name = 'Piranha',
-	loc_txt = {
-        name = 'Piranha',
-        text = {
-            '{C:mult}+#1#{} Mult if played',
-            'hand contains a',
-            'scoring {C:attention}Bonus Card{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 24 },
     rarity = 1,
@@ -71,13 +57,6 @@ SMODS.Joker { --Piranha
 SMODS.Joker { --Barracuda
     key = 'barracuda',
     name = 'Barracuda',
-	loc_txt = {
-        name = 'Barracuda',
-        text = {
-            '{C:attention}Bonus Cards{} give',
-            '{C:mult}+#1#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 24 },
     rarity = 1,
@@ -105,14 +84,6 @@ SMODS.Joker { --Barracuda
 SMODS.Joker { --Great White
     key = 'great_white',
     name = 'Great White',
-	loc_txt = {
-        name = 'Great White',
-        text = {
-            'Retrigger played',
-            'cards adjacent to',
-            '{C:attention}Bonus Card{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 24 },
     rarity = 2,
@@ -147,15 +118,6 @@ SMODS.Joker { --Great White
 SMODS.Joker { --Orca
     key = 'orca',
     name = 'Orca',
-	loc_txt = {
-        name = 'Orca',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if you have',
-            'at least {C:attention}#2# Bonus{}',
-            '{C:attention}Cards{} in your full deck',
-            '{C:inactive}(Currently {C:attention}#3#{C:inactive})'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 4, y = 24 },
     rarity = 2,
@@ -194,15 +156,6 @@ SMODS.Joker { --Orca
 SMODS.Joker { --Megalodon
     key = 'megalodon',
     name = 'Megalodon',
-	loc_txt = {
-        name = 'Megalodon',
-        text = {
-            '{C:attention}Bonus Cards{} give {X:mult,C:white}X#1#{}',
-            'Mult when scored and',
-            'have a {C:green}#2# in #3#{}',
-            'chance to be destroyed',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 24 },
     rarity = 3,
@@ -236,14 +189,6 @@ SMODS.Joker { --Megalodon
 SMODS.Joker { --Microraptor
     key = 'microraptor',
     name = 'Microraptor',
-	loc_txt = {
-        name = 'Microraptor',
-        text = {
-            '{C:chips}+#1#{} Chips if played',
-            'hand contains a',
-            'scoring {C:attention}Mult Card{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 24 },
     rarity = 1,
@@ -275,13 +220,6 @@ SMODS.Joker { --Microraptor
 SMODS.Joker { --Adasaurus
     key = 'adasaurus',
     name = 'Adasaurus',
-	loc_txt = {
-        name = 'Adasaurus',
-        text = {
-            '{C:attention}Mult Cards{} give',
-            '{C:chips}+#1#{} Chips when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 24 },
     rarity = 1,
@@ -309,15 +247,6 @@ SMODS.Joker { --Adasaurus
 SMODS.Joker { --Velociraptor
     key = 'velociraptor',
     name = 'Velociraptor',
-	loc_txt = {
-        name = 'Velociraptor',
-        text = {
-            'Create the {C:planet}Planet{} card for',
-            'played {C:attention}poker hand{} if it',
-            'contains {C:attention}#1# Mult Cards{}',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 24 },
     rarity = 2,
@@ -369,13 +298,6 @@ SMODS.Joker { --Velociraptor
 SMODS.Joker { --Tyrannosaurus Rex
     key = 'tyrannosaurus_rex',
     name = 'Tyrannosaurus Rex',
-	loc_txt = {
-        name = 'Tyrannosaurus Rex',
-        text = {
-            '{C:attention}Mult Cards{} permanently',
-            'gain {C:mult}+#1#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 24 },
     rarity = 2,
@@ -406,15 +328,6 @@ SMODS.Joker { --Tyrannosaurus Rex
 SMODS.Joker { --Giganotosaurus
     key = 'giganotosaurus',
     name = 'Giganotosaurus',
-	loc_txt = {
-        name = 'Giganotosaurus',
-        text = {
-            '{C:attention}Mult Cards{} give',
-            '{X:mult,C:white}X#1#{} Mult when scored',
-            '{C:green}#2# in #3#{} chance to give',
-            '{X:mult,C:white}X#4#{} Mult instead',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 24 },
     rarity = 3,
@@ -449,15 +362,6 @@ SMODS.Joker { --Giganotosaurus
 SMODS.Joker { --Gyrfalcon
     key = 'gyrfalcon',
     name = 'Gyrfalcon',
-    loc_txt = {
-        name = 'Gyrfalcon',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult if played',
-            'hand contains a',
-            'scoring {C:attention}Wild Card{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 11, y = 24 },
     rarity = 1,
@@ -491,15 +395,6 @@ SMODS.Joker { --Gyrfalcon
 SMODS.Joker { --Horned Owl
     key = 'horned_owl',
     name = 'Horned Owl',
-    loc_txt = {
-        name = 'Horned Owl',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'if played hand contains',
-            'a scoring {C:attention}Wild Card{}',
-            '{C:inactive}(Must have room){}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 24 },
     rarity = 1,
@@ -543,15 +438,6 @@ SMODS.Joker { --Horned Owl
 SMODS.Joker { --Golden Eagle
     key = 'golden_eagle',
     name = 'Golden Eagle',
-    loc_txt = {
-        name = 'Golden Eagle',
-        text = {
-            '{C:attention}Wild Cards{}',
-            'cannot be {C:attention}debuffed{}',
-            'and retrigger',
-            'when played',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 13, y = 24 },
     rarity = 2,
@@ -588,15 +474,6 @@ SMODS.Joker { --Golden Eagle
 SMODS.Joker { --Giant Condor
     key = 'giant_condor',
     name = 'Giant Condor',
-	loc_txt = {
-        name = 'Giant Condor',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'gain {C:red}+#3#{} hand size this',
-            'round when each played',
-            '{C:attention}Wild Card{} is scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 24 },
     rarity = 2,
@@ -636,14 +513,6 @@ SMODS.Joker { --Giant Condor
 SMODS.Joker { --Pouākai
     key = 'pouakai',
     name = 'Pouākai',
-	loc_txt = {
-        name = 'Pouākai',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult for each',
-            'hand size you have',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 24 },
     rarity = 3,

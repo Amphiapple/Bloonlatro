@@ -1,14 +1,6 @@
 SMODS.Joker { --Bomb Shooter
     key = 'bomb_shooter',
     name = 'Bomb Shooter',
-	loc_txt = {
-        name = 'Bomb Shooter',
-        text = {
-            '{C:mult}+#1#{} Mult if played',
-            'hand contains',
-            'a {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 2 },
     rarity = 1,
@@ -34,14 +26,6 @@ SMODS.Joker { --Bomb Shooter
 SMODS.Joker { --Bigger Bombs
     key = 'bigger_bombs',
     name = 'Bigger Bombs',
-	loc_txt = {
-        name = 'Bigger Bombs',
-        text = {
-            '{C:mult}+#1#{} Mult if played',
-            'hand contains',
-            'a {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 2 },
     rarity = 1,
@@ -67,14 +51,6 @@ SMODS.Joker { --Bigger Bombs
 SMODS.Joker { --Heavy Bombs
     key = 'heavy_bombs',
     name = 'Heavy Bombs',
-	loc_txt = {
-        name = 'Heavy Bombs',
-        text = {
-            '{C:mult}+#1#{} Mult if played',
-            'hand contains',
-            'a {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 2 },
     rarity = 1,
@@ -100,15 +76,6 @@ SMODS.Joker { --Heavy Bombs
 SMODS.Joker { --Really Big Bombs
     key = 'really_big_bombs',
     name = 'Really Big Bombs',
-	loc_txt = {
-        name = 'Really Big Bombs',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if played hand',
-            'contains a {C:attention}#2#{}',
-            '{X:mult,C:white}X#3#{} Mult instead if played hand',
-            'contains a {C:attention}#4#{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 2 },
     rarity = 2,
@@ -140,15 +107,6 @@ SMODS.Joker { --Really Big Bombs
 SMODS.Joker { --Bloon Impact
     key = 'bloon_impact',
     name = 'Bloon Impact',
-    loc_txt = {
-        name = 'Bloon Impact',
-        text = {
-            '{C:attention}Stun{} all cards in',
-            '{C:attention}first discard{} of round',
-            '{C:mult}+#1#{} Mult if any {C:attention}Stunned{}',
-            'cards wear off',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 2 },
     rarity = 2,
@@ -188,15 +146,6 @@ SMODS.Joker { --Bloon Impact
 SMODS.Joker { --Bloon Crush
     key = 'bloon_crush',
     name = 'Bloon Crush',
-    loc_txt = {
-        name = 'Bloon Crush',
-        text = {
-            '{C:attention}Stun{} all cards in',
-            '{C:attention}first discard{} of round',
-            '{X:mult,C:white}X#1#{} Mult if any {C:attention}Stunned{}',
-            'cards wear off',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 2 },
     rarity = 3,
@@ -236,14 +185,6 @@ SMODS.Joker { --Bloon Crush
 SMODS.Joker { --Faster Reload
     key = 'faster_reload_bomb',
     name = 'Faster Reload (Bomb)',
-    loc_txt = {
-        name = 'Faster Reload',
-        text = {
-            '{C:mult}+#1#{} Mult if played',
-            'hand contains',
-            'a {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 2 },
     rarity = 1,
@@ -269,14 +210,6 @@ SMODS.Joker { --Faster Reload
 SMODS.Joker { --Missile Launcher
     key = 'missile_launcher',
     name = 'Missile Launcher',
-    loc_txt = {
-        name = 'Missile Launcher',
-        text = {
-            '{C:mult}+#1#{} Mult if played',
-            'hand contains',
-            'a {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 2 },
     rarity = 1,
@@ -302,13 +235,6 @@ SMODS.Joker { --Missile Launcher
 SMODS.Joker { --MOAB Mauler
     key = 'moab_mauler',
     name = 'MOAB Mauler',
-	loc_txt = {
-        name = 'MOAB Mauler',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult against',
-            '{C:attention}Boss Blinds{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 2 },
     rarity = 2,
@@ -334,15 +260,6 @@ SMODS.Joker { --MOAB Mauler
 SMODS.Joker { --MOAB Assassin
     key = 'moab_assassin',
     name = 'MOAB Assassin',
-	loc_txt = {
-        name = 'MOAB Assassin',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult against',
-            '{C:attention}Boss Blinds{} every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 2 },
     rarity = 2,
@@ -389,14 +306,6 @@ SMODS.Joker { --MOAB Assassin
 SMODS.Joker { --MOAB Eliminator
     key = 'moab_eliminator',
     name = 'MOAB Eliminator',
-	loc_txt = {
-        name = 'MOAB Eliminator',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult against',
-            '{C:attention}Boss Blinds{}',
-            '{X:mult,C:white}X#2#{} Mult otherwise',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 2 },
     rarity = 3,
@@ -428,14 +337,6 @@ SMODS.Joker { --MOAB Eliminator
 SMODS.Joker { --Extra Range
     key = 'extra_range',
     name = 'Extra Range',
-	loc_txt = {
-        name = 'Extra Range',
-        text = {
-            '{C:chips}+#1#{} Chips if played',
-            'hand contains',
-            'a {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 2 },
     rarity = 1,
@@ -461,14 +362,6 @@ SMODS.Joker { --Extra Range
 SMODS.Joker { --Frag Bombs
     key = 'frag_bombs',
     name = 'Frag Bombs',
-	loc_txt = {
-        name = 'Frag Bombs',
-        text = {
-            '{C:chips}+#1#{} Chips times the',
-            'rank of the highest',
-            'played {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 2 },
     rarity = 1,
@@ -505,15 +398,6 @@ SMODS.Joker { --Frag Bombs
 SMODS.Joker { --Cluster Bombs
     key = 'cluster_bombs',
     name = 'Cluster Bombs',
-	loc_txt = {
-        name = 'Cluster Bombs',
-        text = {
-            '{C:chips}+#1#{} Chips if',
-            '{C:attention}poker hand{} is the',
-            'same as previous',
-            '{C:attention}poker hand {C:inactive}#2#{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 2 },
     rarity = 2,
@@ -546,15 +430,6 @@ SMODS.Joker { --Cluster Bombs
 SMODS.Joker { --Recursive Cluster
     key = 'recursive_cluster',
     name = 'Recursive Cluster',
-	loc_txt = {
-        name = 'Recursive Cluster',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if',
-            '{C:attention}poker hand{} is the same',
-            '{C:attention}3{} times in a row',
-            '{C:inactive}(#2#){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 2 },
     rarity = 2,
@@ -600,15 +475,6 @@ SMODS.Joker { --Recursive Cluster
 SMODS.Joker { --Bomb Blitz
     key = 'bomb_blitz',
     name = 'Bomb Blitz',
-	loc_txt = {
-        name = 'Bomb Blitz',
-        text = {
-            'Prevents Death if chips scored',
-            'are at least {C:attention}#1#%{} of required chips',
-            'and destroy all cards held in hand',
-            '{s:1.1,C:red,E:2}self destructs{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 2 },
     rarity = 3,
