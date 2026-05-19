@@ -1,15 +1,6 @@
 SMODS.Joker { --Apex Plasma Master
     key = 'apex_plasma_master',
     name = 'Apex Plasma Master',
-	loc_txt = {
-        name = 'Apex Plasma Master',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'every {C:attention}#2#{C:inactive} (#3#){} cards scored',
-            'Scaling increases each increment',
-            '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 26 },
     soul_atlas = 'Soul',
@@ -44,15 +35,6 @@ SMODS.Joker { --Apex Plasma Master
 SMODS.Joker { --Glaive Dominus
     key = 'glaive_dominus',
     name = 'Glaive Dominus',
-	loc_txt = {
-        name = 'Glaive Dominus',
-        text = {
-            'Play each {C:attention}Boss Blind{} twice,',
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'when {C:attention}Boss Blind{} is defeated',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 26 },
     soul_atlas = 'Soul',
@@ -88,14 +70,6 @@ SMODS.Joker { --Glaive Dominus
 SMODS.Joker { --Ballistic Obliteration Missile Bunker
     key = 'ballistic_obliteration_missile_bunker',
     name = 'Ballistic Obliteration Missile Bunker',
-	loc_txt = {
-        name = 'Ballistic Obliteration Missile Bunker',
-        text = {
-            'Played cards give {X:mult,C:white}X#1#{} Mult',
-            'when scored if another card with',
-            'the same rank is scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 26 },
     soul_atlas = 'Soul',
@@ -132,14 +106,6 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
 SMODS.Joker { --Crucible of Steel and Flame
     key = 'crucible_of_steel_and_flame',
     name = 'Crucible of Steel and Flame',
-	loc_txt = {
-        name = 'Crucible of Steel and Flame',
-        text = {
-            '{C:attention}Meteor{} cards no longer',
-            'destroy themselves when played',
-            'Add {C:attention}#1# Meteor{} cards to your deck',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 26 },
     soul_atlas = 'Soul',
@@ -182,16 +148,6 @@ SMODS.Joker { --Crucible of Steel and Flame
 SMODS.Joker { --Herald of Everfrost
     key = 'herald_of_everfrost',
     name = 'Herald of Everfrost',
-	loc_txt = {
-        name = 'Herald of Everfrost',
-        text = {
-            '{C:attention}Freeze #1#{} scoring cards',
-            'and reduce blind requirement',
-            'by {C:attention}#2#%{} per hand played',
-            'Disable the current {C:attention}Boss Blind{}',
-            'after {C:attention}#3#{C:inactive} (#4#){} hands'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 26 },
     soul_atlas = 'Soul',
@@ -252,18 +208,6 @@ SMODS.Joker { --Herald of Everfrost
 SMODS.Joker { --Nautic Siege Core
     key = 'nautic_siege_core',
     name = 'Nautic Siege Core',
-    loc_txt = {
-
-        name = 'Nautic Siege Core',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if unsubmerged',
-            '{C:green}Rerolls{} cost {C:money}$#2#{} less if submerged',
-            'Submerge for {C:attention}#3#{C:inactive} (#4#){} consecutive',
-            'hands to give {X:mult,C:white}X#5#{} Mult next',
-            'hand once unsubmerged'
-        }
-
-    },
     atlas = 'Joker',
     pos = { x = 8, y = 26 },
     soul_atlas = 'Soul',
@@ -345,16 +289,6 @@ SMODS.Joker { --Nautic Siege Core
 SMODS.Joker { --Navarch of the Seas
     key = 'navarch_of_the_seas',
     name = 'Navarch of the Seas',
-    loc_txt = {
-        name = 'Navarch of the Seas',
-        text = {
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-            'Earn {C:money}$#4#{} and trigger',
-            'this {C:attention}Joker{} an extra time',
-            'when a card is destroyed',
-            '{C:inactive}(Currently {C:attention}#5#{C:inactive} triggers)'
-        }
-    },
     atlas = 'Joker',
     pos = { x = 9, y = 26 },
     soul_atlas = 'Soul',
@@ -421,13 +355,6 @@ SMODS.Joker { --Navarch of the Seas
 SMODS.Joker { --Goliath Doomship
     key = 'goliath_doomship',
     name = 'Goliath Doomship',
-	loc_txt = {
-        name = 'Goliath Doomship',
-        text = {
-            'Apply the effects',
-            'of all {C:attention}Seals{} to {C:attention}Aces{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 26 },
     soul_atlas = 'Soul',
@@ -512,15 +439,6 @@ SMODS.Joker { --Goliath Doomship
 SMODS.Joker { --Magus Perfectus
     key = 'magus_perfectus',
     name = 'Magus Perfectus',
-	loc_txt = {
-        name = 'Magus Perfectus',
-        text = {
-            'When round begins,',
-            'add a random {C:enhanced}Enhancement{},',
-            '{C:dark_edition}Edition{}, and a {C:attention}Seal{} to a',
-            'random card in hand',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 27 },
     soul_atlas = 'Soul',
@@ -567,16 +485,6 @@ SMODS.Joker { --Magus Perfectus
 SMODS.Joker { --Ascended Shadow
     key = 'ascended_shadow',
     name = 'Ascended Shadow',
-	loc_txt = {
-        name = 'Ascended Shadow',
-        text = {
-            'Playing cards cannot be',
-            '{C:attention}debuffed{} or face down',
-            'Force {C:attention}1{} card to always',
-            'be selected and give',
-            '{X:mult,C:white}X#1#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 27 },
     soul_atlas = 'Soul',
@@ -635,42 +543,47 @@ SMODS.Joker { --Ascended Shadow
         end
     end
 }
---[[
+
 SMODS.Joker { --Root of All Nature
     key = 'root_of_all_nature',
     name = 'Root of All Nature',
-	loc_txt = {
-        name = 'Root of All Nature',
-        text = {
-            ''
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 7, y = 27 },
+	pos = { x = 4, y = 27 },
     soul_atlas = 'Soul',
-    soul_pos = { x = 7, y = 4 },
+    soul_pos = { x = 4, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
-        extra = {  } --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { money = 3, Xmult = 0.1, rate = 5 } --Variables: money = dollars per hand, Xmult = Xmult increase per rate
     },
+    loc_vars = function (self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.money,
+                card.ability.extra.Xmult,
+                card.ability.extra.rate,
+                1 + card.ability.extra.Xmult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate)
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            return {
+                dollars = card.ability.extra.money
+            }
+        elseif context.joker_main and math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate) > 1 then
+            return {
+                Xmult = 1 + card.ability.extra.Xmult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate)
+            }
+        end
+    end
 }
-]]
+
 SMODS.Joker { --Mega Massive Munitions Factory
     key = 'mega_massive_munitions_factory',
     name = 'Mega Massive Munitions Factory',
-	loc_txt = {
-        name = 'Mega Massive Munitions Factory',
-        text = {
-            'Creates a {C:attention}Mine{} every {C:attention}#1#{C:inactive}#2#{} hands',
-            'Spend mines to give {X:mult,C:white}X#3#{} Mult until',
-            'chips scored exceeds required',
-            'chips on {C:attention}final hand{} of round',
-            '{C:inactive}(Currently {C:attention}#4#{C:inactive} mines){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 27 },
     soul_atlas = 'Soul',
@@ -740,16 +653,6 @@ SMODS.Joker { --Mega Massive Munitions Factory
 SMODS.Joker { --Master Builder
     key = 'master_builder',
     name = 'Master Builder',
-	loc_txt = {
-        name = 'Master Builder',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}#1#{}',
-            'and this {C:attention}Joker{} gains {X:mult,C:white}X#2#{} Mult',
-            'Duplicate sentries {s:1.1,C:red,E:2}self destruct{}',
-            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 27 },
     soul_atlas = 'Soul',
@@ -824,14 +727,6 @@ SMODS.Joker { --Master Builder
 SMODS.Joker { --Vengeful True Sun God
     key = 'vengeful_true_sun_god',
     name = 'Vengeful True Sun God',
-	loc_txt = {
-        name = 'Vengeful True Sun God',
-        text = {
-            'Sacrifice {C:attention}ALL{} other {C:attention}Jokers{}',
-            'to the {C:legendary,E:1,s:1.1}Vengeful True Sun God{}',
-            '{C:inactive}(#1# #2# #3# #4#){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 27 },
     soul_atlas = 'Soul',

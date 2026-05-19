@@ -1,12 +1,6 @@
 SMODS.Joker { --Super Monkey
     key = 'super_monkey',
     name = 'Super Monkey',
-	loc_txt = {
-        name = 'Super Monkey',
-        text = {
-            '{C:mult}+#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 15 },
     rarity = 1,
@@ -32,12 +26,6 @@ SMODS.Joker { --Super Monkey
 SMODS.Joker { --Laser Blasts
     key = 'laser_blasts',
     name = 'Laser Blasts',
-	loc_txt = {
-        name = 'Laser Blasts',
-        text = {
-            '{C:mult}+#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 15 },
     rarity = 1,
@@ -63,12 +51,6 @@ SMODS.Joker { --Laser Blasts
 SMODS.Joker { --Plasma Blasts
     key = 'plasma_blasts',
     name = 'Plasma Blasts',
-	loc_txt = {
-        name = 'Plasma Blasts',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 15 },
     rarity = 1,
@@ -94,14 +76,6 @@ SMODS.Joker { --Plasma Blasts
 SMODS.Joker { --Sun Avatar
     key = 'sun_avatar',
     name = 'Sun Avatar',
-	loc_txt = {
-        name = 'Sun Avatar',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if all',
-            'played cards are',
-            '{C:hearts}Hearts{} or {C:diamonds}Diamonds{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 15 },
     rarity = 2,
@@ -135,13 +109,6 @@ SMODS.Joker { --Sun Avatar
 SMODS.Joker { --Super Range
     key = 'super_range',
     name = 'Super Range',
-	loc_txt = {
-        name = 'Super Range',
-        text = {
-            '{C:attention}+#1#{} card slot',
-            'available in shop',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 15 },
     rarity = 1,
@@ -171,13 +138,6 @@ SMODS.Joker { --Super Range
 SMODS.Joker { --Epic Range
     key = 'epic_range',
     name = 'Epic Range',
-	loc_txt = {
-        name = 'Epic Range',
-        text = {
-            '{C:attention}+#1#{} booster slot',
-            'available in shop',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 15 },
     rarity = 1,
@@ -207,14 +167,6 @@ SMODS.Joker { --Epic Range
 SMODS.Joker { --Robo Monkey
     key = 'robo_monkey',
     name = 'Robo Monkey',
-	loc_txt = {
-        name = 'Robo Monkey',
-        text = {
-            'Copies the ability',
-            'of a random {C:attention}Joker{} when',
-            'hand is played',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 15 },
     rarity = 2,
@@ -253,15 +205,6 @@ SMODS.Joker { --Robo Monkey
 SMODS.Joker { --Tech Terror
     key = 'tech_terror',
     name = 'Tech Terror',
-	loc_txt = {
-        name = 'Tech Terror',
-        text = {
-            'Copies the ability',
-            'of {C:attention}Joker{} to the right',
-            'or to the left when',
-            'hand is played',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 15 },
     rarity = 2,
@@ -303,14 +246,6 @@ SMODS.Joker { --Tech Terror
 SMODS.Joker { --The Anti-Bloon
     key = 'the_anti_bloon',
     name = 'The Anti-Bloon',
-	loc_txt = {
-        name = 'The Anti-Bloon',
-        text = {
-            'Copies the ability',
-            'of {C:attention}Joker{} to the {C:attention}#1#{}',
-            '{s:0.8}Direction changes every round{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 15 },
     rarity = 3,
@@ -367,14 +302,6 @@ SMODS.Joker { --The Anti-Bloon
 SMODS.Joker { --Knockback
     key = 'knockback',
     name = 'Knockback',
-    loc_txt = {
-        name = 'Knockback',
-        text = {
-            'Retrigger every',
-            'other played card',
-            'used in scoring',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 11, y = 15 },
     rarity = 1,
@@ -410,13 +337,6 @@ SMODS.Joker { --Knockback
 SMODS.Joker { --Ultravision
     key = 'ultravision',
     name = 'Ultravision',
-    loc_txt = {
-        name = 'Ultravision',
-        text = {
-            '{C:attention}+#1#{} consumable slots',
-            '{C:red}#2#{} discard'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 15 },
     rarity = 1,
@@ -445,14 +365,6 @@ SMODS.Joker { --Ultravision
 SMODS.Joker { --Dark Knight
     key = 'dark_knight',
     name = 'Dark Knight',
-	loc_txt = {
-        name = 'Dark Knight',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if all',
-            'cards held in hand',
-            'are {C:spades}Spades{} or {C:clubs}Clubs{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 15 },
     rarity = 2,
@@ -486,14 +398,6 @@ SMODS.Joker { --Dark Knight
 SMODS.Joker { --Dark Champion
     key = 'dark_champion',
     name = 'Dark Champion',
-	loc_txt = {
-        name = 'Dark Champion',
-        text = {
-            'Each {C:spades}Spade{} or',
-            '{C:clubs}Club{} held in hand',
-            'gives {X:mult,C:white}X#1#{} Mult',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 15 },
     rarity = 2,
@@ -519,15 +423,6 @@ SMODS.Joker { --Dark Champion
 SMODS.Joker { --Legend of the Night
     key = 'legend_of_the_night',
     name = 'Legend of the Night',
-	loc_txt = {
-        name = 'Legend of the Night',
-        text = {
-            'Prevents Death on',
-            '{C:attention}Small Blind{} or {C:attention}Big Blind{}',
-            'and create a {C:spectral}Black Hole{}',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 15 },
     rarity = 3,

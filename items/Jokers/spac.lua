@@ -1,15 +1,6 @@
 SMODS.Joker { --Spike Factory
     key = 'spike_factory',
     name = 'Spike Factory',
-    loc_txt = {
-        name = 'Spike Factory',
-        text = {
-            'This joker gains {C:chips}+#1#{}',
-            'Chips per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 0, y = 21 },
     rarity = 1,
@@ -48,15 +39,6 @@ SMODS.Joker { --Spike Factory
 SMODS.Joker { --Bigger Stacks
     key = 'bigger_stacks',
     name = 'Bigger Stacks',
-    loc_txt = {
-        name = 'Bigger Stacks',
-        text = {
-            'This joker gains {C:chips}+#1#{}',
-            'Chips per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 1, y = 21 },
     rarity = 1,
@@ -95,14 +77,6 @@ SMODS.Joker { --Bigger Stacks
 SMODS.Joker { --White Hot Spikes
     key = 'white_hot_spikes',
     name = 'whitehot',
-    loc_txt = {
-        name = 'White Hot Spikes',
-        text = {
-            '{C:chips}+#1#{} Chips when',
-            '{C:attention}#2#{} discards',
-            'remaining',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 21 },
     rarity = 1,
@@ -128,15 +102,6 @@ SMODS.Joker { --White Hot Spikes
 SMODS.Joker { --Spiked Balls
     key = 'spiked_balls',
     name = 'Spiked Balls',
-    loc_txt = {
-        name = 'Spiked Balls',
-        text = {
-            'This Joker gains',
-            '{C:chips}+#1#{} Chips for each',
-            'card discarded this round',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 21 },
     rarity = 2,
@@ -175,14 +140,6 @@ SMODS.Joker { --Spiked Balls
 SMODS.Joker { --Spiked Mines
     key = 'spiked_mines',
     name = 'Spiked Mines',
-    loc_txt = {
-        name = 'Spiked Mines',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult and',
-            'destroy all scoring cards',
-            'on {C:attention}final hand{} of round',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 4, y = 21 },
     rarity = 2,
@@ -213,15 +170,6 @@ SMODS.Joker { --Spiked Mines
 SMODS.Joker { --Super Mines
     key = 'super_mines',
     name = 'Super Mines',
-    loc_txt = {
-        name = 'Super Mines',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:mult}-{X:mult,C:white}X#2#{} Mult for each',
-            'card in your deck',
-            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 5, y = 21 },
     rarity = 3,
@@ -256,15 +204,6 @@ SMODS.Joker { --Super Mines
 SMODS.Joker { --Faster Production
     key = 'faster_production',
     name = 'Faster Production',
-    loc_txt = {
-        name = 'Faster Production',
-        text = {
-            'This joker gains {C:mult}+#1#{}',
-            'Mult per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 21 },
     rarity = 1,
@@ -303,15 +242,6 @@ SMODS.Joker { --Faster Production
 SMODS.Joker { --Even Faster Production
     key = 'even_faster_production',
     name = 'Even Faster Production',
-    loc_txt = {
-        name = 'Even Faster Production',
-        text = {
-            'This joker gains {C:mult}+#1#{}',
-            'Mult per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 21 },
     rarity = 1,
@@ -351,16 +281,6 @@ SMODS.Joker { --Even Faster Production
 SMODS.Joker { --MOAB SHREDR
     key = 'moab_shredr',
     name = 'MOAB SHREDR',
-	loc_txt = {
-        name = 'MOAB SHREDR',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{}',
-            'Mult per discard used',
-            'this round, double Xmult',
-            'against {C:attention}Boss Blinds{}',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 21 },
     rarity = 2,
@@ -412,15 +332,6 @@ SMODS.Joker { --MOAB SHREDR
 SMODS.Joker { --Spike Storm
     key = 'spike_storm',
     name = 'Spike Storm',
-	loc_txt = {
-        name = 'Spike Storm',
-        text = {
-            'Each played card',
-            'gives {X:mult,C:white}X#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 21 },
     rarity = 2,
@@ -466,14 +377,6 @@ SMODS.Joker { --Spike Storm
 SMODS.Joker { --Carpet of Spikes
     key = 'carpet_of_spikes',
     name = 'Carpet of Spikes',
-	loc_txt = {
-        name = 'Carpet of Spikes',
-        text = {
-            'Each played card',
-            'gives {X:mult,C:white}X#1#{} Mult when',
-            '{C:attention}#2#{} discards remaining',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 21 },
     rarity = 3,
@@ -499,14 +402,6 @@ SMODS.Joker { --Carpet of Spikes
 SMODS.Joker { --Long Reach
     key = 'long_reach',
     name = 'Long Reach',
-    loc_txt = {
-        name = 'Long Reach',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'gain {C:blue}+#1#{} Hand and',
-            'lose {C:red}#1#{} Discard'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 11, y = 21 },
     rarity = 1,
@@ -539,14 +434,6 @@ SMODS.Joker { --Long Reach
 SMODS.Joker { --Smart Spikes
     key = 'smart_spikes',
     name = 'Smart Spikes',
-    loc_txt = {
-        name = 'Smart Spikes',
-        text = {
-            'This Joker gains {C:mult}+#1#{}',
-            'Mult per unused hand',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 21 },
     rarity = 1,
@@ -578,16 +465,6 @@ SMODS.Joker { --Smart Spikes
 SMODS.Joker { --Long Life Spikes
     key = 'long_life_spikes',
     name = 'Long Life Spikes',
-	loc_txt = {
-        name = 'Long Life Spikes',
-        text = {
-            'This joker gains {C:mult}+#1#{} Mult',
-            'per discarded {V:1}#2#{}',
-            '{C:mult}-#3#{} Mult at end of round',
-            '{s:0.8}Suit changes every round{}',
-            '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 21 },
     rarity = 2,
@@ -640,16 +517,6 @@ SMODS.Joker { --Long Life Spikes
 SMODS.Joker { --Deadly Spikes
     key = 'deadly_spikes',
     name = 'Deadly Spikes',
-	loc_txt = {
-        name = 'Deadly Spikes',
-        text = {
-            'This joker gains {C:mult}+#1#{} Mult',
-            'per discarded {C:attention}#2#{} of {V:1}#3#{}',
-            '{C:mult}-#4#{} Mult at end of round',
-            '{s:0.8}Card changes every round{}',
-            '{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 21 },
     rarity = 2,
@@ -704,15 +571,6 @@ SMODS.Joker { --Deadly Spikes
 SMODS.Joker { --Perma-Spike
     key = 'perma_spike',
     name = 'Perma-Spike',
-    loc_txt = {
-        name = 'Perma-Spike',
-        text = {
-            'Carry over up to',
-            '{C:attention}#1#{} unused hands',
-            'to the next round',
-            '{C:inactive}(Currently {C:blue}+#2#{C:inactive} hands)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 15, y = 21 },
     rarity = 3,

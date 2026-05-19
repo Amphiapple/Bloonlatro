@@ -45,9 +45,10 @@ return {
             j_bloons_the_blazing_sun = {
                 name = 'The Blazing Sun',
                 text = {
-                    'Each played {C:attention}#2#{}',
-                    'of {C:hearts}Hearts{} gives',
-                    '{X:mult,C:white}X#1#{} Mult when scored',
+                    'Each played {C:attention}#1#{} card',
+                    'or {C:hearts}Heart{} card gives',
+                    '{X:mult,C:white}X#2#{} Mult when scored',
+                    '{C:attention}#1#{} of {C:hearts}Hearts{} gives {X:mult,C:white}X#3#{} Mult',
                     '{s:0.8}Rank changes every round{}',
                 }
             },

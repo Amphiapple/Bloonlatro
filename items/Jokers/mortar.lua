@@ -1,14 +1,6 @@
 SMODS.Joker { --Mortar Monkey
     key = 'mortar_monkey',
     name = 'Mortar Monkey',
-	loc_txt = {
-        name = 'Mortar Monkey',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
-            '{C:mult}+#3#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 12 },
     rarity = 1,
@@ -35,14 +27,6 @@ SMODS.Joker { --Mortar Monkey
 SMODS.Joker { --Bigger Blast
     key = 'bigger_blast',
     name = 'Bigger Blast',
-	loc_txt = {
-        name = 'Bigger Blast',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
-            '{C:mult}+#3#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 12 },
     rarity = 1,
@@ -69,14 +53,6 @@ SMODS.Joker { --Bigger Blast
 SMODS.Joker { --Bloon Buster
     key = 'bloon_buster',
     name = 'Bloon Buster',
-	loc_txt = {
-        name = 'Bloon Buster',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
-            '{C:mult}+#3#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 12 },
     rarity = 1,
@@ -103,14 +79,7 @@ SMODS.Joker { --Bloon Buster
 SMODS.Joker { --Shell Shock
     key = 'shell_shock',
     name = 'Shell Shock',
-    loc_txt = {
-        name = 'Shell Shock',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            '{C:attention}stun{} each scoring card',
-            'and give {C:mult}+#3#{} Mult'
-        }
-    },
+
     atlas = 'Joker',
 	pos = { x = 3, y = 12 },
     rarity = 2,
@@ -139,14 +108,7 @@ SMODS.Joker { --Shell Shock
 SMODS.Joker { --The Big One
     key = 'the_big_one',
     name = 'The Big One',
-    loc_txt = {
-        name = 'The Big One',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            '{C:attention}stun{} all scoring cards',
-            'and give {C:mult}+#3#{} Mult'
-        }
-    },
+
     atlas = 'Joker',
 	pos = { x = 4, y = 12 },
     rarity = 2,
@@ -182,14 +144,7 @@ SMODS.Joker { --The Big One
 SMODS.Joker { --The Biggest One
     key = 'the_biggest_one',
     name = 'The Biggest One',
-    loc_txt = {
-        name = 'The Biggest One',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            '{C:attention}stun{} all scoring cards',
-            'and give {X:mult,C:white}X#3#{} Mult'
-        }
-    },
+
     atlas = 'Joker',
 	pos = { x = 5, y = 12 },
     rarity = 3,
@@ -225,14 +180,6 @@ SMODS.Joker { --The Biggest One
 SMODS.Joker { --Faster Reload
     key = 'faster_reload',
     name = 'Faster Reload',
-	loc_txt = {
-        name = 'Faster Reload',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
-            '{C:mult}+#3#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 12 },
     rarity = 1,
@@ -259,14 +206,6 @@ SMODS.Joker { --Faster Reload
 SMODS.Joker { --Rapid Reload
     key = 'rapid_reload',
     name = 'Rapid Reload',
-	loc_txt = {
-        name = 'Rapid Reload',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
-            '{C:mult}+#3#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 12 },
     rarity = 1,
@@ -293,13 +232,6 @@ SMODS.Joker { --Rapid Reload
 SMODS.Joker { --Heavy Shells
     key = 'heavy_shells',
     name = 'Heavy Shells',
-    loc_txt = {
-        name = 'Heavy Shells',
-        text = {
-            '{C:mult}+#1#{} Mult when a',
-            '{C:attention}Stunned{} card wears off',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 12 },
     rarity = 2,
@@ -331,14 +263,6 @@ SMODS.Joker { --Heavy Shells
 SMODS.Joker { --Artillery Battery
     key = 'artillery_battery',
     name = 'Artillery Battery',
-	loc_txt = {
-        name = 'Artillery Battery',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
-            'when a {C:attention}Stunned{} card wears off',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 12 },
     rarity = 2,
@@ -377,15 +301,6 @@ SMODS.Joker { --Artillery Battery
 SMODS.Joker { --Pop and Awe
     key = 'pop_and_awe',
     name = 'Pop and Awe',
-    loc_txt = {
-        name = 'Pop and Awe',
-        text = {
-            'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-            'when a {C:attention}Stunned{} card wears off,',
-            'resets when {C:attention}Boss Blind{} is defeated',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 12 },
     rarity = 3,
@@ -430,14 +345,6 @@ SMODS.Joker { --Pop and Awe
 SMODS.Joker { --Increased Accuracy
     key = 'increased_accuracy',
     name = 'Increased Accuracy',
-	loc_txt = {
-        name = 'Increased Accuracy',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played cards to give',
-            '{C:chips}+#3#{} Chips when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 12 },
     rarity = 1,
@@ -464,14 +371,6 @@ SMODS.Joker { --Increased Accuracy
 SMODS.Joker { --Burny Stuff
     key = 'burny_stuff',
     name = 'Burny Stuff',
-    loc_txt = {
-        name = 'Burny Stuff',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'destroy {C:attention}first{}',
-            'played card'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 12 },
     rarity = 1,
@@ -496,13 +395,6 @@ SMODS.Joker { --Burny Stuff
 SMODS.Joker { --Signal Flare
     key = 'signal_flare',
     name = 'Signal Flare',
-    loc_txt = {
-        name = 'Signal Flare',
-        text = {
-            'Unscoring cards are',
-            '{C:attention}Stunned{} and discarded'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 13, y = 12 },
     rarity = 2,
@@ -594,15 +486,6 @@ SMODS.Joker { --Signal Flare
 SMODS.Joker { --Shattering Shells
     key = 'shattering_shells',
     name = 'Shattering Shells',
-	loc_txt = {
-        name = 'Shattering Shells',
-        text = {
-            'Remove {C:enhanced}Enhancements{},',
-            '{C:dark_edition}Editions{} and {C:attention}Seals{}',
-            'from all scoring cards',
-            'Gives {X:mult,C:white}X#1#{} Mult for each'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 12 },
     rarity = 2,
@@ -655,15 +538,6 @@ SMODS.Joker { --Shattering Shells
 SMODS.Joker { --Blooncineration
     key = 'blooncineration',
     name = 'Blooncineration',
-	loc_txt = {
-        name = 'Blooncineration',
-        text = {
-            'Destroy all scoring',
-            'cards with {C:enhanced}Enhancements{},',
-            '{C:dark_edition}Editions{} or {C:attention}Seals{}',
-            'Gives {X:mult,C:white}X#1#{} Mult for each'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 12 },
     rarity = 3,

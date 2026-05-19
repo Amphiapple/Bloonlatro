@@ -12,16 +12,15 @@ Balance Changes:
 - Sharp Shooter cost 6 > 5
 - MOAR Glaives cost 6 > 5
 - Bloon Impact reworked
-
 - Super Range Tacks effect moved to Long Range Tacks
 - Super Range Tacks and Blade Shooter reworked
 - More Tacks, Even More Tacks, and Tack Sprayer reworked
-
 - Ice Monkey chips every 3 > 2 hands
 - Cold Snap money $1 > $2
 - Ice Shards mult gain 1 > 2
 - Enhanced Freeze chips 40 > 80
 - Larger Radius every 3 > 2 hands
+- The Blazing Sun gives a small Xmult bonus to other Hearts or the target rank
 
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
@@ -30,6 +29,7 @@ Balance Changes:
 - Artillery Battery reworked
 
 - Sun Avatar Xmult 3 > 2
+- Bloon Sabotage and Grand Saboteur suit Hearts > Clubs
 - Larger Potions tarots 2 > 1, 1 in 2 chance for 2
 - Lead to Gold no longer removes steel
 

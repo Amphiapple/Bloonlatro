@@ -1,14 +1,6 @@
 SMODS.Joker { --Sniper Monkey
     key = 'sniper_monkey',
     name = 'Sniper Monkey',
-	loc_txt = {
-        name = 'Sniper Monkey',
-        text = {
-            '{C:mult}+#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 7 },
     rarity = 1,
@@ -55,14 +47,6 @@ SMODS.Joker { --Sniper Monkey
 SMODS.Joker { --Full Metal Jacket
     key = 'full_metal_jacket',
     name = 'Full Metal Jacket',
-	loc_txt = {
-        name = 'Full Metal Jacket',
-        text = {
-            '{C:mult}+#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 7 },
     rarity = 1,
@@ -109,15 +93,6 @@ SMODS.Joker { --Full Metal Jacket
 SMODS.Joker { --Large Calibre
     key = 'large_calibre',
     name = 'Large Calibre',
-	loc_txt = {
-        name = 'Large Calibre',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult every',
-            '{C:attention}#3#{} hands played',
-            '{C:inactive}(#4#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 7 },
     rarity = 1,
@@ -166,14 +141,6 @@ SMODS.Joker { --Large Calibre
 SMODS.Joker { --Deadly Precision
     key = 'deadly_precision',
     name = 'Deadly Precision',
-	loc_txt = {
-        name = 'Deadly Precision',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 7 },
     rarity = 2,
@@ -220,16 +187,6 @@ SMODS.Joker { --Deadly Precision
 SMODS.Joker { --Maim MOAB
     key = 'maim_moab',
     name = 'Maim MOAB',
-	loc_txt = {
-        name = 'Maim MOAB',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult every',
-            '{C:attention}#3#{} hands played',
-            '{X:mult,C:white}X#2#{} Mult against',
-            '{C:attention}Boss Blinds{}',
-            '{C:inactive}(#4#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 7 },
     rarity = 2,
@@ -283,15 +240,6 @@ SMODS.Joker { --Maim MOAB
 SMODS.Joker { --Cripple MOAB
     key = 'cripple_moab',
     name = 'Cripple MOAB',
-	loc_txt = {
-        name = 'Cripple MOAB',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult and disable',
-            'the current {C:attention}Boss Blind{}',
-            'every {C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 7 },
     rarity = 3,
@@ -343,13 +291,6 @@ SMODS.Joker { --Cripple MOAB
 SMODS.Joker { --Night Vision Goggles
     key = 'night_vision_goggles',
     name = 'Night Vision Goggles',
-    loc_txt = {
-        name = 'Night Vision Goggles',
-        text = {
-            'Playing cards',
-            'cannot be face down'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 7 },
     rarity = 1,
@@ -373,15 +314,6 @@ SMODS.Joker { --Night Vision Goggles
 SMODS.Joker { --Shrapnel Shot
     key = 'shrapnel_shot',
     name = 'Shrapnel Shot',
-    loc_txt = {
-        name = 'Shrapnel Shot',
-        text = {
-            '{C:attention}Last{} played card',
-            'gives Mult equal to',
-            'the rank of the previous',
-            'card when scored'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 7 },
     rarity = 1,
@@ -406,15 +338,6 @@ SMODS.Joker { --Shrapnel Shot
 SMODS.Joker { --Bouncing Bullet
     key = 'bouncing_bullet',
     name = 'Bouncing Bullet',
-    loc_txt = {
-        name = 'Bouncing Bullet',
-        text = {
-            'Each scoring card',
-            'gives Mult equal to',
-            'the rank of the previous',
-            'card when scored'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 8, y = 7 },
     rarity = 2,
@@ -444,15 +367,6 @@ SMODS.Joker { --Bouncing Bullet
 SMODS.Joker { --Supply Drop
     key = 'supply_drop',
     name = 'Supply Drop',
-    loc_txt = {
-        name = 'Supply Drop',
-        text = {
-            'Earn {C:money}$#1#{} and',
-            'create a {C:tarot}Tarot{} card',
-            'card every {C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 7 },
     rarity = 2,
@@ -510,15 +424,6 @@ SMODS.Joker { --Supply Drop
 SMODS.Joker { --Elite Sniper
     key = 'elite_sniper',
     name = 'Elite Sniper',
-    loc_txt = {
-        name = 'Elite Sniper',
-        text = {
-            'Earn {C:money}$#1#{} and',
-            'create a {C:power}Power{} card',
-            'every {C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 7 },
     rarity = 3,
@@ -577,14 +482,6 @@ SMODS.Joker { --Elite Sniper
 SMODS.Joker { --Fast Firing
     key = 'fast_firing_sniper',
     name = 'Fast Firing (Sniper)',
-	loc_txt = {
-        name = 'Fast Firing',
-        text = {
-            '{C:mult}+#1#{} Mult every',
-            '{C:attention}2 or 3{} hands played',
-            '{C:inactive}(#2#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 7 },
     rarity = 1,
@@ -630,14 +527,6 @@ SMODS.Joker { --Fast Firing
 SMODS.Joker { --Even Faster Firing
     key = 'even_faster_firing',
     name = 'Even Faster Firing',
-	loc_txt = {
-        name = 'Even Faster Firing',
-        text = {
-            '{C:mult}+#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 7 },
     rarity = 1,
@@ -684,14 +573,6 @@ SMODS.Joker { --Even Faster Firing
 SMODS.Joker { --Semi Automatic
     key = 'semi_automatic',
     name = 'Semi Automatic',
-	loc_txt = {
-        name = 'Semi Automatic',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 7 },
     rarity = 2,
@@ -738,13 +619,6 @@ SMODS.Joker { --Semi Automatic
 SMODS.Joker { --Full Auto Rifle
     key = 'full_auto_rifle',
     name = 'Full Auto Rifle',
-	loc_txt = {
-        name = 'Full Auto Rifle',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult after',
-            '{C:attention}first hand{} of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 7 },
     rarity = 2,
@@ -770,16 +644,6 @@ SMODS.Joker { --Full Auto Rifle
 SMODS.Joker { --Elite Defender
     key = 'elite_defender',
     name = 'Elite Defender',
-    loc_txt = {
-        name = 'Elite Defender',
-        text = {
-            '{X:mult,C:white}X#1#{} after {C:attention}first hand{} of round',
-            '{X:mult,C:white}X#2#{} on {C:attention}final hand{} of round,',
-            '{X:mult,C:white}X#3#{} on {C:attention}final hand{} of round if',
-            'chips scored are under',
-            '{C:attention}25%{} of required chips'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 7 },
     rarity = 2,

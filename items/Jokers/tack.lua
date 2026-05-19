@@ -1,14 +1,6 @@
 SMODS.Joker { --Tack Shooter
     key = 'tack_shooter',
     name = 'Tack Shooter',
-	loc_txt = {
-        name = 'Tack Shooter',
-        text = {
-            'Each played {C:attention}8{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 3 },
     rarity = 1,
@@ -35,14 +27,6 @@ SMODS.Joker { --Tack Shooter
 SMODS.Joker { --Faster Shooting
     key = 'faster_shooting_tack',
     name = 'Faster Shooting (Tack)',
-	loc_txt = {
-        name = 'Faster Shooting',
-        text = {
-            'Each played {C:attention}8{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 3 },
     rarity = 1,
@@ -69,14 +53,6 @@ SMODS.Joker { --Faster Shooting
 SMODS.Joker { --Even Faster Shooting
     key = 'even_faster_shooting',
     name = 'Even Faster Shooting',
-	loc_txt = {
-        name = 'Even Faster Shooting',
-        text = {
-            'Each played {C:attention}8{}',
-            'gives {X:mult,C:white}X#1#{} Mult',
-            'when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 3 },
     rarity = 1,
@@ -102,15 +78,6 @@ SMODS.Joker { --Even Faster Shooting
 SMODS.Joker { --Hot Shots
     key = 'hot_shots',
     name = 'Hot Shots',
-	loc_txt = {
-        name = 'Hot Shots',
-        text = {
-            'If {C:attention}first hand{}',
-            'of round is a single',
-            '{C:attention}8{}, transform it into',
-            'a {C:attention}Meteor{} card',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 3 },
     rarity = 2,
@@ -133,13 +100,6 @@ SMODS.Joker { --Hot Shots
 SMODS.Joker { --Ring of Fire
     key = 'ring_of_fire',
     name = 'Ring of Fire',
-	loc_txt = {
-        name = 'Ring of Fire',
-        text = {
-            '{C:attention}Meteor{} cards may',
-            'appear in the shop',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 3 },
     rarity = 2,
@@ -174,14 +134,6 @@ SMODS.Joker { --Ring of Fire
 SMODS.Joker { --Inferno Ring
     key = 'inferno_ring',
     name = 'Inferno Ring',
-	loc_txt = {
-        name = 'Inferno Ring',
-        text = {
-            "Adds one {C:attention}Meteor{} card",
-            "to deck when",
-            "{C:attention}Blind{} is selected",
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 3 },
     rarity = 3,
@@ -224,15 +176,6 @@ SMODS.Joker { --Inferno Ring
 SMODS.Joker { --Long Range Tacks
     key = 'long_range_tacks',
     name = 'Long Range Tacks',
-	loc_txt = {
-        name = 'Long Range Tacks',
-        text = {
-            'This {C:attention}Joker{} gains',
-            '{C:mult}+#1#{} Mult if scoring hand',
-            'contains a {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 3 },
     rarity = 1,
@@ -273,15 +216,6 @@ SMODS.Joker { --Long Range Tacks
 SMODS.Joker { --Super Range Tacks
     key = 'super_range_tacks',
     name = 'Super Range Tacks',
-	loc_txt = {
-        name = 'Super Range Tacks',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{}',
-            'Mult if scoring hand',
-            'contains a {C:attention}3{}, {C:attention}5{}, {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 3 },
     rarity = 1,
@@ -322,16 +256,6 @@ SMODS.Joker { --Super Range Tacks
 SMODS.Joker { --Blade Shooter
     key = 'blade_shooter',
     name = 'Blade Shooter',
-	loc_txt = {
-        name = 'Blade Shooter',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
-            'if scoring hand contains',
-            '{C:attention}#2#{} cards with ranks',
-            '{C:attention}3{}, {C:attention}5{}, {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
-            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 3 },
     rarity = 2,
@@ -373,14 +297,6 @@ SMODS.Joker { --Blade Shooter
 SMODS.Joker { --Blade Maelstrom
     key = 'blade_maelstrom',
     name = 'Blade Maelstrom',
-	loc_txt = {
-        name = 'Blade Maelstrom',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played {C:attention}number{} cards to give',
-            '{X:mult,C:white}X#3#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 3 },
     rarity = 2,
@@ -409,14 +325,6 @@ SMODS.Joker { --Blade Maelstrom
 SMODS.Joker { --Super Maelstrom
     key = 'super_maelstrom',
     name = 'Super Maelstrom',
-	loc_txt = {
-        name = 'Super Maelstrom',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult after',
-            'scoring every card rank',
-            '{C:inactive}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 3 },
     rarity = 3,
@@ -471,14 +379,6 @@ SMODS.Joker { --Super Maelstrom
 SMODS.Joker { --More Tacks
     key = 'more_tacks',
     name = 'More Tacks',
-	loc_txt = {
-        name = 'More Tacks',
-        text = {
-            'Each played {C:attention}4{} or {C:attention}8{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 3 },
     rarity = 1,
@@ -507,14 +407,6 @@ SMODS.Joker { --More Tacks
 SMODS.Joker { --Even More Tacks
     key = 'even_more_tacks',
     name = 'Even More Tacks',
-	loc_txt = {
-        name = 'Even More Tacks',
-        text = {
-            'Each played {C:attention}2{}, {C:attention}4{}, {C:attention}6{},',
-            'or {C:attention}8{} gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 3 },
     rarity = 1,
@@ -546,14 +438,6 @@ SMODS.Joker { --Even More Tacks
 SMODS.Joker { --Tack Sprayer
     key = 'tack_sprayer',
     name = 'Tack Sprayer',
-	loc_txt = {
-        name = 'Tack Sprayer',
-        text = {
-            'Each played {C:attention}2{}, {C:attention}4{},',
-            '{C:attention}6{}, or {C:attention}8{} gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 3 },
     rarity = 2,
@@ -581,15 +465,6 @@ SMODS.Joker { --Tack Sprayer
 SMODS.Joker { --Overdrive
     key = 'overdrive',
     name = 'Overdrive',
-    loc_txt = {
-        name = 'Overdrive',
-        text = {
-            'This Joker gains',
-            '{X:mult,C:white}X#1#{} Mult for every {C:attention}8{}',
-            'played this round',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 3 },
     rarity = 2,
@@ -627,14 +502,6 @@ SMODS.Joker { --Overdrive
 SMODS.Joker { --The Tack Zone
     key = 'the_tack_zone',
     name = 'The Tack Zone',
-    loc_txt = {
-        name = 'The Tack Zone',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if the',
-            'ranks of all played',
-            'cards sum to {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 3 },
     rarity = 3,

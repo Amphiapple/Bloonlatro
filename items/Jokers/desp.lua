@@ -153,17 +153,25 @@ SMODS.Joker { --The Blazing Sun
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { Xmult = 2 } --Variables: Xmult = Xmult
+        extra = { Xmult1 = 1.25, Xmult2 = 2 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, localize(G.GAME.current_round.desperado_card.rank, 'ranks') } }
+        return { vars = { localize(G.GAME.current_round.desperado_card.rank, 'ranks'), card.ability.extra.Xmult1, card.ability.extra.Xmult2 } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:get_id() == G.GAME.current_round.desperado_card.id and context.other_card:is_suit('Hearts') then
-            return {
-                x_mult = card.ability.extra.Xmult
-            }
+        if context.individual and context.cardarea == G.play then
+            local rank = context.other_card:get_id() == G.GAME.current_round.desperado_card.id
+            local suit = context.other_card:is_suit('Hearts')
+            if rank and suit then
+                return {
+                    x_mult = card.ability.extra.Xmult2
+                }
+            elseif rank or suit then
+                return {
+                    x_mult = card.ability.extra.Xmult1
+                }
+            end
         end
     end
 }

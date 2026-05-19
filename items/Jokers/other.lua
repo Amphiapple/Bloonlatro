@@ -3,14 +3,6 @@ SMODS.Sound({key = "sentryexplode", path = "sentryexplode.ogg",})
 SMODS.Joker { --Marine
     key = 'marine',
     name = 'Marine',
-	loc_txt = {
-        name = 'Marine',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} hands'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 25 },
     rarity = 3,
@@ -56,15 +48,6 @@ SMODS.Joker { --Marine
 SMODS.Joker { --Sentry
     key = 'sentry',
     name = 'Nail Sentry',
-	loc_txt = {
-        name = 'Nail Sentry',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot',
-            'Lasts {C:attention}#4#{} rounds'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 25 },
     rarity = 1,
@@ -111,15 +94,6 @@ SMODS.Joker { --Sentry
 SMODS.Joker { --Crushing Sentry
     key = 'crushing_sentry',
     name = 'Crushing Sentry',
-	loc_txt = {
-        name = 'Crushing Sentry',
-        text = {
-            'Played cards give',
-            '{C:mult}+#1#{} Mult when scored',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 25 },
     rarity = 2,
@@ -165,15 +139,6 @@ SMODS.Joker { --Crushing Sentry
 SMODS.Joker { --Boom Sentry
     key = 'boom_sentry',
     name = 'Boom Sentry',
-	loc_txt = {
-        name = 'Boom Sentry',
-        text = {
-            'First card held',
-            'in hand gives {X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 25 },
     rarity = 2,
@@ -226,15 +191,6 @@ SMODS.Joker { --Boom Sentry
 SMODS.Joker { --Cold Sentry
     key = 'cold_sentry',
     name = 'Cold Sentry',
-	loc_txt = {
-        name = 'Cold Sentry',
-        text = {
-            '{C:attention}Freeze{} and retrigger',
-            '{C:attention}first{} card held in hand',
-            '{C:dark_edition}+#1#{} Joker Slot',
-            'Lasts {C:attention}#2#{} rounds'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 25 },
     rarity = 2,
@@ -287,15 +243,6 @@ SMODS.Joker { --Cold Sentry
 SMODS.Joker { --Energy Sentry
     key = 'energy_sentry',
     name = 'Energy Sentry',
-	loc_txt = {
-        name = 'Energy Sentry',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot',
-            'Lasts {C:attention}#4#{} rounds'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 25 },
     rarity = 2,
@@ -342,17 +289,6 @@ SMODS.Joker { --Energy Sentry
 SMODS.Joker { --Champion Sentry
     key = 'champion_sentry',
     name = 'Champion Sentry',
-	loc_txt = {
-        name = 'Champion Sentry',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds',
-            'Sell this {C:attention}Joker{} to score',
-            '{C:attention}#4#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 25 },
     rarity = 3,
@@ -421,17 +357,6 @@ SMODS.Joker { --Champion Sentry
 SMODS.Joker { --Mega Green Sentry
     key = 'mega_green_sentry',
     name = 'Mega Green Sentry',
-	loc_txt = {
-        name = 'Mega Green Sentry',
-        text = {
-            '{C:dark_edition}+#1#{} Joker Slot',
-            '{X:mult,C:white}X#2#{} Mult if played',
-            'hand contains a {C:attention}#3#{}',
-            'Remove this {C:attention}Joker{} to score',
-            '{C:attention}#4#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 25 },
     rarity = 4,
@@ -513,17 +438,6 @@ SMODS.Joker { --Mega Green Sentry
 SMODS.Joker { --Mega Red Sentry
     key = 'mega_red_sentry',
     name = 'Mega Red Sentry',
-	loc_txt = {
-        name = 'Mega Red Sentry',
-        text = {
-            '{C:dark_edition}+#1#{} Joker Slot',
-            '{X:mult,C:white}X#2#{} Mult if played',
-            'hand contains a {C:attention}#3#{}',
-            'Remove this {C:attention}Joker{} to score',
-            '{C:attention}#4#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 25 },
     rarity = 4,
@@ -605,16 +519,6 @@ SMODS.Joker { --Mega Red Sentry
 SMODS.Joker { --Mega Blue Sentry
     key = 'mega_blue_sentry',
     name = 'Mega Blue Sentry',
-	loc_txt = {
-        name = 'Mega Blue Sentry',
-        text = {
-            '{C:dark_edition}+#1#{} Joker Slot',
-            '{X:mult,C:white}X#2#{} Mult against {C:attention}Boss Blinds{}',
-            'Remove this {C:attention}Joker{} to score',
-            '{C:attention}#3#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#4#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 25 },
     rarity = 4,
@@ -695,14 +599,6 @@ SMODS.Joker { --Mega Blue Sentry
 SMODS.Joker { --Bloonprint
     key = 'bloonprint',
     name = 'Bloonprint',
-	loc_txt = {
-        name = 'Bloonprint',
-        text = {
-            'Copies ability of',
-            '{C:attention}Joker{} in position {C:attention}#1#{}',
-            '{s:0.8}position changes every round{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 25 },
     rarity = 3,
@@ -746,14 +642,6 @@ SMODS.Joker { --Bloonprint
 SMODS.Joker { --Card Storm
     key = 'card_storm',
     name = 'Card Storm',
-	loc_txt = {
-        name = 'Card Storm',
-        text = {
-            'Copies the ability',
-            'of {C:attention}#1#{} {C:attention}Joker{}',
-            '{s:0.8}Direction changes every round{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 25 },
     rarity = 3,

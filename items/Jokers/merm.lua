@@ -1,14 +1,6 @@
 SMODS.Joker { --Mermonkey
     key = 'mermonkey',
     name = 'Mermonkey',
-	loc_txt = {
-        name = 'Mermonkey',
-        text = {
-            '{C:mult}+#1#{} Mult for',
-            'each {C:attention}Joker{} card',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 19 },
     rarity = 1,
@@ -39,14 +31,6 @@ SMODS.Joker { --Mermonkey
 SMODS.Joker { --Trident Efficiency
     key = 'trident_efficiency',
     name = 'Trident Efficiency',
-	loc_txt = {
-        name = 'Trident Efficiency',
-        text = {
-            '{C:mult}+#1#{} Mult for',
-            'each {C:attention}Joker{} card',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 19 },
     rarity = 1,
@@ -77,14 +61,6 @@ SMODS.Joker { --Trident Efficiency
 SMODS.Joker { --Trident Swiftness
     key = 'trident_swiftness',
     name = 'Trident Swiftness',
-	loc_txt = {
-        name = 'Trident Swiftness',
-        text = {
-            '{C:mult}+#1#{} Mult for each',
-            'common {C:attention}Joker{} card',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 19 },
     rarity = 1,
@@ -121,13 +97,6 @@ SMODS.Joker { --Trident Swiftness
 SMODS.Joker { --Abyss Dweller
     key = 'abyss_dweller',
     name = 'Abyss Dweller',
-    loc_txt = {
-        name = 'Abyss Dweller',
-        text = {
-            '{C:attention}Adjacent{} Jokers',
-            'give {C:mult}+#1#{} Mult',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 19 },
     rarity = 2,
@@ -167,14 +136,6 @@ SMODS.Joker { --Abyss Dweller
 SMODS.Joker { --Abyssal Warrior
     key = 'abyssal_warrior',
     name = 'Abyssal Warrior',
-    loc_txt = {
-        name = 'Abyssal Warrior',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:attention}Adjacent{} Jokers',
-            'give {X:mult,C:white}X#1#{} Mult',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 4, y = 19 },
     rarity = 2,
@@ -218,15 +179,6 @@ SMODS.Joker { --Abyssal Warrior
 SMODS.Joker { --Lord of the Abyss
     key = 'lord_of_the_abyss',
     name = 'Lord of the Abyss',
-    loc_txt = {
-        name = 'Lord of the Abyss',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:attention}Adjacent{} Jokers',
-            'give {X:mult,C:white}X#1#{} Mult',
-            'when scored',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 5, y = 19 },
     rarity = 3,
@@ -279,14 +231,6 @@ SMODS.Joker { --Lord of the Abyss
 SMODS.Joker { --Sharper Prongs
     key = 'sharper_prongs',
     name = 'Sharper Prongs',
-	loc_txt = {
-        name = 'Sharper Prongs',
-        text = {
-            '{C:chips}+#1#{} Chips for',
-            'each {C:attention}Joker{} card',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 19 },
     rarity = 1,
@@ -317,14 +261,6 @@ SMODS.Joker { --Sharper Prongs
 SMODS.Joker { --Tidal Chill
     key = 'tidal_chill',
     name = 'Tidal Chill',
-	loc_txt = {
-        name = 'Tidal Chill',
-        text = {
-            '{C:attention}Freeze #1#{} random',
-            'cards held in hand',
-            'per hand played',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 19 },
     rarity = 1,
@@ -365,15 +301,6 @@ SMODS.Joker { --Tidal Chill
 SMODS.Joker { --Riptide Champion
     key = 'riptide_champion',
     name = 'Riptide Champion',
-	loc_txt = {
-        name = 'Riptide Champion',
-        text = {
-            '{C:attention}Freeze} a random',
-            'card and ones adjacent',
-            'to it held in hand',
-            'per hand played',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 19 },
     rarity = 2,
@@ -423,14 +350,6 @@ SMODS.Joker { --Riptide Champion
 SMODS.Joker { --Arctic Knight
     key = 'arctic_knight',
     name = 'Arctic Knight',
-	loc_txt = {
-        name = 'Arctic Knight',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            '{C:attention}Freeze{} each card',
-            'played or held in hand',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 19 },
     rarity = 2,
@@ -471,15 +390,6 @@ SMODS.Joker { --Arctic Knight
 SMODS.Joker { --Popseidon
     key = 'popseidon',
     name = 'Popseidon',
-	loc_txt = {
-        name = 'Popseidon',
-        text = {
-            '{C:attention}Freeze{} all cards',
-            'drawn in first hand',
-            '{C:attention}Frozen Cards{} give',
-            '{C:chips}+#1#{} more Chips',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 19 },
     rarity = 3,
@@ -513,13 +423,6 @@ SMODS.Joker { --Popseidon
 SMODS.Joker { --Echosense Precision
     key = 'echosense_precision',
     name = 'Echosense Precision',
-    loc_txt = {
-        name = 'Echosense Precision',
-        text = {
-            'Every {C:attention}played card{}',
-            'counts in scoring',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 11, y = 19 },
     rarity = 1,
@@ -533,14 +436,6 @@ SMODS.Joker { --Echosense Precision
 SMODS.Joker { --Echosense Network
     key = 'echosense_network',
     name = 'Echosense Network',
-    loc_txt = {
-        name = 'Echosense Network',
-        text = {
-            '{C:mult}+#1#{} Mult for',
-            'each {C:attention}Mermonkey{}',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 19 },
     rarity = 1,
@@ -577,15 +472,6 @@ SMODS.Joker { --Echosense Network
 SMODS.Joker { --Alluring Melody
     key = 'alluring_melody',
     name = 'Alluring Melody',
-    loc_txt = {
-        name = 'Alluring Melody',
-        text = {
-            "This Joker gains {C:mult}+#1#{} Mult",
-            "per scoring {C:enhanced}Enhanced{} card played,",
-            "removes card {C:enhanced}Enhancement",
-            "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 13, y = 19 },
     rarity = 2,
@@ -645,16 +531,6 @@ SMODS.Joker { --Alluring Melody
 SMODS.Joker { --Symphonic Resonance
     key = 'symphonic_resonance',
     name = 'Symphonic Resonance',
-    loc_txt = {
-        name = 'Symphonic Resonance',
-        text = {
-            "This Joker gains {X:mult,C:white}X#1#{} Mult",
-            "per scoring {C:enhanced}Enhanced{} card played,",
-            "removes card {C:enhanced}Enhancement",
-            'and returns card to hand',
-            "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 14, y = 19 },
     rarity = 2,
@@ -711,14 +587,6 @@ SMODS.Joker { --Symphonic Resonance
 SMODS.Joker { --The Final Harmonic
     key = 'the_final_harmonic',
     name = 'The Final Harmonic',
-    loc_txt = {
-        name = 'The Final Harmonic',
-        text = {
-            'Return {C:enhanced}Enhanced{}',
-            'cards to hand after',
-            'being scored',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 15, y = 19 },
     rarity = 3,

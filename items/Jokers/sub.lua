@@ -1,14 +1,6 @@
 SMODS.Joker { --Monkey Sub
     key = 'monkey_sub',
     name = 'Monkey Sub',
-	loc_txt = {
-        name = 'Monkey Sub',
-        text = {
-            'Each card',
-            'held in hand',
-            'gives {C:mult}+#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 8 },
     rarity = 1,
@@ -41,13 +33,6 @@ SMODS.Joker { --Monkey Sub
 SMODS.Joker { --Longer Range
     key = 'longer_range',
     name = 'Longer Range',
-    loc_txt = {
-        name = 'Longer Range',
-        text = {
-            'Initial shop has {C:attention}+#1#{}',
-            'card slot available'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 1, y = 8 },
     rarity = 1,
@@ -89,13 +74,6 @@ SMODS.Joker { --Longer Range
 SMODS.Joker { --Advanced Intel
     key = 'advanced_intel',
     name = 'Advanced Intel',
-    loc_txt = {
-        name = 'Advanced Intel',
-        text = {
-            '{C:attention}#1#{} free {C:green}Reroll{}',
-            'per shop',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 8 },
     rarity = 1,
@@ -122,12 +100,6 @@ SMODS.Joker { --Advanced Intel
 SMODS.Joker { --Submerge and Support
     key = 'submerge_and_support',
     name = 'Submerge and Support',
-    loc_txt = {
-        name = 'Submerge and Support',
-        text = {
-            '{C:green}Rerolls{} cost {C:money}$#1#{} less',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 8 },
     rarity = 2,
@@ -164,14 +136,6 @@ SMODS.Joker { --Submerge and Support
 SMODS.Joker { --Bloontonium Reactor
     key = 'bloontonium_reactor',
     name = 'Bloontonium Reactor',
-    loc_txt = {
-        name = 'Bloontonium Reactor',
-        text = {
-            'This Joker gains {C:chips}+#1#{} Chips',
-            'per {C:green}Reroll{} in the shop',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 4, y = 8 },
     rarity = 2,
@@ -203,12 +167,6 @@ SMODS.Joker { --Bloontonium Reactor
 SMODS.Joker { --Energizer
     key = 'energizer',
     name = 'Energizer',
-	loc_txt = {
-        name = 'Energizer',
-        text = {
-            '{C:green}Rerolls{} cost half',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 8 },
     rarity = 3,
@@ -234,14 +192,6 @@ SMODS.Joker { --Energizer
 SMODS.Joker { --Barbed Darts
     key = 'barbed_darts',
     name = 'Barbed Darts',
-	loc_txt = {
-        name = 'Barbed Darts',
-        text = {
-            'Each card',
-            'held in hand',
-            'gives {C:mult}+#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 8 },
     rarity = 1,
@@ -274,14 +224,6 @@ SMODS.Joker { --Barbed Darts
 SMODS.Joker { --Heat-tipped Darts
     key = 'heat_tipped_darts',
     name = 'Heat-tipped Darts',
-	loc_txt = {
-        name = 'Heat-tipped Darts',
-        text = {
-            'Each card',
-            'held in hand',
-            'gives {C:chips}+#1#{} Chips'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 8 },
     rarity = 1,
@@ -314,14 +256,6 @@ SMODS.Joker { --Heat-tipped Darts
 SMODS.Joker { --Ballistic Missile
     key = 'ballistic_missile',
     name = 'Ballistic Missile',
-	loc_txt = {
-        name = 'Ballistic Missile',
-        text = {
-            'Gives {X:mult,C:white}X#1#{} for each card',
-            'with the {C:attention}most common{}',
-            'rank held in hand',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 8 },
     rarity = 2,
@@ -362,15 +296,6 @@ SMODS.Joker { --Ballistic Missile
 SMODS.Joker { --First Strike Capability
     key = 'first_strike_capability',
     name = 'First Strike Capability',
-	loc_txt = {
-        name = 'First Strike Capability',
-        text = {
-            'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} ',
-            'if {C:attention}Blind{} is defeated',
-            'on {C:attention}first hand{} of round',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 8 },
     rarity = 2,
@@ -402,13 +327,6 @@ SMODS.Joker { --First Strike Capability
 SMODS.Joker { --Pre-emptive Strike
     key = 'pre_emptive_strike',
     name = 'Pre-emptive Strike',
-	loc_txt = {
-        name = 'Pre-emptive Strike',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult before',
-            'cards score',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 8 },
     rarity = 3,
@@ -434,14 +352,6 @@ SMODS.Joker { --Pre-emptive Strike
 SMODS.Joker { --Twin Guns
     key = 'twin_guns',
     name = 'Twin Guns',
-	loc_txt = {
-        name = 'Twin Guns',
-        text = {
-            'Each {C:attention}Pair{}',
-            'held in hand',
-            'gives {C:mult}+#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 8 },
     rarity = 1,
@@ -484,15 +394,6 @@ SMODS.Joker { --Twin Guns
 SMODS.Joker { --Airburst Darts
     key = 'airburst_darts',
     name = 'Airburst Darts',
-    loc_txt = {
-        name = 'Airburst Darts',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{}',
-            'Mult if a {C:attention}Pair{}',
-            'is held in hand',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 8 },
     rarity = 1,
@@ -544,15 +445,6 @@ SMODS.Joker { --Airburst Darts
 SMODS.Joker { --Triple Guns
     key = 'triple_guns',
     name = 'Triple Guns',
-    loc_txt = {
-        name = 'Triple Guns',
-        text = {
-            'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{}',
-            'Mult if a {C:attention}Three of a Kind{}',
-            'is held in hand',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 8 },
     rarity = 2,
@@ -604,14 +496,6 @@ SMODS.Joker { --Triple Guns
 SMODS.Joker { --Armor Piercing Darts
     key = 'armor_piercing_darts',
     name = 'Armor Piercing Darts',
-    loc_txt = {
-        name = 'Armor Piercing Darts',
-        text = {
-            'Each {C:attention}Three of a Kind{}',
-            'held in hand',
-            'gives {X:mult,C:white}X#1#{} Mult',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 8 },
     rarity = 2,
@@ -657,14 +541,6 @@ SMODS.Joker { --Armor Piercing Darts
 SMODS.Joker { --Sub Commander
     key = 'sub_commander',
     name = 'Sub Commander',
-    loc_txt = {
-        name = 'Sub Commander',
-        text = {
-            'Doubles the {C:chips}+chips{}, {C:mult}+mult{},',
-            'and {X:mult,C:white}Xmult{} effects of',
-            'all {C:attention}Monkey Subs{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 8 },
     rarity = 3,
