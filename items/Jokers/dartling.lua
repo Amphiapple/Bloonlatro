@@ -11,10 +11,6 @@ SMODS.Joker { --Dartling Gunner
         extra = { min = 0, max = 150 } --Variables: min = min possible +chips, max = max possible +chips
     },
 
-    loc_txt = {
-        name = 'Dartling Gunner',
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_chips = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -68,10 +64,6 @@ SMODS.Joker { --Focused Firing
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: min = min possible +chips, q1,q3 = range for central values, max = max possible +chips
-    },
-
-    loc_txt = {
-        name = 'Focused Firing',
     },
 
     loc_vars = function(self, info_queue, card)
@@ -142,10 +134,6 @@ SMODS.Joker { --Laser Shock
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 0, max = 23, mult = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
-    },
-
-    loc_txt = {
-        name = 'Laser Shock',
     },
 
     loc_vars = function(self, info_queue, card)
@@ -235,10 +223,6 @@ SMODS.Joker { --Laser Cannon
         extra = { min = 0, max = 11, mult = 0, saved = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult, saved = saved shock +mult
     },
 
-    loc_txt = {
-        name = 'Laser Cannon',
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_mult = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -313,14 +297,6 @@ SMODS.Joker { --Laser Cannon
 SMODS.Joker { --Plasma Accelerator
     key = 'plasma_accelerator',
     name = 'Plasma Accelerator',
-	loc_txt = {
-        name = 'Plasma Accelerator',
-        text = {
-            'Each repeated card rank',
-            'in played hand gives',
-            '{C:mult}+#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 13 },
     rarity = 2,
@@ -360,14 +336,6 @@ SMODS.Joker { --Plasma Accelerator
 SMODS.Joker { --Ray of Doom
     key = 'ray_of_doom',
     name = 'Ray of Doom',
-	loc_txt = {
-        name = 'Ray of Doom',
-        text = {
-            'Each repeated card rank',
-            'in played hand gives',
-            '{X:mult,C:white}X#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 13 },
     rarity = 3,
@@ -415,10 +383,6 @@ SMODS.Joker { --Advanced Targeting
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 25, max = 125 } --Variables: min = min possible +chips, max = max possible +chips
-    },
-
-    loc_txt = {
-        name = 'Advanced Targeting',
     },
 
     loc_vars = function(self, info_queue, card)
@@ -479,10 +443,6 @@ SMODS.Joker { --Faster Barrel Spin
         extra = { min = 50, max = 150 } --Variables: min = min possible +chips, max = max possible +chips
     },
 
-    loc_txt = {
-        name = 'Faster Barrel Spin',
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_chips = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -540,10 +500,6 @@ SMODS.Joker { --Hydra Rocket Pods
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 0, max = 11, current = 0 } --Variables: min = min possible chip gain, max = max possible chips gain, current = current chips
-    },
-
-    loc_txt = {
-        name = 'Hydra Rocket Pods'
     },
 
     loc_vars = function(self, info_queue, card)
@@ -626,10 +582,6 @@ SMODS.Joker { --Rocket Storm
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 0, max = 15, current = 1 } --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
-    },
-
-    loc_txt = {
-        name = 'Rocket Storm'
     },
 
     loc_vars = function(self, info_queue, card)
@@ -730,10 +682,6 @@ SMODS.Joker { --M.A.D
         extra = { min = 25, max = 100, current = 1 } --Variables: min = min possible Xmult gain *100, max = max possible Xmult gain *100, current = current Xmult
     },
 
-    loc_txt = {
-        name = 'M.A.D'
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_xmult = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -820,10 +768,6 @@ SMODS.Joker { --Faster Swivel
         extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: max = max possible +chips, q1-q3 = range for extreme values, min = min possible +chips
     },
 
-    loc_txt = {
-        name = 'Faster Swivel',
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_chips = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -896,10 +840,6 @@ SMODS.Joker { --Powerful Darts
         extra = { num = 1, denom = 2, min = 150, max = 250 } --Variables: num/denom = probabiltiy fraction, max = max possible +chips, min = min possible +chips
     },
 
-    loc_txt = {
-        name = 'Powerful Darts',
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_chips = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -961,10 +901,6 @@ SMODS.Joker { --Buckshot
         extra = { max = 30, min = 10 } --Variables: max = max possible Xmult *10, min = min possible Xmult *10
     },
 
-    loc_txt = {
-        name = 'Buckshot'
-    },
-
     loc_vars = function(self, info_queue, card)
         local r_xmult = {}
         for i = card.ability.extra.min, card.ability.extra.max do
@@ -1024,10 +960,6 @@ SMODS.Joker { --Bloon Area Denial System
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 100, max = 150, cards = {} } --Variables: min = min possible Xmult *100, max = max possible Xmult *100
-    },
-
-    loc_txt = {
-        name = 'Bloon Area Denial System'
     },
 
     loc_vars = function(self, info_queue, card)
@@ -1130,10 +1062,6 @@ SMODS.Joker { --Bloon Exclusion Zone
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
         extra = { min = 100, max = 150, cards = {} } --Variables: min = min possible Xmult *100, max = max possible Xmult *100
-    },
-
-    loc_txt = {
-        name = 'Bloon Exclusion Zone'
     },
 
     loc_vars = function(self, info_queue, card)

@@ -1,14 +1,6 @@
 SMODS.Joker { --Druid
     key = 'druid',
     name = 'Druid',
-    loc_txt = {
-        name = 'Druid',
-        text = {
-            'Create a {C:planet}Planet{} card',
-            'when {C:attention}Blind{} is selected',
-            '{C:inactive}(Must have room)',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 0, y = 18 },
     rarity = 1,
@@ -38,14 +30,6 @@ SMODS.Joker { --Druid
 SMODS.Joker { --Hard Thorns
     key = 'hard_thorns',
     name = 'Hard Thorns',
-    loc_txt = {
-        name = 'Hard Thorns',
-        text = {
-            'Create {C:attention}#1#{C:planet} Planet{} cards',
-            'when {C:attention}Blind{} is selected',
-            '{C:inactive}(Must have room)',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 1, y = 18 },
     rarity = 1,
@@ -85,14 +69,6 @@ SMODS.Joker { --Hard Thorns
 SMODS.Joker { --Heart of Thunder
     key = 'heart_of_thunder',
     name = 'Heart of Thunder',
-    loc_txt = {
-        name = 'Heart of Thunder',
-        text = {
-            'Upgrade level of another',
-            '{C:attention}poker hand{} every time',
-            'a {C:planet}Planet{} card is used',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 18 },
     rarity = 1,
@@ -130,15 +106,6 @@ SMODS.Joker { --Heart of Thunder
 SMODS.Joker { --Druid of the Storm
     key = 'druid_of_the_storm',
     name = 'Druid of the Storm',
-	loc_txt = {
-        name = 'Druid of the Storm',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'create the {C:planet}Planet{} card',
-            'for played {C:attention}poker hand{}',
-            '{C:inactive}(Must have room)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 18 },
     rarity = 2,
@@ -180,15 +147,6 @@ SMODS.Joker { --Druid of the Storm
 SMODS.Joker { --Ball Lightning
     key = 'ball_lightning',
     name = 'Ball Lightning',
-	loc_txt = {
-        name = 'Ball Lightning',
-        text = {
-            '{C:planet}Planet{} cards in your',
-            '{C:attention}consumable{} area give {X:red,C:white}X#1#{} Mult',
-            'for their specified {C:attention}poker hand{}',
-            'and {X:red,C:white}X#2#{} Mult otherwise',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 18 },
     rarity = 2,
@@ -220,15 +178,6 @@ SMODS.Joker { --Ball Lightning
 SMODS.Joker { --Monarch of Storms
     key = 'monarch_of_storms',
     name = 'Monarch of Storms',
-	loc_txt = {
-        name = 'Monarch of Storms',
-        text = {
-            'Create the {C:planet}Planet{} card',
-            'for final played {C:attention}poker hand{}',
-            'at end of round',
-            '{C:inactive}(Must have room)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 18 },
     rarity = 3,
@@ -266,14 +215,6 @@ SMODS.Joker { --Monarch of Storms
 SMODS.Joker { --Thorn Swarm
     key = 'thorn_swarm',
     name = 'Thorn Swarm',
-    loc_txt = {
-        name = 'Thorn Swarm',
-        text = {
-            'Create a {C:planet}Planet{} card when',
-            'any {C:attention}Booster Pack{} is opened',
-            '{C:inactive}(Must have room)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 18 },
     rarity = 1,
@@ -303,13 +244,6 @@ SMODS.Joker { --Thorn Swarm
 SMODS.Joker { --Heart of Oak
     key = 'heart_of_oak',
     name = 'Heart of Oak',
-    loc_txt = {
-        name = 'Heart of Oak',
-        text = {
-            'Earn {C:attention}$#1#{} whenever',
-            'a {C:planet}Planet{} card is used',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 18 },
     rarity = 1,
@@ -336,14 +270,6 @@ SMODS.Joker { --Heart of Oak
 SMODS.Joker { --Druid of the Jungle
     key = 'druid_of_the_jungle',
     name = 'Druid of the Jungle',
-    loc_txt = {
-        name = 'Druid of the Jungle',
-        text = {
-            '{C:planet}Planet{} cards in your',
-            '{C:attention}consumable{} area earn {C:money}$#1#{}',
-            'at end of round',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 8, y = 18 },
     rarity = 2,
@@ -371,15 +297,6 @@ SMODS.Joker { --Druid of the Jungle
 SMODS.Joker { --Jungle's Bounty
     key = 'jungles_bounty',
     name = "Jungle's Bounty",
-	loc_txt = {
-        name = "Jungle's Bounty",
-        text = {
-            'Destroy all {C:planet}Planet{}',
-            'cards in your {C:attention}consumable{}',
-            'area and earn {C:money}$#1#{} for each',
-            'at end of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 18 },
     rarity = 2,
