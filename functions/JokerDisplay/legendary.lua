@@ -196,6 +196,22 @@ JokerDisplay.Definitions["j_bloons_ascended_shadow"] = { --Ascended Shadow
     end
 }
 
+JokerDisplay.Definitions["j_bloons_root_of_all_nature"] = { --Root of All Nature
+    text = {
+        { text = " +$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(Play)" }
+    }
+}
+
 JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Mega Massive Munitions Factory
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },

@@ -153,6 +153,9 @@ JokerDisplay.Definitions["j_bloons_cannon_ship"] = { --Cannon Ship
         { text = " +$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
     },
+    reminder_text = {
+        { text = "(Round)" }
+    }
 }
 
 JokerDisplay.Definitions["j_bloons_monkey_pirates"] = { --Monkey Pirates

@@ -94,7 +94,7 @@ return {
             j_bloons_root_of_all_nature = {
                 name = 'Root of All Nature',
                 text = {
-                    'Earn {C:money}$#1#{} each hand',
+                    'Earn {C:money}$#1#{} per hand played',
                     '{X:mult,C:white}X#2#{} Mult for every',
                     '{C:money}$#3#{} you have',
                     '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)'

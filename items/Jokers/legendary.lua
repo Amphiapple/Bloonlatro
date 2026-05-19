@@ -556,7 +556,7 @@ SMODS.Joker { --Root of All Nature
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { money = 3, Xmult = 0.1, rate = 5 } --Variables: money = dollars per hand, Xmult = Xmult increase per rate
+        extra = { money = 3, Xmult = 0.1, rate = 5, current = 1 } --Variables: money = dollars per hand, Xmult = Xmult increase per rate
     },
     loc_vars = function (self, info_queue, card)
         return {
@@ -564,9 +564,14 @@ SMODS.Joker { --Root of All Nature
                 card.ability.extra.money,
                 card.ability.extra.Xmult,
                 card.ability.extra.rate,
-                1 + card.ability.extra.Xmult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate)
+                card.ability.extra.current,
             }
         }
+    end,
+    update = function(self, card, dt)
+        if G.GAME.dollars then
+            card.ability.extra.current = 1 + card.ability.extra.Xmult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate)
+        end
     end,
     calculate = function(self, card, context)
         if context.before then
@@ -575,7 +580,7 @@ SMODS.Joker { --Root of All Nature
             }
         elseif context.joker_main and math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate) > 1 then
             return {
-                Xmult = 1 + card.ability.extra.Xmult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate)
+                Xmult = card.ability.extra.current
             }
         end
     end
