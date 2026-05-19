@@ -1,14 +1,6 @@
 SMODS.Joker { --Engineer Monkey
     key = 'engineer_monkey',
     name = 'Engineer Monkey',
-	loc_txt = {
-        name = 'Engineer Monkey',
-        text = {
-            'Earn {C:money}$#1#{} if {C:attention}poker hand{}',
-            'contains a {C:attention}Straight{}',
-            'or a {C:attention}Flush{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 23 },
     rarity = 1,
@@ -42,13 +34,6 @@ SMODS.Joker { --Engineer Monkey
 SMODS.Joker { --Sentry Gun
     key = 'sentry_gun',
     name = 'Sentry Gun',
-    loc_txt = {
-        name = 'Sentry Gun',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}Nail Sentry{}',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 1, y = 23 },
     rarity = 1,
@@ -80,15 +65,6 @@ SMODS.Joker { --Sentry Gun
 SMODS.Joker { --Faster Engineering
     key = 'faster_engineering',
     name = 'Faster Engineering',
-    loc_txt = {
-        name = 'Faster Engineering',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}Nail Sentry{}',
-            '{C:green}#1# in #2#{} chance to',
-            'create another',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 23 },
     rarity = 1,
@@ -126,14 +102,6 @@ SMODS.Joker { --Faster Engineering
 SMODS.Joker { --Sprockets
     key = 'sprockets',
     name = 'Sprockets',
-    loc_txt = {
-        name = 'Sprockets',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}Nail Sentry{}',
-            'and double its chips and mult',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 23 },
     rarity = 2,
@@ -168,13 +136,6 @@ SMODS.Joker { --Sprockets
 SMODS.Joker { --Sentry Expert
     key = 'sentry_expert',
     name = 'Sentry Expert',
-	loc_txt = {
-        name = 'Sentry Expert',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a random {C:attention}Sentry{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 23 },
     rarity = 2,
@@ -211,13 +172,6 @@ SMODS.Joker { --Sentry Expert
 SMODS.Joker { --Sentry Champion
     key = 'sentry_champion',
     name = 'Sentry Champion',
-	loc_txt = {
-        name = 'Sentry Champion',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}Champion Sentry{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 23 },
     rarity = 3,
@@ -249,13 +203,6 @@ SMODS.Joker { --Sentry Champion
 SMODS.Joker { --Larger Service Area
     key = 'larger_service_area',
     name = 'Larger Service Area',
-    loc_txt = {
-        name = 'Larger Service Area',
-        text = {
-            'Earn {C:money}$#1#{} if scoring',
-            'hand contains {C:attention}#2#{} cards'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 23 },
     rarity = 1,
@@ -282,14 +229,6 @@ SMODS.Joker { --Larger Service Area
 SMODS.Joker { --Deconstruction
     key = 'deconstruction',
     name = 'Deconstruction',
-    loc_txt = {
-        name = 'Deconstruction',
-        text = {
-            '{C:attention}Engineer Monkeys{} and',
-            '{C:attention}Sentries{} give',
-            '{C:mult}+4{} Mult',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 23 },
     rarity = 1,
@@ -323,15 +262,6 @@ SMODS.Joker { --Deconstruction
 SMODS.Joker { --Cleansing Foam
     key = 'cleansing_foam',
     name = 'Cleansing Foam',
-    loc_txt = {
-        name = 'Cleansing Foam',
-        text = {
-            'If played hand is',
-            'a {C:attention}#1#{},',
-            'create a free',
-            '{C:attention}Cleansing Tag{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 8, y = 23 },
     rarity = 2,
@@ -364,13 +294,6 @@ SMODS.Joker { --Cleansing Foam
 SMODS.Joker { --Overclock
     key = 'overclock',
     name = 'Overclock',
-    loc_txt = {
-        name = 'Overclock',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult for the',
-            'next {C:attention}#2#{} hands',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 9, y = 23 },
     rarity = 2,
@@ -416,15 +339,6 @@ SMODS.Joker { --Overclock
 SMODS.Joker { --Ultraboost
     key = 'ultraboost',
     name = 'Ultraboost',
-	loc_txt = {
-        name = 'Ultraboost',
-        text = {
-            'Played {C:attention}cards{}',
-            'permanently gain {X:mult,C:white}X#1#{}',
-            'Mult when scored',
-            '{C:inactive}(Maximum of {X:mult,C:white}X#2#{C:inactive})'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 23 },
     rarity = 3,
@@ -458,14 +372,6 @@ SMODS.Joker { --Ultraboost
 SMODS.Joker { --Oversize Nails
     key = 'oversize_nails',
     name = 'Oversize Nails',
-	loc_txt = {
-        name = 'Oversize Nails',
-        text = {
-            'Earn {C:money}$#1#{} if {C:attention}poker hand{}',
-            'contains a {C:attention}Straight{}',
-            'or a {C:attention}Flush{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 23 },
     rarity = 1,
@@ -499,14 +405,6 @@ SMODS.Joker { --Oversize Nails
 SMODS.Joker { --Pin
     key = 'pin',
     name = 'Pin',
-	loc_txt = {
-        name = 'Pin',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:attention}Pin{} this {C:attention}Joker{} to',
-            'the leftmost position',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 23 },
     rarity = 1,
@@ -535,14 +433,6 @@ SMODS.Joker { --Pin
 SMODS.Joker { --Double Gun
     key = 'double_gun',
     name = 'Double Gun',
-	loc_txt = {
-        name = 'Double Gun',
-        text = {
-            'Each {C:attention}Pair{}',
-            'held in hand',
-            'gives {C:money}$#1#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 23 },
     rarity = 2,
@@ -592,16 +482,6 @@ SMODS.Joker { --Double Gun
 SMODS.Joker { --Bloon Trap
     key = 'bloon_trap',
     name = 'Bloon Trap',
-	loc_txt = {
-        name = 'Bloon Trap',
-        text = {
-            'If {C:attention}first discard{} of',
-            'round has only {C:attention}1{} card,',
-            'destroy it and store {C:money}$#1#',
-            'Earn stored money {C:inactive}({C:money}$#2#{C:inactive}){} after',
-            'defeating {C:attention}Boss Blind{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 23 },
     rarity = 2,
@@ -644,16 +524,6 @@ SMODS.Joker { --Bloon Trap
 SMODS.Joker { --XXXL Trap
     key = 'xxxl_trap',
     name = 'XXXL Trap',
-	loc_txt = {
-        name = 'XXXL Trap',
-        text = {
-            'If {C:attention}first discard{} of round',
-            'has only {C:attention}1{} card, destroy it and',
-            'store money equal to its rank',
-            'Earn stored money {C:inactive}({C:money}$#1#{C:inactive}){} after',
-            'defeating {C:attention}Boss Blind{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 23 },
     rarity = 3,

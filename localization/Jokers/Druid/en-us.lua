@@ -108,7 +108,7 @@ return {
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 }
             },
-            j_bloons_ = {
+            j_bloons_druid_of_wrath = {
                 name = 'Druid of Wrath',
                 text = {
                     '{X:mult,C:white}X#1#{} Mult times the number',
@@ -116,11 +116,19 @@ return {
                     'been played this run'
                 }
             },
-            j_bloons_ = {
-
+            j_bloons_poplust = {
+                name = 'Poplust',
+                text = {
+                    '{C:attention}Druids{} give {X:mult,C:white}X#1#{} Mult',
+                }
             },
-            j_bloons_ = {
-
+            j_bloons_avatar_of_wrath = {
+                name = 'Avatar of Wrath',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult,',
+                    'loses {X:mult,C:white}X0.02{} Mult for every',
+                    '{C:attention}1%{} of chips scored this round',
+                }
             },
 		}
     }

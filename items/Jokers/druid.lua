@@ -325,14 +325,6 @@ SMODS.Joker { --Jungle's Bounty
 SMODS.Joker { --Spirit of the Forest
     key = 'spirit_of_the_forest',
     name = 'Spirit of the Forest',
-	loc_txt = {
-        name = 'Spirit of the Forest',
-        text = {
-            'Earn money equal to the',
-            'level of played {C:attention}poker hand{}',
-            '{C:inactive}(Max of {C:money}$#1#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 18 },
     rarity = 3,
@@ -363,14 +355,6 @@ SMODS.Joker { --Spirit of the Forest
 SMODS.Joker { --Druidic Reach
     key = 'druidic_reach',
     name = 'Druidic Reach',
-    loc_txt = {
-        name = 'Druidic Reach',
-        text = {
-            'Create a {C:planet}Planet{} card',
-            'whenever a {C:attention}Joker{} is sold',
-            '{C:inactive}(Must have room)',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 11, y = 18 },
     rarity = 1,
@@ -400,14 +384,6 @@ SMODS.Joker { --Druidic Reach
 SMODS.Joker { --Heart of Vengeance
     key = 'heart_of_vengeance',
     name = 'Heart of Vengeance',
-    loc_txt = {
-        name = 'Heart of Vengeance',
-        text = {
-            '{C:red}+#1#{} Mult per {C:planet}Planet{}',
-            'card used this run',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 18 },
     rarity = 1,
@@ -440,14 +416,6 @@ SMODS.Joker { --Heart of Vengeance
 SMODS.Joker { --Druid of Wrath
     key = 'druid_of_wrath',
     name = 'Druid of Wrath',
-    loc_txt = {
-        name = 'Druid of Wrath',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult times the number',
-            'of times {C:attention}poker hand{} has',
-            'been played this run'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 13, y = 18 },
     rarity = 2,
@@ -474,12 +442,6 @@ SMODS.Joker { --Druid of Wrath
 SMODS.Joker { --Poplust
     key = 'poplust',
     name = 'Poplust',
-	loc_txt = {
-        name = 'Poplust',
-        text = {
-            '{C:attention}Druids{} give {X:mult,C:white}X#1#{} Mult',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 18 },
     rarity = 2,
@@ -511,14 +473,6 @@ SMODS.Joker { --Poplust
 SMODS.Joker { --Avatar of Wrath
     key = 'avatar_of_wrath',
     name = 'Avatar of Wrath',
-	loc_txt = {
-        name = 'Avatar of Wrath',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult,',
-            'loses {X:mult,C:white}X0.02{} Mult for every',
-            '{C:attention}1%{} of chips scored this round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 18 },
     rarity = 3,

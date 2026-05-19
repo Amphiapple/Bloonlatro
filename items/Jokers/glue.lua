@@ -1,14 +1,6 @@
 SMODS.Joker { --Glue Gunner
     key = 'glue_gunner',
     name = 'Glue Gunner',
-	loc_txt = {
-        name = 'Glue Gunner',
-        text = {
-            '{C:attention}First{} played card',
-            'becomes {C:attention}Glued{} and gives',
-            '{C:mult}+#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 5 },
     rarity = 1,
@@ -39,14 +31,6 @@ SMODS.Joker { --Glue Gunner
 SMODS.Joker { --Glue Soak
     key = 'glue_soak',
     name = 'Glue Soak',
-	loc_txt = {
-        name = 'Glue Soak',
-        text = {
-            '{C:attention}Glued{} cards have',
-            'a {C:green}#1# in #2#{} chance',
-            'to remain glued',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 5 },
     rarity = 1,
@@ -68,15 +52,6 @@ SMODS.Joker { --Glue Soak
 SMODS.Joker { --Corrosive Glue
     key = 'corrosive_glue',
     name = 'Corrosive Glue',
-    loc_txt = {
-        name = 'Corrosive Glue',
-        text = {
-            'This {C:attention}Joker{} gains',
-            '{C:mult}+#1#{} Mult for every played',
-            '{C:attention}Glued{} card that scores',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 5 },
     rarity = 1,
@@ -111,14 +86,6 @@ SMODS.Joker { --Corrosive Glue
 SMODS.Joker { --Bloon Dissolver
     key = 'bloon_dissolver',
     name = 'Bloon Dissolver',
-    loc_txt = {
-        name = 'Bloon Dissolver',
-        text = {
-            '{C:attention}Glued{} cards',
-            'permanently gain {C:mult}+#1#{}',
-            'Mult when scored'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 5 },
     rarity = 2,
@@ -149,15 +116,6 @@ SMODS.Joker { --Bloon Dissolver
 SMODS.Joker { --Bloon Liquefier
     key = 'bloon_liquefier',
     name = 'Bloon Liquefier',
-    loc_txt = {
-        name = 'Bloon Liquefier',
-        text = {
-            '{C:attention}Glued{} cards',
-            'give {C:mult}+#1#{} Mult and',
-            'permanently gain {C:mult}+#2#{}',
-            'Mult when scored'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 4, y = 5 },
     rarity = 2,
@@ -187,15 +145,6 @@ SMODS.Joker { --Bloon Liquefier
 SMODS.Joker { --The Bloon Solver
     key = 'the_bloon_solver',
     name = 'The Bloon Solver',
-	loc_txt = {
-        name = 'The Bloon Solver',
-        text = {
-            'This {C:attention}Joker{} gains',
-            '{X:mult,C:white}X#1#{} Mult for every played',
-            '{C:attention}Glued{} card that scores',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 5 },
     rarity = 3,
@@ -230,14 +179,6 @@ SMODS.Joker { --The Bloon Solver
 SMODS.Joker { --Bigger Globs
     key = 'bigger_globs',
     name = 'Bigger Globs',
-	loc_txt = {
-        name = 'Bigger Globs',
-        text = {
-            '{C:attention}First #1#{} played cards',
-            'becomes {C:attention}Glued{} and give',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 5 },
     rarity = 1,
@@ -268,14 +209,6 @@ SMODS.Joker { --Bigger Globs
 SMODS.Joker { --Glue Splatter
     key = 'glue_splatter',
     name = 'Glue Splatter',
-	loc_txt = {
-        name = 'Glue Splatter',
-        text = {
-            '{C:mult}+#1#{} Mult and',
-            '{C:attention}Glue{} all cards in',
-            '{C:attention}first hand{} of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 5 },
     rarity = 1,
@@ -307,15 +240,6 @@ SMODS.Joker { --Glue Splatter
 SMODS.Joker { --Glue Hose
     key = 'glue_hose',
     name = 'Glue Hose',
-	loc_txt = {
-        name = '#1#',
-        text = {
-            '{C:attention}Glue{} all cards',
-            'in first discard',
-            '{C:attention}Glued{} cards no longer',
-            'lose money when discarded'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 5 },
     rarity = 2,
@@ -349,15 +273,6 @@ SMODS.Joker { --Glue Hose
 SMODS.Joker { --Glue Strike
     key = 'glue_strike',
     name = 'Glue Strike',
-	loc_txt = {
-        name = 'Glue Strike',
-        text = {
-            '{C:attention}Glue{} all cards',
-            'drawn in first hand',
-            '{C:attention}Glued{} cards no longer',
-            'lose money when discarded'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 5 },
     rarity = 2,
@@ -385,14 +300,6 @@ SMODS.Joker { --Glue Strike
 SMODS.Joker { --Glue Storm
     key = 'glue_storm',
     name = 'Glue Storm',
-	loc_txt = {
-        name = 'Glue Storm',
-        text = {
-            '{C:attention}Glue{} all discarded cards',
-            '{C:attention}Glued{} cards no longer',
-            'lose money when discarded'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 5 },
     rarity = 3,
@@ -419,14 +326,6 @@ SMODS.Joker { --Glue Storm
 SMODS.Joker { --Stickier Glue
     key = 'stickier_glue',
     name = 'Stickier Glue',
-	loc_txt = {
-        name = 'Stickier Glue',
-        text = {
-            '{C:attention}First{} played card',
-            'becomes {C:attention}Glued{} and gives',
-            '{C:mult}+#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 5 },
     rarity = 1,
@@ -457,14 +356,6 @@ SMODS.Joker { --Stickier Glue
 SMODS.Joker { --Stronger Glue
     key = 'stronger_glue',
     name = 'Stronger Glue',
-	loc_txt = {
-        name = 'Stronger Glue',
-        text = {
-            '{C:attention}Glued{} cards give',
-            '{C:mult}+#1#{} more Mult but lose',
-            '{C:money}$#2#{} when discarded'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 5 },
     rarity = 1,
@@ -492,14 +383,6 @@ SMODS.Joker { --Stronger Glue
 SMODS.Joker { --MOAB Glue
     key = 'moab_glue',
     name = 'MOAB Glue',
-	loc_txt = {
-        name = 'MOAB Glue',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult and',
-            '{C:attention}Glue{} all scoring cards',
-            'against {C:attention}Boss Blinds{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 5 },
     rarity = 2,
@@ -532,14 +415,6 @@ SMODS.Joker { --MOAB Glue
 SMODS.Joker { --Relentless Glue
     key = 'relentless_glue',
     name = 'Relentless Glue',
-    loc_txt = {
-        name = 'Relentless Glue',
-        text = {
-            '{C:attention}Glue{} never wears off',
-            'Retrigger all played',
-            '{C:attention}Glued{} cards'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 5 },
     rarity = 2,
@@ -567,14 +442,6 @@ SMODS.Joker { --Relentless Glue
 SMODS.Joker { --Super Glue
     key = 'super_glue',
     name = 'Super Glue',
-    loc_txt = {
-        name = 'Super Glue',
-        text = {
-            '{C:attention}Glue{} never wears off,',
-            'give {X:mult,C:white}X#1#{} Mult when scored,',
-            'and loses {C:money}$#2#{} when discarded'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 5 },
     rarity = 3,

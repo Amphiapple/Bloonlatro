@@ -1,15 +1,6 @@
 SMODS.Joker { --Ice Monkey
     key = 'ice_monkey',
     name = 'Ice Monkey',
-	loc_txt = {
-        name = 'Ice Monkey',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            '{C:attention}Freeze{} all scoring cards',
-            'every {C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 4 },
     rarity = 1,
@@ -68,15 +59,6 @@ SMODS.Joker { --Ice Monkey
 SMODS.Joker { --Permafrost
     key = 'permafrost',
     name = 'Permafrost',
-	loc_txt = {
-        name = 'Permafrost',
-        text = {
-            '{C:attention}Frozen Cards{}',
-            'permanently gain',
-            '{C:chips}+#1#{} Hand Chips',
-            'when thawed out'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 4 },
     rarity = 1,
@@ -107,14 +89,6 @@ SMODS.Joker { --Permafrost
 SMODS.Joker { --Cold Snap
     key = 'cold_snap',
     name = 'Cold Snap',
-	loc_txt = {
-        name = 'Cold Snap',
-        text = {
-            '{C:attention}Frozen{} cards',
-            'give {C:money}+$1#{} when',
-            'thawed out'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 4 },
     rarity = 1,
@@ -145,15 +119,6 @@ SMODS.Joker { --Cold Snap
 SMODS.Joker { --Ice Shards
     key = 'ice_shards',
     name = 'Ice Shards',
-	loc_txt = {
-        name = 'Ice Shards',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{}',
-            'Mult whenever a {C:attention}Frozen Card{}',
-            'thaws out or is destroyed',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 4 },
     rarity = 2,
@@ -245,15 +210,6 @@ SMODS.Joker { --Ice Shards
 SMODS.Joker { --Embrittlement
     key = 'embrittlement',
     name = 'Embrittlement',
-	loc_txt = {
-        name = 'Embrittlement',
-        text = {
-            'This {C:attention}Joker{} gains',
-            '{X:mult,C:white}X#1#{} Mult whenever a',
-            '{C:attention}Frozen Card{} is destroyed',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 4 },
     rarity = 2,
@@ -324,15 +280,6 @@ SMODS.Joker { --Embrittlement
 SMODS.Joker { --Super Brittle
     key = 'super_brittle',
     name = 'Super Brittle',
-	loc_txt = {
-        name = 'Super Brittle',
-        text = {
-            '{C:attention}Frozen Cards{} give',
-            '{X:mult,C:white}X#1#{} Mult when',
-            'held in hand and',
-            '{C:green}#2# in #3#{} chance to be destroyed',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 4 },
     rarity = 3,
@@ -373,15 +320,6 @@ SMODS.Joker { --Super Brittle
 SMODS.Joker { --Enhanced Freeze
     key = 'enhanced_freeze',
     name = 'Enhanced Freeze',
-	loc_txt = {
-        name = 'Enhanced Freeze',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            '{C:attention}Freeze{} all scoring cards',
-            'every {C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 4 },
     rarity = 1,
@@ -439,14 +377,6 @@ SMODS.Joker { --Enhanced Freeze
 SMODS.Joker { --Deep Freeze
     key = 'deep_freeze',
     name = 'Deep Freeze',
-	loc_txt = {
-        name = 'Deep Freeze',
-        text = {
-            '{C:attention}Frozen{} cards have',
-            'a {C:green}#1# in #2#{} chance',
-            'to remain {C:attention}Frozen{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 7, y = 4 },
     rarity = 1,
@@ -468,15 +398,6 @@ SMODS.Joker { --Deep Freeze
 SMODS.Joker { --Arctic Wind
     key = 'arctic_wind',
     name = 'Arctic Wind',
-	loc_txt = {
-        name = 'Arctic Wind',
-        text = {
-            '{C:attention}+#1#{} hand size',
-            '{C:attention}Freeze{} all scoring',
-            'cards on {C:attention}first{}',
-            '{C:attention}hand{} of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 4 },
     rarity = 2,
@@ -516,15 +437,6 @@ SMODS.Joker { --Arctic Wind
 SMODS.Joker { --Snowstorm
     key = 'snowstorm',
     name = 'Snowstorm',
-	loc_txt = {
-        name = 'Snowstorm',
-        text = {
-            '{C:attention}Freeze{} all scoring cards',
-            'on {C:attention}first hand{} of round and gain',
-            '{C:attention}+#1#{} hand size this round every',
-            'other card this Joker {C:attention}Freezes{}'
-        }
-    }, 
 	atlas = 'Joker',
 	pos = { x = 9, y = 4 },
     rarity = 2,
@@ -578,15 +490,6 @@ SMODS.Joker { --Snowstorm
 SMODS.Joker { --Absolute Zero
     key = 'absolute_zero',
     name = 'Absolute Zero',
-	loc_txt = {
-        name = 'Absolute Zero',
-        text = {
-            '{C:attention}+#1#{} hand size',
-            '{C:attention}Frozen{} cards permanently',
-            'gain {X:mult,C:white}X#2#{} Mult',
-            'when thawed out',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 4 },
     rarity = 3,
@@ -618,15 +521,6 @@ SMODS.Joker { --Absolute Zero
 SMODS.Joker { --Larger Radius
     key = 'larger_radius',
     name = 'Larger Radius',
-    loc_txt = {
-        name = 'Larger Radius',
-        text = {
-            '{C:mult}+#1#{} Mult and',
-            '{C:attention}Freeze{} all scoring cards',
-            'every {C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 4 },
     rarity = 1,
@@ -685,13 +579,6 @@ SMODS.Joker { --Larger Radius
 SMODS.Joker { --Re-freeze
     key = 're_freeze',
     name = 'Re-Freeze',
-    loc_txt = {
-        name = 'Re-Freeze',
-        text = {
-            'Retrigger {C:attention}Frozen Cards{}',
-            'held in hand'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 4 },
     rarity = 1,
@@ -719,15 +606,6 @@ SMODS.Joker { --Re-freeze
 SMODS.Joker { --Cryo Cannon
     key = 'cryo_cannon',
     name = 'Cryo Cannon',
-    loc_txt = {
-        name = 'Cryo Cannon',
-        text = {
-            '{C:attention}Frozen Cards{} give {C:mult}+#1#{}',
-            'Mult when held in hand',
-            '{C:green}#2# in #3#{} chance to',
-            '{C:attention}Freeze discarded{} cards'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 4 },
     rarity = 2,
@@ -761,15 +639,6 @@ SMODS.Joker { --Cryo Cannon
 SMODS.Joker { --Icicles
     key = 'icicles',
     name = 'Icicles',
-    loc_txt = {
-        name = 'Icicles',
-        text = {
-            '{C:attention}Frozen Cards{} give {X:mult,C:white}X#1#{}',
-            'Mult when held in hand',
-            '{C:green}#2# in #3#{} chance to',
-            '{C:attention}Freeze discarded{} cards'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 4 },
     rarity = 2,
@@ -803,14 +672,6 @@ SMODS.Joker { --Icicles
 SMODS.Joker { --Icicle Impale
     key = 'icicle_impale',
     name = 'Icicle Impale',
-    loc_txt = {
-        name = 'Icicle Impale',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if {C:attention}Frozen{}',
-            '{C:attention}Cards{} are held in hand',
-            '{C:attention}Freeze{} all {C:attention}discarded{} cards',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 4 },
     rarity = 3,

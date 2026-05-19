@@ -1,13 +1,6 @@
 SMODS.Joker { --Banana Farm
     key = 'banana_farm',
     name = 'Banana Farm',
-	loc_txt = {
-        name = 'Banana Farm',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 20 },
     rarity = 1,
@@ -27,15 +20,8 @@ SMODS.Joker { --Banana Farm
 }
 
 SMODS.Joker { --Increased Production
-    key = 'increased_product',
+    key = 'increased_production',
     name = 'Increased Production',
-	loc_txt = {
-        name = 'Increased Production',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 20 },
     rarity = 1,
@@ -55,15 +41,8 @@ SMODS.Joker { --Increased Production
 }
 
 SMODS.Joker { --Greater Production
-    key = 'greater_product',
+    key = 'greater_production',
     name = 'Greater Production',
-	loc_txt = {
-        name = 'Greater Production',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 20 },
     rarity = 1,
@@ -85,13 +64,6 @@ SMODS.Joker { --Greater Production
 SMODS.Joker { --Banana Plantation
     key = 'banana_plantation',
     name = 'Banana Plantation',
-    loc_txt = {
-        name = 'Banana Plantation',
-        text = {
-            'Earn {C:money}$#1#-#2#{} at',
-            'end of round'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 20 },
     rarity = 2,
@@ -114,13 +86,6 @@ SMODS.Joker { --Banana Plantation
 SMODS.Joker { --BRF
     key = 'banana_research_facility',
     name = 'Banana Research Facility',
-	loc_txt = { 
-        name = 'Banana Research Facility',
-        text = {
-            'Earn {C:attention}#1#-#2#{} crates of',
-            '{C:money}$#3#{} at end of round'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 4, y = 20 },
     rarity = 2,
@@ -148,14 +113,6 @@ SMODS.Joker { --BRF
 SMODS.Joker { --Banana Central
     key = 'banana_central',
     name = 'Banana Central',
-	loc_txt = { 
-        name = 'Banana Central',
-        text = {
-            'Earn {C:money}$#1#{} for each',
-            '{C:attention}Banana Farm{} at end of round',
-            '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 5, y = 20 },
     rarity = 3,
@@ -190,15 +147,6 @@ SMODS.Joker { --Banana Central
 SMODS.Joker { --Long Life Bananas
     key = 'long_life_bananas',
     name = 'Long Life Bananas',
-    loc_txt = {
-        name = 'Long Life Bananas',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'destroy {C:attention}1{} banana and',
-            'earn {C:money}$#3#{} at end of round',
-            '{C:inactive}(#4# remaining){}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 20 },
     rarity = 1,
@@ -257,15 +205,6 @@ SMODS.Joker { --Long Life Bananas
 SMODS.Joker { --Valuable Bananas
     key = 'valuable_bananas',
     name = 'Valuable Bananas',
-    loc_txt = {
-        name = 'Valuable Bananas',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'destroy {C:attention}1{} banana and',
-            'earn {C:money}$#3#{} at end of round',
-            '{C:inactive}(#4# remaining){}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 20 },
     rarity = 1,
@@ -324,16 +263,6 @@ SMODS.Joker { --Valuable Bananas
 SMODS.Joker { --Monkey Bank
     key = 'monkey_bank',
     name = 'Monkey Bank',
-	loc_txt = {
-        name = 'Monkey Bank',
-        text = {
-            'Gain sell value equal to',
-            'interest at end of round',
-            'Sell this card for {C:money}$#1#{} or more',
-            'to create a {C:attention}Monkey Bank{}',
-            '{C:inactive}(Max capacity of {C:money}$#2#{C:inactive})'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 20 },
     rarity = 2,
@@ -385,16 +314,6 @@ SMODS.Joker { --Monkey Bank
 SMODS.Joker { --IMF Loan
     key = 'imf_loan',
     name = 'IMF Loan',
-	loc_txt = {
-        name = 'IMF Loan',
-        text = {
-            'Go up to {C:red}-$#1#{} in debt',
-            'When {C:attention}Blind{} is selected,',
-            'subtract debt from sell value',
-            'Gains {C:money}$#2#{} of {C:attention}sell value{}',
-            'at end of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 20 },
     rarity = 2,
@@ -436,15 +355,6 @@ SMODS.Joker { --IMF Loan
 SMODS.Joker { --Monkey-Nomics
     key = 'monkey_nomics',
     name = 'Monkey-Nomics',
-	loc_txt = {
-        name = 'Monkey-Nomics',
-        text = {
-            'When {C:attention}Small Blind{} or',
-            '{C:attention}Big Blind{} is selected,',
-            'create a {C:tarot}Hermit{} card',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 20 },
     rarity = 3,
@@ -479,14 +389,6 @@ SMODS.Joker { --Monkey-Nomics
 SMODS.Joker { --EZ Collect
     key = 'ez_collect',
     name = 'EZ Collect',
-	loc_txt = {
-        name = 'EZ Collect',
-        text = {
-            'Earn {C:money}$#1#{} for each other',
-            '{C:attention}Joker{} card at end of round',
-            '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 20 },
     rarity = 1,
@@ -518,12 +420,6 @@ SMODS.Joker { --EZ Collect
 SMODS.Joker { --Banana Salvage
     key = 'banana_salvage',
     name = 'Banana Salvage',
-    loc_txt = {
-        name = 'Banana Salvage',
-        text = {
-            'All cards sell for {C:money}$#1#{} more'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 20 },
     rarity = 1,
@@ -555,15 +451,6 @@ SMODS.Joker { --Banana Salvage
 SMODS.Joker { --Marketplace
     key = 'marketplace',
     name = 'Marketplace',
-	loc_txt = {
-        name = 'Marketplace',
-        text = {
-            'Earn {C:money}$#1#{} per {C:money}$#2#{}',
-            'of sell value of all other',
-            '{C:attention}Jokers{} at end of round',
-            '{C:inactive}(Currently {C:money}$#3#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 20 },
     rarity = 2,
@@ -598,15 +485,6 @@ SMODS.Joker { --Marketplace
 SMODS.Joker { --Central Market
     key = 'central_market',
     name = 'Central Market',
-	loc_txt = {
-        name = 'Central Market',
-        text = {
-            'Earn {C:money}$#1#{} for each',
-            '{C:attention}voucher{} redeemed this run',
-            'at end of round',
-            '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 20 },
     rarity = 2,
@@ -651,13 +529,6 @@ SMODS.Joker { --Central Market
 SMODS.Joker { --Monkey Wall Street
     key = 'monkey_wall_street',
     name = 'Monkey Wall Street',
-    loc_txt = {
-        name = 'Monkey Wall Street',
-        text = {
-            'All Booster Packs become',
-            '{C:attention}MEGA{} and cost half',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 15, y = 20 },
     rarity = 3,

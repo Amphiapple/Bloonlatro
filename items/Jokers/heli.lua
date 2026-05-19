@@ -1,14 +1,6 @@
 SMODS.Joker { --Heli Pilot
     key = 'heli_pilot',
     name = 'Heli Pilot',
-	loc_txt = {
-        name = 'Heli Pilot',
-        text = {
-            'Played {C:attention}face{} cards',
-            'give {C:mult}+#1#{} Mult',
-            'when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 11 },
     rarity = 1,
@@ -34,14 +26,6 @@ SMODS.Joker { --Heli Pilot
 SMODS.Joker { --Quad Darts
     key = 'quad_darts',
     name = 'Quad Darts',
-    loc_txt = {
-        name = 'Quad Darts',
-        text = {
-            'Played {C:attention}face{} cards',
-            'give {C:mult}+#1#{} Mult',
-            'when scored',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 1, y = 11 },
     rarity = 1,
@@ -67,14 +51,6 @@ SMODS.Joker { --Quad Darts
 SMODS.Joker { --Pursuit
     key = 'pursuit',
     name = 'Pursuit',
-    loc_txt = {
-        name = 'Pursuit',
-        text = {
-            '{C:attention}Last{} played {C:attention}face{}',
-            'card gives {X:mult,C:white}X#1#{} Mult',
-            'when scored'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 2, y = 11 },
     rarity = 1,
@@ -108,15 +84,6 @@ SMODS.Joker { --Pursuit
 SMODS.Joker { --Razor Rotors
     key = 'razor_rotors',
     name = 'Razor Rotors',
-    loc_txt = {
-        name = 'Razor Rotors',
-        text = {
-            '{C:mult}+#1#{} Mult per played hand',
-            'with exactly {C:attention}#2#{} cards',
-            '{C:mult}-#3#{} Mult otherwise',
-            '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 3, y = 11 },
     rarity = 2,
@@ -164,14 +131,6 @@ SMODS.Joker { --Razor Rotors
 SMODS.Joker { --Apache Dartship
     key = 'apache_dartship',
     name = 'Apache Dartship',
-	loc_txt = {
-        name = 'Apache Dartship',
-        text = {
-            'Each played {C:attention}2{}, {C:attention}3{}, {C:attention}5{},',
-            'or {C:attention}7{} gives {C:mult}+#1#{} Mult',
-            'when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 11 },
     rarity = 2,
@@ -199,15 +158,6 @@ SMODS.Joker { --Apache Dartship
 SMODS.Joker { --Apache Prime
     key = 'apache_prime',
     name = 'Apache Prime',
-	loc_txt = {
-        name = 'Apache Prime',
-        text = {
-            'Each played {C:attention}2{}, {C:attention}3{}, {C:attention}5{},',
-            'or {C:attention}7{} gives {X:mult,C:white}X#1#{}, {X:mult,C:white}X#2#{},',
-            '{X:mult,C:white}X#3#{}, or {X:mult,C:white}X#4#{} Mult',
-            'respectively when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 11 },
     rarity = 3,
@@ -247,15 +197,6 @@ SMODS.Joker { --Apache Prime
 SMODS.Joker { --Bigger Jets
     key = 'bigger_jets',
     name = 'Bigger Jets',
-	loc_txt = {
-        name = 'Bigger Jets',
-        text = {
-            'This Joker gains {C:mult}+#1#{} Mult',
-            'per {C:attention}consecutive{} hand',
-            'played with a {C:attention}face{} card',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 11 },
     rarity = 1,
@@ -302,15 +243,6 @@ SMODS.Joker { --Bigger Jets
 SMODS.Joker { --IFR
     key = 'ifr',
     name = 'IFR',
-    loc_txt = {
-        name = 'IFR',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'if scoring hand contains',
-            'all {C:attention}3 face{} card ranks',
-            '{C:inactive}(Must have room){}',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 11 },
     rarity = 1,
@@ -356,13 +288,6 @@ SMODS.Joker { --IFR
 SMODS.Joker { --Downdraft
     key = 'downdraft',
     name = 'Downdraft',
-    loc_txt = {
-        name = 'Downdraft',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'combine hands and discards',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 8, y = 11 },
     rarity = 2,
@@ -430,14 +355,6 @@ SMODS.Joker { --Downdraft
 SMODS.Joker { --Support Chinook
     key = 'support_chinook',
     name = 'Support Chinook',
-    loc_txt = {
-        name = 'Support Chinook',
-        text = {
-            '{C:attention}+#1#{} consumable slot',
-            'When {C:attention}Blind{} is selected,',
-            'gain {C:blue}+#2#{} Hand',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 9, y = 11 },
     rarity = 2,
@@ -472,15 +389,6 @@ SMODS.Joker { --Support Chinook
 SMODS.Joker { --Special Poperations
     key = 'special_poperations',
     name = 'Special Poperations',
-	loc_txt = {
-        name = 'Special Poperations',
-        text = {
-            'Create a {C:attention}Marine{} every',
-            '{C:attention}#1#{} {C:inactive}[#2#]{} hands played',
-            'Create a {C:attention}Cash Drop{} every',
-            '{C:attention}#3#{} {C:inactive}[#4#]{} hands played'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 11 },
     rarity = 3,
@@ -542,14 +450,6 @@ SMODS.Joker { --Special Poperations
 SMODS.Joker { --Faster Darts
     key = 'faster_darts',
     name = 'Faster Darts',
-	loc_txt = {
-        name = 'Faster Darts',
-        text = {
-            'Played {C:attention}face{} cards',
-            'give {C:chips}+#1#{} Chips',
-            'when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 11 },
     rarity = 1,
@@ -575,14 +475,6 @@ SMODS.Joker { --Faster Darts
 SMODS.Joker { --Faster Firing
     key = 'faster_firing',
     name = 'Faster Firing',
-	loc_txt = {
-        name = 'Faster Firing',
-        text = {
-            'Played {C:attention}face{} cards',
-            'give {C:chips}+#1#{} Chips',
-            'when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 11 },
     rarity = 1,
@@ -608,14 +500,6 @@ SMODS.Joker { --Faster Firing
 SMODS.Joker { --MOAB Shove
     key = 'moab_shove',
     name = 'MOAB Shove',
-    loc_txt = {
-        name = 'MOAB Shove',
-        text = {
-            '{C:blue}+#1#{} hands against {C:attention}Boss Blinds{}',
-            'Extra hands score no chips',
-            '{C:inactive}(#2# remaining{C:inactive})'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 11 },
     rarity = 2,
@@ -675,15 +559,6 @@ SMODS.Joker { --MOAB Shove
 SMODS.Joker { --Comanche Defense
     key = 'comanche_defense',
     name = 'Comanche Defense',
-	loc_txt = {
-        name = 'Comanche Defense',
-        text = {
-            'This Joker gains {C:chips}+#1#{} Chips',
-            'for the first {C:attention}#2# face{} cards',
-            'scored each hand this round',
-            '{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 11 },
     rarity = 2,
@@ -725,13 +600,6 @@ SMODS.Joker { --Comanche Defense
 SMODS.Joker { --Comanche Commander
     key = 'comanche_commander',
     name = 'Comanche Commander',
-	loc_txt = {
-        name = 'Comanche Commander',
-        text = {
-            'First {C:attention}#1# face{} cards',
-            'give {X:mult,C:white}X#2#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 11 },
     rarity = 3,
