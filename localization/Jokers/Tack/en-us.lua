@@ -44,6 +44,9 @@ return {
 			j_bloons_inferno_ring = {
 				name = 'Inferno Ring',
 				text = {
+					'Adds one {C:attention}Meteor{} card',
+					'to deck when',
+					'{C:attention}Blind{} is selected',
 				}
 			},
 			j_bloons_long_range_tacks = {
@@ -101,16 +104,16 @@ return {
 			j_bloons_even_more_tacks = {
 				name = 'Even More Tacks',
 				text = {
-					'Each played {C:attention}2{}, {C:attention}4{}, {C:attention}6{},',
-					'or {C:attention}8{} gives {C:chips}+#1#{} Chips and',
+					'Each played {C:attention}2{}, {C:attention}4{}, {C:attention}6{}, or {C:attention}8{}',
+					'gives {C:chips}+#1#{} Chips and',
 					'{C:mult}+#2#{} Mult when scored',
 				}
 			},
 			j_bloons_tack_sprayer = {
 				name = 'Tack Sprayer',
 				text = {
-					'Each played {C:attention}2{}, {C:attention}4{},',
-					'{C:attention}6{}, or {C:attention}8{} gives {C:chips}+#1#{} Chips and',
+					'Each played {C:attention}2{}, {C:attention}4{}, {C:attention}6{}, {C:attention}8{},',
+					'or {C:attention}10{} gives {C:chips}+#1#{} Chips and',
 					'{C:mult}+#2#{} Mult when scored',
 				}
 			},

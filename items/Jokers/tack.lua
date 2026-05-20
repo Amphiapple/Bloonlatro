@@ -456,7 +456,8 @@ SMODS.Joker { --Tack Sprayer
             if context.other_card:get_id() == 2 or
                     context.other_card:get_id() == 4 or
                     context.other_card:get_id() == 6 or
-                    context.other_card:get_id() == 8 then
+                    context.other_card:get_id() == 8 or
+                    context.other_card:get_id() == 10 then
                 return {
                     chips = card.ability.extra.chips,
                     mult = card.ability.extra.mult,

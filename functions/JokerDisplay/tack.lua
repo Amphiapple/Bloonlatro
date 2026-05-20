@@ -247,7 +247,7 @@ JokerDisplay.Definitions["j_bloons_tack_sprayer"] = { --Tack Sprayer
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "(2, 4, 6, 8)" }
+        { text = "(Even)" }
     },
     calc_function = function(card)
         local count = 0
@@ -257,7 +257,8 @@ JokerDisplay.Definitions["j_bloons_tack_sprayer"] = { --Tack Sprayer
                  if scoring_card:get_id() == 2 or
                     scoring_card:get_id() == 4 or
                     scoring_card:get_id() == 6 or
-                    scoring_card:get_id() == 8 then
+                    scoring_card:get_id() == 8 or
+                    scoring_card:get_id() == 10 then
                     count = count +
                         JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                 end
