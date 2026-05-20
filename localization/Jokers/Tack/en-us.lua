@@ -60,7 +60,7 @@ return {
 				text = {
 					'This {C:attention}Joker{} gains {C:mult}+#1#{}',
 					'Mult if scoring hand',
-					'contains a {C:attention}3{}, {C:attention}5{}, {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
+					'contains a {C:attention}3{}, {C:attention}5{}, {C:attention}7{}, or {C:attention}9{}',
 					'{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
 				}
 			},
@@ -70,7 +70,7 @@ return {
 					'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
 					'if scoring hand contains',
 					'{C:attention}#2#{} cards with ranks',
-					'{C:attention}3{}, {C:attention}5{}, {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
+					'{C:attention}3{}, {C:attention}5{}, {C:attention}7{}, or {C:attention}9{}',
 					'{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)',
 				}
 			},

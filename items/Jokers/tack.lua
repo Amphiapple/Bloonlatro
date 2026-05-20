@@ -184,7 +184,7 @@ SMODS.Joker { --Long Range Tacks
     perishable_compat = false,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains 8, current = current +mult
+        extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains 7, 8, 9, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -224,7 +224,7 @@ SMODS.Joker { --Super Range Tacks
     perishable_compat = false,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains 7, 8, 9, current = current +mult
+        extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains an odd rank, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -264,7 +264,7 @@ SMODS.Joker { --Blade Shooter
     perishable_compat = false,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { mult = 3, number = 3, current = 0 } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { mult = 3, number = 3, current = 0 } --Variables: mult = +mult gain if scoring hand contains 3 odd ranks, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -275,7 +275,7 @@ SMODS.Joker { --Blade Shooter
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() >= 6 and v:get_id() <= 10 and not v.debuff then
+                    if (v:get_id() == 3 or v:get_id() == 5 or v:get_id() == 7 or v:get_id() == 9) and not v.debuff then
                         count = count + 1
                     end
                 end
@@ -452,12 +452,16 @@ SMODS.Joker { --Tack Sprayer
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and
-                (context.other_card:get_id() == 8 or context.other_card:get_id() == 10 or context.other_card:get_id() == 12) then
-            return {
-                chips = card.ability.extra.chips,
-                mult = card.ability.extra.mult,
-            }
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 2 or
+                    context.other_card:get_id() == 4 or
+                    context.other_card:get_id() == 6 or
+                    context.other_card:get_id() == 8 then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                }
+            end
         end
     end
 }
