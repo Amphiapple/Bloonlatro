@@ -8,14 +8,6 @@ SMODS.Atlas {
 SMODS.Back { --Quincy
     key = "quincy",
     name = "Quincy Deck",
-	loc_txt = {
-        name = 'Quincy Deck',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'halve Chips',
-            '{C:mult}X#3#{} base Blind size'
-        }
-    },
 	atlas = "Back",
 	pos = { x = 0, y = 0 },
     config = { extra = { num = 1, denom = 4 }, ante_scaling = 0.75 }, --Variables: num/denom = probability fraction, ante_scaling = score requirement multiplier
@@ -49,32 +41,16 @@ SMODS.Back { --Quincy
 SMODS.Back { --Gwendolin
     key = "gwendolin",
     name = "Gwendolin Deck",
-	loc_txt = {
-        name = 'Gwendolin Deck',
-        text = {
-            'Start run with',
-            'an {C:spectral,T:c_immolate}Immolate{} card',
-            '{C:blue}-1{} hand every round'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 1, y = 0 },
+    pos = { x = 1, y = 0 },
     config = { consumables = {'c_immolate'}, hands = -1 }
 }
 
 SMODS.Back { --Jones
     key = "jones",
     name = "Jones Deck",
-	loc_txt = {
-        name = 'Jones Deck',
-        text = {
-            'Create an {C:power,T:c_bloons_artillery_command}Artillery Command{}',
-            'card after defeating',
-            'each {C:attention}Boss Blind{}'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 2, y = 0 },
+    pos = { x = 2, y = 0 },
 
     calculate = function(self, back, context)
         if context.end_of_round and context.beat_boss and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not context.individual and not context.repetition then
@@ -95,30 +71,16 @@ SMODS.Back { --Jones
 SMODS.Back { --Obyn
     key = "obyn",
     name = "Obyn Deck",
-	loc_txt = {
-        name = 'Obyn Deck',
-        text = {
-            'Start run with {C:money,T:v_seed_money}Seed Money{}',
-            'and {C:money,T:v_money_tree}Money Tree{}'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 3, y = 0 },
+    pos = { x = 3, y = 0 },
     config = { vouchers = {'v_seed_money','v_money_tree'} }
 }
 
 SMODS.Back { --Churchill
     key = "churchill",
     name = "Churchill Deck",
-	loc_txt = {
-        name = 'Churchill Deck',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult against',
-            '{C:attention}Boss Blinds{}'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 4, y = 0 },
+    pos = { x = 4, y = 0 },
     config = { extra = { Xmult = 2 } },
 
     loc_vars = function(self, info_queue, card)
@@ -150,15 +112,8 @@ SMODS.Back { --Churchill
 SMODS.Back { --Benjamin
     key = "benjamin",
     name = "Benjamin Deck",
-	loc_txt = {
-        name = 'Benjamin Deck',
-        text = {
-            'Start with {C:attention,T:j_bloons_monkey_bank}Monkey Bank{}',
-            'and extra {C:money}$#1#'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 0, y = 1 },
+    pos = { x = 0, y = 1 },
     config = { jokers = {'j_bloons_monkey_bank'}, dollars = 1 },
 
     loc_vars = function(self, info_queue, card)
@@ -169,30 +124,16 @@ SMODS.Back { --Benjamin
 SMODS.Back { --Ezili
     key = "ezili",
     name = "Ezili Deck",
-	loc_txt = {
-        name = 'Ezili Deck',
-        text = {
-            'Start run with',
-            '{C:attention,T:v_magic_trick}Magic Trick{}, {C:enhanced,T:v_illusion}Illusion{},',
-            '{C:dark_edition,T:v_hone}Hone{}, and {C:dark_edition,T:v_glow_up}Glow Up{}'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 1, y = 1 },
+    pos = { x = 1, y = 1 },
     config = { vouchers = {'v_magic_trick','v_illusion','v_hone','v_glow_up'} }
 }
 
 SMODS.Back { --Pat Fusty
     key = "pat_fusty",
     name = "Pat Fusty Deck",
-	loc_txt = {
-        name = 'Pat Fusty Deck',
-        text = {
-            '{C:attention}+#1#{} hand size'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 2, y = 1 },
+    pos = { x = 2, y = 1 },
     config = { hand_size = 1 },
 
     loc_vars = function(self, info_queue, card)
@@ -203,14 +144,6 @@ SMODS.Back { --Pat Fusty
 SMODS.Back { --Adora
     key = "adora",
     name = "Adora Deck",
-    loc_txt = {
-        name = 'Adora Deck',
-        text = {
-            'Sacrifice cards instead of',
-            'selling them to upgrade level',
-            'of {C:attention}#1# poker hands{}'
-        }
-    },
     atlas = "Back",
     pos = { x = 3, y = 1 },
     config = {
@@ -257,16 +190,8 @@ SMODS.Back { --Adora
 SMODS.Back { --Brickell
     key = "brickell",
     name = "Brickell Deck",
-	loc_txt = {
-        name = 'Brickell Deck',
-        text = {
-            'Start on Ante {C:attention}#1#{}',
-            'with {C:blue}+#2#{} hand',
-            '{C:red}#3#{} discards'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 4, y = 1 },
+    pos = { x = 4, y = 1 },
     config = { extra = { ante = 0, discards = 0 }, hands = 1, },
 
     loc_vars = function(self, info_queue, card)
@@ -289,14 +214,8 @@ SMODS.Back { --Brickell
 SMODS.Back { --Etienne
     key = "etienne",
     name = "Etienne Deck",
-	loc_txt = {
-        name = 'Etienne Deck',
-        text = {
-            '{C:attention}+#1#{} Booster Pack slot'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 0, y = 2 },
+    pos = { x = 0, y = 2 },
     config = { extra = { slots = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -310,15 +229,8 @@ SMODS.Back { --Etienne
 SMODS.Back { --Sauda
     key = "sauda",
     name = "Sauda Deck",
-	loc_txt = {
-        name = 'Sauda Deck',
-        text = {
-            'Start run with all',
-            '{C:attention}poker hands{} leveled up'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 1, y = 2 },
+    pos = { x = 1, y = 2 },
 
     apply = function(self)
         G.E_MANAGER:add_event(Event({
@@ -335,13 +247,7 @@ SMODS.Back { --Sauda
 SMODS.Back { --Psi
     key = "psi",
     name = "Psi Deck",
-	loc_txt = {
-        name = 'Psi Deck',
-        text = {
-            'All {C:attention}Boss Blinds{}',
-            'are {C:attention}The Psychic{}'
-        }
-    },
+
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
 }
@@ -349,33 +255,16 @@ SMODS.Back { --Psi
 SMODS.Back { --Geraldo
     key = "geraldo",
     name = "Geraldo Deck",
-	loc_txt = {
-        name = 'Geraldo Deck',
-        text = {
-            'Start run with',
-            '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
-            '{C:attention,T:v_crystal_ball}Crystal Ball{}'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 3, y = 2 },
+    pos = { x = 3, y = 2 },
     config = { vouchers = {'v_bloons_power_merchant', 'v_crystal_ball'} }
 }
 
 SMODS.Back { --Corvus
     key = "corvus",
     name = "Corvus Deck",
-	loc_txt = {
-        name = 'Corvus Deck',
-        text = {
-            'Played cards give',
-            '{C:attention}#1#{} mana when scored',
-            'Consume {C:attention}#2#{} mana to',
-            'create a {C:spectral}Spectral{} card',
-        }
-    },
 	atlas = "Back",
-	pos = { x = 4, y = 2 },
+    pos = { x = 4, y = 2 },
     config = { extra = { max_mana = 25, mana_per_card = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -411,16 +300,8 @@ SMODS.Back { --Corvus
 SMODS.Back { --Rosalia
     key = "rosalia",
     name = "Rosalia Deck",
-	loc_txt = {
-        name = 'Rosalia Deck',
-        text = {
-            'Toggle Rosalia\'s weapons',
-            '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
-            '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 0, y = 3 },
+    pos = { x = 0, y = 3 },
     config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
@@ -445,16 +326,8 @@ SMODS.Back { --Rosalia
 SMODS.Back { --Silas
     key = "silas",
     name = "Silas Deck",
-	loc_txt = {
-        name = 'Silas Deck',
-        text = {
-            '{C:attention,T:m_bloons_frozen}Freeze #1#{} cards',
-            'held in hand at',
-            'end of round'
-        }
-    },
 	atlas = "Back",
-	pos = { x = 1, y = 3 },
+    pos = { x = 1, y = 3 },
     config = { extra = { number = 2 } },
 
     loc_vars = function (self, info_queue, card)

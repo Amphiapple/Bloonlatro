@@ -23,7 +23,7 @@ return {
                 name = 'Cold Snap',
                 text = {
                     '{C:attention}Frozen{} cards',
-                    'give {C:money}+$1#{} when',
+                    'give {C:money}$#1#{} when',
                     'thawed out'
                 }
             },
