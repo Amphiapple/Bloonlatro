@@ -816,9 +816,149 @@ SMODS.Consumable { --Artillery Command
             func = function()
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
                 G.GAME.round_resets.temp_reroll_cost = 0
                 G.GAME.current_round.reroll_cost_increase = 0
                 calculate_reroll_cost(true)
+                return true
+            end
+        }))
+    end
+}
+
+SMODS.Consumable { --Psionic Scream
+    key = 'psionic_scream',
+    set = 'Power',
+    name = 'Psionic Scream',
+    loc_txt = {
+        name = 'Psionic Scream',
+        text = {
+            'Destroy up to',
+            '{C:attention}#1#{} selected cards',
+            'and discard the rest',
+            '{s:0.8,C:inactive}Psi power{}'
+        }
+    },
+    atlas = 'Consumable',
+    pos = { x = 2, y = 5 },
+    config = { max_highlighted = 4 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Psi Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.max_highlighted } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and 1 <= #G.hand.highlighted and #G.hand.highlighted <= card.ability.max_highlighted
+    end,
+    use = function(self, card, area)
+        local destroyed_cards = {}
+        local discarded_cards = {}
+        for k, v in ipairs(G.hand.cards) do
+            if v.highlighted then
+                destroyed_cards[#destroyed_cards+1] = v
+            else
+                discarded_cards[#discarded_cards+1] = v
+            end
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function() 
+                for i=#G.hand.highlighted, 1, -1 do
+                    local card = G.hand.highlighted[i]
+                    if SMODS.shatters(card) then
+                        card:shatter()
+                    else
+                        card:start_dissolve(nil, i == #G.hand.highlighted)
+                    end
+                end
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                stop_use()
+                G.CONTROLLER.interrupt.focus = true
+                G.CONTROLLER:save_cardarea_focus('hand')
+                for k, v in ipairs(discarded_cards) do
+                    v.ability.forced_selection = nil
+                end
+                if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
+                local count = #discarded_cards
+                if count > 0 then
+                    table.sort(discarded_cards, function(a,b) return a.T.x < b.T.x end)
+                    inc_career_stat('c_cards_discarded', count)
+                    for j = 1, #G.jokers.cards do
+                        G.jokers.cards[j]:calculate_joker({pre_discard = true, full_hand = discarded_cards, hook = false})
+                    end
+                    local cards = {}
+                    local destroyed_cards = {}
+                    for i=1, count do
+                        discarded_cards[i]:calculate_seal({discard = true})
+
+                        if discarded_cards[i].seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'before',
+                                delay = 0.0,
+                                func = (function()
+                                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
+                                        card:add_to_deck()
+                                        G.consumeables:emplace(card)
+                                        G.GAME.consumeable_buffer = 0
+                                    return true
+                                end)}))
+                            card_eval_status_text(discarded_cards[i], 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+                        end
+
+                        local removed = false
+                        for j = 1, #G.jokers.cards do
+                            local eval = nil
+                            eval = G.jokers.cards[j]:calculate_joker({discard = true, other_card =  discarded_cards[i], full_hand = discarded_cards,})
+                            if eval then
+                                if eval.remove then removed = true end
+                                card_eval_status_text(G.jokers.cards[j], 'jokers', nil, 1, nil, eval)
+                            end
+                        end
+                        table.insert(cards, discarded_cards[i])
+                        if removed then
+                            destroyed_cards[#destroyed_cards + 1] = discarded_cards[i]
+                            discarded_cards[i]:start_dissolve()
+                        else 
+                            discarded_cards[i].ability.discarded = true
+                            discarded_cards[i]:set_ability(G.P_CENTERS.c_base, nil, true)
+                            draw_card(G.hand, G.discard, i*100/count, 'down', false, discarded_cards[i])
+                        end
+                    end
+
+                    if destroyed_cards[1] then 
+                        for j=1, #G.jokers.cards do
+                            eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = destroyed_cards})
+                        end
+                    end
+
+                    G.GAME.round_scores.cards_discarded.amt = G.GAME.round_scores.cards_discarded.amt + #cards
+                    check_for_unlock({type = 'discard_custom', cards = cards})
+                end
                 return true
             end
         }))

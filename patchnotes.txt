@@ -45,6 +45,7 @@ Balance Changes:
 - Pouakai reworked
 
 - Jones deck reworked
+- Psi deck reworked
 
 - Cost reduction minimum is now $0 instead of $1
 

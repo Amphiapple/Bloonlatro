@@ -1,5 +1,136 @@
 return {
     descriptions = {
+        Back = {
+            b_bloons_quincy = {
+                name = 'Quincy Deck',
+                text = {
+                    '{C:green}#1# in #2#{} chance to',
+                    'halve Chips',
+                    '{C:mult}X#3#{} base Blind size'
+                }
+            },
+            b_bloons_gwendolin = {
+                name = 'Gwendolin Deck',
+                text = {
+                    'Start run with',
+                    'an {C:spectral,T:c_immolate}Immolate{} card',
+                    '{C:blue}-1{} hand every round'
+                }
+            },
+            b_bloons_jones = {
+                name = 'Jones Deck',
+                text = {
+                    'Create an {C:power,T:c_bloons_artillery_command}Artillery Command{}',
+                    'card after defeating',
+                    'each {C:attention}Boss Blind{}'
+                }
+            },
+            b_bloons_obyn = {
+                name = 'Obyn Deck',
+                text = {
+                    'Start run with {C:money,T:v_seed_money}Seed Money{}',
+                    'and {C:money,T:v_money_tree}Money Tree{}'
+                }
+            },
+            b_bloons_churchill = {
+                name = 'Churchill Deck',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult against',
+                    '{C:attention}Boss Blinds{}'
+                }
+            },
+            b_bloons_benjamin = {
+                name = 'Benjamin Deck',
+                text = {
+                    'Start with {C:attention,T:j_bloons_monkey_bank}Monkey Bank{}',
+                    'and extra {C:money}$#1#'
+                }
+            },
+            b_bloons_ezili = {
+                name = 'Ezili Deck',
+                text = {
+                    'Start run with',
+                    '{C:attention,T:v_magic_trick}Magic Trick{}, {C:enhanced,T:v_illusion}Illusion{},',
+                    '{C:dark_edition,T:v_hone}Hone{}, and {C:dark_edition,T:v_glow_up}Glow Up{}'
+                }
+            },
+            b_bloons_pat_fusty = {
+                name = 'Pat Fusty Deck',
+                text = {
+                    '{C:attention}+#1#{} hand size'
+                }
+            },
+            b_bloons_adora = {
+                name = 'Adora Deck',
+                text = {
+                    'Sacrifice cards instead of',
+                    'selling them to upgrade level',
+                    'of {C:attention}#1# poker hands{}'
+                }
+            },
+            b_bloons_brickell = {
+                name = 'Brickell Deck',
+                text = {
+                    'Start on Ante {C:attention}#1#{}',
+                    'with {C:blue}+#2#{} hand',
+                    '{C:red}#3#{} discards'
+                }
+            },
+            b_bloons_etienne = {
+                name = 'Etienne Deck',
+                text = {
+                    '{C:attention}+#1#{} Booster Pack slot'
+                }
+            },
+            b_bloons_sauda = {
+                name = 'Sauda Deck',
+                text = {
+                    'Start run with all',
+                    '{C:attention}poker hands{} leveled up'
+                }
+            },
+            b_bloons_psi = {
+                name = 'Psi Deck',
+                text = {
+                    'Reveal the top {C:attention}#1#{}',
+                    'cards in your deck',
+                    '{C:inactive}#2# #3#{}'
+                }
+            },
+            b_bloons_geraldo = {
+                name = 'Geraldo Deck',
+                text = {
+                    'Start run with',
+                    '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
+                    '{C:attention,T:v_crystal_ball}Crystal Ball{}'
+                }
+            },
+            b_bloons_corvus = {
+                name = 'Corvus Deck',
+                text = {
+                    'Played cards give',
+                    '{C:attention}#1#{} mana when scored',
+                    'Consume {C:attention}#2#{} mana to',
+                    'create a {C:spectral}Spectral{} card',
+                }
+            },
+            b_bloons_rosalia = {
+                name = 'Rosalia Deck',
+                text = {
+                    'Toggle Rosalia\'s weapons',
+                    '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
+                    '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
+                }
+            },
+            b_bloons_silas = {
+                name = 'Silas Deck',
+                text = {
+                    '{C:attention,T:m_bloons_frozen}Freeze #1#{} cards',
+                    'held in hand at',
+                    'end of round'
+                }
+            }
+        },
         Stake = {
             stake_bloons_chimps = {
                 name = "CHIMPS Stake",

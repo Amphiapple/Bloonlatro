@@ -157,7 +157,7 @@ SMODS.Joker { --Herald of Everfrost
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { number = 2, percent = 80, hands = 3, counter = 3 } --Variables = 
+        extra = { number = 2, percent = 80, hands = 3, counter = 3 } --Variables = number = nuimber of cards frozen, percent = blind requirement reduction percent, hands = hands required to disable blind, counter = hands until blind disabled
     },
 
     loc_vars = function(self, info_queue, card)
@@ -192,15 +192,10 @@ SMODS.Joker { --Herald of Everfrost
             return {
                 xblindsize = card.ability.extra.percent / 100
             }
-        elseif context.after and card.ability.extra.counter > 0 then
-            card.ability.extra.counter = card.ability.extra.counter - 1
-            if card.ability.extra.charge == 0 then
-                local eval = function()
-                    return card.ability.extra.charge == 0
-                end
-                juice_card_until(card, eval, true)
-            end
+        elseif context.after then
+            card.ability.extra.counter = math.max(0, card.ability.extra.hands - G.GAME.current_round.hands_played)
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.counter = card.ability.extra.hands
         end
     end
 }
