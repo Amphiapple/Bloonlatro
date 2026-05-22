@@ -17,3 +17,11 @@ payload = '''
 Bloonlatro.main_menu()
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "if e and e.config.id == 'restart_button' then G.GAME.viewed_back = nil end"
+position = 'after'
+payload = "Bloonlatro.restart_boss_challenge = Bloonlatro.boss_challenge"
+match_indent = true

@@ -20,6 +20,12 @@ if #dominus > 0 then
         end
     end 
 end
+
+local last_segment = true
+if Bloonlatro.boss_challenge and Bloonlatro.boss_challenge[3] and G.GAME.round_resets.ante%G.GAME.win_ante == 0 then
+    local current_blind = G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind or nil
+    last_segment = Bloonlatro.get_boss_challenge_blind(3).key == (current_blind and current_blind.key or nil)
+end
 '''
 match_indent = true
 
@@ -29,7 +35,7 @@ match_indent = true
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and not replay_boss then"
+payload = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss then"
 match_indent = true
 
 # Mdom ante end check
@@ -38,7 +44,7 @@ match_indent = true
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.blind:get_type() == 'Boss' and not replay_boss then"
+payload = "if G.GAME.blind:get_type() == 'Boss'and last_segment and not replay_boss then"
 match_indent = true
 
 # Mdom boss defeat check
