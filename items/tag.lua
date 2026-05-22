@@ -8,13 +8,7 @@ SMODS.Atlas {
 SMODS.Tag {
     key = 'cleansing',
     name = 'Cleansing Tag',
-    loc_txt = {
-        name = 'Cleansing Tag',
-        text = {
-            'Remove all {C:attention}Stickers{}',
-            'from leftmost {C:attention}Joker{}',
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 0, y = 0 },
     min_ante = nil,
@@ -59,15 +53,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'invisible',
     name = 'Invisible Tag',
-    loc_txt = {
-        name = 'Invisible Tag',
-        text = {
-            '{C:attention}Duplicates{} a random',
-            '{C:attention}Joker{} after defeating',
-			'the {C:attention}Boss Blind{}',
-			'{C:inactive}(Must have room)',
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 1, y = 0 },
     min_ante = 2,
@@ -101,13 +87,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'power',
     name = 'Power Tag',
-    loc_txt = {
-        name = 'Power Tag',
-        text = {
-            'Gives a free',
-            '{C:power}Mega Power Pack{}',
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 2, y = 0 },
     min_ante = 2,
@@ -147,14 +127,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'sabotage',
     name = 'Sabotage Tag',
-    loc_txt = {
-        name = 'Sabotage Tag',
-        text = {
-            'Reduces {C:attention}Blind{}',
-            'requirement by {C:attention}#1#%{}',
-			'next round'
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 3, y = 0 },
     min_ante = nil,
@@ -201,14 +174,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'Redeemed',
     name = 'Redeemed Tag',
-    loc_txt = {
-        name = 'Redeemed Tag',
-        text = {
-            'Adds one {C:attention}Upgraded{}',
-			'{C:voucher}Voucher{} to the next shop',
-        	'{C:inactive}(Must be available)',
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 4, y = 0 },
     min_ante = 2,
@@ -251,14 +217,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'concoction',
     name = 'Concoction Tag',
-    loc_txt = {
-        name = 'Concoction Tag',
-        text = {
-            'Adds {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
-            '{C:dark_edition}Polychrome{}, or {C:dark_edition}Negative{} edition',
-            'to a random {C:attention}Joker{}',
-		}
-    },
+    
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
     min_ante = nil,

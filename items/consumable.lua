@@ -30,14 +30,6 @@ SMODS.Consumable { --Super Monkey Storm
     key = 'super_monkey_storm',
     set = 'Power',
     name = 'Super Monkey Storm',
-    loc_txt = {
-        name = 'Super Monkey Storm',
-        text = {
-            'Score {C:attention}#1#%{} of the',
-            'required chips',
-            '{C:inactive}(Max of {C:attention}#2#{C:inactive}){}'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 0, y = 0 },
     config = { percent = 80, max = 20000 }, --Variables: percent = percent of required chips scored, max = maximum chips cap
@@ -95,12 +87,6 @@ SMODS.Consumable { --Monkey_boost
     key = 'monkey_boost',
     set = 'Power',
     name = 'Monkey Boost',
-    loc_txt = {
-        name = 'Monkey Boost',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult next hand',
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 1, y = 0 },
     config = { Xmult = 2, active = false }, --Variables: Xmult = Xmult
@@ -162,13 +148,6 @@ SMODS.Consumable { --Thrive
     key = 'thrive',
     set = 'Power',
     name = 'Thrive',
-    loc_txt = {
-        name = 'Thrive',
-        text = {
-            'Retrigger all cards',
-            'held in hand next hand'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 2, y = 0 },
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
@@ -251,12 +230,6 @@ SMODS.Consumable { --Time Stop
     key = 'time_stop',
     set = 'Power',
     name = 'Time Stop',
-    loc_txt = {
-        name = 'Time Stop',
-        text = {
-            'Gain {C:blue}+#1#{} hands',
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 3, y = 0 },
     config = { hands = 3 }, --Variables: hands = extra hands
@@ -281,12 +254,6 @@ SMODS.Consumable { --Cash Drop
     key = 'cash_drop',
     set = 'Power',
     name = 'Cash Drop',
-    loc_txt = {
-        name = 'Cash Drop',
-        text = {
-            'Gives {C:money}$#1#{}',
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 4, y = 0 },
     config = { money = 15 }, --Variables: money = dollars
@@ -316,14 +283,6 @@ SMODS.Consumable { --Banana Farmer
     key = 'banana_farmer',
     set = 'Power',
     name = 'Banana Farmer',
-    loc_txt = {
-        name = 'Banana Farmer',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-            'Lasts {C:attention}#2#{} rounds',
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 0, y = 1 },
     config = { money = 4, rounds = 5, current = 5 }, --Variables: money = dollars, rounds = total lifespan, current = lifespan remaining
@@ -369,12 +328,6 @@ SMODS.Consumable { --Portable Lake
     key = 'portable_lake',
     set = 'Power',
     name = 'Portable Lake',
-    loc_txt = {
-        name = 'Portable Lake',
-        text = {
-            '{C:dark_edition}#1#{}#2#{C:inactive}#3#{}'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 1, y = 1 },
     config = { slots = 1, active = false }, --Variables: slots = extra joker slots
@@ -405,13 +358,6 @@ SMODS.Consumable { --Road Spikes
     key = 'road_spikes',
     set = 'Power',
     name = 'Road Spikes',
-    loc_txt = {
-        name = 'Road Spikes',
-        text = {
-            'Retrigger each played card',
-            '{C:inactive}({C:attention}#1#{C:inactive} remaining)'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 2, y = 1 },
     config = { retrigger = 1, spikes = 10 }, --Variables: retrigger = retrigger count, spikes = number of uses
@@ -457,13 +403,6 @@ SMODS.Consumable { --Glue Trap
     key = 'glue_trap',
     set = 'Power',
     name = 'Glue Trap',
-    loc_txt = {
-        name = 'Glue Trap',
-        text = {
-            '{C:attention}Glues #1#{}',
-            'selected cards'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 3, y = 1 },
     config = { mod_conv = "m_bloons_glued", max_highlighted = 5 },
@@ -478,13 +417,6 @@ SMODS.Consumable { --Freezing Trap
     key = 'freezing_trap',
     set = 'Power',
     name = 'Freezing Trap',
-    loc_txt = {
-        name = 'Freezing Trap',
-        text = {
-            '{C:attention}Freezes #1#{}',
-            'selected cards'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 4, y = 1 },
     config = { mod_conv = "m_bloons_frozen", max_highlighted = 5 },
@@ -499,14 +431,6 @@ SMODS.Consumable { --Camo Trap
     key = 'camo_trap',
     set = 'Power',
     name = 'Camo Trap',
-    loc_txt = {
-        name = 'Camo Trap',
-        text = {
-            '{C:attention}Stuns #1#{}',
-            'selected cards',
-            'Gain {C:red}+#2#{} discards'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 0, y = 2 },
     config = { max_highlighted = 5, discards = 2 }, --Variables: discards = extra discards
@@ -576,14 +500,6 @@ SMODS.Consumable { --Pontoon
     key = 'pontoon',
     set = 'Power',
     name = 'Pontoon',
-    loc_txt = {
-        name = 'Pontoon',
-        text = {
-            'Use on a',
-            '{C:attention}Portable Lake{} to',
-            'gain {C:dark_edition}+1{} Joker Slot'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 1, y = 2 },
     config = { slots = 1 }, --Variables: slots = extra joker slots
@@ -625,14 +541,6 @@ SMODS.Consumable { --Tech Bot
     key = 'tech_bot',
     set = 'Power',
     name = 'Tech Bot',
-    loc_txt = {
-        name = 'Tech Bot',
-        text = {
-            'Copies the ability',
-            'of rightmost {C:attention}Joker{}',
-            'next hand',
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 2, y = 2 },
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
@@ -689,15 +597,6 @@ SMODS.Consumable { --Energizing Totem
     key = 'energizing_totem',
     set = 'Power',
     name = 'Energizing Totem',
-    loc_txt = {
-        name = 'Energizing Totem',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult while in your',
-            '{C:attention}consumable{} area',
-            'Lasts {C:attention}#2#{} rounds',
-
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 3, y = 2 },
     config = { Xmult = 1.5, rounds = 5, current = 5 }, --Variables: Xmult = Xmult, rounds = total lifespan, current = lifespan remaining
@@ -747,13 +646,6 @@ SMODS.Consumable { --Cave Monkey
     key = 'cave_monkey',
     set = 'Power',
     name = 'Cave Monkey',
-    loc_txt = {
-        name = 'Cave Monkey',
-        text = {
-            'Add a {C:attention}Stone{} card with',
-            'an {C:dark_edition}Edition{} to your deck'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 4, y = 2 },
 
@@ -788,14 +680,6 @@ SMODS.Consumable { --Artillery Command
     key = 'artillery_command',
     set = 'Power',
     name = 'Artillery Command',
-    loc_txt = {
-        name = 'Artillery Command',
-        text = {
-            'Set {C:green}reroll{} cost',
-            'to {C:money}$#1#{} this shop',
-            '{s:0.8,C:inactive}Striker Jones power{}'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 2, y = 3 },
     config = { cost = 0 },
@@ -832,19 +716,51 @@ SMODS.Consumable { --Artillery Command
     end
 }
 
+SMODS.Consumable { --MOAB Hex
+    key = 'moab_hex',
+    set = 'Power',
+    name = 'MOAB Hex',
+    atlas = 'Consumable',
+    pos = { x = 1, y = 4 },
+    config = { max_highlighted = 1 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Ezili Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.max_highlighted } }
+    end,
+    can_use = function(self, card)
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not G.jokers.highlighted[1].edition
+    end,
+    use = function(self, card, area)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                G.jokers.highlighted[1]:set_edition('e_polychrome', true)
+                if not G.jokers.highlighted[1].ability.perishable then
+                    G.jokers.highlighted[1]:set_perishable()
+                end
+                return true
+            end
+        }))
+    end
+}
+
 SMODS.Consumable { --Psionic Scream
     key = 'psionic_scream',
     set = 'Power',
     name = 'Psionic Scream',
-    loc_txt = {
-        name = 'Psionic Scream',
-        text = {
-            'Destroy up to',
-            '{C:attention}#1#{} selected cards',
-            'and discard the rest',
-            '{s:0.8,C:inactive}Psi power{}'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 2, y = 5 },
     config = { max_highlighted = 4 },
@@ -969,15 +885,6 @@ SMODS.Consumable { --Volcano
     key = 'volcano',
     set = 'Spectral',
     name = 'Volcano',
-    loc_txt = {
-        name = 'Volcano',
-        text = {
-            'Destroy {C:attention}1{} selected',
-            'card in hand',
-            'Adjacent cards become',
-            '{C:attention}Meteor{} cards'
-        }
-    },
     atlas = 'Consumable',
     pos = { x = 0, y = 7 },
     cost = 4,

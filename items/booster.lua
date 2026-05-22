@@ -7,15 +7,6 @@ SMODS.Atlas {
 
 SMODS.Booster {
     key = "power_normal_1",
-    loc_txt = {
-        name = 'Power Pack',
-        group_name = 'Power Pack',
-        text = {
-            'Choose {C:attention}#1#{} of {C:attention}#2#{}',
-            '{C:power}Power{} cards to add',
-            'to your consumables'
-        }
-    },
     atlas = 'Booster',
 	pos = { x = 0, y = 0 },
 	cost = 4,
@@ -39,15 +30,6 @@ SMODS.Booster {
 
 SMODS.Booster {
     key = "power_normal_2",
-    loc_txt = {
-        name = 'Power Pack',
-        group_name = 'Power Pack',
-        text = {
-            'Choose {C:attention}#1#{} of {C:attention}#2#{}',
-            '{C:power}Power{} cards to add',
-            'to your consumables'
-        }
-    },
     atlas = 'Booster',
 	pos = { x = 1, y = 0 },
 	cost = 4,
@@ -72,15 +54,6 @@ SMODS.Booster {
 
 SMODS.Booster {
     key = "power_jumbo_1",
-    loc_txt = {
-        name = 'Jumbo Power Pack',
-        group_name = 'Power Pack',
-        text = {
-            'Choose {C:attention}#1#{} of {C:attention}#2#{}',
-            '{C:power}Power{} cards to add',
-            'to your consumables'
-        }
-    },
     atlas = 'Booster',
 	pos = { x = 2, y = 0 },
 	cost = 6,
@@ -105,15 +78,6 @@ SMODS.Booster {
 
 SMODS.Booster {
     key = "power_mega_1",
-    loc_txt = {
-        name = 'Mega Power Pack',
-        group_name = 'Power Pack',
-        text = {
-            'Choose {C:attention}#1#{} of {C:attention}#2#{}',
-            '{C:power}Power{} cards to add',
-            'to your consumables'
-        }
-    },
     atlas = 'Booster',
 	pos = { x = 3, y = 0 },
 	cost = 8,
