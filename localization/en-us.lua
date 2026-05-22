@@ -92,8 +92,9 @@ return {
             b_bloons_psi = {
                 name = 'Psi Deck',
                 text = {
-                    'All {C:attention}Boss Blinds{}',
-                    'are {C:attention}The Psychic{}'
+                    'Reveal the top {C:attention}#1#{}',
+                    'cards in your deck',
+                    '{C:inactive}#2# #3#{}'
                 }
             },
             b_bloons_geraldo = {

@@ -10,9 +10,7 @@ target = 'functions/common_events.lua'
 pattern = "if G.FORCE_BOSS then return G.FORCE_BOSS end"
 position = 'after'
 payload = '''
-if G.GAME.selected_back.name == 'Psi Deck' and (G.GAME.round_resets.ante%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2) then
-    return "bl_psychic"
-elseif G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_id then
+if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_id then
     return Bloonlatro.boss_id
 end
 '''

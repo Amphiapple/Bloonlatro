@@ -247,9 +247,23 @@ SMODS.Back { --Sauda
 SMODS.Back { --Psi
     key = "psi",
     name = "Psi Deck",
-
 	atlas = "Back",
 	pos = { x = 2, y = 2 },
+    config = { extra = { number = 2 } },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(pos)
+            return '#@'..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.id or 11)..
+                                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.suit:sub(1,1) or 'D')
+        end
+		return {
+            vars = {
+                self.config.extra.number,
+                process_var(1),
+                process_var(2)
+            }
+        }
+    end
 }
 
 SMODS.Back { --Geraldo
