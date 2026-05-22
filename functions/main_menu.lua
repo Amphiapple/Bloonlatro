@@ -314,6 +314,60 @@ function Bloonlatro.get_boss_challenge_blind(index)
     return nil
 end
 
+local function resolve_boss_blind_by_key(key)
+    if not key then
+        return nil
+    end
+
+    if G.P_BLINDS[key] then
+        return G.P_BLINDS[key]
+    end
+
+    for _, blind in pairs(G.P_BLINDS) do
+        if blind.key == key then
+            return blind
+        end
+    end
+
+    return nil
+end
+
+local function boss_challenge_to_keys(challenge)
+    local keys = {}
+
+    if type(challenge) ~= 'table' then
+        return keys
+    end
+
+    for _, entry in ipairs(challenge) do
+        local key = type(entry) == 'table' and entry.key or entry
+
+        if type(key) == 'string' then
+            keys[#keys + 1] = key
+        end
+    end
+
+    return keys
+end
+
+local function boss_challenge_from_keys(keys)
+    local challenge = {}
+
+    if type(keys) ~= 'table' then
+        return challenge
+    end
+
+    for _, key in ipairs(keys) do
+        local blind = resolve_boss_blind_by_key(key)
+
+        if blind then
+            challenge[#challenge + 1] = blind
+        end
+    end
+
+    return challenge
+end
+
 function get_bloonlatro_boss_card_nodes()
     local nodes = {}
 
@@ -662,7 +716,8 @@ end
 
 local old_start_setup_run = G.FUNCS.start_setup_run
 G.FUNCS.start_setup_run = function(e)
-    if e and G.SETTINGS.current_setup == 'New Run' then
+    if (e and G.SETTINGS.current_setup == 'New Run')
+        or (not e and G.SETTINGS.current_setup == 'New Run') then
         Bloonlatro.reset_boss_challenge = true
     end
 
@@ -682,11 +737,37 @@ function Game:start_run(args)
     end
 
     if Bloonlatro.reset_boss_challenge then
-        Bloonlatro.boss_challenge = args.boss_challenge or nil
+        local keys = args.boss_challenge_keys
+
+        if (not keys or #keys == 0) and args.boss_challenge then
+            keys = boss_challenge_to_keys(args.boss_challenge)
+        end
+
+        if keys and #keys > 0 then
+            local hydrated = boss_challenge_from_keys(keys)
+            Bloonlatro.boss_challenge = (#hydrated > 0) and hydrated or nil
+        else
+            Bloonlatro.boss_challenge = args.boss_challenge or nil
+        end
+
         Bloonlatro.reset_boss_challenge = false
     end
 
-    return old_start_run(self, args)
+    local result = old_start_run(self, args)
+
+    if (not Bloonlatro.boss_challenge or #Bloonlatro.boss_challenge == 0)
+        and G.GAME and G.GAME.boss_challenge_keys
+        and #G.GAME.boss_challenge_keys > 0 then
+        local hydrated = boss_challenge_from_keys(G.GAME.boss_challenge_keys)
+        Bloonlatro.boss_challenge = (#hydrated > 0) and hydrated or nil
+    end
+
+    if G.GAME then
+        local keys = boss_challenge_to_keys(Bloonlatro.boss_challenge)
+        G.GAME.boss_challenge_keys = (#keys > 0) and keys or nil
+    end
+
+    return result
 end
 
 G.FUNCS.bloonlatro_start_boss_run = function()
@@ -719,6 +800,7 @@ G.FUNCS.bloonlatro_start_boss_run = function()
 
     local args = {
         boss_challenge = boss_challenge,
+        boss_challenge_keys = boss_challenge_to_keys(boss_challenge),
         challenge = {
             deck = { type = "Challenge Deck" },
             restrictions = {

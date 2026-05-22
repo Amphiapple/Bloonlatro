@@ -642,6 +642,7 @@ SMODS.Blind {
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
     boss_colour = HEX("D8AF48"),
+    defeated = false,
     bloonlatro_boss = {
         title = 'Diamondback the Village Devourer',
         index = 7,
@@ -658,7 +659,18 @@ SMODS.Blind {
 
     in_pool = function()
         return false -- This blind is added through bosses.toml
-    end
+    end,
+
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_diamondback")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+        self.defeated = true
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
 }
 
 SMODS.Blind {
@@ -677,6 +689,7 @@ SMODS.Blind {
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
     boss_colour = HEX("D8AF48"),
+    defeated = false,
     bloonlatro_boss = {
         index = 7,
         parts = {
@@ -703,10 +716,11 @@ SMODS.Blind {
     end,
 
     set_blind = function(self)
-		SMODS.set_scoring_calculation("bloons_diamondback_body")
+		SMODS.set_scoring_calculation("bloons_diamondback")
 	end,
 	defeat = function(self)
 		SMODS.set_scoring_calculation("multiply")
+        self.defeated = true
 	end,
 	disable = function(self)
 		SMODS.set_scoring_calculation("multiply")
@@ -744,6 +758,7 @@ SMODS.Blind {
     mult = 100, -- 100x base score (5 million)
     boss = { showdown = true },
     boss_colour = HEX("D8AF48"),
+    defeated = false,
     bloonlatro_boss = {
         index = 7,
         parts = {
@@ -770,10 +785,11 @@ SMODS.Blind {
     end,
 
     set_blind = function(self)
-		SMODS.set_scoring_calculation("bloons_diamondback_tail")
+		SMODS.set_scoring_calculation("bloons_diamondback")
 	end,
 	defeat = function(self)
 		SMODS.set_scoring_calculation("multiply")
+        self.defeated = true
 	end,
 	disable = function(self)
 		SMODS.set_scoring_calculation("multiply")
@@ -781,7 +797,7 @@ SMODS.Blind {
 
     calculate = function(self, blind, context)
         if context.final_scoring_step and not blind.disabled then
-            hand_chips = mod_chips(math.min(0, hand_chips - 200))
+            hand_chips = mod_chips(math.max(0, hand_chips - 200))
             update_hand_text( { delay = 0 }, { chips = hand_chips } )
 			G.E_MANAGER:add_event(Event({
 				func = function()
@@ -801,3 +817,13 @@ SMODS.Blind {
         end
     end
 }
+
+-- eval print(G.FUNCS.print_blind_defeats())
+G.FUNCS.print_blind_defeats = function()
+    print("reached")
+    for key, blind in pairs(G.P_BLINDS) do
+        if blind.defeated and key:find("^bl_bloons_diamondback") then
+            print(key)
+        end
+    end
+end
