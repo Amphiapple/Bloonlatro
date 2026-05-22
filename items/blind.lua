@@ -650,6 +650,11 @@ SMODS.Blind {
             main = "diamondback",
             segment = "head",
             order = 3
+        },
+        challenge_params = {
+            banned_ids = {
+                {id = 'j_bloons_glaive_dominus'}, -- TEMP BAN UNTIL FIXED
+            }
         }
     },
 

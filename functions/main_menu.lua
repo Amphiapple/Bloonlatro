@@ -716,8 +716,7 @@ end
 
 local old_start_setup_run = G.FUNCS.start_setup_run
 G.FUNCS.start_setup_run = function(e)
-    if (e and G.SETTINGS.current_setup == 'New Run')
-        or (not e and G.SETTINGS.current_setup == 'New Run') then
+    if e and G.SETTINGS.current_setup == 'New Run' then
         Bloonlatro.reset_boss_challenge = true
     end
 
