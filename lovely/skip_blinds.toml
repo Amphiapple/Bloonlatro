@@ -5,40 +5,25 @@ priority = 1
 
 [[patches]]
 [patches.pattern]
-target = "functions/button_callbacks.lua"
+target = "functions/UI_definitions.lua"
 pattern = '''
-if _tag and _tag_container then 
-  _tag_container.children[2].config.draw_after = false
-  _tag_container.children[2].config.colour = G.C.BLACK
-  _tag.children[2].config.button = 'skip_blind'
-  _tag.config.outline_colour = adjust_alpha(G.C.BLUE, 0.5)
-  _tag.children[2].config.hover = true
-  _tag.children[2].config.colour = G.C.RED
-  _tag.children[2].children[1].config.colour = G.C.UI.TEXT_LIGHT
-  local _sprite = _tag.config.ref_table
-  _sprite.config.force_focus = nil
-end
+function create_UIBox_blind_tag(blind_choice, run_info)
 '''
-position = "at"
-payload = '''
-if _tag and _tag_container then 
-  _tag_container.children[2].config.draw_after = false
-  _tag_container.children[2].config.colour = G.C.BLACK
-  
-  if G.GAME.modifiers.no_skipping_blinds then
-    _tag.children[2].config.button = nil
-    _tag.children[2].config.colour = G.C.UI.BACKGROUND_INACTIVE
-    _tag.children[2].children[1].config.colour = G.C.UI.TEXT_INACTIVE
-  else
-    _tag.children[2].config.button = 'skip_blind'
-    _tag.config.outline_colour = adjust_alpha(G.C.BLUE, 0.5)
-    _tag.children[2].config.colour = G.C.RED
-    _tag.children[2].children[1].config.colour = G.C.UI.TEXT_LIGHT
-  end
-  
-  _tag.children[2].config.hover = true
-  local _sprite = _tag.config.ref_table
-  _sprite.config.force_focus = nil
-end
-'''
+position = "after"
 match_indent = true
+payload = '''
+  local _boss = Bloonlatro.get_boss_challenge_blind
+    and Bloonlatro.get_boss_challenge_blind(3)
+    or (Bloonlatro.boss_challenge
+    and (Bloonlatro.boss_challenge[3] or Bloonlatro.boss_challenge[1]))
+
+  local disable_skip =
+    G.GAME.modifiers.no_skipping_blinds
+    or (_boss
+    and _boss.key == 'bl_bloons_diamondback_head'
+    and G.GAME.round_resets.ante % G.GAME.win_ante == 0)
+
+  if disable_skip then
+    return
+  end
+'''

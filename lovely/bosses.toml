@@ -10,9 +10,52 @@ target = 'functions/common_events.lua'
 pattern = "if G.FORCE_BOSS then return G.FORCE_BOSS end"
 position = 'after'
 payload = '''
-if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_id then
-    return Bloonlatro.boss_id
+if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and Bloonlatro.boss_challenge then
+    local boss = Bloonlatro.get_boss_challenge_blind(3)
+    return boss and boss.key or nil
 end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "function reset_blinds()"
+position = "after"
+payload = '''
+    local small = "bl_small"
+    local big = "bl_big"
+    G.GAME.round_resets.blind_choices = G.GAME.round_resets.blind_choices or {}
+    if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and Bloonlatro.boss_challenge and Bloonlatro.boss_challenge[2] then
+        small = Bloonlatro.get_boss_challenge_blind(1).key
+        big = Bloonlatro.get_boss_challenge_blind(2).key
+    end
+    G.GAME.round_resets.blind_choices.Small = small
+    G.GAME.round_resets.blind_choices.Big = big
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+                        if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
+                            G.GAME.round_resets.blind_states.Small = 'Defeated'
+                        elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
+                            G.GAME.round_resets.blind_states.Big = 'Defeated'
+                        else
+'''
+position = 'at'
+payload = '''
+                        local small_boss = Bloonlatro.boss_challenge and Bloonlatro.get_boss_challenge_blind(1) or nil
+                        local big_boss = Bloonlatro.boss_challenge and Bloonlatro.get_boss_challenge_blind(2) or nil
+                        local current_blind_key = G.GAME.round_resets.blind and G.GAME.round_resets.blind.key or nil
+
+                        if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key) then
+                            G.GAME.round_resets.blind_states.Small = 'Defeated'
+                        elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key) then
+                            G.GAME.round_resets.blind_states.Big = 'Defeated'
+                        else
 '''
 match_indent = true
 
@@ -34,7 +77,7 @@ pattern = '''
 '''
 position = 'before'
 payload = '''
-if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_id then
+if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_challenge then
     self.loc_debuff_text = 'It has all led to this'
 else
 '''
@@ -62,7 +105,7 @@ pattern = '''
 position = 'at'
 payload = '''
         challenge.id and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})
-        or (Bloonlatro.boss_id and #loc_nodes == 0 and {
+        or (Bloonlatro.boss_challenge and #loc_nodes == 0 and {
             n = G.UIT.R,
             config = { align = "cm", padding = 0.1 },
             nodes = get_bloonlatro_boss_card_nodes()

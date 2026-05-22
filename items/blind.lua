@@ -247,7 +247,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_bloonarius'
+        return false -- This blind is added through bosses.toml
     end,
     set_blind = function(self)
         while #G.deck.cards < 100 do
@@ -293,7 +293,7 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_lych'
+        return false -- This blind is added through bosses.toml
     end,
 
     loc_vars = function(self)
@@ -416,7 +416,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_vortex'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
@@ -482,7 +482,7 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_dreadbloon'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
@@ -537,7 +537,7 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_phayze'
+        return false -- This blind is added through bosses.toml
     end,
     press_play = function(self)
         if #G.jokers.cards > 1 then
@@ -593,7 +593,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_blastapopoulos'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
@@ -648,7 +648,7 @@ SMODS.Blind {
         parts = {
             main = "diamondback",
             segment = "head",
-            order = 1
+            order = 3
         }
     },
 
@@ -657,7 +657,7 @@ SMODS.Blind {
     },
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
+        return false -- This blind is added through bosses.toml
     end
 }
 
@@ -699,7 +699,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
@@ -749,7 +749,7 @@ SMODS.Blind {
         parts = {
             main = "diamondback",
             segment = "tail",
-            order = 3
+            order = 1
         }
     },
 
@@ -766,7 +766,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return Bloonlatro.boss_id == 'bl_bloons_diamondback_head'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)

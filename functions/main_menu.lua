@@ -1,5 +1,8 @@
 Bloonlatro = Bloonlatro or {}
 Bloonlatro.boss_selected_index = Bloonlatro.boss_selected_index or 1
+Bloonlatro.main_menu_context = Bloonlatro.main_menu_context or nil
+Bloonlatro.boss_challenge = Bloonlatro.boss_challenge or nil
+Bloonlatro.reset_boss_challenge = true
 
 -------------------------------------------------------
 -- INIT
@@ -18,28 +21,155 @@ SMODS.Sound({ key = "pop03", path = "pop03.ogg" })
 SMODS.Sound({ key = "pop04", path = "pop04.ogg" })
 
 -------------------------------------------------------
+-- HELPERS
+-------------------------------------------------------
+
+local CONTEXT_TIMINGS = {
+    splash = {
+        logo_delay = 1.8,
+        logo_duration = 2.3,
+        boss_delay = 4.05
+    },
+    game = {
+        logo_delay = 2,
+        logo_duration = 0.9,
+        boss_delay = 3
+    },
+    default = {
+        logo_delay = 0.5,
+        logo_duration = 0.9,
+        boss_delay = 1.5
+    }
+}
+
+local function get_context_timing(key)
+    local context = Bloonlatro.main_menu_context
+    local timings = CONTEXT_TIMINGS[context] or CONTEXT_TIMINGS.default
+    return timings[key]
+end
+
+local function create_sprite_card(args)
+    local card = Card(
+        args.x or 0,
+        args.y or 0,
+        args.w or 1,
+        args.h or 1,
+        G.P_CARDS.empty,
+        G.P_CENTERS.c_base
+    )
+
+    card.no_ui = args.no_ui or false
+    card.no_shadow = args.no_shadow or false
+
+    card.children.center:remove()
+
+    card.children.center = SMODS.create_sprite(
+        card.T.x,
+        card.T.y,
+        card.T.w,
+        card.T.h,
+        args.atlas,
+        args.pos or { x = 0, y = 0 }
+    )
+
+    card.children.center:set_role({
+        major = card,
+        role_type = 'Glued',
+        draw_major = card
+    })
+
+    return card
+end
+
+local function next_bloon_state(state, max_pos)
+    local map = {
+        [7] = math.random(5, 6),
+        [6] = 4,
+        [0] = max_pos
+    }
+
+    return map[state] or (state - 1)
+end
+
+local function get_bloonlatro_bosses()
+    local t = {}
+
+    for _, v in pairs(G.P_BLINDS) do
+        if v.boss and v.boss.showdown and v.bloonlatro_boss then
+            t[#t + 1] = v
+        end
+    end
+
+    table.sort(t, function(a, b)
+        return (a.bloonlatro_boss.index or 0)
+            < (b.bloonlatro_boss.index or 0)
+    end)
+
+    return t
+end
+
+local function get_boss_family(blind, all_blinds)
+    if not blind then
+        return {}
+    end
+
+    local parts = blind.bloonlatro_boss.parts
+
+    if not parts or not parts.main then
+        return { blind }
+    end
+
+    local family = {}
+
+    for _, b in ipairs(all_blinds) do
+        local p = b.bloonlatro_boss.parts
+
+        if p and p.main == parts.main then
+            table.insert(family, b)
+        end
+    end
+
+    table.sort(family, function(a, b)
+        return (a.bloonlatro_boss.parts.order or 0)
+            < (b.bloonlatro_boss.parts.order or 0)
+    end)
+
+    return family
+end
+
+-------------------------------------------------------
 -- MAIN MENU
 -------------------------------------------------------
 
 function Bloonlatro.main_menu()
-    MAX_LOGO_POS_X = 8
+    local MAX_LOGO_POS_X = 8
+
     create_bloonlatro_logo(MAX_LOGO_POS_X)
     create_bloonlatro_boss_button()
 end
 
+local old_main_menu = Game.main_menu
+
+function Game:main_menu(change_context)
+    Bloonlatro.main_menu_context = change_context
+    return old_main_menu(self, change_context)
+end
+
 function create_bloonlatro_logo(pos_x)
-    if not G.title_top or not G.title_top.cards or not G.title_top.cards[1] then return end
+    if not G.title_top or not G.title_top.cards or not G.title_top.cards[1] then
+        return
+    end
 
     G.title_top.max_pos_x = G.title_top.max_pos_x or pos_x
     G.title_top.cards[1]:remove()
 
-    local card = Card(
-        0, 0,
-        G.CARD_W * 1.4,
-        G.CARD_H * 1.4,
-        G.P_CARDS.empty,
-        G.P_CENTERS.c_base
-    )
+    local card = create_sprite_card({
+        w = G.CARD_W * 1.4,
+        h = G.CARD_H * 1.4,
+        atlas = G.ASSET_ATLAS["bloons_logo"],
+        pos = { x = pos_x, y = 0 },
+        no_ui = true
+    })
 
     card:set_alignment({
         major = G.title_top,
@@ -48,184 +178,154 @@ function create_bloonlatro_logo(pos_x)
         offset = { x = 0, y = 0 }
     })
 
-    card.no_ui = true
-
-    card.children.center:remove()
-    card.children.center = SMODS.create_sprite(
-        card.T.x, card.T.y, card.T.w, card.T.h,
-        G.ASSET_ATLAS["bloons_logo"],
-        { x = pos_x, y = 0 }
-    )
-
-    card.children.center:set_role({
-        major = card,
-        role_type = 'Glued',
-        draw_major = card
-    })
+    card.dissolve_colours = { G.C.WHITE, G.C.WHITE }
+    card.dissolve = 1
 
     function card:click()
         local num = math.random(1, 4)
+
         play_sound('bloons_pop0' .. num)
 
         G.E_MANAGER:add_event(Event({
             delay = 0.1,
             func = function()
-                local next_x = 0
-                if pos_x == 0 then
-                    next_x = G.title_top.max_pos_x
-                elseif pos_x == 7 then
-                    next_x = math.random() > 0.5 and 6 or 5
-                elseif pos_x == 6 then
-                    next_x = pos_x - 2
-                else
-                    next_x = pos_x - 1
-                end
-                pos_x = next_x
-                card.children.center:set_sprite_pos({ x = pos_x, y = 0 })
+                pos_x = next_bloon_state(pos_x, G.title_top.max_pos_x)
+
+                card.children.center:set_sprite_pos({
+                    x = pos_x,
+                    y = 0
+                })
+
                 return true
             end
         }))
     end
 
     G.title_top:emplace(card)
+
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = get_context_timing("logo_delay"),
+        blockable = false,
+        blocking = false,
+        func = function()
+            ease_value(
+                card,
+                'dissolve',
+                -1,
+                nil,
+                nil,
+                nil,
+                get_context_timing("logo_duration")
+            )
+
+            return true
+        end
+    }))
 end
 
 function create_bloonlatro_boss_button()
     local pos_y = math.random(5, 11)
 
-    local card = Card(
-        0, 0,
-        1.8, 1.8,
-        G.P_CARDS.empty,
-        G.P_CENTERS.c_base
-    )
-
-    card.no_ui = true
-
-    card.children.center:remove()
-    card.children.center = SMODS.create_sprite(
-        card.T.x, card.T.y, card.T.w, card.T.h,
-        G.ANIMATION_ATLAS["bloons_Blind"],
-        { x = 0, y = pos_y }
-    )
-
-    card.children.center:set_role({
-        major = card,
-        role_type = 'Glued',
-        draw_major = card
+    local card = create_sprite_card({
+        w = 1.8,
+        h = 1.8,
+        atlas = G.ANIMATION_ATLAS["bloons_Blind"],
+        pos = { x = 0, y = pos_y },
+        no_ui = true
     })
 
     function card:click()
         G.FUNCS.create_bloonlatro_boss_ui()
     end
 
-    return UIBox {
+    local ui = UIBox {
         definition = {
             n = G.UIT.ROOT,
-            config = { align = "cm", colour = G.C.CLEAR },
+            config = {
+                align = "cm",
+                colour = G.C.CLEAR
+            },
             nodes = {
-                { n = G.UIT.O, config = { object = card } }
+                {
+                    n = G.UIT.O,
+                    config = { object = card }
+                }
             }
         },
         config = {
             align = "cri",
-            offset = { x = 0, y = -3.3 },
+            offset = { x = 10, y = -3.3 },
             major = G.ROOM_ATTACH,
             bond = "Weak"
         }
     }
+
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = get_context_timing("boss_delay"),
+        blockable = false,
+        blocking = false,
+        func = function()
+            if ui and ui.alignment then
+                ui.alignment.offset.x = 0
+                ui:align_to_major()
+            end
+
+            return true
+        end
+    }))
+
+    return ui
 end
 
 -------------------------------------------------------
 -- BOSS DATA
 -------------------------------------------------------
 
-local function get_bloonlatro_bosses()
-    local t = {}
-
-    for _, v in pairs(G.P_BLINDS) do
-        if v.boss and v.boss.showdown and v.bloonlatro_boss then
-            t[#t+1] = v
-        end
-    end
-
-    table.sort(t, function(a, b)
-        return (a.bloonlatro_boss.index or 0) < (b.bloonlatro_boss.index or 0)
-    end)
-
-    return t
-end
-
-local function get_boss_segments(selected, all_blinds)
-    if not selected then return {} end
-
-    local parts = selected.bloonlatro_boss.parts
-
-    if not parts then
-        return { selected }
-    end
-
-    local main = parts.main
-    local segments = {}
-
-    for _, b in ipairs(all_blinds) do
-        local p = b.bloonlatro_boss.parts
-        if p and p.main == main then
-            table.insert(segments, b)
-        end
-    end
-
-    table.sort(segments, function(a, b)
-        return (a.bloonlatro_boss.parts.order or 0)
-             < (b.bloonlatro_boss.parts.order or 0)
-    end)
-
-    return segments
-end
-
 local function get_bloonlatro_view_data()
     local all_blinds = get_bloonlatro_bosses()
     local selected = all_blinds[Bloonlatro.boss_selected_index]
-    if not selected then return nil end
 
-    local segments = get_boss_segments(selected, all_blinds)
+    if not selected then
+        return nil
+    end
+
+    local segments = get_boss_family(selected, all_blinds)
+
     return selected, segments
+end
+
+function Bloonlatro.get_boss_challenge_blind(index)
+    local challenge = Bloonlatro.boss_challenge
+
+    if not challenge then
+        return nil
+    end
+
+    if challenge[index] then
+        return challenge[index]
+    end
+
+    if index == 3 then
+        return challenge[1]
+    end
+
+    return nil
 end
 
 function get_bloonlatro_boss_card_nodes()
     local nodes = {}
 
-    local bosses = get_bloonlatro_bosses()
-    local selected = bosses[Bloonlatro.boss_selected_index]
-    if not selected then return nodes end
-
-    local parts = selected.bloonlatro_boss and selected.bloonlatro_boss.parts
-
-    if parts and parts.main then
-        local main = parts.main
-        table.sort(bosses, function(a, b)
-            return (a.bloonlatro_boss.parts and a.bloonlatro_boss.parts.order or 0) <
-                    (b.bloonlatro_boss.parts and b.bloonlatro_boss.parts.order or 0) end)
-
-        for _, boss in ipairs(bosses) do
-            local bp = boss.bloonlatro_boss and boss.bloonlatro_boss.parts
-
-            if bp and bp.main == main then
-                nodes[#nodes + 1] = {
-                    n = G.UIT.O,
-                    config = {
-                        object = create_bloonlatro_boss_card(boss)
-                    }
+    if Bloonlatro.boss_challenge then
+        for _, blind in ipairs(Bloonlatro.boss_challenge) do
+            nodes[#nodes + 1] = {
+                n = G.UIT.O,
+                config = {
+                    object = create_bloonlatro_boss_card(blind)
                 }
-            end
-        end
-    else
-        nodes[#nodes + 1] = {
-            n = G.UIT.O,
-            config = {
-                object = create_bloonlatro_boss_card(selected)
             }
-        }
+        end
     end
 
     return nodes
@@ -236,17 +336,16 @@ end
 -------------------------------------------------------
 
 function create_bloonlatro_boss_card(blind)
-    if not blind then return nil end
-    local card = Card(0, 0, 1.3, 1.3, G.P_CARDS.empty, G.P_CENTERS.c_base)
+    if not blind then
+        return nil
+    end
 
-    card.children.center:remove()
-    card.children.center = SMODS.create_sprite(
-        card.T.x, card.T.y, card.T.w, card.T.h,
-        G.ANIMATION_ATLAS[blind.atlas],
-        { x = 0, y = blind.pos.y }
-    )
-
-    card.children.center:set_role({ major = card, role_type = 'Glued', draw_major = card })
+    local card = create_sprite_card({
+        w = 1.3,
+        h = 1.3,
+        atlas = G.ANIMATION_ATLAS[blind.atlas],
+        pos = { x = 0, y = blind.pos.y }
+    })
 
     function card:align_h_popup()
         return {
@@ -261,12 +360,19 @@ function create_bloonlatro_boss_card(blind)
     end
 
     function card:hover()
-        if self.facing ~= 'front' or self.no_ui or G.debug_tooltip_toggle then return end
+        if self.facing ~= 'front' or self.no_ui or G.debug_tooltip_toggle then
+            return
+        end
 
         self:juice_up(0.05, 0.03)
-        play_sound('paper1', math.random() * 0.2 + 0.9, 0.35)
 
-        self.config.h_popup = UIBox{
+        play_sound(
+            'paper1',
+            math.random() * 0.2 + 0.9,
+            0.35
+        )
+
+        self.config.h_popup = UIBox {
             definition = create_UIBox_blind_popup(blind, true),
             config = {
                 instance_type = 'POPUP',
@@ -286,6 +392,8 @@ end
 -------------------------------------------------------
 
 local function build_cards_container(segments)
+    segments = segments or {}
+
     local card_nodes = {}
 
     for _, b in ipairs(segments) do
@@ -311,7 +419,10 @@ end
 
 local function build_view()
     local selected, segments = get_bloonlatro_view_data()
-    if not selected then return nil end
+
+    if not selected then
+        return nil
+    end
 
     return {
         n = G.UIT.R,
@@ -323,7 +434,10 @@ local function build_view()
         nodes = {
             {
                 n = G.UIT.R,
-                config = { align = "cm", padding = 0.2 },
+                config = {
+                    align = "cm",
+                    padding = 0.2
+                },
                 nodes = {
                     {
                         n = G.UIT.T,
@@ -346,36 +460,31 @@ end
 local function build_list()
     local blinds = get_bloonlatro_bosses()
     local filtered_blinds = {}
+
     for _, blind in ipairs(blinds) do
-        if not blind.bloonlatro_boss.parts or blind.bloonlatro_boss.parts.segment == "head" then
+        if not blind.bloonlatro_boss.parts
+            or blind.bloonlatro_boss.parts.segment == "head" then
             table.insert(filtered_blinds, blind)
         end
     end
 
     local row = {
         n = G.UIT.R,
-        config = { align = "cm", padding = 0.1 },
+        config = {
+            align = "cm",
+            padding = 0.1
+        },
         nodes = {}
     }
 
     for i, b in ipairs(filtered_blinds) do
-        local icon = SMODS.create_sprite(
-            0, 0, 1.0, 1.0,
-            G.ANIMATION_ATLAS[b.atlas],
-            { x = 0, y = b.pos.y }
-        )
-
-        local card = Card(0, 0, 1, 1, G.P_CARDS.empty, G.P_CENTERS.c_base)
-        card.no_ui = true
-        card.no_shadow = true
-
-        card.children.center:remove()
-        card.children.center = icon
-
-        icon:set_role({
-            major = card,
-            role_type = 'Glued',
-            draw_major = card
+        local card = create_sprite_card({
+            w = 1,
+            h = 1,
+            atlas = G.ANIMATION_ATLAS[b.atlas],
+            pos = { x = 0, y = b.pos.y },
+            no_ui = true,
+            no_shadow = true
         })
 
         function card:click()
@@ -383,9 +492,11 @@ local function build_list()
             G.FUNCS.update_bloonlatro_boss_ui()
         end
 
-        row.nodes[#row.nodes+1] = {
+        row.nodes[#row.nodes + 1] = {
             n = G.UIT.O,
-            config = { object = card }
+            config = {
+                object = card
+            }
         }
     end
 
@@ -394,7 +505,10 @@ end
 
 G.FUNCS.create_bloonlatro_boss_ui = function()
     local blinds = get_bloonlatro_bosses()
-    if #blinds == 0 then return end
+
+    if #blinds == 0 then
+        return
+    end
 
     if G.OVERLAY_MENU then
         G.OVERLAY_MENU:remove()
@@ -427,7 +541,10 @@ G.FUNCS.create_bloonlatro_boss_ui = function()
                         build_view(),
                         {
                             n = G.UIT.R,
-                            config = { align = "cm", padding = 0.3 },
+                            config = {
+                                align = "cm",
+                                padding = 0.3
+                            },
                             nodes = {
                                 UIBox_button({
                                     label = { "Start Run" },
@@ -473,29 +590,40 @@ G.FUNCS.create_bloonlatro_boss_ui = function()
 
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
-        func = (function()
-            if ui and ui.alignment then ui.alignment.offset.y = 0 end
+        func = function()
+            if ui and ui.alignment then
+                ui.alignment.offset.y = 0
+            end
+
             return true
-        end)
+        end
     }))
 
     return ui
 end
 
 G.FUNCS.update_bloonlatro_boss_ui = function()
-    if not G.OVERLAY_MENU then return end
+    if not G.OVERLAY_MENU then
+        return
+    end
 
     local selected, segments = get_bloonlatro_view_data()
-    if not selected then return end
+
+    if not selected then
+        return
+    end
 
     local name_e = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_name")
+
     if name_e then
         name_e.config.text = selected.bloonlatro_boss.title
         name_e.config.colour = selected.boss_colour or G.C.WHITE
         name_e:update_text()
     end
 
-    local cards_container = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_cards_container")
+    local cards_container =
+        G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_cards_container")
+
     if cards_container then
         for i = #cards_container.children, 1, -1 do
             cards_container.children[i]:remove()
@@ -523,45 +651,65 @@ end
 local old_init_game_object = Game.init_game_object
 function Game:init_game_object()
     local obj = old_init_game_object(self)
+
     if Bloonlatro.pending_win_ante then
         obj.win_ante = Bloonlatro.pending_win_ante
         Bloonlatro.pending_win_ante = nil
     end
+
     return obj
+end
+
+local old_start_setup_run = G.FUNCS.start_setup_run
+G.FUNCS.start_setup_run = function(e)
+    if e and G.SETTINGS.current_setup == 'New Run' then
+        Bloonlatro.reset_boss_challenge = true
+    end
+
+    return old_start_setup_run(e)
 end
 
 local old_start_run = Game.start_run
 function Game:start_run(args)
     args = args or {}
-    Bloonlatro.boss_id = args.boss_id or nil
+
     if args.challenge then
         G.GAME.challenge = args.challenge
     end
+
     if args.win_ante then
         Bloonlatro.pending_win_ante = args.win_ante
+    end
+
+    if Bloonlatro.reset_boss_challenge then
+        Bloonlatro.boss_challenge = args.boss_challenge or nil
+        Bloonlatro.reset_boss_challenge = false
     end
 
     return old_start_run(self, args)
 end
 
 G.FUNCS.bloonlatro_start_boss_run = function()
-    local blinds = get_bloonlatro_bosses()
-    local selected = blinds[Bloonlatro.boss_selected_index]
-    if not selected then return end
+    local selected, boss_challenge = get_bloonlatro_view_data()
+
+    if not selected then
+        return
+    end
 
     local boss_bans = {
-        {id = 'j_luchador'},
-        {id = 'j_chicot'},
-        {id = 'j_mr_bones'},
-        {id = 'j_bloons_bomb_blitz'},
-        {id = 'j_bloons_cripple_moab'},
-        {id = 'j_bloons_herald_of_everfrost'},
-        {id = 'tag_bloons_sabotage'},
-        {id = 'v_bloons_big_bloon_sabotage'},
-        {id = 'v_bloons_big_bloon_blueprints'},
+        { id = 'j_luchador' },
+        { id = 'j_chicot' },
+        { id = 'j_mr_bones' },
+        { id = 'j_bloons_bomb_blitz' },
+        { id = 'j_bloons_cripple_moab' },
+        { id = 'j_bloons_herald_of_everfrost' },
+        { id = 'tag_bloons_sabotage' },
+        { id = 'v_bloons_big_bloon_sabotage' },
+        { id = 'v_bloons_big_bloon_blueprints' },
     }
 
-    local challenge_params = selected.bloonlatro_boss.challenge_params or {}
+    local challenge_params =
+        selected.bloonlatro_boss.challenge_params or {}
 
     if challenge_params.banned_ids then
         for _, ban in ipairs(challenge_params.banned_ids) do
@@ -570,7 +718,7 @@ G.FUNCS.bloonlatro_start_boss_run = function()
     end
 
     local args = {
-        boss_id = selected.key,
+        boss_challenge = boss_challenge,
         challenge = {
             deck = { type = "Challenge Deck" },
             restrictions = {
@@ -583,5 +731,6 @@ G.FUNCS.bloonlatro_start_boss_run = function()
         win_ante = challenge_params.win_ante or 8
     }
 
+    Bloonlatro.reset_boss_challenge = true
     G.FUNCS.start_run(nil, args)
 end
