@@ -2,6 +2,7 @@ Bloonlatro = Bloonlatro or {}
 Bloonlatro.boss_selected_index = Bloonlatro.boss_selected_index or 1
 Bloonlatro.main_menu_context = Bloonlatro.main_menu_context or nil
 Bloonlatro.boss_challenge = Bloonlatro.boss_challenge or nil
+Bloonlatro.reset_boss_challenge = true
 
 -------------------------------------------------------
 -- INIT
@@ -648,7 +649,6 @@ end
 -------------------------------------------------------
 
 local old_init_game_object = Game.init_game_object
-
 function Game:init_game_object()
     local obj = old_init_game_object(self)
 
@@ -660,20 +660,18 @@ function Game:init_game_object()
     return obj
 end
 
-local old_start_run = Game.start_run
+local old_start_setup_run = G.FUNCS.start_setup_run
+G.FUNCS.start_setup_run = function(e)
+    if e and G.SETTINGS.current_setup == 'New Run' then
+        Bloonlatro.reset_boss_challenge = true
+    end
 
+    return old_start_setup_run(e)
+end
+
+local old_start_run = Game.start_run
 function Game:start_run(args)
     args = args or {}
-
-    if args.boss_challenge then
-        Bloonlatro.boss_challenge = args.boss_challenge
-        Bloonlatro.restart_boss_challenge = nil
-    elseif Bloonlatro.restart_boss_challenge then
-        Bloonlatro.boss_challenge = Bloonlatro.restart_boss_challenge
-        Bloonlatro.restart_boss_challenge = nil
-    else
-        Bloonlatro.boss_challenge = nil
-    end
 
     if args.challenge then
         G.GAME.challenge = args.challenge
@@ -681,6 +679,11 @@ function Game:start_run(args)
 
     if args.win_ante then
         Bloonlatro.pending_win_ante = args.win_ante
+    end
+
+    if Bloonlatro.reset_boss_challenge then
+        Bloonlatro.boss_challenge = args.boss_challenge or nil
+        Bloonlatro.reset_boss_challenge = false
     end
 
     return old_start_run(self, args)
@@ -728,7 +731,6 @@ G.FUNCS.bloonlatro_start_boss_run = function()
         win_ante = challenge_params.win_ante or 8
     }
 
-    Bloonlatro.boss_challenge = boss_challenge
-
+    Bloonlatro.reset_boss_challenge = true
     G.FUNCS.start_run(nil, args)
 end
