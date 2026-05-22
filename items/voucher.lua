@@ -8,13 +8,6 @@ SMODS.Atlas {
 SMODS.Voucher { --Power Merchant
     key = 'power_merchant',
     name = 'Power Merchant',
-	loc_txt = {
-        name = 'Power Merchant',
-        text = {
-            '{C:power}Power{} cards may',
-            'appear in the shop'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 0, y = 0 },
 	cost = 10,
@@ -34,14 +27,6 @@ SMODS.Voucher { --Power Merchant
 SMODS.Voucher { --Power Tycoon
     key = 'power_tycoon',
     name = 'Power Tycoon',
-	loc_txt = {
-        name = 'Power Tycoon',
-        text = {
-            '{C:power}Power{} cards appear',
-            '{C:attention}#1#X{} more frequently',
-            'in the shop'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 0, y = 1 },
 	cost = 10,
@@ -65,12 +50,6 @@ SMODS.Voucher { --Power Tycoon
 SMODS.Voucher { --Insider Trades
     key = 'insider_trades',
     name = 'Insider Trades',
-	loc_txt = {
-        name = 'Insider Trades',
-        text = {
-            '{C:attention}+#1#{} Booster Pack slot'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 1, y = 0 },
 	cost = 10,
@@ -93,12 +72,6 @@ SMODS.Voucher { --Insider Trades
 SMODS.Voucher { --Backroom Deals
     key = 'backroom_deals',
     name = 'Backroom Deals',
-	loc_txt = {
-        name = 'Backroom Deals',
-        text = {
-            '{C:attention}+#1#{} Voucher slot'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 1, y = 1 },
 	cost = 10,
@@ -122,13 +95,6 @@ SMODS.Voucher { --Backroom Deals
 SMODS.Voucher { --Quick Hands
     key = 'quick_hands',
     name = 'Quick Hands',
-	loc_txt = {
-        name = 'Quick Hands',
-        text = {
-            'Create a {C:attention}Double Tag{}',
-            'when skipping a {C:attention}Blind{}'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 2, y = 0 },
 	cost = 10,
@@ -138,16 +104,7 @@ SMODS.Voucher { --Quick Hands
 SMODS.Voucher { --Grand Prix Spree
     key = 'grand_prix_spree',
     name = 'Grand Prix Spree',
-	loc_txt = {
-        name = 'Grand Prix Spree',
-        text = {
-            'Create a {C:attention}Speed Tag{}',
-            'when skipping a {C:attention}Blind{}'
-        }
-    },
-	atlas = 'Voucher',
-	pos = { x = 2, y = 1 },
-	cost = 10,
+
 	order = 38,
     requires = { 'v_bloons_quick_hands' },
 }
@@ -155,13 +112,6 @@ SMODS.Voucher { --Grand Prix Spree
 SMODS.Voucher { --Big Bloon Sabotage
     key = 'big_bloon_sabotage',
     name = 'Big Bloon Sabotage',
-	loc_txt = {
-        name = 'Big Bloon Sabotage',
-        text = {
-            'Reduce {C:attention}Blind{}',
-            'requirement by {C:attention}#1#%{}'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 3, y = 0 },
 	cost = 10,
@@ -176,13 +126,6 @@ SMODS.Voucher { --Big Bloon Sabotage
 SMODS.Voucher { --Big Bloon Blueprints
     key = 'big_bloon_blueprints',
     name = 'Big Bloon Blueprints',
-	loc_txt = {
-        name = 'Big Bloon Blueprints',
-        text = {
-            'Reduce {C:attention}Boss Blind{}',
-            'requirement by {C:attention}#1#%{} instead'
-        }
-    },
 	atlas = 'Voucher',
 	pos = { x = 3, y = 1 },
 	cost = 10,

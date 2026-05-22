@@ -8,15 +8,6 @@ SMODS.Atlas {
 SMODS.Enhancement ({ --Frozen
     key = 'frozen',
     name = 'Frozen Card',
-    loc_txt = {
-        name = 'Frozen Card',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            'thaws when held in hand',
-            'no rank or suit',
-            "doesn't score"
-        }
-    },
 	atlas = "Enhancement",
 	pos = { x = 0, y = 0 },
     order = 10,
@@ -42,14 +33,6 @@ SMODS.Enhancement ({ --Frozen
 SMODS.Enhancement ({ --Glued
     key = 'glued',
     name = 'Glued Card',
-    loc_txt = {
-        name = 'Glued Card',
-        text = {
-            '{C:mult}+#1#{} Mult and',
-            'wears off if scored',
-            'Lose {C:money}$#2#{} when discarded'
-        }
-    },
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
@@ -100,14 +83,6 @@ SMODS.Enhancement ({ --Glued
 SMODS.Enhancement ({ --Stunned
     key = 'stunned',
     name = 'Stunned Card',
-    loc_txt = {
-        name = 'Stunned Card',
-        text = {
-            'Wears off and',
-            'is discarded if',
-            'held in hand'
-        }
-    },
 	atlas = "Enhancement",
 	pos = { x = 2, y = 0 },
     order = 12,
@@ -193,14 +168,6 @@ SMODS.Enhancement ({ --Stunned
 SMODS.Enhancement ({ --Meteor
     key = 'meteor',
     name = 'Meteor Card',
-    loc_txt = {
-        name = 'Meteor Card',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            'destroys card',
-            'no rank or suit'
-        }
-    },
 	atlas = "Enhancement",
 	pos = { x = 3, y = 0 },
     order = 13,

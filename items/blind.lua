@@ -9,12 +9,6 @@ SMODS.Atlas {
 
 SMODS.Blind {
     name = 'Massive MOAB',
-    loc_txt = {
-        name = 'Massive MOAB',
-        text = {
-            'Halve Hands and Discards',
-        }
-    },
     key = 'final_moab',
     atlas = 'Blind',
     pos = { y = 0 },
@@ -38,13 +32,6 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'Brutal Behemoth',
-    loc_txt = {
-        name = 'Brutal Behemoth',
-        text = {
-            'Disable the rightmost',
-            'Joker per hand played'
-        }
-    },
     key = 'final_bfb',
     atlas = 'Blind',
     pos = { y = 1 },
@@ -83,13 +70,6 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'Dark Titan',
-    loc_txt = {
-        name = 'Dark Titan',
-        text = {
-            '#1# in #2# cards',
-            'are debuffed'
-        }
-    },
     key = 'final_ddt',
     atlas = 'Blind',
     pos = { y = 2 },
@@ -133,13 +113,6 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'Green Gargantuan',
-    loc_txt = {
-        name = 'Green Gargantuan',
-        text = {
-            'All Jokers debuffed',
-            'until 1 Joker sold'
-        }
-    },
     key = 'final_zomg',
     atlas = 'Blind',
     pos = { y = 3 },
@@ -187,13 +160,6 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'B.A.D',
-    loc_txt = {
-        name = 'B.A.D',
-        text = {
-            'X1.5 blind requirement',
-            'after each hand'
-        }
-    },
     key = 'final_bad',
     atlas = 'Blind',
     pos = { y = 4 },
@@ -218,14 +184,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Bloonarius',
-        text = {
-            'Fills deck with random',
-            'cards until deck size',
-            'reaches #1# cards'
-        }
-    },
     key = 'bloonarius',
     atlas = 'Blind',
     pos = { y = 5 },
@@ -264,16 +222,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Lych',
-        text = {
-            'Revives and resets hands once',
-            'Removes enhancements from all',
-            'played and held in hand cards',
-            'Heals back #2#',
-            '#3# enhancement removed'
-        }
-    },
     key = 'lych',
     atlas = 'Blind',
     pos = { y = 6 },
@@ -384,14 +332,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Vortex',
-        text = {
-            'Cards are stunned',
-            'when drawn to hand',
-            '-#1# hand'
-        }
-    },
     key = 'vortex',
     atlas = 'Blind',
     pos = { y = 7 },
@@ -434,16 +374,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Dreadbloon',
-        text = {
-            'Score is capped at #1#',
-            'Halves base chips and mult',
-            'Debuffs Jokers by rarity',
-            'Debuffed rarity increases',
-            'after each hand played'
-        }
-    },
 
     loc_vars = function(self)
         return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
@@ -515,15 +445,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Phayze',
-        text = {
-            'Moves a random Joker to the leftmost',
-            'position when a hand is played',
-            'Debuffs all Jokers and cards',
-            'without an edition.'
-        }
-    },
     key = 'phayze',
     atlas = 'Blind',
     pos = { y = 9 },
@@ -559,16 +480,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Blastapopoulos',
-        text = {
-            'Card draw adds a Meteor card to deck',
-            'Score is reduced by #1#% per heat point',
-            'Played scoring cards increase heat by #2#',
-            'Scoring Meteor cards increase heat by #3#',
-            'Held Frozen cards decrease heat by #4#'
-        }
-    },
     key = 'blastapopoulos',
     atlas = 'Blind',
     pos = { y = 10 },
@@ -627,14 +538,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Diamondback Head',
-        text = {
-            'All face cards are debuffed',
-            'X1 score for each undefeated',
-            'Diamondback blind',
-        }
-    },
     key = 'diamondback_head',
     atlas = 'Blind',
     pos = { y = 11 },
@@ -674,14 +577,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Diamondback Body',
-        text = {
-            'Add #1# cards to your deck',
-            'X1 score for each undefeated',
-            'Diamondback blind',
-        }
-    },
     key = 'diamondback_body',
     atlas = 'Blind',
     pos = { y = 12 },
@@ -743,14 +638,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Diamondback Tail',
-        text = {
-            'Score #1# less chips',
-            'X1 score for each undefeated',
-            'Diamondback blind',
-        }
-    },
     key = 'diamondback_tail',
     atlas = 'Blind',
     pos = { y = 13 },
