@@ -553,7 +553,6 @@ return {
             },
             p_bloons_power_normal_1 = {
                 name = 'Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -562,7 +561,6 @@ return {
             },
             p_bloons_power_normal_2 = {
                 name = 'Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -571,7 +569,6 @@ return {
             },
             p_bloons_power_jumbo_1 = {
                 name = 'Jumbo Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -580,7 +577,6 @@ return {
             },
             p_bloons_power_mega_1 = {
                 name = 'Mega Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -611,6 +607,9 @@ return {
         }
     },
     misc = {
+        dictionary = {
+            k_power_pack = 'Power Pack',
+        },
         labels = {
             bloons_regrow = 'Regrow',
             bloons_camo = 'Camo',

@@ -12,7 +12,6 @@ local banned_hand_cards = {
     {id = 'j_bloons_support_chinook'},
     {id = 'j_bloons_moab_shove'},
     {id = 'j_bloons_counter_espionage'},
-    {id = 'j_bloons_druid_of_the_storm'},
     {id = 'j_bloons_long_reach'},
     {id = 'j_bloons_perma_spike'},
     {id = 'j_burglar'},
@@ -277,7 +276,7 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_bloons_advanced_intel' },
+        { id = 'j_bloons_super_range' },
     },
     vouchers = {},
     restrictions = {

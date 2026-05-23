@@ -13,6 +13,7 @@ SMODS.Booster {
 	weight = 1.2,
     kind = 'power',
     select_card = 'consumeables',
+    group_key = 'k_power_pack',
 	config = { choose = 1, extra = 2 },
 
     loc_vars = function(self, info_queue, card)
@@ -36,6 +37,7 @@ SMODS.Booster {
 	weight = 1.2,
     kind = 'power',
     select_card = 'consumeables',
+    group_key = 'k_power_pack',
     config = { choose = 1, extra = 2 },
 
     loc_vars = function(self, info_queue, card)
@@ -60,6 +62,7 @@ SMODS.Booster {
 	weight = 0.6,
     kind = 'power',
     select_card = 'consumeables',
+    group_key = 'k_power_pack',
     config = { choose = 1, extra = 4 },
 
     loc_vars = function(self, info_queue, card)
@@ -84,6 +87,7 @@ SMODS.Booster {
 	weight = 0.15,
     kind = 'power',
     select_card = 'consumeables',
+    group_key = 'k_power_pack',
     config = { choose = 2, extra = 4 },
 
     loc_vars = function(self, info_queue, card)
