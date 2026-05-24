@@ -12,16 +12,12 @@ function create_UIBox_blind_tag(blind_choice, run_info)
 position = "after"
 match_indent = true
 payload = '''
-  local _boss = Bloonlatro.get_boss_challenge_blind
-    and Bloonlatro.get_boss_challenge_blind(3)
-    or (Bloonlatro.boss_challenge
-    and (Bloonlatro.boss_challenge[3] or Bloonlatro.boss_challenge[1]))
+  local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+  local boss = center and center.get_boss_blind and center:get_boss_blind()
 
   local disable_skip =
-    G.GAME.modifiers.no_skipping_blinds
-    or (_boss
-    and _boss.key == 'bl_bloons_diamondback_head'
-    and G.GAME.round_resets.ante % G.GAME.win_ante == 0)
+    G.GAME.modifiers.no_skipping_blinds or 
+    (boss and boss.key == 'bl_bloons_diamondback_head' and G.GAME.round_resets.ante % G.GAME.win_ante == 0)
 
   if disable_skip then
     return

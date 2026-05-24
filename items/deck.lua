@@ -8,18 +8,18 @@ SMODS.Atlas {
 SMODS.Back { --Quincy
     key = "quincy",
     name = "Quincy Deck",
-	atlas = "Back",
-	pos = { x = 0, y = 0 },
+    atlas = "Back",
+    pos = { x = 0, y = 0 },
     config = { extra = { num = 1, denom = 4 }, ante_scaling = 0.75 }, --Variables: num/denom = probability fraction, ante_scaling = score requirement multiplier
 
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(self, self.config.extra.num, self.config.extra.denom, 'quincy')
-		return { vars = { n, d, self.config.ante_scaling } }
-	end,
-	calculate = function(self, back, context)
-		if context.final_scoring_step and SMODS.pseudorandom_probability(self, 'quincy', self.config.extra.num, self.config.extra.denom, 'quincy') then
+        return { vars = { n, d, self.config.ante_scaling } }
+    end,
+    calculate = function(self, back, context)
+        if context.final_scoring_step and SMODS.pseudorandom_probability(self, 'quincy', self.config.extra.num, self.config.extra.denom, 'quincy') then
             hand_chips = mod_chips(hand_chips / 2.0)
-            update_hand_text( { delay = 0 }, { chips = hand_chips } )
+            update_hand_text({ delay = 0 }, { chips = hand_chips })
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound("timpani", 1)
@@ -35,21 +35,21 @@ SMODS.Back { --Quincy
                 end,
             }))
         end
-	end
+    end
 }
 
 SMODS.Back { --Gwendolin
     key = "gwendolin",
     name = "Gwendolin Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 1, y = 0 },
-    config = { consumables = {'c_immolate'}, hands = -1 }
+    config = { consumables = { 'c_immolate' }, hands = -1 }
 }
 
 SMODS.Back { --Jones
     key = "jones",
     name = "Jones Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 2, y = 0 },
 
     calculate = function(self, back, context)
@@ -57,7 +57,8 @@ SMODS.Back { --Jones
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = (function()
-                    local power = create_card('c_bloons_artillery_command', G.consumeables, nil, nil, nil, nil, 'c_bloons_artillery_command', 'jones')
+                    local power = create_card('c_bloons_artillery_command', G.consumeables, nil, nil, nil, nil,
+                        'c_bloons_artillery_command', 'jones')
                     power:add_to_deck()
                     G.consumeables:emplace(power)
                     G.GAME.consumeable_buffer = 0
@@ -71,68 +72,68 @@ SMODS.Back { --Jones
 SMODS.Back { --Obyn
     key = "obyn",
     name = "Obyn Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 3, y = 0 },
-    config = { vouchers = {'v_seed_money','v_money_tree'} }
+    config = { vouchers = { 'v_seed_money', 'v_money_tree' } }
 }
 
 SMODS.Back { --Churchill
     key = "churchill",
     name = "Churchill Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 4, y = 0 },
     config = { extra = { Xmult = 2 } },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.extra.Xmult } }
-	end,
+        return { vars = { self.config.extra.Xmult } }
+    end,
     calculate = function(self, back, context)
-		if context.final_scoring_step and G.GAME.blind.boss then
+        if context.final_scoring_step and G.GAME.blind.boss then
             mult = mod_mult(mult * self.config.extra.Xmult)
-            update_hand_text( { delay = 0 }, { mult = mult } )
+            update_hand_text({ delay = 0 }, { mult = mult })
             G.E_MANAGER:add_event(Event({
-				func = function()
-					play_sound("multhit2", 1)
+                func = function()
+                    play_sound("multhit2", 1)
                     attention_text({
-						scale = 1.4,
-						text = "Try This!",
+                        scale = 1.4,
+                        text = "Try This!",
                         color = G.C.MULT,
-						hold = 0.45,
-						align = "cm",
-						offset = { x = 0, y = -2.7 },
-						major = G.play,
-					})
-					return true
-				end,
-			}))
+                        hold = 0.45,
+                        align = "cm",
+                        offset = { x = 0, y = -2.7 },
+                        major = G.play,
+                    })
+                    return true
+                end,
+            }))
         end
-	end
+    end
 }
 
 SMODS.Back { --Benjamin
     key = "benjamin",
     name = "Benjamin Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 0, y = 1 },
-    config = { jokers = {'j_bloons_monkey_bank'}, dollars = 1 },
+    config = { jokers = { 'j_bloons_monkey_bank' }, dollars = 1 },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { self.config.dollars } }
-	end
+        return { vars = { self.config.dollars } }
+    end
 }
 
 SMODS.Back { --Ezili
     key = "ezili",
     name = "Ezili Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 1, y = 1 },
-    config = { vouchers = {'v_magic_trick','v_illusion','v_hone','v_glow_up'} }
+    config = { vouchers = { 'v_magic_trick', 'v_illusion', 'v_hone', 'v_glow_up' } }
 }
 
 SMODS.Back { --Pat Fusty
     key = "pat_fusty",
     name = "Pat Fusty Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 2, y = 1 },
     config = { hand_size = 1 },
 
@@ -171,7 +172,8 @@ SMODS.Back { --Adora
             local hand = pseudorandom_element(visible, pseudoseed(''))
             update_hand_text(
                 { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
-                { handname = localize(hand, 'poker_hands'),
+                {
+                    handname = localize(hand, 'poker_hands'),
                     chips = G.GAME.hands[hand].chips,
                     mult = G.GAME.hands[hand].mult,
                     level = G.GAME.hands[hand].level
@@ -179,18 +181,19 @@ SMODS.Back { --Adora
             )
             level_up_hand(card, hand)
             update_hand_text(
-                {sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''}
+                { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
+                { mult = 0, chips = 0, handname = '', level = '' }
             )
         end
         card:sell_card()
-        SMODS.calculate_context({selling_card = true, card = card})
+        SMODS.calculate_context({ selling_card = true, card = card })
     end
 }
 
 SMODS.Back { --Brickell
     key = "brickell",
     name = "Brickell Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 4, y = 1 },
     config = { extra = { ante = 0, discards = 0 }, hands = 1, },
 
@@ -206,7 +209,7 @@ SMODS.Back { --Brickell
                 G.GAME.round_resets.blind_ante = self.config.extra.ante
                 G.GAME.round_resets.discards = self.config.extra.discards
                 return true
-            end 
+            end
         }))
     end,
 }
@@ -214,7 +217,7 @@ SMODS.Back { --Brickell
 SMODS.Back { --Etienne
     key = "etienne",
     name = "Etienne Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 0, y = 2 },
     config = { extra = { slots = 1 } },
 
@@ -229,7 +232,7 @@ SMODS.Back { --Etienne
 SMODS.Back { --Sauda
     key = "sauda",
     name = "Sauda Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 1, y = 2 },
 
     apply = function(self)
@@ -247,16 +250,16 @@ SMODS.Back { --Sauda
 SMODS.Back { --Psi
     key = "psi",
     name = "Psi Deck",
-	atlas = "Back",
-	pos = { x = 2, y = 2 },
+    atlas = "Back",
+    pos = { x = 2, y = 2 },
     config = { extra = { number = 2 } },
 
     loc_vars = function(self, info_queue, card)
         local function process_var(pos)
-            return '#@'..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.id or 11)..
-                                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.suit:sub(1,1) or 'D')
+            return '#@' .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.id or 11) ..
+                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.suit:sub(1, 1) or 'D')
         end
-		return {
+        return {
             vars = {
                 self.config.extra.number,
                 process_var(1),
@@ -269,15 +272,15 @@ SMODS.Back { --Psi
 SMODS.Back { --Geraldo
     key = "geraldo",
     name = "Geraldo Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 3, y = 2 },
-    config = { vouchers = {'v_bloons_power_merchant', 'v_crystal_ball'} }
+    config = { vouchers = { 'v_bloons_power_merchant', 'v_crystal_ball' } }
 }
 
 SMODS.Back { --Corvus
     key = "corvus",
     name = "Corvus Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 4, y = 2 },
     config = { extra = { max_mana = 25, mana_per_card = 1 } },
 
@@ -286,7 +289,8 @@ SMODS.Back { --Corvus
     end,
 
     apply = function(self)
-        G.GAME.corvus_mana = { current_mana = 0, max_mana = self.config.extra.max_mana, mana_per_card = self.config.extra.mana_per_card }
+        G.GAME.corvus_mana = { current_mana = 0, max_mana = self.config.extra.max_mana, mana_per_card = self.config
+        .extra.mana_per_card }
     end,
 
     calculate = function(self, back, context)
@@ -314,17 +318,17 @@ SMODS.Back { --Corvus
 SMODS.Back { --Rosalia
     key = "rosalia",
     name = "Rosalia Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 0, y = 3 },
     config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.Xmult } }
     end,
-    apply = function (self, back)
+    apply = function(self, back)
         G.GAME.rosalia_weapon = "laser"
     end,
-    calculate = function (self, back, context)
+    calculate = function(self, back, context)
         if G.GAME.rosalia_weapon == "laser" and context.final_scoring_step then
             return {
                 x_mult = self.config.extra.Xmult,
@@ -340,28 +344,28 @@ SMODS.Back { --Rosalia
 SMODS.Back { --Silas
     key = "silas",
     name = "Silas Deck",
-	atlas = "Back",
+    atlas = "Back",
     pos = { x = 1, y = 3 },
     config = { extra = { number = 2 } },
 
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.number } }
     end,
-    calculate = function (self, back, context)
+    calculate = function(self, back, context)
         if context.end_of_round and not context.individual and not context.repetition then
             local valid_cards = {}
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.effect ~= 'Frozen_card' and not v.debuff then
-                    valid_cards[#valid_cards+1] = v
+                    valid_cards[#valid_cards + 1] = v
                 end
             end
             for i = 1, self.config.extra.number do
                 if valid_cards[1] then
-                    local frozen_card = pseudorandom_element(valid_cards, pseudoseed('silas'..G.GAME.round_resets.ante))
+                    local frozen_card = pseudorandom_element(valid_cards, pseudoseed('silas' .. G.GAME.round_resets.ante))
                     frozen_card:set_ability('m_bloons_frozen', nil, true)
                     for k, v in pairs(valid_cards) do
                         if v == frozen_card then
-                            table.remove(valid_cards,i)
+                            table.remove(valid_cards, i)
                             break
                         end
                     end
@@ -370,3 +374,61 @@ SMODS.Back { --Silas
         end
     end
 }
+
+SMODS.Back {
+    key = "boss_challenge",
+    name = "Boss Challenge Deck",
+    atlas = "Back",
+    pos = { x = 2, y = 3 },
+    omit = true,
+
+    config = {
+        extra = {
+            boss_challenge_key = nil
+        }
+    },
+
+    set_boss_challenge = function(self, key)
+        self.config.extra.boss_challenge_key = key
+    end,
+
+    get_boss_blind = function(self)
+        local key = self.config and self.config.extra and self.config.extra.boss_challenge_key
+        if not key then return nil end
+        return G.P_BLINDS and G.P_BLINDS[key]
+    end,
+
+    get_boss_segments = function(self)
+        local blind = self:get_boss_blind()
+        if not blind then return {} end
+
+        local parts = blind.bloonlatro_boss and blind.bloonlatro_boss.parts
+
+        if not parts or not parts.main then
+            return { blind }
+        end
+
+        local segments = {}
+
+        for _, v in pairs(G.P_BLINDS or {}) do
+            if v.boss and v.boss.showdown and v.bloonlatro_boss then
+                local p = v.bloonlatro_boss.parts
+                if p and p.main == parts.main then
+                    segments[#segments + 1] = v
+                end
+            end
+        end
+
+        table.sort(segments, function(a, b)
+            return (a.bloonlatro_boss.parts.order or 0)
+                < (b.bloonlatro_boss.parts.order or 0)
+        end)
+
+        return segments
+    end
+}
+
+-- eval:
+-- eval print(G.GAME.selected_back.effect.center.config.extra.boss_challenge_key)
+-- eval print(G.GAME.selected_back.effect.center:get_boss_blind())
+-- eval print(G.GAME.selected_back.effect.center.loc_name)

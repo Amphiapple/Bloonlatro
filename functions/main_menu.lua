@@ -1,8 +1,5 @@
 Bloonlatro = Bloonlatro or {}
-Bloonlatro.boss_selected_index = Bloonlatro.boss_selected_index or 1
 Bloonlatro.main_menu_context = Bloonlatro.main_menu_context or nil
-Bloonlatro.boss_challenge = Bloonlatro.boss_challenge or nil
-Bloonlatro.reset_boss_challenge = true
 
 -------------------------------------------------------
 -- INIT
@@ -19,10 +16,6 @@ SMODS.Sound({ key = "pop01", path = "pop01.ogg" })
 SMODS.Sound({ key = "pop02", path = "pop02.ogg" })
 SMODS.Sound({ key = "pop03", path = "pop03.ogg" })
 SMODS.Sound({ key = "pop04", path = "pop04.ogg" })
-
--------------------------------------------------------
--- HELPERS
--------------------------------------------------------
 
 local CONTEXT_TIMINGS = {
     splash = {
@@ -137,6 +130,47 @@ local function get_boss_family(blind, all_blinds)
     return family
 end
 
+local function get_boss_challenge_center()
+    if G.P_CENTERS and G.P_CENTERS.b_bloons_boss_challenge then
+        return G.P_CENTERS.b_bloons_boss_challenge
+    end
+
+    return nil
+end
+
+local function set_boss_challenge(key)
+    local center = get_boss_challenge_center()
+
+    if center and center.set_boss_challenge and key then
+        center:set_boss_challenge(key)
+    end
+
+    return center
+end
+
+local function ensure_boss_challenge()
+    local all_blinds = get_bloonlatro_bosses()
+
+    if #all_blinds == 0 then
+        return nil, nil
+    end
+
+    local center = get_boss_challenge_center()
+    local selected = center and center:get_boss_blind() or nil
+
+    if not selected then
+        selected = all_blinds[1]
+    end
+
+    if selected then
+        set_boss_challenge(selected.key)
+    end
+
+    local segments = center and center:get_boss_segments() or get_boss_family(selected, all_blinds)
+
+    return selected, segments
+end
+
 -------------------------------------------------------
 -- MAIN MENU
 -------------------------------------------------------
@@ -236,6 +270,7 @@ function create_bloonlatro_boss_button()
     })
 
     function card:click()
+        ensure_boss_challenge()
         G.FUNCS.create_bloonlatro_boss_ui()
     end
 
@@ -277,112 +312,6 @@ function create_bloonlatro_boss_button()
     }))
 
     return ui
-end
-
--------------------------------------------------------
--- BOSS DATA
--------------------------------------------------------
-
-local function get_bloonlatro_view_data()
-    local all_blinds = get_bloonlatro_bosses()
-    local selected = all_blinds[Bloonlatro.boss_selected_index]
-
-    if not selected then
-        return nil
-    end
-
-    local segments = get_boss_family(selected, all_blinds)
-
-    return selected, segments
-end
-
-function Bloonlatro.get_boss_challenge_blind(index)
-    local challenge = Bloonlatro.boss_challenge
-
-    if not challenge then
-        return nil
-    end
-
-    if challenge[index] then
-        return challenge[index]
-    end
-
-    if index == 3 then
-        return challenge[1]
-    end
-
-    return nil
-end
-
-local function resolve_boss_blind_by_key(key)
-    if not key then
-        return nil
-    end
-
-    if G.P_BLINDS[key] then
-        return G.P_BLINDS[key]
-    end
-
-    for _, blind in pairs(G.P_BLINDS) do
-        if blind.key == key then
-            return blind
-        end
-    end
-
-    return nil
-end
-
-local function boss_challenge_to_keys(challenge)
-    local keys = {}
-
-    if type(challenge) ~= 'table' then
-        return keys
-    end
-
-    for _, entry in ipairs(challenge) do
-        local key = type(entry) == 'table' and entry.key or entry
-
-        if type(key) == 'string' then
-            keys[#keys + 1] = key
-        end
-    end
-
-    return keys
-end
-
-local function boss_challenge_from_keys(keys)
-    local challenge = {}
-
-    if type(keys) ~= 'table' then
-        return challenge
-    end
-
-    for _, key in ipairs(keys) do
-        local blind = resolve_boss_blind_by_key(key)
-
-        if blind then
-            challenge[#challenge + 1] = blind
-        end
-    end
-
-    return challenge
-end
-
-function get_bloonlatro_boss_card_nodes()
-    local nodes = {}
-
-    if Bloonlatro.boss_challenge then
-        for _, blind in ipairs(Bloonlatro.boss_challenge) do
-            nodes[#nodes + 1] = {
-                n = G.UIT.O,
-                config = {
-                    object = create_bloonlatro_boss_card(blind)
-                }
-            }
-        end
-    end
-
-    return nodes
 end
 
 -------------------------------------------------------
@@ -472,7 +401,7 @@ local function build_cards_container(segments)
 end
 
 local function build_view()
-    local selected, segments = get_bloonlatro_view_data()
+    local selected, segments = ensure_boss_challenge()
 
     if not selected then
         return nil
@@ -542,7 +471,7 @@ local function build_list()
         })
 
         function card:click()
-            Bloonlatro.boss_selected_index = i
+            set_boss_challenge(b.key)
             G.FUNCS.update_bloonlatro_boss_ui()
         end
 
@@ -558,6 +487,7 @@ local function build_list()
 end
 
 G.FUNCS.create_bloonlatro_boss_ui = function()
+    ensure_boss_challenge()
     local blinds = get_bloonlatro_bosses()
 
     if #blinds == 0 then
@@ -661,7 +591,9 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
         return
     end
 
-    local selected, segments = get_bloonlatro_view_data()
+    local selected, segments = ensure_boss_challenge()
+
+    segments = segments or {}
 
     if not selected then
         return
@@ -698,79 +630,9 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
     end
 end
 
--------------------------------------------------------
--- RUN START
--------------------------------------------------------
-
-local old_init_game_object = Game.init_game_object
-function Game:init_game_object()
-    local obj = old_init_game_object(self)
-
-    if Bloonlatro.pending_win_ante then
-        obj.win_ante = Bloonlatro.pending_win_ante
-        Bloonlatro.pending_win_ante = nil
-    end
-
-    return obj
-end
-
-local old_start_setup_run = G.FUNCS.start_setup_run
-G.FUNCS.start_setup_run = function(e)
-    if e and G.SETTINGS.current_setup == 'New Run' then
-        Bloonlatro.reset_boss_challenge = true
-    end
-
-    return old_start_setup_run(e)
-end
-
-local old_start_run = Game.start_run
-function Game:start_run(args)
-    args = args or {}
-
-    if args.challenge then
-        G.GAME.challenge = args.challenge
-    end
-
-    if args.win_ante then
-        Bloonlatro.pending_win_ante = args.win_ante
-    end
-
-    if Bloonlatro.reset_boss_challenge then
-        local keys = args.boss_challenge_keys
-
-        if (not keys or #keys == 0) and args.boss_challenge then
-            keys = boss_challenge_to_keys(args.boss_challenge)
-        end
-
-        if keys and #keys > 0 then
-            local hydrated = boss_challenge_from_keys(keys)
-            Bloonlatro.boss_challenge = (#hydrated > 0) and hydrated or nil
-        else
-            Bloonlatro.boss_challenge = args.boss_challenge or nil
-        end
-
-        Bloonlatro.reset_boss_challenge = false
-    end
-
-    local result = old_start_run(self, args)
-
-    if (not Bloonlatro.boss_challenge or #Bloonlatro.boss_challenge == 0)
-        and G.GAME and G.GAME.boss_challenge_keys
-        and #G.GAME.boss_challenge_keys > 0 then
-        local hydrated = boss_challenge_from_keys(G.GAME.boss_challenge_keys)
-        Bloonlatro.boss_challenge = (#hydrated > 0) and hydrated or nil
-    end
-
-    if G.GAME then
-        local keys = boss_challenge_to_keys(Bloonlatro.boss_challenge)
-        G.GAME.boss_challenge_keys = (#keys > 0) and keys or nil
-    end
-
-    return result
-end
 
 G.FUNCS.bloonlatro_start_boss_run = function()
-    local selected, boss_challenge = get_bloonlatro_view_data()
+    local selected, _ = ensure_boss_challenge()
 
     if not selected then
         return
@@ -798,10 +660,9 @@ G.FUNCS.bloonlatro_start_boss_run = function()
     end
 
     local args = {
-        boss_challenge = boss_challenge,
-        boss_challenge_keys = boss_challenge_to_keys(boss_challenge),
+        boss_challenge_key = selected.key,
         challenge = {
-            deck = { type = "Challenge Deck" },
+            deck = { type = "Boss Challenge Deck" },
             restrictions = {
                 banned_cards = boss_bans
             },
@@ -812,6 +673,12 @@ G.FUNCS.bloonlatro_start_boss_run = function()
         win_ante = challenge_params.win_ante or 8
     }
 
-    Bloonlatro.reset_boss_challenge = true
     G.FUNCS.start_run(nil, args)
+end
+
+local old_start_run = Game.start_run
+function Game:start_run(args)
+    local res = old_start_run(self, args)
+    if args.win_ante then G.GAME.win_ante = args.win_ante end
+    return res
 end
