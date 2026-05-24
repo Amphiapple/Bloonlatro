@@ -127,7 +127,7 @@ SMODS.Scoring_Calculation({
 				multiplier = multiplier - 1
 			end
 		end
-		return chips * mult * multiplier
+		return chips * mult * math.max(1, multiplier)
 	end,
 	replace_ui = function(self) return get_standard_ui() end,
 })

@@ -401,6 +401,7 @@ SMODS.Blind {
                 {id = 'j_bloons_counter_espionage'},
                 {id = 'j_bloons_long_reach'},
                 {id = 'j_bloons_perma_spike'},
+                {id = 'j_bloons_grand_saboteur'},
                 {id = 'j_burglar'},
                 {id = 'j_troubadour'},
                 {id = 'v_grabber'},
@@ -553,6 +554,11 @@ SMODS.Blind {
             main = "diamondback",
             segment = "head",
             order = 3
+        },
+        challenge_params = {
+            banned_ids = {
+                {id = 'j_bloons_glaive_dominus'}, -- TEMP BAN UNTIL FIXED
+            }
         }
     },
 

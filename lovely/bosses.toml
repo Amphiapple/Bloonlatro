@@ -10,9 +10,10 @@ target = 'functions/common_events.lua'
 pattern = "if G.FORCE_BOSS then return G.FORCE_BOSS end"
 position = 'after'
 payload = '''
-if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and Bloonlatro.boss_challenge then
-    local boss = Bloonlatro.get_boss_challenge_blind(3)
-    return boss and boss.key or nil
+local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and center and center.key == "b_bloons_boss_challenge" then
+    local boss = center.get_boss_blind and center:get_boss_blind()
+    return boss.key
 end
 '''
 match_indent = true
@@ -25,10 +26,12 @@ position = "after"
 payload = '''
     local small = "bl_small"
     local big = "bl_big"
+    local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
     G.GAME.round_resets.blind_choices = G.GAME.round_resets.blind_choices or {}
-    if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and Bloonlatro.boss_challenge and Bloonlatro.boss_challenge[2] then
-        small = Bloonlatro.get_boss_challenge_blind(1).key
-        big = Bloonlatro.get_boss_challenge_blind(2).key
+    if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and center and center.key == "b_bloons_boss_challenge" then
+        local segments = center.get_boss_segments and center:get_boss_segments() or {}
+        small = (segments[1] and segments[1].key) or small
+        big = (segments[2] and segments[2].key) or big
     end
     G.GAME.round_resets.blind_choices.Small = small
     G.GAME.round_resets.blind_choices.Big = big
@@ -39,23 +42,25 @@ match_indent = true
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = '''
-                        if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
-                            G.GAME.round_resets.blind_states.Small = 'Defeated'
-                        elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
-                            G.GAME.round_resets.blind_states.Big = 'Defeated'
-                        else
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+else
 '''
 position = 'at'
 payload = '''
-                        local small_boss = Bloonlatro.boss_challenge and Bloonlatro.get_boss_challenge_blind(1) or nil
-                        local big_boss = Bloonlatro.boss_challenge and Bloonlatro.get_boss_challenge_blind(2) or nil
-                        local current_blind_key = G.GAME.round_resets.blind and G.GAME.round_resets.blind.key or nil
+local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+local segments = center and center.get_boss_segments and center:get_boss_segments() or {}
+local small_boss = segments[1]
+local big_boss = segments[2]
+local current_blind_key = G.GAME.round_resets.blind and G.GAME.round_resets.blind.key or nil
 
-                        if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key) then
-                            G.GAME.round_resets.blind_states.Small = 'Defeated'
-                        elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key) then
-                            G.GAME.round_resets.blind_states.Big = 'Defeated'
-                        else
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key) then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key) then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+else
 '''
 match_indent = true
 
@@ -77,7 +82,7 @@ pattern = '''
 '''
 position = 'before'
 payload = '''
-if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and Bloonlatro.boss_challenge then
+if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_bloons_boss_challenge" then
     self.loc_debuff_text = 'It has all led to this'
 else
 '''
@@ -105,11 +110,49 @@ pattern = '''
 position = 'at'
 payload = '''
         challenge.id and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})
-        or (Bloonlatro.boss_challenge and #loc_nodes == 0 and {
+        or (self.effect.center.key == "b_bloons_boss_challenge" and {
             n = G.UIT.R,
             config = { align = "cm", padding = 0.1 },
-            nodes = get_bloonlatro_boss_card_nodes()
+            nodes = (function()
+                local nodes = {}
+                local boss = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
+                local segments = self.effect.center.get_boss_segments and self.effect.center:get_boss_segments() or {}
+
+                if boss then
+                    for _, blind in ipairs(segments) do
+                        nodes[#nodes + 1] = {
+                            n = G.UIT.O,
+                            config = {
+                                object = create_bloonlatro_boss_card(blind)
+                            }
+                        }
+                    end
+                end
+
+                return nodes
+            end)()
         })
         or desc_from_rows(loc_nodes, true, min_dims*5)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''
+self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}
+'''
+position = 'at'
+payload = '''
+if selected_back and selected_back.key and selected_back.key == "b_bloons_boss_challenge" or new_back and new_back.key == "b_bloons_boss_challenge" then
+    local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
+    if blind.bloonlatro_boss and blind.bloonlatro_boss.parts then
+        self.loc_name = localize({ type = "name_text", set = "Blind", key = blind.key }):match("^(.-)%s+%S+$") .. " Deck"
+    else
+        self.loc_name = localize({ type = "name_text", set = "Blind", key = self.effect.center:get_boss_blind().key }) .. " Deck"
+    end
+else
+    self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}
+end
 '''
 match_indent = true
