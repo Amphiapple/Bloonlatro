@@ -540,7 +540,7 @@ SMODS.Joker { --Sticky Bomb
                     v.ability.sticky_bomb = false
                 end
             end
-            for k, v in ipairs(context.G.hand.cards) do
+            for k, v in ipairs(G.hand.cards) do
                 if v.ability.sticky_bomb then
                     v.ability.sticky_bomb = false
                 end
