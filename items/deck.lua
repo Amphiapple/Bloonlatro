@@ -388,11 +388,20 @@ SMODS.Back {
         }
     },
 
+    ensure_boss_challenge_key = function(self)
+        if self.config.extra.boss_challenge_key then return end
+        if G.SETTINGS.boss_challenge_key then
+            self.config.extra.boss_challenge_key = G.SETTINGS.boss_challenge_key
+        end
+    end,
+
     set_boss_challenge = function(self, key)
         self.config.extra.boss_challenge_key = key
+        G.SETTINGS.boss_challenge_key = key
     end,
 
     get_boss_blind = function(self)
+        self:ensure_boss_challenge_key()
         local key = self.config and self.config.extra and self.config.extra.boss_challenge_key
         if not key then return nil end
         return G.P_BLINDS and G.P_BLINDS[key]
@@ -404,9 +413,7 @@ SMODS.Back {
 
         local parts = blind.bloonlatro_boss and blind.bloonlatro_boss.parts
 
-        if not parts or not parts.main then
-            return { blind }
-        end
+        if not parts or not parts.main then return end
 
         local segments = {}
 

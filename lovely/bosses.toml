@@ -144,12 +144,26 @@ self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.cen
 '''
 position = 'at'
 payload = '''
-if selected_back and selected_back.key and selected_back.key == "b_bloons_boss_challenge" or new_back and new_back.key == "b_bloons_boss_challenge" then
+if (selected_back and selected_back.key == "b_bloons_boss_challenge")
+or (new_back and new_back.key == "b_bloons_boss_challenge") then
     local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
-    if blind.bloonlatro_boss and blind.bloonlatro_boss.parts then
-        self.loc_name = localize({ type = "name_text", set = "Blind", key = blind.key }):match("^(.-)%s+%S+$") .. " Deck"
+    local deck_text = localize({ type = 'name_text', set = 'Back', key = 'b_bloons_boss_challenge' })
+    local blind_text = ""
+
+    if blind then
+        if blind.bloonlatro_boss and blind.bloonlatro_boss.parts then
+            blind_text = localize({type = "name_text", set = "Blind", key = blind.key}):match("^(.-)%s+%S+$")
+        else
+            blind_text = localize({type = "name_text", set = "Blind", key = blind.key})
+        end
+    end
+
+    local deck_suffix = deck_text:match("%S+$")
+
+    if blind_text ~= "" then
+        self.loc_name = blind_text .. " " .. deck_suffix
     else
-        self.loc_name = localize({ type = "name_text", set = "Blind", key = self.effect.center:get_boss_blind().key }) .. " Deck"
+        self.loc_name = deck_text
     end
 else
     self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}

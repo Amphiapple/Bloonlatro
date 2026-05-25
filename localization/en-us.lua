@@ -129,6 +129,9 @@ return {
                     'held in hand at',
                     'end of round'
                 }
+            },
+            b_bloons_boss_challenge = {
+                name = 'Boss Challenge Deck'
             }
         },
         Blind = {
