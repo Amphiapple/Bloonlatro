@@ -13,7 +13,9 @@ payload = '''
 local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
 if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and center and center.key == "b_bloons_boss_challenge" then
     local boss = center.get_boss_blind and center:get_boss_blind()
-    return boss.key
+    if boss then
+        return boss.key
+    end
 end
 '''
 match_indent = true
@@ -56,9 +58,12 @@ local small_boss = segments[1]
 local big_boss = segments[2]
 local current_blind_key = G.GAME.round_resets.blind and G.GAME.round_resets.blind.key or nil
 
-if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key) then
+local is_small = G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key)
+local is_big = G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key)
+
+if is_small then
     G.GAME.round_resets.blind_states.Small = 'Defeated'
-elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key) then
+elseif is_big then
     G.GAME.round_resets.blind_states.Big = 'Defeated'
 else
 '''

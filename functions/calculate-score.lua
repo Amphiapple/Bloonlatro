@@ -121,10 +121,10 @@ SMODS.Scoring_Calculation({
 SMODS.Scoring_Calculation({
 	key = "bloons_diamondback",
 	func = function(self, chips, mult, flames)
-		local multiplier = 3
+		local multiplier = 0
 		for key, blind in pairs(G.P_BLINDS) do
-			if key:find("^bl_bloons_diamondback") and blind.defeated then
-				multiplier = multiplier - 1
+			if key:find("^bl_bloons_diamondback") and not blind.defeated then
+				multiplier = multiplier + 1
 			end
 		end
 		return chips * mult * math.max(1, multiplier)

@@ -557,7 +557,7 @@ SMODS.Blind {
         },
         challenge_params = {
             banned_ids = {
-                {id = 'j_bloons_glaive_dominus'}, -- TEMP BAN UNTIL FIXED
+                {id = 'j_bloons_glaive_dominus'}
             }
         }
     },
