@@ -353,7 +353,7 @@ return {
             c_bloons_camo_trap = {
                 name = 'Camo Trap',
                 text = {
-                    'Gain {C:red}+#2#{} discards'
+                    'Gain {C:red}+#1#{} discards'
                 }
             },
             c_bloons_pontoon = {

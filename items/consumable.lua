@@ -95,7 +95,7 @@ SMODS.Consumable { --Monkey_boost
         return { vars = { card.ability.Xmult } }
     end,
     can_use = function(self, card)
-        return not card.ability.active and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
@@ -153,7 +153,7 @@ SMODS.Consumable { --Thrive
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
-        return not card.ability.active and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
@@ -433,7 +433,7 @@ SMODS.Consumable { --Camo Trap
     name = 'Camo Trap',
     atlas = 'Consumable',
     pos = { x = 0, y = 2 },
-    config = { discards = 2 }, --Variables: discards = extra discards
+    config = { discards = 3 }, --Variables: discards = extra discards
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.discards } }
@@ -501,7 +501,7 @@ SMODS.Consumable { --Tech Bot
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
-        return not card.ability.active and G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
@@ -647,7 +647,7 @@ SMODS.Consumable { --Storm of Arrows
         return { vars = { n, d, card.ability.Xmult } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
@@ -713,22 +713,10 @@ SMODS.Consumable { --Firestorm
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return true
     end,
     use = function(self, card, area, copier)
-        if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
-            if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
-            end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
-            local eval = function()
-                return true
-            end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
-        end
+        
     end,
 }
 

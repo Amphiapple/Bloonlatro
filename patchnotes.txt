@@ -48,6 +48,8 @@ Balance Changes:
 
 - Pouakai reworked
 
+- Psychic Blast replaced with Camo Trap, gives +3 discards
+
 - Jones deck reworked
 - Psi deck reworked
 
