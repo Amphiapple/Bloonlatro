@@ -704,20 +704,64 @@ SMODS.Consumable { --Firestorm
     name = 'Firestorm',
     atlas = 'Consumable',
     pos = { x = 1, y = 3 },
-    config = { money = 10 },
+    config = { mult = 10 },
 
     in_pool = function(self, args)
         return G.GAME.selected_back.name == 'Gwendolin Deck'
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.max_highlighted } }
+        return { vars = { card.ability.mult } }
     end,
     can_use = function(self, card)
-        return true
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
     end,
     use = function(self, card, area, copier)
-        
+        if not card.ability.active then
+			G.GAME.DESTROY_CARD = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
+                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
+            local eval = function()
+                return true
+            end
+            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+        end
     end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and card.ability.active then
+            return {
+                mult = card.ability.mult
+            }
+        elseif context.destroying_card and card.ability.active and not context.destroying_card.debuff then
+            return true
+        elseif context.after and card.ability.active then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
+    end
 }
 
 SMODS.Consumable { --Artillery Command
@@ -816,6 +860,90 @@ SMODS.Consumable { --Wall of Trees
     end
 }
 
+SMODS.Consumable { --Siphon Funding
+    key = 'siphon_funding',
+    set = 'Power',
+    name = 'Siphon Funding',
+    atlas = 'Consumable',
+    pos = { x = 0, y = 4 },
+    config = { max_highlighted = 4, money = 1 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Benjamin Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.max_highlighted, card.ability.money } }
+    end,
+    use = function(self, card, area)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        for k, v in ipairs(G.hand.highlighted) do
+            local percent = 1.15 - (k-0.999)/(#G.hand.highlighted-0.998)*0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v:flip();
+                    play_sound('card1', percent);
+                    v:juice_up(0.3, 0.3);
+                    return true
+                end
+            }))
+        end
+        delay(0.2)
+        for k, v in ipairs(G.hand.highlighted) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    local suit_prefix = string.sub(v.base.suit, 1, 1)..'_'
+                    local rank_suffix = v.base.id == 2 and 14 or math.max(v.base.id-1, 2)
+                    if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
+                    elseif rank_suffix == 10 then rank_suffix = 'T'
+                    elseif rank_suffix == 11 then rank_suffix = 'J'
+                    elseif rank_suffix == 12 then rank_suffix = 'Q'
+                    elseif rank_suffix == 13 then rank_suffix = 'K'
+                    elseif rank_suffix == 14 then rank_suffix = 'A'
+                    end
+                    v:set_base(G.P_CARDS[suit_prefix..rank_suffix])
+                    v.ability.perma_p_dollars = v.ability.perma_p_dollars or 0
+                    v.ability.perma_p_dollars = v.ability.perma_p_dollars + card.ability.money
+                    return true
+                end
+            }))
+        end
+        for k, v in ipairs(G.hand.highlighted) do
+            local percent = 0.85 + (k-0.999)/(#G.hand.highlighted-0.998)*0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v:flip();
+                    play_sound('tarot2', percent, 0.6);
+                    v:juice_up(0.3, 0.3);
+                    return true
+                end
+            }))
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.hand:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
+    end
+}
+
 SMODS.Consumable { --MOAB Hex
     key = 'moab_hex',
     set = 'Power',
@@ -854,6 +982,29 @@ SMODS.Consumable { --MOAB Hex
                 return true
             end
         }))
+    end
+}
+
+SMODS.Consumable { --Big Squeeze
+    key = 'big_squeeze',
+    set = 'Power',
+    name = 'Big Squeeze',
+    atlas = 'Consumable',
+    pos = { x = 2, y = 4 },
+    config = { hand_size = 2 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Pat Fusty Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.hand_size } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+    end,
+    use = function(self, card, area)
+        G.hand:change_size(card.ability.hand_size)
+        G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.hand_size
     end
 }
 

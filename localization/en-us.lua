@@ -398,6 +398,9 @@ return {
             c_bloons_firestorm = {
                 name = 'Firestorm',
                 text = {
+                    'Played cards give {C:attention}#1#{} Mult',
+                    'when scored and are',
+                    'destroyed next hand',
                     '{s:0.8,C:inactive}Gwendolin power{}'
                 }
             },
@@ -419,6 +422,15 @@ return {
                     '{s:0.8,C:inactive}Obyn power{}'
                 }
             },
+            c_bloons_siphon_funding = {
+                name = 'Siphon Funding',
+                text = {
+                    'Decrease rank of up to',
+                    '{C:attention}#1#{} selected cards by {C:attention}1{}',
+                    'and permanently give {C:money}$#2#{} when scored',
+                    '{s:0.8,C:inactive}Ben power{}'
+                }
+            },
             c_bloons_moab_hex = {
                 name = 'MOAB Hex',
                 text = {
@@ -426,6 +438,14 @@ return {
                     'edition and {C:attention}Perishable{}',
                     'to {C:attention}#1#{} selected {C:attention}Joker{}',
                     '{s:0.8,C:inactive}Ezili power{}'
+                }
+            },
+            c_bloons_big_squeeze = {
+                name = 'Big Squeeze',
+                text = {
+                    'Gain {C:attention}+#1#{} hand size',
+                    'this round',
+                    '{s:0.8,C:inactive}Pat Fusty power{}'
                 }
             },
             c_bloons_psionic_scream = {
