@@ -235,7 +235,7 @@ SMODS.Consumable { --Time Stop
     config = { hands = 3 }, --Variables: hands = extra hands
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.hands, card.ability.discards } }
+        return { vars = { card.ability.hands } }
     end,
     can_use = function(self, card)
         return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
@@ -433,67 +433,22 @@ SMODS.Consumable { --Camo Trap
     name = 'Camo Trap',
     atlas = 'Consumable',
     pos = { x = 0, y = 2 },
-    config = { max_highlighted = 5, discards = 2 }, --Variables: discards = extra discards
+    config = { discards = 2 }, --Variables: discards = extra discards
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
-        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted, card.ability.discards } }
+        return { vars = { card.ability.discards } }
     end,
-    use = function (self, card, area, copier)
+    can_use = function(self, card)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+    end,
+    use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.4, func = function()
-                play_sound('tarot1')
-                card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-        for i=1, #G.hand.highlighted do
-            local percent = 1.15 - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.15,
-                func = function()
-                    G.hand.highlighted[i]:flip();
-                    play_sound('card1', percent);
-                    G.hand.highlighted[i]:juice_up(0.3, 0.3);
-                    return true
-                end
-            }))
-        end
-        delay(0.2)
-        for i=1, #G.hand.highlighted do
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS.m_bloons_stunned);
-                    return true
-                end
-            }))
-        end
-        for i=1, #G.hand.highlighted do
-            local percent = 0.85 + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.15,
-                func = function()
-                    G.hand.highlighted[i]:flip();
-                    play_sound('tarot2', percent, 0.6);
-                    G.hand.highlighted[i]:juice_up(0.3, 0.3);
-                    return true
-                end
-            }))
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.2,
             func = function()
-                ease_discard(card.ability.discards, nil, true)
-                G.hand:unhighlight_all();
+                ease_discard(card.ability.discards)
                 return true
             end
         }))
-        delay(0.5)
-    end
+    end,
 }
 
 SMODS.Consumable { --Pontoon
@@ -676,6 +631,107 @@ SMODS.Consumable { --Cave Monkey
     end
 }
 
+SMODS.Consumable { --Storm of Arrows
+    key = 'storm_of_arrows',
+    set = 'Power',
+    name = 'Storm of Arrows',
+    atlas = 'Consumable',
+    pos = { x = 0, y = 3 },
+    config = { num = 1, denom = 2, Xmult = 2 }, --Variables: num/denom = probability fraction, Xmult = Xmult
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Quincy Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(self, self.config.num, self.config.denom, 'storm_of_arrows')
+        return { vars = { n, d, card.ability.Xmult } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+    end,
+    use = function(self, card, area, copier)
+        if not card.ability.active then
+			G.GAME.DESTROY_CARD = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
+                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
+            local eval = function()
+                return true
+            end
+            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.active then
+            if SMODS.pseudorandom_probability(card, 'storm_of_arrows', card.ability.num, card.ability.denom, 'storm_of_arrows') then
+                return {
+                    x_mult = card.ability.Xmult
+                }
+            end
+        elseif context.end_of_round and card.ability.active and not context.individual and not context.repetition then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
+    end
+}
+
+SMODS.Consumable { --Firestorm
+    key = 'firestorm',
+    set = 'Power',
+    name = 'Firestorm',
+    atlas = 'Consumable',
+    pos = { x = 1, y = 3 },
+    config = { money = 10 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Gwendolin Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.max_highlighted } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+    end,
+    use = function(self, card, area, copier)
+        if not card.ability.active then
+			G.GAME.DESTROY_CARD = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
+                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.DESTROY_CARD)
+			G.GAME.DESTROY_CARD.ability.active = true
+            local eval = function()
+                return true
+            end
+            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+        end
+    end,
+}
+
 SMODS.Consumable { --Artillery Command
     key = 'artillery_command',
     set = 'Power',
@@ -713,6 +769,62 @@ SMODS.Consumable { --Artillery Command
                 return true
             end
         }))
+    end
+}
+
+SMODS.Consumable { --Wall of Trees
+    key = 'wall_of_trees',
+    set = 'Power',
+    name = 'Wall of Trees',
+    atlas = 'Consumable',
+    pos = { x = 3, y = 3 },
+    config = { money = 1, percent = 5, capacity = 20 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Obyn Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.money, card.ability.percent, card.ability.capacity } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.individual and not context.repetition then
+            local percent_extra = (G.GAME.chips - G.GAME.blind.chips)/G.GAME.blind.chips * 100
+            local money = card.ability.money * math.floor(percent_extra / card.ability.percent)
+            card.ability.extra_value = card.ability.extra_value + money
+            card:set_cost()
+            if card.sell_cost >= card.ability.capacity then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        }))
+                        return true
+                    end
+                }))
+                return {
+                    dollars = card.ability.capacity
+                }
+            end
+            if money > 0 then
+                return {
+                    message = localize('k_val_up'),
+                    colour = G.C.MONEY
+                }
+            end
+        end
     end
 }
 

@@ -353,8 +353,6 @@ return {
             c_bloons_camo_trap = {
                 name = 'Camo Trap',
                 text = {
-                    '{C:attention}Stuns #1#{}',
-                    'selected cards',
                     'Gain {C:red}+#2#{} discards'
                 }
             },
@@ -389,12 +387,36 @@ return {
                     'an {C:dark_edition}Edition{} to your deck'
                 }
             },
+            c_bloons_storm_of_arrows = {
+                name = 'Storm of Arrows',
+                text = {
+                    '{C:green}#1# in #2#{} chance for',
+                    '{X:mult,C:white}X#3#{} Mult this blind',
+                    '{s:0.8,C:inactive}Quincy power{}'
+                }
+            },
+            c_bloons_firestorm = {
+                name = 'Firestorm',
+                text = {
+                    '{s:0.8,C:inactive}Gwendolin power{}'
+                }
+            },
             c_bloons_artillery_command = {
                 name = 'Artillery Command',
                 text = {
                     'Set {C:green}reroll{} cost',
                     'to {C:money}$#1#{} this shop',
                     '{s:0.8,C:inactive}Striker Jones power{}'
+                }
+            },
+            c_bloons_wall_of_trees = {
+                name = 'Wall of Trees',
+                text = {
+                    'Gain {C:money}$#1#{} sell value for',
+                    'every {C:attention}#2#%{} of chips scored',
+                    'above required chips',
+                    '{C:inactive}(Max capacity of {C:money}$#3#{C:inactive})',
+                    '{s:0.8,C:inactive}Obyn power{}'
                 }
             },
             c_bloons_moab_hex = {
