@@ -52,18 +52,9 @@ else
 '''
 position = 'at'
 payload = '''
-local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
-local segments = center and center.get_boss_segments and center:get_boss_segments() or {}
-local small_boss = segments[1]
-local big_boss = segments[2]
-local current_blind_key = G.GAME.round_resets.blind and G.GAME.round_resets.blind.key or nil
-
-local is_small = G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key)
-local is_big = G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key)
-
-if is_small then
+if G.GAME.blind_on_deck == "Small" then
     G.GAME.round_resets.blind_states.Small = 'Defeated'
-elseif is_big then
+elseif G.GAME.blind_on_deck == "Big" then
     G.GAME.round_resets.blind_states.Big = 'Defeated'
 else
 '''

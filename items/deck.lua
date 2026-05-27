@@ -434,8 +434,3 @@ SMODS.Back {
         return segments
     end
 }
-
--- eval:
--- eval print(G.GAME.selected_back.effect.center.config.extra.boss_challenge_key)
--- eval print(G.GAME.selected_back.effect.center:get_boss_blind())
--- eval print(G.GAME.selected_back.effect.center.loc_name)

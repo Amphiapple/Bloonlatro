@@ -711,12 +711,3 @@ SMODS.Blind {
     end
 }
 
--- eval print(G.FUNCS.print_blind_defeats())
-G.FUNCS.print_blind_defeats = function()
-    print("reached")
-    for key, blind in pairs(G.P_BLINDS) do
-        if blind.defeated and key:find("^bl_bloons_diamondback") then
-            print(key)
-        end
-    end
-end

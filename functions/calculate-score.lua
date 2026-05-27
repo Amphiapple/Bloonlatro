@@ -63,15 +63,17 @@ SMODS.Scoring_Calculation({
 		local heat = 0
 
 		if G.play and G.play.cards then
-			local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+			local text, disp_text, poker_hands, scoring_hand, non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play
+				.cards)
 
-			for i=1, #G.play.cards do
+			for i = 1, #G.play.cards do
 				-- nullify the heat decreased from played frozen cards
 				if G.play.cards[i].config.center == G.P_CENTERS.m_bloons_frozen then
 					heat = heat + 3
 				end
 
-				local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash')) or next(find_joker('Echosense Precision'))
+				local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash')) or
+					next(find_joker('Echosense Precision'))
 				local unsplashed = SMODS.never_scores(G.play.cards[i])
 				if not splashed then
 					for _, card in pairs(scoring_hand) do
@@ -79,7 +81,15 @@ SMODS.Scoring_Calculation({
 					end
 				end
 				local effects = {}
-				SMODS.calculate_context({modify_scoring_hand = true, other_card =  G.play.cards[i], full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true}, effects)
+				SMODS.calculate_context(
+					{
+						modify_scoring_hand = true,
+						other_card = G.play.cards[i],
+						full_hand = G.play.cards,
+						scoring_hand =
+							scoring_hand,
+						in_scoring = true
+					}, effects)
 				local flags = SMODS.trigger_effects(effects, G.play.cards[i])
 				if flags and flags.add_to_hand then splashed = true end
 				if flags and flags.remove_from_hand then unsplashed = true end
@@ -118,16 +128,98 @@ SMODS.Scoring_Calculation({
 	replace_ui = function(self) return get_standard_ui() end,
 })
 
+local function get_diamondback_multiplier()
+	local multiplier = 1
+	if G.GAME and G.GAME.blind_on_deck == "Small" then
+		multiplier = 3
+	elseif G.GAME and G.GAME.blind_on_deck == "Big" then
+		multiplier = 2
+	else
+		multiplier = 1
+	end
+
+	return multiplier
+end
+
+local diamondback_mult_parameter = SMODS.Scoring_Parameter({
+	key = "diamondback_mult",
+	default_value = 1,
+	colour = HEX("D8AF48"),
+})
+
 SMODS.Scoring_Calculation({
 	key = "bloons_diamondback",
+	parameters = { "chips", "mult", diamondback_mult_parameter.key},
 	func = function(self, chips, mult, flames)
-		local multiplier = 0
-		for key, blind in pairs(G.P_BLINDS) do
-			if key:find("^bl_bloons_diamondback") and not blind.defeated then
-				multiplier = multiplier + 1
-			end
+		local diamondback_multiplier = get_diamondback_multiplier()
+		if G.GAME and G.GAME.current_round and G.GAME.current_round.current_hand then
+			G.GAME.current_round.current_hand[diamondback_mult_parameter.key] = diamondback_multiplier
 		end
-		return chips * mult * math.max(1, multiplier)
+		return chips * mult * diamondback_multiplier
 	end,
-	replace_ui = function(self) return get_standard_ui() end,
+	update_ui = function(self)
+		if G.GAME and G.GAME.current_round and G.GAME.current_round.current_hand then
+			G.GAME.current_round.current_hand[diamondback_mult_parameter.key] = get_diamondback_multiplier()
+		end
+	end,
+	replace_ui = function(self)
+		return {
+			n = G.UIT.R,
+			config = { minh = 1.2, align = "cm" },
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = { align = "cm" },
+					nodes = {
+						{
+							n = G.UIT.R,
+							config = { align = "cm", minh = 1, padding = 0.1 },
+							nodes = {
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "hand_chips_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = "chips",
+											text = "chip_text",
+											align = "cr",
+											scale = 0.3,
+											w = 1.5,
+											colour = G.C.CHIPS,
+										}),
+									},
+								},
+								SMODS.GUI.operator(0.35),
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "hand_mult_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = "mult",
+											scale = 0.3,
+											w = 1.5,
+											colour = G.C.MULT,
+										}),
+									},
+								},
+								SMODS.GUI.operator(0.35),
+								{
+									n = G.UIT.C,
+									config = { align = "cm", id = "diamondback_multiplier_container" },
+									nodes = {
+										SMODS.GUI.score_container({
+											type = diamondback_mult_parameter.key,
+											w = 0.55,
+											scale = 0.3,
+											colour = HEX("D8AF48"),
+										}),
+									},
+								},
+							},
+						},
+					},
+				},
+			}
+		}
+	end
 })
