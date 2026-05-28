@@ -402,7 +402,7 @@ return {
             c_bloons_firestorm = {
                 name = 'Firestorm',
                 text = {
-                    'Played cards give {C:attention}#1#{} Mult',
+                    'Played cards give {C:mult}+#1#{} Mult',
                     'when scored and are',
                     'destroyed next hand',
                     '{s:0.8,C:inactive}Gwendolin power{}'
@@ -430,8 +430,8 @@ return {
                 name = 'Siphon Funding',
                 text = {
                     'Decrease rank of up to',
-                    '{C:attention}#1#{} selected cards by {C:attention}1{}',
-                    'and permanently give {C:money}$#2#{} when scored',
+                    '{C:attention}#1#{} selected cards by {C:attention}1{} and',
+                    'permanently give {C:money}$#2#{} when scored',
                     '{s:0.8,C:inactive}Ben power{}'
                 }
             },
@@ -456,8 +456,8 @@ return {
                 name = 'Psionic Scream',
                 text = {
                     'Destroy up to',
-                    '{C:attention}#1#{} selected cards',
-                    'and discard the rest',
+                    '{C:attention}#1#{} selected cards and',
+                    'discard the rest',
                     '{s:0.8,C:inactive}Psi power{}'
                 }
             },
