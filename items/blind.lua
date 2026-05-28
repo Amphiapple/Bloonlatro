@@ -231,13 +231,7 @@ SMODS.Blind {
     boss_colour = HEX("BA58BD"),
     bloonlatro_boss = {
         title = 'Gravelord Lych',
-        index = 2,
-        challenge_params = {
-            vouchers = {
-                {id = 'v_hone'},
-                {id = 'v_glow_up'}
-            }
-        }
+        index = 2
     },
 
     in_pool = function()
@@ -456,6 +450,9 @@ SMODS.Blind {
     bloonlatro_boss = {
         title = 'The Reality Warper Phayze',
         index = 5,
+        challenge_params = {
+            vouchers = { 'v_hone', 'v_glow_up' }
+        }
     },
 
     in_pool = function()

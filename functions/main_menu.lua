@@ -655,18 +655,18 @@ G.FUNCS.bloonlatro_start_boss_run = function()
     local args = {
         challenge = {
             deck = { type = "Boss Challenge Deck" },
-            restrictions = {
-                banned_cards = boss_bans
-            },
-            jokers = challenge_params.jokers or {},
-            consumeables = challenge_params.consumeables or {},
-            vouchers = challenge_params.vouchers or {},
         },
-        win_ante = challenge_params.win_ante or 8
     }
 
     local deck = G.P_CENTERS["b_bloons_boss_challenge"]
-    deck:set_boss_challenge(selected.key)
+    local params = {
+        boss_challenge = selected.key,
+        vouchers = challenge_params.vouchers or {},
+        win_ante = challenge_params.win_ante or 8,
+        banned_keys = boss_bans
+    }
+
+    deck:set_params(params)
     G.FUNCS.start_run(nil, args)
 end
 
@@ -674,5 +674,35 @@ local old_start_run = Game.start_run
 function Game:start_run(args)
     local res = old_start_run(self, args)
     if args.win_ante then G.GAME.win_ante = args.win_ante end
+
+    local deck = G.GAME.selected_back
+    local config = deck and deck.effect and deck.effect.center and deck.effect.center.config
+
+    local win_ante = config and config.extra and config.extra.win_ante
+    if win_ante then G.GAME.win_ante = win_ante end
+
+    local banned_keys = config and config.extra and config.extra.banned_keys
+    if banned_keys then
+        for _, v in ipairs(banned_keys) do
+            G.GAME.banned_keys[v.id] = true
+            if v.ids then
+                for _, vv in ipairs(v.ids) do
+                    G.GAME.banned_keys[vv] = true
+                end
+            end
+        end
+    end
+
+    return res
+end
+
+local old_back_load = Back.load
+function Back:load(args)
+    local res = old_back_load(self, args)
+
+    if self.effect and self.effect.center and self.effect.center.load_params then
+        self.effect.center:load_params()
+    end
+
     return res
 end

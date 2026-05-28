@@ -112,17 +112,16 @@ payload = '''
             nodes = (function()
                 local nodes = {}
                 local boss = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
-                local segments = self.effect.center.get_boss_segments and self.effect.center:get_boss_segments() or {}
+                local segments = self.effect.center.get_boss_segments and self.effect.center:get_boss_segments()
+                local blinds = segments or (boss and { boss }) or {}
 
-                if boss then
-                    for _, blind in ipairs(segments) do
-                        nodes[#nodes + 1] = {
-                            n = G.UIT.O,
-                            config = {
-                                object = create_bloonlatro_boss_card(blind)
-                            }
+                for _, blind in ipairs(blinds) do
+                    nodes[#nodes + 1] = {
+                        n = G.UIT.O,
+                        config = {
+                            object = create_bloonlatro_boss_card(blind)
                         }
-                    end
+                    }
                 end
 
                 return nodes

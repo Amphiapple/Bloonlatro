@@ -388,21 +388,28 @@ SMODS.Back {
         }
     },
 
-    ensure_boss_challenge_key = function(self)
-        if self.config.extra.boss_challenge_key then return end
-        if G.SETTINGS.boss_challenge_key then
-            self.config.extra.boss_challenge_key = G.SETTINGS.boss_challenge_key
-        end
+    load_params = function(self)
+        local params = G.SETTINGS.boss_challenge_params
+        if not params then return end
+        self.config.extra.boss_challenge_key = params.boss_challenge
+        self.config.vouchers = params.vouchers or {}
+        self.config.extra.win_ante = params.win_ante or 8
+        self.config.extra.banned_keys = params.banned_keys or {}
     end,
 
-    set_boss_challenge = function(self, key)
-        self.config.extra.boss_challenge_key = key
-        G.SETTINGS.boss_challenge_key = key
+    set_params = function(self, params)
+        params = params or {}
+
+        if params.boss_challenge then self.config.extra.boss_challenge_key = params.boss_challenge end
+        if params.vouchers then self.config.vouchers = params.vouchers end
+        if params.win_ante then self.config.extra.win_ante = params.win_ante end
+        if params.banned_keys then self.config.extra.banned_keys = params.banned_keys end
+
+        G.SETTINGS.boss_challenge_params = params
     end,
 
     get_boss_blind = function(self)
-        self:ensure_boss_challenge_key()
-        local key = self.config and self.config.extra and self.config.extra.boss_challenge_key
+        local key = self.config and self.config.extra and self.config.extra.boss_challenge_key or G.SETTINGS.boss_challenge_params.boss_challenge
         if not key then return nil end
         return G.P_BLINDS and G.P_BLINDS[key]
     end,
