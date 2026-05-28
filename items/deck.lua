@@ -379,7 +379,7 @@ SMODS.Back {
     key = "boss_challenge",
     name = "Boss Challenge Deck",
     atlas = "Back",
-    pos = { x = 2, y = 3 },
+    pos = { x = 4, y = 3 },
     omit = true,
 
     config = {
