@@ -231,13 +231,7 @@ SMODS.Blind {
     boss_colour = HEX("BA58BD"),
     bloonlatro_boss = {
         title = 'Gravelord Lych',
-        index = 2,
-        challenge_params = {
-            vouchers = {
-                {id = 'v_hone'},
-                {id = 'v_glow_up'}
-            }
-        }
+        index = 2
     },
 
     in_pool = function()
@@ -456,6 +450,9 @@ SMODS.Blind {
     bloonlatro_boss = {
         title = 'The Reality Warper Phayze',
         index = 5,
+        challenge_params = {
+            vouchers = { 'v_hone', 'v_glow_up' }
+        }
     },
 
     in_pool = function()
@@ -557,7 +554,7 @@ SMODS.Blind {
         },
         challenge_params = {
             banned_ids = {
-                {id = 'j_bloons_glaive_dominus'}, -- TEMP BAN UNTIL FIXED
+                {id = 'j_bloons_glaive_dominus'}
             }
         }
     },
@@ -711,12 +708,3 @@ SMODS.Blind {
     end
 }
 
--- eval print(G.FUNCS.print_blind_defeats())
-G.FUNCS.print_blind_defeats = function()
-    print("reached")
-    for key, blind in pairs(G.P_BLINDS) do
-        if blind.defeated and key:find("^bl_bloons_diamondback") then
-            print(key)
-        end
-    end
-end

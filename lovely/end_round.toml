@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Mdom active check
+# Dominus active check and last_segment check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -14,22 +14,25 @@ local replay_boss = false
 local dominus = find_joker('Glaive Dominus')
 if #dominus > 0 then
     replay_boss = true
-    for k, v in pairs(dominus) do
+    for _, v in pairs(dominus) do
         if v.ability.extra.active == false then
             replay_boss = false
+            break
         end
-    end 
+    end
 end
 
 local last_segment = true
-if Bloonlatro.boss_challenge and Bloonlatro.boss_challenge[3] and G.GAME.round_resets.ante%G.GAME.win_ante == 0 then
+local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and center and center.key == "b_bloons_boss_challenge" then
+    local segments = center.get_boss_segments and center:get_boss_segments()
     local current_blind = G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind or nil
-    last_segment = Bloonlatro.get_boss_challenge_blind(3).key == (current_blind and current_blind.key or nil)
+    last_segment = not (segments and segments[3] and segments[3].key ~= (current_blind and current_blind.key or nil))
 end
 '''
 match_indent = true
 
-# Mdom win check
+# Dominus and boss segment win check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -38,16 +41,25 @@ position = 'at'
 payload = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss then"
 match_indent = true
 
-# Mdom ante end check
+# Dominus and boss segment ante end check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.blind:get_type() == 'Boss'and last_segment and not replay_boss then"
+payload = "if G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss then"
 match_indent = true
 
-# Mdom boss defeat check
+# Dominus win check
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "if not G.GAME.won and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.blind_on_deck == 'Boss' then"
+position = 'at'
+payload = "if not G.GAME.won and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.blind_on_deck == 'Boss' and not replay_boss then"
+match_indent = true
+
+# Dominus boss defeat check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'

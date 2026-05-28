@@ -1,5 +1,6 @@
 Bloonlatro = Bloonlatro or {}
 Bloonlatro.main_menu_context = Bloonlatro.main_menu_context or nil
+Bloonlatro.selected_boss_key = Bloonlatro.selected_boss_key or nil
 
 -------------------------------------------------------
 -- INIT
@@ -40,6 +41,10 @@ local function get_context_timing(key)
     local timings = CONTEXT_TIMINGS[context] or CONTEXT_TIMINGS.default
     return timings[key]
 end
+
+-------------------------------------------------------
+-- HELPERS
+-------------------------------------------------------
 
 local function create_sprite_card(args)
     local card = Card(
@@ -130,43 +135,25 @@ local function get_boss_family(blind, all_blinds)
     return family
 end
 
-local function get_boss_challenge_center()
-    if G.P_CENTERS and G.P_CENTERS.b_bloons_boss_challenge then
-        return G.P_CENTERS.b_bloons_boss_challenge
-    end
-
-    return nil
-end
-
-local function set_boss_challenge(key)
-    local center = get_boss_challenge_center()
-
-    if center and center.set_boss_challenge and key then
-        center:set_boss_challenge(key)
-    end
-
-    return center
-end
-
-local function ensure_boss_challenge()
+local function ensure_selected_boss()
     local all_blinds = get_bloonlatro_bosses()
 
     if #all_blinds == 0 then
         return nil, nil
     end
 
-    local center = get_boss_challenge_center()
-    local selected = center and center:get_boss_blind() or nil
+    local selected
+
+    if Bloonlatro.selected_boss_key then
+        selected = G.P_BLINDS[Bloonlatro.selected_boss_key]
+    end
 
     if not selected then
         selected = all_blinds[1]
+        Bloonlatro.selected_boss_key = selected.key
     end
 
-    if selected then
-        set_boss_challenge(selected.key)
-    end
-
-    local segments = center and center:get_boss_segments() or get_boss_family(selected, all_blinds)
+    local segments = get_boss_family(selected, all_blinds)
 
     return selected, segments
 end
@@ -188,6 +175,10 @@ function Game:main_menu(change_context)
     Bloonlatro.main_menu_context = change_context
     return old_main_menu(self, change_context)
 end
+
+-------------------------------------------------------
+-- LOGO
+-------------------------------------------------------
 
 function create_bloonlatro_logo(pos_x)
     if not G.title_top or not G.title_top.cards or not G.title_top.cards[1] then
@@ -258,6 +249,10 @@ function create_bloonlatro_logo(pos_x)
     }))
 end
 
+-------------------------------------------------------
+-- BOSS BUTTON
+-------------------------------------------------------
+
 function create_bloonlatro_boss_button()
     local pos_y = math.random(5, 11)
 
@@ -270,7 +265,7 @@ function create_bloonlatro_boss_button()
     })
 
     function card:click()
-        ensure_boss_challenge()
+        ensure_selected_boss()
         G.FUNCS.create_bloonlatro_boss_ui()
     end
 
@@ -375,11 +370,9 @@ end
 -------------------------------------------------------
 
 local function build_cards_container(segments)
-    segments = segments or {}
-
     local card_nodes = {}
 
-    for _, b in ipairs(segments) do
+    for _, b in ipairs(segments or {}) do
         card_nodes[#card_nodes + 1] = {
             n = G.UIT.O,
             config = {
@@ -401,7 +394,7 @@ local function build_cards_container(segments)
 end
 
 local function build_view()
-    local selected, segments = ensure_boss_challenge()
+    local selected, segments = ensure_selected_boss()
 
     if not selected then
         return nil
@@ -446,7 +439,8 @@ local function build_list()
 
     for _, blind in ipairs(blinds) do
         if not blind.bloonlatro_boss.parts
-            or blind.bloonlatro_boss.parts.segment == "head" then
+            or blind.bloonlatro_boss.parts.segment == "head"
+        then
             table.insert(filtered_blinds, blind)
         end
     end
@@ -460,7 +454,7 @@ local function build_list()
         nodes = {}
     }
 
-    for i, b in ipairs(filtered_blinds) do
+    for _, b in ipairs(filtered_blinds) do
         local card = create_sprite_card({
             w = 1,
             h = 1,
@@ -471,7 +465,7 @@ local function build_list()
         })
 
         function card:click()
-            set_boss_challenge(b.key)
+            Bloonlatro.selected_boss_key = b.key
             G.FUNCS.update_bloonlatro_boss_ui()
         end
 
@@ -487,10 +481,9 @@ local function build_list()
 end
 
 G.FUNCS.create_bloonlatro_boss_ui = function()
-    ensure_boss_challenge()
-    local blinds = get_bloonlatro_bosses()
+    local selected = ensure_selected_boss()
 
-    if #blinds == 0 then
+    if not selected then
         return
     end
 
@@ -591,9 +584,7 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
         return
     end
 
-    local selected, segments = ensure_boss_challenge()
-
-    segments = segments or {}
+    local selected, segments = ensure_selected_boss()
 
     if not selected then
         return
@@ -616,7 +607,7 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
             cards_container.children[i] = nil
         end
 
-        for _, b in ipairs(segments) do
+        for _, b in ipairs(segments or {}) do
             G.OVERLAY_MENU:add_child({
                 n = G.UIT.O,
                 config = {
@@ -630,9 +621,12 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
     end
 end
 
+-------------------------------------------------------
+-- START RUN
+-------------------------------------------------------
 
 G.FUNCS.bloonlatro_start_boss_run = function()
-    local selected, _ = ensure_boss_challenge()
+    local selected = G.P_BLINDS[Bloonlatro.selected_boss_key]
 
     if not selected then
         return
@@ -650,8 +644,7 @@ G.FUNCS.bloonlatro_start_boss_run = function()
         { id = 'v_bloons_big_bloon_blueprints' },
     }
 
-    local challenge_params =
-        selected.bloonlatro_boss.challenge_params or {}
+    local challenge_params = selected.bloonlatro_boss.challenge_params or {}
 
     if challenge_params.banned_ids then
         for _, ban in ipairs(challenge_params.banned_ids) do
@@ -660,19 +653,20 @@ G.FUNCS.bloonlatro_start_boss_run = function()
     end
 
     local args = {
-        boss_challenge_key = selected.key,
         challenge = {
             deck = { type = "Boss Challenge Deck" },
-            restrictions = {
-                banned_cards = boss_bans
-            },
-            jokers = challenge_params.jokers or {},
-            consumeables = challenge_params.consumeables or {},
-            vouchers = challenge_params.vouchers or {},
         },
-        win_ante = challenge_params.win_ante or 8
     }
 
+    local deck = G.P_CENTERS["b_bloons_boss_challenge"]
+    local params = {
+        boss_challenge = selected.key,
+        vouchers = challenge_params.vouchers or {},
+        win_ante = challenge_params.win_ante or 8,
+        banned_keys = boss_bans
+    }
+
+    deck:set_params(params)
     G.FUNCS.start_run(nil, args)
 end
 
@@ -680,5 +674,35 @@ local old_start_run = Game.start_run
 function Game:start_run(args)
     local res = old_start_run(self, args)
     if args.win_ante then G.GAME.win_ante = args.win_ante end
+
+    local deck = G.GAME.selected_back
+    local config = deck and deck.effect and deck.effect.center and deck.effect.center.config
+
+    local win_ante = config and config.extra and config.extra.win_ante
+    if win_ante then G.GAME.win_ante = win_ante end
+
+    local banned_keys = config and config.extra and config.extra.banned_keys
+    if banned_keys then
+        for _, v in ipairs(banned_keys) do
+            G.GAME.banned_keys[v.id] = true
+            if v.ids then
+                for _, vv in ipairs(v.ids) do
+                    G.GAME.banned_keys[vv] = true
+                end
+            end
+        end
+    end
+
+    return res
+end
+
+local old_back_load = Back.load
+function Back:load(args)
+    local res = old_back_load(self, args)
+
+    if self.effect and self.effect.center and self.effect.center.load_params then
+        self.effect.center:load_params()
+    end
+
     return res
 end

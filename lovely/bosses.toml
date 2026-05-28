@@ -13,7 +13,9 @@ payload = '''
 local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
 if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and center and center.key == "b_bloons_boss_challenge" then
     local boss = center.get_boss_blind and center:get_boss_blind()
-    return boss.key
+    if boss then
+        return boss.key
+    end
 end
 '''
 match_indent = true
@@ -50,15 +52,9 @@ else
 '''
 position = 'at'
 payload = '''
-local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
-local segments = center and center.get_boss_segments and center:get_boss_segments() or {}
-local small_boss = segments[1]
-local big_boss = segments[2]
-local current_blind_key = G.GAME.round_resets.blind and G.GAME.round_resets.blind.key or nil
-
-if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or (small_boss and current_blind_key == small_boss.key) then
+if G.GAME.blind_on_deck == "Small" then
     G.GAME.round_resets.blind_states.Small = 'Defeated'
-elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or (big_boss and current_blind_key == big_boss.key) then
+elseif G.GAME.blind_on_deck == "Big" then
     G.GAME.round_resets.blind_states.Big = 'Defeated'
 else
 '''
@@ -116,17 +112,16 @@ payload = '''
             nodes = (function()
                 local nodes = {}
                 local boss = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
-                local segments = self.effect.center.get_boss_segments and self.effect.center:get_boss_segments() or {}
+                local segments = self.effect.center.get_boss_segments and self.effect.center:get_boss_segments()
+                local blinds = segments or (boss and { boss }) or {}
 
-                if boss then
-                    for _, blind in ipairs(segments) do
-                        nodes[#nodes + 1] = {
-                            n = G.UIT.O,
-                            config = {
-                                object = create_bloonlatro_boss_card(blind)
-                            }
+                for _, blind in ipairs(blinds) do
+                    nodes[#nodes + 1] = {
+                        n = G.UIT.O,
+                        config = {
+                            object = create_bloonlatro_boss_card(blind)
                         }
-                    end
+                    }
                 end
 
                 return nodes
@@ -144,12 +139,26 @@ self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.cen
 '''
 position = 'at'
 payload = '''
-if selected_back and selected_back.key and selected_back.key == "b_bloons_boss_challenge" or new_back and new_back.key == "b_bloons_boss_challenge" then
+if (selected_back and selected_back.key == "b_bloons_boss_challenge")
+or (new_back and new_back.key == "b_bloons_boss_challenge") then
     local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
-    if blind.bloonlatro_boss and blind.bloonlatro_boss.parts then
-        self.loc_name = localize({ type = "name_text", set = "Blind", key = blind.key }):match("^(.-)%s+%S+$") .. " Deck"
+    local deck_text = localize({ type = 'name_text', set = 'Back', key = 'b_bloons_boss_challenge' })
+    local blind_text = ""
+
+    if blind then
+        if blind.bloonlatro_boss and blind.bloonlatro_boss.parts then
+            blind_text = localize({type = "name_text", set = "Blind", key = blind.key}):match("^(.-)%s+%S+$")
+        else
+            blind_text = localize({type = "name_text", set = "Blind", key = blind.key})
+        end
+    end
+
+    local deck_suffix = deck_text:match("%S+$")
+
+    if blind_text ~= "" then
+        self.loc_name = blind_text .. " " .. deck_suffix
     else
-        self.loc_name = localize({ type = "name_text", set = "Blind", key = self.effect.center:get_boss_blind().key }) .. " Deck"
+        self.loc_name = deck_text
     end
 else
     self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}

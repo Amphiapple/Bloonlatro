@@ -129,6 +129,9 @@ return {
                     'held in hand at',
                     'end of round'
                 }
+            },
+            b_bloons_boss_challenge = {
+                name = 'Boss Challenge Deck'
             }
         },
         Blind = {
@@ -232,7 +235,8 @@ return {
             bl_bloons_diamondback_body = {
                 name = 'Diamondback Body',
                 text = {
-                    'Add #1# cards to your deck',
+                    'Adds #1# cards to your deck',
+                    'each hand played',
                     'X1 score for each undefeated',
                     'Diamondback blind',
                 }
