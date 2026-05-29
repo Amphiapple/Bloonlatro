@@ -276,12 +276,11 @@ SMODS.Joker { --Spy Plane
 
     loc_vars = function(self, info_queue, card)
         local function process_var(pos)
-            local card_string = '#@'
             if #find_joker('Spy Plane') > 0 then
-                card_string = card_string..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.id or 11)..
-                                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.suit:sub(1,1) or 'D')
+                return '#@' .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.id or 11)..
+                    (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.suit:sub(1,1) or 'D')
             end
-            return card_string
+            return '#@'
         end
 		return {
             vars = {

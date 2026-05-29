@@ -74,4 +74,5 @@ Fixes:
 - Ascended Shadow should remove its effect from cards correctly after being played
 - Mega Sentries explode quieter
 - Legendary Jokers should now have Joker Display
+- Meteor Cards should corectly appear if you have Crucible of Steel and Flame
 - Fixed the Skip Tutorial button

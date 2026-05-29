@@ -64,8 +64,8 @@ return {
                 name = 'Adora Deck',
                 text = {
                     'Sacrifice cards instead of',
-                    'selling them to upgrade level',
-                    'of {C:attention}#1# poker hands{}'
+                    'selling them to upgrade',
+                    '{C:attention}#1# poker hands{} by {C:attention}1{} level'
                 }
             },
             b_bloons_brickell = {
@@ -86,7 +86,8 @@ return {
                 name = 'Sauda Deck',
                 text = {
                     'Start run with all',
-                    '{C:attention}poker hands{} leveled up'
+                    '{C:attention}poker hands{} upgraded',
+                    'by {C:attention}1{} level'
                 }
             },
             b_bloons_psi = {
@@ -450,6 +451,32 @@ return {
                     'Gain {C:attention}+#1#{} hand size',
                     'this round',
                     '{s:0.8,C:inactive}Pat Fusty power{}'
+                }
+            },
+            c_bloons_blood_sacrifice = {
+                name = 'Blood Sacrifice',
+                text = {
+                    'Destroy {C:attention}#1#{} selected',
+                    'joker and upgrade all',
+                    '{C:attention}poker hands{} by {C:attention}1{} level',
+                    '{s:0.8,C:inactive}Adora power{}'
+                }
+            },
+            c_bloons_mega_mine = {
+                name = 'Mega Mine',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult next',
+                    'final hand of round',
+                    'May appear multiple times',
+                    '{s:0.8,C:inactive}Brickell power{}'
+                }
+            },
+            c_bloons_ucav = {
+                name = 'UCAV',
+                text = {
+                    '',
+                    '',
+                    '{s:0.8,C:inactive}Etienne power{}'
                 }
             },
             c_bloons_psionic_scream = {
