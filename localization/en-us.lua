@@ -407,7 +407,7 @@ return {
             c_bloons_firestorm = {
                 name = 'Firestorm',
                 text = {
-                    'Played cards give {C:mult}+#1#{} Mult',
+                    'Played cards give {X:mult,C:white}X#1#{} Mult',
                     'when scored and are',
                     'destroyed next hand',
                     '{s:0.8,C:inactive}Gwendolin power{}'

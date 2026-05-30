@@ -698,7 +698,7 @@ SMODS.Consumable { --Firestorm
         return G.GAME.selected_back.name == 'Gwendolin Deck' or G.GAME.selected_back.name == 'Geraldo Deck'
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.mult } }
+        return { vars = { card.ability.Xmult } }
     end,
     can_use = function(self, card)
         return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
