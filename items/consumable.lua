@@ -644,7 +644,7 @@ SMODS.Consumable { --Storm of Arrows
     end,
     loc_vars = function(self, info_queue, card)
         local n, d = SMODS.get_probability_vars(self, self.config.num, self.config.denom, 'storm_of_arrows')
-        return { vars = { n, d, card.ability.Xmult } }
+        return { vars = { n, d, card.ability.Xmult, card.ability.current } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.active then

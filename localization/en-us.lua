@@ -400,7 +400,7 @@ return {
                     '{C:green}#1# in #2#{} chance for',
                     '{X:mult,C:white}X#3#{} Mult while in your',
                     '{C:attention}consumable{} area',
-                    'Lasts {C:attention}#2#{} rounds',
+                    'Lasts {C:attention}#4#{} rounds',
                     '{s:0.8,C:inactive}Quincy power{}'
                 }
             },
