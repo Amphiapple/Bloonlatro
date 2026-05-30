@@ -277,7 +277,7 @@ SMODS.Back { --Geraldo
     name = "Geraldo Deck",
     atlas = "Back",
     pos = { x = 3, y = 2 },
-    config = { vouchers = { 'v_bloons_power_merchant', 'v_crystal_ball' } }
+    config = { vouchers = { 'v_bloons_power_merchant' } }
 }
 
 SMODS.Back { --Corvus

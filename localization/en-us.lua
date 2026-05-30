@@ -20,7 +20,8 @@ return {
             b_bloons_jones = {
                 name = 'Jones Deck',
                 text = {
-                    'Create an {C:power,T:c_bloons_artillery_command}Artillery Command{}',
+                    'Create an',
+                    '{C:power,T:c_bloons_artillery_command}Artillery Command{}',
                     'card after defeating',
                     'each {C:attention}Boss Blind{}'
                 }
@@ -79,7 +80,7 @@ return {
             b_bloons_etienne = {
                 name = 'Etienne Deck',
                 text = {
-                    '{C:attention}+#1#{} Booster Pack slot'
+                    '{C:attention}+#1#{} booster pack slot'
                 }
             },
             b_bloons_sauda = {
@@ -101,9 +102,10 @@ return {
             b_bloons_geraldo = {
                 name = 'Geraldo Deck',
                 text = {
-                    'Start run with',
-                    '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
-                    '{C:attention,T:v_crystal_ball}Crystal Ball{}'
+                    'Start run with the',
+                    '{C:power,T:v_bloons_power_merchant}Power Merchant{} voucher',
+                    "Other heroes' {C:power}powers{} may",
+                    'appear in the shop',
                 }
             },
             b_bloons_corvus = {
@@ -120,7 +122,7 @@ return {
                 text = {
                     'Toggle Rosalia\'s weapons',
                     '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
-                    '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
+                    '{C:blue}Grenade{}: {C:attention}Retrigger{} first scoring card'
                 }
             },
             b_bloons_silas = {
@@ -396,7 +398,9 @@ return {
                 name = 'Storm of Arrows',
                 text = {
                     '{C:green}#1# in #2#{} chance for',
-                    '{X:mult,C:white}X#3#{} Mult this blind',
+                    '{X:mult,C:white}X#3#{} Mult while in your',
+                    '{C:attention}consumable{} area',
+                    'Lasts {C:attention}#2#{} rounds',
                     '{s:0.8,C:inactive}Quincy power{}'
                 }
             },
@@ -483,8 +487,8 @@ return {
             c_bloons_ucav = {
                 name = 'UCAV',
                 text = {
-                    '',
-                    '',
+                    'Add {C:attention}#1#{} booster packs',
+                    'to this shop',
                     '{s:0.8,C:inactive}Etienne power{}'
                 }
             },
@@ -504,6 +508,25 @@ return {
                     '{C:attention}#1#{} selected cards and',
                     'discard the rest',
                     '{s:0.8,C:inactive}Psi power{}'
+                }
+            },
+            c_bloons_dark_ritual = {
+                name = 'Dark Ritual',
+                text = {
+                    'Retrigger all played',
+                    'cards next hand and',
+                    'gain {C:attention}#1#{} extra mana',
+                    'per card scored',
+                    '{s:0.8,C:inactive}Corvus power{}'
+                }
+            },
+            c_bloons_flight_boost = {
+                name = 'Flight Boost',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult',
+                    'Retrigger first scoring card',
+                    'Lasts {C:attention}#2#{} rounds',
+                    '{s:0.8,C:inactive}Rosalia power{}'
                 }
             },
             c_bloons_frozen_burial = {

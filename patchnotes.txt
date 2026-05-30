@@ -63,6 +63,7 @@ Fixes:
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
+- Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
 - Sticky Bomb Joker Display should work
 - Sticky Bomb should no longer keep stickied status on cards between hands

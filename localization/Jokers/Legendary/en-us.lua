@@ -40,7 +40,7 @@ return {
                 text = {
                     '{C:attention}Freeze #1#{} scoring cards',
                     'and reduce blind requirement',
-                    'by {C:attention}#2#%{} per hand played',
+                    'by {X:attention,C:white}#2#%{} per hand played',
                     'Disable the current {C:attention}Boss Blind{}',
                     'after {C:attention}#3#{C:inactive} (#4#){} hands'
                 }

@@ -104,14 +104,15 @@ JokerDisplay.Definitions["j_bloons_plasma_accelerator"] = { --Plasma Accelerator
             for _, scoring_card in pairs(scoring_hand) do
                 local id = scoring_card:get_id()
                 local triggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) or 0
-
-                if ids[id] then
-                    count = count + triggers
-                elseif triggers >= 2 then
-                    ids[id] = true
-                    count = count + (triggers - 1)
-                else
-                    ids[id] = true
+                if not scoring_card.debuff and not SMODS.has_no_rank(scoring_card) then
+                    if ids[id] then
+                        count = count + triggers
+                    elseif triggers >= 2 then
+                        ids[id] = true
+                        count = count + (triggers - 1)
+                    else
+                        ids[id] = true
+                    end
                 end
             end
         end
@@ -137,14 +138,15 @@ JokerDisplay.Definitions["j_bloons_ray_of_doom"] = { --Ray of Doom
             for _, scoring_card in pairs(scoring_hand) do
                 local id = scoring_card:get_id()
                 local triggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) or 0
-
-                if ids[id] then
-                    count = count + triggers
-                elseif triggers >= 2 then
-                    ids[id] = true
-                    count = count + (triggers - 1)
-                else
-                    ids[id] = true
+                if not scoring_card.debuff and not SMODS.has_no_rank(scoring_card) then
+                    if ids[id] then
+                        count = count + triggers
+                    elseif triggers >= 2 then
+                        ids[id] = true
+                        count = count + (triggers - 1)
+                    else
+                        ids[id] = true
+                    end
                 end
             end
         end
