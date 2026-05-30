@@ -427,13 +427,22 @@ return {
                     '{s:0.8,C:inactive}Obyn power{}'
                 }
             },
+            c_bloons_moab_barrage = {
+                name = 'MOAB Barrage',
+                text = {
+                    'Each played card gives',
+                    '{C:mult}+#1#{} Mult when scored',
+                    '{C:inactive}({C:attention}#2#{C:inactive} remaining)',
+                    '{s:0.8,C:inactive}Churchill power{}'
+                }
+            },
             c_bloons_siphon_funding = {
                 name = 'Siphon Funding',
                 text = {
                     'Decrease rank of up to',
                     '{C:attention}#1#{} selected cards by {C:attention}1{} and',
                     'permanently give {C:money}$#2#{} when scored',
-                    '{s:0.8,C:inactive}Ben power{}'
+                    '{s:0.8,C:inactive}Benjamin power{}'
                 }
             },
             c_bloons_moab_hex = {
@@ -479,6 +488,15 @@ return {
                     '{s:0.8,C:inactive}Etienne power{}'
                 }
             },
+            c_bloons_sword_charge = {
+                name = 'Sword Charge',
+                text = {
+                    '{C:chips}+#1#{} Chips next hand',
+                    'Sweeps an extra time if',
+                    'held at end of round',
+                    '{s:0.8,C:inactive}Sauda power{}'
+                }
+            },
             c_bloons_psionic_scream = {
                 name = 'Psionic Scream',
                 text = {
@@ -486,6 +504,15 @@ return {
                     '{C:attention}#1#{} selected cards and',
                     'discard the rest',
                     '{s:0.8,C:inactive}Psi power{}'
+                }
+            },
+            c_bloons_frozen_burial = {
+                name = 'Frozen Burial',
+                text = {
+                    '{C:attention}Freeze{} all cards held in hand',
+                    '{C:attention}Frozen{} cards permanently gain',
+                    '{C:chips}+#1#{} Hand Chips instead',
+                    '{s:0.8,C:inactive}Silas power{}'
                 }
             },
         },

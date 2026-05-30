@@ -599,13 +599,13 @@ SMODS.Blind {
 
     loc_vars = function(self)
         return {
-            vars = { 3 }
+            vars = { 5 }
         }
     end,
 
     collection_loc_vars = function(self)
         return {
-            vars = { 3 }
+            vars = { 5 }
         }
     end,
 
@@ -626,7 +626,7 @@ SMODS.Blind {
 
     calculate = function(self, blind, context)
         if context.before and not blind.disabled then
-            for i = 1, 3 do
+            for i = 1, 5 do
                 local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_' .. tostring(#G.deck.cards)))
                 SMODS.add_card({
                     set = 'Playing Card',

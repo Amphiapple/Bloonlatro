@@ -57,8 +57,9 @@ Balance Changes:
 
 Fixes:
 - Triple Shot Joker Display should no longer crash
+- Bloon Crush should no longer give Xmult regardless of if stunned cards are held or not
 - Frag Bombs Joker Display should work correctly
-- Showstorm Joker Display should show the correct values
+- Snowstorm Joker Display should show the correct values
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work

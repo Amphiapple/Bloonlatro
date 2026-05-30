@@ -99,23 +99,23 @@ SMODS.Consumable { --Monkey_boost
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
+			G.GAME.activated_card = copy_card(card)
             if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
             end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+			G.consumeables:emplace(G.GAME.activated_card)
+			G.GAME.activated_card.ability.active = true
             local eval = function()
                 return true
             end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+            juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.active then
             return {
-                x_mult = card.ability.Xmult
+                Xmult = card.ability.Xmult
             }
         elseif context.after and card.ability.active then
             G.E_MANAGER:add_event(Event({
@@ -157,17 +157,17 @@ SMODS.Consumable { --Thrive
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
+			G.GAME.activated_card = copy_card(card)
             if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
             end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+			G.consumeables:emplace(G.GAME.activated_card)
+			G.GAME.activated_card.ability.active = true
             local eval = function()
                 return true
             end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+            juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
     calculate = function(self, card, context)
@@ -505,17 +505,17 @@ SMODS.Consumable { --Tech Bot
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
+			G.GAME.activated_card = copy_card(card)
             if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
             end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+			G.consumeables:emplace(G.GAME.activated_card)
+			G.GAME.activated_card.ability.active = true
             local eval = function()
                 return true
             end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+            juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
     calculate = function(self, card, context)
@@ -562,7 +562,7 @@ SMODS.Consumable { --Energizing Totem
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                x_mult = card.ability.Xmult
+                Xmult = card.ability.Xmult
             }
         elseif context.end_of_round and not context.individual and not context.repetition then
             card.ability.current = card.ability.current - 1
@@ -651,24 +651,24 @@ SMODS.Consumable { --Storm of Arrows
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
+			G.GAME.activated_card = copy_card(card)
             if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
             end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+			G.consumeables:emplace(G.GAME.activated_card)
+			G.GAME.activated_card.ability.active = true
             local eval = function()
                 return true
             end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+            juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.active then
             if SMODS.pseudorandom_probability(card, 'storm_of_arrows', card.ability.num, card.ability.denom, 'storm_of_arrows') then
                 return {
-                    x_mult = card.ability.Xmult
+                    Xmult = card.ability.Xmult
                 }
             end
         elseif context.end_of_round and card.ability.active and not context.individual and not context.repetition then
@@ -704,7 +704,7 @@ SMODS.Consumable { --Firestorm
     name = 'Firestorm',
     atlas = 'Consumable',
     pos = { x = 1, y = 3 },
-    config = { mult = 10, active = false }, --Variables: mult = score multiplier
+    config = { Xmult = 1.25, active = false }, --Variables: mult = score multiplier
 
     in_pool = function(self, args)
         return G.GAME.selected_back.name == 'Gwendolin Deck'
@@ -717,23 +717,23 @@ SMODS.Consumable { --Firestorm
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
+			G.GAME.activated_card = copy_card(card)
             if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
             end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+			G.consumeables:emplace(G.GAME.activated_card)
+			G.GAME.activated_card.ability.active = true
             local eval = function()
                 return true
             end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+            juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and card.ability.active then
             return {
-                mult = card.ability.mult
+                Xmult = card.ability.Xmult
             }
         elseif context.destroying_card and card.ability.active and not context.destroying_card.debuff then
             return true
@@ -866,16 +866,44 @@ SMODS.Consumable { --MOAB Barrage
     name = 'MOAB Barrage',
     atlas = 'Consumable',
     pos = { x = 4, y = 3 },
-    config = { Xmult = 2 },
+    config = { mult = 5, shells = 16 },
 
     in_pool = function(self, args)
         return G.GAME.selected_back.name == 'Churchill Deck'
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.Xmult } }
+        return { vars = { card.ability.mult, card.ability.shells } }
     end,
-    use = function(self, card, area)
-        
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and card.ability.shells > 0 then
+            card.ability.shells = card.ability.shells - 1
+            return {
+                mult = card.ability.mult
+            }
+        elseif context.after and card.ability.shells <= 0 then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
     end
 }
 
@@ -916,11 +944,10 @@ SMODS.Consumable { --Siphon Funding
                 end
             }))
         end
-        delay(0.2)
         for k, v in ipairs(G.hand.highlighted) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                delay = 0.1,
+                delay = 0.4,
                 func = function()
                     local suit_prefix = string.sub(v.base.suit, 1, 1)..'_'
                     local rank_suffix = v.base.id == 2 and 14 or math.max(v.base.id-1, 2)
@@ -1125,23 +1152,23 @@ SMODS.Consumable { --Mega Mine
     end,
     use = function(self, card, area, copier)
         if not card.ability.active then
-			G.GAME.DESTROY_CARD = copy_card(card)
+			G.GAME.activated_card = copy_card(card)
             if not (card.edition and card.edition.negative) then
-                G.GAME.DESTROY_CARD:set_edition({negative = true}, true)
-                G.GAME.DESTROY_CARD.sell_cost = card.sell_cost
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
             end
-			G.consumeables:emplace(G.GAME.DESTROY_CARD)
-			G.GAME.DESTROY_CARD.ability.active = true
+			G.consumeables:emplace(G.GAME.activated_card)
+			G.GAME.activated_card.ability.active = true
             local eval = function()
                 return true
             end
-            juice_card_until(G.GAME.DESTROY_CARD, eval, true)
+            juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 and card.ability.active then
             return {
-                x_mult = card.ability.Xmult
+                Xmult = card.ability.Xmult
             }
         elseif context.after and G.GAME.current_round.hands_left == 0 and card.ability.active then
             G.E_MANAGER:add_event(Event({
@@ -1170,47 +1197,70 @@ SMODS.Consumable { --Mega Mine
     end
 }
 
-SMODS.Consumable { --UCAV
-    key = 'ucav',
-    set = 'Power',
-    name = 'UCAV',
-    atlas = 'Consumable',
-    pos = { x = 0, y = 5 },
-    config = {  },
-
-    in_pool = function(self, args)
-        return G.GAME.selected_back.name == 'Etienne Deck'
-    end,
-    loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        
-    end
-}
-
 SMODS.Consumable { --Sword Charge
     key = 'sword_charge',
     set = 'Power',
     name = 'Sword Charge',
     atlas = 'Consumable',
-    pos = { x = 0, y = 5 },
-    config = {  },
+    pos = { x = 1, y = 5 },
+    config = { chips = 30, sweeps = 1, active = false },
 
     in_pool = function(self, args)
         return G.GAME.selected_back.name == 'Sauda Deck'
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
+        return { vars = { card.ability.chips * card.ability.sweeps } }
     end,
     can_use = function(self, card)
-        return true
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
     end,
     use = function(self, card, area, copier)
-        
+        if not card.ability.active then
+			G.GAME.activated_card = copy_card(card)
+            if not (card.edition and card.edition.negative) then
+                G.GAME.activated_card:set_edition({negative = true}, true)
+                G.GAME.activated_card.sell_cost = card.sell_cost
+            end
+			G.consumeables:emplace(G.GAME.activated_card)
+            G.GAME.activated_card.ability.sweeps = card.ability.sweeps
+            G.GAME.activated_card.ability.active = true
+            local eval = function()
+                return true
+            end
+            juice_card_until(G.GAME.activated_card, eval, true)
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.active then
+            return {
+                chips = card.ability.chips * card.ability.sweeps
+            }
+        elseif context.after and card.ability.active then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
+            delay(0.5)
+        elseif context.end_of_round and not context.individual and not context.repetition and not card.ability.active then
+            card.ability.sweeps = card.ability.sweeps + 1
+        end
     end
 }
 
@@ -1338,6 +1388,52 @@ SMODS.Consumable { --Psionic Scream
     end
 }
 
+SMODS.Consumable { --Frozen Burial
+    key = 'frozen_burial',
+    set = 'Power',
+    name = 'Frozen Burial',
+    atlas = 'Consumable',
+    pos = { x = 1, y = 6 },
+    config = { chips = 40 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Silas Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.chips } }
+    end,
+    can_use = function(self, card)
+        return G.hand and #G.hand.cards > 0
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.9,
+            func = function()
+                for k, v in pairs(G.hand.cards) do
+                    if v.ability.name == 'Frozen Card' then
+                        v.ability.perma_h_chips = v.ability.perma_h_chips or 0
+                        v.ability.perma_h_chips = v.ability.perma_h_chips + card.ability.chips
+                    else
+                        v:set_ability('m_bloons_frozen', nil, true)
+                        v:juice_up()
+                    end
+                end
+                return true
+            end
+        }))
+    end
+}
+
 SMODS.Consumable { --Volcano
     key = 'volcano',
     set = 'Spectral',
@@ -1375,7 +1471,7 @@ SMODS.Consumable { --Volcano
         }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.1,
+            delay = 0.2,
             func = function()
                 local card = destroyed_card
                 if SMODS.shatters(card) then
@@ -1388,7 +1484,7 @@ SMODS.Consumable { --Volcano
         }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.7,
+            delay = 0.9,
             func = function()
                 for k, v in pairs(volcano_cards) do
                     v:set_ability('m_bloons_meteor', nil, true)
@@ -1400,3 +1496,67 @@ SMODS.Consumable { --Volcano
         }))
     end
 }
+--[[
+SMODS.Consumable { --Thunder
+    key = 'thunder',
+    set = 'Spectral',
+    name = 'Thunder',
+    atlas = 'Consumable',
+    pos = { x = 0, y = 7 },
+    cost = 4,
+    config = { max_highlighted = 2 },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
+    use = function(self, card, area)
+        local destroyed_card = G.hand.highlighted[1]
+        local volcano_cards = {}
+        for i = 1, #G.hand.cards do
+            if G.hand.cards[i] == destroyed_card then
+                if i > 1 then
+                    volcano_cards[#volcano_cards+1] = G.hand.cards[i-1]
+                end
+                if i < #G.hand.cards then
+                    volcano_cards[#volcano_cards+1] = G.hand.cards[i+1]
+                end
+            end
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                local card = destroyed_card
+                if SMODS.shatters(card) then
+                    card:shatter()
+                else
+                    card:start_dissolve()
+                end
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.9,
+            func = function()
+                for k, v in pairs(volcano_cards) do
+                    v:set_ability('m_bloons_meteor', nil, true)
+                    v:juice_up()
+                end
+                SMODS.calculate_context({ remove_playing_cards = true, removed = { destroyed_card } })
+                return true
+            end
+        }))
+    end
+}
+]]
