@@ -396,6 +396,8 @@ SMODS.Blind {
                 {id = 'j_bloons_long_reach'},
                 {id = 'j_bloons_perma_spike'},
                 {id = 'j_bloons_grand_saboteur'},
+                {id = 'j_bloons_monkey_pirates'},
+                {id = 'j_bloons_pirate_lord'},
                 {id = 'j_burglar'},
                 {id = 'j_troubadour'},
                 {id = 'v_grabber'},

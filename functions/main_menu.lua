@@ -166,11 +166,48 @@ function Bloonlatro.main_menu()
     local MAX_LOGO_POS_X = 8
 
     create_bloonlatro_logo(MAX_LOGO_POS_X)
-    create_bloonlatro_boss_button()
+
+    local card = create_bloonlatro_boss_button('main_menu')
+
+    local ui = UIBox {
+        definition = {
+            n = G.UIT.ROOT,
+            config = {
+                align = "cm",
+                colour = G.C.CLEAR
+            },
+            nodes = {
+                {
+                    n = G.UIT.O,
+                    config = { object = card }
+                }
+            }
+        },
+        config = {
+            align = "cri",
+            offset = { x = 10, y = -3.3 },
+            major = G.ROOM_ATTACH,
+            bond = "Weak"
+        }
+    }
+
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = get_context_timing("boss_delay"),
+        blockable = false,
+        blocking = false,
+        func = function()
+            if ui and ui.alignment then
+                ui.alignment.offset.x = 0
+                ui:align_to_major()
+            end
+
+            return true
+        end
+    }))
 end
 
 local old_main_menu = Game.main_menu
-
 function Game:main_menu(change_context)
     Bloonlatro.main_menu_context = change_context
     return old_main_menu(self, change_context)
@@ -253,60 +290,39 @@ end
 -- BOSS BUTTON
 -------------------------------------------------------
 
-function create_bloonlatro_boss_button()
-    local pos_y = math.random(5, 11)
+function create_bloonlatro_boss_button(origin, from_game_over)
+    local boss_icon_y
+
+    local boss_blind
+    if origin == 'uidef' and G.GAME and G.GAME.selected_back and type(G.GAME.selected_back.get_boss_blind) == 'function' then
+        boss_blind = G.GAME.selected_back:get_boss_blind()
+    end
+
+    if boss_blind and boss_blind.pos_y then
+        boss_icon_y = boss_blind.pos_y
+    else
+        local selected = ensure_selected_boss()
+        if selected and selected.pos and selected.pos.y then
+            boss_icon_y = selected.pos.y
+        else
+            boss_icon_y = math.random(5, 11)
+        end
+    end
 
     local card = create_sprite_card({
         w = 1.8,
         h = 1.8,
         atlas = G.ANIMATION_ATLAS["bloons_Blind"],
-        pos = { x = 0, y = pos_y },
+        pos = { x = 0, y = boss_icon_y },
         no_ui = true
     })
 
     function card:click()
         ensure_selected_boss()
-        G.FUNCS.create_bloonlatro_boss_ui()
+        G.FUNCS.create_bloonlatro_boss_ui(origin, from_game_over)
     end
 
-    local ui = UIBox {
-        definition = {
-            n = G.UIT.ROOT,
-            config = {
-                align = "cm",
-                colour = G.C.CLEAR
-            },
-            nodes = {
-                {
-                    n = G.UIT.O,
-                    config = { object = card }
-                }
-            }
-        },
-        config = {
-            align = "cri",
-            offset = { x = 10, y = -3.3 },
-            major = G.ROOM_ATTACH,
-            bond = "Weak"
-        }
-    }
-
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = get_context_timing("boss_delay"),
-        blockable = false,
-        blocking = false,
-        func = function()
-            if ui and ui.alignment then
-                ui.alignment.offset.x = 0
-                ui:align_to_major()
-            end
-
-            return true
-        end
-    }))
-
-    return ui
+    return card
 end
 
 -------------------------------------------------------
@@ -480,7 +496,10 @@ local function build_list()
     return row
 end
 
-G.FUNCS.create_bloonlatro_boss_ui = function()
+G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
+    local back_func = origin == 'uidef' and 'setup_run' or 'exit_overlay_menu'
+    local back_id = origin == 'uidef' and (from_game_over and 'from_game_over' or nil) or nil
+
     local selected = ensure_selected_boss()
 
     if not selected then
@@ -549,7 +568,8 @@ G.FUNCS.create_bloonlatro_boss_ui = function()
             nodes = {
                 create_UIBox_generic_options({
                     contents = contents,
-                    back_func = "exit_overlay_menu",
+                    back_func = back_func,
+                    back_id = back_id,
                     emboss = 0.05
                 })
             }
@@ -705,4 +725,57 @@ function Back:load(args)
     end
 
     return res
+end
+
+function G.UIDEF.boss_challenge(from_game_over)
+    local saved_params = G.SETTINGS and G.SETTINGS.boss_challenge_params or nil
+    if not Bloonlatro.selected_boss_key and saved_params and saved_params.boss_challenge then
+        Bloonlatro.selected_boss_key = saved_params.boss_challenge
+    end
+
+    local selected = ensure_selected_boss()
+    if not selected then
+        return {
+            n = G.UIT.ROOT,
+            config = { align = "cm", padding = 0.1, colour = G.C.CLEAR, minh = 6, minw = 7 },
+            nodes = {
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm", padding = 0.2 },
+                    nodes = {
+                        { n = G.UIT.T, config = { text = "No Bloonlatro boss blinds available", scale = 0.4, colour = G.C.WHITE, shadow = true } }
+                    }
+                }
+            }
+        }
+    end
+
+    local boss_button = create_bloonlatro_boss_button('uidef', from_game_over)
+
+    return {
+        n = G.UIT.ROOT,
+        config = { align = "cm", padding = 0.1, colour = G.C.CLEAR, minh = 8, minw = 9 },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0.1, r = 0.1, colour = G.C.BLACK, emboss = 0.05 },
+                nodes = {
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm", padding = 0.2 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = "Selected boss", scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
+                        }
+                    },
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm", padding = 0.2 },
+                        nodes = {
+                            { n = G.UIT.O, config = { object = boss_button, align = "cm" } },
+                        }
+                    },
+                }
+            }
+        }
+    }
 end

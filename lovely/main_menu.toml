@@ -17,3 +17,30 @@ payload = '''
 Bloonlatro.main_menu()
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+G.STAGE == G.STAGES.MAIN_MENU and {
+  label = localize('b_challenges'),
+	tab_definition_function = G.UIDEF.challenges,
+  tab_definition_function_args = from_game_over,
+  chosen = _challenge_chosen
+} or nil,
+'''
+position = 'at'
+payload = '''
+G.STAGE == G.STAGES.MAIN_MENU and {
+  label = localize('b_challenges'),
+	tab_definition_function = G.UIDEF.challenges,
+  tab_definition_function_args = from_game_over,
+  chosen = _challenge_chosen
+} or 
+{
+	label = "Bosses",
+	tab_definition_function = G.UIDEF.boss_challenge,
+	tab_definition_function_args = from_game_over,
+},
+'''
+match_indent = true

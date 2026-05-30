@@ -24,7 +24,7 @@ end
 
 local last_segment = true
 local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
-if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and center and center.key == "b_bloons_boss_challenge" then
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and center and center.key == "b_bloons_boss_challenge" then
     local segments = center.get_boss_segments and center:get_boss_segments()
     local current_blind = G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind or nil
     last_segment = not (segments and segments[3] and segments[3].key ~= (current_blind and current_blind.key or nil))
