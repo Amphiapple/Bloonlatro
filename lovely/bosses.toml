@@ -139,8 +139,8 @@ self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.cen
 '''
 position = 'at'
 payload = '''
-if (selected_back and selected_back.key == "b_bloons_boss_challenge")
-or (new_back and new_back.key == "b_bloons_boss_challenge") then
+if (selected_back and selected_back.key == "b_bloons_boss_challenge") or
+   (new_back and new_back.key == "b_bloons_boss_challenge") then
     local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
     local deck_text = localize({ type = 'name_text', set = 'Back', key = 'b_bloons_boss_challenge' })
     local blind_text = ""
@@ -162,6 +162,25 @@ or (new_back and new_back.key == "b_bloons_boss_challenge") then
     end
 else
     self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''
+self.pos.x = pos.x
+self.pos.y = pos.y
+'''
+position = 'after'
+payload = '''
+if (selected_back and selected_back.key == "b_bloons_boss_challenge") or
+   (new_back and new_back.key == "b_bloons_boss_challenge") then
+    local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
+    local index = blind and blind.bloonlatro_boss and blind.bloonlatro_boss.index
+    self.pos.x = index or 0
+    self.pos.y = 0
 end
 '''
 match_indent = true

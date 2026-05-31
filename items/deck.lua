@@ -5,6 +5,13 @@ SMODS.Atlas {
     py = 95,
 }
 
+SMODS.Atlas {
+    key = 'Boss_challenge_back',
+    path = 'boss_challenge_decks.png',
+    px = 71,
+    py = 95,
+}
+
 SMODS.Back { --Quincy
     key = "quincy",
     name = "Quincy Deck",
@@ -378,8 +385,8 @@ SMODS.Back { --Silas
 SMODS.Back {
     key = "boss_challenge",
     name = "Boss Challenge Deck",
-    atlas = "Back",
-    pos = { x = 2, y = 3 },
+    atlas = "Boss_challenge_back",
+    pos = { x = 0, y = 0 },
     omit = true,
 
     config = {

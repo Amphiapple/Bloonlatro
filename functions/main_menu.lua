@@ -158,6 +158,36 @@ local function ensure_selected_boss()
     return selected, segments
 end
 
+local old_exit_overlay_menu = G.FUNCS.exit_overlay_menu
+G.FUNCS.bloonlatro_boss_ui_back = function()
+    local back_func = Bloonlatro.boss_ui_back_func or 'exit_overlay_menu'
+    local back_id = Bloonlatro.boss_ui_back_id
+
+    Bloonlatro.boss_ui_back_func = nil
+    Bloonlatro.boss_ui_back_id = nil
+
+    if back_func == 'exit_overlay_menu' then
+        return old_exit_overlay_menu()
+    end
+
+    if G.OVERLAY_MENU then
+        G.OVERLAY_MENU:remove()
+        G.OVERLAY_MENU = nil
+    end
+
+    if G.FUNCS[back_func] then
+        return G.FUNCS[back_func]({ config = { id = back_id } })
+    end
+end
+
+G.FUNCS.exit_overlay_menu = function(...)
+    if Bloonlatro.boss_ui_back_func then
+        return G.FUNCS.bloonlatro_boss_ui_back()
+    end
+
+    return old_exit_overlay_menu(...)
+end
+
 -------------------------------------------------------
 -- MAIN MENU
 -------------------------------------------------------
@@ -497,8 +527,12 @@ local function build_list()
 end
 
 G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
-    local back_func = origin == 'uidef' and 'setup_run' or 'exit_overlay_menu'
+    local back_func = 'bloonlatro_boss_ui_back'
+    local back_target = origin == 'uidef' and 'setup_run' or 'exit_overlay_menu'
     local back_id = origin == 'uidef' and (from_game_over and 'from_game_over' or nil) or nil
+
+    Bloonlatro.boss_ui_back_func = origin == 'uidef' and back_target or nil
+    Bloonlatro.boss_ui_back_id = origin == 'uidef' and back_id or nil
 
     local selected = ensure_selected_boss()
 
@@ -570,6 +604,8 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                     contents = contents,
                     back_func = back_func,
                     back_id = back_id,
+                    back_button = 'back',
+                    snap_back = true,
                     emboss = 0.05
                 })
             }
@@ -692,6 +728,8 @@ end
 
 local old_start_run = Game.start_run
 function Game:start_run(args)
+    Bloonlatro.boss_ui_back_func = nil
+    Bloonlatro.boss_ui_back_id = nil
     local res = old_start_run(self, args)
     if args.win_ante then G.GAME.win_ante = args.win_ante end
 
