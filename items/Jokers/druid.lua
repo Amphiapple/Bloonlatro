@@ -423,7 +423,7 @@ SMODS.Joker { --Druid of Wrath
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { Xmult = 0.03 } --Variables: Xmult per time hand is played
+        extra = { Xmult = 0.05 } --Variables: Xmult per time hand is played
     },
 
     loc_vars = function(self, info_queue, card)

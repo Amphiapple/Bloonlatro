@@ -2,10 +2,14 @@ Added Jokers:
 - Even more Paragons!
 - All remaining Mortar Monkeys
 - All remaining Druids
+
+Other content:
+- Diamondback has been added as a Boss!
 - Some unique consumables that only appear when playing a specific deck
 
 General Changes:
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
+- Reworked Boss Challenges to be a separate menu
 
 Balance Changes:
 - Triple Shot cost 5 > 4
@@ -21,7 +25,6 @@ Balance Changes:
 
 - Ice Monkey chips every 3 > 2 hands
 - Cold Snap money $1 > $2
-- Ice Shards mult gain 1 > 2
 - Enhanced Freeze chips 40 > 80
 - Larger Radius every 3 > 2 hands
 
@@ -44,6 +47,8 @@ Balance Changes:
 
 - Pouakai reworked
 
+- Psychic Blast replaced with Camo Trap, gives +3 discards=
+
 - Jones deck reworked
 - Psi deck reworked
 
@@ -51,19 +56,25 @@ Balance Changes:
 
 Fixes:
 - Triple Shot Joker Display should no longer crash
+- Bloon Crush should no longer give Xmult regardless of if stunned cards are held or not
 - Frag Bombs Joker Display should work correctly
-- Showstorm Joker Display should show the correct values
+- Snowstorm Joker Display should show the correct values
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
+- Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
 - Sticky Bomb Joker Display should work
 - Sticky Bomb should no longer keep stickied status on cards between hands
 - Perishing Potions no longer adds Polychrome's cost when bought
 - Abyssal Warrior should have the correct name
 - Primary Training and Primary Mentoring Joker Display should no longer crash when transforming cards
+- Monkey Town should no longer put its end of round cash on the wrong joker
 - Cold Sentry should no longer freeze debuffed cards
+- Bloon Trap and XXXL Trap should no longer show as Blueprint compatible
 - Crucible of Steel and Flame now correctly says +1 Meteor instead of +1 Stone
 - Ascended Shadow should remove its effect from cards correctly after being played
 - Mega Sentries explode quieter
 - Legendary Jokers should now have Joker Display
+- Meteor Cards should corectly appear if you have Crucible of Steel and Flame
+- Fixed the Skip Tutorial button

@@ -139,7 +139,7 @@ JokerDisplay.Definitions["j_bloons_carpet_of_spikes"] = { --Carpet of Spikes
                 count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
             end
         end
-        card.joker_display_values.Xmult = card.ability.extra.Xmult * count *
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count *
                 (G.GAME and G.GAME.current_round and G.GAME.current_round.discards_left == card.ability.extra.discards and 1 or 0)
     end
 }

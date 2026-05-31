@@ -486,7 +486,7 @@ SMODS.Joker { --Bloon Trap
 	pos = { x = 14, y = 23 },
     rarity = 2,
 	cost = 6,
-    blueprint_compat = true,
+    blueprint_compat = false,
     config = {
         tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { money = 4, current = 0 } --Variables: money = dollars per card, current = current collected money
@@ -528,7 +528,7 @@ SMODS.Joker { --XXXL Trap
 	pos = { x = 15, y = 23 },
     rarity = 3,
 	cost = 9,
-    blueprint_compat = true,
+    blueprint_compat = false,
     config = {
         tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { current = 0 } --Variables: current = current collected money

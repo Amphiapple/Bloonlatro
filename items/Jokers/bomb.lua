@@ -114,7 +114,7 @@ SMODS.Joker { --Bloon Impact
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { mult = 25 } --Variables: mult = +mult if any stunned
+        extra = { mult = 25, active = false } --Variables: mult = +mult if any stunned
     },
 
     loc_vars = function(self, info_queue, card)
@@ -135,10 +135,19 @@ SMODS.Joker { --Bloon Impact
                     colour = G.C.RED
                 }
             end
-        elseif context.joker_main then
+        elseif context.before then
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Stunned Card' and not v.debuff then
+                    card.ability.extra.active = true
+                    break
+                end
+            end
+        elseif context.joker_main and card.ability.extra.active then
             return {
                 mult = card.ability.extra.mult
             }
+        elseif context.after then
+            card.ability.extra.active = false
         end
     end
 }
@@ -153,7 +162,7 @@ SMODS.Joker { --Bloon Crush
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { Xmult = 3 } --Variables: Xmult = Xmult if any stunned
+        extra = { Xmult = 3, active = false } --Variables: Xmult = Xmult if any stunned
     },
 
     loc_vars = function(self, info_queue, card)
@@ -174,10 +183,19 @@ SMODS.Joker { --Bloon Crush
                     colour = G.C.RED
                 }
             end
+        elseif context.before then
+            for k, v in ipairs(G.hand.cards) do
+                if v.ability.name == 'Stunned Card' and not v.debuff then
+                    card.ability.extra.active = true
+                    break
+                end
+            end
         elseif context.joker_main then
             return {
                 x_mult = card.ability.extra.Xmult
             }
+        elseif context.after then
+            card.ability.extra.active = false
         end
     end
 }

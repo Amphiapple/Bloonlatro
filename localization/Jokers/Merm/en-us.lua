@@ -68,7 +68,7 @@ return {
             j_bloons_riptide_champion = {
                 name = 'Riptide Champion',
                 text = {
-                    '{C:attention}Freeze} a random',
+                    '{C:attention}Freeze{} a random',
                     'card and ones adjacent',
                     'to it held in hand',
                     'per hand played',

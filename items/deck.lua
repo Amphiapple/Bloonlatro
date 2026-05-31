@@ -263,8 +263,11 @@ SMODS.Back { --Psi
 
     loc_vars = function(self, info_queue, card)
         local function process_var(pos)
-            return '#@' .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.id or 11) ..
-                (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.suit:sub(1, 1) or 'D')
+            if G.GAME.selected_back.name == 'Psi Deck' then
+                return '#@' .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.id or 11) ..
+                    (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.suit:sub(1, 1) or 'D')
+            end
+            return '#@'
         end
         return {
             vars = {
@@ -281,7 +284,7 @@ SMODS.Back { --Geraldo
     name = "Geraldo Deck",
     atlas = "Back",
     pos = { x = 3, y = 2 },
-    config = { vouchers = { 'v_bloons_power_merchant', 'v_crystal_ball' } }
+    config = { vouchers = { 'v_bloons_power_merchant' } }
 }
 
 SMODS.Back { --Corvus

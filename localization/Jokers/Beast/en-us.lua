@@ -128,7 +128,7 @@ return {
                 name = 'Pouākai',
                 text = {
                     '{X:mult,C:white}X#1#{} Mult for each',
-                    'hand size you have',
+                    '{C:attention}Wild{} card in your full deck',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 }
             },

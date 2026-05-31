@@ -172,9 +172,8 @@ SMODS.Tag {
 }
 
 SMODS.Tag {
-    key = 'Redeemed',
+    key = 'redeemed',
     name = 'Redeemed Tag',
-    
     atlas = 'Tag',
 	pos = { x = 4, y = 0 },
     min_ante = 2,

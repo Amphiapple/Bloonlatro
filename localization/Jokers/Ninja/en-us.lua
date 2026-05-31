@@ -26,19 +26,17 @@ return {
 			j_bloons_double_shot_ninja = {
 				name = 'Double Shot',
 				text = {
-					'{X:mult,C:white}X#1#{} Mult if',
-					'scoring hand contains',
-					'at least {C:attention}#2#',
-					'{C:diamonds}Diamond{} cards',
+					'{X:mult,C:white}X#1#{} Mult if scoring',
+					'hand contains at least',
+					'{C:attention}#2#{C:diamonds} Diamond{} cards',
 				}
 			},
 			j_bloons_bloonjitsu = {
 				name = 'Bloonjitsu',
 				text = {
-					'{X:mult,C:white}X#1#{} Mult if',
-					'scoring hand',
-					'contains at least',
-					'{C:attention}#2# {C:diamonds}Diamond{} cards',
+					'{X:mult,C:white}X#1#{} Mult if scoring',
+					'hand contains at least',
+					'{C:attention}#2#{C:diamonds} Diamond{} cards',
 				}
 			},
 			j_bloons_grandmaster_ninja = {

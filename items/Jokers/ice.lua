@@ -128,7 +128,7 @@ SMODS.Joker { --Ice Shards
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { mult = 2, current = 0 } --Variables: mult = +mult per thawed frozen card, current = current +mult
+        extra = { mult = 1, current = 0 } --Variables: mult = +mult per thawed frozen card, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)

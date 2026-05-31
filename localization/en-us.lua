@@ -20,7 +20,8 @@ return {
             b_bloons_jones = {
                 name = 'Jones Deck',
                 text = {
-                    'Create an {C:power,T:c_bloons_artillery_command}Artillery Command{}',
+                    'Create an',
+                    '{C:power,T:c_bloons_artillery_command}Artillery Command{}',
                     'card after defeating',
                     'each {C:attention}Boss Blind{}'
                 }
@@ -64,8 +65,8 @@ return {
                 name = 'Adora Deck',
                 text = {
                     'Sacrifice cards instead of',
-                    'selling them to upgrade level',
-                    'of {C:attention}#1# poker hands{}'
+                    'selling them to upgrade',
+                    '{C:attention}#1# poker hands{} by {C:attention}1{} level'
                 }
             },
             b_bloons_brickell = {
@@ -79,14 +80,15 @@ return {
             b_bloons_etienne = {
                 name = 'Etienne Deck',
                 text = {
-                    '{C:attention}+#1#{} Booster Pack slot'
+                    '{C:attention}+#1#{} booster pack slot'
                 }
             },
             b_bloons_sauda = {
                 name = 'Sauda Deck',
                 text = {
                     'Start run with all',
-                    '{C:attention}poker hands{} leveled up'
+                    '{C:attention}poker hands{} upgraded',
+                    'by {C:attention}1{} level'
                 }
             },
             b_bloons_psi = {
@@ -100,9 +102,10 @@ return {
             b_bloons_geraldo = {
                 name = 'Geraldo Deck',
                 text = {
-                    'Start run with',
-                    '{C:attention,T:v_bloons_power_merchant}Power Merchant{} and',
-                    '{C:attention,T:v_crystal_ball}Crystal Ball{}'
+                    'Start run with the',
+                    '{C:power,T:v_bloons_power_merchant}Power Merchant{} voucher',
+                    "Other heroes' {C:power}powers{} may",
+                    'appear in the shop',
                 }
             },
             b_bloons_corvus = {
@@ -119,7 +122,7 @@ return {
                 text = {
                     'Toggle Rosalia\'s weapons',
                     '{C:attention}Laser{}: {X:mult,C:white}X#1#{} Mult after scoring',
-                    '{C:blue}Grenade{}: {C:attention}Retrigger{} first card'
+                    '{C:blue}Grenade{}: {C:attention}Retrigger{} first scoring card'
                 }
             },
             b_bloons_silas = {
@@ -357,9 +360,7 @@ return {
             c_bloons_camo_trap = {
                 name = 'Camo Trap',
                 text = {
-                    '{C:attention}Stuns #1#{}',
-                    'selected cards',
-                    'Gain {C:red}+#2#{} discards'
+                    'Gain {C:red}+#1#{} discards'
                 }
             },
             c_bloons_pontoon = {
@@ -393,12 +394,59 @@ return {
                     'an {C:dark_edition}Edition{} to your deck'
                 }
             },
+            c_bloons_storm_of_arrows = {
+                name = 'Storm of Arrows',
+                text = {
+                    '{C:green}#1# in #2#{} chance for',
+                    '{X:mult,C:white}X#3#{} Mult while in your',
+                    '{C:attention}consumable{} area',
+                    'Lasts {C:attention}#4#{} rounds',
+                    '{s:0.8,C:inactive}Quincy power{}'
+                }
+            },
+            c_bloons_firestorm = {
+                name = 'Firestorm',
+                text = {
+                    'Played cards give {X:mult,C:white}X#1#{} Mult',
+                    'when scored and are',
+                    'destroyed next hand',
+                    '{s:0.8,C:inactive}Gwendolin power{}'
+                }
+            },
             c_bloons_artillery_command = {
                 name = 'Artillery Command',
                 text = {
                     'Set {C:green}reroll{} cost',
                     'to {C:money}$#1#{} this shop',
                     '{s:0.8,C:inactive}Striker Jones power{}'
+                }
+            },
+            c_bloons_wall_of_trees = {
+                name = 'Wall of Trees',
+                text = {
+                    'Gain {C:money}$#1#{} sell value for',
+                    'every {C:attention}#2#%{} of chips scored',
+                    'above required chips',
+                    '{C:inactive}(Max capacity of {C:money}$#3#{C:inactive})',
+                    '{s:0.8,C:inactive}Obyn power{}'
+                }
+            },
+            c_bloons_moab_barrage = {
+                name = 'MOAB Barrage',
+                text = {
+                    'Each played card gives',
+                    '{C:mult}+#1#{} Mult when scored',
+                    '{C:inactive}({C:attention}#2#{C:inactive} remaining)',
+                    '{s:0.8,C:inactive}Churchill power{}'
+                }
+            },
+            c_bloons_siphon_funding = {
+                name = 'Siphon Funding',
+                text = {
+                    'Decrease rank of up to',
+                    '{C:attention}#1#{} selected cards by {C:attention}1{} and',
+                    'permanently give {C:money}$#2#{} when scored',
+                    '{s:0.8,C:inactive}Benjamin power{}'
                 }
             },
             c_bloons_moab_hex = {
@@ -410,13 +458,84 @@ return {
                     '{s:0.8,C:inactive}Ezili power{}'
                 }
             },
+            c_bloons_big_squeeze = {
+                name = 'Big Squeeze',
+                text = {
+                    'Gain {C:attention}+#1#{} hand size',
+                    'this round',
+                    '{s:0.8,C:inactive}Pat Fusty power{}'
+                }
+            },
+            c_bloons_blood_sacrifice = {
+                name = 'Blood Sacrifice',
+                text = {
+                    'Destroy {C:attention}#1#{} selected',
+                    'joker and upgrade all',
+                    '{C:attention}poker hands{} by {C:attention}1{} level',
+                    '{s:0.8,C:inactive}Adora power{}'
+                }
+            },
+            c_bloons_mega_mine = {
+                name = 'Mega Mine',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult next',
+                    'final hand of round',
+                    'May appear multiple times',
+                    '{s:0.8,C:inactive}Brickell power{}'
+                }
+            },
+            c_bloons_ucav = {
+                name = 'UCAV',
+                text = {
+                    'Add {C:attention}#1#{} booster packs',
+                    'to this shop',
+                    '{s:0.8,C:inactive}Etienne power{}'
+                }
+            },
+            c_bloons_sword_charge = {
+                name = 'Sword Charge',
+                text = {
+                    '{C:chips}+#1#{} Chips next hand',
+                    'Sweeps an extra time if',
+                    'held at end of round',
+                    '{s:0.8,C:inactive}Sauda power{}'
+                }
+            },
             c_bloons_psionic_scream = {
                 name = 'Psionic Scream',
                 text = {
                     'Destroy up to',
-                    '{C:attention}#1#{} selected cards',
-                    'and discard the rest',
+                    '{C:attention}#1#{} selected cards and',
+                    'discard the rest',
                     '{s:0.8,C:inactive}Psi power{}'
+                }
+            },
+            c_bloons_dark_ritual = {
+                name = 'Dark Ritual',
+                text = {
+                    'Retrigger all played',
+                    'cards next hand and',
+                    'gain {C:attention}#1#{} extra mana',
+                    'per card scored',
+                    '{s:0.8,C:inactive}Corvus power{}'
+                }
+            },
+            c_bloons_flight_boost = {
+                name = 'Flight Boost',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult',
+                    'Retrigger first scoring card',
+                    'Lasts {C:attention}#2#{} rounds',
+                    '{s:0.8,C:inactive}Rosalia power{}'
+                }
+            },
+            c_bloons_frozen_burial = {
+                name = 'Frozen Burial',
+                text = {
+                    '{C:attention}Freeze{} all cards held in hand',
+                    '{C:attention}Frozen{} cards permanently gain',
+                    '{C:chips}+#1#{} Hand Chips instead',
+                    '{s:0.8,C:inactive}Silas power{}'
                 }
             },
         },
@@ -557,7 +676,6 @@ return {
             },
             p_bloons_power_normal_1 = {
                 name = 'Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -566,7 +684,6 @@ return {
             },
             p_bloons_power_normal_2 = {
                 name = 'Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -575,7 +692,6 @@ return {
             },
             p_bloons_power_jumbo_1 = {
                 name = 'Jumbo Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -584,7 +700,6 @@ return {
             },
             p_bloons_power_mega_1 = {
                 name = 'Mega Power Pack',
-                group_name = 'Power Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:power}Power{} cards to add',
@@ -615,6 +730,9 @@ return {
         }
     },
     misc = {
+        dictionary = {
+            k_power_pack = 'Power Pack',
+        },
         labels = {
             bloons_regrow = 'Regrow',
             bloons_camo = 'Camo',

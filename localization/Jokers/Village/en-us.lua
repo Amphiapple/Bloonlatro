@@ -126,7 +126,8 @@ return {
 					'When {C:attention}Blind{} is selected,',
 					'destroy {C:attention}Joker{} to the right and',
 					'add its sell value to this {C:attention}Joker{}',
-					's",\n            ',
+					"Earn money equal to half this {C:attention}Joker{}'s",
+					'sell value at end of round',
 				}
 			},
 		}
