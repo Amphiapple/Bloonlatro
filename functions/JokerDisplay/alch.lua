@@ -15,10 +15,20 @@ JokerDisplay.Definitions["j_bloons_larger_potions"] = { --Larger Potions
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" }
     },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
     text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
         local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
         card.joker_display_values.count = active and 2 or 0
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'stronger_acid')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
 

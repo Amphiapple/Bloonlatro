@@ -1461,7 +1461,7 @@ SMODS.Consumable { --Dark Ritual
                     return true
                 end
             }))
-        elseif context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not G.GAME.corvus_mana then
+        elseif context.joker_main and card.ability.active and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not G.GAME.corvus_mana then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',

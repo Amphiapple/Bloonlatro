@@ -25,7 +25,6 @@ Balance Changes:
 
 - Ice Monkey chips every 3 > 2 hands
 - Cold Snap money $1 > $2
-- Ice Shards mult gain 1 > 2
 - Enhanced Freeze chips 40 > 80
 - Larger Radius every 3 > 2 hands
 
@@ -48,7 +47,7 @@ Balance Changes:
 
 - Pouakai reworked
 
-- Psychic Blast replaced with Camo Trap, gives +3 discards
+- Psychic Blast replaced with Camo Trap, gives +3 discards=
 
 - Jones deck reworked
 - Psi deck reworked
@@ -72,6 +71,7 @@ Fixes:
 - Primary Training and Primary Mentoring Joker Display should no longer crash when transforming cards
 - Monkey Town should no longer put its end of round cash on the wrong joker
 - Cold Sentry should no longer freeze debuffed cards
+- Bloon Trap and XXXL Trap should no longer show as Blueprint compatible
 - Crucible of Steel and Flame now correctly says +1 Meteor instead of +1 Stone
 - Ascended Shadow should remove its effect from cards correctly after being played
 - Mega Sentries explode quieter
