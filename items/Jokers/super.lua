@@ -106,6 +106,296 @@ SMODS.Joker { --Sun Avatar
     end
 }
 
+SMODS.Joker { --Sun Temple
+    key = 'sun_temple',
+    name = 'Sun Temple',
+	atlas = 'Joker',
+	pos = { x = 4, y = 15 },
+    rarity = 2,
+	cost = 10,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Super Monkey", category = "magic" },
+        extra = { Xmult = 0.1, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
+        button = { text = "SAC", colour = G.C.ATTENTION }
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+    end,
+    can_use = function(card)
+        local no_sacs = card.ability.extra.sacrificed
+        if no_sacs then return false end
+        local pos = nil
+        for i, joker in pairs(G.jokers.cards or {}) do
+            if joker == card then
+                pos = i
+                break
+            end
+        end
+        local has_valid_target = false
+        if pos then
+            if pos > 1 then
+                local joker = G.jokers.cards[pos - 1]
+                local tower = joker.ability and joker.ability.tower_info
+                local base = tower and tower.base
+                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
+                if valid_base then
+                    has_valid_target = true
+                end
+            elseif pos < #G.jokers.cards then
+                local joker = G.jokers.cards[pos + 1]
+                local tower = joker.ability and joker.ability.tower_info
+                local base = tower and tower.base
+                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
+                if valid_base then
+                    has_valid_target = true
+                end
+            end
+        end
+        return has_valid_target
+    end,
+    use = function(card)
+        local pos = nil
+        for i, joker in pairs(G.jokers.cards or {}) do
+            if joker == card then
+                pos = i
+                break
+            end
+        end
+        local deletable_jokers = {}
+        local sac_value = 0
+        if pos then
+            if pos > 1 then
+                local joker = G.jokers.cards[pos - 1]
+                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                        sac_value = sac_value + joker.base_cost
+                        deletable_jokers[#deletable_jokers + 1] = joker
+                    end
+                elseif not joker.ability.tower_info then
+                    sac_value = sac_value + joker.base_cost
+                    deletable_jokers[#deletable_jokers + 1] = joker
+                end
+            end
+            if pos < #G.jokers.cards then
+                local joker = G.jokers.cards[pos + 1]
+                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                        sac_value = sac_value + joker.base_cost
+                        deletable_jokers[#deletable_jokers + 1] = joker
+                    end
+                elseif not joker.ability.tower_info then
+                    sac_value = sac_value + joker.base_cost
+                    deletable_jokers[#deletable_jokers + 1] = joker
+                end
+            end
+        end
+        if sac_value > 0 then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult * sac_value
+        end
+        card.ability.extra.sacrificed = true
+        local _first_dissolve = nil
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.75,
+            func = function()
+                for k, v in pairs(deletable_jokers) do
+                    v:start_dissolve(nil, _first_dissolve)
+                end
+                return true
+            end
+        }))
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if card.ability.extra.current > 1 then
+                return {
+                    Xmult = card.ability.extra.current
+                }
+            end
+        end
+    end
+}
+
+local function vtsg_sac(card)
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            play_sound('tarot1')
+            return true 
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+            card:flip();
+            card:juice_up(0.3, 0.3);
+            return true 
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.2,
+        func = function()
+            card:set_ability(G.P_CENTERS['j_bloons_vengeful_true_sun_god'])
+            local deletable_jokers = {}
+            for _, joker in pairs(G.jokers.cards) do
+                if joker ~= card and joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                        local category = joker.ability.tower_info.category
+                        if category and card.ability.extra.sacrifices[category] then
+                            card.ability.extra.sacrifices[category] = math.min(card.ability.extra.sacrifices[category] + joker.base_cost, 9)
+                        end
+                        deletable_jokers[#deletable_jokers + 1] = joker
+                    end
+                end
+            end
+            local _first_dissolve = nil
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.75,
+                func = function()
+                    for k, v in pairs(deletable_jokers) do
+                        v:start_dissolve(nil, _first_dissolve)
+                    end
+                    return true
+                end
+            }))
+            recalc_all_costs()
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+            card:flip();
+            play_sound('tarot2', percent, 0.6);
+            card:juice_up(0.3, 0.3);
+            return true;
+        end
+    }))
+    delay(0.5)
+end
+
+SMODS.Joker { --True Sun God
+    key = 'true_sun_god',
+    name = 'True Sun God',
+	atlas = 'Joker',
+	pos = { x = 5, y = 15 },
+    rarity = 3,
+	cost = 20,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Super Monkey", category = "magic" },
+        extra = { Xmult = 0.2, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
+        button = { text = "SAC", colour = G.C.ATTENTION }
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+    end,
+    can_use = function(card)
+        local no_sacs = card.ability.extra.sacrificed
+        if no_sacs then return false end
+        local pos = nil
+        for i, joker in pairs(G.jokers.cards or {}) do
+            if joker == card then
+                pos = i
+                break
+            end
+        end
+        local has_valid_target = false
+        if pos then
+            if pos > 1 then
+                local joker = G.jokers.cards[pos - 1]
+                local tower = joker.ability and joker.ability.tower_info
+                local base = tower and tower.base
+                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
+                if valid_base then
+                    has_valid_target = true
+                end
+            elseif pos < #G.jokers.cards then
+                local joker = G.jokers.cards[pos + 1]
+                local tower = joker.ability and joker.ability.tower_info
+                local base = tower and tower.base
+                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
+                if valid_base then
+                    has_valid_target = true
+                end
+            end
+        end
+        return has_valid_target
+    end,
+    use = function(card)
+        local vtsg = #find_joker('The Anti-Bloon') > 0 and #find_joker('Legend of the Night') > 0
+        if vtsg then
+            vtsg_sac(card)
+            return true
+        end
+        local pos = nil
+        for i, joker in pairs(G.jokers.cards or {}) do
+            if joker == card then
+                pos = i
+                break
+            end
+        end
+        local deletable_jokers = {}
+        local sac_value = 0
+        if pos then
+            if pos > 1 then
+                local joker = G.jokers.cards[pos - 1]
+                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                        sac_value = sac_value + joker.base_cost
+                        deletable_jokers[#deletable_jokers + 1] = joker
+                    end
+                elseif not joker.ability.tower_info then
+                    sac_value = sac_value + joker.base_cost
+                    deletable_jokers[#deletable_jokers + 1] = joker
+                end
+            end
+            if pos < #G.jokers.cards then
+                local joker = G.jokers.cards[pos + 1]
+                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                        sac_value = sac_value + joker.base_cost
+                        deletable_jokers[#deletable_jokers + 1] = joker
+                    end
+                elseif not joker.ability.tower_info then
+                    sac_value = sac_value + joker.base_cost
+                    deletable_jokers[#deletable_jokers + 1] = joker
+                end
+            end
+        end
+        if sac_value > 0 then
+            card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult * sac_value
+        end
+        card.ability.extra.sacrificed = true
+        local _first_dissolve = nil
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.75,
+            func = function()
+                for k, v in pairs(deletable_jokers) do
+                    v:start_dissolve(nil, _first_dissolve)
+                end
+                return true
+            end
+        }))
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if card.ability.extra.current > 1 then
+                return {
+                    Xmult = card.ability.extra.current
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker { --Super Range
     key = 'super_range',
     name = 'Super Range',
@@ -443,20 +733,17 @@ SMODS.Joker { --Legend of the Night
                     return true
                 end
             }))
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
-                    func = (function()
-                        local card = create_card('c_black_hole', G.consumeables, nil, nil, nil, nil, 'c_black_hole', 'legend_of_the_night')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        G.GAME.consumeable_buffer = 0
-                        return true
-                    end)
-                }))
-            end
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                    local black_hole = create_card('c_black_hole', G.consumeables, nil, nil, nil, nil, 'c_black_hole', 'legend_of_the_night')
+                    black_hole:set_edition({negative = true}, true)
+                    black_hole:add_to_deck()
+                    G.consumeables:emplace(black_hole)
+                    return true
+                end)
+            }))
             return {
                 message = localize('k_saved_ex'),
                 saved = true,

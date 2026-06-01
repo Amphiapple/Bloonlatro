@@ -22,7 +22,7 @@ return {
             j_bloons_cold_snap = {
                 name = 'Cold Snap',
                 text = {
-                    '{C:attention}Frozen{} cards',
+                    '{C:attention}Frozen Cards{}',
                     'give {C:money}$#1#{} when',
                     'thawed out'
                 }
@@ -93,7 +93,7 @@ return {
                 name = 'Absolute Zero',
                 text = {
                     '{C:attention}+#1#{} hand size',
-                    '{C:attention}Frozen{} cards permanently',
+                    '{C:attention}Frozen Cards{} permanently',
                     'gain {X:mult,C:white}X#2#{} Mult',
                     'when thawed out',
                 }

@@ -12,7 +12,7 @@ return {
             j_bloons_glue_soak = {
                 name = 'Glue Soak',
                 text = {
-                    '{C:attention}Glued{} cards have',
+                    '{C:attention}Glued Cards{} have',
                     'a {C:green}#1# in #2#{} chance',
                     'to remain glued',
                 }
@@ -22,14 +22,14 @@ return {
                 text = {
                     'This {C:attention}Joker{} gains',
                     '{C:mult}+#1#{} Mult for every played',
-                    '{C:attention}Glued{} card that scores',
+                    '{C:attention}Glued Card{} that scores',
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 }
             },
             j_bloons_bloon_dissolver = {
                 name = 'Bloon Dissolver',
                 text = {
-                    '{C:attention}Glued{} cards',
+                    '{C:attention}Glued Cards{}',
                     'permanently gain {C:mult}+#1#{}',
                     'Mult when scored'
                 }
@@ -37,7 +37,7 @@ return {
             j_bloons_bloon_liquefier = {
                 name = 'Bloon Liquefier',
                 text = {
-                    '{C:attention}Glued{} cards',
+                    '{C:attention}Glued Cards{}',
                     'give {C:mult}+#1#{} Mult and',
                     'permanently gain {C:mult}+#2#{}',
                     'Mult when scored'
@@ -48,7 +48,7 @@ return {
                 text = {
                     'This {C:attention}Joker{} gains',
                     '{X:mult,C:white}X#1#{} Mult for every played',
-                    '{C:attention}Glued{} card that scores',
+                    '{C:attention}Glued Card{} that scores',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 }
             },
@@ -73,7 +73,7 @@ return {
                 text = {
                     '{C:attention}Glue{} all cards',
                     'in first discard',
-                    '{C:attention}Glued{} cards no longer',
+                    '{C:attention}Glued Cards{} no longer',
                     'lose money when discarded'
                 }
             },
@@ -82,7 +82,7 @@ return {
                 text = {
                     '{C:attention}Glue{} all cards',
                     'drawn in first hand',
-                    '{C:attention}Glued{} cards no longer',
+                    '{C:attention}Glued Cards{} no longer',
                     'lose money when discarded'
                 }
             },
@@ -90,7 +90,7 @@ return {
                 name = 'Glue Storm',
                 text = {
                     '{C:attention}Glue{} all discarded cards',
-                    '{C:attention}Glued{} cards no longer',
+                    '{C:attention}Glued Cards{} no longer',
                     'lose money when discarded'
                 }
             },
@@ -105,7 +105,7 @@ return {
             j_bloons_stronger_glue = {
                 name = 'Stronger Glue',
                 text = {
-                    '{C:attention}Glued{} cards give',
+                    '{C:attention}Glued Cards{} give',
                     '{C:mult}+#1#{} more Mult but lose',
                     '{C:money}$#2#{} when discarded'
                 }
@@ -123,7 +123,7 @@ return {
                 text = {
                     '{C:attention}Glue{} never wears off',
                     'Retrigger all played',
-                    '{C:attention}Glued{} cards'
+                    '{C:attention}Glued Cards{}'
                 }
             },
             j_bloons_super_glue = {
