@@ -193,9 +193,10 @@ return {
             bl_bloons_vortex = {
                 name = 'Vortex',
                 text = {
-                    'Cards are stunned',
-                    'when drawn to hand',
-                    '-#1# hand',
+                    '-#1# hands',
+                    '+#2# Hands and one random Joker disabled',
+                    'every #3# chips scored',
+                    'Cards are stunned when drawn to hand',
                 }
             },
             bl_bloons_dreadbloon = {
