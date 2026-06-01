@@ -52,6 +52,8 @@ Balance Changes:
 - Jones deck reworked
 - Psi deck reworked
 
+- Vortex boss reworked
+
 - Cost reduction minimum is now $0 instead of $1
 
 Fixes:
