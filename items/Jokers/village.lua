@@ -65,7 +65,7 @@ SMODS.Joker { --Primary Training
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Village", category = "support" },
-        extra = { Xmult = 1.2 } --Variables: Xmult = Xmult per primary joker
+        extra = { Xmult = 1.25 } --Variables: Xmult = Xmult per primary joker
     },
 
     loc_vars = function(self, info_queue, card)
@@ -96,7 +96,7 @@ SMODS.Joker { --Primary Mentoring
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Village", category = "support" },
-        extra = { Xmult = 1.1 } --Variables: Xmult = Xmult per primary joker
+        extra = { Xmult = 1.2 } --Variables: Xmult = Xmult per primary joker
     },
 
     loc_vars = function(self, info_queue, card)

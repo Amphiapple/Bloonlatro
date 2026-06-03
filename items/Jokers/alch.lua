@@ -423,11 +423,6 @@ SMODS.Joker { --Total Transformation
                     left.ability.perishable = nil
                     left:set_rental(nil)
 					left.pinned = nil
-                    -- Remove Bunco stickers
-                    left:set_scattering(nil)
-                    left:set_hindered(nil)
-                    left:set_reactive(nil)
-                    
                     copy_card(right, left, nil, nil, right.edition and right.edition.negative)
                     return true
                 end

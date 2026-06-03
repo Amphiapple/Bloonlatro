@@ -45,6 +45,9 @@ Balance Changes:
 
 - Tidal Chill 1 random card > 2 random cards
 
+- Primary Training Xmult 1.2 > 1.25
+- Primary Mentoring Xmult 1.1 > 1.2
+
 - Pouakai reworked
 
 - Psychic Blast replaced with Camo Trap, gives +3 discards=

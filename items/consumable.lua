@@ -993,7 +993,7 @@ SMODS.Consumable { --MOAB Hex
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not G.jokers.highlighted[1].edition
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not G.jokers.highlighted[1].edition and not G.jokers.highlighted[1].ability.eternal
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
