@@ -579,7 +579,11 @@ SMODS.Joker { --The Anti-Bloon
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            card.ability.extra.current = pseudorandom('the_anti_bloon') > 0.5 and 1 or -1
+            if card.ability.extra.current == 1 then
+                card.ability.extra.current = -1
+            else
+                card.ability.extra.current = 1
+            end
         end
         local other_joker = nil
         for k, v in ipairs(G.jokers.cards) do

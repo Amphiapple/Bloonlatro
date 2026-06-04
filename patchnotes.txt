@@ -37,6 +37,7 @@ Balance Changes:
 - Artillery Battery reworked
 
 - Sun Avatar Xmult 3 > 2
+- The Anti-Bloon coopy direction is no longer random, and changes every round
 
 - Bloon Sabotage and Grand Saboteur suit Hearts > Clubs
 
@@ -65,6 +66,7 @@ Fixes:
 - Frag Bombs Joker Display should work correctly
 - Snowstorm Joker Display should show the correct values
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
+- Spectre should work correctly with Blueprint effects
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
 - Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
