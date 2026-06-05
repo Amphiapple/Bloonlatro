@@ -239,29 +239,6 @@ local function vtsg_sac(card)
         delay = 0.2,
         func = function()
             card:set_ability(G.P_CENTERS['j_bloons_vengeful_true_sun_god'])
-            local deletable_jokers = {}
-            for _, joker in pairs(G.jokers.cards) do
-                if joker ~= card and joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
-                        local category = joker.ability.tower_info.category
-                        if category and card.ability.extra.sacrifices[category] then
-                            card.ability.extra.sacrifices[category] = math.min(card.ability.extra.sacrifices[category] + joker.base_cost, 9)
-                        end
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                end
-            end
-            local _first_dissolve = nil
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.75,
-                func = function()
-                    for k, v in pairs(deletable_jokers) do
-                        v:start_dissolve(nil, _first_dissolve)
-                    end
-                    return true
-                end
-            }))
             recalc_all_costs()
             return true
         end

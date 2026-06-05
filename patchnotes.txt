@@ -2,6 +2,8 @@ Added Jokers:
 - Even more Paragons!
 - All remaining Mortar Monkeys
 - All remaining Druids
+- Sun Temple and Ture Sun God have been added
+   - Try for a secret sacrifice on the True Sun God
 
 Other content:
 - Diamondback has been added as a Boss!
@@ -50,6 +52,8 @@ Balance Changes:
 - Primary Mentoring Xmult 1.1 > 1.2
 
 - Pouakai reworked
+
+- Vengeful True Sun God ???
 
 - Psychic Blast replaced with Camo Trap, gives +3 discards=
 

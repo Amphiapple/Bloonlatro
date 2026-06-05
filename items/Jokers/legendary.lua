@@ -734,6 +734,9 @@ SMODS.Joker { --Vengeful True Sun God
     rarity = 4,
 	cost = 20,
 	blueprint_compat = true,
+    in_pool = function(self, args)
+        return false
+    end,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
         --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
