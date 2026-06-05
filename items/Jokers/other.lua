@@ -633,7 +633,7 @@ SMODS.Joker { --Bloonprint
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            card.ability.extra.current = pseudorandom('bloonprint', 1, #G.jokers.cards)
+            card.ability.extra.current = pseudorandom('bloonprint'..G.GAME.round_resets.ante, 1, #G.jokers.cards)
         end
         return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
     end
@@ -687,7 +687,7 @@ SMODS.Joker { --Card Storm
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            card.ability.extra.current = pseudorandom('card_storm') > 0.5 and 1 or -1
+            card.ability.extra.current = pseudorandom('card_storm'..G.GAME.round_resets.ante) > 0.5 and 1 or -1
         end
         local other_joker = nil
         if card.ability.extra.current == 1 then

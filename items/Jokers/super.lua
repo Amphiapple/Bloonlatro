@@ -490,7 +490,7 @@ SMODS.Joker { --Tech Terror
                     pos = k
                 end
             end
-            local r = pseudorandom('tech_terror')
+            local r = pseudorandom('tech_terror'..G.GAME.round_resets.ante)
             if r < 0.5 then
                 card.ability.extra.copy = G.jokers.cards[pos + 1]
             else

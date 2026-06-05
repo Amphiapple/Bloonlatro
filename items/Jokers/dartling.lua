@@ -45,7 +45,7 @@ SMODS.Joker { --Dartling Gunner
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local temp_chips = pseudorandom('dartling_gunner', card.ability.extra.min, card.ability.extra.max)
+            local temp_chips = pseudorandom('dartling_gunner'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             return {
                 chips = temp_chips
             }
@@ -109,12 +109,12 @@ SMODS.Joker { --Focused Firing
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local r = pseudorandom('focused_firing')
+            local r = pseudorandom('focused_firing'..G.GAME.round_resets.ante)
             local temp_chips
             if r < 0.5 then
-                temp_chips = pseudorandom('focused_firing', card.ability.extra.q1, card.ability.extra.q3)
+                temp_chips = pseudorandom('focused_firing'..G.GAME.round_resets.ante, card.ability.extra.q1, card.ability.extra.q3)
             else
-                temp_chips = pseudorandom('focused_firing', card.ability.extra.min, card.ability.extra.max)
+                temp_chips = pseudorandom('focused_firing'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             end
             return {
                 chips = temp_chips
@@ -195,7 +195,7 @@ SMODS.Joker { --Laser Shock
             end
             local temp_mult = card.ability.extra.mult
             if has_face then
-                local rand_mult = pseudorandom('laser_shock', card.ability.extra.min, card.ability.extra.max)
+                local rand_mult = pseudorandom('laser_shock'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
                 temp_mult = temp_mult + rand_mult
                 card.ability.extra.mult = rand_mult
             else
@@ -274,7 +274,7 @@ SMODS.Joker { --Laser Cannon
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.other_card.debuff then
-            local rand_mult = pseudorandom('laser_cannon', card.ability.extra.min, card.ability.extra.max)
+            local rand_mult = pseudorandom('laser_cannon'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             if not context.blueprint then
                 card.ability.extra.saved = card.ability.extra.saved + rand_mult
             end
@@ -422,7 +422,7 @@ SMODS.Joker { --Advanced Targeting
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local temp_chips = pseudorandom('advanced_targeting', card.ability.extra.min, card.ability.extra.max)
+            local temp_chips = pseudorandom('advanced_targeting'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             return {
                 chips = temp_chips
             }
@@ -480,7 +480,7 @@ SMODS.Joker { --Faster Barrel Spin
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local temp_chips = pseudorandom('faster_barrel_spin', card.ability.extra.min, card.ability.extra.max)
+            local temp_chips = pseudorandom('faster_barrel_spin'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             return {
                 chips = temp_chips
             }
@@ -553,7 +553,7 @@ SMODS.Joker { --Hydra Rocket Pods
     calculate = function(self, card, context)
         if context.before and context.poker_hands and not context.blueprint then
             if next(context.poker_hands['Pair']) then
-                local temp_chips = pseudorandom('hydra_rocket_pods', card.ability.extra.min, card.ability.extra.max)
+                local temp_chips = pseudorandom('hydra_rocket_pods'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
                 card.ability.extra.current = card.ability.extra.current + temp_chips
             else
                 card.ability.extra.current = 0
@@ -646,7 +646,7 @@ SMODS.Joker { --Rocket Storm
     calculate = function(self, card, context)
         if context.before and context.poker_hands and not context.blueprint then
             if next(context.poker_hands['Pair']) then
-                local temp_Xmult = pseudorandom('rocket_storm', card.ability.extra.min, card.ability.extra.max) / 100.0
+                local temp_Xmult = pseudorandom('rocket_storm'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max) / 100.0
                 card.ability.extra.current = card.ability.extra.current + temp_Xmult
                 return {
                     message = localize('k_upgrade_ex'),
@@ -740,7 +740,7 @@ SMODS.Joker { --M.A.D
 
     calculate = function(self, card, context)
         if context.setting_blind and G.GAME.blind.boss and not card.getting_sliced and not context.blueprint then
-            local temp_Xmult = pseudorandom('mad', card.ability.extra.min, card.ability.extra.max) / 100.0
+            local temp_Xmult = pseudorandom('mad'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max) / 100.0
             card.ability.extra.current = card.ability.extra.current + temp_Xmult
             return {
                 message = localize('k_upgrade_ex'),
@@ -811,14 +811,14 @@ SMODS.Joker { --Faster Swivel
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local r = pseudorandom('faster_swivel')
+            local r = pseudorandom('faster_swivel'..G.GAME.round_resets.ante)
             local temp_chips
             if r < 0.25 then
-                temp_chips = pseudorandom('faster_swivel', card.ability.extra.min, card.ability.extra.q1)
+                temp_chips = pseudorandom('faster_swivel'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.q1)
             elseif r > 0.75 then
-                temp_chips = pseudorandom('faster_swivel', card.ability.extra.min, card.ability.extra.q3)
+                temp_chips = pseudorandom('faster_swivel'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.q3)
             else
-                temp_chips = pseudorandom('faster_swivel', card.ability.extra.min, card.ability.extra.max)
+                temp_chips = pseudorandom('faster_swivel'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             end
             return {
                 chips = temp_chips
@@ -880,7 +880,7 @@ SMODS.Joker { --Powerful Darts
 
     calculate = function(self, card, context)
         if context.joker_main and SMODS.pseudorandom_probability(card, 'powerful_darts', card.ability.extra.num, card.ability.extra.denom, 'powerful_darts') then
-            local temp_chips = pseudorandom('powerful_darts', card.ability.extra.min, card.ability.extra.max)
+            local temp_chips = pseudorandom('powerful_darts'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             return {
                 chips = temp_chips
             }
@@ -941,7 +941,7 @@ SMODS.Joker { --Buckshot
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local temp_Xmult = pseudorandom('buckshot', card.ability.extra.min, card.ability.extra.max) / 10.0
+            local temp_Xmult = pseudorandom('buckshot'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max) / 10.0
             return {
                 x_mult = temp_Xmult
             }
@@ -1041,7 +1041,7 @@ SMODS.Joker { --Bloon Area Denial System
         elseif context.individual and context.cardarea == G.play and not context.other_card.debuff then
             for k, v in pairs(card.ability.extra.cards) do
                 if context.other_card == v then
-                    local temp_Xmult = pseudorandom('bloon_area_denial_system', card.ability.extra.min, card.ability.extra.max) / 100
+                    local temp_Xmult = pseudorandom('bloon_area_denial_system'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max) / 100
                     return {
                         x_mult = temp_Xmult
                     }
@@ -1154,7 +1154,7 @@ SMODS.Joker { --Bloon Exclusion Zone
         elseif context.individual and (context.cardarea == G.play or context.cardarea == G.hand) and not context.other_card.debuff and not context.end_of_round then
             for k, v in pairs(card.ability.extra.cards) do
                 if context.other_card == v then
-                    local temp_Xmult = pseudorandom('bloon_exclusion_zone', card.ability.extra.min, card.ability.extra.max) / 100
+                    local temp_Xmult = pseudorandom('bloon_exclusion_zone'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max) / 100
                     return {
                         x_mult = temp_Xmult
                     }
