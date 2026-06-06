@@ -274,7 +274,7 @@ SMODS.Joker { --Faster Throwing
         if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[#G.hand.cards] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                repetitions = card.ability.extra.retrigger,
             }
         end
     end

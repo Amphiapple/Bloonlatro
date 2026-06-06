@@ -453,7 +453,7 @@ SMODS.Joker { --Robo Monkey
                 end
             end
             if next(eligible_jokers) then
-                card.ability.extra.copy = pseudorandom_element(eligible_jokers, 'robo_monkey'..G.GAME.round_resets.ante)
+                card.ability.extra.copy = pseudorandom_element(eligible_jokers, 'robo_monkey')
             end
         elseif context.after and not context.blueprint then
             G.E_MANAGER:add_event(Event({

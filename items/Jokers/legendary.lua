@@ -123,7 +123,7 @@ SMODS.Joker { --Crucible of Steel and Flame
     end,
     add_to_deck = function(self, card, from_debuff)
         for i = 1, card.ability.extra.number do
-            local front = pseudorandom_element(G.P_CARDS, pseudoseed('crucible_of_steel_and_flame'))
+            local front = pseudorandom_element(G.P_CARDS, 'crucible_of_steel_and_flame')
             local meteor = SMODS.add_card({
                 set = 'Playing Card',
                 front = front,

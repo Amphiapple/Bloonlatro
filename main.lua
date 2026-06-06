@@ -33,7 +33,6 @@ local functions = {
     'joker_buttons',
 
     --Crossmod files
-    'bunco',
     'talisman',
 
     --Main menu
