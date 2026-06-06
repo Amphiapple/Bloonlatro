@@ -442,7 +442,7 @@ SMODS.Joker { --Monkeyopolis
 
     calc_dollar_bonus = function(self, card)
         if card.sell_cost > 0 then
-            return math.ceil(card.sell_cost / 2)
+            return math.floor(card.sell_cost / 2)
         end
     end,
     calculate = function(self, card, context)

@@ -50,6 +50,7 @@ Balance Changes:
 
 - Primary Training Xmult 1.2 > 1.25
 - Primary Mentoring Xmult 1.1 > 1.2
+- Monkeyopolis end of round cash rounds down instead of up
 
 - Pouakai reworked
 
