@@ -41,9 +41,9 @@ SMODS.Consumable { --Super Monkey Storm
         return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
-        local score = G.GAME.blind.chips * card.ability.percent / 100.0
-        if score > to_big(card.ability.max) then
-            score = to_big(card.ability.max)
+        local score = 20000
+        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
+            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({

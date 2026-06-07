@@ -9,7 +9,9 @@ target = "functions/common_events.lua"
 pattern = "G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1"
 position = 'after'
 payload = '''
-if G.GAME.modifiers.chimps_stake then
+if G.GAME.modifiers.sapper then
+    G.GAME.bloons_blind_modifier = "bloons_fortified"
+elseif G.GAME.modifiers.chimps_stake then
     local modifier_pool = {}
 
     for _, modifier in pairs(Bloonlatro.blind_modifiers) do

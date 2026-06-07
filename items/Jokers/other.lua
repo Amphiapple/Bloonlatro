@@ -317,9 +317,9 @@ SMODS.Joker { --Champion Sentry
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.selling_self then
-            local temp_score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-            if temp_score > to_big(card.ability.extra.max) then
-                temp_score = to_big(card.ability.extra.max)
+            local score = card.ability.extra.max
+            if G.GAME.blind.key ~= 'bl_mp_nemesis' then
+                score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
             end
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
@@ -335,7 +335,7 @@ SMODS.Joker { --Champion Sentry
                 end,
             }), "other")
             return {
-                score = temp_score,
+                score = score,
                 sound = 'bloons_sentryexplode',
                 volume = 0.5
             }
@@ -386,9 +386,9 @@ SMODS.Joker { --Mega Green Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-        if score > to_big(card.ability.extra.max) then
-            score = to_big(card.ability.extra.max)
+        local score = card.ability.extra.max
+        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
+            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -467,9 +467,9 @@ SMODS.Joker { --Mega Red Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-        if score > to_big(card.ability.extra.max) then
-            score = to_big(card.ability.extra.max)
+        local score = card.ability.extra.max
+        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
+            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -547,9 +547,9 @@ SMODS.Joker { --Mega Blue Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-        if score > to_big(card.ability.extra.max) then
-            score = to_big(card.ability.extra.max)
+        local score = card.ability.extra.max
+        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
+            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({

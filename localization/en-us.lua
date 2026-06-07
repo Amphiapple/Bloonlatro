@@ -743,50 +743,32 @@ return {
             ch_c_gold_stake = {
                 "Challenge is played on {C:gold}Gold Stake{}"
             },
-            ch_c_purple_stake = {
-                "Challenge is played on {C:purple}Purple Stake{}"
-            },
             ch_c_difficulty_warning = {
                 "Warning: This challenge is {C:attention}RIDICULOUSLY {C:red}DIFFICULT{}"
             },
-            ch_c_glorious_gold = {
-                "All vanilla {C:attention}Jokers{} are banned"
-            },
-            ch_c_gorgon_storm = {
+            ch_c_stubborn_strategy = {
                 "Lose run when {C:attention}Rocket Storm{} resets"
             },
             ch_c_crash_of_the_titans = {
                 "Must play {C:attention}5{} scoring cards"
             },
-            ch_c_abracadabmonkey = {
-                "Entire deck must be enhanced at the end of ante {C:attention}8{}"
-            },
-            ch_c_disable_gold_card_money = {
-                "{C:gold}Gold{} cards no longer give money"
-            },
-            ch_c_no_shop_tarots = {
-                "{C:tarot}Tarot{} cards no longer appear in the {C:attention}shop{}"
+            ch_c_no_skipping_blinds = {
+                "Skipping {C:attention}Blinds{} is disabled"
             },
             ch_c_no_shop_slots = {
                 "Start with {C:attention}-2{} card slots available in the shop"
             },
-            ch_c_no_skipping_blinds = {
-                "Skipping Blinds is disabled"
+            ch_c_half_blind_size = {
+                "Half base {C:attention}Blind{} size"
             },
-            ch_c_sticky_situation = {
-                "Scored cards are glued after they've been scored"
+            ch_c_half_cash = {
+                "Halve money when entering shop"
             },
-            ch_c_glue_money_loss = {
-                "Lose {C:money}$5{} when glued cards are discarded"
+            ch_c_student_loans = {
+                "Must be {C:red}-$4000{} in debt at the end of ante {C:attention}8{}"
             },
-            ch_c_shop_spectrals = {
-                "{C:spectral}Spectral{} cards can appear in the {C:attention}shop{}"
-            },
-            ch_c_condensed_no_extra_money = {
-                "Gain no money from {C:attention}Blinds{}, {C:attention}Interest{} or extra {C:blue}Hands{}"
-            },
-            ch_c_scored_cards_become_gold = {
-                "Scored cards are turned into {C:gold}Gold{} cards"
+            ch_c_sapper = {
+                "All {C:attention}Boss Blinds{} are {C:attention,T:bloons_fortified}Fortified{}"
             },
             ch_c_inflated = {
                 "After round begins, draw no cards"
