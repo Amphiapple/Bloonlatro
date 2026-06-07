@@ -39,8 +39,8 @@ G.STAGE == G.STAGES.MAIN_MENU and {
 } or 
 {
 	label = "Bosses",
-	tab_definition_function = G.UIDEF.boss_challenge,
-	tab_definition_function_args = from_game_over,
+	tab_definition_function = G.FUNCS.create_bloonlatro_boss_ui,
+	tab_definition_function_args = "run_tab", from_game_over,
 },
 '''
 match_indent = true

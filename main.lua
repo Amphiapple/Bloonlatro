@@ -31,13 +31,11 @@ local functions = {
     'tutorial',
     'badges',
     'joker_buttons',
+    'main_menu',
+    'boss',
 
     --Crossmod files
-    'bunco',
     'talisman',
-
-    --Main menu
-    'main_menu',
 }
 
 for k, v in ipairs(functions) do
