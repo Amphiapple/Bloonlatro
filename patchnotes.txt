@@ -13,6 +13,7 @@ Other content:
 General Changes:
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
 - Reworked Boss Challenges to be a separate menu
+- Improvements to compatibility with Balatro Multiplayer
 
 Balance Changes:
 - Triple Shot cost 5 > 4
