@@ -770,6 +770,9 @@ return {
             ch_c_sapper = {
                 "All {C:attention}Boss Blinds{} are {C:attention,T:bloons_fortified}Fortified{}"
             },
+            ch_c_nah_id_win = {
+                "Must lose every {C:attention}Small Blind{} and {C:attention}Big Blind{}"
+            },
             ch_c_inflated = {
                 "After round begins, draw no cards"
             },

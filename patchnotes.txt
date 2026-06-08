@@ -8,6 +8,7 @@ Added Jokers:
 Other content:
 - Diamondback has been added as a Boss!
 - Some unique consumables that only appear when playing a specific deck
+- Even more challenges!
 
 General Changes:
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.

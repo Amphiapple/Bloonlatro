@@ -23,6 +23,13 @@ local banned_hand_cards = {
     {id = 'c_bloons_time_stop'}
 }
 
+local eternal_bypass_cards = {
+    {id = 'j_bloons_sun_temple'},
+    {id = 'j_bloons_true_sun_god'},
+    {id = 'j_bloons_total_transformation'},
+    {id = 'j_bloons_cleansing_foam'},
+}
+
 local davids_vs_goliath_tags = {
     {id = 'tag_rare'},
     {id = 'tag_uncommon'},
@@ -85,16 +92,9 @@ for _, joker in ipairs(banned_hand_cards) do
     table.insert(crash_of_the_titans_cards, joker)
 end
 
-local eternal_bypass_cards = {
-    {id = 'j_bloons_sun_temple'},
-    {id = 'j_bloons_true_sun_god'},
-    {id = 'j_bloons_total_transformation'},
-    {id = 'j_bloons_cleansing_foam'},
-}
+local joshs_constant_cards = banned_hand_cards
 
-local joshs_constant_cards = eternal_bypass_cards
-
-for _, joker in ipairs(banned_hand_cards) do
+for _, joker in ipairs(eternal_bypass_cards) do
     table.insert(joshs_constant_cards, joker)
 end
 
@@ -429,7 +429,6 @@ SMODS.Challenge {
     },
 }
 
---unfinished
 SMODS.Challenge {
     key = 'nah_id_win',
     loc_txt = {
@@ -437,15 +436,34 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
+            {id = 'gold_stake'},
             {id = 'nah_id_win'},
-            {id = 'all_eternal'}
+            {id = 'no_skipping_blinds'},
         }
     },
     restrictions = {
+        banned_cards = eternal_bypass_cards,
+        banned_tags = {
+            {id = 'tag_bloons_cleansing'},
+        },
+    },
+    jokers = {
+        {id = 'j_bloons_legend_of_the_night', eternal = true}
     },
     deck = {
         type = 'Challenge Deck',
     },
+
+    calculate = function(self, context)
+        if context.end_of_round and not context.individual and not context.repetition then
+            if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and not context.beat_boss then
+                G.STATE = G.STATES.GAME_OVER
+                G:save_settings()
+                G.FILE_HANDLER.force = true
+                G.STATE_COMPLETE = false
+            end
+        end
+    end
 }
 
 SMODS.Challenge {

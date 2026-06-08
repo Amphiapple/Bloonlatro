@@ -41,9 +41,10 @@ SMODS.Consumable { --Super Monkey Storm
         return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
-        local score = 20000
-        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
-            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
+        local score = math.min(card.ability.max, G.GAME.blind.chips * card.ability.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = card.ability.max
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -64,8 +65,8 @@ SMODS.Consumable { --Super Monkey Storm
                 return true
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -77,9 +78,8 @@ SMODS.Consumable { --Super Monkey Storm
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end
 }
 

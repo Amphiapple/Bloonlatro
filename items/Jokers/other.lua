@@ -317,23 +317,26 @@ SMODS.Joker { --Champion Sentry
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.selling_self then
-            local score = card.ability.extra.max
-            if G.GAME.blind.key ~= 'bl_mp_nemesis' then
-                score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
+            local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+            local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+            if mp then
+                score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
             end
-            G.E_MANAGER:add_event(Event({
-                trigger = "after",
-                func = function()
-                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
-                        G.GAME.current_round.semicolon = true
-                        G.STATE = G.STATES.HAND_PLAYED
-                        G.STATE_COMPLETE = true
-                        end_round()
-                        return true
-                    end
-                    return false
-                end,
-            }), "other")
+            if not mp then
+                G.E_MANAGER:add_event(Event({
+                    trigger = "immediate",
+                    func = function()
+                        if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                            G.GAME.current_round.semicolon = true
+                            G.STATE = G.STATES.HAND_PLAYED
+                            G.STATE_COMPLETE = true
+                            end_round()
+                            return true
+                        end
+                        return false
+                    end,
+                }), "other")
+            end
             return {
                 score = score,
                 sound = 'bloons_sentryexplode',
@@ -386,9 +389,10 @@ SMODS.Joker { --Mega Green Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = card.ability.extra.max
-        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
-            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -409,8 +413,8 @@ SMODS.Joker { --Mega Green Sentry
                 return math.floor(t)
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -422,9 +426,8 @@ SMODS.Joker { --Mega Green Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
@@ -467,9 +470,10 @@ SMODS.Joker { --Mega Red Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = card.ability.extra.max
-        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
-            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -490,8 +494,8 @@ SMODS.Joker { --Mega Red Sentry
                 return math.floor(t)
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -503,9 +507,8 @@ SMODS.Joker { --Mega Red Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
@@ -547,9 +550,10 @@ SMODS.Joker { --Mega Blue Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = card.ability.extra.max
-        if G.GAME.blind.key ~= 'bl_mp_nemesis' then
-            score = math.min(score, G.GAME.blind.chips * card.ability.percent / 100.0)
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -570,8 +574,8 @@ SMODS.Joker { --Mega Blue Sentry
                 return math.floor(t)
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -583,9 +587,8 @@ SMODS.Joker { --Mega Blue Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.blind.boss then
