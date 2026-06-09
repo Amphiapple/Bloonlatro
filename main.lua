@@ -34,6 +34,7 @@ local functions = {
 
     --Crossmod files
     'talisman',
+    'multiplayer',
 
     --Main menu
     'main_menu',
