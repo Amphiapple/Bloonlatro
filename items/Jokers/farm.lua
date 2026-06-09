@@ -300,7 +300,7 @@ SMODS.Joker { --Monkey Bank
                     local card = create_card('j_bloons_monkey_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_monkey_bank', 'monkey_bank')
                     card.ability.extra_value = card.ability.extra_value - card.sell_cost
                     card:set_cost()
-                    card:add_to_deck()
+                    card:add_to_deck() 
                     G.jokers:emplace(card)
                     card:start_materialize()
                     return true
@@ -335,10 +335,21 @@ SMODS.Joker { --IMF Loan
     end,
     calculate = function(self, card, context)
         if context.setting_blind and G.GAME.dollars < to_big(0) and not card.getting_sliced and not context.blueprint then
-            card.ability.extra_value = card.ability.extra_value + G.GAME.dollars
+            card.ability.extra_value = card.ability.extra_value + G.GAME.dollars + G.GAME.dollar_buffer
             card:set_cost()
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end
+            }))
             return {
-                dollars = -G.GAME.dollars,
+                dollars = -(G.GAME.dollars + G.GAME.dollar_buffer),
+                func = function()
+                    G.GAME.dollar_buffer = G.GAME.dollar_buffer - G.GAME.dollars
+                    return true
+                end,
                 colour = G.C.MONEY
             }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then

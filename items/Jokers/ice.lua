@@ -67,7 +67,7 @@ SMODS.Joker { --Permafrost
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { chips = 20 } --Variables: money = dollars, chips = +chips
+        extra = { chips = 20 } --Variables: chips = +chips
     },
 
     loc_vars = function(self, info_queue, card)

@@ -130,7 +130,7 @@ return {
                 name = 'Super Glue',
                 text = {
                     '{C:attention}Glue{} never wears off,',
-                    'give {X:mult,C:white}X#1#{} Mult when scored,',
+                    'gives {X:mult,C:white}X#1#{} Mult when scored,',
                     'and loses {C:money}$#2#{} when discarded'
                 }
             },

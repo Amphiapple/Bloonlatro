@@ -77,7 +77,7 @@ return {
                 text = {
                     'Go up to {C:red}-$#1#{} in debt',
                     'When {C:attention}Blind{} is selected,',
-                    'subtract debt from sell value',
+                    'transfer debt to sell value',
                     'Gains {C:money}$#2#{} of {C:attention}sell value{}',
                     'at end of round',
                 }

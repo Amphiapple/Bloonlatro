@@ -324,7 +324,7 @@ SMODS.Joker { --True Sun God
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
                 if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
                         sac_value = sac_value + joker.base_cost
                         deletable_jokers[#deletable_jokers + 1] = joker
                     end
@@ -336,7 +336,7 @@ SMODS.Joker { --True Sun God
             if pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
                 if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
                         sac_value = sac_value + joker.base_cost
                         deletable_jokers[#deletable_jokers + 1] = joker
                     end

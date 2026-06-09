@@ -647,7 +647,7 @@ SMODS.Consumable { --Storm of Arrows
         return { vars = { n, d, card.ability.Xmult, card.ability.current } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and card.ability.active then
+        if context.joker_main then
             if SMODS.pseudorandom_probability(card, 'storm_of_arrows', card.ability.num, card.ability.denom, 'storm_of_arrows') then
                 return {
                     Xmult = card.ability.Xmult

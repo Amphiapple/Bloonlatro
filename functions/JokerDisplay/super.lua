@@ -63,7 +63,7 @@ JokerDisplay.Definitions["j_bloons_sun_temple"] = { --Sun Temple
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "currnet", retrigger_type = "exp" }
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
             }
         }
     },

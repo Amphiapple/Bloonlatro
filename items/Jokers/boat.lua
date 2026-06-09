@@ -15,7 +15,7 @@ SMODS.Joker { --Monkey Buccaneer
         return { vars = { card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.before then
             return {
                 dollars = card.ability.extra.money,
                 colour = G.C.MONEY
@@ -42,7 +42,7 @@ SMODS.Joker { --Faster Shooting
         return { vars = { n, d, card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
+        if context.before and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
             return {
                 dollars = card.ability.extra.money,
                 colour = G.C.MONEY
