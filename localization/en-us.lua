@@ -178,7 +178,8 @@ return {
                     'Fills deck with random',
                     'cards until deck size',
                     'reaches #1# cards',
-                }
+                },
+                title = 'Bloonarius the Inflator',
             },
             bl_bloons_lych = {
                 name = 'Lych',
@@ -188,7 +189,8 @@ return {
                     'played and held in hand cards',
                     'Heals back #2#',
                     '#3# enhancement removed',
-                }
+                },
+                title = 'Gravelord Lych',
             },
             bl_bloons_vortex = {
                 name = 'Vortex',
@@ -196,7 +198,8 @@ return {
                     'Cards are stunned',
                     'when drawn to hand',
                     '-#1# hand',
-                }
+                },
+                title = 'Vortex Master of Air',
             },
             bl_bloons_dreadbloon = {
                 name = 'Dreadbloon',
@@ -206,7 +209,8 @@ return {
                     'Debuffs Jokers by rarity',
                     'Debuffed rarity increases',
                     'after each hand played',
-                }
+                },
+                title = 'Dreadbloon the Armored Behemoth',
             },
             bl_bloons_phayze = {
                 name = 'Phayze',
@@ -215,7 +219,8 @@ return {
                     'position when a hand is played',
                     'Debuffs all Jokers and cards',
                     'without an edition.',
-                }
+                },
+                title = 'The Reality Warper Phayze',
             },
             bl_bloons_blastapopoulos = {
                 name = 'Blastapopoulos',
@@ -225,7 +230,8 @@ return {
                     'Played scoring cards increase heat by #2#',
                     'Scoring Meteor cards increase heat by #3#',
                     'Held Frozen cards decrease heat by #4#',
-                }
+                },
+                title = 'Blastapopoulos Demon of the Core',
             },
             bl_bloons_diamondback_head = {
                 name = 'Diamondback Head',
@@ -233,7 +239,8 @@ return {
                     'All face cards are debuffed',
                     'X1 score for each undefeated',
                     'Diamondback blind',
-                }
+                },
+                title = 'Diamondback the Village Devourer',
             },
             bl_bloons_diamondback_body = {
                 name = 'Diamondback Body',
@@ -242,7 +249,7 @@ return {
                     'each hand played',
                     'X1 score for each undefeated',
                     'Diamondback blind',
-                }
+                },
             },
             bl_bloons_diamondback_tail = {
                 name = 'Diamondback Tail',

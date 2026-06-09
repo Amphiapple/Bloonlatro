@@ -192,7 +192,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
     bloonlatro_boss = {
-        title = 'Bloonarius the Inflator',
         index = 1,
     },
 
@@ -230,7 +229,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("BA58BD"),
     bloonlatro_boss = {
-        title = 'Gravelord Lych',
         index = 2
     },
 
@@ -334,7 +332,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("63E0FF"),
     bloonlatro_boss = {
-        title = 'Vortex Master of Air',
         index = 3,
         challenge_params = {
             win_ante = 6
@@ -385,7 +382,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("FFDC3F"),
     bloonlatro_boss = {
-        title = 'Dreadbloon the Armored Behemoth',
         index = 4,
         challenge_params = {
             banned_ids = {
@@ -450,7 +446,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("000000"),
     bloonlatro_boss = {
-        title = 'The Reality Warper Phayze',
         index = 5,
         challenge_params = {
             vouchers = { 'v_hone', 'v_glow_up' }
@@ -488,7 +483,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("FF862E"),
     bloonlatro_boss = {
-        title = 'Blastapopoulos Demon of the Core',
         index = 6,
     },
     loc_vars = function(self)
@@ -547,7 +541,6 @@ SMODS.Blind {
     boss_colour = HEX("D8AF48"),
     defeated = false,
     bloonlatro_boss = {
-        title = 'Diamondback the Village Devourer',
         index = 7,
         parts = {
             main = "diamondback",

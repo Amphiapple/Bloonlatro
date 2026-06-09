@@ -138,70 +138,6 @@ function create_bloonlatro_boss_card(blind)
     return card
 end
 
-local function build_cards_container(segments)
-    local card_nodes = {}
-
-    for _, b in ipairs(segments or {}) do
-        card_nodes[#card_nodes + 1] = {
-            n = G.UIT.O,
-            config = {
-                object = create_bloonlatro_boss_card(b)
-            }
-        }
-    end
-
-    return {
-        n = G.UIT.R,
-        config = {
-            id = "bloonlatro_boss_cards_container",
-            align = "cm",
-            padding = 0.3,
-            minw = 10
-        },
-        nodes = card_nodes
-    }
-end
-
-local function build_view()
-    local selected, segments = ensure_selected_boss()
-
-    if not selected then
-        return nil
-    end
-
-    return {
-        n = G.UIT.R,
-        config = {
-            align = "cm",
-            padding = 0.4,
-            minw = 12,
-        },
-        nodes = {
-            {
-                n = G.UIT.R,
-                config = {
-                    align = "cm",
-                    padding = 0.2
-                },
-                nodes = {
-                    {
-                        n = G.UIT.T,
-                        config = {
-                            id = "bloonlatro_boss_name",
-                            text = selected.bloonlatro_boss.title,
-                            scale = 0.9,
-                            colour = selected.boss_colour or G.C.WHITE,
-                            shadow = true,
-                            align = "cm"
-                        }
-                    }
-                }
-            },
-            build_cards_container(segments)
-        }
-    }
-end
-
 local function build_list()
     local blinds = get_bloonlatro_bosses()
     local filtered_blinds = {}
@@ -218,15 +154,15 @@ local function build_list()
         n = G.UIT.R,
         config = {
             align = "cm",
-            padding = 0.1
+            padding = 0.03
         },
         nodes = {}
     }
 
     for _, b in ipairs(filtered_blinds) do
         local card = create_sprite_card({
-            w = 1,
-            h = 1,
+            w = 1.2,
+            h = 1.2,
             atlas = G.ANIMATION_ATLAS[b.atlas],
             pos = { x = 0, y = b.pos.y },
             no_ui = true,
@@ -247,6 +183,51 @@ local function build_list()
     end
 
     return row
+end
+
+local function build_name()
+    local selected = ensure_selected_boss()
+
+    if not selected then
+        return nil
+    end
+
+    return {
+        n = G.UIT.R,
+        config = {
+            align = "cm",
+            padding = 0.02,
+            minw = 12,
+        },
+        nodes = {
+            {
+                n = G.UIT.C,
+                config = {
+                    id = "bloonlatro_boss_name_outline",
+                    align = "cm",
+                    padding = 0.15,
+                    r = 0.08,
+                    colour = G.C.GREY,
+                    outline = 1.5,
+                    outline_colour = selected.boss_colour or G.C.GREY,
+                    minh = 0.75,
+                    minw = 12,
+                },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            id = "bloonlatro_boss_name_text",
+                            text = localize({ type = 'bloonlatro_title', set = 'Blind', key = selected.key }),
+                            scale = 0.9,
+                            colour = G.C.WHITE,
+                            align = "cm",
+                        }
+                    }
+                }
+            }
+        }
+    }
 end
 
 G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
@@ -276,7 +257,7 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                 padding = 0.8,
                 r = 0.15,
                 colour = G.C.BLACK,
-                minw = 14,
+                minw = 16,
                 minh = 8,
                 maxw = 16,
                 border = 0.08,
@@ -287,11 +268,12 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                     n = G.UIT.C,
                     config = {
                         align = "cm",
-                        padding = 0.4,
-                        minw = 12
+                        padding = 0.2,
+                        minw = 14
                     },
                     nodes = {
-                        build_view(),
+                        build_list(),
+                        build_name(),
                         {
                             n = G.UIT.R,
                             config = {
@@ -308,7 +290,6 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                                 })
                             }
                         },
-                        build_list()
                     }
                 }
             }
@@ -369,35 +350,18 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
         return
     end
 
-    local name_e = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_name")
+    local name_e = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_name_text")
 
     if name_e then
-        name_e.config.text = selected.bloonlatro_boss.title
-        name_e.config.colour = selected.boss_colour or G.C.WHITE
-        name_e:update_text()
+        name_e.config.text = localize({ type = 'bloonlatro_title', set = 'Blind', key = selected.key })
     end
 
-    local cards_container =
-        G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_cards_container")
-
-    if cards_container then
-        for i = #cards_container.children, 1, -1 do
-            cards_container.children[i]:remove()
-            cards_container.children[i] = nil
-        end
-
-        for _, b in ipairs(segments or {}) do
-            G.OVERLAY_MENU:add_child({
-                n = G.UIT.O,
-                config = {
-                    object = create_bloonlatro_boss_card(b),
-                    align = "cm"
-                }
-            }, cards_container)
-        end
-
-        G.OVERLAY_MENU:recalculate()
+    local outline_e = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_name_outline")
+    if outline_e then
+        outline_e.config.outline_colour = selected.boss_colour or G.C.GREY
     end
+
+    G.OVERLAY_MENU:recalculate()
 end
 
 -------------------------------------------------------
