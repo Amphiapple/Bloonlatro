@@ -37,7 +37,15 @@ function Game:start_run(args)
                 end
             end
         end
-        if MP.LOBBY.setup.creation_gamemode == 'gamemode_mp_attrition' or MP.LOBBY.setup.creation_gamemode == 'gamemode_mp_showdown' then
+        if (
+            SMODS.find_mod("Multiplayer")
+            and MP and MP.LOBBY
+            and (MP.LOBBY.type == "attrition" or MP.LOBBY.type == "showdown")
+        ) or (
+            SMODS.find_mod("MultiplayerExperimental")
+            and MP and MP.LOBBY and MP.LOBBY.setup
+            and (MP.LOBBY.setup.creation_gamemode == "gamemode_mp_attrition" or MP.LOBBY.setup.creation_gamemode == "gamemode_mp_showdown")
+        ) then
             for _, v in ipairs(multiplayer_versus_bans) do
                 G.GAME.banned_keys[v.id] = true
                 if v.ids then
