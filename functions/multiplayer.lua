@@ -4,18 +4,23 @@ local multiplayer_versus_bans = {}
 if next(SMODS.find_mod('Multiplayer')) or next(SMODS.find_mod('MultiplayerExperimental')) then
     sendDebugMessage("Multiplayer detected", "BLOONLATRO")
     multiplayer_bans = {
-        {id = "j_bloons_bomb_blitz"},
-        {id = "j_bloons_monkey_pirates"},
-        {id = "j_bloons_pirate_lord"},
-        {id = "j_bloons_legend_of_the_night"},
-        {id = "j_bloons_grand_saboteur"},
-        {id = "tag_bloons_sabotage"},
-        {id = "v_bloons_big_bloon_sabotage"},
-        {id = "v_bloons_big_bloon_blueprints"},
+        {id = 'j_bloons_bomb_blitz'},
+        {id = 'j_bloons_monkey_pirates'},
+        {id = 'j_bloons_pirate_lord'},
+        {id = 'j_bloons_legend_of_the_night'},
+        {id = 'j_bloons_grand_saboteur'},
+        {id = 'tag_bloons_sabotage'},
+        {id = 'v_bloons_big_bloon_sabotage'},
+        {id = 'v_bloons_big_bloon_blueprints'},
+        --Bugged towers
+        {id = 'j_bloons_faster_throwing'},
+        {id = 'j_bloons_faster_rangs'},
+        {id = 'j_bloons_turbo_charge'},
+        {id = 'j_bloons_perma_charge'},
     }
     multiplayer_versus_bans = {
-        {id = "j_bloons_cripple_moab"},
-        {id = "j_bloons_herald_of_everfrost"},
+        {id = 'j_bloons_cripple_moab'},
+        {id = 'j_bloons_herald_of_everfrost'},
     }
 end
 
