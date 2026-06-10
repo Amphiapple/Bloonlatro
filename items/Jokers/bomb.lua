@@ -190,7 +190,7 @@ SMODS.Joker { --Bloon Crush
                     break
                 end
             end
-        elseif context.joker_main then
+        elseif context.joker_main and card.ability.extra.active then
             return {
                 x_mult = card.ability.extra.Xmult
             }

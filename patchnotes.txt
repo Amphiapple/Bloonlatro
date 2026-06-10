@@ -63,6 +63,9 @@ Balance Changes:
 - Jones deck reworked
 - Psi deck reworked
 
+-Quick Hands renamed
+-Big Bloon Blueprints boss blind reduction 25% > 30%
+
 - Vortex boss reworked
 
 - Cost reduction minimum is now $0 instead of $1

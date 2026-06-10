@@ -524,8 +524,9 @@ return {
             c_bloons_flight_boost = {
                 name = 'Flight Boost',
                 text = {
-                    '{X:mult,C:white}X#1#{} Mult',
-                    'Retrigger first scoring card',
+                    '{X:mult,C:white}X#1#{} Mult and retrigger',
+                    'first scoring card while',
+                    'in your {C:attention}consumable{} area',
                     'Lasts {C:attention}#2#{} rounds',
                     '{s:0.8,C:inactive}Rosalia power{}'
                 }
@@ -637,8 +638,8 @@ return {
                     '{C:attention}+#1#{} Voucher slot'
                 }
             },
-            v_bloons_quick_hands = {
-                name = 'Quick Hands',
+            v_bloons_flanking_maneuvers = {
+                name = 'Flanking Maneuvers',
                 text = {
                     'Create a {C:attention}Double Tag{}',
                     'when skipping a {C:attention}Blind{}'
