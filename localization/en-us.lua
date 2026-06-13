@@ -327,7 +327,8 @@ return {
                 name = 'Banana Farmer',
                 text = {
                     'Earn {C:money}$#1#{} at',
-                    'end of round',
+                    'end of round while in',
+                    'your {C:attention}consumable{} area',
                     'Lasts {C:attention}#2#{} rounds',
                 }
             },
