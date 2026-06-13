@@ -192,6 +192,13 @@ local function build_name()
         return nil
     end
 
+    local selected_name
+    if selected.bloonlatro_boss and selected.bloonlatro_boss.parts then
+        selected_name = localize({type = "name_text", set = "Blind", key = selected.key}):match("^(.-)%s+%S+$")
+    else
+        selected_name = localize({type = "name_text", set = "Blind", key = selected.key})
+    end
+
     return {
         n = G.UIT.R,
         config = {
@@ -218,7 +225,7 @@ local function build_name()
                         n = G.UIT.T,
                         config = {
                             id = "bloonlatro_boss_name_text",
-                            text = localize({ type = 'bloonlatro_title', set = 'Blind', key = selected.key }),
+                            text = selected_name,
                             scale = 0.9,
                             colour = G.C.WHITE,
                             align = "cm",
@@ -228,6 +235,93 @@ local function build_name()
             }
         }
     }
+end
+
+function build_boss_info_toggle()
+    return {
+        n = G.UIT.R,
+        config = {
+            align = "cm",
+            padding = 0.02,
+            minw = 12,
+        },
+        nodes = {
+            UIBox_button({
+                id = "bloonlatro_boss_info_toggle",
+                label = { "Description" },
+                button = "toggle_bloonlatro_boss_info",
+                colour = G.C.RED,
+                minw = 6,
+                minh = 0.9
+            })
+        }
+    }
+end
+
+function build_boss_info()
+    return {
+        n = G.UIT.R,
+        config = {
+            align = "cm",
+            padding = 0.02,
+            minw = 14,
+            id = "bloonlatro_boss_info"
+        },
+        nodes = {}
+    }
+end
+
+local function build_boss_info_text(text)
+    return {
+        n = G.UIT.T,
+        config = {
+            text = text,
+            align = "cm",
+            colour = G.C.WHITE,
+            scale = 0.3
+        }
+    }
+end
+
+local function clear_boss_info()
+    local info_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info")
+    if not info_e or not info_e.children then return end
+
+    for i = #info_e.children, 1, -1 do
+        local child = info_e.children[i]
+        table.remove(info_e.children, i)
+        child:remove()
+    end
+end
+
+local function set_boss_info(ui)
+    local info_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info")
+    if not info_e then return end
+
+    clear_boss_info()
+    G.OVERLAY_MENU:add_child(ui, info_e)
+    G.OVERLAY_MENU:recalculate()
+end
+
+local function set_boss_info_toggle_label(label)
+    local toggle_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info_toggle")
+    local text_e = toggle_e and toggle_e.children and toggle_e.children[1] and toggle_e.children[1].children and toggle_e.children[1].children[1]
+
+    if text_e and text_e.config then
+        text_e.config.text = label
+    end
+end
+
+function show_bloonlatro_description_info()
+    Bloonlatro.boss_info_mode = "description"
+    set_boss_info_toggle_label("Rules")
+    set_boss_info(build_boss_info_text("Description"))
+end
+
+function show_bloonlatro_rules_info()
+    Bloonlatro.boss_info_mode = "rules"
+    set_boss_info_toggle_label("Description")
+    set_boss_info(build_boss_info_text("Rules"))
 end
 
 G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
@@ -274,6 +368,8 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                     nodes = {
                         build_list(),
                         build_name(),
+                        build_boss_info_toggle(),
+                        build_boss_info(),
                         {
                             n = G.UIT.R,
                             config = {
@@ -324,6 +420,7 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
     }
 
     G.OVERLAY_MENU = ui
+    show_bloonlatro_description_info()
 
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
@@ -337,6 +434,14 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
     }))
 
     return ui
+end
+
+G.FUNCS.toggle_bloonlatro_boss_info = function()
+    if Bloonlatro.boss_info_mode == "description" then
+        show_bloonlatro_rules_info()
+    else
+        show_bloonlatro_description_info()
+    end
 end
 
 G.FUNCS.update_bloonlatro_boss_ui = function()
@@ -353,7 +458,11 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
     local name_e = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_name_text")
 
     if name_e then
-        name_e.config.text = localize({ type = 'bloonlatro_title', set = 'Blind', key = selected.key })
+        if selected.bloonlatro_boss and selected.bloonlatro_boss.parts then
+            name_e.config.text = localize({type = "name_text", set = "Blind", key = selected.key}):match("^(.-)%s+%S+$")
+        else
+            name_e.config.text = localize({type = "name_text", set = "Blind", key = selected.key})
+        end
     end
 
     local outline_e = G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_name_outline")
@@ -361,7 +470,11 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
         outline_e.config.outline_colour = selected.boss_colour or G.C.GREY
     end
 
-    G.OVERLAY_MENU:recalculate()
+    if Bloonlatro.boss_info_mode == "rules" then
+        show_bloonlatro_rules_info()
+    else
+        show_bloonlatro_description_info()
+    end
 end
 
 -------------------------------------------------------
@@ -409,13 +522,7 @@ function Game:start_run(args)
     Bloonlatro.boss_ui_back_func = nil
     Bloonlatro.boss_ui_back_id = nil
 
-    local res = old_start_run(self, args)
-
-    if args.win_ante then
-        G.GAME.win_ante = args.win_ante
-    end
-
-    return res
+    return old_start_run(self, args)
 end
 
 local old_back_load = Back.load

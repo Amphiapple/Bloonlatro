@@ -393,8 +393,11 @@ SMODS.Back {
     omit = true,
 
     config = {
+        vouchers = {},
         extra = {
-            boss_challenge_key = nil
+            boss_challenge_key = nil,
+            win_ante = 8,
+            banned_keys = {},
         }
     },
 
@@ -416,6 +419,10 @@ SMODS.Back {
         if params.banned_keys then self.config.extra.banned_keys = params.banned_keys end
 
         G.SETTINGS.boss_challenge_params = params
+    end,
+
+    apply = function(self)
+        G.GAME.win_ante = self.config.extra.win_ante
     end,
 
     get_boss_blind = function(self)
