@@ -179,7 +179,12 @@ return {
                     'cards until deck size',
                     'reaches #1# cards',
                 },
-                title = 'Bloonarius the Inflator',
+                challenge_description = {
+                    'Placeholder 1',
+                    'Placeholder 2',
+                    'Placeholder 3',
+                    'Placeholder 4',
+                }
             },
             bl_bloons_lych = {
                 name = 'Lych',

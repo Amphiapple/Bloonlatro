@@ -17,27 +17,15 @@ G.ARGS.LOC_COLOURS.misc     = G.C.MISC
 local old_localize = localize
 function localize(args, misc_cat)
     if type(args) == 'table' then
-        if args.type == 'bloonlatro_title' then
+        if args.type == 'boss_challenge_description' then
             local blind = G.localization
                 and G.localization.descriptions
                 and G.localization.descriptions.Blind
+                and args.key
                 and G.localization.descriptions.Blind[args.key]
 
-            if blind and blind.title then
-                return blind.title
-            else
-                return "ERROR"
-            end
-        elseif args.type == 'bloonlatro_desc' then
-            local blind = G.localization
-                and G.localization.descriptions
-                and G.localization.descriptions.Blind
-                and G.localization.descriptions.Blind[args.key]
-
-            if blind and blind.desc then
-                return blind.desc
-            else
-                return "ERROR"
+            if blind and blind.challenge_description then
+                return blind.challenge_description
             end
         end
     end

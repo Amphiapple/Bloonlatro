@@ -271,18 +271,6 @@ function build_boss_info()
     }
 end
 
-local function build_boss_info_text(text)
-    return {
-        n = G.UIT.T,
-        config = {
-            text = text,
-            align = "cm",
-            colour = G.C.WHITE,
-            scale = 0.3
-        }
-    }
-end
-
 local function clear_boss_info()
     local info_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info")
     if not info_e or not info_e.children then return end
@@ -312,16 +300,94 @@ local function set_boss_info_toggle_label(label)
     end
 end
 
+local function build_boss_desc_line(text)
+    return {
+        n = G.UIT.R,
+        config = { align = "lm" },
+        nodes = {
+            {
+                n = G.UIT.T,
+                config = {
+                    text = text,
+                    align = "lm",
+                    colour = G.C.WHITE,
+                    scale = 0.3
+                }
+            }
+        }
+    }
+end
+
 function show_bloonlatro_description_info()
     Bloonlatro.boss_info_mode = "description"
     set_boss_info_toggle_label("Rules")
-    set_boss_info(build_boss_info_text("Description"))
+
+    local selected = ensure_selected_boss()
+    if not selected then return end
+
+    local desc = localize({ type = "boss_challenge_description", key = selected.key }) or {}
+
+    local line1 = desc[1] or "ERROR"
+    local line2 = desc[2] or "ERROR"
+    local line3 = desc[3] or "ERROR"
+    local line4 = desc[4] or "ERROR"
+
+    local ui = {
+        n = G.UIT.R,
+        config = {
+            align = "cm",
+            padding = 0.08
+        },
+        nodes = {
+            {
+                n = G.UIT.C,
+                config = {
+                    align = "cm",
+                    padding = 0.08,
+                    minw = 1.5
+                },
+                nodes = {
+                    {
+                        n = G.UIT.O,
+                        config = {
+                            object = create_bloonlatro_boss_card(selected)
+                        }
+                    }
+                }
+            },
+            {
+                n = G.UIT.C,
+                config = {
+                    align = "lm",
+                    padding = 0.08,
+                    minw = 8
+                },
+                nodes = {
+                    build_boss_desc_line(line1),
+                    build_boss_desc_line(line2),
+                    build_boss_desc_line(line3),
+                    build_boss_desc_line(line4)
+                }
+            }
+        }
+    }
+    set_boss_info(ui)
 end
 
 function show_bloonlatro_rules_info()
     Bloonlatro.boss_info_mode = "rules"
     set_boss_info_toggle_label("Description")
-    set_boss_info(build_boss_info_text("Rules"))
+
+    local ui = {
+        n = G.UIT.T,
+        config = {
+            text = "Rules",
+            align = "cm",
+            colour = G.C.WHITE,
+            scale = 0.3
+        }
+    }
+    set_boss_info(ui)
 end
 
 G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
