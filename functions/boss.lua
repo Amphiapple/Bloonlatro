@@ -66,9 +66,11 @@ end
 
 function create_bloonlatro_boss_button()
     local boss_icon_y
-
-    local selected = ensure_selected_boss()
-    boss_icon_y = (selected and selected.pos and selected.pos.y) or math.random(5, 11)
+    if G.P_BLINDS[Bloonlatro.selected_boss_key] then
+        boss_icon_y = G.P_BLINDS[Bloonlatro.selected_boss_key].pos.y
+    else
+        boss_icon_y = math.random(5, 11)
+    end
 
     local card = create_sprite_card({
         w = 1.8,
@@ -237,28 +239,7 @@ local function build_name()
     }
 end
 
-function build_boss_info_toggle()
-    return {
-        n = G.UIT.R,
-        config = {
-            align = "cm",
-            padding = 0.02,
-            minw = 12,
-        },
-        nodes = {
-            UIBox_button({
-                id = "bloonlatro_boss_info_toggle",
-                label = { "Description" },
-                button = "toggle_bloonlatro_boss_info",
-                colour = G.C.RED,
-                minw = 6,
-                minh = 0.9
-            })
-        }
-    }
-end
-
-function build_boss_info()
+local function build_boss_info()
     return {
         n = G.UIT.R,
         config = {
@@ -271,7 +252,10 @@ function build_boss_info()
     }
 end
 
-local function clear_boss_info()
+local function set_bloonlatro_boss_info()
+    local selected = ensure_selected_boss()
+    if not selected then return end
+
     local info_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info")
     if not info_e or not info_e.children then return end
 
@@ -280,115 +264,15 @@ local function clear_boss_info()
         table.remove(info_e.children, i)
         child:remove()
     end
-end
 
-local function set_boss_info(ui)
-    local info_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info")
-    if not info_e then return end
-
-    clear_boss_info()
-    G.OVERLAY_MENU:add_child(ui, info_e)
-    G.OVERLAY_MENU:recalculate()
-end
-
-local function set_boss_info_toggle_label(label)
-    local toggle_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_boss_info_toggle")
-    local text_e = toggle_e and toggle_e.children and toggle_e.children[1] and toggle_e.children[1].children and toggle_e.children[1].children[1]
-
-    if text_e and text_e.config then
-        text_e.config.text = label
-    end
-end
-
-local function build_boss_desc_line(text)
-    return {
-        n = G.UIT.R,
-        config = { align = "lm" },
-        nodes = {
-            {
-                n = G.UIT.T,
-                config = {
-                    text = text,
-                    align = "lm",
-                    colour = G.C.WHITE,
-                    scale = 0.3
-                }
-            }
-        }
-    }
-end
-
-function show_bloonlatro_description_info()
-    Bloonlatro.boss_info_mode = "description"
-    set_boss_info_toggle_label("Rules")
-
-    local selected = ensure_selected_boss()
-    if not selected then return end
-
-    local desc = localize({ type = "boss_challenge_description", key = selected.key }) or {}
-
-    local line1 = desc[1] or "ERROR"
-    local line2 = desc[2] or "ERROR"
-    local line3 = desc[3] or "ERROR"
-    local line4 = desc[4] or "ERROR"
-
-    local ui = {
-        n = G.UIT.R,
+    G.OVERLAY_MENU:add_child({
+        n = G.UIT.O,
         config = {
-            align = "cm",
-            padding = 0.08
-        },
-        nodes = {
-            {
-                n = G.UIT.C,
-                config = {
-                    align = "cm",
-                    padding = 0.08,
-                    minw = 1.5
-                },
-                nodes = {
-                    {
-                        n = G.UIT.O,
-                        config = {
-                            object = create_bloonlatro_boss_card(selected)
-                        }
-                    }
-                }
-            },
-            {
-                n = G.UIT.C,
-                config = {
-                    align = "lm",
-                    padding = 0.08,
-                    minw = 8
-                },
-                nodes = {
-                    build_boss_desc_line(line1),
-                    build_boss_desc_line(line2),
-                    build_boss_desc_line(line3),
-                    build_boss_desc_line(line4)
-                }
-            }
+            object = create_bloonlatro_boss_card(selected)
         }
-    }
-    set_boss_info(ui)
+    }, info_e)
 end
 
-function show_bloonlatro_rules_info()
-    Bloonlatro.boss_info_mode = "rules"
-    set_boss_info_toggle_label("Description")
-
-    local ui = {
-        n = G.UIT.T,
-        config = {
-            text = "Rules",
-            align = "cm",
-            colour = G.C.WHITE,
-            scale = 0.3
-        }
-    }
-    set_boss_info(ui)
-end
 
 G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
     local back_func = 'bloonlatro_boss_ui_back'
@@ -434,7 +318,6 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                     nodes = {
                         build_list(),
                         build_name(),
-                        build_boss_info_toggle(),
                         build_boss_info(),
                         {
                             n = G.UIT.R,
@@ -486,7 +369,7 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
     }
 
     G.OVERLAY_MENU = ui
-    show_bloonlatro_description_info()
+    set_bloonlatro_boss_info()
 
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
@@ -500,14 +383,6 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
     }))
 
     return ui
-end
-
-G.FUNCS.toggle_bloonlatro_boss_info = function()
-    if Bloonlatro.boss_info_mode == "description" then
-        show_bloonlatro_rules_info()
-    else
-        show_bloonlatro_description_info()
-    end
 end
 
 G.FUNCS.update_bloonlatro_boss_ui = function()
@@ -536,11 +411,7 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
         outline_e.config.outline_colour = selected.boss_colour or G.C.GREY
     end
 
-    if Bloonlatro.boss_info_mode == "rules" then
-        show_bloonlatro_rules_info()
-    else
-        show_bloonlatro_description_info()
-    end
+    set_bloonlatro_boss_info()
 end
 
 -------------------------------------------------------

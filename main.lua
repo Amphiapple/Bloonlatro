@@ -14,25 +14,6 @@ G.ARGS.LOC_COLOURS.magic    = G.C.MAGIC
 G.ARGS.LOC_COLOURS.support  = G.C.SUPPORT
 G.ARGS.LOC_COLOURS.misc     = G.C.MISC
 
-local old_localize = localize
-function localize(args, misc_cat)
-    if type(args) == 'table' then
-        if args.type == 'boss_challenge_description' then
-            local blind = G.localization
-                and G.localization.descriptions
-                and G.localization.descriptions.Blind
-                and args.key
-                and G.localization.descriptions.Blind[args.key]
-
-            if blind and blind.challenge_description then
-                return blind.challenge_description
-            end
-        end
-    end
-
-    return old_localize(args, misc_cat)
-end
-
 SMODS.Atlas({
 	key = "modicon",
 	path = "icon.png",

@@ -179,12 +179,6 @@ return {
                     'cards until deck size',
                     'reaches #1# cards',
                 },
-                challenge_description = {
-                    'Placeholder 1',
-                    'Placeholder 2',
-                    'Placeholder 3',
-                    'Placeholder 4',
-                }
             },
             bl_bloons_lych = {
                 name = 'Lych',
@@ -195,7 +189,6 @@ return {
                     'Heals back #2#',
                     '#3# enhancement removed',
                 },
-                title = 'Gravelord Lych',
             },
             bl_bloons_vortex = {
                 name = 'Vortex',
@@ -204,7 +197,6 @@ return {
                     'when drawn to hand',
                     '-#1# hand',
                 },
-                title = 'Vortex Master of Air',
             },
             bl_bloons_dreadbloon = {
                 name = 'Dreadbloon',
@@ -215,7 +207,6 @@ return {
                     'Debuffed rarity increases',
                     'after each hand played',
                 },
-                title = 'Dreadbloon the Armored Behemoth',
             },
             bl_bloons_phayze = {
                 name = 'Phayze',
@@ -225,7 +216,6 @@ return {
                     'Debuffs all Jokers and cards',
                     'without an edition.',
                 },
-                title = 'The Reality Warper Phayze',
             },
             bl_bloons_blastapopoulos = {
                 name = 'Blastapopoulos',
@@ -236,7 +226,6 @@ return {
                     'Scoring Meteor cards increase heat by #3#',
                     'Held Frozen cards decrease heat by #4#',
                 },
-                title = 'Blastapopoulos Demon of the Core',
             },
             bl_bloons_diamondback_head = {
                 name = 'Diamondback Head',
@@ -245,7 +234,6 @@ return {
                     'X1 score for each undefeated',
                     'Diamondback blind',
                 },
-                title = 'Diamondback the Village Devourer',
             },
             bl_bloons_diamondback_body = {
                 name = 'Diamondback Body',
