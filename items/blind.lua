@@ -188,7 +188,7 @@ SMODS.Blind {
     atlas = 'Blind',
     pos = { y = 5 },
     dollars = 8,
-    mult = 100, -- 100x base score (5 million)
+    mult = 200, -- 100x base score (10 million)
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
     bloonlatro_boss = {

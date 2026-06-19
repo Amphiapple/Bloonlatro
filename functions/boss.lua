@@ -156,15 +156,17 @@ local function build_list()
         n = G.UIT.R,
         config = {
             align = "cm",
-            padding = 0.03
+            padding = 0.25
         },
         nodes = {}
     }
 
+    local boss_scale = 10 / #filtered_blinds
+
     for _, b in ipairs(filtered_blinds) do
         local card = create_sprite_card({
-            w = 1.2,
-            h = 1.2,
+            w = boss_scale,
+            h = boss_scale,
             atlas = G.ANIMATION_ATLAS[b.atlas],
             pos = { x = 0, y = b.pos.y },
             no_ui = true,
@@ -196,9 +198,9 @@ local function build_name()
 
     local selected_name
     if selected.bloonlatro_boss and selected.bloonlatro_boss.parts then
-        selected_name = localize({type = "name_text", set = "Blind", key = selected.key}):match("^(.-)%s+%S+$")
+        selected_name = localize({ type = "name_text", set = "Blind", key = selected.key }):match("^(.-)%s+%S+$")
     else
-        selected_name = localize({type = "name_text", set = "Blind", key = selected.key})
+        selected_name = localize({ type = "name_text", set = "Blind", key = selected.key })
     end
 
     return {
@@ -245,10 +247,261 @@ local function build_boss_info()
         config = {
             align = "cm",
             padding = 0.02,
-            minw = 14,
+            minw = 12,
             id = "bloonlatro_boss_info"
         },
         nodes = {}
+    }
+end
+
+local function build_boss_details(selected)
+    local challenge_params = selected.bloonlatro_boss.challenge_params or {}
+
+    local boss_nodes = {
+        n = G.UIT.O,
+        config = {
+            object = create_bloonlatro_boss_card(selected)
+        }
+    }
+
+    local rule_nodes = {
+        {
+            n = G.UIT.R,
+            config = { align = "cl" },
+            nodes = {
+                {
+                    n = G.UIT.T,
+                    config = {
+                        text = "None",
+                        scale = 0.4,
+                        colour = G.C.BLACK
+                    }
+                }
+            }
+        }
+    }
+
+    local bans = {
+        { id = 'j_luchador' },
+        { id = 'j_chicot' },
+        { id = 'j_mr_bones' },
+        { id = 'j_bloons_bomb_blitz' },
+        { id = 'j_bloons_cripple_moab' },
+        { id = 'j_bloons_herald_of_everfrost' },
+        { id = 'tag_bloons_sabotage' },
+        { id = 'v_bloons_big_bloon_sabotage' },
+        { id = 'v_bloons_big_bloon_blueprints' },
+    }
+
+    if challenge_params.banned_ids then
+        for _, ban in ipairs(challenge_params.banned_ids) do
+            bans[#bans + 1] = ban
+        end
+    end
+
+    local banned_cards = {}
+
+    local ban_area = CardArea(
+        0, 0,
+        5,
+        2.2,
+        {
+            card_limit = #bans,
+            type = "title_2",
+            view_deck = true,
+            highlight_limit = 0,
+            card_w = G.CARD_W * 0.55
+        }
+    )
+
+    for _, ban in ipairs(bans) do
+        local center = G.P_CENTERS[ban.id]
+
+        if center then
+            local card = Card(
+                0, 0,
+                G.CARD_W * 0.55,
+                G.CARD_H * 0.55,
+                nil,
+                center,
+                {
+                    bypass_discovery_center = true,
+                    bypass_discovery_ui = true,
+                    bypass_lock = true
+                }
+            )
+
+            ban_area:emplace(card)
+        end
+    end
+
+    banned_cards[#banned_cards + 1] = {
+        n = G.UIT.R,
+        config = { align = "cm" },
+        nodes = {
+            {
+                n = G.UIT.O,
+                config = {
+                    object = ban_area
+                }
+            }
+        }
+    }
+
+    --------------------------------------------------
+    -- Boss panel
+    --------------------------------------------------
+
+    local boss_panel = {
+        n = G.UIT.C,
+        config = {
+            align = "cm",
+            r = 0.1,
+            colour = selected.boss_colour or G.C.BLUE
+        },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    padding = 0.08,
+                    minh = 0.6
+                },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            text = "Boss",
+                            scale = 0.4,
+                            colour = G.C.UI.TEXT_LIGHT,
+                            shadow = true
+                        }
+                    }
+                }
+            },
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    minw = 2,
+                    minh = 3,
+                    padding = 0.05,
+                    r = 0.1,
+                    colour = G.C.WHITE
+                },
+                nodes = {
+                    boss_nodes
+                }
+            }
+        }
+    }
+
+    --------------------------------------------------
+    -- Rules panel
+    --------------------------------------------------
+
+    local rules_panel = {
+        n = G.UIT.C,
+        config = {
+            align = "cm",
+            r = 0.1,
+            colour = G.C.BLUE
+        },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    padding = 0.08,
+                    minh = 0.6
+                },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            text = "Rules",
+                            scale = 0.4,
+                            colour = G.C.UI.TEXT_LIGHT,
+                            shadow = true
+                        }
+                    }
+                }
+            },
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    minh = 3,
+                    minw = 4.5,
+                    padding = 0.05,
+                    r = 0.1,
+                    colour = G.C.WHITE
+                },
+                nodes = rule_nodes
+            }
+        }
+    }
+
+    --------------------------------------------------
+    -- Bans panel
+    --------------------------------------------------
+
+    local bans_panel = {
+        n = G.UIT.C,
+        config = {
+            align = "cm",
+            r = 0.1,
+            colour = G.C.RED
+        },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    padding = 0.08,
+                    minh = 0.6
+                },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            text = "Bans",
+                            scale = 0.4,
+                            colour = G.C.UI.TEXT_LIGHT,
+                            shadow = true
+                        }
+                    }
+                }
+            },
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    minh = 3,
+                    minw = 4.5,
+                    padding = 0.05,
+                    r = 0.1,
+                    colour = G.C.WHITE
+                },
+                nodes = banned_cards
+            }
+        }
+    }
+
+    return {
+        n = G.UIT.C,
+        config = {
+            align = "cm",
+            padding = 0.1,
+            colour = G.C.L_BLACK,
+            r = 0.1,
+            minw = 12
+        },
+        nodes = {
+            boss_panel,
+            rules_panel,
+            bans_panel
+        }
     }
 end
 
@@ -265,12 +518,10 @@ local function set_bloonlatro_boss_info()
         child:remove()
     end
 
-    G.OVERLAY_MENU:add_child({
-        n = G.UIT.O,
-        config = {
-            object = create_bloonlatro_boss_card(selected)
-        }
-    }, info_e)
+    G.OVERLAY_MENU:add_child(
+        build_boss_details(selected),
+        info_e
+    )
 end
 
 
@@ -298,12 +549,9 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
             n = G.UIT.C,
             config = {
                 align = "cm",
-                padding = 0.8,
+                padding = 0.3,
                 r = 0.15,
                 colour = G.C.BLACK,
-                minw = 16,
-                minh = 8,
-                maxw = 16,
                 border = 0.08,
                 border_colour = G.C.RED
             },
@@ -312,8 +560,8 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                     n = G.UIT.C,
                     config = {
                         align = "cm",
-                        padding = 0.2,
-                        minw = 14
+                        padding = 0.1,
+                        minw = 12
                     },
                     nodes = {
                         build_list(),
@@ -330,11 +578,12 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                                     label = { "Start Run" },
                                     button = "bloonlatro_start_boss_run",
                                     colour = G.C.GREEN,
-                                    minw = 6,
+                                    minw = 12,
                                     minh = 0.9
                                 })
                             }
                         },
+                        {n = G.UIT.R, config = {align = "cm", minh = 0.5}, nodes = {}},
                     }
                 }
             }
@@ -400,9 +649,10 @@ G.FUNCS.update_bloonlatro_boss_ui = function()
 
     if name_e then
         if selected.bloonlatro_boss and selected.bloonlatro_boss.parts then
-            name_e.config.text = localize({type = "name_text", set = "Blind", key = selected.key}):match("^(.-)%s+%S+$")
+            name_e.config.text = localize({ type = "name_text", set = "Blind", key = selected.key }):match(
+                "^(.-)%s+%S+$")
         else
-            name_e.config.text = localize({type = "name_text", set = "Blind", key = selected.key})
+            name_e.config.text = localize({ type = "name_text", set = "Blind", key = selected.key })
         end
     end
 
