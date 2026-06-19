@@ -18,6 +18,7 @@ General Changes:
 Balance Changes:
 - Triple Shot cost 5 > 4
 - Sharp Shooter cost 6 > 5
+- Crossbow Master rarity Uncommon > Rare
 
 - MOAR Glaives cost 6 > 5
 

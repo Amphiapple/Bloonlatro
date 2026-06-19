@@ -21,7 +21,7 @@ return {
                 name = 'Trident Swiftness',
                 text = {
                     '{C:mult}+#1#{} Mult for each',
-                    'common {C:attention}Joker{} card',
+                    '{C:blue}Common {C:attention}Joker{} card',
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
                 }
             },

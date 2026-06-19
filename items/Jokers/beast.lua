@@ -151,6 +151,34 @@ SMODS.Joker { --Orca
             }
         end
     end
+    --[[
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
+        local count = 0
+        for k, v in pairs(G.playing_cards) do
+            if v.ability.name == 'Bonus' then
+                count = count + 1
+            end
+        end
+        card.ability.extra.number = count
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.limit, card.ability.extra.number } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local count = 0
+            for k, v in pairs(G.playing_cards) do
+                if v.ability.name == 'Bonus' then
+                    count = count + 1
+                end
+            end
+            if count > card.ability.extra.limit then
+                return {
+                    Xmult = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
+    ]]
 }
 
 SMODS.Joker { --Megalodon
