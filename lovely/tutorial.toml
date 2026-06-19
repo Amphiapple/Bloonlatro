@@ -1,7 +1,20 @@
-# [manifest]
-# version = "1.0.0"
-# dump_lua = true
-# priority = 0
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# TUTORIAL - TEMP
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = ''',
+[TEMP]
+'''
+match_indent = true
+position = 'at'
+payload = '''
+[TEMP]
+'''
 
 # # TUTORIAL - Start Run
 # [[patches]]
