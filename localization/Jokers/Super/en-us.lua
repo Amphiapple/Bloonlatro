@@ -27,6 +27,24 @@ return {
 					'{C:hearts}Hearts{} or {C:diamonds}Diamonds{}',
 				}
 			},
+			j_bloons_sun_temple = {
+				name = 'Sun Temple',
+				text = {
+					'Sacrifice adjacent {C:attention}Jokers{}',
+                    'and this {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+					'times the value of sacrificed {C:attention}Jokers{}',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)',
+				}
+			},
+			j_bloons_true_sun_god = {
+				name = 'True Sun God',
+				text = {
+					'Sacrifice adjacent {C:attention}Jokers{}',
+                    'and this {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+					'times the value of sacrificed {C:attention}Jokers{}',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)',
+				}
+			},
 			j_bloons_super_range = {
 				name = 'Super Range',
 				text = {
@@ -102,8 +120,8 @@ return {
 				text = {
 					'Prevents Death on',
 					'{C:attention}Small Blind{} or {C:attention}Big Blind{}',
-					'and create a {C:spectral}Black Hole{}',
-					'{C:inactive}(Must have room){}',
+					'and create a {C:dark_edition}Negative',
+					'{C:spectral}Black Hole{}',
 				}
 			},
 		}

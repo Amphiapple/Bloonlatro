@@ -123,7 +123,7 @@ SMODS.Joker { --Crucible of Steel and Flame
     end,
     add_to_deck = function(self, card, from_debuff)
         for i = 1, card.ability.extra.number do
-            local front = pseudorandom_element(G.P_CARDS, pseudoseed('crucible_of_steel_and_flame'))
+            local front = pseudorandom_element(G.P_CARDS, 'crucible_of_steel_and_flame')
             local meteor = SMODS.add_card({
                 set = 'Playing Card',
                 front = front,
@@ -734,6 +734,9 @@ SMODS.Joker { --Vengeful True Sun God
     rarity = 4,
 	cost = 20,
 	blueprint_compat = true,
+    in_pool = function(self, args)
+        return false
+    end,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
         --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult

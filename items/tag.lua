@@ -53,7 +53,6 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'invisible',
     name = 'Invisible Tag',
-    
     atlas = 'Tag',
 	pos = { x = 1, y = 0 },
     min_ante = 2,
@@ -66,7 +65,7 @@ SMODS.Tag {
             	G.CONTROLLER.locks[lock] = true
 				tag:yep("+", G.C.PURPLE, function()
 					if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit and #G.jokers.cards > 0 then
-						local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'))
+						local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'..G.GAME.round_resets.ante))
 						local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
 						card:add_to_deck()
 						G.jokers:emplace(card)
@@ -192,7 +191,7 @@ SMODS.Tag {
 					end
 				end
 				if #upgraded > 0 then
-					local voucher_key = pseudorandom_element(upgraded, pseudoseed(pool_key))
+					local voucher_key = pseudorandom_element(upgraded, pseudoseed(pool_key..G.GAME.round_resets.ante))
 					G.ARGS.voucher_tag = G.ARGS.voucher_tag or {}
 					G.ARGS.voucher_tag[voucher_key] = true
 					G.shop_vouchers.config.card_limit = G.shop_vouchers.config.card_limit + 1
@@ -216,7 +215,6 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'concoction',
     name = 'Concoction Tag',
-    
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
     min_ante = nil,
@@ -239,10 +237,12 @@ SMODS.Tag {
 						table.insert(eligible_jokers, v)
 					end
 				end
-				local joker = pseudorandom_element(eligible_jokers, pseudoseed('brew'))
-				if joker then
-					local edition = poll_edition('wheel_of_fortune', nil, nil, true)
-					joker:set_edition(edition, true)
+				if #eligible_jokers > 0 then
+					local joker = pseudorandom_element(eligible_jokers, pseudoseed('brew'..G.GAME.round_resets.ante))
+					if joker then
+						local edition = poll_edition('wheel_of_fortune', nil, nil, true)
+						joker:set_edition(edition, true)
+					end
 				end
 				G.CONTROLLER.locks[lock] = nil
 				return true

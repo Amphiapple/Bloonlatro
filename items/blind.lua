@@ -41,18 +41,24 @@ SMODS.Blind {
     boss_colour = HEX("d10705"),
 
     calculate = function(self, blind, context)
-        if context.final_scoring_step and not blind.disabled then
+        if context.after and not blind.disabled then
             local card = nil
             for _,joker in ipairs(G.jokers.cards) do
-                if not joker.debuffed_by_blind then
+                if not joker.debuff and not joker.debuffed_by_blind then
                     card = joker
                 end
             end
             if card then
-                card:set_debuff(true)
-                if card.debuff then
-                    card.debuffed_by_blind = true
-                end
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:set_debuff(true)
+                        if card.debuff then
+                            card.debuffed_by_blind = true
+                            card:juice_up()
+                        end
+                        return true
+                    end,
+                }))
             end
         end
     end,
@@ -188,7 +194,7 @@ SMODS.Blind {
     atlas = 'Blind',
     pos = { y = 5 },
     dollars = 8,
-    mult = 200, -- 100x base score (10 million)
+    mult = 200, -- 200x base score (10 million)
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
     bloonlatro_boss = {
@@ -328,7 +334,7 @@ SMODS.Blind {
     atlas = 'Blind',
     pos = { y = 7 },
     dollars = 8,
-    mult = 25, -- 25x base score (500k)
+    mult = 20, -- 20x base score (400k)
     boss = { showdown = true },
     boss_colour = HEX("63E0FF"),
     bloonlatro_boss = {
@@ -337,13 +343,14 @@ SMODS.Blind {
             win_ante = 6
         }
     },
+    config = { stage = 1 },
 
     loc_vars = function(self)
-        return { vars = { 1 } }
+        return { vars = { 2, 2, 0.25 * get_blind_amount(G.GAME.round_resets.ante) * 20 * G.GAME.starting_params.ante_scaling } }
     end,
 
     collection_loc_vars = function(self)
-        return { vars = { 1 } }
+        return { vars = { 2, 2, '25% of required' } }
     end,
 
     in_pool = function()
@@ -351,7 +358,7 @@ SMODS.Blind {
     end,
 
     set_blind = function(self)
-        ease_hands_played(-1)
+        ease_hands_played(-2)
     end,
 
     drawn_to_hand = function(self)
@@ -361,19 +368,54 @@ SMODS.Blind {
                 card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
             end
         end
+    end,
+
+    calculate = function(self, blind, context)
+        if context.after and (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips >= to_big(G.GAME.blind.effect.stage / 4) then
+            ease_hands_played(2)
+            local jokers = {}
+            for k, v in ipairs(G.jokers.cards) do
+                if not v.debuff and not v.debuffed_by_blind then
+                    table.insert(jokers, v)
+                end
+            end
+            local joker = pseudorandom_element(jokers, pseudoseed('vortex'))
+            if joker then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.2,
+                    func = function()
+                        for k, v in ipairs(G.jokers.cards) do
+                            if v.debuffed_by_blind then
+                                v.debuffed_by_blind = nil
+                                v:set_debuff()
+                            end
+                        end
+                        joker:set_debuff(true)
+                        if joker.debuff then
+                            joker.debuffed_by_blind = true
+                            joker:juice_up()
+                        end
+                        return true
+                    end
+                }))
+            end
+            G.GAME.blind.effect.stage = math.ceil((hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips * 4)
+        end
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff and not self.disabled
+    end,
+    disable = function(self)
+        for _,joker in ipairs(G.jokers.cards) do
+            if joker.debuffed_by_blind then
+                joker:set_debuff()
+            end
+        end
     end
 }
 
 SMODS.Blind {
-
-    loc_vars = function(self)
-        return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { '30% of blind size' } }
-    end,
-
     key = 'dreadbloon',
     atlas = 'Blind',
     pos = { y = 8 },
@@ -403,6 +445,14 @@ SMODS.Blind {
             }
         }
     },
+
+    loc_vars = function(self)
+        return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { '30% of blind size' } }
+    end,
 
     in_pool = function()
         return false -- This blind is added through bosses.toml

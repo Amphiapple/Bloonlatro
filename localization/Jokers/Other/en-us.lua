@@ -102,7 +102,7 @@ return {
 				text = {
 					'Copies ability of',
 					'{C:attention}Joker{} in position {C:attention}#1#{}',
-					'{s:0.8}position changes every round{}',
+					'{s:0.8}Position randomizes every round{}',
 				}
 			},
 			j_bloons_card_storm = {
@@ -110,7 +110,7 @@ return {
 				text = {
 					'Copies the ability',
 					'of {C:attention}#1#{} {C:attention}Joker{}',
-					'{s:0.8}Direction changes every round{}',
+					'{s:0.8}Direction randomizes every round{}',
 				}
 			},
 		}

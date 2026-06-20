@@ -86,7 +86,7 @@ SMODS.Joker { --Heart of Thunder
                     table.insert(visible, v)
                 end
             end
-            local hand = pseudorandom_element(visible, pseudoseed(''))
+            local hand = pseudorandom_element(visible, 'heart_of_thunder')
             update_hand_text(
                 { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
                 { handname = localize(hand, 'poker_hands'),

@@ -30,7 +30,7 @@ return {
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
                     'when each card with a',
-                    'new rank is scored',
+                    'different rank is scored',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },
@@ -39,7 +39,7 @@ return {
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
                     'when each card with a',
-                    'new suit is scored',
+                    'different suit is scored',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },
@@ -47,7 +47,7 @@ return {
                 name = 'Glaive Lord',
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'when each card with a new',
+                    'when each card with a different',
                     'suit or rank is scored',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }

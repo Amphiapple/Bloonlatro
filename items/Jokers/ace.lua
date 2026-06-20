@@ -521,11 +521,9 @@ SMODS.Joker { --Spectre
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if not context.blueprint then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() == 14 and not v.debuff then
-                        count = count + 1
-                    end
+            for k, v in ipairs(context.scoring_hand) do
+                if v:get_id() == 14 and not v.debuff then
+                    count = count + 1
                 end
             end
             if count >= card.ability.extra.number and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then

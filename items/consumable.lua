@@ -41,9 +41,10 @@ SMODS.Consumable { --Super Monkey Storm
         return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
     end,
     use = function(self, card, area, copier)
-        local score = G.GAME.blind.chips * card.ability.percent / 100.0
-        if score > to_big(card.ability.max) then
-            score = to_big(card.ability.max)
+        local score = math.min(card.ability.max, G.GAME.blind.chips * card.ability.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = card.ability.max
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
@@ -64,8 +65,8 @@ SMODS.Consumable { --Super Monkey Storm
                 return true
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -77,9 +78,8 @@ SMODS.Consumable { --Super Monkey Storm
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end
 }
 
@@ -993,7 +993,7 @@ SMODS.Consumable { --MOAB Hex
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not G.jokers.highlighted[1].edition
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not G.jokers.highlighted[1].edition and not G.jokers.highlighted[1].ability.eternal
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({

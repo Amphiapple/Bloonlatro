@@ -1,6 +1,9 @@
 Challenge_stakes = {
-    c_bloons_gorgon_storm = {stake = 8},
+    c_bloons_davids_vs_goliath = {stake = 8},
+    c_bloons_stubborn_strategy = {stake = 8},
     c_bloons_joshs_constant = {stake = 8},
+    c_bloons_sapper = {stake = 8},
+    c_bloons_nah_id_win = {stake = 8},
     c_bloons_inflated_expert = {stake = 8},
     c_bloons_survivor_expert = {stake = 8},
     c_bloons__2tc_expert = {stake = 8},
@@ -20,7 +23,14 @@ local banned_hand_cards = {
     {id = 'c_bloons_time_stop'}
 }
 
-local monkeyopolis_tags = {
+local eternal_bypass_cards = {
+    {id = 'j_bloons_sun_temple'},
+    {id = 'j_bloons_true_sun_god'},
+    {id = 'j_bloons_total_transformation'},
+    {id = 'j_bloons_cleansing_foam'},
+}
+
+local davids_vs_goliath_tags = {
     {id = 'tag_rare'},
     {id = 'tag_uncommon'},
     {id = 'tag_holo'},
@@ -43,6 +53,7 @@ local crash_of_the_titans_cards = {
     {id = 'c_grim'},
     {id = 'c_familiar'},
     {id = 'c_immolate'},
+    {id = 'c_bloons_cryptid'},
     {id = 'c_bloons_volcano'},
     {id = 'c_bloons_cave_monkey'},
     {id = 'p_standard_normal_1',
@@ -62,6 +73,8 @@ local crash_of_the_titans_cards = {
     {id = 'j_bloons_burny_stuff'},
     {id = 'j_bloons_necromancer'},
     {id = 'j_bloons_wizard_lord_phoenix'},
+    {id = 'j_bloons_sun_temple'},
+    {id = 'j_bloons_true_sun_god'},
     {id = 'j_bloons_total_transformation'},
     {id = 'j_bloons_spiked_mines'},
     {id = 'j_bloons_cleansing_foam'},
@@ -79,12 +92,9 @@ for _, joker in ipairs(banned_hand_cards) do
     table.insert(crash_of_the_titans_cards, joker)
 end
 
-local joshs_constant_cards = {
-    { id = 'j_bloons_total_transformation'},
-    { id = 'j_bloons_cleansing_foam'},
-}
+local joshs_constant_cards = banned_hand_cards
 
-for _, joker in ipairs(banned_hand_cards) do
+for _, joker in ipairs(eternal_bypass_cards) do
     table.insert(joshs_constant_cards, joker)
 end
 
@@ -131,75 +141,25 @@ local banned_2tc_cards = {
     {id = 'v_antimatter'},
 }
 
-local boss_jokers = {
-    {id = 'j_luchador'},
-    {id = 'j_chicot'},
-    {id = 'j_mr_bones'},
-    {id = 'j_bloons_bomb_blitz'},
-    {id = 'j_bloons_cripple_moab'},
-}
-
-local boss_bans = {
-    banned_cards = boss_jokers,
-}
-
-local dreadbloon_cards = {
-    { id = 'v_hieroglyph' },
-    { id = 'j_troubadour' },
-}
-for _, joker in ipairs(boss_jokers) do
-    table.insert(dreadbloon_cards, joker)
-end
-for _, card in ipairs(banned_hand_cards) do
-    table.insert(dreadbloon_cards, card)
-end
-
 SMODS.Challenge {
-    key = 'glorious_gold',
+    key = 'davids_vs_goliath',
     loc_txt = {
-        name = 'Glorious Gold',
+        name = 'Davids vs Goliath',
     },
     rules = {
         custom = {
-            { id = 'discard_cost', value = 3 },
+            {id = 'gold_stake'},
+            {id = 'no_shop_jokers'},
+            {id = 'no_reward'},
+            {id = 'no_extra_hand_money'},
+            {id = 'no_interest'},
         },
         modifiers = {
-            { id = 'discards', value = 1 },
+            {id = 'joker_slots', value = 100},
         }
-    },
-    restrictions = {
-        banned_cards = {
-            { id = 'j_bloons_total_transformation'},
-            { id = 'j_bloons_cleansing_foam'},
-        },
-        banned_tags = {
-            { id = 'tag_bloons_cleansing' },
-        },
     },
     jokers = {
-        { id = 'j_bloons_rubber_to_gold', eternal = true }
-    },
-    vouchers = {},
-    deck = {
-        type = 'Challenge Deck',
-    },
-}
-
-SMODS.Challenge {
-    key = 'monkeyopolis',
-    loc_txt = {
-        name = 'Monkeyopolis',
-    },
-    rules = {
-        custom = {
-            { id = 'no_shop_jokers' },
-            { id = 'no_reward' },
-            { id = 'no_extra_hand_money' },
-            { id = 'no_interest' },
-        },
-        modifiers = {
-            { id = 'joker_slots', value = 10 },
-        }
+        {id = 'j_bloons_monkey_city', eternal = true}
     },
     restrictions = {
         banned_cards = {
@@ -216,35 +176,31 @@ SMODS.Challenge {
                 ids = {'p_buffoon_normal_1','p_buffoon_normal_2', 'p_buffoon_jumbo_1','p_buffoon_mega_1'},
             },
         },
-        banned_tags = monkeyopolis_tags,
+        banned_tags = davids_vs_goliath_tags,
     },
-    jokers = {
-        { id = 'j_bloons_monkey_city', eternal = true }
-    }
+    deck = {
+        type = 'Challenge Deck',
+    },
 }
 
 SMODS.Challenge {
-    key = 'gorgon_storm',
+    key = 'stubborn_strategy',
     loc_txt = {
-        name = 'Gorgon Storm'
+        name = 'Stubborn Strategy'
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
-            { id = 'gorgon_storm' },
+            {id = 'gold_stake'},
+            {id = 'stubborn_strategy'},
         }
     },
     jokers = {
-        { id = 'j_bloons_rocket_storm', eternal = true }
+        {id = 'j_bloons_rocket_storm', eternal = true}
     },
-    vouchers = {},
     restrictions = {
-        banned_cards = {
-            { id = 'j_bloons_total_transformation'},
-            { id = 'j_bloons_cleansing_foam'},
-        },
+        banned_cards = eternal_bypass_cards,
         banned_tags = {
-            { id = 'tag_bloons_cleansing' },
+            {id = 'tag_bloons_cleansing'},
         },
     },
     deck = {
@@ -266,63 +222,32 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = 'no_harvest',
-    loc_txt = {
-        name = 'No Harvest'
-    },
-    rules = {
-        custom = {
-            { id = 'no_shop_slots' }
-        }
-    },
-    jokers = {
-        { id = 'j_bloons_super_range' },
-    },
-    vouchers = {},
-    restrictions = {
-        banned_cards = {
-            { id = 'v_overstock_norm' },
-            { id = 'v_overstock_plus' }
-        }
-    },
-    deck = {
-        type = 'Challenge Deck',
-    },
-
-    apply = function(self)
-        change_shop_size(-2)
-    end
-}
-
-SMODS.Challenge {
     key = 'crash_of_the_titans',
     loc_txt = {
         name = 'Crash of the Titans',
     },
     rules = {
         custom = {
-            { id = 'crash_of_the_titans' },
-            { id = 'double_blind_size' },
-            { id = 'no_skipping_blinds' }
+            {id = 'crash_of_the_titans'},
+            {id = 'no_skipping_blinds'}
         },
         modifiers = {
-            { id = 'hands', value = 1 },
-            { id = 'discards', value = 6 },
+            {id = 'hands', value = 1},
+            {id = 'discards', value = 6},
         }
     },
     jokers = {
-        { id = 'j_bloons_blooncineration', eternal = true }
+        {id = 'j_bloons_blooncineration', eternal = true}
     },
-    vouchers = {},
     restrictions = {
             banned_cards = crash_of_the_titans_cards,
             banned_tags = {
-                { id = 'tag_standard' },
-                { id = 'tag_bloons_cleansing' },
+                {id = 'tag_standard'},
+                {id = 'tag_bloons_cleansing'},
             },
             banned_other = {
-                { id = 'bl_water', type = 'blind' },
-                { id = 'bl_needle', type = 'blind' },
+                {id = 'bl_water', type = 'blind'},
+                {id = 'bl_needle', type = 'blind'},
             }
         },
     deck = {
@@ -336,31 +261,209 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
+    key = 'no_harvest',
+    loc_txt = {
+        name = 'No Harvest'
+    },
+    rules = {
+        custom = {
+            {id = 'no_shop_slots'}
+        }
+    },
+    jokers = {
+        {id = 'j_bloons_super_range'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'v_overstock_norm'},
+            {id = 'v_overstock_plus'}
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    apply = function(self)
+        change_shop_size(-2)
+    end
+}
+
+SMODS.Challenge {
     key = 'joshs_constant',
     loc_txt = {
         name = "Josh's Constant"
     },
     rules = {
         modifiers = {
-            { id = 'hands', value = 2 }
+            {id = 'hands', value = 2}
         },
         custom = {
-            { id = 'gold_stake' }
+            {id = 'gold_stake'}
         }
     },
     jokers = {
-        { id = 'j_bloons_perma_spike', eternal = true }
+        {id = 'j_bloons_perma_spike', eternal = true}
     },
-    vouchers = {},
     restrictions = {
         banned_cards = joshs_constant_cards,
         banned_tags = {
-            { id = 'tag_bloons_cleansing' },
+            {id = 'tag_bloons_cleansing'},
         },
     },
     deck = {
         type = 'Challenge Deck',
     },
+}
+
+SMODS.Challenge {
+    key = 'snap_of_your_fingers',
+    loc_txt = {
+        name = "Snap of your Fingers"
+    },
+    rules = {
+        custom = {
+            {id = 'half_blind_size'},
+            {id = 'half_cash'}
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    apply = function(self)
+        G.GAME.starting_params.ante_scaling = 0.5
+    end,
+    calculate = function(self, context)
+        if context.starting_shop and G.GAME.dollars > 0 then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    ease_dollars(math.ceil(-G.GAME.dollars / 2), true)
+                    return true
+                end
+            }))
+        delay(0.6)
+        end
+    end,
+}
+
+SMODS.Challenge {
+    key = 'student_loans',
+    loc_txt = {
+        name = "Student Loans"
+    },
+    rules = {
+        custom = {
+            {id = 'student_loans'},
+        }
+    },
+    jokers = {
+        {id = 'j_bloons_imf_loan'}
+    },
+    vouchers = {
+        {id = 'v_tarot_merchant'},
+        {id = 'v_tarot_tycoon'},
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    calculate = function(self, context)
+        if context.end_of_round and context.beat_boss and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.dollars > -4000 and not context.individual and not context.repetition then
+            G.STATE = G.STATES.GAME_OVER
+            G:save_settings()
+            G.FILE_HANDLER.force = true
+            G.STATE_COMPLETE = false
+        end
+    end
+}
+
+SMODS.Challenge {
+    key = 'sapper',
+    loc_txt = {
+        name = "Sapper"
+    },
+    rules = {
+        custom = {
+            {id = 'gold_stake'},
+            {id = 'sapper'}
+        }
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'j_luchador'},
+            {id = 'j_bloons_cripple_moab'},
+            {id = 'j_bloons_herald_of_everfrost'},
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+}
+
+SMODS.Challenge {
+    key = 'glorious_gold',
+    loc_txt = {
+        name = 'Glorious Gold',
+    },
+    rules = {
+        custom = {
+            {id = 'discard_cost', value = 3},
+        },
+        modifiers = {
+            {id = 'discards', value = 1},
+        }
+    },
+    restrictions = {
+        banned_cards = eternal_bypass_cards,
+        banned_tags = {
+            {id = 'tag_bloons_cleansing'},
+        },
+    },
+    jokers = {
+        {id = 'j_bloons_rubber_to_gold', eternal = true}
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+}
+
+SMODS.Challenge {
+    key = 'nah_id_win',
+    loc_txt = {
+        name = "Nah, I'd Win"
+    },
+    rules = {
+        custom = {
+            {id = 'gold_stake'},
+            {id = 'nah_id_win'},
+            {id = 'no_skipping_blinds'},
+        }
+    },
+    restrictions = {
+        banned_cards = eternal_bypass_cards,
+        banned_tags = {
+            {id = 'tag_bloons_cleansing'},
+        },
+    },
+    jokers = {
+        {id = 'j_bloons_legend_of_the_night', eternal = true}
+    },
+    deck = {
+        type = 'Challenge Deck',
+    },
+
+    calculate = function(self, context)
+        if context.end_of_round and not context.individual and not context.repetition then
+            if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and not context.beat_boss then
+                G.STATE = G.STATES.GAME_OVER
+                G:save_settings()
+                G.FILE_HANDLER.force = true
+                G.STATE_COMPLETE = false
+            end
+        end
+    end
 }
 
 SMODS.Challenge {
@@ -370,27 +473,25 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'inflated' },
+            {id = 'inflated'},
         },
         modifiers = {
-            { id = 'hand_size', value = 13 },
-            { id = 'hands', value = 3 },
-            { id = 'discards', value = 0 },
-            { id = 'dollars', value = 13 },
+            {id = 'hand_size', value = 13},
+            {id = 'hands', value = 3},
+            {id = 'discards', value = 0},
+            {id = 'dollars', value = 13},
         }
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = inflated_cards,
         banned_tags = {
-            { id = 'tag_juggle' },
+            {id = 'tag_juggle'},
         },
         banned_other = {
-            { id = 'bl_water', type = 'blind' },
-            { id = 'bl_needle', type = 'blind' },
-            { id = 'bl_serpent', type = 'blind' },
-            { id = 'bl_bloons_final_moab', type = 'blind' },
+            {id = 'bl_water', type = 'blind'},
+            {id = 'bl_needle', type = 'blind'},
+            {id = 'bl_serpent', type = 'blind'},
+            {id = 'bl_bloons_final_moab', type = 'blind'},
         }
     },
     deck = {
@@ -418,22 +519,20 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'no_shop_rerolls' },
-            { id = 'no_shop_slots' },
+            {id = 'no_shop_rerolls'},
+            {id = 'no_shop_slots'},
         },
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = survivor_cards,
         banned_tags = {
-            { id = 'tag_d_six' },
-            { id = 'tag_uncommon' },
-            { id = 'tag_rare' },
-            { id = 'tag_negative' },
-            { id = 'tag_foil' },
-            { id = 'tag_holo' },
-            { id = 'tag_polychrome' },
+            {id = 'tag_d_six'},
+            {id = 'tag_uncommon'},
+            {id = 'tag_rare'},
+            {id = 'tag_negative'},
+            {id = 'tag_foil'},
+            {id = 'tag_holo'},
+            {id = 'tag_polychrome'},
         },
     },
     deck = {
@@ -452,23 +551,21 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'no_negative_jokers' },
+            {id = 'no_negative_jokers'},
         },
         modifiers = {
-            { id = 'joker_slots', value = 2 },
+            {id = 'joker_slots', value = 2},
         }
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = banned_2tc_cards,
         banned_tags = {
-            { id = 'tag_negative' },
-            { id = 'tag_bloons_concoction' }
+            {id = 'tag_negative'},
+            {id = 'tag_bloons_concoction'}
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' },
-            { id = 'bl_bloons_final_zomg', type = 'blind' },
+            {id = 'bl_final_leaf', type = 'blind'},
+            {id = 'bl_bloons_final_zomg', type = 'blind'},
         }
     },
     deck = {
@@ -491,11 +588,9 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = '_2mp' },
+            {id = '_2mp'},
         },
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = {
             {id = 'j_bloons_grand_saboteur'},
@@ -503,11 +598,11 @@ SMODS.Challenge {
             {id = 'v_bloons_big_bloon_blueprints'},
         },
         banned_tags = {
-            { id = 'tag_bloons_sabotage' }
+            {id = 'tag_bloons_sabotage'}
         },
         banned_other = {
-            { id = 'bl_final_vessel', type = 'blind' },
-            { id = 'bl_bloons_final_bad', type = 'blind' }
+            {id = 'bl_final_vessel', type = 'blind'},
+            {id = 'bl_bloons_final_bad', type = 'blind'}
         }
     },
     deck = {
@@ -526,29 +621,27 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
-            { id = 'inflated' },
-            { id = 'difficulty_warning'}
+            {id = 'gold_stake'},
+            {id = 'inflated'},
+            {id = 'difficulty_warning'}
         },
         modifiers = {
-            { id = 'hand_size', value = 13 },
-            { id = 'hands', value = 3 },
-            { id = 'discards', value = 0 },
-            { id = 'dollars', value = 13 },
+            {id = 'hand_size', value = 13},
+            {id = 'hands', value = 3},
+            {id = 'discards', value = 0},
+            {id = 'dollars', value = 13},
         }
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = inflated_cards,
         banned_tags = {
-            { id = 'tag_juggle' },
+            {id = 'tag_juggle'},
         },
         banned_other = {
-            { id = 'bl_water', type = 'blind' },
-            { id = 'bl_needle', type = 'blind' },
-            { id = 'bl_serpent', type = 'blind' },
-            { id = 'bl_bloons_final_moab', type = 'blind' },
+            {id = 'bl_water', type = 'blind'},
+            {id = 'bl_needle', type = 'blind'},
+            {id = 'bl_serpent', type = 'blind'},
+            {id = 'bl_bloons_final_moab', type = 'blind'},
         }
     },
     deck = {
@@ -576,24 +669,22 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
-            { id = 'no_shop_rerolls' },
-            { id = 'no_shop_slots' },
-            { id = 'difficulty_warning'}
+            {id = 'gold_stake'},
+            {id = 'no_shop_rerolls'},
+            {id = 'no_shop_slots'},
+            {id = 'difficulty_warning'}
         },
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = survivor_cards,
         banned_tags = {
-            { id = 'tag_d_six' },
-            { id = 'tag_uncommon' },
-            { id = 'tag_rare' },
-            { id = 'tag_negative' },
-            { id = 'tag_foil' },
-            { id = 'tag_holo' },
-            { id = 'tag_polychrome' },
+            {id = 'tag_d_six'},
+            {id = 'tag_uncommon'},
+            {id = 'tag_rare'},
+            {id = 'tag_negative'},
+            {id = 'tag_foil'},
+            {id = 'tag_holo'},
+            {id = 'tag_polychrome'},
         },
     },
     deck = {
@@ -612,25 +703,23 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
-            { id = 'no_negative_jokers' },
-            { id = 'difficulty_warning'}
+            {id = 'gold_stake'},
+            {id = 'no_negative_jokers'},
+            {id = 'difficulty_warning'}
         },
         modifiers = {
-            { id = 'joker_slots', value = 2 },
+            {id = 'joker_slots', value = 2},
         }
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = banned_2tc_cards,
         banned_tags = {
-            { id = 'tag_negative' },
-            { id = 'tag_bloons_concoction' }
+            {id = 'tag_negative'},
+            {id = 'tag_bloons_concoction'}
         },
         banned_other = {
-            { id = 'bl_final_leaf', type = 'blind' },
-            { id = 'bl_bloons_final_zomg', type = 'blind' },
+            {id = 'bl_final_leaf', type = 'blind'},
+            {id = 'bl_bloons_final_zomg', type = 'blind'},
         }
     },
     deck = {
@@ -653,13 +742,11 @@ SMODS.Challenge {
     },
     rules = {
         custom = {
-            { id = 'gold_stake' },
-            { id = '_2mp' },
-            { id = 'difficulty_warning'}
+            {id = 'gold_stake'},
+            {id = '_2mp'},
+            {id = 'difficulty_warning'}
         },
     },
-    jokers = {},
-    vouchers = {},
     restrictions = {
         banned_cards = {
             {id = 'j_bloons_grand_saboteur'},
@@ -667,11 +754,11 @@ SMODS.Challenge {
             {id = 'v_bloons_big_bloon_blueprints'},
         },
         banned_tags = {
-            { id = 'tag_bloons_sabotage' }
+            {id = 'tag_bloons_sabotage'}
         },
         banned_other = {
-            { id = 'bl_final_vessel', type = 'blind' },
-            { id = 'bl_bloons_final_bad', type = 'blind' }
+            {id = 'bl_final_vessel', type = 'blind'},
+            {id = 'bl_bloons_final_bad', type = 'blind'}
         }
     },
     deck = {

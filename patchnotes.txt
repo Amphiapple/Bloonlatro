@@ -2,14 +2,18 @@ Added Jokers:
 - Even more Paragons!
 - All remaining Mortar Monkeys
 - All remaining Druids
+- Sun Temple and True Sun God have been added
+   - Try for a secret sacrifice on the True Sun God
 
 Other content:
 - Diamondback has been added as a Boss!
 - Some unique consumables that only appear when playing a specific deck
+- Even more challenges!
 
 General Changes:
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
 - Reworked Boss Challenges to be a separate menu
+- Improvements to compatibility with Balatro Multiplayer
 
 Balance Changes:
 - Triple Shot cost 5 > 4
@@ -37,6 +41,7 @@ Balance Changes:
 - Artillery Battery reworked
 
 - Sun Avatar Xmult 3 > 2
+- The Anti-Bloon copy direction is no longer random, and changes every round
 
 - Bloon Sabotage and Grand Saboteur suit Hearts > Clubs
 
@@ -45,12 +50,20 @@ Balance Changes:
 
 - Tidal Chill 1 random card > 2 random cards
 
+- Primary Training Xmult 1.2 > 1.25
+- Primary Mentoring Xmult 1.1 > 1.2
+- Monkeyopolis end of round cash rounds down instead of up
+
 - Pouakai reworked
+
+- Vengeful True Sun God ???
 
 - Psychic Blast replaced with Camo Trap, gives +3 discards=
 
 - Jones deck reworked
 - Psi deck reworked
+
+- Vortex boss reworked
 
 - Cost reduction minimum is now $0 instead of $1
 
@@ -60,6 +73,7 @@ Fixes:
 - Frag Bombs Joker Display should work correctly
 - Snowstorm Joker Display should show the correct values
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
+- Spectre should work correctly with Blueprint effects
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
 - Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards

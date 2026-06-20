@@ -35,6 +35,10 @@ local functions = {
 
     --Crossmod files
     'talisman',
+    'multiplayer',
+
+    --Main menu
+    'main_menu',
 }
 
 for k, v in ipairs(functions) do

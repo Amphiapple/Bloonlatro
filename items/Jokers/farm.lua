@@ -78,7 +78,7 @@ SMODS.Joker { --Banana Plantation
         return { vars = { card.ability.extra.min, card.ability.extra.max } }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = pseudorandom('banana_plantation', card.ability.extra.min, card.ability.extra.max)
+        local dollars = pseudorandom('banana_plantation'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
         return dollars
     end
 }
@@ -102,7 +102,7 @@ SMODS.Joker { --BRF
     calc_dollar_bonus = function(self, card)
         local dollars = card.ability.extra.money * card.ability.extra.min
         for i = card.ability.extra.min + 1, card.ability.extra.crates do
-            if pseudorandom('banana_research_facility') > 0.5 then
+            if pseudorandom('banana_research_facility'..G.GAME.round_resets.ante) > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
         end
