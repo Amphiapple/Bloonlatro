@@ -116,7 +116,7 @@ SMODS.Joker { --Sun Temple
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 0.1, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
+        extra = { Xmult = 0.2, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
         button = { text = "SAC", colour = G.C.ATTENTION }
     },
 
@@ -266,7 +266,7 @@ SMODS.Joker { --True Sun God
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 0.2, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
+        extra = { Xmult = 0.3, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
         button = { text = "SAC", colour = G.C.ATTENTION }
     },
 

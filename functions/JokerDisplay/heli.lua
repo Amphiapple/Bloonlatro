@@ -69,7 +69,7 @@ JokerDisplay.Definitions["j_bloons_pursuit"] = { --Pursuit
         local number_cards = {}
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:get_id() >= 0 and (scoring_card:get_id() <= 10 or scoring_card:get_id() == 14) then
+                if scoring_card:is_face() then
                     table.insert(number_cards, scoring_card)
                 end
             end

@@ -38,7 +38,7 @@ SMODS.Consumable { --Super Monkey Storm
         return { vars = { card.ability.percent, card.ability.max } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and G.GAME.current_round.hands_left > 0
     end,
     use = function(self, card, area, copier)
         local score = math.min(card.ability.max, G.GAME.blind.chips * card.ability.percent / 100.0)
@@ -238,7 +238,7 @@ SMODS.Consumable { --Time Stop
         return { vars = { card.ability.hands } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and G.GAME.current_round.hands_left > 0
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -439,7 +439,7 @@ SMODS.Consumable { --Camo Trap
         return { vars = { card.ability.discards } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0)
+        return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and G.GAME.current_round.hands_left > 0
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({

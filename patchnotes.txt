@@ -78,6 +78,7 @@ Fixes:
 - Snowstorm Joker Display should show the correct values
 - Supply Drop and Elite Sniper should no longer create consumables when there is no space
 - Spectre should work correctly with Blueprint effects
+- Pursuit Joker Display should correctly count face cards instead of number cards
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
 - Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
