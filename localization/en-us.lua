@@ -197,6 +197,9 @@ return {
                     'when drawn to hand',
                     '-#1# hand',
                 },
+                rules = {
+                    'Appears in Ante 6'
+                }
             },
             bl_bloons_dreadbloon = {
                 name = 'Dreadbloon',
@@ -216,6 +219,9 @@ return {
                     'Debuffs all Jokers and cards',
                     'without an edition.',
                 },
+                rules = {
+                    'Start with {C:attention,T:v_hone}Hone{} and {C:attention,T:v_glow_up}Glow Up{}',
+                }
             },
             bl_bloons_blastapopoulos = {
                 name = 'Blastapopoulos',
@@ -234,6 +240,11 @@ return {
                     'X1 score for each undefeated',
                     'Diamondback blind',
                 },
+                rules = {
+                    "Tail appears in Ante 8 Small Blind",
+                    "Body appears in Ante 8 Big Blind",
+                    "Head appears in Ante 8 Boss Blind"
+                }
             },
             bl_bloons_diamondback_body = {
                 name = 'Diamondback Body',

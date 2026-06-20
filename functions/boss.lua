@@ -315,28 +315,39 @@ local function build_boss_details(selected)
 
     local has_segments = #family > 1
 
+    local rule_texts = {
+        "Tail appears in Ante 8 Small Blind",
+        "Body appears in Ante 8 Big Blind",
+        "Head appears in Ante 8 Boss Blind",
+    }
+
     local rule_nodes = {
         {
             n = G.UIT.C,
-            config = { align = "cl" },
+            config = { align = "cm" },
+            nodes = {}
+        }
+    }
+
+    for _, text in ipairs(rule_texts) do
+        rule_nodes[1].nodes[#rule_nodes[1].nodes + 1] = {
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.03 },
             nodes = {
                 {
-                    n = G.UIT.R,
-                    config = { align = "cl" },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = "Appears in all Ante 8 blinds",
-                                scale = 0.4,
-                                colour = G.C.BLACK
-                            }
-                        }
+                    n = G.UIT.O,
+                    config = {
+                        object = DynaText({
+                            string = { text },
+                            colours = { G.C.BLACK },
+                            scale = 0.4,
+                            maxw = has_segments and 4.7 or 4.5,
+                        })
                     }
                 }
             }
         }
-    }
+    end
 
     --------------------------------------------------
     -- Base bans
@@ -350,7 +361,7 @@ local function build_boss_details(selected)
 
     local ban_area_top = CardArea(
         0, 0,
-        has_segments and 6.8 or 8.8,
+        has_segments and 6.6 or 8.8,
         1.1,
         {
             card_limit = #bans,
@@ -363,7 +374,7 @@ local function build_boss_details(selected)
 
     local ban_area_bottom = CardArea(
         0, 0,
-        has_segments and 6.8 or 8.8,
+        has_segments and 6.6 or 8.8,
         1.1,
         {
             card_limit = #bans,
@@ -514,7 +525,7 @@ local function build_boss_details(selected)
                 config = {
                     align = "cm",
                     minh = 3,
-                    minw = 4.5,
+                    minw = has_segments and 4.7 or 4.5,
                     padding = 0.05,
                     r = 0.1,
                     colour = G.C.WHITE
@@ -560,7 +571,7 @@ local function build_boss_details(selected)
                 config = {
                     align = "cm",
                     minh = 3,
-                    minw = has_segments and 6.9 or 8.9,
+                    minw = has_segments and 6.7 or 8.9,
                     padding = 0.05,
                     r = 0.1,
                     colour = G.C.WHITE
