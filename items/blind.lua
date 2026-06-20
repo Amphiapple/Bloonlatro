@@ -385,6 +385,8 @@ SMODS.Blind {
         index = 4,
         challenge_params = {
             banned_ids = {
+                {id = 'j_burglar'},
+                {id = 'j_troubadour'},
                 {id = 'j_bloons_downdraft'},
                 {id = 'j_bloons_support_chinook'},
                 {id = 'j_bloons_moab_shove'},
@@ -394,8 +396,6 @@ SMODS.Blind {
                 {id = 'j_bloons_grand_saboteur'},
                 {id = 'j_bloons_monkey_pirates'},
                 {id = 'j_bloons_pirate_lord'},
-                {id = 'j_burglar'},
-                {id = 'j_troubadour'},
                 {id = 'v_grabber'},
                 {id = 'v_nacho_tong'},
                 {id = 'v_hieroglyph'},

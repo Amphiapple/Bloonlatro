@@ -2,6 +2,49 @@
 -- BOSS HELPERS
 -------------------------------------------------------
 
+local function get_banned_cards(selected)
+    local bans = {
+        { id = 'j_luchador' },
+        { id = 'j_chicot' },
+        { id = 'j_mr_bones' },
+        { id = 'j_bloons_bomb_blitz' },
+        { id = 'j_bloons_cripple_moab' },
+        { id = 'j_bloons_herald_of_everfrost' },
+        { id = 'v_bloons_big_bloon_sabotage' },
+        { id = 'v_bloons_big_bloon_blueprints' },
+    }
+
+    local challenge_params = selected.bloonlatro_boss.challenge_params or {}
+    if challenge_params.banned_ids then
+        for _, ban in ipairs(challenge_params.banned_ids) do
+            bans[#bans + 1] = ban
+        end
+    end
+
+    for i, v in ipairs(bans) do
+        v._index = i
+    end
+    table.sort(bans, function(a, b)
+        local function rank(id)
+            if id:match("^j_") then return 1 end
+            if id:match("^c_") then return 2 end
+            if id:match("^v_") then return 3 end
+            return 4
+        end
+
+        local ra = rank(a.id)
+        local rb = rank(b.id)
+
+        if ra == rb then
+            return a._index < b._index
+        end
+
+        return ra < rb
+    end)
+
+    return bans
+end
+
 local function get_bloonlatro_bosses()
     local t = {}
 
@@ -208,7 +251,7 @@ local function build_name()
         config = {
             align = "cm",
             padding = 0.02,
-            minw = 12,
+            minw = 16,
         },
         nodes = {
             {
@@ -222,7 +265,7 @@ local function build_name()
                     outline = 1.5,
                     outline_colour = selected.boss_colour or G.C.GREY,
                     minh = 0.75,
-                    minw = 12,
+                    minw = 16,
                 },
                 nodes = {
                     {
@@ -247,7 +290,7 @@ local function build_boss_info()
         config = {
             align = "cm",
             padding = 0.02,
-            minw = 12,
+            minw = 16,
             id = "bloonlatro_boss_info"
         },
         nodes = {}
@@ -255,56 +298,60 @@ local function build_boss_info()
 end
 
 local function build_boss_details(selected)
-    local challenge_params = selected.bloonlatro_boss.challenge_params or {}
-
     local boss_nodes = {
-        n = G.UIT.O,
-        config = {
-            object = create_bloonlatro_boss_card(selected)
-        }
+        n = G.UIT.R,
+        nodes = {}
     }
+
+    local family = get_boss_family(selected, get_bloonlatro_bosses())
+    for _, blind in ipairs(family) do
+        boss_nodes.nodes[#boss_nodes.nodes + 1] = {
+            n = G.UIT.O,
+            config = {
+                object = create_bloonlatro_boss_card(blind)
+            }
+        }
+    end
+
+    local has_segments = #family > 1
 
     local rule_nodes = {
         {
-            n = G.UIT.R,
+            n = G.UIT.C,
             config = { align = "cl" },
             nodes = {
                 {
-                    n = G.UIT.T,
-                    config = {
-                        text = "None",
-                        scale = 0.4,
-                        colour = G.C.BLACK
+                    n = G.UIT.R,
+                    config = { align = "cl" },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Appears in all Ante 8 blinds",
+                                scale = 0.4,
+                                colour = G.C.BLACK
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    local bans = {
-        { id = 'j_luchador' },
-        { id = 'j_chicot' },
-        { id = 'j_mr_bones' },
-        { id = 'j_bloons_bomb_blitz' },
-        { id = 'j_bloons_cripple_moab' },
-        { id = 'j_bloons_herald_of_everfrost' },
-        { id = 'tag_bloons_sabotage' },
-        { id = 'v_bloons_big_bloon_sabotage' },
-        { id = 'v_bloons_big_bloon_blueprints' },
-    }
+    --------------------------------------------------
+    -- Base bans
+    --------------------------------------------------
 
-    if challenge_params.banned_ids then
-        for _, ban in ipairs(challenge_params.banned_ids) do
-            bans[#bans + 1] = ban
-        end
-    end
+    local bans = get_banned_cards(selected)
 
-    local banned_cards = {}
+    --------------------------------------------------
+    -- Two ban card areas (top + bottom)
+    --------------------------------------------------
 
-    local ban_area = CardArea(
+    local ban_area_top = CardArea(
         0, 0,
-        5,
-        2.2,
+        has_segments and 6.8 or 8.8,
+        1.1,
         {
             card_limit = #bans,
             type = "title_2",
@@ -314,6 +361,20 @@ local function build_boss_details(selected)
         }
     )
 
+    local ban_area_bottom = CardArea(
+        0, 0,
+        has_segments and 6.8 or 8.8,
+        1.1,
+        {
+            card_limit = #bans,
+            type = "title_2",
+            view_deck = true,
+            highlight_limit = 0,
+            card_w = G.CARD_W * 0.55
+        }
+    )
+
+    local display_amount = 0
     for _, ban in ipairs(bans) do
         local center = G.P_CENTERS[ban.id]
 
@@ -330,23 +391,44 @@ local function build_boss_details(selected)
                     bypass_lock = true
                 }
             )
+            display_amount = display_amount + 1
 
-            ban_area:emplace(card)
+            if display_amount > 12 then
+                ban_area_bottom:emplace(card)
+            else
+                ban_area_top:emplace(card)
+            end
         end
     end
 
-    banned_cards[#banned_cards + 1] = {
-        n = G.UIT.R,
-        config = { align = "cm" },
-        nodes = {
-            {
-                n = G.UIT.O,
-                config = {
-                    object = ban_area
+    local banned_cards = {
+        {
+            n = G.UIT.R,
+            config = { align = "cm" },
+            nodes = {
+                {
+                    n = G.UIT.O,
+                    config = {
+                        object = ban_area_top
+                    }
+                }
+            }
+        },
+    }
+    if #bans > 12 then
+        banned_cards[#banned_cards + 1] = {
+            n = G.UIT.R,
+            config = { align = "cm" },
+            nodes = {
+                {
+                    n = G.UIT.O,
+                    config = {
+                        object = ban_area_bottom
+                    }
                 }
             }
         }
-    }
+    end
 
     --------------------------------------------------
     -- Boss panel
@@ -383,7 +465,7 @@ local function build_boss_details(selected)
                 n = G.UIT.R,
                 config = {
                     align = "cm",
-                    minw = 2,
+                    minw = has_segments and 4 or 2,
                     minh = 3,
                     padding = 0.05,
                     r = 0.1,
@@ -443,7 +525,7 @@ local function build_boss_details(selected)
     }
 
     --------------------------------------------------
-    -- Bans panel
+    -- Bans panel (two rows)
     --------------------------------------------------
 
     local bans_panel = {
@@ -478,7 +560,7 @@ local function build_boss_details(selected)
                 config = {
                     align = "cm",
                     minh = 3,
-                    minw = 4.5,
+                    minw = has_segments and 6.9 or 8.9,
                     padding = 0.05,
                     r = 0.1,
                     colour = G.C.WHITE
@@ -495,7 +577,7 @@ local function build_boss_details(selected)
             padding = 0.1,
             colour = G.C.L_BLACK,
             r = 0.1,
-            minw = 12
+            minw = 16
         },
         nodes = {
             boss_panel,
@@ -561,7 +643,7 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                     config = {
                         align = "cm",
                         padding = 0.1,
-                        minw = 12
+                        minw = 16
                     },
                     nodes = {
                         build_list(),
@@ -578,7 +660,7 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                                     label = { "Start Run" },
                                     button = "bloonlatro_start_boss_run",
                                     colour = G.C.GREEN,
-                                    minw = 12,
+                                    minw = 16,
                                     minh = 0.9
                                 })
                             }
@@ -672,32 +754,15 @@ G.FUNCS.bloonlatro_start_boss_run = function()
     local selected = G.P_BLINDS[Bloonlatro.selected_boss_key]
     if not selected then return end
 
-    local boss_bans = {
-        { id = 'j_luchador' },
-        { id = 'j_chicot' },
-        { id = 'j_mr_bones' },
-        { id = 'j_bloons_bomb_blitz' },
-        { id = 'j_bloons_cripple_moab' },
-        { id = 'j_bloons_herald_of_everfrost' },
-        { id = 'tag_bloons_sabotage' },
-        { id = 'v_bloons_big_bloon_sabotage' },
-        { id = 'v_bloons_big_bloon_blueprints' },
-    }
-
     local challenge_params = selected.bloonlatro_boss.challenge_params or {}
-
-    if challenge_params.banned_ids then
-        for _, ban in ipairs(challenge_params.banned_ids) do
-            table.insert(boss_bans, ban)
-        end
-    end
+    local bans = get_banned_cards(selected)
 
     local deck = G.P_CENTERS["b_bloons_boss_challenge"]
     local params = {
         boss_challenge = selected.key,
         vouchers = challenge_params.vouchers or {},
         win_ante = challenge_params.win_ante or 8,
-        banned_keys = boss_bans
+        banned_keys = bans
     }
 
     deck:set_params(params)

@@ -194,10 +194,26 @@ if not G.GAME.used_vouchers[v.key] then
 '''
 position = 'after'
 payload = '''
-if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_bloons_boss_challenge" then
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_bloons_boss_challenge" then
     if v.key == "v_hieroglyph" or v.key == "v_petroglyph" then
         include = false
     end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if (not v.requires or (G.P_CENTERS[v.requires] and G.P_CENTERS[v.requires].discovered)) and 
+    (not v.min_ante or v.min_ante <= G.GAME.round_resets.ante) then
+        add = true
+'''
+position = 'after'
+payload = '''
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and v.key == "tag_bloons_sabotage" then
+    add = false
 end
 '''
 match_indent = true
