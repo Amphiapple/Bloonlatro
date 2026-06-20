@@ -315,12 +315,6 @@ local function build_boss_details(selected)
 
     local has_segments = #family > 1
 
-    local rule_texts = {
-        "Tail appears in Ante 8 Small Blind",
-        "Body appears in Ante 8 Big Blind",
-        "Head appears in Ante 8 Boss Blind",
-    }
-
     local rule_nodes = {
         {
             n = G.UIT.C,
@@ -329,7 +323,23 @@ local function build_boss_details(selected)
         }
     }
 
-    for _, text in ipairs(rule_texts) do
+    local loc_rules = G.localization.descriptions.Blind[selected.key].bloons_boss_challenge_rules or nil
+    if loc_rules and type(loc_rules) == "table" and #loc_rules > 0 then
+        for _, rule_text in ipairs(loc_rules) do
+            rule_nodes[1].nodes[#rule_nodes[1].nodes + 1] = {
+                n = G.UIT.R,
+                config = { 
+                    align = "cl",
+                    padding = 0.03,
+                    maxw = has_segments and 4.7 or 4.5
+                },
+                nodes = SMODS.localize_box(
+                    loc_parse_string(rule_text),
+                    {scale = 1, colour = G.C.UI.TEXT_DARK, vars = selected.bloonlatro_boss.loc_vars or {}}
+                )
+            }
+        end
+    else
         rule_nodes[1].nodes[#rule_nodes[1].nodes + 1] = {
             n = G.UIT.R,
             config = { align = "cm", padding = 0.03 },
@@ -338,8 +348,8 @@ local function build_boss_details(selected)
                     n = G.UIT.O,
                     config = {
                         object = DynaText({
-                            string = { text },
-                            colours = { G.C.BLACK },
+                            string = { "None" },
+                            colours = { G.C.UI.TEXT_INACTIVE },
                             scale = 0.4,
                             maxw = has_segments and 4.7 or 4.5,
                         })
@@ -672,11 +682,10 @@ G.FUNCS.create_bloonlatro_boss_ui = function(origin, from_game_over)
                                     button = "bloonlatro_start_boss_run",
                                     colour = G.C.GREEN,
                                     minw = 16,
-                                    minh = 0.9
+                                    minh = 1
                                 })
                             }
                         },
-                        {n = G.UIT.R, config = {align = "cm", minh = 0.5}, nodes = {}},
                     }
                 }
             }
