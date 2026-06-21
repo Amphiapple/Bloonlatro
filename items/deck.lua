@@ -5,6 +5,13 @@ SMODS.Atlas {
     py = 95,
 }
 
+SMODS.Atlas {
+    key = 'Boss_challenge_back',
+    path = 'boss_challenge_decks.png',
+    px = 71,
+    py = 95,
+}
+
 SMODS.Back { --Quincy
     key = "quincy",
     name = "Quincy Deck",
@@ -381,18 +388,21 @@ SMODS.Back { --Silas
 SMODS.Back {
     key = "boss_challenge",
     name = "Boss Challenge Deck",
-    atlas = "Back",
-    pos = { x = 4, y = 3 },
+    atlas = "Boss_challenge_back",
+    pos = { x = 0, y = 0 },
     omit = true,
 
     config = {
+        vouchers = {},
         extra = {
-            boss_challenge_key = nil
+            boss_challenge_key = nil,
+            win_ante = 8,
+            banned_keys = {},
         }
     },
 
     load_params = function(self)
-        local params = G.SETTINGS.boss_challenge_params
+        local params = G.PROFILES[G.SETTINGS.profile].bloons_boss_challenge_params
         if not params then return end
         self.config.extra.boss_challenge_key = params.boss_challenge
         self.config.vouchers = params.vouchers or {}
@@ -408,11 +418,24 @@ SMODS.Back {
         if params.win_ante then self.config.extra.win_ante = params.win_ante end
         if params.banned_keys then self.config.extra.banned_keys = params.banned_keys end
 
-        G.SETTINGS.boss_challenge_params = params
+        G.PROFILES[G.SETTINGS.profile].bloons_boss_challenge_params = params
+    end,
+
+    apply = function(self)
+        G.GAME.win_ante = self.config.extra.win_ante
+        G.GAME.banned_keys = G.GAME.banned_keys or {}
+        for _, v in ipairs(self.config.extra.banned_keys) do
+            G.GAME.banned_keys[v.id] = true
+            if v.ids then
+                for _, vv in ipairs(v.ids) do
+                    G.GAME.banned_keys[vv] = true
+                end
+            end
+        end
     end,
 
     get_boss_blind = function(self)
-        local key = self.config and self.config.extra and self.config.extra.boss_challenge_key or G.SETTINGS.boss_challenge_params.boss_challenge
+        local key = self.config and self.config.extra and self.config.extra.boss_challenge_key or G.PROFILES[G.SETTINGS.profile].bloons_boss_challenge_params.boss_challenge
         if not key then return nil end
         return G.P_BLINDS and G.P_BLINDS[key]
     end,

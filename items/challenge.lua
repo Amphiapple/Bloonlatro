@@ -394,6 +394,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'j_luchador'},
+            {id = 'j_chicot'},
             {id = 'j_bloons_cripple_moab'},
             {id = 'j_bloons_herald_of_everfrost'},
         }

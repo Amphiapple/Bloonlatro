@@ -28,9 +28,10 @@ local functions = {
     'hook',
     'deck_ui',
     'collection',
-    'tutorial',
     'badges',
     'joker_buttons',
+    'main_menu',
+    'boss',
 
     --Crossmod files
     'talisman',

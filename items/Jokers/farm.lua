@@ -510,25 +510,9 @@ SMODS.Joker { --Central Market
         return { vars = { card.ability.extra.money, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
-        local count = 0
-        for k, v in pairs(G.GAME.used_vouchers) do
-            local redeemed = v
-            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config then
-                if k == G.GAME.selected_back.effect.config.voucher then
-                    redeemed = false
-                elseif G.GAME.selected_back.effect.config.vouchers then
-                    for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                        if k == j then
-                            redeemed = false
-                        end
-                    end
-                end
-            end
-            if redeemed then
-                count = count + 1
-            end
+        if G.STAGE == G.STAGES.RUN then
+           card.ability.extra.current = card.ability.extra.money * G.GAME.voucher_tally
         end
-        card.ability.extra.current = card.ability.extra.money * count
     end,
     calc_dollar_bonus = function(self, card)
         if card.ability.extra.current > 0 then

@@ -17,7 +17,7 @@ payload = '''
 
   local disable_skip =
     G.GAME.modifiers.no_skipping_blinds or 
-    (boss and boss.key == 'bl_bloons_diamondback_head' and G.GAME.round_resets.ante % G.GAME.win_ante == 0)
+    (boss and boss.key == 'bl_bloons_diamondback_head' and G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2)
 
   if disable_skip then
     return

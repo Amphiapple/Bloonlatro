@@ -42,7 +42,7 @@ Balance Changes:
 - Artillery Battery reworked
 
 - Sun Avatar Xmult 3 > 2
-- The Anti-Bloon coopy direction is no longer random, and changes every round
+- The Anti-Bloon copy direction is no longer random, and changes every round
 
 - Bloon Sabotage and Grand Saboteur suit Hearts > Clubs
 

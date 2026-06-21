@@ -194,11 +194,10 @@ SMODS.Blind {
     atlas = 'Blind',
     pos = { y = 5 },
     dollars = 8,
-    mult = 100, -- 100x base score (5 million)
+    mult = 200, -- 200x base score (10 million)
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
     bloonlatro_boss = {
-        title = 'Bloonarius the Inflator',
         index = 1,
     },
 
@@ -236,7 +235,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("BA58BD"),
     bloonlatro_boss = {
-        title = 'Gravelord Lych',
         index = 2
     },
 
@@ -340,7 +338,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("63E0FF"),
     bloonlatro_boss = {
-        title = 'Vortex Master of Air',
         index = 3,
         challenge_params = {
             win_ante = 6
@@ -419,15 +416,6 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-
-    loc_vars = function(self)
-        return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { '30% of blind size' } }
-    end,
-
     key = 'dreadbloon',
     atlas = 'Blind',
     pos = { y = 8 },
@@ -436,10 +424,11 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("FFDC3F"),
     bloonlatro_boss = {
-        title = 'Dreadbloon the Armored Behemoth',
         index = 4,
         challenge_params = {
             banned_ids = {
+                {id = 'j_burglar'},
+                {id = 'j_troubadour'},
                 {id = 'j_bloons_downdraft'},
                 {id = 'j_bloons_support_chinook'},
                 {id = 'j_bloons_moab_shove'},
@@ -447,8 +436,8 @@ SMODS.Blind {
                 {id = 'j_bloons_long_reach'},
                 {id = 'j_bloons_perma_spike'},
                 {id = 'j_bloons_grand_saboteur'},
-                {id = 'j_burglar'},
-                {id = 'j_troubadour'},
+                {id = 'j_bloons_monkey_pirates'},
+                {id = 'j_bloons_pirate_lord'},
                 {id = 'v_grabber'},
                 {id = 'v_nacho_tong'},
                 {id = 'v_hieroglyph'},
@@ -456,6 +445,14 @@ SMODS.Blind {
             }
         }
     },
+
+    loc_vars = function(self)
+        return { vars = { 0.3 * get_blind_amount(G.GAME.round_resets.ante) * 8 * G.GAME.starting_params.ante_scaling } }
+    end,
+
+    collection_loc_vars = function(self)
+        return { vars = { '30% of blind size' } }
+    end,
 
     in_pool = function()
         return false -- This blind is added through bosses.toml
@@ -499,7 +496,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("000000"),
     bloonlatro_boss = {
-        title = 'The Reality Warper Phayze',
         index = 5,
         challenge_params = {
             vouchers = { 'v_hone', 'v_glow_up' }
@@ -537,7 +533,6 @@ SMODS.Blind {
     boss = { showdown = true },
     boss_colour = HEX("FF862E"),
     bloonlatro_boss = {
-        title = 'Blastapopoulos Demon of the Core',
         index = 6,
     },
     loc_vars = function(self)
@@ -596,7 +591,6 @@ SMODS.Blind {
     boss_colour = HEX("D8AF48"),
     defeated = false,
     bloonlatro_boss = {
-        title = 'Diamondback the Village Devourer',
         index = 7,
         parts = {
             main = "diamondback",

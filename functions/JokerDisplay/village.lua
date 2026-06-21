@@ -24,7 +24,7 @@ JokerDisplay.Definitions["j_bloons_jungle_drums"] = { --Jungle Drums
         card.joker_display_values.count = count
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = (card ~= mod_joker and mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+        return { x_mult = (card ~= mod_joker and card.ability.set == 'Joker' and mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end
 }
 

@@ -11,6 +11,7 @@ pattern = "blind_on_deck = nil,"
 position = 'after'
 payload = '''
 subcom_mult = 1,
+voucher_tally = 0,
 '''
 match_indent = true
 
@@ -35,5 +36,19 @@ position = 'after'
 payload = '''
 reset_desperado_card()
 reset_spike_factory_card()
+'''
+match_indent = true
+
+# Increase voucher tally
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+function Card:redeem()
+    if self.ability.set == "Voucher" then
+'''
+position = 'after'
+payload = '''
+G.GAME.voucher_tally = G.GAME.voucher_tally + 1
 '''
 match_indent = true

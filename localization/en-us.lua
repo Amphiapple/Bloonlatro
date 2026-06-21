@@ -178,7 +178,7 @@ return {
                     'Fills deck with random',
                     'cards until deck size',
                     'reaches #1# cards',
-                }
+                },
             },
             bl_bloons_lych = {
                 name = 'Lych',
@@ -188,7 +188,7 @@ return {
                     'played and held in hand cards',
                     'Heals back #2#',
                     '#3# enhancement removed',
-                }
+                },
             },
             bl_bloons_vortex = {
                 name = 'Vortex',
@@ -197,6 +197,9 @@ return {
                     '+#2# Hands and one random Joker disabled',
                     'every #3# chips scored',
                     'Cards are stunned when drawn to hand',
+                },
+                bloons_boss_challenge_rules = {
+                    '{C:attention}Vortex{} appears in {C:attention}Ante 6{}'
                 }
             },
             bl_bloons_dreadbloon = {
@@ -207,7 +210,7 @@ return {
                     'Debuffs Jokers by rarity',
                     'Debuffed rarity increases',
                     'after each hand played',
-                }
+                },
             },
             bl_bloons_phayze = {
                 name = 'Phayze',
@@ -216,6 +219,9 @@ return {
                     'position when a hand is played',
                     'Debuffs all Jokers and cards',
                     'without an edition.',
+                },
+                bloons_boss_challenge_rules = {
+                    'Start with {C:attention,T:v_hone}Hone{} and {C:attention,T:v_glow_up}Glow Up{}',
                 }
             },
             bl_bloons_blastapopoulos = {
@@ -226,7 +232,7 @@ return {
                     'Played scoring cards increase heat by #2#',
                     'Scoring Meteor cards increase heat by #3#',
                     'Held Frozen cards decrease heat by #4#',
-                }
+                },
             },
             bl_bloons_diamondback_head = {
                 name = 'Diamondback Head',
@@ -234,6 +240,11 @@ return {
                     'All face cards are debuffed',
                     'X1 score for each undefeated',
                     'Diamondback blind',
+                },
+                bloons_boss_challenge_rules = {
+                    "{C:attention}Tail{} appears in {C:attention}Ante 8 Small Blind{}",
+                    "{C:attention}Body{} appears in {C:attention}Ante 8 Big Blind{}",
+                    "{C:attention}Head{} appears in {C:attention}Ante 8 Boss Blind{}"
                 }
             },
             bl_bloons_diamondback_body = {
@@ -243,7 +254,7 @@ return {
                     'each hand played',
                     'X1 score for each undefeated',
                     'Diamondback blind',
-                }
+                },
             },
             bl_bloons_diamondback_tail = {
                 name = 'Diamondback Tail',
