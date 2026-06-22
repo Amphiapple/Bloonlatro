@@ -8,12 +8,13 @@ Added Jokers:
 Other content:
 - Diamondback has been added as a Boss!
 - Some unique consumables that only appear when playing a specific deck
-- Even more challenges!
+- Even more challenges to fill in the spaces that were previously taken by Boss Challenges
 
 General Changes:
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
 - Reworked Boss Challenges to be a separate menu
 - Improvements to compatibility with Balatro Multiplayer
+- Removed tutorial, as it was conflicting with other mods and often didn't work
 
 Balance Changes:
 - Triple Shot cost 5 > 4
@@ -33,6 +34,9 @@ Balance Changes:
 - Enhanced Freeze chips 40 > 80
 - Larger Radius every 3 > 2 hands
 
+- Bloon Dissolver permanent mult +2 > +3
+- Bloon Liquefier permanent mult +1 > +2
+
 - The Blazing Sun gives a small Xmult bonus to other Hearts or the target rank
 
 - Long Range money 2 > 1
@@ -42,6 +46,7 @@ Balance Changes:
 - Artillery Battery reworked
 
 - Sun Avatar Xmult 3 > 2
+- Dark Knight Xmult 3 > 2
 - The Anti-Bloon copy direction is no longer random, and changes every round
 
 - Bloon Sabotage and Grand Saboteur suit Hearts > Clubs

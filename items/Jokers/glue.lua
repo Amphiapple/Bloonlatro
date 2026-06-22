@@ -94,7 +94,7 @@ SMODS.Joker { --Bloon Dissolver
     enhancement_gate = 'm_bloons_glued',
     config = {
         tower_info = { base = "Glue Gunner", category = "primary" },
-        extra = { p_mult = 2 } --Variables: mult = permanent +mult
+        extra = { p_mult = 3 } --Variables: mult = permanent +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -124,7 +124,7 @@ SMODS.Joker { --Bloon Liquefier
     enhancement_gate = 'm_bloons_glued',
     config = {
         tower_info = { base = "Glue Gunner", category = "primary" },
-        extra = { mult = 10, p_mult = 1 } --Variables: mult = permanent +mult
+        extra = { mult = 10, p_mult = 2 } --Variables: mult = permanent +mult
     },
 
     loc_vars = function(self, info_queue, card)
