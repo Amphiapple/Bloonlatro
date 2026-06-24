@@ -37,10 +37,13 @@ Balance Changes:
 - Bloon Dissolver permanent mult +2 > +3
 - Bloon Liquefier permanent mult +1 > +2
 
+- Big Iron mult 20 > 24
 - The Blazing Sun gives a small Xmult bonus to other Hearts or the target rank
 
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
+
+- Spectre aces required 4 > 3
 
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 - Artillery Battery reworked
@@ -55,6 +58,8 @@ Balance Changes:
 - Lead to Gold no longer removes steel
 
 - Tidal Chill 1 random card > 2 random cards
+
+- Spike Storm Xmult 1.5 > 1.3
 
 - Primary Training Xmult 1.2 > 1.25
 - Primary Mentoring Xmult 1.1 > 1.2

@@ -231,7 +231,7 @@ SMODS.Joker { --Heat-tipped Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { chips = 12 } --Variables: mult = +mult
+        extra = { chips = 12 } --Variables: chips = +chips
     },
 
     loc_vars = function(self, info_queue, card)

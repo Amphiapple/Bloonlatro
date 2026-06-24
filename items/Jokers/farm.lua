@@ -335,7 +335,7 @@ SMODS.Joker { --IMF Loan
     end,
     calculate = function(self, card, context)
         if context.setting_blind and G.GAME.dollars < to_big(0) and not card.getting_sliced and not context.blueprint then
-            card.ability.extra_value = card.ability.extra_value + G.GAME.dollars + G.GAME.dollar_buffer
+            card.ability.extra_value = card.ability.extra_value + G.GAME.dollars + (G.GAME.dollar_buffer or 0)
             card:set_cost()
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
@@ -345,9 +345,9 @@ SMODS.Joker { --IMF Loan
                 end
             }))
             return {
-                dollars = -(G.GAME.dollars + G.GAME.dollar_buffer),
+                dollars = -(G.GAME.dollars + (G.GAME.dollar_buffer or 0)),
                 func = function()
-                    G.GAME.dollar_buffer = G.GAME.dollar_buffer - G.GAME.dollars
+                    G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - G.GAME.dollars
                     return true
                 end,
                 colour = G.C.MONEY

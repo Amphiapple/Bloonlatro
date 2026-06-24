@@ -76,7 +76,11 @@ for _, joker in ipairs(banned_hand_cards) do
     table.insert(crash_of_the_titans_cards, joker)
 end
 
-local joshs_constant_cards = banned_hand_cards
+local joshs_constant_cards = {}
+
+for _, joker in ipairs(banned_hand_cards) do
+    table.insert(joshs_constant_cards, joker)
+end
 
 for _, joker in ipairs(eternal_bypass_cards) do
     table.insert(joshs_constant_cards, joker)
@@ -537,6 +541,9 @@ SMODS.Challenge {
             {id = 'tag_polychrome'},
         },
     },
+    vouchers = {
+        {id = 'v_bloons_insider_trades'},
+    },
     deck = {
         type = 'Challenge Deck',
     },
@@ -688,6 +695,9 @@ SMODS.Challenge {
             {id = 'tag_holo'},
             {id = 'tag_polychrome'},
         },
+    },
+    vouchers = {
+        {id = 'v_bloons_insider_trades'},
     },
     deck = {
         type = 'Challenge Deck',

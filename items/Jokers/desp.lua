@@ -89,7 +89,7 @@ SMODS.Joker { --Big Iron
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { mult = 20 } --Variables: Xmult = Xmult
+        extra = { mult = 24 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
