@@ -57,7 +57,8 @@ return {
                 text = {
                     '{C:attention}First #1#{} played cards',
                     'give {C:mult}+#2#{} Mult when scored,',
-                    '{C:mult}+#3#{} if rank is {C:attention}#4#{}',
+                    '{C:mult}+#3#{} Mult instead if',
+                    'rank is {C:attention}#4#{}',
                     '{s:0.8}Rank changes every round{}',
                 }
             },
@@ -66,7 +67,8 @@ return {
                 text = {
                     '{C:attention}First #1#{} played cards',
                     'give {C:mult}+#2#{} Mult when scored,',
-                    '{C:mult}+#3#{} if rank is {C:attention}#4#{}',
+                    '{C:mult}+#3#{} Mult instead if',
+                    'rank is {C:attention}#4#{}',
                     '{s:0.8}Rank changes every round{}',
                 }
             },
