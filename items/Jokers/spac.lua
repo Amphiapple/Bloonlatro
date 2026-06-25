@@ -473,7 +473,7 @@ SMODS.Joker { --Long Life Spikes
     perishable_compat = false,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { mult = 1, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+        extra = { mult = 1, loss = 1, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult each hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -497,10 +497,9 @@ SMODS.Joker { --Long Life Spikes
             }
         elseif context.joker_main and card.ability.extra.current > 0 then
             return {
-            mult = card.ability.extra.current,
+                mult = card.ability.extra.current,
             }
-        end
-        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        elseif context.after and not context.blueprint then
             local loss = card.ability.extra.loss
             if loss > card.ability.extra.current then
                 loss = card.ability.extra.current
@@ -525,15 +524,14 @@ SMODS.Joker { --Deadly Spikes
     perishable_compat = false,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { mult = 10, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+        extra = { mult = 2, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult each hand
     },
 
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extra.mult,
-                localize(G.GAME.current_round.spike_factory_card.rank, 'ranks'),
-                localize(G.GAME.current_round.spike_factory_card.suit, 'suits_plural'),
+                localize(G.GAME.current_round.spike_factory_card.suit, 'suits_singular'),
                 card.ability.extra.loss,
                 card.ability.extra.current,
                 colours = {G.C.SUITS[G.GAME.current_round.spike_factory_card.suit]},
@@ -541,8 +539,7 @@ SMODS.Joker { --Deadly Spikes
         }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card:get_id() == G.GAME.current_round.spike_factory_card.id
-                and context.other_card:is_suit(G.GAME.current_round.spike_factory_card.suit) and not context.other_card.debuff and not context.blueprint then
+        if context.discard and context.other_card:is_suit(G.GAME.current_round.spike_factory_card.suit) and not context.other_card.debuff and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
                 message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
@@ -551,10 +548,9 @@ SMODS.Joker { --Deadly Spikes
             }
         elseif context.joker_main and card.ability.extra.current > 0 then
             return {
-            mult = card.ability.extra.current,
+                mult = card.ability.extra.current,
             }
-        end
-        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        elseif context.after and not context.blueprint then
             local loss = card.ability.extra.loss
             if loss > card.ability.extra.current then
                 loss = card.ability.extra.current

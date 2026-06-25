@@ -40,6 +40,8 @@ Balance Changes:
 - Big Iron mult 20 > 24
 - The Blazing Sun gives a small Xmult bonus to other Hearts or the target rank
 
+- Ballistic Missile reworked
+
 - Long Range money 2 > 1
 - Crow's Nest money 3 > 2
 
@@ -55,8 +57,10 @@ Balance Changes:
 - Powerful Darts maximum 250 > 300
 
 - Sun Avatar Xmult 3 > 2
-- Dark Knight Xmult 3 > 2
 - The Anti-Bloon copy direction is no longer random, and changes every round
+- Dark Knight Xmult 3 > 2
+- Dark Champion Xmult 1.33 > 1.3
+- Legend of the Night now creates negative black holes
 
 - Bloon Sabotage and Grand Saboteur suit Hearts > Clubs
 
@@ -66,6 +70,8 @@ Balance Changes:
 - Tidal Chill 1 random card > 2 random cards
 
 - Spike Storm Xmult 1.5 > 1.3
+- Long Life Spikes -3 mult > -1 mult each hand played
+- Deadly Spikes reworked
 
 - Primary Training Xmult 1.2 > 1.25
 - Primary Mentoring Xmult 1.1 > 1.2

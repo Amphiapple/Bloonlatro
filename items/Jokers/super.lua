@@ -676,7 +676,7 @@ SMODS.Joker { --Dark Champion
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 1.33 } --Variables: Xmult = Xmult
+        extra = { Xmult = 1.3 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
