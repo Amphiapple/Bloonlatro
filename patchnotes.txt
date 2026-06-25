@@ -48,6 +48,12 @@ Balance Changes:
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 - Artillery Battery reworked
 
+- Focused Firing onow gives mult instead of chips
+- Focused Firing ability moved to Advanced Targeting
+- Laser Shock maximum mult 23 > 25
+- Laser Cannon maximum mult 11 > 12
+- Powerful Darts maximum 250 > 300
+
 - Sun Avatar Xmult 3 > 2
 - Dark Knight Xmult 3 > 2
 - The Anti-Bloon copy direction is no longer random, and changes every round

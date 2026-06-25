@@ -63,16 +63,13 @@ SMODS.Joker { --Focused Firing
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
-        extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: min = min possible +chips, q1,q3 = range for central values, max = max possible +chips
+        extra = { min = 0, max = 25 } --Variables: min = min possible +mult, max = max possible +mult
     },
 
     loc_vars = function(self, info_queue, card)
-        local r_chips = {}
+        local r_mult = {}
         for i = card.ability.extra.min, card.ability.extra.max do
-            r_chips[#r_chips + 1] = tostring(i)
-            if i >= card.ability.extra.q1 and i <= card.ability.extra.q3 then
-                r_chips[#r_chips + 1] = tostring(i)
-            end
+            r_mult[#r_mult + 1] = tostring(i)
         end
 
         local main_start = {
@@ -81,10 +78,10 @@ SMODS.Joker { --Focused Firing
                 config = { align = 'cm', padding = 0.03 },
                 nodes = {
                     { n = G.UIT.R, config = { align = 'cm' }, nodes = {
-                        { n = G.UIT.T, config = { text = '+', colour = G.C.CHIPS, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '+', colour = G.C.MULT, scale = 0.32 } },
                         { n = G.UIT.O, config = { object = DynaText({
-                            string = r_chips,
-                            colours = { G.C.CHIPS },
+                            string = r_mult,
+                            colours = { G.C.MULT },
                             pop_in_rate = 9999999,
                             silent = true,
                             random_element = true,
@@ -92,13 +89,7 @@ SMODS.Joker { --Focused Firing
                             scale = 0.32,
                             min_cycle_time = 0
                         })}},
-                        { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
-                    }},
-                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
-                        { n = G.UIT.T, config = { text = 'Higher chance of', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
-                    }},
-                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
-                        { n = G.UIT.T, config = { text = 'central values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                        { n = G.UIT.T, config = { text = ' Mult', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
                     }}
                 }
             }
@@ -109,15 +100,9 @@ SMODS.Joker { --Focused Firing
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local r = pseudorandom('focused_firing'..G.GAME.round_resets.ante)
-            local temp_chips
-            if r < 0.5 then
-                temp_chips = pseudorandom('focused_firing'..G.GAME.round_resets.ante, card.ability.extra.q1, card.ability.extra.q3)
-            else
-                temp_chips = pseudorandom('focused_firing'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
-            end
+            local temp_mult = pseudorandom('focused_firing'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
             return {
-                chips = temp_chips
+                mult = temp_mult
             }
 		end
     end
@@ -133,7 +118,7 @@ SMODS.Joker { --Laser Shock
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
-        extra = { min = 0, max = 23, mult = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
+        extra = { min = 0, max = 25, mult = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -220,7 +205,7 @@ SMODS.Joker { --Laser Cannon
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
-        extra = { min = 0, max = 11, mult = 0, saved = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult, saved = saved shock +mult
+        extra = { min = 0, max = 12, mult = 0, saved = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult, saved = saved shock +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -382,13 +367,16 @@ SMODS.Joker { --Advanced Targeting
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
-        extra = { min = 25, max = 125 } --Variables: min = min possible +chips, max = max possible +chips
+        extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: min = min possible +chips, q1,q3 = range for central values, max = max possible +chips
     },
 
     loc_vars = function(self, info_queue, card)
         local r_chips = {}
         for i = card.ability.extra.min, card.ability.extra.max do
             r_chips[#r_chips + 1] = tostring(i)
+            if i >= card.ability.extra.q1 and i <= card.ability.extra.q3 then
+                r_chips[#r_chips + 1] = tostring(i)
+            end
         end
 
         local main_start = {
@@ -411,7 +399,10 @@ SMODS.Joker { --Advanced Targeting
                         { n = G.UIT.T, config = { text = ' Chips', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
                     }},
                     { n = G.UIT.R, config = { align = 'cm' }, nodes = {
-                        { n = G.UIT.T, config = { text = 'Smaller range of values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                        { n = G.UIT.T, config = { text = 'Higher chance of', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'central values', colour = G.C.UI.TEXT_DARK, scale = 0.32 } }
                     }}
                 }
             }
@@ -422,7 +413,13 @@ SMODS.Joker { --Advanced Targeting
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local temp_chips = pseudorandom('advanced_targeting'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
+            local r = pseudorandom('focused_firing'..G.GAME.round_resets.ante)
+            local temp_chips
+            if r < 0.5 then
+                temp_chips = pseudorandom('advanced_targeting'..G.GAME.round_resets.ante, card.ability.extra.q1, card.ability.extra.q3)
+            else
+                temp_chips = pseudorandom('advanced_targeting'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
+            end
             return {
                 chips = temp_chips
             }
@@ -837,7 +834,7 @@ SMODS.Joker { --Powerful Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
-        extra = { num = 1, denom = 2, min = 150, max = 250 } --Variables: num/denom = probabiltiy fraction, max = max possible +chips, min = min possible +chips
+        extra = { num = 1, denom = 2, min = 150, max = 300 } --Variables: num/denom = probabiltiy fraction, max = max possible +chips, min = min possible +chips
     },
 
     loc_vars = function(self, info_queue, card)
