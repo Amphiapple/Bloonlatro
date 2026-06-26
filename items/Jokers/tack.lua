@@ -330,6 +330,7 @@ SMODS.Joker { --Super Maelstrom
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
         extra = { Xmult = 1, current = 1, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
