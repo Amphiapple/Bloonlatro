@@ -125,17 +125,20 @@ SMODS.Joker { --The Big One
         return { vars = { n, d, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'the_big_one', card.ability.extra.num, card.ability.extra.denom, 'the_big_one') and not context.blueprint then
+        if context.before and SMODS.pseudorandom_probability(card, 'the_big_one', card.ability.extra.num, card.ability.extra.denom, 'the_big_one') then
             card.ability.extra.active = true
             for k, v in ipairs(context.scoring_hand) do
                 if not v.debuff then
                     v:set_ability('m_bloons_stunned', nil, true)
                 end
             end
+            return {
+                message = 'Stunned!'
+            }
         elseif context.joker_main and card.ability.extra.active then
             card.ability.extra.active = false
             return {
-                mult = card.ability.extra.mult 
+                mult = card.ability.extra.mult
             }
         end
     end
@@ -161,13 +164,16 @@ SMODS.Joker { --The Biggest One
         return { vars = { n, d, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'the_biggest_one', card.ability.extra.num, card.ability.extra.denom, 'the_biggest_one') and not context.blueprint then
+        if context.before and SMODS.pseudorandom_probability(card, 'the_biggest_one', card.ability.extra.num, card.ability.extra.denom, 'the_biggest_one') then
             card.ability.extra.active = true
             for k, v in ipairs(context.scoring_hand) do
                 if not v.debuff then
                     v:set_ability('m_bloons_stunned', nil, true)
                 end
             end
+            return {
+                message = 'Stunned!'
+            }
         elseif context.joker_main and card.ability.extra.active then
             card.ability.extra.active = false
             return {

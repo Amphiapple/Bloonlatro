@@ -120,47 +120,22 @@ JokerDisplay.Definitions["j_bloons_monkey_intelligence_bureau"] = { --Monkey Int
 }
 
 JokerDisplay.Definitions["j_bloons_call_to_arms"] = { --Call to Arms
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "active" },
-        { text = ")" },
-    },
-    extra = {
+    text = {
         {
-            { text = "(" },
-            { ref_table = "card.joker_display_values", ref_value = "odds" },
-            { text = ")" },
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "num" }
+            },
+            border_colour = G.C.GREEN
         }
     },
-    extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
-        card.joker_display_values.active = active and "Active!" or "Inactive"
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'call_to_arms')
-        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
+        card.joker_display_values.num = active and 4 or 1
     end
 }
 
 JokerDisplay.Definitions["j_bloons_homeland_defense"] = { --Homeland Defense
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "active" },
-        { text = ")" },
-    },
-    extra = {
-        {
-            { text = "(" },
-            { ref_table = "card.joker_display_values", ref_value = "odds" },
-            { text = ")" },
-        }
-    },
-    extra_config = { colour = G.C.GREEN, scale = 0.3 },
-    calc_function = function(card)
-        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
-        card.joker_display_values.active = active and "Active!" or "Inactive"
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'homeland_defense')
-        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
-    end
 }
 
 JokerDisplay.Definitions["j_bloons_monkey_business"] = { --Monkey Business

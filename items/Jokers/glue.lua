@@ -264,7 +264,8 @@ SMODS.Joker { --Glue Hose
             context.other_card:set_ability(G.P_CENTERS.m_bloons_glued, nil, true)
             return {
                 message = 'Glued!',
-                colour = G.C.YELLOW
+                colour = G.C.YELLOW,
+                message_delay = 0.45
             }
         end
     end
@@ -317,7 +318,8 @@ SMODS.Joker { --Glue Storm
             context.other_card:set_ability(G.P_CENTERS.m_bloons_glued, nil, true)
             return {
                 message = 'Glued!',
-                colour = G.C.YELLOW
+                colour = G.C.YELLOW,
+                message_delay = 0.45
             }
         end
     end

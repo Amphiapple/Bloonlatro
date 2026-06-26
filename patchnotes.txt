@@ -75,6 +75,8 @@ Balance Changes:
 
 - Primary Training Xmult 1.2 > 1.25
 - Primary Mentoring Xmult 1.1 > 1.2
+- Grow Blocker adjusted to change numberator instead of denominator
+- Call to Arms and Homeland Defense reworked
 - Monkeyopolis end of round cash rounds down instead of up
 
 - Pouakai reworked
@@ -103,6 +105,7 @@ Fixes:
 - Pursuit Joker Display should correctly count face cards instead of number cards
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
+- The Big One and The Biggest One should correctly be blueprint compatible
 - Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
 - Sticky Bomb Joker Display should work

@@ -22,7 +22,10 @@ SMODS.Joker { --Druid
                     return true
                 end
             }))
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.SECONDARY_SET.Planet})
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
         end
     end
 }
@@ -61,7 +64,10 @@ SMODS.Joker { --Hard Thorns
                 end
                 count = count + 1
             end
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'.. count .. ' Planets', colour = G.C.SECONDARY_SET.Planet})  
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
         end
     end
 }
@@ -139,7 +145,10 @@ SMODS.Joker { --Druid of the Storm
                     return true
                 end)
             }))
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
         end
     end
 }
@@ -154,22 +163,35 @@ SMODS.Joker { --Ball Lightning
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { Xmult_match = 1.5, Xmult = 1.25 } --Variables: Xmult_match = Xmult if planet matches, Xmult = Xmult otherwise
+        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'ball_lightning')
+        return { vars = { n, d } }
     end,
     calculate = function(self, card, context)
-        if context.other_consumeable
-            and context.other_consumeable.ability.set == "Planet"
-            and not context.other_consumeable.debuff then
-            local Xmult = (context.other_consumeable.ability.consumeable.hand_type == context.scoring_name)
-                and card.ability.extra.Xmult_match
-                or card.ability.extra.Xmult
+        if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and
+                SMODS.pseudorandom_probability(card, 'ball_lightning', card.ability.extra.num, card.ability.extra.denom, 'ball_lightning') then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    local planet = nil
+                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                        if v.config.hand_type == context.scoring_name then
+                            planet = v.key
+                        end
+                    end
+                    local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'druid_of_the_storm')
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end)
+            }))
             return {
-                x_mult = Xmult,
-                message_card = context.other_consumeable
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
             }
         end
     end
@@ -207,7 +229,10 @@ SMODS.Joker { --Monarch of Storms
                     return true
                 end)
             }))
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
         end
     end
 }
@@ -236,7 +261,10 @@ SMODS.Joker { --Thorn Swarm
                     return true
                 end
             }))
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.SECONDARY_SET.Planet})
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
         end
     end
 }
@@ -304,7 +332,7 @@ SMODS.Joker { --Jungle's Bounty
     blueprint_compat = false,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { money = 7 } --Variables: money = money per planet destroyed
+        extra = { money = 8 } --Variables: money = money per planet destroyed
     },
 
     loc_vars = function(self, info_queue, card)
@@ -332,21 +360,22 @@ SMODS.Joker { --Spirit of the Forest
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { max = 7 } --Variables: max = max money
+        extra = { Xmult_match = 2, Xmult = 1.5 } --Variables: Xmult_match = Xmult if planet matches, Xmult = Xmult otherwise
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max } }
+        return { vars = { card.ability.extra.Xmult_match, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.before then
-            local dollars = G.GAME.hands[context.scoring_name].level
-            if dollars > card.ability.extra.max then
-                dollars = card.ability.extra.max
-            end
+        if context.other_consumeable
+            and context.other_consumeable.ability.set == "Planet"
+            and not context.other_consumeable.debuff then
+            local Xmult = (context.other_consumeable.ability.consumeable.hand_type == context.scoring_name)
+                and card.ability.extra.Xmult_match
+                or card.ability.extra.Xmult
             return {
-                dollars = dollars,
-                colour = G.C.MONEY
+                x_mult = Xmult,
+                message_card = context.other_consumeable
             }
         end
     end
@@ -376,7 +405,10 @@ SMODS.Joker { --Druidic Reach
                     return true
                 end
             }))
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.SECONDARY_SET.Planet})
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
         end
     end
 }

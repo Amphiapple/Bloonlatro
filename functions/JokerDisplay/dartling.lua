@@ -36,9 +36,6 @@ JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
                         local r_mult = {}
                         for i = card.config.extra.min, card.config.extra.max do
                             r_mult[#r_mult + 1] = tostring(i)
-                            if i >= card.config.extra.q1 and i <= card.config.extra.q3 then
-                                r_mult[#r_mult + 1] = tostring(i)
-                            end
                         end
                         return r_mult
                     end

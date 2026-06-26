@@ -132,7 +132,8 @@ SMODS.Joker { --Bloon Impact
                 context.other_card:set_ability('m_bloons_stunned', nil, true)
                 return {
                     message = 'Stunned!',
-                    colour = G.C.RED
+                    colour = G.C.RED,
+                    message_delay = 0.45
                 }
             end
         elseif context.before then
@@ -180,7 +181,8 @@ SMODS.Joker { --Bloon Crush
                 context.other_card:set_ability('m_bloons_stunned', nil, true)
                 return {
                     message = 'Stunned!',
-                    colour = G.C.RED
+                    colour = G.C.RED,
+                    message_delay = 0.45
                 }
             end
         elseif context.before then
