@@ -51,9 +51,9 @@ return {
 			j_bloons_grow_blocker = {
 				name = 'Grow Blocker',
 				text = {
-					'Halves all {C:attention}listed{}',
-					'{C:green,E:1,s:1.1}probabilities',
-					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0.5 in 3{C:inactive})',
+					'All {C:attention}listed {C:green,E:1,s:1.1}probabilities',
+					'are impossible',
+					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0 in 3{C:inactive})',
 				}
 			},
 			j_bloons_radar_scanner = {
@@ -86,8 +86,7 @@ return {
 				name = 'Homeland Defense',
 				text = {
 					'All {C:attention}listed {C:green,E:1,s:1.1}probabilities{}',
-					'are equally likely',
-					'{C:inactive}(ex: {C:green}? in ?{C:inactive} -> {C:green}1 in 2{C:inactive})',
+					'are {C:green}1 in 2{}',
 				}
 			},
 			j_bloons_monkey_business = {

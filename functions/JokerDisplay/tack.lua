@@ -175,13 +175,10 @@ JokerDisplay.Definitions["j_bloons_super_maelstrom"] = { --Super Maelstrom
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+                { ref_table = "card.ability.extra", ref_value = "current" }
             }
         }
     },
-    calc_function = function(card)
-        card.joker_display_values.Xmult = next(card.ability.extra.ranks) == nil and card.ability.extra.Xmult or 1
-    end,
 }
 
 JokerDisplay.Definitions["j_bloons_more_tacks"] = { --More Tacks

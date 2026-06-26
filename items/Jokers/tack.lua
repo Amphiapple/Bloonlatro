@@ -332,7 +332,7 @@ SMODS.Joker { --Super Maelstrom
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { Xmult = 2, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { Xmult = 1, current = 1, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -349,6 +349,7 @@ SMODS.Joker { --Super Maelstrom
 		return {
 			vars = {
 				card.ability.extra.Xmult,
+                card.ability.extra.current,
                 process_var(card.ability.extra.ranks)
 			},
         }
@@ -367,10 +368,20 @@ SMODS.Joker { --Super Maelstrom
                 if v == rank then
                     table.remove(card.ability.extra.ranks, k)
                 end
-            end   
-        elseif context.joker_main and next(card.ability.extra.ranks) == nil then
+            end
+            if next(card.ability.extra.ranks) == nil then
+                card.ability.extra.ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'}
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "current",
+                    scalar_value = "Xmult",
+                    message_colour = G.C.FILTER
+                })
+                return nil, true
+            end
+        elseif context.joker_main and card.ability.extra.current > 1 then
             return {
-                x_mult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.current
             }
         end
     end

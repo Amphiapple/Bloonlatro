@@ -55,7 +55,7 @@ return {
 					'This {C:attention}Joker{} gains',
 					'{C:mult}+#1#{} Mult if scoring hand',
 					'contains a {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
-					'{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
+					'{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
 				}
 			},
 			j_bloons_super_range_tacks = {
@@ -64,7 +64,7 @@ return {
 					'This {C:attention}Joker{} gains {C:mult}+#1#{}',
 					'Mult if scoring hand',
 					'contains a {C:attention}3{}, {C:attention}5{}, {C:attention}7{}, or {C:attention}9{}',
-					'{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
+					'{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
 				}
 			},
 			j_bloons_blade_shooter = {
@@ -74,7 +74,7 @@ return {
 					'if scoring hand contains',
 					'{C:attention}#2#{} cards with ranks',
 					'{C:attention}3{}, {C:attention}5{}, {C:attention}7{}, or {C:attention}9{}',
-					'{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)',
+					'{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}',
 				}
 			},
 			j_bloons_blade_maelstrom = {
@@ -88,9 +88,10 @@ return {
 			j_bloons_super_maelstrom = {
 				name = 'Super Maelstrom',
 				text = {
-					'{X:mult,C:white}X#1#{} Mult after',
-					'scoring every card rank',
-					'{C:inactive}#2#{}',
+					'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+					'after scoring every card rank',
+					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}',
+					'{C:inactive}#3#{}',
 				}
 			},
 			j_bloons_more_tacks = {
@@ -123,7 +124,7 @@ return {
 					'This Joker gains',
 					'{X:mult,C:white}X#1#{} Mult for every {C:attention}8{}',
 					'played this round',
-					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)',
+					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}',
 				}
 			},
 			j_bloons_the_tack_zone = {

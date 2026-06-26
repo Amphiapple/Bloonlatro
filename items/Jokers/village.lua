@@ -176,7 +176,7 @@ SMODS.Joker { --Grow Blocker
     calculate = function(self, card, context)
         if context.mod_probability and not context.blueprint then
             return {
-                numerator = context.numerator / 2
+                numerator = context.numerator * 0
             }
         end
     end
@@ -287,6 +287,7 @@ SMODS.Joker { --Homeland Defense
     calculate = function(self, card, context)
         if context.mod_probability and not context.blueprint then
             return {
+                numerator = 1,
                 denominator = 2
             }
         end

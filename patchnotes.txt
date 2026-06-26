@@ -27,6 +27,7 @@ Balance Changes:
 
 - Super Range Tacks effect moved to Long Range Tacks
 - Super Range Tacks and Blade Shooter reworked
+- Super Maelstrom can now scale infinitely
 - More Tacks, Even More Tacks, and Tack Sprayer reworked
 
 - Ice Monkey chips every 3 > 2 hands
@@ -75,7 +76,7 @@ Balance Changes:
 
 - Primary Training Xmult 1.2 > 1.25
 - Primary Mentoring Xmult 1.1 > 1.2
-- Grow Blocker adjusted to change numberator instead of denominator
+- Grow Blocker probability half > impossible
 - Call to Arms and Homeland Defense reworked
 - Monkeyopolis end of round cash rounds down instead of up
 
