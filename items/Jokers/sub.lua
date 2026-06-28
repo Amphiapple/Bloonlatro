@@ -263,29 +263,28 @@ SMODS.Joker { --Ballistic Missile
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { Xmult = 0.1 } --Variables: Xmult = Xmult
+        extra = { chips = 12, mult = 3, max_rank = 0 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult * (G.GAME.subcom_mult or 1) } }
+        return { vars = { card.ability.extra.chips * (G.GAME.subcom_mult or 1), card.ability.extra.mult * (G.GAME.subcom_mult or 1) } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand then
-            local max = 0
-            local max_id = 0
-            local max_card = nil
-            for k, v in ipairs(G.hand.cards) do
-                local id = v:get_id()
-                local rank = SMODS.has_no_rank(v) and 0 or v.base.nominal
-                if id > max_id and rank > 0 then
-                    max = rank
-                    max_id = id
-                    max_card = v
+        if context.before and not context.blueprint then
+            local max_rank = 0
+            for _, hand_card in ipairs(G.hand.cards) do
+                local rank = SMODS.has_no_rank(hand_card) and 0 or hand_card:get_id()
+                if rank > max_rank and rank > 0 then
+                    max_rank = rank
                 end
             end
-            if context.other_card == max_card then
+            card.ability.extra.max_rank = max_rank
+        end
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
+            if not SMODS.has_no_rank(context.other_card) and context.other_card:get_id() == card.ability.extra.max_rank then
                 return {
-                    Xmult = 1 + card.ability.extra.Xmult * max * (G.GAME.subcom_mult or 1)
+                    chips = card.ability.extra.chips * (G.GAME.subcom_mult or 1),
+                    mult = card.ability.extra.mult * (G.GAME.subcom_mult or 1)
                 }
             end
 		end

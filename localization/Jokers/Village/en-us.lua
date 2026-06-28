@@ -51,9 +51,9 @@ return {
 			j_bloons_grow_blocker = {
 				name = 'Grow Blocker',
 				text = {
-					'All {C:attention}listed {C:green,E:1,s:1.1}probabilities',
-					'are impossible',
-					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0 in 3{C:inactive})',
+					'All {C:attention}listed probabilities',
+					'never trigger',
+					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} → {C:green}0 in 3{C:inactive})',
 				}
 			},
 			j_bloons_radar_scanner = {

@@ -56,7 +56,8 @@ return {
                 text = {
                     'Earn {C:money}$#1#{} at',
                     'end of round',
-                    '{C:money}-$#2#{} each round',
+                    'Reduces by {C:money}$#2#{}',
+                    'each round',
                 }
             },
             j_bloons_hot_shot = {

@@ -185,12 +185,11 @@ JokerDisplay.Definitions["j_bloons_deadly_spikes"] = { --Deadly Spikes
     text_config = { colour = G.C.MULT },
     reminder_text = {
         { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "spike_factory_card", colour = G.C.FILTER },
-        { text = ")" },
+        { ref_table = "card.joker_display_values", ref_value = "spike_factory_card_suit" },
+        { text = ")" }
     },
     calc_function = function(card)
-        card.joker_display_values.spike_factory_card = localize{
-                type = 'variable', key = "jdis_rank_of_suit", vars = { localize(G.GAME.current_round.spike_factory_card.rank, 'ranks'), localize(G.GAME.current_round.spike_factory_card.suit, 'suits_plural') } }
+        card.joker_display_values.spike_factory_card_suit = localize(G.GAME.current_round.spike_factory_card.suit, 'suits_singular')
     end,
     style_function = function(card, text, reminder_text, extra)
         if reminder_text and reminder_text.children[2] then

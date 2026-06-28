@@ -29,8 +29,8 @@ return {
                 name = 'Glaive Ricochet',
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'when each card with a',
-                    'different rank is scored',
+                    'for each card with a new',
+                    'rank in played {C:attention}poker hand{}',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },
@@ -38,8 +38,8 @@ return {
                 name = 'MOAR Glaives',
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'when each card with a',
-                    'different suit is scored',
+                    'for each card with a new',
+                    'suit in played {C:attention}poker hand{}',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },
@@ -47,8 +47,8 @@ return {
                 name = 'Glaive Lord',
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'when each card with a different',
-                    'suit or rank is scored',
+                    'for each card with a new',
+                    'suit or rank in played {C:attention}poker hand{}',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },

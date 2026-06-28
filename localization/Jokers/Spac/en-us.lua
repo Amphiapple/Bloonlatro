@@ -131,7 +131,7 @@ return {
 					'per discarded {V:1}#2#{}',
 					'{C:mult}-#3#{} Mult at end of round',
 					'{s:0.8}Suit changes every round{}',
-					'{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)',
+					'{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)',
 				}
 			},
 			j_bloons_perma_spike = {

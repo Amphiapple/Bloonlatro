@@ -401,7 +401,7 @@ SMODS.Joker { --Special Poperations
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.j_bloons_marine
-        info_queue[#info_queue+1] = G.P_CENTERS.c_bloons_cash
+        info_queue[#info_queue+1] = G.P_CENTERS.c_bloons_cash_drop
         local function process_var(count, cap)
 			return count % cap
 		end
