@@ -27,20 +27,17 @@ JokerDisplay.Definitions["j_bloons_dartling_gunner"] = { --Dartling Gunner
 
 JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
     text = {
-        { text = "+", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.MULT },
         {
             dynatext = {
                 string = (
                     function()
                         local card = SMODS.Centers["j_bloons_focused_firing"]
-                        local r_chips = {}
+                        local r_mult = {}
                         for i = card.config.extra.min, card.config.extra.max do
-                            r_chips[#r_chips + 1] = tostring(i)
-                            if i >= card.config.extra.q1 and i <= card.config.extra.q3 then
-                                r_chips[#r_chips + 1] = tostring(i)
-                            end
+                            r_mult[#r_mult + 1] = tostring(i)
                         end
-                        return r_chips
+                        return r_mult
                     end
                 )(),
                 colours = { G.C.CHIPS },

@@ -12,11 +12,6 @@ if next(SMODS.find_mod('Multiplayer')) or next(SMODS.find_mod('MultiplayerExperi
         {id = 'tag_bloons_sabotage'},
         {id = 'v_bloons_big_bloon_sabotage'},
         {id = 'v_bloons_big_bloon_blueprints'},
-        --Bugged towers
-        {id = 'j_bloons_faster_throwing'},
-        {id = 'j_bloons_faster_rangs'},
-        {id = 'j_bloons_turbo_charge'},
-        {id = 'j_bloons_perma_charge'},
     }
     multiplayer_versus_bans = {
         {id = 'j_bloons_cripple_moab'},

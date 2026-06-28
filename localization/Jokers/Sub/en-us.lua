@@ -62,9 +62,9 @@ return {
 			j_bloons_ballistic_missile = {
 				name = 'Ballistic Missile',
 				text = {
-					'Gives {X:mult,C:white}X#1#{} for each card',
-					'with the {C:attention}most common{}',
-					'rank held in hand',
+					'Gives {X:mult,C:white}X#1#{} times the',
+					'rank of {C:attention}highest{} ranked',
+					'card held in hand',
 				}
 			},
 			j_bloons_first_strike_capability = {

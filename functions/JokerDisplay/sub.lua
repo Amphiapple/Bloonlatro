@@ -87,27 +87,27 @@ JokerDisplay.Definitions["j_bloons_ballistic_missile"] = { --Ballistic Missile
         }
     },
     calc_function = function(card)
-        local held_cards = {}
-        for i = 1, #G.hand.cards do
-            local hand_card = G.hand.cards[i]
-            if not hand_card.highlighted and hand_card.facing ~= 'back' then
-                table.insert(held_cards, hand_card)
-            end
-        end
-        local max = 1
-        local idx_by_id = {}
-        for k, v in ipairs(held_cards) do
-            local id = v:get_id()
-            if idx_by_id[id] then
-                idx_by_id[id] = idx_by_id[id] + 1
-                if idx_by_id[id] > max then
-                    max = idx_by_id[id]
+        local max = 0
+        local max_id = 0
+        local max_card = nil
+        local retriggers = 1
+        local playing_hand = next(G.play.cards)
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                local id = playing_card:get_id()
+                local rank = SMODS.has_no_rank(playing_card) and 0 or playing_card.base.nominal
+                if id > max_id and rank > 0 then
+                    max = rank
+                    max_id = id
+                    max_card = playing_card
+                    retriggers = JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
-            else
-                idx_by_id[id] = 1
             end
         end
-        card.joker_display_values.Xmult = max > 1 and max * card.ability.extra.Xmult * (G.GAME.subcom_mult or 1) or 1
+        if not max_card or max_card.debuff or max_card.facing == 'back' then
+            max = 0
+        end
+        card.joker_display_values.Xmult = (1 + card.ability.extra.Xmult * max * (G.GAME.subcom_mult or 1)) ^ retriggers
     end
 }
 

@@ -476,13 +476,13 @@ SMODS.Joker { --Crossbow Master
     name = 'Crossbow Master',
 	atlas = 'Joker',
 	pos = { x = 15, y = 0 },
-    rarity = 2,
+    rarity = 3,
 	cost = 7,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { Xmult = 3, limit = 5, counter = 1 } --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
-    }, 
+    },
 
     loc_vars = function(self, info_queue, card)
         local function process_var(count, cap)

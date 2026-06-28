@@ -51,16 +51,16 @@ return {
 			j_bloons_grow_blocker = {
 				name = 'Grow Blocker',
 				text = {
-					'Halves all {C:attention}listed',
-					'{C:green,E:1,s:1.1}probabilities',
-					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}1 in 6{C:inactive})',
+					'All {C:attention}listed {C:green,E:1,s:1.1}probabilities',
+					'are impossible',
+					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0 in 3{C:inactive})',
 				}
 			},
 			j_bloons_radar_scanner = {
 				name = 'Radar Scanner',
 				text = {
-					'Doubles all {C:attention}listed',
-					'{C:green,E:1,s:1.1}probabilities',
+					'Doubles all {C:attention}listed{}',
+					'{C:green,E:1,s:1.1}probabilities{}',
 					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}2 in 3{C:inactive})',
 				}
 			},
@@ -68,7 +68,7 @@ return {
 				name = 'Monkey Intelligence Bureau',
 				text = {
 					'{C:attention}Listed {C:green,E:1,s:1.1}probabilities{} are',
-					'multiplied by the number of unique ',
+					'multiplied by the number of unique',
 					'rarities in other owned {C:attention}Jokers',
 					'{C:inactive}(Currently {X:green,C:white}X#1#{C:inactive})',
 				}
@@ -76,19 +76,17 @@ return {
 			j_bloons_call_to_arms = {
 				name = 'Call to Arms',
 				text = {
-					'{C:green}#1# in #2#{} chance to',
-					'upgrade level of',
-					'played {C:attention}poker hand{} on',
+					'Quadruples all {C:attention}listed{}',
+					'{C:green,E:1,s:1.1}probabilities{} on',
 					'{C:attention}final hand{} of round',
+					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}4 in 3{C:inactive})',
 				}
 			},
 			j_bloons_homeland_defense = {
 				name = 'Homeland Defense',
 				text = {
-					'{C:green}#1# in #2#{} chance to',
-					'upgrade level of',
-					'all {C:attention}poker hands{} on',
-					'{C:attention}final hand{} of round',
+					'All {C:attention}listed {C:green,E:1,s:1.1}probabilities{}',
+					'are {C:green}1 in 2{}',
 				}
 			},
 			j_bloons_monkey_business = {

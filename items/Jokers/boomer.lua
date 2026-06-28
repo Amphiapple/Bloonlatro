@@ -275,6 +275,7 @@ SMODS.Joker { --Faster Throwing
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,
+                card = card
             }
         end
     end
@@ -300,7 +301,8 @@ SMODS.Joker { --Faster Rangs
         if context.repetition and context.cardarea == G.hand and (context.other_card == G.hand.cards[#G.hand.cards] or context.other_card == G.hand.cards[#G.hand.cards-1]) and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                repetitions = card.ability.extra.retrigger,
+                card = card
             }
         end
     end
@@ -327,7 +329,8 @@ SMODS.Joker { --Bionic Boomerang
         if context.repetition and context.cardarea == G.hand and context.other_card.ability.name == 'Steel Card' and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                repetitions = card.ability.extra.retrigger,
+                card = card
             }
         end
     end
@@ -353,7 +356,8 @@ SMODS.Joker { --Turbo Charge
         if context.repetition and G.GAME.current_round.hands_left == 0 and context.cardarea == G.hand and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                repetitions = card.ability.extra.retrigger,
+                card = card
             }
         end
     end
@@ -379,7 +383,8 @@ SMODS.Joker { --Perma Charge
         if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[#G.hand.cards] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                repetitions = card.ability.extra.retrigger,
+                card = card
             }
         end
     end

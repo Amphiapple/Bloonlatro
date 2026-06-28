@@ -578,10 +578,25 @@ SMODS.Joker { --Bloon Master Alchemist
 
     calculate = function(self, card, context)
         if context.before and G.GAME.current_round.hands_left == 0 then
-            ease_dollars(-G.GAME.dollars, true)
             for k, v in ipairs(context.scoring_hand) do
                 v:set_seal(SMODS.poll_seal({type_key = 'bloon_master_alchemist', guaranteed = true}), nil, true)
             end
+            G.GAME.dollar_buffer = G.GAME.dollar_buffer or 0
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end
+            }))
+            return {
+                dollars = -G.GAME.dollars,
+                func = function()
+                    G.GAME.dollar_buffer = G.GAME.dollar_buffer - G.GAME.dollars
+                    return true
+                end,
+                colour = G.C.MONEY
+            }
         end
     end
 }

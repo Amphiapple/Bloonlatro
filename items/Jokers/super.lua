@@ -116,7 +116,7 @@ SMODS.Joker { --Sun Temple
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 0.1, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
+        extra = { Xmult = 0.2, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
         button = { text = "SAC", colour = G.C.ATTENTION }
     },
 
@@ -266,7 +266,7 @@ SMODS.Joker { --True Sun God
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 0.2, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
+        extra = { Xmult = 0.3, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
         button = { text = "SAC", colour = G.C.ATTENTION }
     },
 
@@ -324,7 +324,7 @@ SMODS.Joker { --True Sun God
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
                 if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
                         sac_value = sac_value + joker.base_cost
                         deletable_jokers[#deletable_jokers + 1] = joker
                     end
@@ -336,7 +336,7 @@ SMODS.Joker { --True Sun God
             if pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
                 if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
+                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
                         sac_value = sac_value + joker.base_cost
                         deletable_jokers[#deletable_jokers + 1] = joker
                     end
@@ -643,7 +643,7 @@ SMODS.Joker { --Dark Knight
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 3 } --Variables: Xmult = Xmult
+        extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -676,7 +676,7 @@ SMODS.Joker { --Dark Champion
     blueprint_compat = true,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { Xmult = 1.33 } --Variables: Xmult = Xmult
+        extra = { Xmult = 1.3 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)

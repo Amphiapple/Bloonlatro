@@ -74,6 +74,7 @@ return {
                 }
             },
             j_bloons_turbo_charge = {
+                name = 'Turbo Charge',
                 text = {
                     'Retrigger all card',
                     'held in hand abilities',

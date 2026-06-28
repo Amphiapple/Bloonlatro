@@ -512,7 +512,7 @@ SMODS.Joker { --Spectre
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Ace", category = "military" },
-        extra = { number = 4 } --Variables: number = required aces for spectral
+        extra = { number = 3 } --Variables: number = required aces for spectral
     },
 
     loc_vars = function(self, info_queue, card)

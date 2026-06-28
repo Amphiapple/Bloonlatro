@@ -11,7 +11,6 @@ SMODS.Voucher { --Power Merchant
 	atlas = 'Voucher',
 	pos = { x = 0, y = 0 },
 	cost = 10,
-	order = 33,
     config = { extra = { rate = 4 } }, --Variables: rate = power card shop rate
 
     redeem = function(self, card)
@@ -30,7 +29,6 @@ SMODS.Voucher { --Power Tycoon
 	atlas = 'Voucher',
 	pos = { x = 0, y = 1 },
 	cost = 10,
-	order = 34,
     requires = { 'v_bloons_power_merchant' },
     config = { extra = { rate = 9.33, multiplier = 2 } }, --Variables: rate = power card shop rate
 
@@ -53,7 +51,6 @@ SMODS.Voucher { --Insider Trades
 	atlas = 'Voucher',
 	pos = { x = 1, y = 0 },
 	cost = 10,
-	order = 35,
     config = { extra = { slots = 1 } }, --Variables: slots = extra booster slots
 
     loc_vars = function (self, info_queue, card)
@@ -75,7 +72,6 @@ SMODS.Voucher { --Backroom Deals
 	atlas = 'Voucher',
 	pos = { x = 1, y = 1 },
 	cost = 10,
-	order = 36,
     requires = { 'v_bloons_insider_trades' },
     config = { extra = { slots = 1 } }, --Variables: slots = extra voucher slots
 
@@ -92,21 +88,21 @@ SMODS.Voucher { --Backroom Deals
     end
 }
 
-SMODS.Voucher { --Quick Hands
-    key = 'quick_hands',
-    name = 'Quick Hands',
+SMODS.Voucher { --Flanking Maneuvers
+    key = 'flanking_maneuvers',
+    name = 'Flanking Maneuvers',
 	atlas = 'Voucher',
 	pos = { x = 2, y = 0 },
 	cost = 10,
-	order = 37,
 }
 
 SMODS.Voucher { --Grand Prix Spree
     key = 'grand_prix_spree',
     name = 'Grand Prix Spree',
-
-	order = 38,
-    requires = { 'v_bloons_quick_hands' },
+    atlas = 'Voucher',
+	pos = { x = 2, y = 1 },
+	cost = 10,
+    requires = { 'v_bloons_flanking_maneuvers' },
 }
 
 SMODS.Voucher { --Big Bloon Sabotage
@@ -115,7 +111,6 @@ SMODS.Voucher { --Big Bloon Sabotage
 	atlas = 'Voucher',
 	pos = { x = 3, y = 0 },
 	cost = 10,
-	order = 39,
     config = { extra = { percent = 10 } }, --Variables: percent = reduction percent
 
     loc_vars = function (self, info_queue, card)
@@ -129,9 +124,8 @@ SMODS.Voucher { --Big Bloon Blueprints
 	atlas = 'Voucher',
 	pos = { x = 3, y = 1 },
 	cost = 10,
-	order = 40,
     requires = { 'v_bloons_big_bloon_sabotage' },
-    config = { extra = { percent = 25 } }, --Variables: percent = reduction percent
+    config = { extra = { percent = 30 } }, --Variables: percent = reduction percent
 
     loc_vars = function (self, info_queue, card)
         return { vars = { card.ability.extra.percent } }

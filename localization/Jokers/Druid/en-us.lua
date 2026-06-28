@@ -37,10 +37,10 @@ return {
             j_bloons_ball_lightning = {
                 name = 'Ball Lightning',
                 text = {
-                    '{C:planet}Planet{} cards in your',
-                    '{C:attention}consumable{} area give {X:red,C:white}X#1#{} Mult',
-                    'for their specified {C:attention}poker hand{}',
-                    'and {X:red,C:white}X#2#{} Mult otherwise',
+                    '{C:green}#1# in #2#{} chance to',
+					'create the {C:planet}Planet{} card',
+					'for played {C:attention}poker hand{} on',
+					'{C:attention}final hand{} of round',
                 }
             },
             j_bloons_monarch_of_storms = {
@@ -87,9 +87,10 @@ return {
             j_bloons_spirit_of_the_forest = {
                 name = 'Spirit of the Forest',
                 text = {
-                    'Earn money equal to the',
-                    'level of played {C:attention}poker hand{}',
-                    '{C:inactive}(Max of {C:money}$#1#{C:inactive}){}',
+                    '{C:planet}Planet{} cards in your',
+                    '{C:attention}consumable{} area give {X:red,C:white}X#1#{} Mult',
+                    'for their specified {C:attention}poker hand{}',
+                    'and {X:red,C:white}X#2#{} Mult otherwise',
                 }
             },
             j_bloons_druidic_reach = {

@@ -33,10 +33,6 @@ SMODS.Tag {
                     joker:set_eternal(nil)
                     joker.ability.perishable = nil
                     joker:set_rental(nil)
-                    -- Remove Bunco stickers
-                    joker:set_scattering(nil)
-                    joker:set_hindered(nil)
-                    joker:set_reactive(nil)
 
 					joker:set_debuff()
 					joker:juice_up(1, 0.5)

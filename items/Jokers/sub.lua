@@ -231,7 +231,7 @@ SMODS.Joker { --Heat-tipped Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { chips = 12 } --Variables: mult = +mult
+        extra = { chips = 12 } --Variables: chips = +chips
     },
 
     loc_vars = function(self, info_queue, card)
@@ -263,30 +263,29 @@ SMODS.Joker { --Ballistic Missile
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { Xmult = 0.75 } --Variables: Xmult = Xmult
+        extra = { Xmult = 0.1 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult * (G.GAME.subcom_mult or 1) } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            local max = 1
-            local idx_by_id = {}
+        if context.individual and context.cardarea == G.hand then
+            local max = 0
+            local max_id = 0
+            local max_card = nil
             for k, v in ipairs(G.hand.cards) do
                 local id = v:get_id()
-                if idx_by_id[id] then
-                    idx_by_id[id] = idx_by_id[id] + 1
-                    if idx_by_id[id] > max then
-                        max = idx_by_id[id]
-                    end
-                else
-                    idx_by_id[id] = 1
+                local rank = SMODS.has_no_rank(v) and 0 or v.base.nominal
+                if id > max_id and rank > 0 then
+                    max = rank
+                    max_id = id
+                    max_card = v
                 end
             end
-            if max > 1 then
+            if context.other_card == max_card then
                 return {
-                    x_mult = card.ability.extra.Xmult * max * (G.GAME.subcom_mult or 1)
+                    Xmult = 1 + card.ability.extra.Xmult * max * (G.GAME.subcom_mult or 1)
                 }
             end
 		end

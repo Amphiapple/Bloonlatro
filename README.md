@@ -5,7 +5,8 @@ A Balatro mod that incorporates Bloons Tower Defense into the base game
 # New Additions:
 
 We're finished with all of the Jokers!
-Diamondback has been introduced as a Boss
+Diamondback has been introduced as a Boss!
+New consumables unique for every deck!
 
 ---
 

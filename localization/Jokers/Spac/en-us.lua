@@ -119,7 +119,7 @@ return {
 				text = {
 					'This joker gains {C:mult}+#1#{} Mult',
 					'per discarded {V:1}#2#{}',
-					'{C:mult}-#3#{} Mult at end of round',
+					'{C:mult}-#3#{} Mult each hand',
 					'{s:0.8}Suit changes every round{}',
 					'{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)',
 				}
@@ -128,9 +128,9 @@ return {
 				name = 'Deadly Spikes',
 				text = {
 					'This joker gains {C:mult}+#1#{} Mult',
-					'per discarded {C:attention}#2#{} of {V:1}#3#{}',
-					'{C:mult}-#4#{} Mult at end of round',
-					'{s:0.8}Card changes every round{}',
+					'per discarded {V:1}#2#{}',
+					'{C:mult}-#3#{} Mult at end of round',
+					'{s:0.8}Suit changes every round{}',
 					'{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)',
 				}
 			},

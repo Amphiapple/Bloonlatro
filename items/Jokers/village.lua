@@ -176,7 +176,7 @@ SMODS.Joker { --Grow Blocker
     calculate = function(self, card, context)
         if context.mod_probability and not context.blueprint then
             return {
-                denominator = context.denominator * 2
+                numerator = context.numerator * 0
             }
         end
     end
@@ -259,19 +259,15 @@ SMODS.Joker { --Call to Arms
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Village", category = "support" },
-        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
-    loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'call_to_arms')
-        return { vars = { n, d } }
-    end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_left == 0 and SMODS.pseudorandom_probability(card, 'call_to_arms', card.ability.extra.num, card.ability.extra.denom, 'call_to_arms') then
-            return {
-                level_up = true,
-                message = localize('k_level_up_ex')
-            }
+        if context.mod_probability and not context.blueprint then
+            if (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards)) then
+                return {
+                    numerator = context.numerator * 4
+                }
+            end
         end
     end
 }
@@ -286,23 +282,13 @@ SMODS.Joker { --Homeland Defense
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Village", category = "support" },
-        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
-    loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'homeland_defense')
-        return { vars = { n, d } }
-    end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_left == 0 and SMODS.pseudorandom_probability(card, 'homeland_defense', card.ability.extra.num, card.ability.extra.denom, 'homeland_defense') then
-            for k, v in pairs(G.GAME.hands) do
-                if k ~= context.scoring_name then
-                    level_up_hand(card, k, true, 1)
-                end
-            end
+        if context.mod_probability and not context.blueprint then
             return {
-                level_up = true,
-                message = localize('k_level_up_ex')
+                numerator = 1,
+                denominator = 2
             }
         end
     end
