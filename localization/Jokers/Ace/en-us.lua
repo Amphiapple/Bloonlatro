@@ -27,11 +27,11 @@ return {
             },
             j_bloons_fighter_plane = {
                 name = 'Fighter Plane',
-            text = {
-                'Increase rank of all',
-                'scoring {C:attention}face{} cards on',
-                '{C:attention}first hand{} of round',
-            }
+                text = {
+                    'Increase rank of all',
+                    'scoring {C:attention}face{} cards on',
+                    '{C:attention}first hand{} of round',
+                }
             },
             j_bloons_operation_dart_storm = {
                 name = 'Operation: Dart Storm',
@@ -61,7 +61,7 @@ return {
             j_bloons_spy_plane = {
                 name = 'Spy Plane',
                 text = {
-                    'Reveal the top {C:attention}#1#{}',
+                    'Reveal the next {C:attention}#1#{}',
                     'cards in your deck',
                     '{C:inactive}#2# #3# #4#{}'
                 }

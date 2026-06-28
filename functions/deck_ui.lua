@@ -191,38 +191,26 @@ end
 
 function generate_psi_ui()
     if not G.GAME or not G.GAME.selected_back or G.GAME.selected_back.name ~= "Psi Deck" then return nil end
-    local card_amount = #G.GAME.selected_back.effect.center:get_next_cards()
+    local cards = G.GAME.selected_back.effect.center:get_next_cards()
 
     local card_scale = 0.7
 
     local psi_cardarea = CardArea(0, 0, 2.3, 1.2, {
         type = "title_2",
-        card_limit = card_amount,
+        card_limit = #cards,
         highlight_limit = 0,
         card_w = G.CARD_W * card_scale
     })
 
     G.GAME.psi_cards = {}
 
-    for i = 1, card_amount do
-        local psi_card = Card(
-            0, 0,
-            G.CARD_W * card_scale,
-            G.CARD_H * card_scale,
-            G.P_CARDS.empty,
-            G.P_CENTERS.c_base,
-            {
-                bypass_discovery_center = true,
-                bypass_discovery_ui = true,
-                bypass_lock = true,
-                bypass_back = G.GAME.selected_back.pos
-            }
-        )
+    for _, card in ipairs(cards) do
+        local psi_card = copy_card(card, nil, card_scale, nil, nil)
 
         psi_cardarea:emplace(psi_card)
-        psi_card:flip()
+        if G.GAME.round == 0 then psi_card:flip() end
 
-        G.GAME.psi_cards[i] = psi_card
+        G.GAME.psi_cards[#G.GAME.psi_cards+1] = psi_card
     end
 
     local ui = UIBox{
@@ -253,7 +241,7 @@ function generate_psi_ui()
 end
 
 G.FUNCS.update_psi_ui = function(cards)
-     G.E_MANAGER:add_event(Event({
+    G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
             for i=1, #cards do
@@ -268,29 +256,9 @@ G.FUNCS.update_psi_ui = function(cards)
         trigger = 'after',
         delay = 0.5,
         func = function()
-            for i = 1, #cards do
-                local deck_card = cards[i]
-                local psi_card = G.GAME.psi_cards[i]
-
-                psi_card:set_ability(deck_card.config.center)
-                psi_card.ability.type = deck_card.ability.type
-                psi_card:set_base(deck_card.config.card)
-                psi_card:set_edition(deck_card.edition, nil, true)
-                psi_card:set_seal(deck_card.seal, true)
-                if deck_card.seal and deck_card.ability.seal then
-                    for k, v in pairs(deck_card.ability.seal) do
-                        psi_card.ability.seal[k] = v
-                    end
-                end
-                psi_card.debuff = deck_card.debuff
-                psi_card.pinned = deck_card.pinned
-                psi_card.ability.camo = deck_card.ability.camo
-                if deck_card.params then
-                    psi_card.params = deck_card.params
-                end
-                for k, v in pairs(deck_card.ability) do
-                    psi_card.ability[k] = v
-                end
+            for i, card in ipairs(cards) do
+                copy_card(card, G.GAME.psi_cards[i])
+                G.GAME.psi_cards[i].children.back:set_sprite_pos(G.GAME.selected_back.pos)
             end
             return true
         end

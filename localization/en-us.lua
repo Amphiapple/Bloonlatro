@@ -94,7 +94,7 @@ return {
             b_bloons_psi = {
                 name = 'Psi Deck',
                 text = {
-                    'Reveal the top {C:attention}#1#{}',
+                    'Reveal the next {C:attention}#1#{}',
                     'cards in your deck',
                 }
             },

@@ -423,7 +423,15 @@ SMODS.Joker { --Total Transformation
                     left.ability.perishable = nil
                     left:set_rental(nil)
 					left.pinned = nil
-                    copy_card(right, left, nil, nil, right.edition and right.edition.negative)
+
+                    -- Copy card
+                    left = copy_card(right, left, nil, nil, right.edition and right.edition.negative)
+
+                    -- Recalculate cost for rental
+                    left:set_cost()
+
+                    -- Update JokerDisplay`
+                    if JokerDisplay then left:update_joker_display() end
                     return true
                 end
             }))
