@@ -96,7 +96,6 @@ return {
                 text = {
                     'Reveal the top {C:attention}#1#{}',
                     'cards in your deck',
-                    '{C:inactive}#2# #3#{}'
                 }
             },
             b_bloons_geraldo = {

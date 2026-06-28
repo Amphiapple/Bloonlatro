@@ -262,20 +262,28 @@ SMODS.Back { --Psi
     config = { extra = { number = 2 } },
 
     loc_vars = function(self, info_queue, card)
-        local function process_var(pos)
-            if G.GAME.selected_back.name == 'Psi Deck' then
-                return '#@' .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.id or 11) ..
-                    (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards - pos + 1].base.suit:sub(1, 1) or 'D')
-            end
-            return '#@'
-        end
         return {
             vars = {
                 self.config.extra.number,
-                process_var(1),
-                process_var(2)
             }
         }
+    end,
+
+    get_next_cards = function(self)
+        local cards = {}
+
+        for i = self.config.extra.number, 1, -1 do
+            cards[#cards + 1] = G.deck.cards[#G.deck.cards - i + 1]
+        end
+
+        return cards
+    end,
+
+    calculate = function(self, back, context)
+        if context.hand_drawn or context.other_drawn or context.starting_shop then
+            local cards = self:get_next_cards()
+            G.FUNCS.update_psi_ui(cards)
+        end
     end
 }
 
@@ -299,8 +307,7 @@ SMODS.Back { --Corvus
     end,
 
     apply = function(self)
-        G.GAME.corvus_mana = { current_mana = 0, max_mana = self.config.extra.max_mana, mana_per_card = self.config
-        .extra.mana_per_card }
+        G.GAME.corvus_mana = { current_mana = 0, max_mana = self.config.extra.max_mana, mana_per_card = self.config.extra.mana_per_card }
     end,
 
     calculate = function(self, back, context)

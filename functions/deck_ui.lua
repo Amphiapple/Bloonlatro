@@ -126,7 +126,6 @@ function generate_rosalia_ui()
 
     G.GAME.rosalia_weapon = (G.GAME.rosalia_weapon == "grenade") and "grenade" or "laser"
 
-    G.FUNCS = G.FUNCS or {}
     G.FUNCS.bloonlatro_toggle_rosalia_weapon = function(e)
         if not G.GAME then return end
         G.GAME.rosalia_weapon = (G.GAME.rosalia_weapon == "laser") and "grenade" or "laser"
@@ -190,6 +189,126 @@ function generate_rosalia_ui()
     return ui
 end
 
+function generate_psi_ui()
+    if not G.GAME or not G.GAME.selected_back or G.GAME.selected_back.name ~= "Psi Deck" then return nil end
+    local card_amount = #G.GAME.selected_back.effect.center:get_next_cards()
+
+    local card_scale = 0.7
+
+    local psi_cardarea = CardArea(0, 0, 2.3, 1.2, {
+        type = "title_2",
+        card_limit = card_amount,
+        highlight_limit = 0,
+        card_w = G.CARD_W * card_scale
+    })
+
+    G.GAME.psi_cards = {}
+
+    for i = 1, card_amount do
+        local psi_card = Card(
+            0, 0,
+            G.CARD_W * card_scale,
+            G.CARD_H * card_scale,
+            G.P_CARDS.empty,
+            G.P_CENTERS.c_base,
+            {
+                bypass_discovery_center = true,
+                bypass_discovery_ui = true,
+                bypass_lock = true,
+                bypass_back = G.GAME.selected_back.pos
+            }
+        )
+
+        psi_cardarea:emplace(psi_card)
+        psi_card:flip()
+
+        G.GAME.psi_cards[i] = psi_card
+    end
+
+    local ui = UIBox{
+       definition = {
+            n = G.UIT.ROOT,
+            config = {
+                align = "cm",
+                colour = G.C.CLEAR
+            },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "cm" },
+                    nodes = {
+                        { n = G.UIT.O, config = { object = psi_cardarea } }
+                    }
+                }
+            }
+        },
+        config = {
+            align = 'cri',
+            offset = {x = -0.3, y = 1.9},
+            major = G.ROOM_ATTACH,
+            bond = 'Weak'
+        }
+    }
+    return ui
+end
+
+G.FUNCS.update_psi_ui = function(cards)
+     G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            for i=1, #cards do
+                if G.GAME.psi_cards[i].facing == "front" then
+                    G.GAME.psi_cards[i]:flip()
+                end
+            end
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.5,
+        func = function()
+            for i = 1, #cards do
+                local deck_card = cards[i]
+                local psi_card = G.GAME.psi_cards[i]
+
+                psi_card:set_ability(deck_card.config.center)
+                psi_card.ability.type = deck_card.ability.type
+                psi_card:set_base(deck_card.config.card)
+                psi_card:set_edition(deck_card.edition, nil, true)
+                psi_card:set_seal(deck_card.seal, true)
+                if deck_card.seal and deck_card.ability.seal then
+                    for k, v in pairs(deck_card.ability.seal) do
+                        psi_card.ability.seal[k] = v
+                    end
+                end
+                psi_card.debuff = deck_card.debuff
+                psi_card.pinned = deck_card.pinned
+                psi_card.ability.camo = deck_card.ability.camo
+                if deck_card.params then
+                    psi_card.params = deck_card.params
+                end
+                for k, v in pairs(deck_card.ability) do
+                    psi_card.ability[k] = v
+                end
+            end
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.5,
+        func = function()
+            for i=1, #cards do
+                if G.GAME.psi_cards[i].facing == "back" then
+                    G.GAME.psi_cards[i]:flip()
+                end
+            end
+            return true
+        end
+    }))
+end
+
 local start_run_ref = Game.start_run
 function Game:start_run(args)
     local result = start_run_ref(self, args)
@@ -201,6 +320,8 @@ function Game:start_run(args)
         generate_corvus_ui()
     elseif deck_key == 'rosalia' then
         generate_rosalia_ui()
+    elseif deck_key == 'psi' then
+        generate_psi_ui()
     end
 
     return result
