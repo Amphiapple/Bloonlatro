@@ -144,3 +144,33 @@ get_pack = function(_key, _type)
     end
     return center
 end
+
+local localize_old = localize
+localize = function(args, misc_cat)
+    if args and args.type == "descriptions" and args.key == "j_bloons_nautic_siege_core" then
+        local submerged = args.vars and args.vars[1]
+        local joker = G.localization.descriptions.Joker.j_bloons_nautic_siege_core
+
+        local loc_target = submerged
+            and joker.submerged_text
+            or joker.text
+
+        local text_parsed = {}
+        for _, line in ipairs(loc_target) do
+            text_parsed[#text_parsed + 1] = loc_parse_string(line)
+        end
+
+        args.AUT = args.AUT or {}
+        args.AUT.box_colours = {}
+        args.nodes = args.nodes or {}
+
+        for _, lines in ipairs(text_parsed) do
+            local final_line = SMODS.localize_box(lines, args)
+            args.nodes[#args.nodes + 1] = final_line
+        end
+
+        return args.nodes
+    end
+
+    return localize_old(args, misc_cat)
+end

@@ -217,7 +217,7 @@ SMODS.Joker { --Nautic Siege Core
         button = { text = "SUB", colour = G.C.BLUE }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.hands, card.ability.extra.charge, card.ability.extra.Xmult_nuke } }
+        return { vars = { card.ability.extra.submerged, card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.hands, card.ability.extra.charge, card.ability.extra.Xmult_nuke } }
     end,
 
     can_use = function(card)
