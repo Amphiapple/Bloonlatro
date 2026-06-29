@@ -88,13 +88,10 @@ payload = '''
 local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
 
 if G.GAME.blind_on_deck == "Small" and not replay_blind then
-    print("Small blind defeated")
     G.GAME.round_resets.blind_states.Small = 'Defeated'
 elseif G.GAME.blind_on_deck == "Big" and not replay_blind then
-    print("Big blind defeated")
     G.GAME.round_resets.blind_states.Big = 'Defeated'
 elseif not replay_boss and not replay_blind then
-    print("Boss blind defeated")
 '''
 match_indent = true
 
