@@ -132,6 +132,13 @@ return {
                     'end of round'
                 }
             },
+            b_bloons_dan = {
+                name = 'Dan Deck',
+                text = {
+                    'Prevents Death and',
+                    'replay the round once'
+                }
+            },
             b_bloons_boss_challenge = {
                 name = 'Boss Challenge Deck'
             }
