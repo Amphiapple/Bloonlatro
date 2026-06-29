@@ -11,14 +11,11 @@ pattern = "G.GAME.blind.in_blind = false"
 position = 'before'
 payload = '''
 local replay_boss = false
-local dominus = find_joker('Glaive Dominus')
-if #dominus > 0 then
-    replay_boss = true
-    for _, v in pairs(dominus) do
-        if v.ability.extra.active == false then
-            replay_boss = false
-            break
-        end
+local dominus = find_joker('Glaive Dominus') or {}
+for _, v in pairs(dominus) do
+    if v.ability.extra.active then
+        replay_boss = true
+        break
     end
 end
 
@@ -38,7 +35,11 @@ match_indent = true
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss then"
+payload = '''
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+
+if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss and not replay_blind then
+'''
 match_indent = true
 
 # Dominus and boss segment ante end check
@@ -47,16 +48,28 @@ match_indent = true
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss then"
+payload = '''
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+
+if G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss and not replay_blind then
+'''
 match_indent = true
 
-# Dominus win check
+# Game win check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = "if not G.GAME.won and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.blind_on_deck == 'Boss' then"
 position = 'at'
-payload = "if not G.GAME.won and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.blind_on_deck == 'Boss' and not replay_boss then"
+payload = '''
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+
+if not G.GAME.won
+and G.GAME.round_resets.ante >= G.GAME.win_ante
+and G.GAME.blind_on_deck == 'Boss'
+and not replay_boss and not replay_blind
+then
+'''
 match_indent = true
 
 # Dominus boss defeat check
@@ -64,25 +77,24 @@ match_indent = true
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = '''
-G.GAME.current_round.voucher = SMODS.get_next_vouchers()
-G.GAME.round_resets.blind_states.Boss = 'Defeated'
-for k, v in ipairs(G.playing_cards) do
-    v.ability.played_this_ante = nil
-end
+if G.GAME.blind_on_deck == "Small" then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.blind_on_deck == "Big" then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+else
 '''
 position = 'at'
 payload = '''
-if replay_boss then
-    for k, v in pairs(dominus) do
-        v.ability.extra.active = false
-    end
-else
-    G.GAME.current_round.voucher = SMODS.get_next_vouchers()
-    G.GAME.round_resets.blind_states.Boss = 'Defeated'
-    for k, v in ipairs(G.playing_cards) do
-        v.ability.played_this_ante = nil
-    end
-end
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+
+if G.GAME.blind_on_deck == "Small" and not replay_blind then
+    print("Small blind defeated")
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.blind_on_deck == "Big" and not replay_blind then
+    print("Big blind defeated")
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+elseif not replay_boss and not replay_blind then
+    print("Boss blind defeated")
 '''
 match_indent = true
 

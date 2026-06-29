@@ -55,14 +55,20 @@ SMODS.Joker { --Glaive Dominus
             return {
                 x_mult = card.ability.extra.current
             }
-        elseif context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+        end
+
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.active = false
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-            card.ability.extra.active = true
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.RED,
                 delay = 0.45,
             }
+        end
+
+        if context.ante_end then
+            card.ability.extra.active = true
         end
     end
 }

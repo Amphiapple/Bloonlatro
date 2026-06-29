@@ -16,7 +16,7 @@ G.FUNCS.skip_blind = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     G.GAME.skips = (G.GAME.skips or 0) + 1
     if _tag then 
-        if G.GAME.used_vouchers.v_bloons_quick_hands then
+        if G.GAME.used_vouchers.v_bloons_flanking_maneuvers then
             if G.GAME.used_vouchers.v_bloons_grand_prix_spree then
                 add_tag(Tag('tag_skip'))
             end

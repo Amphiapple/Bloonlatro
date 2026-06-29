@@ -319,7 +319,7 @@ SMODS.Back { --Corvus
                         G.GAME.corvus_mana.current_mana = 0
                         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                            local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'acid')
+                            local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'corvus' .. G.GAME.round_resets.ante)
                             spectral:add_to_deck()
                             G.consumeables:emplace(spectral)
                             G.GAME.consumeable_buffer = 0
@@ -397,13 +397,31 @@ SMODS.Back { --Dan
     name = "Dan Deck",
     atlas = "Back",
     pos = { x = 2, y = 3 },
-    config = {  },
+    config = { extra = { active = true, activated = false } },
 
     loc_vars = function(self, info_queue, card)
         return {  }
     end,
     calculate = function(self, back, context)
-        
+        if context.game_over and back.effect.config.extra.active then
+            back.effect.config.extra.active = false
+            back.effect.config.extra.activated = true
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.saved_text = "Saved by Dan Deck!"
+                    return true
+                end
+            }))
+            return {
+                message = localize('k_saved_ex'),
+                saved = true,
+                colour = G.C.RED
+            }
+        end
+
+        if context.setting_blind and back.effect.config.extra.activated then
+            back.effect.config.extra.activated = false
+        end
     end
 }
 

@@ -136,7 +136,7 @@ return {
                 name = 'Dan Deck',
                 text = {
                     'Prevents Death and',
-                    'replay the round once'
+                    'replays {C:attention}Blind{} once'
                 }
             },
             b_bloons_boss_challenge = {
