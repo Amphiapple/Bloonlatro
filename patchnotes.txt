@@ -6,6 +6,7 @@ Added Jokers:
    - Try for a secret sacrifice on the True Sun God
 
 Other content:
+- Dan D'Monke is added as a deck!
 - Diamondback has been added as a Boss!
 - Some unique consumables that only appear when playing a specific deck
 - Even more challenges to fill in the spaces that were previously taken by Boss Challenges

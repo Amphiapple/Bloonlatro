@@ -403,7 +403,7 @@ SMODS.Back { --Dan
         return {  }
     end,
     calculate = function(self, back, context)
-        if context.game_over and back.effect.config.extra.active then
+        if context.game_over and back.effect.config.extra.active and G.GAME.blind.name ~= 'bl_mp_nemesis' then
             back.effect.config.extra.active = false
             back.effect.config.extra.activated = true
             G.E_MANAGER:add_event(Event({
