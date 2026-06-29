@@ -36,7 +36,7 @@ target = 'functions/state_events.lua'
 pattern = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
 payload = '''
-local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.config.extra.activated
 
 if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss and not replay_blind then
 '''
@@ -49,7 +49,7 @@ target = 'functions/state_events.lua'
 pattern = "if G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
 payload = '''
-local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.config.extra.activated
 
 if G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss and not replay_blind then
 '''
@@ -62,7 +62,7 @@ target = 'functions/state_events.lua'
 pattern = "if not G.GAME.won and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.blind_on_deck == 'Boss' then"
 position = 'at'
 payload = '''
-local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.config.extra.activated
 
 if not G.GAME.won
 and G.GAME.round_resets.ante >= G.GAME.win_ante
@@ -85,8 +85,7 @@ else
 '''
 position = 'at'
 payload = '''
-local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.center.config.extra.activated
-
+local replay_blind = G.GAME.selected_back.name == 'Dan Deck' and G.GAME.selected_back.effect.config.extra.activated
 if G.GAME.blind_on_deck == "Small" and not replay_blind then
     G.GAME.round_resets.blind_states.Small = 'Defeated'
 elseif G.GAME.blind_on_deck == "Big" and not replay_blind then
