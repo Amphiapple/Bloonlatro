@@ -41,6 +41,7 @@ return {
 					'create the {C:planet}Planet{} card',
 					'for played {C:attention}poker hand{} on',
 					'{C:attention}final hand{} of round',
+                    '{C:inactive}(Must have room)'
                 }
             },
             j_bloons_monarch_of_storms = {
