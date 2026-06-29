@@ -44,9 +44,9 @@ return {
                 name = 'Lord of the Abyss',
                 text = {
                     '{X:mult,C:white}X#1#{} Mult',
-                    '{C:attention}Adjacent{} Jokers',
-                    'give {X:mult,C:white}X#1#{} Mult',
-                    'when scored',
+                    'Gives {X:mult,C:white}X#1#{} Mult when',
+                    '{C:attention}Adjacent{} Jokers are scored',
+                    '{s:0.8}Lord of the Abyss excluded'
                 }
             },
             j_bloons_sharper_prongs = {

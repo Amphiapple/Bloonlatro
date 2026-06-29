@@ -120,8 +120,20 @@ JokerDisplay.Definitions["j_bloons_navarch_of_the_seas"] = { --Navarch of the Se
                 { text = "X" },
                 { ref_table = "card.ability.extra", ref_value = "Xmult" }
             }
+        },
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
         }
     },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'navarch_of_the_seas')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_goliath_doomship"] = { --Goliath Doomship

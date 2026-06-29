@@ -198,16 +198,18 @@ SMODS.Joker { --Lord of the Abyss
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.post_trigger then
+            local main_joker = context.blueprint_card or card
             local left_joker = nil
             local right_joker = nil
             for k, v in ipairs(G.jokers.cards) do
-                if v == card then
+                if v == main_joker then
                     if k > 1 then
                         left_joker = G.jokers.cards[k - 1]
                     end
                     if k < #G.jokers.cards then
                         right_joker = G.jokers.cards[k + 1]
                     end
+                    break
                 end
             end
             local return_list = {
@@ -215,11 +217,13 @@ SMODS.Joker { --Lord of the Abyss
                 'mult', 'h_mult', 's_mult', 't_mult', 'mult_mod',
                 'xmult', 'Xmult', 'x_mult', 'x_mult_mod', 'Xmult_mod',
             }
-            if left_joker and context.other_card == left_joker or right_joker and context.other_card == right_joker then
+            if left_joker and context.other_card == left_joker and not left_joker.ability.name == 'Lord of the Abyss' or
+               right_joker and context.other_card == right_joker and not right_joker.ability.name == 'Lord of the Abyss' then
                 for k, v in ipairs(return_list) do
                     if context.other_ret.jokers[v] then
                         return {
                             x_mult = card.ability.extra.Xmult,
+                            card = main_joker
                         }
                     end
                 end
