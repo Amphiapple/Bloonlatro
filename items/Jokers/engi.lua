@@ -419,6 +419,7 @@ SMODS.Joker { --Pin
         return { vars = { card.ability.extra.Xmult } }
     end,
     add_to_deck = function(self, card, from_debuff)
+        if from_debuff then return end
         card.pinned = true
     end,
     calculate = function(self, card, context)

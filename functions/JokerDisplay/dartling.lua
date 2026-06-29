@@ -40,7 +40,7 @@ JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
                         return r_mult
                     end
                 )(),
-                colours = { G.C.CHIPS },
+                colours = { G.C.MULT },
                 pop_in_rate = 9999999,
                 silent = true,
                 random_element = true,

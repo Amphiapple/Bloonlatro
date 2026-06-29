@@ -553,10 +553,10 @@ SMODS.Joker { --The Desert Phantom
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.spectral_rate = G.GAME.spectral_rate + 2
+        G.GAME.spectral_rate = G.GAME.spectral_rate + card.ability.extra.spectral_rate
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.spectral_rate = G.GAME.spectral_rate - 2
+        G.GAME.spectral_rate = G.GAME.spectral_rate - card.ability.extra.spectral_rate
     end,
     update = function(self, card, dt)
         local count = G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.spectral or 0

@@ -275,6 +275,7 @@ SMODS.Joker { --Perishing Potions
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
     end,
     add_to_deck = function(self, card, from_debuff)
+        if from_debuff then return end
         G.E_MANAGER:add_event(Event({
             func = (function()
                 card:set_edition('e_polychrome', true)
