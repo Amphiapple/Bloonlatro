@@ -53,7 +53,7 @@ return {
 				text = {
 					'All {C:attention}listed probabilities',
 					'never trigger',
-					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} → {C:green}0 in 3{C:inactive})',
+					'{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0 in 3{C:inactive})',
 				}
 			},
 			j_bloons_radar_scanner = {
