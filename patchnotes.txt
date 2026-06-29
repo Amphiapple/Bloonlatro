@@ -92,6 +92,7 @@ Balance Changes:
 
 - Jones deck reworked
 - Psi deck reworked
+- Rosalia laser Xmult 1.2 > 1.25
 
 - Quick Hands renamed
 - Big Bloon Blueprints boss blind reduction 25% > 30%
@@ -113,6 +114,7 @@ Fixes:
 - The Big One and The Biggest One should correctly be blueprint compatible
 - Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
+- Ultravision should no longer give extra discards if multiple are sold
 - Sticky Bomb Joker Display should work
 - Sticky Bomb should no longer keep stickied status on cards between hands
 - Perishing Potions no longer adds Polychrome's cost when bought

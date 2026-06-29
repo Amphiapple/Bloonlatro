@@ -529,6 +529,15 @@ return {
                     '{s:0.8,C:inactive}Psi power{}'
                 }
             },
+            c_bloons_restock = {
+                name = 'Restock',
+                text = {
+                    'Create up to {C:attention}#1#{}',
+                    'random {C:power}Power{} cards',
+                    '{C:inactive}(Must have room){}',
+                    '{s:0.8,C:inactive}Geraldo power{}'
+                }
+            },
             c_bloons_dark_ritual = {
                 name = 'Dark Ritual',
                 text = {
@@ -556,6 +565,16 @@ return {
                     '{C:attention}Frozen{} cards permanently gain',
                     '{C:chips}+#1#{} Hand Chips instead',
                     '{s:0.8,C:inactive}Silas power{}'
+                }
+            },
+            c_bloons_rabble_rouser = {
+                name = 'Rabble Rouser',
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult and {C:blue}+1{} hand',
+                    'on {C:attention}final hand{} of round while',
+                    'in your {C:attention}consumable{} area',
+                    'Lasts {C:attention}#2#{} final hands',
+                    '{s:0.8,C:inactive}Dan power{}'
                 }
             },
         },

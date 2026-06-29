@@ -15,7 +15,7 @@ SMODS.ConsumableType { --Power Cards
             },
         },
     },
-    collection_rows = {4, 5},
+    collection_rows = {5, 6},
     shop_rate = 0,
 }
 
@@ -1415,6 +1415,100 @@ SMODS.Consumable { --Psionic Scream
     end
 }
 
+SMODS.Consumable { --Restock
+    key = 'restock',
+    set = 'Power',
+    name = 'Restock',
+    atlas = 'Consumable',
+    pos = { x = 3, y = 5 },
+    config = { number = 2 }, --Variables: number = number of powers
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Geraldo Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.number } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        for i = 1, card.ability.number do
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.4,
+                    func = function()
+                        if G.consumeables.config.card_limit > #G.consumeables.cards then
+                            play_sound('timpani')
+                            local power = create_card('Power', G.consumeables, nil, nil, nil, nil, nil, 'restock')
+                            power:add_to_deck()
+                            G.consumeables:emplace(power)
+                            card:juice_up(0.3, 0.5)
+                            G.GAME.consumeable_buffer = 0
+                        end
+                        return true
+                    end
+                }))
+            end
+        end
+        delay(0.6)
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and card.ability.active then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.retrigger
+            }
+        elseif context.individual and context.cardarea == G.play and card.ability.active and G.GAME.corvus_mana then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.corvus_mana.current_mana = G.GAME.corvus_mana.current_mana + card.ability.mana
+                    return true
+                end
+            }))
+        elseif context.joker_main and card.ability.active and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not G.GAME.corvus_mana then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                    local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'dark_ritual')
+                    spectral:add_to_deck()
+                    G.consumeables:emplace(spectral)
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end)
+            }))
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+        elseif context.after and card.ability.active then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        blockable = false,
+                        func = function()
+                            G.consumeables:remove_card(card)
+                            card:remove()
+                            card = nil
+                            return true;
+                        end
+                    }))
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
+    end
+}
+
 SMODS.Consumable { --Dark Ritual
     key = 'dark_ritual',
     set = 'Power',
@@ -1508,7 +1602,7 @@ SMODS.Consumable { --Flight Boost
     name = 'Flight Boost',
     atlas = 'Consumable',
     pos = { x = 0, y = 6 },
-    config = { Xmult = 1.2, retrigger = 1, rounds = 5, current = 5 }, --Variables: Xmult = laser Xmult, retrigger = grenade retrigger amount
+    config = { Xmult = 1.25, retrigger = 1, rounds = 5, current = 5 }, --Variables: Xmult = laser Xmult, retrigger = grenade retrigger amount
 
     in_pool = function(self, args)
         return G.GAME.selected_back.name == 'Rosalia Deck' or G.GAME.selected_back.name == 'Geraldo Deck'
@@ -1602,6 +1696,59 @@ SMODS.Consumable { --Frozen Burial
                 return true
             end
         }))
+    end
+}
+
+SMODS.Consumable { --Rabble Rouser
+    key = 'rabble_rouser',
+    set = 'Power',
+    name = 'Rabble Rouser',
+    atlas = 'Consumable',
+    pos = { x = 2, y = 6 },
+    config = { Xmult = 1.5, hands = 3, current = 3 },
+
+    in_pool = function(self, args)
+        return G.GAME.selected_back.name == 'Dan Deck' or G.GAME.selected_back.name == 'Geraldo Deck'
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.Xmult, card.ability.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.current_round.hands_left == 0 then
+            return {
+                Xmult = card.ability.Xmult
+            }
+        elseif context.after and G.GAME.current_round.hands_left == 0 then
+            ease_hands_played(1)
+            card.ability.current = card.ability.current - 1
+            if card.ability.current <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.consumeables:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true;
+                            end
+                        }))
+                        return true
+                    end
+                }))
+                return {
+                    message = 'Used!',
+                    colour = G.C.FILTER
+                }
+            end
+        end
     end
 }
 

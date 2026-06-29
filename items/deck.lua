@@ -337,7 +337,7 @@ SMODS.Back { --Rosalia
     name = "Rosalia Deck",
     atlas = "Back",
     pos = { x = 0, y = 3 },
-    config = { extra = { Xmult = 1.2, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
+    config = { extra = { Xmult = 1.25, retrigger = 1 } }, --Variables = Xmult = Xmult on odd hands, retrigger = retrigger count on even hands
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.Xmult } }
@@ -399,9 +399,6 @@ SMODS.Back { --Dan
     pos = { x = 2, y = 3 },
     config = { extra = { active = true, activated = false } },
 
-    loc_vars = function(self, info_queue, card)
-        return {  }
-    end,
     calculate = function(self, back, context)
         if context.game_over and back.effect.config.extra.active and G.GAME.blind.name ~= 'bl_mp_nemesis' then
             back.effect.config.extra.active = false
