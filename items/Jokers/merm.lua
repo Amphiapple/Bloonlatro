@@ -143,18 +143,14 @@ SMODS.Joker { --Abyssal Warrior
     blueprint_compat = true,
     config = {
         tower_info = { base = "Mermonkey", category = "magic" },
-        extra = { Xmult = 1.2 } --Variables: Xmult = Xmult and per adjacent joker
+        extra = { Xmult = 1.25 } --Variables: Xmult = Xmult and per adjacent joker
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                x_mult = card.ability.extra.Xmult
-            }
-        elseif context.other_joker then
+        if context.other_joker then
             local left_joker = nil
             local right_joker = nil
             for k, v in ipairs(G.jokers.cards) do
@@ -186,18 +182,14 @@ SMODS.Joker { --Lord of the Abyss
     blueprint_compat = true,
     config = {
         tower_info = { base = "Mermonkey", category = "magic" },
-        extra = { Xmult = 1.2 } --Variables: Xmult = Xmult and per adjacent joker
+        extra = { Xmult = 1.25 } --Variables: Xmult = Xmult and per adjacent joker
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                x_mult = card.ability.extra.Xmult
-            }
-        elseif context.post_trigger then
+        if context.post_trigger then
             local main_joker = context.blueprint_card or card
             local left_joker = nil
             local right_joker = nil
@@ -217,8 +209,8 @@ SMODS.Joker { --Lord of the Abyss
                 'mult', 'h_mult', 's_mult', 't_mult', 'mult_mod',
                 'xmult', 'Xmult', 'x_mult', 'x_mult_mod', 'Xmult_mod',
             }
-            if left_joker and context.other_card == left_joker and not left_joker.ability.name == 'Lord of the Abyss' or
-               right_joker and context.other_card == right_joker and not right_joker.ability.name == 'Lord of the Abyss' then
+            if (left_joker and context.other_card == left_joker and left_joker.ability.name ~= 'Lord of the Abyss') or
+               (right_joker and context.other_card == right_joker and right_joker.ability.name ~= 'Lord of the Abyss') then
                 for k, v in ipairs(return_list) do
                     if context.other_ret.jokers[v] then
                         return {

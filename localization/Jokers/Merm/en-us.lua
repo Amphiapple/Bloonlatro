@@ -28,25 +28,23 @@ return {
             j_bloons_abyss_dweller = {
                 name = 'Abyss Dweller',
                 text = {
-                    '{C:attention}Adjacent{} Jokers',
+                    'Adjacent {C:attention}Jokers{}',
                     'give {C:mult}+#1#{} Mult',
                 }
             },
             j_bloons_abyssal_warrior = {
                 name = 'Abyssal Warrior',
                 text = {
-                    '{X:mult,C:white}X#1#{} Mult',
-                    '{C:attention}Adjacent{} Jokers',
+                    'Adjacent {C:attention}Jokers{}',
                     'give {X:mult,C:white}X#1#{} Mult',
                 }
             },
             j_bloons_lord_of_the_abyss = {
                 name = 'Lord of the Abyss',
                 text = {
-                    '{X:mult,C:white}X#1#{} Mult',
                     'Gives {X:mult,C:white}X#1#{} Mult when',
                     '{C:attention}Adjacent{} Jokers are scored',
-                    '{s:0.8}Lord of the Abyss excluded'
+                    '{s:0.8}Lord of the Abyss excluded{}'
                 }
             },
             j_bloons_sharper_prongs = {

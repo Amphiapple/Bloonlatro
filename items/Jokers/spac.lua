@@ -339,7 +339,7 @@ SMODS.Joker { --Spike Storm
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { limit = 3, counter = 3, Xmult = 1.3 } --Variables: limit = number of hands for Xmult, counter = hand index, Xmult = Xmult per card
+        extra = { limit = 3, counter = 3, Xmult = 1.25 } --Variables: limit = number of hands for Xmult, counter = hand index, Xmult = Xmult per card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -384,7 +384,7 @@ SMODS.Joker { --Carpet of Spikes
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { Xmult = 1.3, discards = 0 } --Variables: Xmult = Xmult, discards = discards left
+        extra = { Xmult = 1.25, discards = 0 } --Variables: Xmult = Xmult, discards = discards left
     },
 
     loc_vars = function(self, info_queue, card)

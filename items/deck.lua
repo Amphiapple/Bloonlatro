@@ -392,6 +392,21 @@ SMODS.Back { --Silas
     end
 }
 
+SMODS.Back { --Dan
+    key = "dan",
+    name = "Dan Deck",
+    atlas = "Back",
+    pos = { x = 2, y = 3 },
+    config = {  },
+
+    loc_vars = function(self, info_queue, card)
+        return {  }
+    end,
+    calculate = function(self, back, context)
+        
+    end
+}
+
 SMODS.Back {
     key = "boss_challenge",
     name = "Boss Challenge Deck",
