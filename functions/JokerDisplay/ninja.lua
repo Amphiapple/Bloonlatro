@@ -146,7 +146,7 @@ JokerDisplay.Definitions["j_bloons_shinobi_tactics"] = { --Shinobi Tactics
 JokerDisplay.Definitions["j_bloons_bloon_sabotage"] = { --Bloon Sabotage
     reminder_text = {
         { text = "(" },
-        { text = "Heart", colour = lighten(G.C.SUITS["Clubs"], 0.35) },
+        { text = "Clubs", colour = lighten(G.C.SUITS["Clubs"], 0.35) },
         { text = ")" },
     },
     extra = {
@@ -166,7 +166,7 @@ JokerDisplay.Definitions["j_bloons_grand_saboteur"] = { --Grand Saboteur
     reminder_text = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "number", colour = G.C.ORANGE },
-        { text = " Hearts", colour = lighten(G.C.SUITS["Clubs"], 0.35) },
+        { text = " Clubs", colour = lighten(G.C.SUITS["Clubs"], 0.35) },
         { text = ")" },
     },
     extra = {
