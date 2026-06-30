@@ -16,7 +16,7 @@ As well as all the contributors to this mod
 
 - Amphiapple (Designer, Programmer, Artist)
 - Icicle (Designer, Artist)
-- Kanjerlucas (Programmer)
+- Kanjerlucas (Designer, Programmer)
 - Fireblazer (Designer)
 - Birdz (Artist)
 - Braces (Artist)

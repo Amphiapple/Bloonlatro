@@ -31,9 +31,27 @@ JokerDisplay.Definitions["j_bloons_greater_product"] = { --Greater Production
 JokerDisplay.Definitions["j_bloons_banana_plantation"] = { --Banana Plantation
     text = {
         { text = "+$", colour = G.C.MONEY },
-        { ref_table = "card.ability.extra", ref_value = "min", colour = G.C.MONEY },
-        { text = "-", colour = G.C.MONEY },
-        { ref_table = "card.ability.extra", ref_value = "max", colour = G.C.MONEY },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_banana_plantation"]
+                        local r_money = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_money[#r_money + 1] = tostring(i)
+                        end
+                        return r_money
+                    end
+                )(),
+                colours = { G.C.MONEY },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
     },
     reminder_text = {
         { text = "(Round)" }
@@ -42,9 +60,27 @@ JokerDisplay.Definitions["j_bloons_banana_plantation"] = { --Banana Plantation
 
 JokerDisplay.Definitions["j_bloons_banana_research_facility"] = { --Banana Research Facility
     text = {
-        { ref_table = "card.ability.extra", ref_value = "min" },
-        { text = "-" },
-        { ref_table = "card.ability.extra", ref_value = "crates" },
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local card = SMODS.Centers["j_bloons_banana_research_facility"]
+                        local r_crates = {}
+                        for i = card.config.extra.min, card.config.extra.max do
+                            r_crates[#r_crates + 1] = tostring(i)
+                        end
+                        return r_crates
+                    end
+                )(),
+                colours = { G.C.FILTER },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        },
         { text = "x" },
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },

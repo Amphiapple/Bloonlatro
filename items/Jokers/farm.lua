@@ -75,7 +75,39 @@ SMODS.Joker { --Banana Plantation
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.min, card.ability.extra.max } }
+        local r_money = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_money[#r_money + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Earn ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '$', colour = G.C.MONEY, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_money,
+                            colours = { G.C.MONEY },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' at', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'end of round', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
     calc_dollar_bonus = function(self, card)
         local dollars = pseudorandom('banana_plantation'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
@@ -93,15 +125,47 @@ SMODS.Joker { --BRF
     blueprint_compat = false,
     config = {
         tower_info = { base = "Banana Farm", category = "support" },
-        extra = { min = 1, crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { min = 1, max = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.min, card.ability.extra.crates, card.ability.extra.money } }
+        local r_crates = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_crates[#r_crates + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Earn ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_crates,
+                            colours = { G.C.FILTER },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' crates of', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '$2', colour = G.C.MONEY, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' at end of round', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
     calc_dollar_bonus = function(self, card)
         local dollars = card.ability.extra.money * card.ability.extra.min
-        for i = card.ability.extra.min + 1, card.ability.extra.crates do
+        for i = card.ability.extra.min + 1, card.ability.extra.max do
             if pseudorandom('banana_research_facility'..G.GAME.round_resets.ante) > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
