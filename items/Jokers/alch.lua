@@ -1,16 +1,8 @@
 SMODS.Joker { --Alchemist
     key = 'alchemist',
     name = 'Alchemist',
-	loc_txt = {
-        name = 'Alchemist',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on {C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 0, y = 18 },
+	pos = { x = 0, y = 17 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -23,15 +15,13 @@ SMODS.Joker { --Alchemist
         if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
+                func = function()
                     local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'alchemist')
                     tarot:add_to_deck()
                     G.consumeables:emplace(tarot)
                     G.GAME.consumeable_buffer = 0
                     return true
-                end)
+                end
             }))
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
         end
@@ -41,36 +31,28 @@ SMODS.Joker { --Alchemist
 SMODS.Joker { --Larger Potions
     key = 'larger_potions',
     name = 'Larger Potions',
-	loc_txt = {
-        name = 'Larger Potions',
-        text = {
-            'Create {C:attention}#1# {C:tarot}Tarot{} cards',
-            'on {C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 1, y = 18 },
+	pos = { x = 1, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Alchemist", category = "magic" },
-        extra = { number = 2 } --Variables: number = number of tarots
+        extra = { num = 1, denom = 2, number = 2 } --Variables: number = number of tarots
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.number } }
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'larger_potions')
+        return { vars = { n, d, card.ability.extra.number } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 then
             local count = 0
-            for i = 1, card.ability.extra.number do
+            local number = SMODS.pseudorandom_probability(card, 'larger_potions', card.ability.extra.num, card.ability.extra.denom, 'larger_potions') and not context.blueprint and card.ability.extra.number or 1
+            for i = 1, number do
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
-                        trigger = 'before',
-                        delay = 0.0,
                         func = (function()
                             local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'larger_potions')
                             tarot:add_to_deck()
@@ -82,7 +64,7 @@ SMODS.Joker { --Larger Potions
                 end
                 count = count + 1
             end
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'.. count .. ' Tarot', colour = G.C.PURPLE})
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+'.. count .. ' Tarots', colour = G.C.PURPLE})
         end
     end
 }
@@ -90,17 +72,8 @@ SMODS.Joker { --Larger Potions
 SMODS.Joker { --Acidic Mixture Dip
     key = 'acidic_mixture_dip',
     name = 'Acidic Mixture Dip',
-    loc_txt = {
-        name = 'Acidic Mixture Dip',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
-            '{C:dark_edition}Polychrome{} effect to {C:attention}last{}',
-            'played card that scores',
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 2, y = 18 },
+	pos = { x = 2, y = 17 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = false,
@@ -130,17 +103,8 @@ SMODS.Joker { --Acidic Mixture Dip
 SMODS.Joker { --Berserker Brew
     key = 'berserker_brew',
     name = 'Berserker Brew',
-	loc_txt = {
-        name = 'Berserker Brew',
-        text = {
-            'Sell this card to add',
-            '{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or',
-            '{C:dark_edition}Polychrome{} edition',
-            'to a random {C:attention}Joker{}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 3, y = 18 },
+	pos = { x = 3, y = 17 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -182,16 +146,8 @@ SMODS.Joker { --Berserker Brew
 SMODS.Joker { --Stronger Stimulant
     key = 'stronger_stimulant',
     name = 'Stronger Stimulant',
-	loc_txt = {
-        name = 'Stronger Stimulant',
-        text = {
-            'Sell this card to add',
-            '{C:dark_edition}Polychrome{} edition',
-            'to a random {C:attention}Joker{}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 4, y = 18 },
+	pos = { x = 4, y = 17 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -230,17 +186,8 @@ SMODS.Joker { --Stronger Stimulant
 SMODS.Joker { --Permanent Brew
     key = 'permanent_brew',
     name = 'Permanent Brew',
-	loc_txt = {
-        name = 'Permanent Brew',
-        text = {
-            'Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
-            'or {C:dark_edition}Polychrome{} effect to',
-            '{C:attention}last{} played card that scores',
-            '{s:0.8}May apply over an existing edition{}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 5, y = 18 },
+	pos = { x = 5, y = 17 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -267,18 +214,8 @@ SMODS.Joker { --Permanent Brew
 SMODS.Joker { --Stronger Acid
     key = 'stronger_acid',
     name = 'Stronger Acid',
-	loc_txt = {
-        name = 'Stronger Acid',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on {C:attention}final hand{} of round',
-            '{C:green}#1# in #2#{} chance to create',
-            'a {C:spectral}Spectral{} card instead',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 6, y = 18 },
+	pos = { x = 6, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -296,8 +233,6 @@ SMODS.Joker { --Stronger Acid
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             if SMODS.pseudorandom_probability(card, 'stronger_acid', card.ability.extra.num, card.ability.extra.denom, 'stronger_acid') then
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
                     func = (function()
                         local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'stronger_acid')
                         spectral:add_to_deck()
@@ -309,8 +244,6 @@ SMODS.Joker { --Stronger Acid
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
             else
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.0,
                     func = (function()
                         local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'stronger_acid')
                         tarot:add_to_deck()
@@ -328,16 +261,8 @@ SMODS.Joker { --Stronger Acid
 SMODS.Joker { --Perishing Potions
     key = 'perishing_potions',
     name = 'Perishing Potions',
-	loc_txt = {
-        name = 'Perishing Potions',
-        text = {
-            'Add {C:dark_edition}Polychrome{}',
-            'edition and {C:attention}Perishable{}',
-            'to this {C:attention}Joker{}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 7, y = 18 },
+	pos = { x = 7, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -350,25 +275,22 @@ SMODS.Joker { --Perishing Potions
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
     end,
     add_to_deck = function(self, card, from_debuff)
-        card:set_edition('e_polychrome', true)
-        card:set_perishable()
+        if from_debuff then return end
+        G.E_MANAGER:add_event(Event({
+            func = (function()
+                card:set_edition('e_polychrome', true)
+                card:set_perishable()
+                return true
+            end)
+        }))
     end
 }
 
 SMODS.Joker { --Unstable Concoction
     key = 'unstable_concoction',
     name = 'Unstable Concoction',
-	loc_txt = {
-        name = 'Unstable Concoction',
-        text = {
-            'If {C:attention}first hand{} of round',
-            'has only {C:attention}1{} card, destroy',
-            '{C:attention}Joker{} to the right to',
-            'add a random {C:attention}seal{} to it',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 8, y = 18 },
+	pos = { x = 8, y = 17 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -406,17 +328,8 @@ SMODS.Joker { --Unstable Concoction
 SMODS.Joker { --Transforming Tonic
     key = 'transforming_tonic',
     name = 'Transforming Tonic',
-	loc_txt = {
-        name = 'Transforming Tonic',
-        text = {
-            'If {C:attention}first hand{} of round',
-            'contains only {C:attention}2{} cards,',
-            '{C:attention}Transform{} the {C:attention}left{} card',
-            'into the {C:attention}right{} card',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 9, y = 18 },
+	pos = { x = 9, y = 17 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -470,18 +383,8 @@ SMODS.Joker { --Transforming Tonic
 SMODS.Joker { --Total Transformation
     key = 'total_transformation',
     name = 'Total Transformation',
-	loc_txt = {
-        name = 'Total Transformation',
-        text = {
-            'After {C:attention}#1#{} rounds,',
-            'sell this card to {C:attention}Transform{}',
-            'the {C:attention}Joker{} to the {C:attention}left{} into ',
-            'the {C:attention}Joker{} to the {C:attention}right{}',
-            '{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 10, y = 18 },
+	pos = { x = 10, y = 17 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,
@@ -521,12 +424,15 @@ SMODS.Joker { --Total Transformation
                     left.ability.perishable = nil
                     left:set_rental(nil)
 					left.pinned = nil
-                    -- Remove Bunco stickers
-                    left:set_scattering(nil)
-                    left:set_hindered(nil)
-                    left:set_reactive(nil)
-                    
-                    copy_card(right, left, nil, nil, right.edition and right.edition.negative)
+
+                    -- Copy card
+                    left = copy_card(right, left, nil, nil, right.edition and right.edition.negative)
+
+                    -- Recalculate cost for rental
+                    left:set_cost()
+
+                    -- Update JokerDisplay`
+                    if JokerDisplay then left:update_joker_display() end
                     return true
                 end
             }))
@@ -558,17 +464,8 @@ SMODS.Joker { --Total Transformation
 SMODS.Joker { --Faster Throwing
     key = 'faster_throwing_alchemist',
     name = 'Faster Throwing (Alchemist)',
-	loc_txt = {
-        name = 'Faster Throwing',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'on hand before',
-            '{C:attention}final hand{} of round',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 11, y = 18 },
+	pos = { x = 11, y = 17 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -580,8 +477,6 @@ SMODS.Joker { --Faster Throwing
         if context.joker_main and G.GAME.current_round.hands_left == 1 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
                 func = (function()
                     local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'faster_throwing_alchemist')
                     tarot:add_to_deck()
@@ -598,17 +493,8 @@ SMODS.Joker { --Faster Throwing
 SMODS.Joker { --Acid Pools
     key = 'acid_pools',
     name = 'Acid Pools',
-	loc_txt = {
-        name = 'Acid Pools',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'at end of round if any',
-            'hands are unused',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 12, y = 18 },
+	pos = { x = 12, y = 17 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -620,8 +506,6 @@ SMODS.Joker { --Acid Pools
         if context.end_of_round and not context.individual and not context.repetition and G.GAME.current_round.hands_left > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
                 func = (function()
                     local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'acid_pools')
                     tarot:add_to_deck()
@@ -638,16 +522,8 @@ SMODS.Joker { --Acid Pools
 SMODS.Joker { --Lead to Gold
     key = 'lead_to_gold',
     name = 'Lead to Gold',
-	loc_txt = {
-        name = 'Lead to Gold',
-        text = {
-            'Remove {C:attention}Steel{} from',
-            'and add a {C:attention}Gold Seal{} to',
-            'played cards when scored',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 13, y = 18 },
+	pos = { x = 13, y = 17 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -662,7 +538,6 @@ SMODS.Joker { --Lead to Gold
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Steel Card' and not context.other_card.debuff and not context.blueprint then
-            context.other_card:set_ability(G.P_CENTERS.c_base, nil, true)
             context.other_card:set_seal('Gold', nil, true)
         end
     end
@@ -671,16 +546,8 @@ SMODS.Joker { --Lead to Gold
 SMODS.Joker { --Rubber to Gold
     key = 'rubber_to_gold',
     name = 'Rubber to Gold',
-	loc_txt = {
-        name = 'Rubber to Gold',
-        text = {
-            'If {C:attention}final discard{} of',
-            'round has only {C:attention}1{} card,',
-            'add a {C:attention}Gold Seal{} to it'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 14, y = 18 },
+	pos = { x = 14, y = 17 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -709,17 +576,8 @@ SMODS.Joker { --Rubber to Gold
 SMODS.Joker { --Bloon Master Alchemist
     key = 'bloon_master_alchemist',
     name = 'Bloon Master Alchemist',
-	loc_txt = {
-        name = 'Bloon Master Alchemist',
-        text = {
-            'Set money to {C:money}$0{}',
-            'and add random {C:attention}seals{}',
-            'to all scoring cards on',
-            '{C:attention}final hand{} of round'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 15, y = 18 },
+	pos = { x = 15, y = 17 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,
@@ -729,10 +587,25 @@ SMODS.Joker { --Bloon Master Alchemist
 
     calculate = function(self, card, context)
         if context.before and G.GAME.current_round.hands_left == 0 then
-            ease_dollars(-G.GAME.dollars, true)
             for k, v in ipairs(context.scoring_hand) do
                 v:set_seal(SMODS.poll_seal({type_key = 'bloon_master_alchemist', guaranteed = true}), nil, true)
             end
+            G.GAME.dollar_buffer = G.GAME.dollar_buffer or 0
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end
+            }))
+            return {
+                dollars = -G.GAME.dollars,
+                func = function()
+                    G.GAME.dollar_buffer = G.GAME.dollar_buffer - G.GAME.dollars
+                    return true
+                end,
+                colour = G.C.MONEY
+            }
         end
     end
 }

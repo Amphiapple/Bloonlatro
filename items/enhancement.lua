@@ -8,15 +8,6 @@ SMODS.Atlas {
 SMODS.Enhancement ({ --Frozen
     key = 'frozen',
     name = 'Frozen Card',
-    loc_txt = {
-        name = 'Frozen Card',
-        text = {
-            '{C:chips}+#1#{} Chips and',
-            'thaws when held in hand',
-            'no rank or suit',
-            "doesn't score"
-        }
-    },
 	atlas = "Enhancement",
 	pos = { x = 0, y = 0 },
     order = 10,
@@ -42,14 +33,6 @@ SMODS.Enhancement ({ --Frozen
 SMODS.Enhancement ({ --Glued
     key = 'glued',
     name = 'Glued Card',
-    loc_txt = {
-        name = 'Glued Card',
-        text = {
-            '{C:mult}+#1#{} Mult and',
-            'wears off if scored',
-            'Lose {C:money}$#2#{} when discarded'
-        }
-    },
 	atlas = 'Enhancement',
 	pos = { x = 1, y = 0 },
     order = 11,
@@ -100,14 +83,6 @@ SMODS.Enhancement ({ --Glued
 SMODS.Enhancement ({ --Stunned
     key = 'stunned',
     name = 'Stunned Card',
-    loc_txt = {
-        name = 'Stunned Card',
-        text = {
-            'Wears off and',
-            'is discarded if',
-            'held in hand'
-        }
-    },
 	atlas = "Enhancement",
 	pos = { x = 2, y = 0 },
     order = 12,
@@ -130,7 +105,7 @@ SMODS.Enhancement ({ --Stunned
                 end
             end
             if G.CONTROLLER.focused.target and G.CONTROLLER.focused.target.area == G.hand then G.card_area_focus_reset = {area = G.hand, rank = G.CONTROLLER.focused.target.rank} end
-            local count = math.min(#stunned, G.discard.config.card_limit - #G.play.cards)
+            local count = #stunned
             if count > 0 then 
                 table.sort(stunned, function(a,b) return a.T.x < b.T.x end)
                 inc_career_stat('c_cards_discarded', count)
@@ -193,14 +168,6 @@ SMODS.Enhancement ({ --Stunned
 SMODS.Enhancement ({ --Meteor
     key = 'meteor',
     name = 'Meteor Card',
-    loc_txt = {
-        name = 'Meteor Card',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            'destroys card',
-            'no rank or suit'
-        }
-    },
 	atlas = "Enhancement",
 	pos = { x = 3, y = 0 },
     order = 13,
@@ -211,7 +178,7 @@ SMODS.Enhancement ({ --Meteor
     config = { Xmult = 3 }, --Variables: x_mult = Xmult
 
     in_pool = function()
-        return #find_joker('Ring of Fire') > 0 or #find_joker('Inferno Ring') > 0 or #find_joker('Wizard Lord Phoenix') > 0
+        return #find_joker('Ring of Fire') > 0 or #find_joker('Inferno Ring') > 0 or #find_joker('Crucible of Steel and Flame') > 0
     end,
     loc_vars = function(self, info_queue, center)
         return { vars = { self.config.Xmult } }

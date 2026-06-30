@@ -41,8 +41,8 @@ JokerDisplay.Definitions["j_bloons_arcane_mastery"] = { --Arcane Mastery
 
 JokerDisplay.Definitions["j_bloons_arcane_spike"] = { --Arcane Spike
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        local new_enhancement = true
         local e = playing_card.config.center.name
+        local new_enhancement = e ~= 'Default Base'
         for k, v in pairs(joker_card.ability.extra.enhancements) do
             if e == k then
                 new_enhancement = false

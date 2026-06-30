@@ -1,15 +1,8 @@
 SMODS.Joker { --Banana Farm
     key = 'banana_farm',
     name = 'Banana Farm',
-	loc_txt = {
-        name = 'Banana Farm',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 0, y = 21 },
+	pos = { x = 0, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -27,17 +20,10 @@ SMODS.Joker { --Banana Farm
 }
 
 SMODS.Joker { --Increased Production
-    key = 'increased_product',
+    key = 'increased_production',
     name = 'Increased Production',
-	loc_txt = {
-        name = 'Increased Production',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 1, y = 21 },
+	pos = { x = 1, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -55,17 +41,10 @@ SMODS.Joker { --Increased Production
 }
 
 SMODS.Joker { --Greater Production
-    key = 'greater_product',
+    key = 'greater_production',
     name = 'Greater Production',
-	loc_txt = {
-        name = 'Greater Production',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 2, y = 21 },
+	pos = { x = 2, y = 20 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = false,
@@ -85,15 +64,8 @@ SMODS.Joker { --Greater Production
 SMODS.Joker { --Banana Plantation
     key = 'banana_plantation',
     name = 'Banana Plantation',
-    loc_txt = {
-        name = 'Banana Plantation',
-        text = {
-            'Earn {C:money}$#1#-#2#{} at',
-            'end of round'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 3, y = 21 },
+	pos = { x = 3, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -103,10 +75,42 @@ SMODS.Joker { --Banana Plantation
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.min, card.ability.extra.max } }
+        local r_money = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_money[#r_money + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Earn ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = '$', colour = G.C.MONEY, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_money,
+                            colours = { G.C.MONEY },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' at', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'end of round', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
     calc_dollar_bonus = function(self, card)
-        local dollars = pseudorandom('banana_plantation', card.ability.extra.min, card.ability.extra.max)
+        local dollars = pseudorandom('banana_plantation'..G.GAME.round_resets.ante, card.ability.extra.min, card.ability.extra.max)
         return dollars
     end
 }
@@ -114,30 +118,55 @@ SMODS.Joker { --Banana Plantation
 SMODS.Joker { --BRF
     key = 'banana_research_facility',
     name = 'Banana Research Facility',
-	loc_txt = { 
-        name = 'Banana Research Facility',
-        text = {
-            'Earn {C:attention}#1#-#2#{} crates of',
-            '{C:money}$#3#{} at end of round'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 4, y = 21 },
+	pos = { x = 4, y = 20 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,
     config = {
         tower_info = { base = "Banana Farm", category = "support" },
-        extra = { min = 1, crates = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
+        extra = { min = 1, max = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.min, card.ability.extra.crates, card.ability.extra.money } }
+        local r_crates = {}
+        for i = card.ability.extra.min, card.ability.extra.max do
+            r_crates[#r_crates + 1] = tostring(i)
+        end
+
+        local main_start = {
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', padding = 0.03 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = 'Earn ', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                        { n = G.UIT.O, config = { object = DynaText({
+                            string = r_crates,
+                            colours = { G.C.FILTER },
+                            pop_in_rate = 9999999,
+                            silent = true,
+                            random_element = true,
+                            pop_delay = 0.5,
+                            scale = 0.32,
+                            min_cycle_time = 0
+                        })}},
+                        { n = G.UIT.T, config = { text = ' crates of', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }},
+                    { n = G.UIT.R, config = { align = 'cm' }, nodes = {
+                        { n = G.UIT.T, config = { text = '$2', colour = G.C.MONEY, scale = 0.32 } },
+                        { n = G.UIT.T, config = { text = ' at end of round', colour = G.C.UI.TEXT_DARK, scale = 0.32 } },
+                    }}
+                }
+            }
+        }
+
+        return { main_start = main_start }
     end,
     calc_dollar_bonus = function(self, card)
         local dollars = card.ability.extra.money * card.ability.extra.min
-        for i = card.ability.extra.min + 1, card.ability.extra.crates do
-            if pseudorandom('banana_research_facility') > 0.5 then
+        for i = card.ability.extra.min + 1, card.ability.extra.max do
+            if pseudorandom('banana_research_facility'..G.GAME.round_resets.ante) > 0.5 then
                 dollars = dollars + card.ability.extra.money
             end
         end
@@ -148,16 +177,8 @@ SMODS.Joker { --BRF
 SMODS.Joker { --Banana Central
     key = 'banana_central',
     name = 'Banana Central',
-	loc_txt = { 
-        name = 'Banana Central',
-        text = {
-            'Earn {C:money}$#1#{} for each',
-            '{C:attention}Banana Farm{} at end of round',
-            '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 5, y = 21 },
+	pos = { x = 5, y = 20 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = false,
@@ -190,17 +211,8 @@ SMODS.Joker { --Banana Central
 SMODS.Joker { --Long Life Bananas
     key = 'long_life_bananas',
     name = 'Long Life Bananas',
-    loc_txt = {
-        name = 'Long Life Bananas',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'destroy {C:attention}1{} banana and',
-            'earn {C:money}$#3#{} at end of round',
-            '{C:inactive}(#4# remaining){}'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 6, y = 21 },
+	pos = { x = 6, y = 20 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -257,17 +269,8 @@ SMODS.Joker { --Long Life Bananas
 SMODS.Joker { --Valuable Bananas
     key = 'valuable_bananas',
     name = 'Valuable Bananas',
-    loc_txt = {
-        name = 'Valuable Bananas',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'destroy {C:attention}1{} banana and',
-            'earn {C:money}$#3#{} at end of round',
-            '{C:inactive}(#4# remaining){}'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 7, y = 21 },
+	pos = { x = 7, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -324,18 +327,8 @@ SMODS.Joker { --Valuable Bananas
 SMODS.Joker { --Monkey Bank
     key = 'monkey_bank',
     name = 'Monkey Bank',
-	loc_txt = {
-        name = 'Monkey Bank',
-        text = {
-            'Gain sell value equal to',
-            'interest at end of round',
-            'Sell this card for {C:money}$#1#{} or more',
-            'to create a {C:attention}Monkey Bank{}',
-            '{C:inactive}(Max capacity of {C:money}$#2#{C:inactive})'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 8, y = 21 },
+	pos = { x = 8, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -371,7 +364,7 @@ SMODS.Joker { --Monkey Bank
                     local card = create_card('j_bloons_monkey_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_monkey_bank', 'monkey_bank')
                     card.ability.extra_value = card.ability.extra_value - card.sell_cost
                     card:set_cost()
-                    card:add_to_deck()
+                    card:add_to_deck() 
                     G.jokers:emplace(card)
                     card:start_materialize()
                     return true
@@ -385,18 +378,8 @@ SMODS.Joker { --Monkey Bank
 SMODS.Joker { --IMF Loan
     key = 'imf_loan',
     name = 'IMF Loan',
-	loc_txt = {
-        name = 'IMF Loan',
-        text = {
-            'Go up to {C:red}-$#1#{} in debt',
-            'When {C:attention}Blind{} is selected,',
-            'subtract debt from sell value',
-            'Gains {C:money}$#2#{} of {C:attention}sell value{}',
-            'at end of round',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 9, y = 21 },
+	pos = { x = 9, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -416,10 +399,21 @@ SMODS.Joker { --IMF Loan
     end,
     calculate = function(self, card, context)
         if context.setting_blind and G.GAME.dollars < to_big(0) and not card.getting_sliced and not context.blueprint then
-            card.ability.extra_value = card.ability.extra_value + G.GAME.dollars
+            card.ability.extra_value = card.ability.extra_value + G.GAME.dollars + (G.GAME.dollar_buffer or 0)
             card:set_cost()
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end
+            }))
             return {
-                dollars = -G.GAME.dollars,
+                dollars = -(G.GAME.dollars + (G.GAME.dollar_buffer or 0)),
+                func = function()
+                    G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - G.GAME.dollars
+                    return true
+                end,
                 colour = G.C.MONEY
             }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
@@ -436,17 +430,8 @@ SMODS.Joker { --IMF Loan
 SMODS.Joker { --Monkey-Nomics
     key = 'monkey_nomics',
     name = 'Monkey-Nomics',
-	loc_txt = {
-        name = 'Monkey-Nomics',
-        text = {
-            'When {C:attention}Small Blind{} or',
-            '{C:attention}Big Blind{} is selected,',
-            'create a {C:tarot}Hermit{} card',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 10, y = 21 },
+	pos = { x = 10, y = 20 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -479,16 +464,8 @@ SMODS.Joker { --Monkey-Nomics
 SMODS.Joker { --EZ Collect
     key = 'ez_collect',
     name = 'EZ Collect',
-	loc_txt = {
-        name = 'EZ Collect',
-        text = {
-            'Earn {C:money}$#1#{} for each other',
-            '{C:attention}Joker{} card at end of round',
-            '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 11, y = 21 },
+	pos = { x = 11, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -518,14 +495,8 @@ SMODS.Joker { --EZ Collect
 SMODS.Joker { --Banana Salvage
     key = 'banana_salvage',
     name = 'Banana Salvage',
-    loc_txt = {
-        name = 'Banana Salvage',
-        text = {
-            'All cards sell for {C:money}$#1#{} more'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 12, y = 21 },
+	pos = { x = 12, y = 20 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -555,17 +526,8 @@ SMODS.Joker { --Banana Salvage
 SMODS.Joker { --Marketplace
     key = 'marketplace',
     name = 'Marketplace',
-	loc_txt = {
-        name = 'Marketplace',
-        text = {
-            'Earn {C:money}$#1#{} per {C:money}$#2#{}',
-            'of sell value of all other',
-            '{C:attention}Jokers{} at end of round',
-            '{C:inactive}(Currently {C:money}$#3#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 13, y = 21 },
+	pos = { x = 13, y = 20 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = false,
@@ -598,17 +560,8 @@ SMODS.Joker { --Marketplace
 SMODS.Joker { --Central Market
     key = 'central_market',
     name = 'Central Market',
-	loc_txt = {
-        name = 'Central Market',
-        text = {
-            'Earn {C:money}$#1#{} for each',
-            '{C:attention}voucher{} redeemed this run',
-            'at end of round',
-            '{C:inactive}(Currently {C:money}$#2#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 14, y = 21 },
+	pos = { x = 14, y = 20 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,
@@ -621,25 +574,9 @@ SMODS.Joker { --Central Market
         return { vars = { card.ability.extra.money, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
-        local count = 0
-        for k, v in pairs(G.GAME.used_vouchers) do
-            local redeemed = v
-            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config then
-                if k == G.GAME.selected_back.effect.config.voucher then
-                    redeemed = false
-                elseif G.GAME.selected_back.effect.config.vouchers then
-                    for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                        if k == j then
-                            redeemed = false
-                        end
-                    end
-                end
-            end
-            if redeemed then
-                count = count + 1
-            end
+        if G.STAGE == G.STAGES.RUN then
+           card.ability.extra.current = card.ability.extra.money * G.GAME.voucher_tally
         end
-        card.ability.extra.current = card.ability.extra.money * count
     end,
     calc_dollar_bonus = function(self, card)
         if card.ability.extra.current > 0 then
@@ -651,15 +588,8 @@ SMODS.Joker { --Central Market
 SMODS.Joker { --Monkey Wall Street
     key = 'monkey_wall_street',
     name = 'Monkey Wall Street',
-    loc_txt = {
-        name = 'Monkey Wall Street',
-        text = {
-            'All Booster Packs become',
-            '{C:attention}MEGA{} and cost half',
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 15, y = 21 },
+	pos = { x = 15, y = 20 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = false,

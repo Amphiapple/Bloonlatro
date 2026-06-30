@@ -1,13 +1,6 @@
 SMODS.Joker { --Monkey Buccaneer
     key = 'monkey_buccaneer',
     name = 'Monkey Buccaneer',
-	loc_txt = {
-        name = 'Monkey Buccaneer',
-        text = {
-            'Earn {C:money}$#1#{} per',
-            'hand played',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 9 },
     rarity = 1,
@@ -22,7 +15,7 @@ SMODS.Joker { --Monkey Buccaneer
         return { vars = { card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.before then
             return {
                 dollars = card.ability.extra.money,
                 colour = G.C.MONEY
@@ -34,14 +27,6 @@ SMODS.Joker { --Monkey Buccaneer
 SMODS.Joker { --Faster Shooting
     key = 'faster_shooting_buccaneer',
     name = 'Faster Shooting (Buccaneer)',
-	loc_txt = {
-        name = 'Faster Shooting',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'earn {C:money}$#3#{} per',
-            'hand played',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 9 },
     rarity = 1,
@@ -49,7 +34,7 @@ SMODS.Joker { --Faster Shooting
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { num = 1, denom = 2, money = 2 } --Variables: num/denom = probability fraction, money = dollars per hand
+        extra = { num = 1, denom = 2, money = 3 } --Variables: num/denom = probability fraction, money = dollars per hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -57,7 +42,7 @@ SMODS.Joker { --Faster Shooting
         return { vars = { n, d, card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
+        if context.before and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
             return {
                 dollars = card.ability.extra.money,
                 colour = G.C.MONEY
@@ -69,14 +54,6 @@ SMODS.Joker { --Faster Shooting
 SMODS.Joker { --Double Shot
     key = 'double_shot_buccaneer',
     name = 'Double Shot (Buccaneer)',
-	loc_txt = {
-        name = 'Double Shot',
-        text = {
-            'Each {C:attention}Pair{} in',
-            'scoring hand',
-            'gives {C:money}$#1#{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 9 },
     rarity = 1,
@@ -84,7 +61,7 @@ SMODS.Joker { --Double Shot
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 1, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
+        extra = { money = 2, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
     },
 
     loc_vars = function(self, info_queue, card)
@@ -127,16 +104,6 @@ SMODS.Joker { --Double Shot
 SMODS.Joker { --Destroyer
     key = 'destroyer',
     name = 'Destroyer',
-    loc_txt = {
-        name = 'Destroyer',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'destroy {C:attention}Joker{} to the right',
-            'and this {C:attention}Joker{} gives',
-            '{X:mult,C:white}X#1#{} Mult this {C:attention}Ante{}',
-            '{C:inactive}(#2#)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 9 },
     rarity = 2,
@@ -192,14 +159,6 @@ SMODS.Joker { --Destroyer
 SMODS.Joker { --Aircraft Carrier
     key = 'aircraft_carrier',
     name = 'Aircraft Carrier',
-    loc_txt = {
-        name = 'Aircraft Carrier',
-        text = {
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 9 },
     rarity = 2,
@@ -250,15 +209,6 @@ SMODS.Joker { --Aircraft Carrier
 SMODS.Joker { --Carrier Flagship
     key = 'carrier_flagship',
     name = 'Carrier Flagship',
-    loc_txt = {
-        name = 'Carrier Flagship',
-        text = {
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-            '{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult',
-            '{C:dark_edition}+#4#{} Joker Slot on this {C:attention}Joker{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 9 },
     rarity = 3,
@@ -317,14 +267,6 @@ SMODS.Joker { --Carrier Flagship
 SMODS.Joker { --Grape Shot
     key = 'grape_shot',
     name = 'Grape Shot',
-    loc_txt = {
-        name = 'Grape Shot',
-        text = {
-            'Earn {C:money}$#1#{} at',
-            'end of round',
-            '{C:money}-$#2#{} each round',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 9 },
     rarity = 1,
@@ -370,15 +312,6 @@ SMODS.Joker { --Grape Shot
 SMODS.Joker { --Hot Shot
     key = 'hot_shot',
     name = 'Hot Shot',
-    loc_txt = {
-        name = 'Hot Shot',
-        text = {
-            'Earn {C:money}$#3#{} at',
-            'end of round',
-            '{C:green}#1# in #2#{} chance to',
-            '{s:1.1,C:red,E:2}self destruct{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 9 },
     rarity = 1,
@@ -423,14 +356,6 @@ SMODS.Joker { --Hot Shot
 SMODS.Joker { --Cannon Ship
     key = 'cannon_ship',
     name = 'Cannon Ship',
-    loc_txt = {
-        name = 'Cannon Ship',
-        text = {
-            '{C:mult}+#1#{} Mult',
-            'Earn {C:money}$#2#{} at',
-            'end of round',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 8, y = 9 },
     rarity = 2,
@@ -459,15 +384,6 @@ SMODS.Joker { --Cannon Ship
 SMODS.Joker { --Monkey Pirates
     key = 'monkey_pirates',
     name = 'Monkey Pirates',
-    loc_txt = {
-        name = 'Monkey Pirates',
-        text = {
-            'If chips scored are at least',
-            '{C:attention}#1#%{} of required chips',
-            'on {C:attention}final hand{} of round,',
-            'take down the {C:attention}Blind{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 9, y = 9 },
     rarity = 2,
@@ -506,15 +422,6 @@ SMODS.Joker { --Monkey Pirates
 SMODS.Joker { --Pirate Lord
     key = 'pirate_lord',
     name = 'Pirate Lord',
-	loc_txt = {
-        name = 'Pirate Lord',
-        text = {
-            'If chips scored are at least',
-            '{C:attention}#1#%{} of required chips,',
-            'take down the {C:attention}Blind{} and',
-            'plunder its reward money'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 9 },
     rarity = 3,
@@ -561,13 +468,6 @@ SMODS.Joker { --Pirate Lord
 SMODS.Joker { --Long Range
     key = 'long_range',
     name = 'Long Range',
-	loc_txt = {
-        name = 'Long Range',
-        text = {
-            'Earn {C:money}$#1#{} per',
-            'discard used',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 9 },
     rarity = 1,
@@ -575,7 +475,7 @@ SMODS.Joker { --Long Range
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 2 } --Variables: money = dollars per hand
+        extra = { money = 1 } --Variables: money = dollars per hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -594,14 +494,6 @@ SMODS.Joker { --Long Range
 SMODS.Joker { --Crow's Nest
     key = 'crows_nest',
     name = "Crow's Nest",
-	loc_txt = {
-        name = "Crow's Nest",
-        text = {
-            'Earn {C:money}$#1#{} if',
-            'discard contains',
-            'only {C:attention}1{} card'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 9 },
     rarity = 1,
@@ -609,7 +501,7 @@ SMODS.Joker { --Crow's Nest
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 3 } --Variables: money = dollars per hand
+        extra = { money = 2 } --Variables: money = dollars per hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -628,14 +520,6 @@ SMODS.Joker { --Crow's Nest
 SMODS.Joker { --Merchantman
     key = 'merchantman',
     name = "Merchantman",
-	loc_txt = {
-        name = "Merchantman",
-        text = {
-            'After defeating each',
-            '{C:attention}Boss Blind{}, gain a',
-            '{C:attention}Voucher Tag{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 9 },
     rarity = 2,
@@ -665,14 +549,6 @@ SMODS.Joker { --Merchantman
 SMODS.Joker { --Favored Trades
     key = 'favored_trades',
     name = "Favored Trades",
-	loc_txt = {
-        name = "Favored Trades",
-        text = {
-            'Gives {X:mult,C:white}X#1#{} Mult for each',
-            '{C:attention}voucher{} redeemed this run',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 9 },
     rarity = 2,
@@ -687,25 +563,7 @@ SMODS.Joker { --Favored Trades
         return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
-        local count = 0
-        for k, v in pairs(G.GAME.used_vouchers) do
-            local redeemed = v
-            if G.GAME.selected_back.effect and G.GAME.selected_back.effect.config then
-                if k == G.GAME.selected_back.effect.config.voucher then
-                    redeemed = false
-                elseif G.GAME.selected_back.effect.config.vouchers then
-                    for i, j in pairs(G.GAME.selected_back.effect.config.vouchers) do
-                        if k == j then
-                            redeemed = false
-                        end
-                    end
-                end
-            end
-            if redeemed then
-                count = count + 1
-            end
-        end
-        card.ability.extra.current = 1 + card.ability.extra.Xmult * count
+        card.ability.extra.current = 1 + G.GAME.voucher_tally * card.ability.extra.Xmult
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -719,13 +577,6 @@ SMODS.Joker { --Favored Trades
 SMODS.Joker { --Trade Empire
     key = 'trade_empire',
     name = "Trade Empire",
-	loc_txt = {
-        name = "Trade Empire",
-        text = {
-            '{C:attention}+#1#{} Voucher slot',
-            '{C:attention}Vouchers{} cost half',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 9 },
     rarity = 3,

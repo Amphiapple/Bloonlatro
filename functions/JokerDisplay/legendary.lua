@@ -39,13 +39,53 @@ JokerDisplay.Definitions["j_bloons_glaive_dominus"] = { --Glaive Dominus
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "current" }
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
             }
         }
     }
 }
 
+JokerDisplay.Definitions["j_bloons_ballistic_obliteration_missile_bunker"] = { --Ballistic Obliteration Missile Bunker
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    calc_function = function(card)
+        local count = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= "Unknown" then
+            for _, scoring_card in pairs(scoring_hand) do
+                if not SMODS.has_no_rank(scoring_card) and not scoring_card.debuff then
+                    for _, other_card in pairs(scoring_hand) do
+                        if scoring_card:get_id() == other_card:get_id() and scoring_card ~= other_card and not SMODS.has_no_rank(other_card) and not other_card.debuff then
+                            count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                            break
+                        end
+                    end
+                end
+            end
+        end
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
+    end
+}
+
 JokerDisplay.Definitions["j_bloons_crucible_of_steel_and_flame"] = { --Crucible of Steel and Flame
+}
+
+JokerDisplay.Definitions["j_bloons_herald_of_everfrost"] = { --Herald of Everfrost
+    text = {
+        {
+            border_nodes = {
+                { ref_table = "card.ability.extra", ref_value = "percent" },
+                { text = "%" }
+            },
+            border_colour = G.C.ORANGE
+        }
+    },
 }
 
 JokerDisplay.Definitions["j_bloons_nautic_siege_core"] = { --Nautic Siege Core
@@ -68,6 +108,31 @@ JokerDisplay.Definitions["j_bloons_nautic_siege_core"] = { --Nautic Siege Core
         local charged = card.ability.extra.charge == 0 and not card.ability.extra.submerged
         card.joker_display_values.Xmult = charged and 6 or not card.ability.extra.submerged and 2 or 1
         card.joker_display_values.active = card.ability.extra.submerged and "Submerged" or "Unsubmerged"
+    end
+}
+
+JokerDisplay.Definitions["j_bloons_navarch_of_the_seas"] = { --Navarch of the Seas
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "planes", retrigger_type = "mult" },
+        { text = "x",                              scale = 0.35 },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        },
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'navarch_of_the_seas')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
 
@@ -143,6 +208,22 @@ JokerDisplay.Definitions["j_bloons_ascended_shadow"] = { --Ascended Shadow
     end
 }
 
+JokerDisplay.Definitions["j_bloons_root_of_all_nature"] = { --Root of All Nature
+    text = {
+        { text = " +$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(Play)" }
+    }
+}
+
 JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Mega Massive Munitions Factory
     text = {
         { text = "(", colour = G.C.UI.TEXT_INACTIVE, scale = 0.3 },
@@ -163,12 +244,12 @@ JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Mega M
     end
 }
 
-JokerDisplay.Definitions["j_bloons_master_builder"] = { --Master Builder
+JokerDisplay.Definitions["j_bloons_mega_massive_munitions_factory"] = { --Master Builder
     text = {
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
             }
         }
     },

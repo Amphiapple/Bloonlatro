@@ -1,8 +1,12 @@
-# Bloonlatro v0.4.4
+# Bloonlatro v0.4.5
 
 A Balatro mod that incorporates Bloons Tower Defense into the base game
 
 # New Additions:
+
+We're finished with all of the Jokers!
+Diamondback has been introduced as a Boss!
+New consumables unique for every deck!
 
 ---
 
@@ -12,7 +16,7 @@ As well as all the contributors to this mod
 
 - Amphiapple (Designer, Programmer, Artist)
 - Icicle (Designer, Artist)
-- Kanjerlucas (Programmer, Artist)
+- Kanjerlucas (Designer, Programmer)
 - Fireblazer (Designer)
 - Birdz (Artist)
 - Braces (Artist)

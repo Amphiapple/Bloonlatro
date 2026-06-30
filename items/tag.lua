@@ -8,13 +8,7 @@ SMODS.Atlas {
 SMODS.Tag {
     key = 'cleansing',
     name = 'Cleansing Tag',
-    loc_txt = {
-        name = 'Cleansing Tag',
-        text = {
-            'Remove all {C:attention}Stickers{}',
-            'from leftmost {C:attention}Joker{}',
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 0, y = 0 },
     min_ante = nil,
@@ -39,10 +33,6 @@ SMODS.Tag {
                     joker:set_eternal(nil)
                     joker.ability.perishable = nil
                     joker:set_rental(nil)
-                    -- Remove Bunco stickers
-                    joker:set_scattering(nil)
-                    joker:set_hindered(nil)
-                    joker:set_reactive(nil)
 
 					joker:set_debuff()
 					joker:juice_up(1, 0.5)
@@ -59,15 +49,6 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'invisible',
     name = 'Invisible Tag',
-    loc_txt = {
-        name = 'Invisible Tag',
-        text = {
-            '{C:attention}Duplicates{} a random',
-            '{C:attention}Joker{} after defeating',
-			'the {C:attention}Boss Blind{}',
-			'{C:inactive}(Must have room)',
-        }
-    },
     atlas = 'Tag',
 	pos = { x = 1, y = 0 },
     min_ante = 2,
@@ -80,7 +61,7 @@ SMODS.Tag {
             	G.CONTROLLER.locks[lock] = true
 				tag:yep("+", G.C.PURPLE, function()
 					if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit and #G.jokers.cards > 0 then
-						local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'))
+						local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('invisible'..G.GAME.round_resets.ante))
 						local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
 						card:add_to_deck()
 						G.jokers:emplace(card)
@@ -101,13 +82,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'power',
     name = 'Power Tag',
-    loc_txt = {
-        name = 'Power Tag',
-        text = {
-            'Gives a free',
-            '{C:power}Mega Power Pack{}',
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 2, y = 0 },
     min_ante = 2,
@@ -147,14 +122,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'sabotage',
     name = 'Sabotage Tag',
-    loc_txt = {
-        name = 'Sabotage Tag',
-        text = {
-            'Reduces {C:attention}Blind{}',
-            'requirement by {C:attention}#1#%{}',
-			'next round'
-        }
-    },
+    
     atlas = 'Tag',
 	pos = { x = 3, y = 0 },
     min_ante = nil,
@@ -171,23 +139,20 @@ SMODS.Tag {
 				G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.chips * tag.config.percent / 100.0
 				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 				G.GAME.blind:wiggle()
-				if G.GAME.chips/G.GAME.blind.chips >= to_big(1) then
-					G.E_MANAGER:add_event(
-						Event({
-							trigger = "immediate",
-							func = function()
-								if G.STATE ~= G.STATES.SELECTING_HAND then
-									return false
-								end
+				if G.GAME.blind.name ~= 'bl_mp_nemesis' then
+					G.E_MANAGER:add_event(Event({
+						trigger = "immediate",
+						func = function()
+							if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
 								G.GAME.current_round.semicolon = true
 								G.STATE = G.STATES.HAND_PLAYED
 								G.STATE_COMPLETE = true
 								end_round()
 								return true
-							end,
-						}),
-						"other"
-					)
+							end
+							return false
+						end,
+					}), "other")
 				end
 				G.CONTROLLER.locks[lock] = nil
 				return true
@@ -199,16 +164,8 @@ SMODS.Tag {
 }
 
 SMODS.Tag {
-    key = 'Redeemed',
+    key = 'redeemed',
     name = 'Redeemed Tag',
-    loc_txt = {
-        name = 'Redeemed Tag',
-        text = {
-            'Adds one {C:attention}Upgraded{}',
-			'{C:voucher}Voucher{} to the next shop',
-        	'{C:inactive}(Must be available)',
-        }
-    },
     atlas = 'Tag',
 	pos = { x = 4, y = 0 },
     min_ante = 2,
@@ -227,7 +184,7 @@ SMODS.Tag {
 					end
 				end
 				if #upgraded > 0 then
-					local voucher_key = pseudorandom_element(upgraded, pseudoseed(pool_key))
+					local voucher_key = pseudorandom_element(upgraded, pseudoseed(pool_key..G.GAME.round_resets.ante))
 					G.ARGS.voucher_tag = G.ARGS.voucher_tag or {}
 					G.ARGS.voucher_tag[voucher_key] = true
 					G.shop_vouchers.config.card_limit = G.shop_vouchers.config.card_limit + 1
@@ -251,14 +208,6 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'concoction',
     name = 'Concoction Tag',
-    loc_txt = {
-        name = 'Concoction Tag',
-        text = {
-            'Adds {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
-            '{C:dark_edition}Polychrome{}, or {C:dark_edition}Negative{} edition',
-            'to a random {C:attention}Joker{}',
-		}
-    },
     atlas = 'Tag',
 	pos = { x = 5, y = 0 },
     min_ante = nil,
@@ -281,10 +230,12 @@ SMODS.Tag {
 						table.insert(eligible_jokers, v)
 					end
 				end
-				local joker = pseudorandom_element(eligible_jokers, pseudoseed('brew'))
-				if joker then
-					local edition = poll_edition('wheel_of_fortune', nil, nil, true)
-					joker:set_edition(edition, true)
+				if #eligible_jokers > 0 then
+					local joker = pseudorandom_element(eligible_jokers, pseudoseed('brew'..G.GAME.round_resets.ante))
+					if joker then
+						local edition = poll_edition('wheel_of_fortune', nil, nil, true)
+						joker:set_edition(edition, true)
+					end
 				end
 				G.CONTROLLER.locks[lock] = nil
 				return true

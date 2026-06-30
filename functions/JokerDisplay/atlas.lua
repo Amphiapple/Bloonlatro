@@ -7,14 +7,14 @@ function JokerDisplay.calculate_card_triggers(card, scoring_hand, held_in_hand)
             if consumable.config.center.key == "c_bloons_thrive" and consumable.ability.active and not card.highlighted then
                 count = count + consumable.ability.retrigger
             end
-            if scoring_hand and consumable.config.center.key == "c_bloons_spikes" then
+            if scoring_hand and consumable.config.center.key == "c_bloons_road_spikes" then
                 for i = 1, #scoring_hand do
                     if scoring_hand[i] == card and i <= consumable.ability.spikes then
                         count = count + consumable.ability.retrigger
                     end
                 end
             end
-            if consumable.config.center.key == "c_bloons_tech" and consumable.ability.active and G.jokers.cards and #G.jokers.cards >= 1 then
+            if consumable.config.center.key == "c_bloons_tech_bot" and consumable.ability.active and G.jokers.cards and #G.jokers.cards >= 1 then
                 local joker = G.jokers.cards[#G.jokers.cards]
                 local joker_display_definition = JokerDisplay.Definitions[joker.config.center.key]
                 local retrigger_function =
@@ -45,11 +45,4 @@ function JokerDisplay.calculate_card_triggers(card, scoring_hand, held_in_hand)
         end
     end
     return count
-end
-
-local old_copy_card = copy_card
-function copy_card(other, new_card, card_scale, playing_card, strip_edition)
-    local card = old_copy_card(other, new_card, card_scale, playing_card, strip_edition)
-    if card then card:update_joker_display(true, true, "copy_card_hook") end
-    return card
 end

@@ -3,16 +3,8 @@ SMODS.Sound({key = "sentryexplode", path = "sentryexplode.ogg",})
 SMODS.Joker { --Marine
     key = 'marine',
     name = 'Marine',
-	loc_txt = {
-        name = 'Marine',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} hands'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 0, y = 26 },
+	pos = { x = 0, y = 25 },
     rarity = 3,
 	cost = 4,
     blueprint_compat = true,
@@ -56,17 +48,8 @@ SMODS.Joker { --Marine
 SMODS.Joker { --Sentry
     key = 'sentry',
     name = 'Nail Sentry',
-	loc_txt = {
-        name = 'Nail Sentry',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot',
-            'Lasts {C:attention}#4#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 1, y = 26 },
+	pos = { x = 1, y = 25 },
     rarity = 1,
 	cost = 1,
     blueprint_compat = true,
@@ -111,17 +94,8 @@ SMODS.Joker { --Sentry
 SMODS.Joker { --Crushing Sentry
     key = 'crushing_sentry',
     name = 'Crushing Sentry',
-	loc_txt = {
-        name = 'Crushing Sentry',
-        text = {
-            'Played cards give',
-            '{C:mult}+#1#{} Mult when scored',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 2, y = 26 },
+	pos = { x = 2, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -165,17 +139,8 @@ SMODS.Joker { --Crushing Sentry
 SMODS.Joker { --Boom Sentry
     key = 'boom_sentry',
     name = 'Boom Sentry',
-	loc_txt = {
-        name = 'Boom Sentry',
-        text = {
-            'First card held',
-            'in hand gives {X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 3, y = 26 },
+	pos = { x = 3, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -226,17 +191,8 @@ SMODS.Joker { --Boom Sentry
 SMODS.Joker { --Cold Sentry
     key = 'cold_sentry',
     name = 'Cold Sentry',
-	loc_txt = {
-        name = 'Cold Sentry',
-        text = {
-            '{C:attention}Freeze{} and retrigger',
-            '{C:attention}first{} card held in hand',
-            '{C:dark_edition}+#1#{} Joker Slot',
-            'Lasts {C:attention}#2#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 4, y = 26 },
+	pos = { x = 4, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -259,8 +215,11 @@ SMODS.Joker { --Cold Sentry
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.before and G.hand.cards[1] and not context.blueprint then
-            G.hand.cards[1]:set_ability('m_bloons_frozen', nil, true)
+        if context.before and not context.blueprint then
+            local frozen_card = G.hand.cards[1]
+            if frozen_card and not frozen_card.debuff then
+                frozen_card:set_ability('m_bloons_frozen', nil, true)
+            end
         elseif context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
@@ -284,17 +243,8 @@ SMODS.Joker { --Cold Sentry
 SMODS.Joker { --Energy Sentry
     key = 'energy_sentry',
     name = 'Energy Sentry',
-	loc_txt = {
-        name = 'Energy Sentry',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot',
-            'Lasts {C:attention}#4#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 5, y = 26 },
+	pos = { x = 5, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
@@ -339,19 +289,8 @@ SMODS.Joker { --Energy Sentry
 SMODS.Joker { --Champion Sentry
     key = 'champion_sentry',
     name = 'Champion Sentry',
-	loc_txt = {
-        name = 'Champion Sentry',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds',
-            'Sell this {C:attention}Joker{} to score',
-            '{C:attention}#4#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 6, y = 26 },
+	pos = { x = 6, y = 25 },
     rarity = 3,
 	cost = 1,
     blueprint_compat = true,
@@ -378,45 +317,31 @@ SMODS.Joker { --Champion Sentry
                 x_mult = card.ability.extra.Xmult
             }
         elseif context.selling_self then
-            local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-            if score > to_big(card.ability.extra.max) then
-                score = to_big(card.ability.extra.max)
+            local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+            local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+            if mp then
+                score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
             end
-            G.GAME.chips = G.GAME.chips + score
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('bloons_sentryexplode')
-                    delay(0.1)
-                    return true
-                end
-            }))
-            G.E_MANAGER:add_event(Event({
-                trigger = 'ease',
-                blocking = false,
-                ref_table = G.GAME,
-                ref_value = 'chips',
-                ease_to = G.GAME.chips,
-                delay = 0.5,
-                func = function(t)
-                    return math.floor(t)
-                end
-            }))
-            G.E_MANAGER:add_event(
-            Event({
-                trigger = "immediate",
-                func = function()
-                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
-                        G.GAME.current_round.semicolon = true
-                        G.STATE = G.STATES.HAND_PLAYED
-                        G.STATE_COMPLETE = true
-                        end_round()
-                        return true
-                    end
-                    return false
-                end,
-            }),
-            "other"
-        )
+            if not mp then
+                G.E_MANAGER:add_event(Event({
+                    trigger = "immediate",
+                    func = function()
+                        if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                            G.GAME.current_round.semicolon = true
+                            G.STATE = G.STATES.HAND_PLAYED
+                            G.STATE_COMPLETE = true
+                            end_round()
+                            return true
+                        end
+                        return false
+                    end,
+                }), "other")
+            end
+            return {
+                score = score,
+                sound = 'bloons_sentryexplode',
+                volume = 0.5
+            }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds <= 0 then
@@ -435,19 +360,8 @@ SMODS.Joker { --Champion Sentry
 SMODS.Joker { --Mega Green Sentry
     key = 'mega_green_sentry',
     name = 'Mega Green Sentry',
-	loc_txt = {
-        name = 'Mega Green Sentry',
-        text = {
-            '{C:dark_edition}+#1#{} Joker Slot',
-            '{X:mult,C:white}X#2#{} Mult if played',
-            'hand contains a {C:attention}#3#{}',
-            'Remove this {C:attention}Joker{} to score',
-            '{C:attention}#4#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 7, y = 26 },
+	pos = { x = 7, y = 25 },
     rarity = 4,
 	cost = 1,
     blueprint_compat = true,
@@ -475,14 +389,15 @@ SMODS.Joker { --Mega Green Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-        if score > to_big(card.ability.extra.max) then
-            score = to_big(card.ability.extra.max)
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
             func = function()
-                play_sound('bloons_sentryexplode')
+                play_sound('bloons_sentryexplode', 1, 0.5)
                 delay(0.1)
                 return true
             end
@@ -498,8 +413,8 @@ SMODS.Joker { --Mega Green Sentry
                 return math.floor(t)
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -511,9 +426,8 @@ SMODS.Joker { --Mega Green Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
@@ -527,19 +441,8 @@ SMODS.Joker { --Mega Green Sentry
 SMODS.Joker { --Mega Red Sentry
     key = 'mega_red_sentry',
     name = 'Mega Red Sentry',
-	loc_txt = {
-        name = 'Mega Red Sentry',
-        text = {
-            '{C:dark_edition}+#1#{} Joker Slot',
-            '{X:mult,C:white}X#2#{} Mult if played',
-            'hand contains a {C:attention}#3#{}',
-            'Remove this {C:attention}Joker{} to score',
-            '{C:attention}#4#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#5#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 8, y = 26 },
+	pos = { x = 8, y = 25 },
     rarity = 4,
 	cost = 1,
     blueprint_compat = true,
@@ -567,14 +470,15 @@ SMODS.Joker { --Mega Red Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-        if score > to_big(card.ability.extra.max) then
-            score = to_big(card.ability.extra.max)
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
             func = function()
-                play_sound('bloons_sentryexplode')
+                play_sound('bloons_sentryexplode', 1, 0.5)
                 delay(0.1)
                 return true
             end
@@ -590,8 +494,8 @@ SMODS.Joker { --Mega Red Sentry
                 return math.floor(t)
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -603,9 +507,8 @@ SMODS.Joker { --Mega Red Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
@@ -619,18 +522,8 @@ SMODS.Joker { --Mega Red Sentry
 SMODS.Joker { --Mega Blue Sentry
     key = 'mega_blue_sentry',
     name = 'Mega Blue Sentry',
-	loc_txt = {
-        name = 'Mega Blue Sentry',
-        text = {
-            '{C:dark_edition}+#1#{} Joker Slot',
-            '{X:mult,C:white}X#2#{} Mult against {C:attention}Boss Blinds{}',
-            'Remove this {C:attention}Joker{} to score',
-            '{C:attention}#3#%{} of the required chips',
-            '{C:inactive}(Max of {C:attention}#4#{C:inactive}){}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 9, y = 26 },
+	pos = { x = 9, y = 25 },
     rarity = 4,
 	cost = 1,
     blueprint_compat = true,
@@ -657,14 +550,15 @@ SMODS.Joker { --Mega Blue Sentry
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        local score = G.GAME.blind.chips * card.ability.extra.percent / 100.0
-        if score > to_big(card.ability.extra.max) then
-            score = to_big(card.ability.extra.max)
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
         G.E_MANAGER:add_event(Event({
             func = function()
-                play_sound('bloons_sentryexplode')
+                play_sound('bloons_sentryexplode', 1, 0.5)
                 delay(0.1)
                 return true
             end
@@ -680,8 +574,8 @@ SMODS.Joker { --Mega Blue Sentry
                 return math.floor(t)
             end
         }))
-        G.E_MANAGER:add_event(
-            Event({
+        if not mp then
+            G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
                     if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
@@ -693,9 +587,8 @@ SMODS.Joker { --Mega Blue Sentry
                     end
                     return false
                 end,
-            }),
-            "other"
-        )
+            }), "other")
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.blind.boss then
@@ -709,16 +602,8 @@ SMODS.Joker { --Mega Blue Sentry
 SMODS.Joker { --Bloonprint
     key = 'bloonprint',
     name = 'Bloonprint',
-	loc_txt = {
-        name = 'Bloonprint',
-        text = {
-            'Copies ability of',
-            '{C:attention}Joker{} in position {C:attention}#1#{}',
-            '{s:0.8}position changes every round{}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 14, y = 26 },
+	pos = { x = 14, y = 25 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -751,7 +636,7 @@ SMODS.Joker { --Bloonprint
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            card.ability.extra.current = pseudorandom('bloonprint', 1, #G.jokers.cards)
+            card.ability.extra.current = pseudorandom('bloonprint'..G.GAME.round_resets.ante, 1, #G.jokers.cards)
         end
         return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
     end
@@ -760,16 +645,8 @@ SMODS.Joker { --Bloonprint
 SMODS.Joker { --Card Storm
     key = 'card_storm',
     name = 'Card Storm',
-	loc_txt = {
-        name = 'Card Storm',
-        text = {
-            'Copies the ability',
-            'of {C:attention}#1#{} {C:attention}Joker{}',
-            '{s:0.8}Direction changes every round{}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 15, y = 26 },
+	pos = { x = 15, y = 25 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -813,7 +690,7 @@ SMODS.Joker { --Card Storm
     end,
     calculate = function(self, card, context)
         if context.blind_defeated and not context.blueprint then
-            card.ability.extra.current = pseudorandom('card_storm') > 0.5 and 1 or -1
+            card.ability.extra.current = pseudorandom('card_storm'..G.GAME.round_resets.ante) > 0.5 and 1 or -1
         end
         local other_joker = nil
         if card.ability.extra.current == 1 then

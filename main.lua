@@ -28,13 +28,17 @@ local functions = {
     'hook',
     'deck_ui',
     'collection',
-    'tutorial',
     'badges',
     'joker_buttons',
+    'main_menu',
+    'boss',
 
     --Crossmod files
-    'bunco',
     'talisman',
+    'multiplayer',
+
+    --Main menu
+    'main_menu',
 }
 
 for k, v in ipairs(functions) do
@@ -88,7 +92,7 @@ local jokers = {
     'tack',
     'ice',
     'glue',
-    'desperado',
+    'desp',
     'sniper',
     'sub',
     'boat',

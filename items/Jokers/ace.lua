@@ -1,14 +1,6 @@
 SMODS.Joker { --Monkey Ace
     key = 'monkey_ace',
     name = 'Monkey Ace',
-	loc_txt = {
-        name = 'Monkey Ace',
-        text = {
-            'Each {C:attention}Ace{}',
-            'held in hand',
-            'gives {C:chips}+#1#{} Chips'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 10 },
     rarity = 1,
@@ -40,14 +32,6 @@ SMODS.Joker { --Monkey Ace
 SMODS.Joker { --Rapid Fire
     key = 'rapid_fire',
     name = 'Rapid Fire',
-	loc_txt = {
-        name = 'Rapid Fire',
-        text = {
-            'Each played {C:attention}Ace{}',
-            'gives {C:chips}+#1#{} Chips',
-            'when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 10 },
     rarity = 1,
@@ -72,14 +56,6 @@ SMODS.Joker { --Rapid Fire
 SMODS.Joker { --Lots More Darts
     key = 'lots_more_darts',
     name = 'Lots More Darts',
-	loc_txt = {
-        name = 'Lots More Darts',
-        text = {
-            'Each played {C:attention}Ace{}',
-            'gives {C:chips}+#1#{} Chips',
-            'when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 10 },
     rarity = 1,
@@ -104,14 +80,6 @@ SMODS.Joker { --Lots More Darts
 SMODS.Joker { --Fighter Plane
     key = 'fighter_plane',
     name = 'Fighter Plane',
-	loc_txt = {
-        name = 'Fighter Plane',
-        text = {
-            'Increase rank of all',
-            'scoring {C:attention}face{} cards on',
-            '{C:attention}first hand{} of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 10 },
     rarity = 2,
@@ -173,14 +141,6 @@ SMODS.Joker { --Fighter Plane
 SMODS.Joker { --Operation: Dart Storm
     key = 'operation_dart_storm',
     name = 'Operation: Dart Storm',
-	loc_txt = {
-        name = 'Operation: Dart Storm',
-        text = {
-            'This Joker gains {C:chips}+#1#{} Chips',
-            'when each played {C:attention}Ace{} is scored',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 10 },
     rarity = 2,
@@ -212,15 +172,6 @@ SMODS.Joker { --Operation: Dart Storm
 SMODS.Joker { --Sky Shredder
     key = 'sky_shredder',
     name = 'Sky Shredder',
-	loc_txt = {
-        name = 'Sky Shredder',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{} Mult after',
-            '{C:attention}#2#{C:inactive} (#3#){} scoring {C:attention}Aces{} are played',
-            'Requirement doubles each increment',
-            '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 10 },
     rarity = 3,
@@ -274,14 +225,6 @@ SMODS.Joker { --Sky Shredder
 SMODS.Joker { --Exploding Pineapple
     key = 'exploding_pineapple',
     name = 'Exploding Pineapple',
-    loc_txt = {
-        name = 'Exploding Pineapple',
-        text = {
-            'Destroy all scoring',
-            'cards after {C:attention}#1#{} hands',
-            '{s:1.1,C:red,E:2}self destructs{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 6, y = 10 },
     rarity = 1,
@@ -321,14 +264,6 @@ SMODS.Joker { --Exploding Pineapple
 SMODS.Joker { --Spy Plane
     key = 'spy_plane',
     name = 'Spy Plane',
-    loc_txt = {
-        name = 'Spy Plane',
-        text = {
-            'Reveal the top {C:attention}#1#{}',
-            'cards in your deck',
-            '{C:inactive}#2# #3# #4#{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 10 },
     rarity = 1,
@@ -341,11 +276,11 @@ SMODS.Joker { --Spy Plane
 
     loc_vars = function(self, info_queue, card)
         local function process_var(pos)
-            local card_string = '#@'
             if #find_joker('Spy Plane') > 0 then
-                card_string = card_string..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.id or 11)..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.suit:sub(1,1) or 'D')
+                return '#@' .. (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.id or 11)..
+                    (G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards-pos+1].base.suit:sub(1,1) or 'D')
             end
-            return card_string
+            return '#@'
         end
 		return {
             vars = {
@@ -361,14 +296,6 @@ SMODS.Joker { --Spy Plane
 SMODS.Joker { --Bomber Ace
     key = 'bomber_ace',
     name = 'Bomber Ace',
-    loc_txt = {
-        name = 'Bomber Ace',
-        text = {
-            'On {C:attention}final hand{} of round,',
-            'Destroy all {C:attention}Aces{} and cards',
-            'adjacent to them held in hand',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 8, y = 10 },
     rarity = 2,
@@ -410,13 +337,6 @@ SMODS.Joker { --Bomber Ace
 SMODS.Joker { --Ground Zero 
     key = 'ground_zero',
     name = 'Ground Zero',
-	loc_txt = {
-        name = 'Ground Zero',
-        text = {
-            '{C:chips}+#1#{} Chips on',
-            '{C:attention}final hand{} of round'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 10 },
     rarity = 2,
@@ -442,14 +362,6 @@ SMODS.Joker { --Ground Zero
 SMODS.Joker { --Tsar Bomba
     key = 'tsar_bomba',
     name = 'Tsar Bomba',
-	loc_txt = {
-        name = 'Tsar Bomba',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult and {C:attention}Stun{}',
-            'all cards held in hand on',
-            '{C:attention}final hand{} of round',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 10 },
     rarity = 3,
@@ -488,14 +400,6 @@ SMODS.Joker { --Tsar Bomba
 SMODS.Joker { --Sharper Darts
     key = 'sharper_darts',
     name = 'Sharper Darts',
-	loc_txt = {
-        name = 'Sharper Darts',
-        text = {
-            'Each {C:attention}Ace{}',
-            'held in hand',
-            'gives {C:mult}+#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 10 },
     rarity = 1,
@@ -527,15 +431,6 @@ SMODS.Joker { --Sharper Darts
 SMODS.Joker { --Centered Path
     key = 'centered_path',
     name = 'Centered Path',
-    loc_txt = {
-        name = 'Centered Path',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'if chips scored are',
-            'between {C:attention}#1#%{} and {C:attention}#2#%{}',
-            'of required chips'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 10 },
     rarity = 1,
@@ -573,15 +468,6 @@ SMODS.Joker { --Centered Path
 SMODS.Joker { --Neva-Miss Targeting
     key = 'neva_miss_targeting',
     name = 'Neva-Miss Targeting',
-    loc_txt = {
-        name = 'Neva-Miss Targeting',
-        text = {
-            'Create a {C:tarot}Tarot{} card',
-            'if chips scored are',
-            'between {C:attention}#1#%{} and {C:attention}#2#%{}',
-            'of required chips'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 10 },
     rarity = 2,
@@ -619,14 +505,6 @@ SMODS.Joker { --Neva-Miss Targeting
 SMODS.Joker { --Spectre
     key = 'spectre',
     name = 'Spectre',
-    loc_txt = {
-        name = 'Spectre',
-        text = {
-            'Create a {C:spectral}Spectral{} card',
-            'if scoring hand contains',
-            'at least {C:attention}#1# Aces{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 10 },
     rarity = 2,
@@ -634,7 +512,7 @@ SMODS.Joker { --Spectre
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Ace", category = "military" },
-        extra = { number = 4 } --Variables: number = required aces for spectral
+        extra = { number = 3 } --Variables: number = required aces for spectral
     },
 
     loc_vars = function(self, info_queue, card)
@@ -643,11 +521,9 @@ SMODS.Joker { --Spectre
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if not context.blueprint then
-                for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() == 14 and not v.debuff then
-                        count = count + 1
-                    end
+            for k, v in ipairs(context.scoring_hand) do
+                if v:get_id() == 14 and not v.debuff then
+                    count = count + 1
                 end
             end
             if count >= card.ability.extra.number and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -672,14 +548,6 @@ SMODS.Joker { --Spectre
 SMODS.Joker { --Flying Fortress
     key = 'flying_fortress',
     name = 'Flying Fortress',
-	loc_txt = {
-        name = 'Flying Fortress',
-        text = {
-            'Each {C:attention}Ace{} played',
-            'or held in hand',
-            'gives {X:mult,C:white}X#1#{} Mult'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 10 },
     rarity = 3,

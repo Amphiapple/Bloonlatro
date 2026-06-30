@@ -146,7 +146,7 @@ JokerDisplay.Definitions["j_bloons_shinobi_tactics"] = { --Shinobi Tactics
 JokerDisplay.Definitions["j_bloons_bloon_sabotage"] = { --Bloon Sabotage
     reminder_text = {
         { text = "(" },
-        { text = "Heart", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
+        { text = "Clubs", colour = lighten(G.C.SUITS["Clubs"], 0.35) },
         { text = ")" },
     },
     extra = {
@@ -157,7 +157,7 @@ JokerDisplay.Definitions["j_bloons_bloon_sabotage"] = { --Bloon Sabotage
         }
     },
     calc_function = function(card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
@@ -166,7 +166,7 @@ JokerDisplay.Definitions["j_bloons_grand_saboteur"] = { --Grand Saboteur
     reminder_text = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "number", colour = G.C.ORANGE },
-        { text = " Hearts", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
+        { text = " Clubs", colour = lighten(G.C.SUITS["Clubs"], 0.35) },
         { text = ")" },
     },
     extra = {
@@ -177,7 +177,7 @@ JokerDisplay.Definitions["j_bloons_grand_saboteur"] = { --Grand Saboteur
         }
     },
     calc_function = function(card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gsabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'grand_saboteur')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
@@ -242,7 +242,7 @@ JokerDisplay.Definitions["j_bloons_sticky_bomb"] = { --Sticky Bomb
         local stickied = false
         for _, playing_card in ipairs(G.hand.cards) do
             if playing_hand or not playing_card.highlighted then
-                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card == card.ability.extra.stickied then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.sticky_bomb then
                     stickied = true
                 end
             end

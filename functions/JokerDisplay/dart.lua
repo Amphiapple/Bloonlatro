@@ -107,23 +107,15 @@ JokerDisplay.Definitions["j_bloons_very_quick_shots"] = { --Quick Shots
 
 JokerDisplay.Definitions["j_bloons_triple_shot"] = { --Triple shot
     text = {
-        { text = "+", colour = G.C.SECONDARY_SET.Tarot },
-        { ref_table = "card.joker_display_values", ref_value = "tarots", colour = G.C.SECONDARY_SET.Tarot }
-    },
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "active" },
-        { text = ")" },
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
     },
     calc_function = function(card)
-
-        if card.ability.extra.counter == 1 then
-            card.joker_display_values.active = "Next!"
-            card.joker_display_values.tarots = card.ability.extra.tarots
-        else
-            card.joker_display_values.active = card.ability.extra.counter .. " remaining"
-            card.joker_display_values.tarots = 0
-        end
+        local hand = JokerDisplay.current_hand
+        card.joker_display_values.chips = hand and #hand == card.ability.extra.number and card.ability.extra.chips or 0
+        card.joker_display_values.mult = hand and #hand == card.ability.extra.number and card.ability.extra.mult or 0
     end
 }
 

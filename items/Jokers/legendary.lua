@@ -1,18 +1,10 @@
 SMODS.Joker { --Apex Plasma Master
     key = 'apex_plasma_master',
     name = 'Apex Plasma Master',
-	loc_txt = {
-        name = 'Apex Plasma Master',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'every {C:attention}#2#{C:inactive} [#3#]{} cards scored',
-            'Scaling increases each increment',
-            '{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 0, y = 27 },
-    soul_pos = { x = 0, y = 28 },
+	pos = { x = 0, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 0, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -43,18 +35,10 @@ SMODS.Joker { --Apex Plasma Master
 SMODS.Joker { --Glaive Dominus
     key = 'glaive_dominus',
     name = 'Glaive Dominus',
-	loc_txt = {
-        name = 'Glaive Dominus',
-        text = {
-            'Play each {C:attention}Boss Blind{} twice,',
-            'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            'when {C:attention}Boss Blind{} is defeated',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive}){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 1, y = 27 },
-    soul_pos = { x = 1, y = 28 },
+	pos = { x = 1, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 1, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -71,14 +55,56 @@ SMODS.Joker { --Glaive Dominus
             return {
                 x_mult = card.ability.extra.current
             }
-        elseif context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+        end
+
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.active = false
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
-            card.ability.extra.active = true
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.RED,
                 delay = 0.45,
             }
+        end
+
+        if context.ante_end then
+            card.ability.extra.active = true
+        end
+    end
+}
+
+SMODS.Joker { --Ballistic Obliteration Missile Bunker
+    key = 'ballistic_obliteration_missile_bunker',
+    name = 'Ballistic Obliteration Missile Bunker',
+	atlas = 'Joker',
+	pos = { x = 2, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 2, y = 2 },
+    rarity = 4,
+	cost = 20,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Bomb Shooter", category = "primary" },
+        extra = { Xmult = 1.5 }
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not SMODS.has_no_rank(context.other_card) then
+            local paired = false
+            local id = context.other_card:get_id()
+            for k, v in ipairs(context.scoring_hand) do
+                if id == v:get_id() and context.other_card ~= v and not SMODS.has_no_rank(v) and not v.debuff then
+                    paired = true
+                end
+            end
+            if paired then
+                return {
+                    x_mult = card.ability.extra.Xmult
+                }
+            end
         end
     end
 }
@@ -86,17 +112,10 @@ SMODS.Joker { --Glaive Dominus
 SMODS.Joker { --Crucible of Steel and Flame
     key = 'crucible_of_steel_and_flame',
     name = 'Crucible of Steel and Flame',
-	loc_txt = {
-        name = 'Crucible of Steel and Flame',
-        text = {
-            '{C:attention}Meteor{} cards no longer',
-            'destroy themselves when played',
-            'Add {C:attention}#1# Meteor{} cards to your deck',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 3, y = 27 },
-    soul_pos = { x = 3, y = 28 },
+	pos = { x = 3, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 3, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -109,8 +128,9 @@ SMODS.Joker { --Crucible of Steel and Flame
         return { vars = { card.ability.extra.number } }
     end,
     add_to_deck = function(self, card, from_debuff)
+        if from_debuff then return end
         for i = 1, card.ability.extra.number do
-            local front = pseudorandom_element(G.P_CARDS, pseudoseed('crucible_of_steel_and_flame'))
+            local front = pseudorandom_element(G.P_CARDS, 'crucible_of_steel_and_flame')
             local meteor = SMODS.add_card({
                 set = 'Playing Card',
                 front = front,
@@ -118,7 +138,7 @@ SMODS.Joker { --Crucible of Steel and Flame
                 skip_materialize = false,
             })
             meteor:set_ability('m_bloons_meteor', nil, true)
-            card_eval_status_text(meteor, 'extra', nil, nil, nil, {message = localize('k_plus_stone'), colour = G.C.SECONDARY_SET.Enhanced})
+            card_eval_status_text(meteor, 'extra', nil, nil, nil, {message = '+1 Meteor', colour = G.C.SECONDARY_SET.Enhanced})
 
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -132,68 +152,114 @@ SMODS.Joker { --Crucible of Steel and Flame
     end
 }
 
---[[
 SMODS.Joker { --Herald of Everfrost
     key = 'herald_of_everfrost',
     name = 'Herald of Everfrost',
-	loc_txt = {
-        name = 'Herald of Everfrost',
-        text = {
-
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 4, y = 27 },
-    soul_pos = { x = 4, y = 28 },
+	pos = { x = 4, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 4, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = {  } --Variables = 
+        extra = { number = 2, percent = 80, hands = 3, counter = 3 } --Variables = number = nuimber of cards frozen, percent = blind requirement reduction percent, hands = hands required to disable blind, counter = hands until blind disabled
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { } }
+        return { vars = { card.ability.extra.number, 100 - card.ability.extra.percent, card.ability.extra.hands, card.ability.extra.counter } }
     end,
-    calculate = function(self, card, context)  
+    calculate = function(self, card, context)
+        if context.before then
+            local valid_cards = {}
+            for k, v in ipairs(context.scoring_hand) do
+                if v.ability.effect ~= 'Frozen_card' and not v.debuff then
+                    valid_cards[#valid_cards+1] = v
+                end
+            end
+            pseudoshuffle(valid_cards, 'herald_of_everfrost')
+            for i = 1, card.ability.extra.number do
+                local frozen_card = valid_cards[i]
+                if frozen_card then
+                    frozen_card:set_ability('m_bloons_frozen', nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            frozen_card:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+            if card.ability.extra.counter == 1 and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                G.GAME.blind:disable_blind_modifiers()
+                G.GAME.blind:disable()
+            end
+            return {
+                xblindsize = card.ability.extra.percent / 100
+            }
+        elseif context.after then
+            card.ability.extra.counter = math.max(0, card.ability.extra.hands - G.GAME.current_round.hands_played)
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.counter = card.ability.extra.hands
+        end
     end
 }
-]]
 
-SMODS.Joker { -- Nautic Siege Core
+SMODS.Joker { --Nautic Siege Core
     key = 'nautic_siege_core',
     name = 'Nautic Siege Core',
-    loc_txt = {
-        name = 'Nautic Siege Core',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if unsubmerged',
-            '{C:green}Rerolls{} cost {C:money}$#2#{} less if submerged',
-            'Submerge for {C:attention}#3#{C:inactive} (#4#){} consecutive',
-            'hands to give {X:mult,C:white}X#5#{} Mult next',
-            'hand once unsubmerged'
-        }
-    },
     atlas = 'Joker',
-    pos = { x = 8, y = 27 },
-    soul_pos = { x = 8, y = 28 },
+    pos = { x = 8, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 8, y = 2 },
     rarity = 4,
     cost = 20,
     blueprint_compat = true,
 
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { submerged = false, Xmult = 2, money = 2, hands = 6, charge = 6, Xmult_nuke = 6 }
+        extra = { submerged = false, Xmult = 2, money = 2, hands = 6, charge = 6, Xmult_nuke = 6 },
+        button = { text = "SUB", colour = G.C.BLUE }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.hands, card.ability.extra.charge, card.ability.extra.Xmult_nuke } }
+        return { vars = { card.ability.extra.submerged, card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.hands, card.ability.extra.charge, card.ability.extra.Xmult_nuke } }
+    end,
+
+    can_use = function(card)
+        return true
+    end,
+
+    use = function(card)
+        if not card or not card.children or not card.children.center then return end
+        card.ability.extra.submerged = not card.ability.extra.submerged
+        if card.ability.extra.submerged then
+            card.children.center:set_sprite_pos({ x = 15, y = 26 })
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
+                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.money)
+                    return true
+                end
+            }))
+        else
+            card.children.center:set_sprite_pos({ x = 8, y = 26 })
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
+                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.money)
+                    return true
+                end
+            }))
+        end
     end,
     set_sprites = function(self, card, front)
         if not card or not card.ability or not card.ability.extra then return end
         if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 27 })
+            card.children.center:set_sprite_pos({ x = 15, y = 26 })
         else
-            card.children.center:set_sprite_pos({ x = 8, y = 27 })
+            card.children.center:set_sprite_pos({ x = 8, y = 26 })
         end
     end,
     calculate = function(self, card, context)
@@ -218,28 +284,71 @@ SMODS.Joker { -- Nautic Siege Core
                 juice_card_until(card, eval, true)
             end
         end
+    end
+}
+
+SMODS.Joker { --Navarch of the Seas
+    key = 'navarch_of_the_seas',
+    name = 'Navarch of the Seas',
+    atlas = 'Joker',
+    pos = { x = 9, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 9, y = 2 },
+    rarity = 4,
+    cost = 20,
+    blueprint_compat = true,
+
+    config = {
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
+        extra = { num = 1, denom = 3, Xmult = 1.5, money = 5, planes = 1 }
+    },
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'navarch_of_the_seas')
+        return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.planes } }
     end,
-    submerge = function(card)
-        if not card or not card.children or not card.children.center then return end
-        card.ability.extra.submerged = not card.ability.extra.submerged
-        if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 27 })
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
-                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.money)
-                    return true
+    calculate = function(self, card, context)
+        if context.remove_playing_cards and not context.blueprint then
+            local count = #context.removed
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = 'planes',
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + count
+                end,
+            })
+            return{
+                dollars = card.ability.extra.money * count
+            }
+        elseif context.joker_main then
+            for i = 1, card.ability.extra.planes do
+                if SMODS.pseudorandom_probability(card, 'navarch_of_the_seas', card.ability.extra.num, card.ability.extra.denom, 'navarch_of_the_seas') then
+                    mult = mod_mult(mult * card.ability.extra.Xmult)
+                    update_hand_text( { delay = 0 }, { mult = mult } )
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('multhit2')
+                            return true
+                        end
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                        message = localize{
+                            type = 'variable',
+                            key = 'a_xmult',
+                            vars = {card.ability.extra.Xmult}
+                        }
+                    })
+                else
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot2', 1, 0.4)
+                            return true
+                        end
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                        message = localize('k_nope_ex')
+                    })
                 end
-            }))
-        else
-            card.children.center:set_sprite_pos({ x = 8, y = 27 })
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
-                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.money)
-                    return true
-                end
-            }))
+            end
         end
     end
 }
@@ -247,16 +356,10 @@ SMODS.Joker { -- Nautic Siege Core
 SMODS.Joker { --Goliath Doomship
     key = 'goliath_doomship',
     name = 'Goliath Doomship',
-	loc_txt = {
-        name = 'Goliath Doomship',
-        text = {
-            'Apply the effects',
-            'of all {C:attention}Seals{} to {C:attention}Aces{}',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 10, y = 27 },
-    soul_pos = { x = 10, y = 28 },
+	pos = { x = 10, y = 26 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 10, y = 2 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = false,
@@ -337,18 +440,10 @@ SMODS.Joker { --Goliath Doomship
 SMODS.Joker { --Magus Perfectus
     key = 'magus_perfectus',
     name = 'Magus Perfectus',
-	loc_txt = {
-        name = 'Magus Perfectus',
-        text = {
-            'When round begins,',
-            'add a random {C:enhanced}Enhancement{},',
-            '{C:dark_edition}Edition{}, and a {C:attention}Seal{} to a',
-            'random card in hand',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 0, y = 29 },
-    soul_pos = { x = 0, y = 30 },
+	pos = { x = 0, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 0, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -391,19 +486,10 @@ SMODS.Joker { --Magus Perfectus
 SMODS.Joker { --Ascended Shadow
     key = 'ascended_shadow',
     name = 'Ascended Shadow',
-	loc_txt = {
-        name = 'Ascended Shadow',
-        text = {
-            'Playing cards cannot be',
-            '{C:attention}debuffed{} or face down',
-            'Force {C:attention}1{} card to always',
-            'be selected and give',
-            '{X:mult,C:white}X#1#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 2, y = 29 },
-    soul_pos = { x = 2, y = 30 },
+	pos = { x = 2, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 2, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -432,7 +518,7 @@ SMODS.Joker { --Ascended Shadow
         end
     end,
     calculate = function(self, card, context)
-        if context.hand_drawn or context.first_hand_drawn and not context.blueprint then
+        if (context.hand_drawn or context.first_hand_drawn) and not context.blueprint then
             local any_forced = nil
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.forced_selection then
@@ -454,7 +540,7 @@ SMODS.Joker { --Ascended Shadow
         elseif context.after and not context.blueprint then
             for k, v in ipairs(context.full_hand) do
                 if v.ability.ascended_shadow then
-                    v.ability.scended_shadow = false
+                    v.ability.ascended_shadow = false
                 end
             end
         elseif context.discard and context.other_card.ability.ascended_shadow and not context.blueprint then
@@ -463,22 +549,55 @@ SMODS.Joker { --Ascended Shadow
     end
 }
 
+SMODS.Joker { --Root of All Nature
+    key = 'root_of_all_nature',
+    name = 'Root of All Nature',
+	atlas = 'Joker',
+	pos = { x = 4, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 4, y = 4 },
+    rarity = 4,
+	cost = 20,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { money = 3, Xmult = 0.1, rate = 5, current = 1 } --Variables: money = dollars per hand, Xmult = Xmult increase per rate
+    },
+    loc_vars = function (self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.money,
+                card.ability.extra.Xmult,
+                card.ability.extra.rate,
+                card.ability.extra.current,
+            }
+        }
+    end,
+    update = function(self, card, dt)
+        if G.GAME.dollars then
+            card.ability.extra.current = 1 + card.ability.extra.Xmult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate)
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            return {
+                dollars = card.ability.extra.money
+            }
+        elseif context.joker_main and math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate) > 1 then
+            return {
+                Xmult = card.ability.extra.current
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Mega Massive Munitions Factory
     key = 'mega_massive_munitions_factory',
     name = 'Mega Massive Munitions Factory',
-	loc_txt = {
-        name = 'Mega Massive Munitions Factory',
-        text = {
-            'Creates a {C:attention}Mine{} every {C:attention}#1#{C:inactive}#2#{} hands',
-            'Spend mines to give {X:mult,C:white}X#3#{} Mult until',
-            'chips scored exceeds required',
-            'chips on {C:attention}final hand{} of round',
-            '{C:inactive}(Currently {C:attention}#4#{C:inactive} mines){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 7, y = 29 },
-    soul_pos = { x = 7, y = 30 },
+	pos = { x = 7, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 7, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -544,19 +663,10 @@ SMODS.Joker { --Mega Massive Munitions Factory
 SMODS.Joker { --Master Builder
     key = 'master_builder',
     name = 'Master Builder',
-	loc_txt = {
-        name = 'Master Builder',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'create a {C:attention}#1#{}',
-            'and this {C:attention}Joker{} gains {X:mult,C:white}X#2#{} Mult',
-            'Duplicate sentries {s:1.1,C:red,E:2}self destruct{}',
-            '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 9, y = 29 },
-    soul_pos = { x = 9, y = 30 },
+	pos = { x = 9, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 9, y = 4 },
     rarity = 4,
 	cost = 20,
     blueprint_compat = true,
@@ -627,25 +737,22 @@ SMODS.Joker { --Master Builder
 SMODS.Joker { --Vengeful True Sun God
     key = 'vengeful_true_sun_god',
     name = 'Vengeful True Sun God',
-	loc_txt = {
-        name = 'Vengeful True Sun God',
-        text = {
-            'Sacrifice {C:attention}ALL{} other {C:attention}Jokers{}',
-            'to the {C:legendary,E:1,s:1.1}Vengeful True Sun God{}',
-            '{C:inactive}(#1# #2# #3# #4#){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 15, y = 29 },
-    soul_pos = { x = 15, y = 30 },
+	pos = { x = 15, y = 27 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 15, y = 4 },
     rarity = 4,
 	cost = 20,
 	blueprint_compat = true,
+    in_pool = function(self, args)
+        return false
+    end,
     config = {
         tower_info = { base = "Super Monkey", category = "magic" },
-        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 } --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
+        --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
+        extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumable = 1, money = 3, discount = 1 },
+        button = { text = "SAC", colour = HEX("383C76") }
     },
-
     loc_vars = function(self, info_queue, card)
 		return {
             vars = {
@@ -656,13 +763,38 @@ SMODS.Joker { --Vengeful True Sun God
             }
         }
     end,
-    add_to_deck = function(self, card, from_debuff)
-        card.ability.extra.sacrifices['primary'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['primary']) or 0
-        card.ability.extra.sacrifices['military'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['military']) or 0
-        card.ability.extra.sacrifices['magic'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['magic']) or 0
-        card.ability.extra.sacrifices['support'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['support']) or 0
+
+    can_use = function(card)
+        local sacrifices = card.ability and card.ability.extra and card.ability.extra.sacrifices
+        if not sacrifices then return false end
+
+        local no_sacs =
+            (sacrifices.primary or 0) == 0 and
+            (sacrifices.military or 0) == 0 and
+            (sacrifices.magic or 0) == 0 and
+            (sacrifices.support or 0) == 0
+        if not no_sacs then return false end
+
+        local has_valid_target = false
+        for _, joker in pairs(G.jokers.cards or {}) do
+            if joker ~= card then
+                local tower = joker.ability and joker.ability.tower_info
+                local base = tower and tower.base
+                local category = tower and tower.category
+
+                local valid_base = base and base ~= "Sentry" and base ~= "Marine"
+                local valid_category = category and string.lower(tostring(category)) ~= "misc"
+
+                if valid_base and valid_category then
+                    has_valid_target = true
+                    break
+                end
+            end
+        end
+        return has_valid_target
     end,
-    sac_to_vtsg = function(card)
+
+    use = function(card)
         local deletable_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
             if joker ~= card and joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
@@ -688,6 +820,13 @@ SMODS.Joker { --Vengeful True Sun God
         }))
         recalc_all_costs()
     end,
+
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.sacrifices['primary'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['primary']) or 0
+        card.ability.extra.sacrifices['military'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['military']) or 0
+        card.ability.extra.sacrifices['magic'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['magic']) or 0
+        card.ability.extra.sacrifices['support'] = (card.ability.extra.sacrifices and card.ability.extra.sacrifices['support']) or 0
+    end,
     remove_from_deck = function(self, card, from_debuff)
         recalc_all_costs()
     end,
@@ -695,7 +834,8 @@ SMODS.Joker { --Vengeful True Sun God
         if context.joker_main then
             local chips = math.floor(card.ability.extra.sacrifices['primary'] / 2) + math.floor(card.ability.extra.sacrifices['military'] / 2)
             local mult = math.ceil(card.ability.extra.sacrifices['primary'] / 2) + math.floor(card.ability.extra.sacrifices['magic'] / 2)
-            local Xmult = math.floor(card.ability.extra.sacrifices['primary'] * 2 / 9) + math.ceil(card.ability.extra.sacrifices['military'] / 2) + math.ceil(card.ability.extra.sacrifices['magic'] / 2) + math.floor(card.ability.extra.sacrifices['support'] / 3)
+            local Xmult = math.floor(card.ability.extra.sacrifices['primary'] * 2 / 9) + math.ceil(card.ability.extra.sacrifices['military'] / 2) +
+                    math.ceil(card.ability.extra.sacrifices['magic'] / 2) + math.floor(card.ability.extra.sacrifices['support'] / 3)
             return {
                 chips = card.ability.extra.chips * chips,
                 mult = card.ability.extra.mult * mult,

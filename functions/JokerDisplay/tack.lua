@@ -103,7 +103,7 @@ JokerDisplay.Definitions["j_bloons_long_range_tacks"] = { --Long Range Tacks
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
     },
     reminder_text = {
-        { text = "(8)" }
+        { text = "(7, 8, 9)" }
     }
 }
 
@@ -113,7 +113,7 @@ JokerDisplay.Definitions["j_bloons_super_range_tacks"] = { --Super Range Tacks
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
     },
     reminder_text = {
-        { text = "(7, 8, 9)" }
+        { text = "(Odd)" }
     }
 }
 
@@ -124,7 +124,7 @@ JokerDisplay.Definitions["j_bloons_blade_shooter"] = { --Blade Shooter
     },
     reminder_text = {
         { text = "(" },
-        { text = "3 Number Cards", colour = G.C.ORANGE },
+        { text = "3 Odd Cards", colour = G.C.ORANGE },
         { text = ")" },
     }
 }
@@ -175,13 +175,10 @@ JokerDisplay.Definitions["j_bloons_super_maelstrom"] = { --Super Maelstrom
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+                { ref_table = "card.ability.extra", ref_value = "current" }
             }
         }
     },
-    calc_function = function(card)
-        card.joker_display_values.Xmult = next(card.ability.extra.ranks) == nil and card.ability.extra.Xmult or 1
-    end,
 }
 
 JokerDisplay.Definitions["j_bloons_more_tacks"] = { --More Tacks
@@ -192,14 +189,14 @@ JokerDisplay.Definitions["j_bloons_more_tacks"] = { --More Tacks
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "(10)" }
+        { text = "(4, 8)" }
     },
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:get_id() == 10 then
+                if scoring_card:get_id() == 4 or scoring_card:get_id() == 8 then
                     count = count +
                         JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                 end
@@ -218,14 +215,17 @@ JokerDisplay.Definitions["j_bloons_even_more_tacks"] = { --Even More Tacks
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "(Queen)" }
+        { text = "(2, 4, 6, 8)" }
     },
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:get_id() == 12 then
+                if scoring_card:get_id() == 2 or
+                    scoring_card:get_id() == 4 or
+                    scoring_card:get_id() == 6 or
+                    scoring_card:get_id() == 8 then
                     count = count +
                         JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                 end
@@ -244,14 +244,18 @@ JokerDisplay.Definitions["j_bloons_tack_sprayer"] = { --Tack Sprayer
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "(8, 10, Queen)" }
+        { text = "(Even)" }
     },
     calc_function = function(card)
         local count = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:get_id() == 8 or scoring_card:get_id() == 10 or scoring_card:get_id() == 12 then
+                 if scoring_card:get_id() == 2 or
+                    scoring_card:get_id() == 4 or
+                    scoring_card:get_id() == 6 or
+                    scoring_card:get_id() == 8 or
+                    scoring_card:get_id() == 10 then
                     count = count +
                         JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                 end

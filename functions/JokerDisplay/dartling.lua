@@ -27,23 +27,20 @@ JokerDisplay.Definitions["j_bloons_dartling_gunner"] = { --Dartling Gunner
 
 JokerDisplay.Definitions["j_bloons_focused_firing"] = { --Focused Firing
     text = {
-        { text = "+", colour = G.C.CHIPS },
+        { text = "+", colour = G.C.MULT },
         {
             dynatext = {
                 string = (
                     function()
                         local card = SMODS.Centers["j_bloons_focused_firing"]
-                        local r_chips = {}
+                        local r_mult = {}
                         for i = card.config.extra.min, card.config.extra.max do
-                            r_chips[#r_chips + 1] = tostring(i)
-                            if i >= card.config.extra.q1 and i <= card.config.extra.q3 then
-                                r_chips[#r_chips + 1] = tostring(i)
-                            end
+                            r_mult[#r_mult + 1] = tostring(i)
                         end
-                        return r_chips
+                        return r_mult
                     end
                 )(),
-                colours = { G.C.CHIPS },
+                colours = { G.C.MULT },
                 pop_in_rate = 9999999,
                 silent = true,
                 random_element = true,
@@ -104,14 +101,15 @@ JokerDisplay.Definitions["j_bloons_plasma_accelerator"] = { --Plasma Accelerator
             for _, scoring_card in pairs(scoring_hand) do
                 local id = scoring_card:get_id()
                 local triggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) or 0
-
-                if ids[id] then
-                    count = count + triggers
-                elseif triggers >= 2 then
-                    ids[id] = true
-                    count = count + (triggers - 1)
-                else
-                    ids[id] = true
+                if not scoring_card.debuff and not SMODS.has_no_rank(scoring_card) then
+                    if ids[id] then
+                        count = count + triggers
+                    elseif triggers >= 2 then
+                        ids[id] = true
+                        count = count + (triggers - 1)
+                    else
+                        ids[id] = true
+                    end
                 end
             end
         end
@@ -137,14 +135,15 @@ JokerDisplay.Definitions["j_bloons_ray_of_doom"] = { --Ray of Doom
             for _, scoring_card in pairs(scoring_hand) do
                 local id = scoring_card:get_id()
                 local triggers = JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) or 0
-
-                if ids[id] then
-                    count = count + triggers
-                elseif triggers >= 2 then
-                    ids[id] = true
-                    count = count + (triggers - 1)
-                else
-                    ids[id] = true
+                if not scoring_card.debuff and not SMODS.has_no_rank(scoring_card) then
+                    if ids[id] then
+                        count = count + triggers
+                    elseif triggers >= 2 then
+                        ids[id] = true
+                        count = count + (triggers - 1)
+                    else
+                        ids[id] = true
+                    end
                 end
             end
         end

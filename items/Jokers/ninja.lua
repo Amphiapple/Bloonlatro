@@ -1,16 +1,10 @@
 SMODS.Joker { --Ninja Monkey
     key = 'ninja_monkey',
     name = 'Ninja Monkey',
-	loc_txt = {
-        name = 'Ninja Monkey',
-        text = {
-            '{C:mult}+#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 16 },
-    soul_pos = { x = 0, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 0, y = 0 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -40,16 +34,10 @@ SMODS.Joker { --Ninja Monkey
 SMODS.Joker { --Ninja Discipline
     key = 'ninja_discipline',
     name = 'Ninja Discipline',
-	loc_txt = {
-        name = 'Ninja Discipline',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:dark_edition}+#2#{} Joker Slot'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 16 },
-    soul_pos = { x = 1, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 1, y = 0 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -79,17 +67,10 @@ SMODS.Joker { --Ninja Discipline
 SMODS.Joker { --Sharp Shurikens
     key = 'sharp_shurikens',
     name = 'Sharp Shurikens',
-	loc_txt = {
-        name = 'Sharp Shurikens',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 16 },
-    soul_pos = { x = 2, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 2, y = 0 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -120,15 +101,6 @@ SMODS.Joker { --Sharp Shurikens
 SMODS.Joker { --Double Shot
     key = 'double_shot_ninja',
     name = 'Double Shot (Ninja)',
-	loc_txt = {
-        name = 'Double Shot',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if',
-            'scoring hand contains',
-            'at least {C:attention}#2#',
-            '{C:diamonds}Diamond{} cards'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 16 },
     rarity = 2,
@@ -162,15 +134,6 @@ SMODS.Joker { --Double Shot
 SMODS.Joker { --Bloonjitsu
     key = 'bloonjitsu',
     name = 'Bloonjitsu',
-	loc_txt = {
-        name = 'Bloonjitsu',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if',
-            'scoring hand',
-            'contains at least',
-            '{C:attention}#2# {C:diamonds}Diamond{} cards'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 16 },
     rarity = 2,
@@ -204,14 +167,6 @@ SMODS.Joker { --Bloonjitsu
 SMODS.Joker { --Grandmaster Ninja
     key = 'grandmaster_ninja',
     name = 'Grandmaster Ninja',
-	loc_txt = {
-        name = 'Grandmaster Ninja',
-        text = {
-            'Gives {X:mult,C:white}X#1#{} Mult for',
-            'each scoring {C:diamonds}Diamond{}',
-            'in played {C:attention}poker hand{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 16 },
     rarity = 3,
@@ -245,18 +200,10 @@ SMODS.Joker { --Grandmaster Ninja
 SMODS.Joker { --Distraction
     key = 'distraction',
     name = 'Distraction',
-	loc_txt = {
-        name = 'Distraction',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'retrigger {C:attention}first{}',
-            'scoring card',
-            '{C:dark_edition}+#3#{} Joker Slot'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 16 },
-    soul_pos = { x = 6, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 6, y = 0 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -288,18 +235,10 @@ SMODS.Joker { --Distraction
 SMODS.Joker { --Counter Espionage
     key = 'counter_espionage',
     name = 'Counter Espionage',
-    loc_txt = {
-        name = 'Counter Espionage',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'balance hands and discards',
-            '{C:dark_edition}+#1#{} Joker Slot'
-
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 16 },
-    soul_pos = { x = 7, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 7, y = 0 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = false,
@@ -336,14 +275,6 @@ SMODS.Joker { --Counter Espionage
 SMODS.Joker { --Shinobi Tactics
     key = 'shinobi_tactics',
     name = 'Shinobi Tactics',
-	loc_txt = {
-        name = 'Shinobi Tactics',
-        text = {
-            '{C:attention}Ninja Monkeys{} give {X:mult,C:white}X#1#{} Mult',
-            'All {C:attention}Ninjas{} may appear',
-            'multiple times'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 16 },
     rarity = 2,
@@ -355,7 +286,7 @@ SMODS.Joker { --Shinobi Tactics
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.slots } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.other_joker and context.other_joker.ability.tower_info and context.other_joker.ability.tower_info.base == 'Ninja Monkey' then
@@ -375,14 +306,6 @@ SMODS.Joker { --Shinobi Tactics
 SMODS.Joker { --Bloon Sabotage
     key = 'bloon_sabotage',
     name = 'Bloon Sabotage',
-	loc_txt = {
-        name = 'Bloon Sabotage',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'gain {C:red}+#3#{} discard if scoring',
-            'hand contains a {C:hearts}Heart{}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 16 },
     rarity = 2,
@@ -400,13 +323,13 @@ SMODS.Joker { --Bloon Sabotage
 
     calculate = function(self, card, context)
         if context.before and SMODS.pseudorandom_probability(card, 'bloon_sabotage', card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage') then
-            local hasheart = false
+            local hasclub = false
             for k, v in ipairs(context.scoring_hand) do
-                if v:is_suit('Hearts') then
-                    hasheart = true
+                if v:is_suit('Clubs') then
+                    hasclub = true
                 end
             end
-            if hasheart then
+            if hasclub then
                 ease_discard(card.ability.extra.discards)
                 return {
                     message = '+1 Discard'
@@ -419,15 +342,6 @@ SMODS.Joker { --Bloon Sabotage
 SMODS.Joker { --Grand Saboteur
     key = 'grand_saboteur',
     name = 'Grand Saboteur',
-	loc_txt = {
-        name = 'Grand Saboteur',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'gain a {C:attention}Sabotage Tag{}',
-            'if scoring hand contains',
-            'at least {C:attention}#3# {C:hearts}Heart{} cards'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 16 },
     rarity = 3,
@@ -449,7 +363,7 @@ SMODS.Joker { --Grand Saboteur
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:is_suit('Hearts') then
+                    if v:is_suit('Clubs') then
                         count = count + 1
                     end
                 end
@@ -460,7 +374,7 @@ SMODS.Joker { --Grand Saboteur
                         add_tag(Tag('tag_bloons_sabotage'))
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                       return true
+                        return true
                    end)
                 }))
             end
@@ -471,18 +385,10 @@ SMODS.Joker { --Grand Saboteur
 SMODS.Joker { --Seeking Shuriken
     key = 'seeking_shuriken',
     name = 'Seeking Shuriken',
-	loc_txt = {
-        name = 'Seeking Shuriken',
-        text = {
-            'First played card',
-            'gives {C:mult}+#1#{} Mult',
-            'when scored',
-            '{C:dark_edition}+#2#{} Joker Slot'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 16 },
-    soul_pos = { x = 11, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 11, y = 0 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -512,18 +418,10 @@ SMODS.Joker { --Seeking Shuriken
 SMODS.Joker { --Caltrops
     key = 'caltrops',
     name = 'Caltrops',
-	loc_txt = {
-        name = 'Caltrops',
-        text = {
-            'This Joker gains {C:mult}+#1#{} Mult',
-            'when {C:attention}Blind{} is selected',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 16 },
-    soul_pos = { x = 12, y = 17 },
+    soul_atlas = 'Soul',
+    soul_pos = { x = 12, y = 0 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -559,15 +457,6 @@ SMODS.Joker { --Caltrops
 SMODS.Joker { --Flash Bomb
     key = 'flash_bomb',
     name = 'Flash Bomb',
-	loc_txt = {
-        name = 'Flash Bomb',
-        text = {
-            '{C:mult}+#1#{} Mult and',
-            '{C:attention}Stun{} all scoring cards',
-            'every {C:attention}#2#{} hands',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 16 },
     rarity = 2,
@@ -625,15 +514,6 @@ SMODS.Joker { --Flash Bomb
 SMODS.Joker { --Sticky Bomb
     key = 'sticky_bomb',
     name = 'Sticky Bomb',
-	loc_txt = {
-        name = 'Sticky Bomb',
-        text = {
-            '{C:attention}Stun{} a held {C:spades}Spade{}',
-            'each hand played',
-            '{X:mult,C:white}X#1#{} Mult when',
-            'it wears off',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 16 },
     rarity = 2,
@@ -649,33 +529,36 @@ SMODS.Joker { --Sticky Bomb
 		return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card.ability.sticky_bomb and not context.blueprint then
-            if card.ability.extra.active then
-                if not context.stun or context.other_card.debuff then
-                    context.other_card.ability.sticky_bomb = false
-                end
-            else
-                context.other_card.ability.sticky_bomb = false
-                if context.stun and not context.other_card.debuff then
-                    card.ability.extra.active = true
+        if context.discard and context.other_card.ability.sticky_bomb and not card.ability.extra.active and not context.blueprint then
+            context.other_card.ability.sticky_bomb = false
+            if context.stun and not context.other_card.debuff and not card.ability.extra.active then
+                card.ability.extra.active = true
+            end
+        elseif context.joker_main then
+            for k, v in ipairs(context.full_hand) do
+                if v.ability.sticky_bomb then
+                    v.ability.sticky_bomb = false
                 end
             end
-        elseif context.joker_main and card.ability.extra.active then
-            return {
-                Xmult = card.ability.extra.Xmult,
-            }
-        elseif context.after and not context.blueprint then
-            card.ability.extra.active = false
-            local eligible_cards = {}
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.sticky_bomb then
                     v.ability.sticky_bomb = false
                 end
-                if v:is_suit('Spades') and not v.debuff then
+            end
+            if card.ability.extra.active then
+                return {
+                    Xmult = card.ability.extra.Xmult,
+                }
+            end
+        elseif context.after and not context.blueprint then
+            card.ability.extra.active = false
+            local eligible_cards = {}
+            for k, v in ipairs(G.hand.cards) do
+                if v:is_suit('Spades') and not v.debuff and not v.ability.sticky_bomb then
                     eligible_cards[#eligible_cards+1] = v
                 end
             end
-            if next(eligible_cards) then
+            if next(eligible_cards) and G.GAME.chips/G.GAME.blind.chips < to_big(1) then
                 local stickied_card = pseudorandom_element(eligible_cards, 'sticky_bomb')
                 stickied_card:set_ability(G.P_CENTERS.m_bloons_stunned)
                 stickied_card.ability.sticky_bomb = true
@@ -690,15 +573,6 @@ SMODS.Joker { --Sticky Bomb
 SMODS.Joker { --Master Bomber
     key = 'master_bomber',
     name = 'Master Bomber',
-	loc_txt = {
-        name = 'Master Bomber',
-        text = {
-            '{C:attention}Stun{} all held {C:spades}Spades{}',
-            'each hand played',
-            '{X:mult,C:white}X#1#{} Mult for each {C:attention}Stunned{}',
-            'card that wears off'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 16 },
     rarity = 3,

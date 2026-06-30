@@ -1,14 +1,6 @@
 SMODS.Joker { --Tack Shooter
     key = 'tack_shooter',
     name = 'Tack Shooter',
-	loc_txt = {
-        name = 'Tack Shooter',
-        text = {
-            'Each played {C:attention}8{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 3 },
     rarity = 1,
@@ -35,14 +27,6 @@ SMODS.Joker { --Tack Shooter
 SMODS.Joker { --Faster Shooting
     key = 'faster_shooting_tack',
     name = 'Faster Shooting (Tack)',
-	loc_txt = {
-        name = 'Faster Shooting',
-        text = {
-            'Each played {C:attention}8{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 3 },
     rarity = 1,
@@ -69,14 +53,6 @@ SMODS.Joker { --Faster Shooting
 SMODS.Joker { --Even Faster Shooting
     key = 'even_faster_shooting',
     name = 'Even Faster Shooting',
-	loc_txt = {
-        name = 'Even Faster Shooting',
-        text = {
-            'Each played {C:attention}8{}',
-            'gives {X:mult,C:white}X#1#{} Mult',
-            'when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 3 },
     rarity = 1,
@@ -102,15 +78,6 @@ SMODS.Joker { --Even Faster Shooting
 SMODS.Joker { --Hot Shots
     key = 'hot_shots',
     name = 'Hot Shots',
-	loc_txt = {
-        name = 'Hot Shots',
-        text = {
-            'If {C:attention}first hand{}',
-            'of round is a single',
-            '{C:attention}8{}, transform it into',
-            'a {C:attention}Meteor{} card',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 3 },
     rarity = 2,
@@ -133,13 +100,6 @@ SMODS.Joker { --Hot Shots
 SMODS.Joker { --Ring of Fire
     key = 'ring_of_fire',
     name = 'Ring of Fire',
-	loc_txt = {
-        name = 'Ring of Fire',
-        text = {
-            '{C:attention}Meteor{} cards may',
-            'appear in the shop',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 3 },
     rarity = 2,
@@ -174,14 +134,6 @@ SMODS.Joker { --Ring of Fire
 SMODS.Joker { --Inferno Ring
     key = 'inferno_ring',
     name = 'Inferno Ring',
-	loc_txt = {
-        name = 'Inferno Ring',
-        text = {
-            "Adds one {C:attention}Meteor{} card",
-            "to deck when",
-            "{C:attention}Blind{} is selected",
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 3 },
     rarity = 3,
@@ -224,68 +176,10 @@ SMODS.Joker { --Inferno Ring
 SMODS.Joker { --Long Range Tacks
     key = 'long_range_tacks',
     name = 'Long Range Tacks',
-	loc_txt = {
-        name = 'Long Range Tacks',
-        text = {
-            'This {C:attention}Joker{} gains',
-            '{C:mult}+#1#{} Mult if scoring hand',
-            'contains an {C:attention}8{}',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 3 },
     rarity = 1,
 	cost = 4,
-    blueprint_compat = true,
-    perishable_compat = false,
-    config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains 8, current = current +mult
-    },
-
-    loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
-    end,
-    calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            local has_789 = false
-            for k, v in ipairs(context.scoring_hand) do
-                if v:get_id() == 8 and not v.debuff then
-                    has_789 = true
-                    break
-                end
-            end
-            if has_789 then
-                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
-                return {
-                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
-                }
-            end
-        elseif context.joker_main then
-            return {
-                mult = card.ability.extra.current
-            }
-        end
-    end
-}
-
-SMODS.Joker { --Super Range Tacks
-    key = 'super_range_tacks',
-    name = 'Super Range Tacks',
-	loc_txt = {
-        name = 'Super Range Tacks',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{}',
-            'Mult if scoring hand',
-            'contains a {C:attention}7{}, {C:attention}8{}, or {C:attention}9{}',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 7, y = 3 },
-    rarity = 1,
-	cost = 5,
     blueprint_compat = true,
     perishable_compat = false,
     config = {
@@ -319,19 +213,49 @@ SMODS.Joker { --Super Range Tacks
     end
 }
 
+SMODS.Joker { --Super Range Tacks
+    key = 'super_range_tacks',
+    name = 'Super Range Tacks',
+	atlas = 'Joker',
+	pos = { x = 7, y = 3 },
+    rarity = 1,
+	cost = 5,
+    blueprint_compat = true,
+    perishable_compat = false,
+    config = {
+        tower_info = { base = "Tack Shooter", category = "primary" },
+        extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains an odd rank, current = current +mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.mult, card.ability.extra.current } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local has_odd = false
+            for k, v in ipairs(context.scoring_hand) do
+                if (v:get_id() == 3 or v:get_id() == 5 or v:get_id() == 7 or v:get_id() == 9) and not v.debuff then
+                    has_odd = true
+                    break
+                end
+            end
+            if has_odd then
+                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                return {
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}
+                }
+            end
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.current
+            }
+        end
+    end
+}
+
 SMODS.Joker { --Blade Shooter
     key = 'blade_shooter',
     name = 'Blade Shooter',
-	loc_txt = {
-        name = 'Blade Shooter',
-        text = {
-            'This {C:attention}Joker{} gains {C:mult}+#1#{} Mult',
-            'if scoring hand contains',
-            '{C:attention}#2#{} cards with rank',
-            'between {C:attention}6{} and {C:attention}10{}',
-            '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 8, y = 3 },
     rarity = 2,
@@ -340,7 +264,7 @@ SMODS.Joker { --Blade Shooter
     perishable_compat = false,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { mult = 2, number = 3, current = 0 } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { mult = 3, number = 3, current = 0 } --Variables: mult = +mult gain if scoring hand contains 3 odd ranks, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -351,7 +275,7 @@ SMODS.Joker { --Blade Shooter
             local count = 0
             if not context.blueprint then
                 for k, v in ipairs(context.scoring_hand) do
-                    if v:get_id() >= 6 and v:get_id() <= 10 and not v.debuff then
+                    if (v:get_id() == 3 or v:get_id() == 5 or v:get_id() == 7 or v:get_id() == 9) and not v.debuff then
                         count = count + 1
                     end
                 end
@@ -373,14 +297,6 @@ SMODS.Joker { --Blade Shooter
 SMODS.Joker { --Blade Maelstrom
     key = 'blade_maelstrom',
     name = 'Blade Maelstrom',
-	loc_txt = {
-        name = 'Blade Maelstrom',
-        text = {
-            '{C:green}#1# in #2#{} chance for',
-            'played {C:attention}number{} cards to give',
-            '{X:mult,C:white}X#3#{} Mult when scored',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 9, y = 3 },
     rarity = 2,
@@ -409,22 +325,15 @@ SMODS.Joker { --Blade Maelstrom
 SMODS.Joker { --Super Maelstrom
     key = 'super_maelstrom',
     name = 'Super Maelstrom',
-	loc_txt = {
-        name = 'Super Maelstrom',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult after',
-            'scoring every card rank',
-            '{C:inactive}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 3 },
     rarity = 3,
 	cost = 7,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { Xmult = 2, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
+        extra = { Xmult = 1, current = 1, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -441,6 +350,7 @@ SMODS.Joker { --Super Maelstrom
 		return {
 			vars = {
 				card.ability.extra.Xmult,
+                card.ability.extra.current,
                 process_var(card.ability.extra.ranks)
 			},
         }
@@ -459,10 +369,20 @@ SMODS.Joker { --Super Maelstrom
                 if v == rank then
                     table.remove(card.ability.extra.ranks, k)
                 end
-            end   
-        elseif context.joker_main and next(card.ability.extra.ranks) == nil then
+            end
+            if next(card.ability.extra.ranks) == nil then
+                card.ability.extra.ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'}
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "current",
+                    scalar_value = "Xmult",
+                    message_colour = G.C.FILTER
+                })
+                return nil, true
+            end
+        elseif context.joker_main and card.ability.extra.current > 1 then
             return {
-                x_mult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.current
             }
         end
     end
@@ -471,14 +391,6 @@ SMODS.Joker { --Super Maelstrom
 SMODS.Joker { --More Tacks
     key = 'more_tacks',
     name = 'More Tacks',
-	loc_txt = {
-        name = 'More Tacks',
-        text = {
-            'Each played {C:attention}10{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 3 },
     rarity = 1,
@@ -486,18 +398,20 @@ SMODS.Joker { --More Tacks
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { chips = 25, mult = 5 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 24, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 10 then
-            return {
-                chips = card.ability.extra.chips,
-                mult = card.ability.extra.mult,
-            }
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 4 or context.other_card:get_id() == 8 then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                }
+            end
         end
     end
 }
@@ -505,14 +419,6 @@ SMODS.Joker { --More Tacks
 SMODS.Joker { --Even More Tacks
     key = 'even_more_tacks',
     name = 'Even More Tacks',
-	loc_txt = {
-        name = 'Even More Tacks',
-        text = {
-            'Each played {C:attention}Queen{}',
-            'gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 12, y = 3 },
     rarity = 1,
@@ -520,18 +426,23 @@ SMODS.Joker { --Even More Tacks
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary" },
-        extra = { chips = 24, mult = 6 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 24, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 12 then
-            return {
-                chips = card.ability.extra.chips,
-                mult = card.ability.extra.mult,
-            }
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 2 or
+                    context.other_card:get_id() == 4 or
+                    context.other_card:get_id() == 6 or
+                    context.other_card:get_id() == 8 then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                }
+            end
         end
     end
 }
@@ -539,14 +450,6 @@ SMODS.Joker { --Even More Tacks
 SMODS.Joker { --Tack Sprayer
     key = 'tack_sprayer',
     name = 'Tack Sprayer',
-	loc_txt = {
-        name = 'Tack Sprayer',
-        text = {
-            'Each played {C:attention}8{}, {C:attention}10{}, or',
-            '{C:attention}Queen{} gives {C:chips}+#1#{} Chips and',
-            '{C:mult}+#2#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 3 },
     rarity = 2,
@@ -561,12 +464,17 @@ SMODS.Joker { --Tack Sprayer
         return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and
-                (context.other_card:get_id() == 8 or context.other_card:get_id() == 10 or context.other_card:get_id() == 12) then
-            return {
-                chips = card.ability.extra.chips,
-                mult = card.ability.extra.mult,
-            }
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 2 or
+                    context.other_card:get_id() == 4 or
+                    context.other_card:get_id() == 6 or
+                    context.other_card:get_id() == 8 or
+                    context.other_card:get_id() == 10 then
+                return {
+                    chips = card.ability.extra.chips,
+                    mult = card.ability.extra.mult,
+                }
+            end
         end
     end
 }
@@ -574,15 +482,6 @@ SMODS.Joker { --Tack Sprayer
 SMODS.Joker { --Overdrive
     key = 'overdrive',
     name = 'Overdrive',
-    loc_txt = {
-        name = 'Overdrive',
-        text = {
-            'This Joker gains',
-            '{X:mult,C:white}X#1#{} Mult for every {C:attention}8{}',
-            'played this round',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 3 },
     rarity = 2,
@@ -620,14 +519,6 @@ SMODS.Joker { --Overdrive
 SMODS.Joker { --The Tack Zone
     key = 'the_tack_zone',
     name = 'The Tack Zone',
-    loc_txt = {
-        name = 'The Tack Zone',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if the',
-            'ranks of all played',
-            'cards sum to {C:attention}#2#{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 3 },
     rarity = 3,

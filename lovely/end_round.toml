@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Mdom active check
+# Dominus active check and last_segment check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -11,60 +11,87 @@ pattern = "G.GAME.blind.in_blind = false"
 position = 'before'
 payload = '''
 local replay_boss = false
-local dominus = find_joker('Glaive Dominus')
-if #dominus > 0 then
-    replay_boss = true
-    for k, v in pairs(dominus) do
-        if v.ability.extra.active == false then
-            replay_boss = false
-        end
-    end 
+local dominus = find_joker('Glaive Dominus') or {}
+for _, v in pairs(dominus) do
+    if v.ability.extra.active then
+        replay_boss = true
+        break
+    end
+end
+
+local last_segment = true
+local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and center and center.key == "b_bloons_boss_challenge" then
+    local segments = center.get_boss_segments and center:get_boss_segments()
+    local current_blind = G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind or nil
+    last_segment = not (segments and segments[3] and segments[3].key ~= (current_blind and current_blind.key or nil))
 end
 '''
 match_indent = true
 
-# Mdom win check
+# Dominus and boss segment win check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and not replay_boss then"
+payload = '''
+local replay_blind = G.GAME.selected_back.effect.center.key == 'b_bloons_dan' and G.GAME.selected_back.effect.config.extra.activated
+
+if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss and not replay_blind then
+'''
 match_indent = true
 
-# Mdom ante end check
+# Dominus and boss segment ante end check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = "if G.GAME.blind:get_type() == 'Boss' then"
 position = 'at'
-payload = "if G.GAME.blind:get_type() == 'Boss' and not replay_boss then"
+payload = '''
+local replay_blind = G.GAME.selected_back.effect.center.key == 'b_bloons_dan' and G.GAME.selected_back.effect.config.extra.activated
+
+if G.GAME.blind:get_type() == 'Boss' and last_segment and not replay_boss and not replay_blind then
+'''
 match_indent = true
 
-# Mdom boss defeat check
+# Game win check
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "if not G.GAME.won and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.blind_on_deck == 'Boss' then"
+position = 'at'
+payload = '''
+local replay_blind = G.GAME.selected_back.effect.center.key == 'b_bloons_dan' and G.GAME.selected_back.effect.config.extra.activated
+
+if not G.GAME.won
+and G.GAME.round_resets.ante >= G.GAME.win_ante
+and G.GAME.blind_on_deck == 'Boss'
+and not replay_boss and not replay_blind
+then
+'''
+match_indent = true
+
+# Dominus boss defeat check
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
 pattern = '''
-G.GAME.current_round.voucher = SMODS.get_next_vouchers()
-G.GAME.round_resets.blind_states.Boss = 'Defeated'
-for k, v in ipairs(G.playing_cards) do
-    v.ability.played_this_ante = nil
-end
+if G.GAME.blind_on_deck == "Small" then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.blind_on_deck == "Big" then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+else
 '''
 position = 'at'
 payload = '''
-if replay_boss then
-    for k, v in pairs(dominus) do
-        v.ability.extra.active = false
-    end
-else
-    G.GAME.current_round.voucher = SMODS.get_next_vouchers()
-    G.GAME.round_resets.blind_states.Boss = 'Defeated'
-    for k, v in ipairs(G.playing_cards) do
-        v.ability.played_this_ante = nil
-    end
-end
+local replay_blind = G.GAME.selected_back.effect.center.key == 'b_bloons_dan' and G.GAME.selected_back.effect.config.extra.activated
+
+if G.GAME.blind_on_deck == "Small" and not replay_blind then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.blind_on_deck == "Big" and not replay_blind then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+elseif not replay_boss and not replay_blind then
 '''
 match_indent = true
 

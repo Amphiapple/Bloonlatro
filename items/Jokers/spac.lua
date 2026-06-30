@@ -1,17 +1,8 @@
 SMODS.Joker { --Spike Factory
     key = 'spike_factory',
     name = 'Spike Factory',
-    loc_txt = {
-        name = 'Spike Factory',
-        text = {
-            'This joker gains {C:chips}+#1#{}',
-            'Chips per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 0, y = 22 },
+	pos = { x = 0, y = 21 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -48,17 +39,8 @@ SMODS.Joker { --Spike Factory
 SMODS.Joker { --Bigger Stacks
     key = 'bigger_stacks',
     name = 'Bigger Stacks',
-    loc_txt = {
-        name = 'Bigger Stacks',
-        text = {
-            'This joker gains {C:chips}+#1#{}',
-            'Chips per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 1, y = 22 },
+	pos = { x = 1, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -95,16 +77,8 @@ SMODS.Joker { --Bigger Stacks
 SMODS.Joker { --White Hot Spikes
     key = 'white_hot_spikes',
     name = 'whitehot',
-    loc_txt = {
-        name = 'White Hot Spikes',
-        text = {
-            '{C:chips}+#1#{} Chips when',
-            '{C:attention}#2#{} discards',
-            'remaining',
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 2, y = 22 },
+	pos = { x = 2, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -128,17 +102,8 @@ SMODS.Joker { --White Hot Spikes
 SMODS.Joker { --Spiked Balls
     key = 'spiked_balls',
     name = 'Spiked Balls',
-    loc_txt = {
-        name = 'Spiked Balls',
-        text = {
-            'This Joker gains',
-            '{C:chips}+#1#{} Chips for each',
-            'card discarded this round',
-            '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 3, y = 22 },
+	pos = { x = 3, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -175,16 +140,8 @@ SMODS.Joker { --Spiked Balls
 SMODS.Joker { --Spiked Mines
     key = 'spiked_mines',
     name = 'Spiked Mines',
-    loc_txt = {
-        name = 'Spiked Mines',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult and',
-            'destroy all scoring cards',
-            'on {C:attention}final hand{} of round',
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 4, y = 22 },
+	pos = { x = 4, y = 21 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -213,28 +170,30 @@ SMODS.Joker { --Spiked Mines
 SMODS.Joker { --Super Mines
     key = 'super_mines',
     name = 'Super Mines',
-    loc_txt = {
-        name = 'Super Mines',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult if',
-            'your deck is empty',
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 5, y = 22 },
+	pos = { x = 5, y = 21 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { Xmult = 5 } --Variables: Xmult = Xmult
+        extra = { Xmult = 5, loss = 0.25, current = 5 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.loss, card.ability.extra.current } }
+    end,
+    update = function(self, card, dt)
+        if G.deck and G.deck.cards then
+            if #G.deck.cards > 16 then
+                card.ability.extra.current = 1
+            else
+                card.ability.extra.current = card.ability.extra.Xmult - card.ability.extra.loss * #G.deck.cards
+            end
+        end
     end,
     calculate = function(self, card, context)
-        if context.joker_main and #G.deck.cards == 0 then
+        if context.joker_main and card.ability.extra.current > 1 then
             return {
                 x_mult = card.ability.extra.Xmult,
             }
@@ -245,17 +204,8 @@ SMODS.Joker { --Super Mines
 SMODS.Joker { --Faster Production
     key = 'faster_production',
     name = 'Faster Production',
-    loc_txt = {
-        name = 'Faster Production',
-        text = {
-            'This joker gains {C:mult}+#1#{}',
-            'Mult per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 6, y = 22 },
+	pos = { x = 6, y = 21 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -292,17 +242,8 @@ SMODS.Joker { --Faster Production
 SMODS.Joker { --Even Faster Production
     key = 'even_faster_production',
     name = 'Even Faster Production',
-    loc_txt = {
-        name = 'Even Faster Production',
-        text = {
-            'This joker gains {C:mult}+#1#{}',
-            'Mult per discard',
-            'used this round',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 7, y = 22 },
+	pos = { x = 7, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -340,18 +281,8 @@ SMODS.Joker { --Even Faster Production
 SMODS.Joker { --MOAB SHREDR
     key = 'moab_shredr',
     name = 'MOAB SHREDR',
-	loc_txt = {
-        name = 'MOAB SHREDR',
-        text = {
-            'This Joker gains {X:mult,C:white}X#1#{}',
-            'Mult per discard used',
-            'this round, double Xmult',
-            'against {C:attention}Boss Blinds{}',
-            '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 8, y = 22 },
+	pos = { x = 8, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -401,23 +332,14 @@ SMODS.Joker { --MOAB SHREDR
 SMODS.Joker { --Spike Storm
     key = 'spike_storm',
     name = 'Spike Storm',
-	loc_txt = {
-        name = 'Spike Storm',
-        text = {
-            'Each played card',
-            'gives {X:mult,C:white}X#1#{} Mult every',
-            '{C:attention}#2#{} hands played',
-            '{C:inactive}(#3#)'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 9, y = 22 },
+	pos = { x = 9, y = 21 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { limit = 4, counter = 4, Xmult = 1.5 } --Variables: limit = number of hands for Xmult, counter = hand index, Xmult = Xmult per card
+        extra = { limit = 3, counter = 3, Xmult = 1.25 } --Variables: limit = number of hands for Xmult, counter = hand index, Xmult = Xmult per card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -455,22 +377,14 @@ SMODS.Joker { --Spike Storm
 SMODS.Joker { --Carpet of Spikes
     key = 'carpet_of_spikes',
     name = 'Carpet of Spikes',
-	loc_txt = {
-        name = 'Carpet of Spikes',
-        text = {
-            'Each played card',
-            'gives {X:mult,C:white}X#1#{} Mult when',
-            '{C:attention}#2#{} discards remaining',
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 10, y = 22 },
+	pos = { x = 10, y = 21 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { Xmult = 1.3, discards = 0 } --Variables: Xmult = Xmult, discards = discards left
+        extra = { Xmult = 1.25, discards = 0 } --Variables: Xmult = Xmult, discards = discards left
     },
 
     loc_vars = function(self, info_queue, card)
@@ -488,16 +402,8 @@ SMODS.Joker { --Carpet of Spikes
 SMODS.Joker { --Long Reach
     key = 'long_reach',
     name = 'Long Reach',
-    loc_txt = {
-        name = 'Long Reach',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'gain {C:blue}+#1#{} Hand and',
-            'lose {C:red}#1#{} Discard'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 11, y = 22 },
+	pos = { x = 11, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -528,16 +434,8 @@ SMODS.Joker { --Long Reach
 SMODS.Joker { --Smart Spikes
     key = 'smart_spikes',
     name = 'Smart Spikes',
-    loc_txt = {
-        name = 'Smart Spikes',
-        text = {
-            'This Joker gains {C:mult}+#1#{}',
-            'Mult per unused hand',
-            '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 12, y = 22 },
+	pos = { x = 12, y = 21 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -567,25 +465,15 @@ SMODS.Joker { --Smart Spikes
 SMODS.Joker { --Long Life Spikes
     key = 'long_life_spikes',
     name = 'Long Life Spikes',
-	loc_txt = {
-        name = 'Long Life Spikes',
-        text = {
-            'This joker gains {C:mult}+#1#{} Mult',
-            'per discarded {V:1}#2#{}',
-            '{C:mult}-#3#{} Mult at end of round',
-            '{s:0.8}Suit changes every round{}',
-            '{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 13, y = 22 },
+	pos = { x = 13, y = 21 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     perishable_compat = false,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { mult = 1, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+        extra = { mult = 1, loss = 1, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult each hand
     },
 
     loc_vars = function(self, info_queue, card)
@@ -609,10 +497,9 @@ SMODS.Joker { --Long Life Spikes
             }
         elseif context.joker_main and card.ability.extra.current > 0 then
             return {
-            mult = card.ability.extra.current,
+                mult = card.ability.extra.current,
             }
-        end
-        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        elseif context.after and not context.blueprint then
             local loss = card.ability.extra.loss
             if loss > card.ability.extra.current then
                 loss = card.ability.extra.current
@@ -629,33 +516,22 @@ SMODS.Joker { --Long Life Spikes
 SMODS.Joker { --Deadly Spikes
     key = 'deadly_spikes',
     name = 'Deadly Spikes',
-	loc_txt = {
-        name = 'Deadly Spikes',
-        text = {
-            'This joker gains {C:mult}+#1#{} Mult',
-            'per discarded {C:attention}#2#{} of {V:1}#3#{}',
-            '{C:mult}-#4#{} Mult at end of round',
-            '{s:0.8}Card changes every round{}',
-            '{C:inactive}(Currently {C:mult}+#5#{C:inactive} Mult)'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 14, y = 22 },
+	pos = { x = 14, y = 21 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
     perishable_compat = false,
     config = {
         tower_info = { base = "Spike Factory", category = "support" },
-        extra = { mult = 10, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult at end of round
+        extra = { mult = 2, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult each hand
     },
 
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extra.mult,
-                localize(G.GAME.current_round.spike_factory_card.rank, 'ranks'),
-                localize(G.GAME.current_round.spike_factory_card.suit, 'suits_plural'),
+                localize(G.GAME.current_round.spike_factory_card.suit, 'suits_singular'),
                 card.ability.extra.loss,
                 card.ability.extra.current,
                 colours = {G.C.SUITS[G.GAME.current_round.spike_factory_card.suit]},
@@ -663,8 +539,7 @@ SMODS.Joker { --Deadly Spikes
         }
     end,
     calculate = function(self, card, context)
-        if context.discard and context.other_card:get_id() == G.GAME.current_round.spike_factory_card.id
-                and context.other_card:is_suit(G.GAME.current_round.spike_factory_card.suit) and not context.other_card.debuff and not context.blueprint then
+        if context.discard and context.other_card:is_suit(G.GAME.current_round.spike_factory_card.suit) and not context.other_card.debuff and not context.blueprint then
             card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
             return {
                 message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
@@ -673,10 +548,9 @@ SMODS.Joker { --Deadly Spikes
             }
         elseif context.joker_main and card.ability.extra.current > 0 then
             return {
-            mult = card.ability.extra.current,
+                mult = card.ability.extra.current,
             }
-        end
-        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        elseif context.after and not context.blueprint then
             local loss = card.ability.extra.loss
             if loss > card.ability.extra.current then
                 loss = card.ability.extra.current
@@ -693,17 +567,8 @@ SMODS.Joker { --Deadly Spikes
 SMODS.Joker { --Perma-Spike
     key = 'perma_spike',
     name = 'Perma-Spike',
-    loc_txt = {
-        name = 'Perma-Spike',
-        text = {
-            'Carry over up to',
-            '{C:attention}#1#{} unused hands',
-            'to the next round',
-            '{C:inactive}(Currently {C:blue}+#2#{C:inactive} hands)'
-        }
-    },
     atlas = 'Joker',
-	pos = { x = 15, y = 22 },
+	pos = { x = 15, y = 21 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = false,

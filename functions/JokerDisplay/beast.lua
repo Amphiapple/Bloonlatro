@@ -73,12 +73,34 @@ JokerDisplay.Definitions["j_bloons_orca"] = { --Orca
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+                { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
             }
         }
     },
+    reminder_text = {
+        { text = "(",                 colour = G.C.UI.TEXT_INACTIVE },
+        { ref_table = "card.ability.extra", ref_value = "number" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "limit" },
+        { text = ")",                 colour = G.C.UI.TEXT_INACTIVE },
+    },
     calc_function = function(card)
-        card.joker_display_values.Xmult = card.ability.extra.number >= card.ability.extra.limit and card.ability.extra.Xmult or 1
+        card.joker_display_values.active = card.ability.extra.number and card.ability.extra.number >= card.ability.extra.limit
+        card.joker_display_values.x_mult = card.joker_display_values.active and card.ability.extra.Xmult or 1
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if reminder_text and reminder_text.children then
+            local colour = card.joker_display_values.active and G.C.GREEN or G.C.UI.TEXT_INACTIVE
+            if reminder_text.children[2] then
+                reminder_text.children[2].config.colour = colour
+            end
+            if reminder_text.children[3] then
+                reminder_text.children[3].config.colour = colour
+            end
+            if reminder_text.children[4] then
+                reminder_text.children[4].config.colour = colour
+            end
+        end
     end
 }
 

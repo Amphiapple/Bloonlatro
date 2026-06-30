@@ -1,75 +1,3 @@
-
-
-local function can_interact_with_card(card)
-    if not card or not card.area then return false end
-    if (G.play and #G.play.cards > 0) then return false end
-    if (G.CONTROLLER and G.CONTROLLER.locked) then return false end
-    if (G.GAME and G.GAME.STOP_USE and G.GAME.STOP_USE > 0) then return false end
-    return true
-end
-
-local function valid_adora_sacrifice(card)
-    local is_adora_deck = G.GAME and G.GAME.selected_back and G.GAME.selected_back.name and G.GAME.selected_back.name == 'Adora Deck'
-
-    if not can_interact_with_card(card) then return false end
-    if not is_adora_deck then return false end
-    if not card.ability or card.ability.eternal then return false end
-
-    local back = G.GAME and G.GAME.selected_back
-    local center = back and back.effect and back.effect.center
-    return center and type(center.sac_to_adora) == 'function'
-end
-
-local function valid_vtsg_sacrifice(card)
-    local is_vtsg = card and card.ability and card.ability.name == 'Vengeful True Sun God'
-
-    if not can_interact_with_card(card) then return false end
-    if not is_vtsg then return false end
-    if not (card.config and card.config.center and type(card.config.center.sac_to_vtsg) == 'function') then
-        return false
-    end
-
-    local sacrifices = card.ability and card.ability.extra and card.ability.extra.sacrifices
-    if not sacrifices then return false end
-
-    local no_sacs =
-        (sacrifices.primary or 0) == 0 and
-        (sacrifices.military or 0) == 0 and
-        (sacrifices.magic or 0) == 0 and
-        (sacrifices.support or 0) == 0
-
-    if not no_sacs then return false end
-
-    local has_valid_target = false
-    for _, joker in pairs(G.jokers.cards or {}) do
-        if joker ~= card then
-            local tower = joker.ability and joker.ability.tower_info
-            local base = tower and tower.base
-            local category = tower and tower.category
-
-            local valid_base = base and base ~= "Sentry" and base ~= "Marine"
-            local valid_category = category and string.lower(tostring(category)) ~= "misc"
-
-            if valid_base and valid_category then
-                has_valid_target = true
-                break
-            end
-        end
-    end
-
-    return has_valid_target
-end
-
-local function valid_nsc_submerge(card)
-    local is_nsc = card and card.ability and card.ability.name == "Nautic Siege Core"
-
-    if not can_interact_with_card(card) then return false end
-    if not is_nsc then return false end
-
-    local center = card.config and card.config.center
-    return center and type(center.submerge) == 'function'
-end
-
 local function set_button_state(e, is_enabled, fallback_action)
     if is_enabled then
         e.config.colour = e.config.active_colour or G.C.GREEN
@@ -80,39 +8,56 @@ local function set_button_state(e, is_enabled, fallback_action)
     end
 end
 
-G.FUNCS.can_adora_sac = function(e)
-    set_button_state(e, valid_adora_sacrifice(e.config.ref_table), 'adora_sac')
+local function can_interact_with_card(card)
+    if not card or not card.area then return false end
+    if (G.play and #G.play.cards > 0) then return false end
+    if (G.CONTROLLER and G.CONTROLLER.locked) then return false end
+    if (G.GAME and G.GAME.STOP_USE and G.GAME.STOP_USE > 0) then return false end
+    return true
 end
 
-G.FUNCS.can_vtsg_sac = function(e)
-    set_button_state(e, valid_vtsg_sacrifice(e.config.ref_table), 'vtsg_sac')
+local function can_use_card(card)
+    if not can_interact_with_card(card) then return false end
+    local center = card.config and card.config.center
+    if not center then return false end
+    if type(center.can_use) ~= 'function' then return false end
+    return center.can_use(card)
 end
 
-G.FUNCS.can_nsc_submerge = function(e)
-    set_button_state(e, valid_nsc_submerge(e.config.ref_table), 'nsc_submerge')
+local function can_use_deck(card)
+    local deck = G.GAME and G.GAME.selected_back
+    if not deck or not deck.effect or not deck.effect.center then return false end
+    if not can_interact_with_card(card) then return false end
+    if type(deck.effect.center.can_use) ~= 'function' then return false end
+    return deck.effect.center.can_use(card)
 end
 
-G.FUNCS.adora_sac = function(e)
+G.FUNCS.can_joker_use = function(e)
+    set_button_state(e, can_use_card(e.config.ref_table), 'joker_use')
+end
+
+G.FUNCS.joker_use = function(e)
     local card = e.config.ref_table
-    if not valid_adora_sacrifice(card) then return end
-
-    local center = G.GAME.selected_back.effect.center
-    center.sac_to_adora(card)
-end
-
-G.FUNCS.vtsg_sac = function(e)
-    local card = e.config.ref_table
-    if not valid_vtsg_sacrifice(card) then return end
-
-    card.config.center.sac_to_vtsg(card)
+    if not can_use_card(card) then return end
+    local center = card.config and card.config.center
+    if center and type(center.use) == 'function' then
+        center.use(card)
+    end
     card.highlighted = false
 end
 
-G.FUNCS.nsc_submerge = function(e)
-    local card = e.config.ref_table
-    if not valid_nsc_submerge(card) then return end
+G.FUNCS.can_deck_use = function(e)
+    set_button_state(e, can_use_deck(e.config.ref_table), 'deck_use')
+end
 
-    card.config.center.submerge(card)
+G.FUNCS.deck_use = function(e)
+    local card = e.config.ref_table
+    local deck = G.GAME and G.GAME.selected_back
+    if not deck or not deck.effect or not deck.effect.center then return end
+    if not can_use_deck(card) then return end
+    if type(deck.effect.center.use) == 'function' then
+        deck.effect.center.use(card)
+    end
     card.highlighted = false
 end
 
@@ -120,7 +65,7 @@ function build_button(args)
     if not args or not args.card or not args.can or not args["function"] then return nil end
 
     local card = args.card
-    local text = args.text or 'Unknown'
+    local text = args.text or 'Use'
     local minw = args.minw or 1.25
     local minh = args.minh or 0
     local padding = args.padding or 0.15

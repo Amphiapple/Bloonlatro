@@ -58,6 +58,28 @@ JokerDisplay.Definitions["j_bloons_sun_avatar"] = { --Sun Avatar
     end
 }
 
+JokerDisplay.Definitions["j_bloons_sun_temple"] = { --Sun Temple
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
+            }
+        }
+    },
+}
+
+JokerDisplay.Definitions["j_bloons_true_sun_god"] = { --True Sun God
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
+            }
+        }
+    },
+}
+
 JokerDisplay.Definitions["j_bloons_super_range"] = { --Super Range
 }
 

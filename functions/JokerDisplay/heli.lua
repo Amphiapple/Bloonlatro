@@ -69,7 +69,7 @@ JokerDisplay.Definitions["j_bloons_pursuit"] = { --Pursuit
         local number_cards = {}
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:get_id() >= 0 and (scoring_card:get_id() <= 10 or scoring_card:get_id() == 14) then
+                if scoring_card:is_face() then
                     table.insert(number_cards, scoring_card)
                 end
             end
@@ -287,8 +287,7 @@ JokerDisplay.Definitions["j_bloons_moab_shove"] = { --MOAB Shove
         { ref_table = "card.joker_display_values", ref_value = "active_text" },
     },
     calc_function = function(card)
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
-            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
+        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
         card.joker_display_values.active = boss_active and card.ability.extra.counter > 0
         card.joker_display_values.active_text = boss_active and card.ability.extra.counter > 0 and "active" or boss_active and "inactive" or "no boss active"
     end,

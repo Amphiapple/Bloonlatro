@@ -167,17 +167,20 @@ JokerDisplay.Definitions["j_bloons_the_blazing_sun"] = { --The Blazing Sun
         { text = ")" },
     },
     calc_function = function(card)
-        local count = 0
+        local total_Xmult = 1
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:is_suit('Hearts') and scoring_card:get_id() and scoring_card:get_id() == G.GAME.current_round.desperado_card.id then
-                    count = count +
-                        JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                local rank = scoring_card:get_id() == G.GAME.current_round.desperado_card.id
+                local suit = scoring_card:is_suit('Hearts')
+                if rank and suit then
+                    total_Xmult = total_Xmult * card.ability.extra.Xmult2 ^ JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                elseif rank or suit then
+                    total_Xmult = total_Xmult * card.ability.extra.Xmult1 ^ JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                 end
             end
         end
-        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
+        card.joker_display_values.Xmult = total_Xmult
         card.joker_display_values.desperado_card = localize { type = 'variable', key = "jdis_rank_of_suit", vars = { localize(G.GAME.current_round.desperado_card.rank, 'ranks'), localize('Hearts', 'suits_plural') } }
     end,
     style_function = function(card, text, reminder_text, extra)

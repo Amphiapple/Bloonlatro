@@ -79,35 +79,37 @@ JokerDisplay.Definitions["j_bloons_heat_tipped_darts"] = { --Heat-tipped Darts
 
 JokerDisplay.Definitions["j_bloons_ballistic_missile"] = { --Ballistic Missile
     text = {
-        {
-            border_nodes = {
-                { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
-            }
-        }
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
     calc_function = function(card)
-        local held_cards = {}
-        for i = 1, #G.hand.cards do
-            local hand_card = G.hand.cards[i]
-            if not hand_card.highlighted and hand_card.facing ~= 'back' then
-                table.insert(held_cards, hand_card)
-            end
-        end
-        local max = 1
-        local idx_by_id = {}
-        for k, v in ipairs(held_cards) do
-            local id = v:get_id()
-            if idx_by_id[id] then
-                idx_by_id[id] = idx_by_id[id] + 1
-                if idx_by_id[id] > max then
-                    max = idx_by_id[id]
+        local max_rank = 0
+
+        local playing_hand = next(G.play.cards)
+
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                local rank = SMODS.has_no_rank(playing_card) and 0 or playing_card:get_id()
+                if rank > max_rank then
+                    max_rank = rank
                 end
-            else
-                idx_by_id[id] = 1
             end
         end
-        card.joker_display_values.Xmult = max > 1 and max * card.ability.extra.Xmult * (G.GAME.subcom_mult or 1) or 1
+
+        local count = 0
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if playing_card.facing and not (playing_card.facing == 'back') and not playing_card.debuff and
+                not SMODS.has_no_rank(playing_card) and playing_card:get_id() == max_rank then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
+            end
+        end
+
+        card.joker_display_values.chips = count * card.ability.extra.chips * (G.GAME.subcom_mult or 1)
+        card.joker_display_values.mult = count * card.ability.extra.mult * (G.GAME.subcom_mult or 1)
     end
 }
 

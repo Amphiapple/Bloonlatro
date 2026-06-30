@@ -1,13 +1,6 @@
 SMODS.Joker { --Wizard Monkey
     key = 'wizard_monkey',
     name = 'Wizard Monkey',
-	loc_txt = {
-        name = 'Wizard Monkey',
-        text = {
-            'Enhances {C:attention}first{} played card',
-            'into a random {C:enhanced}Enhancement{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 0, y = 14 },
     rarity = 1,
@@ -39,14 +32,6 @@ SMODS.Joker { --Wizard Monkey
 SMODS.Joker { --Guided Magic
     key = 'guided_magic',
     name = 'Guided Magic',
-	loc_txt = {
-        name = 'Guided Magic',
-        text = {
-            'Enhances {C:attention}first{} played card',
-            'into a {C:attention}#1#{}',
-            '{s:0.8}Enhancement changes every hand{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 1, y = 14 },
     rarity = 1,
@@ -91,13 +76,6 @@ SMODS.Joker { --Guided Magic
 SMODS.Joker { --Arcane Blast
     key = 'arcane_blast',
     name = 'Arcane Blast',
-	loc_txt = {
-        name = 'Arcane Blast',
-        text = {
-            'Played {C:enhanced}Enhanced{} cards give',
-            '{C:chips}+#1#{} Chips when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 2, y = 14 },
     rarity = 1,
@@ -123,14 +101,6 @@ SMODS.Joker { --Arcane Blast
 SMODS.Joker { --Arcane Mastery
     key = 'arcane_mastery',
     name = 'Arcane Mastery',
-	loc_txt = {
-        name = 'Arcane Mastery',
-        text = {
-            'Create an enhancement {C:tarot}Tarot{}',
-            'when {C:attention}Blind{} is selected',
-            '{C:inactive}(Must have room){}',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 3, y = 14 },
     rarity = 2,
@@ -179,14 +149,6 @@ SMODS.Joker { --Arcane Mastery
 SMODS.Joker { --Arcane Spike
     key = 'arcane_spike',
     name = 'Arcane Spike',
-	loc_txt = {
-        name = 'Arcane Spike',
-        text = {
-            'Retrigger the',
-            'first card with each',
-            'new {C:enhanced}Enhancement{}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 4, y = 14 },
     rarity = 2,
@@ -198,9 +160,9 @@ SMODS.Joker { --Arcane Spike
     },
 
     calculate = function(self, card, context)
-        if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card.config.center ~= G.P_CENTERS.c_base and not context.other_card.debuff then
-            local new_enhancement = true
+        if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and not context.other_card.debuff then
             local e = context.other_card.config.center.name
+            local new_enhancement = e ~= 'Default Base'
             for k, v in pairs(card.ability.extra.enhancements) do
                 if e == k then
                     new_enhancement = false
@@ -224,13 +186,6 @@ SMODS.Joker { --Arcane Spike
 SMODS.Joker { --Archmage
     key = 'archmage',
     name = 'Archmage',
-	loc_txt = {
-        name = 'Archmage',
-        text = {
-            'Retrigger all played',
-            '{C:enhanced}Enhanced{} cards',
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 5, y = 14 },
     rarity = 3,
@@ -254,13 +209,6 @@ SMODS.Joker { --Archmage
 SMODS.Joker { --Fireball
     key = 'fireball',
     name = 'Fireball',
-	loc_txt = {
-        name = 'Fireball',
-        text = {
-            'Played {C:attention}Stone{} cards give',
-            '{C:mult}+#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 6, y = 14 },
     rarity = 1,
@@ -288,14 +236,6 @@ SMODS.Joker { --Fireball
 SMODS.Joker { --Wall of Fire
     key = 'wall_of_fire',
     name = 'Wall of Fire',
-    loc_txt = {
-        name = 'Wall of Fire',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'enhance first unscoring',
-            'card into a {C:attention}Stone{} card'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 7, y = 14 },
     rarity = 1,
@@ -371,13 +311,6 @@ SMODS.Joker { --Dragon's Breath
 SMODS.Joker { --Summon Phoenix
     key = 'summon_phoenix',
     name = "Summon Phoenix",
-    loc_txt = {
-        name = "Summon Phoenix",
-        text = {
-            'Enhance played {C:attention}Stone{} cards',
-            'into {C:attention}Meteor{} Cards',
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 9, y = 14 },
     rarity = 2,
@@ -406,14 +339,6 @@ SMODS.Joker { --Summon Phoenix
 SMODS.Joker { --Wizard Lord Phoenix
     key = 'wizard_lord_phoenix',
     name = 'Wizard Lord Phoenix',
-	loc_txt = {
-        name = 'Wizard Lord Phoenix',
-        text = {
-            'After defeating each {C:attention}Boss Blind{},',
-            'create a {C:spectral}Volcano{} card',
-            '{C:inactive}(Must have room){}'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 10, y = 14 },
     rarity = 3,
@@ -433,7 +358,7 @@ SMODS.Joker { --Wizard Lord Phoenix
                 trigger = 'before',
                 delay = 0.0,
                 func = (function()
-                    local card = create_card('c_bloons_volcano', G.consumeables, nil, nil, nil, nil, 'c_bloons_volcano', 'wlp')
+                    local card = create_card('c_bloons_volcano', G.consumeables, nil, nil, nil, nil, 'c_bloons_volcano', 'wizard_lord_phoenix')
                     card:add_to_deck()
                     G.consumeables:emplace(card)
                     G.GAME.consumeable_buffer = 0
@@ -448,13 +373,6 @@ SMODS.Joker { --Wizard Lord Phoenix
 SMODS.Joker { --Intense Magic
     key = 'intense_magic',
     name = 'Intense Magic',
-	loc_txt = {
-        name = 'Intense Magic',
-        text = {
-            'Played {C:enhanced}Enhanced{} cards give',
-            '{C:mult}+#1#{} Mult when scored'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 11, y = 14 },
     rarity = 1,
@@ -480,13 +398,6 @@ SMODS.Joker { --Intense Magic
 SMODS.Joker { --Monkey Sense
     key = 'monkey_sense',
     name = 'Monkey Sense',
-    loc_txt = {
-        name = 'Monkey Sense',
-        text = {
-            'Playing cards',
-            'cannot be {C:attention}debuffed{}'
-        }
-    },
     atlas = 'Joker',
 	pos = { x = 12, y = 14 },
     rarity = 1,
@@ -510,15 +421,6 @@ SMODS.Joker { --Monkey Sense
 SMODS.Joker { --Shimmer
     key = 'shimmer',
     name = 'Shimmer',
-	loc_txt = {
-        name = 'Shimmer',
-        text = {
-            '{C:green}#1# in #2#{} chance to',
-            'Create a free {C:dark_edition}Negative{}',
-            '{C:attention}Fool{} at start of shop',
-            'Destroy it at end of shop'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 13, y = 14 },
     rarity = 2,
@@ -560,15 +462,6 @@ SMODS.Joker { --Shimmer
 SMODS.Joker { --Necromancer
     key = 'necromancer',
     name = 'Necromancer',
-	loc_txt = {
-        name = 'Necromancer',
-        text = {
-            'Whenever cards are',
-            'destroyed, create a ',
-            'copy of the {C:attention}last{}',
-            'card held in hand'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 14, y = 14 },
     rarity = 2,
@@ -606,14 +499,6 @@ SMODS.Joker { --Necromancer
 SMODS.Joker { --Prince of Darkness
     key = 'prince_of_darkness',
     name = 'Prince of Darkness',
-	loc_txt = {
-        name = 'Prince of Darkness',
-        text = {
-            'When {C:attention}Blind{} is selected,',
-            'destroy {C:attention}Joker{} to the',
-            'right and recreate it'
-        }
-    },
 	atlas = 'Joker',
 	pos = { x = 15, y = 14 },
     rarity = 3,
