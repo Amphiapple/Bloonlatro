@@ -374,7 +374,7 @@ SMODS.Joker { --Grand Saboteur
                         add_tag(Tag('tag_bloons_sabotage'))
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                       return true
+                        return true
                    end)
                 }))
             end
