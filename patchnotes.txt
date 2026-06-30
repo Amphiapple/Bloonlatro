@@ -15,7 +15,9 @@ General Changes:
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
 - Reworked Boss Challenges to be a separate menu
 - Improvements to compatibility with Balatro Multiplayer
+- Nautic Siege Core now shows different text when submerged
 - Removed tutorial, as it was conflicting with other mods and often didn't work
+   - Tutorial will be added back in the next update with a complete redesign
 
 Balance Changes:
 - Triple Shot cost 5 > 4
@@ -52,7 +54,7 @@ Balance Changes:
 - Shell Shock rarity Common > Uncommon, mult 8 > 10
 - Artillery Battery reworked
 
-- Focused Firing onow gives mult instead of chips
+- Focused Firing now gives mult instead of chips
 - Focused Firing ability moved to Advanced Targeting
 - Laser Shock maximum mult 23 > 25
 - Laser Cannon maximum mult 11 > 12
@@ -69,8 +71,8 @@ Balance Changes:
 - Larger Potions tarots 2 > 1, 1 in 2 chance for 2
 - Lead to Gold no longer removes steel
 
-- Abyssal Warrior Xmult 1.2 > 1.25, no longer triggers off itself
-- Lord of the Abyss Xmult 1.2 > 1.25, no longer triggers off itself
+- Abyssal Warrior adjacent Joker Xmult 1.2 > 1.25, no longer gives Xmult itself
+- Lord of the Abyss Xmult 1.2 > 1.25, no longer triggers off itself and no longer gives Xmult itself
 - Tidal Chill 1 random card > 2 random cards
 
 - Spike Storm Xmult 1.5 > 1.25, hands required 4 > 3
@@ -88,7 +90,7 @@ Balance Changes:
 
 - Vengeful True Sun God ???
 
-- Psychic Blast replaced with Camo Trap, gives +3 discards=
+- Psychic Blast replaced with Camo Trap, gives +3 discards
 
 - Jones deck reworked
 - Psi deck reworked
@@ -98,6 +100,7 @@ Balance Changes:
 - Big Bloon Blueprints boss blind reduction 25% > 30%
 
 - Vortex boss reworked
+- Bloonarius blind size doubled
 
 - Cost reduction minimum is now $0 instead of $1
 
@@ -128,4 +131,9 @@ Fixes:
 - Mega Sentries explode quieter
 - Legendary Jokers should now have Joker Display
 - Meteor Cards should corectly appear if you have Crucible of Steel and Flame
-- Fixed the Skip Tutorial button
+- Crucible of Steel and Flame should no longer add cards when debuff is removed
+- Pin should no longer reapply pinned when debuff is removed
+- Perishing potions should no longer reapply perishing and polychrome when debuff is removed
+- Cards copying lord of the abyss now correctly check their own adjacent Jokers
+- Using Total Transformation to copy a rental Joker should now inherit the correct sell value
+- Special poperations now correctly displays cash drop info
