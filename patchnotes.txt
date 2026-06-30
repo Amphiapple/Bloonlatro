@@ -99,8 +99,8 @@ Balance Changes:
 - Quick Hands renamed
 - Big Bloon Blueprints boss blind reduction 25% > 30%
 
-- Vortex boss reworked
 - Bloonarius blind size doubled
+- Vortex boss reworked
 
 - Cost reduction minimum is now $0 instead of $1
 
@@ -114,6 +114,7 @@ Fixes:
 - Pursuit Joker Display should correctly count face cards instead of number cards
 - Bigger Jets should specify played instead of scoring face cards
 - Tsar Bomba Joker Display should work
+- Special Poperations now correctly displays cash drop info
 - The Big One and The Biggest One should correctly be blueprint compatible
 - Plasma Accelerator and Ray of Doom Joker Display should no longer count debuffed cards
 - Arcane Spike Joker Display should no longer count a retrigger for cards without enhancements
@@ -121,19 +122,16 @@ Fixes:
 - Sticky Bomb Joker Display should work
 - Sticky Bomb should no longer keep stickied status on cards between hands
 - Perishing Potions no longer adds Polychrome's cost when bought
+- Using Total Transformation to copy a rental Joker should now inherit the correct sell value
 - Abyssal Warrior should have the correct name
+- Cards copying Lord of the Abyss now correctly check their own adjacent Jokers
 - Primary Training and Primary Mentoring Joker Display should no longer crash when transforming cards
 - Monkey Town should no longer put its end of round cash on the wrong joker
 - Cold Sentry should no longer freeze debuffed cards
 - Bloon Trap and XXXL Trap should no longer show as Blueprint compatible
 - Crucible of Steel and Flame now correctly says +1 Meteor instead of +1 Stone
+- Crucible of Steel and Flame should no longer add cards when debuff is removed
 - Ascended Shadow should remove its effect from cards correctly after being played
 - Mega Sentries explode quieter
 - Legendary Jokers should now have Joker Display
 - Meteor Cards should corectly appear if you have Crucible of Steel and Flame
-- Crucible of Steel and Flame should no longer add cards when debuff is removed
-- Pin should no longer reapply pinned when debuff is removed
-- Perishing potions should no longer reapply perishing and polychrome when debuff is removed
-- Cards copying lord of the abyss now correctly check their own adjacent Jokers
-- Using Total Transformation to copy a rental Joker should now inherit the correct sell value
-- Special poperations now correctly displays cash drop info

@@ -157,7 +157,7 @@ JokerDisplay.Definitions["j_bloons_bloon_sabotage"] = { --Bloon Sabotage
         }
     },
     calc_function = function(card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'sabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'bloon_sabotage')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }
@@ -177,7 +177,7 @@ JokerDisplay.Definitions["j_bloons_grand_saboteur"] = { --Grand Saboteur
         }
     },
     calc_function = function(card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'gsabo')
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'grand_saboteur')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
     end
 }

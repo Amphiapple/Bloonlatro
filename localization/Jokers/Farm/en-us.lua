@@ -24,17 +24,9 @@ return {
             },
             j_bloons_banana_plantation = {
                 name = 'Banana Plantation',
-                text = {
-                    'Earn {C:money}$#1#-#2#{} at',
-                    'end of round'
-                }
             },
             j_bloons_banana_research_facility = {
                 name = 'Banana Research Facility',
-                text = {
-                    'Earn {C:attention}#1#-#2#{} crates of',
-                    '{C:money}$#3#{} at end of round'
-                }
             },
             j_bloons_banana_central = {
                 name = 'Banana Central',
