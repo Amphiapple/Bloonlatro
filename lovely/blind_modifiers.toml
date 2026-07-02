@@ -9,19 +9,19 @@ target = "functions/common_events.lua"
 pattern = "G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1"
 position = 'after'
 payload = '''
-if G.GAME.modifiers.chimps_stake then
-    local sticker_pool = {}
+if G.GAME.modifiers.sapper then
+    G.GAME.bloons_blind_modifier = "bloons_fortified"
+elseif G.GAME.modifiers.chimps_stake then
+    local modifier_pool = {}
 
-    for _, sticker in pairs(SMODS.Stickers) do
-        if sticker.set == "blind" then
-            if G.GAME.round_resets.ante % G.GAME.win_ante == 0 or G.GAME.round_resets.ante >= sticker.config.ante and pseudorandom(sticker.name) > 0.7 then
-                table.insert(sticker_pool, sticker)
-            end
+    for _, modifier in pairs(Bloonlatro.blind_modifiers) do
+        if G.GAME.round_resets.ante % G.GAME.win_ante == 0 or G.GAME.round_resets.ante >= modifier.config.ante and pseudorandom(modifier.name) > 0.7 then
+            table.insert(modifier_pool, modifier)
         end
     end
 
-    local blind_sticker = pseudorandom_element(sticker_pool, pseudoseed('blind_sticker'))
-    G.GAME.bloons_blind_sticker = blind_sticker and blind_sticker.key
+    local blind_modifier = pseudorandom_element(modifier_pool, pseudoseed('blind_modifier'))
+    G.GAME.bloons_blind_modifier = blind_modifier and blind_modifier.key
 end
 
 '''
@@ -32,13 +32,13 @@ target = "blind.lua"
 pattern = "function Blind:wiggle()"
 position = 'before'
 payload = '''
-function Blind:disable_blind_stickers()
-    if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" and self.boss then
-        sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
-        self.chips = self.chips / sticker_obj.config.increase
+function Blind:disable_blind_modifiers()
+    if G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier == "bloons_fortified" and self.boss then
+        modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
+        self.chips = self.chips / modifier_obj.config.increase
         self.chip_text = number_format(self.chips)
     end
-    if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss then
+    if G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier == "bloons_camo" and self.boss then
         for _, card in ipairs(G.hand.cards) do
             if card.ability.camo then
                 card.ability.camo = nil
@@ -47,7 +47,7 @@ function Blind:disable_blind_stickers()
             end
         end
     end
-    self.disable_stickers = true
+    self.disable_modifiers = true
 end
 '''
 match_indent = true
@@ -57,7 +57,7 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Chicot' and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then"
 position = 'after'
-payload = "G.GAME.blind:disable_blind_stickers()"
+payload = "G.GAME.blind:disable_blind_modifiers()"
 match_indent = true
 
 [[patches]]
@@ -65,7 +65,7 @@ match_indent = true
 target = "card.lua"
 pattern = "card_eval_status_text(context_blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})"
 position = 'after'
-payload = "G.GAME.blind:disable_blind_stickers()"
+payload = "G.GAME.blind:disable_blind_modifiers()"
 match_indent = true
 
 [[patches]]
@@ -77,7 +77,7 @@ G.E_MANAGER:add_event(Event({func = function()
 '''
 position = 'after'
 payload = '''
-    G.GAME.blind:disable_blind_stickers()
+    G.GAME.blind:disable_blind_modifiers()
 '''
 match_indent = true
 
@@ -87,10 +87,10 @@ target = "blind.lua"
 pattern = "self.chips = get_blind_amount(G.GAME.round_resets.ante)*self.mult*G.GAME.starting_params.ante_scaling"
 position = 'after'
 payload = '''
-self.disable_stickers = false
-if self.boss and G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" then
-    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
-    self.chips = self.chips * sticker_obj.config.increase
+self.disable_modifiers = false
+if self.boss and G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier == "bloons_fortified" then
+    modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
+    self.chips = self.chips * modifier_obj.config.increase
 end
 if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and self.boss then
     local percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
@@ -108,9 +108,9 @@ target = 'functions/UI_definitions.lua'
 pattern = "local blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*blind_choice.config.mult*G.GAME.starting_params.ante_scaling"
 position = 'after'
 payload = '''
-if type == 'Boss' and G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_fortified" then
-    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
-    blind_amt = blind_amt * sticker_obj.config.increase
+if type == 'Boss' and G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier == "bloons_fortified" then
+    modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
+    blind_amt = blind_amt * modifier_obj.config.increase
 end
 if G.GAME.used_vouchers.v_bloons_big_bloon_blueprints and type == 'Boss' then
     local percent = G.P_CENTERS['v_bloons_big_bloon_blueprints'].config.extra.percent
@@ -128,9 +128,9 @@ target = 'blind.lua'
 pattern = "if self.disabled then return mult, hand_chips, false end"
 position = 'before'
 payload = '''
-if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_regrow" and G.GAME.chips ~= to_big(0) and self.boss and not self.disable_stickers then
-    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
-    G.GAME.chips = to_big(G.GAME.chips - G.GAME.blind.chips * sticker_obj.config.percent / 100)
+if G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier == "bloons_regrow" and G.GAME.chips ~= to_big(0) and self.boss and not self.disable_modifiers then
+    modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
+    G.GAME.chips = to_big(G.GAME.chips - G.GAME.blind.chips * modifier_obj.config.percent / 100)
     if G.GAME.chips < to_big(0) then G.GAME.chips = to_big(0) end
     self:wiggle()
 end
@@ -143,11 +143,11 @@ target = 'blind.lua'
 pattern = "function Blind:stay_flipped(area, card, from_area)"
 position = 'after'
 payload = '''
-if G.GAME.bloons_blind_sticker and G.GAME.bloons_blind_sticker == "bloons_camo" and self.boss and not self.disable_stickers and area == G.hand then
-    sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+if G.GAME.bloons_blind_modifier and G.GAME.bloons_blind_modifier == "bloons_camo" and self.boss and not self.disable_modifiers and area == G.hand then
+    modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
     local flip_counter = self.flip_counter or 1
 
-    if flip_counter == sticker_obj.config.limit then
+    if flip_counter == modifier_obj.config.limit then
         self.flip_counter = 1
         card.ability.camo = true
         card:set_debuff(true)
@@ -187,7 +187,7 @@ pattern = "for k, v in ipairs(G.jokers.cards) do"
 position = 'before'
 payload = '''
 for k, v in pairs(G.playing_cards) do
-    if v.ability.camo and not self.disable_stickers then
+    if v.ability.camo and not self.disable_modifiers then
         v.ability.camo = nil
         v:set_debuff(false)
     end
@@ -209,23 +209,23 @@ payload = '''
     end
     
     local nodes = {}
-    if G.GAME.bloons_blind_sticker then
-        local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+    if G.GAME.bloons_blind_modifier then
+        local modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
         
         table.insert(nodes, {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}})
         
-        local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+        local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[modifier_obj.key]
         
-        local tooltip_title = loc_data and loc_data.name or sticker_obj.name
-        local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
-        local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
+        local tooltip_title = loc_data and loc_data.name or modifier_obj.name
+        local tooltip_text = loc_data and loc_data.text or {"Unknown modifier"}
+        local tooltip_vars = modifier_obj.loc_vars(modifier_obj) or {}
 
-        table.insert(nodes, {n = G.UIT.O, config = {object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true, 
-                            bloons_sticker_tooltip = {
+        table.insert(nodes, {n = G.UIT.O, config = {object = Sprite(0,0,0.5,0.5,G.ASSET_ATLAS[modifier_obj.atlas], modifier_obj.pos), hover = true, can_collide = true, 
+                            bloons_modifier_tooltip = {
                                 title = tooltip_title,
                                 text = tooltip_text,
                                 vars = tooltip_vars,
-                                color = sticker_obj.badge_colour,
+                                color = modifier_obj.colour,
                                 in_blind = false
                             }}})
         return {n=G.UIT.R, config={align = "cm"}, nodes=nodes}
@@ -260,23 +260,23 @@ G.E_MANAGER:add_event(Event({
                 
                 local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
                 
-                if G.GAME.bloons_blind_sticker and G.GAME.blind.boss then
-                    local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+                if G.GAME.bloons_blind_modifier and G.GAME.blind.boss then
+                    local modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
                     
-                    local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+                    local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[modifier_obj.key]
                     
-                    local tooltip_title = loc_data and loc_data.name or sticker_obj.name
-                    local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
-                    local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
-                    local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
+                    local tooltip_title = loc_data and loc_data.name or modifier_obj.name
+                    local tooltip_text = loc_data and loc_data.text or {"Unknown modifier"}
+                    local tooltip_vars = modifier_obj.loc_vars(modifier_obj) or {}
+                    local tooltip_color = modifier_obj.colour or G.C.WHITE
                     
                     local new_row_def = {
                         n = G.UIT.R, 
                         config = {align = "cm"}, 
                         nodes = {
                             {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
-                            {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
-                                bloons_sticker_tooltip = {
+                            {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[modifier_obj.atlas], modifier_obj.pos), hover = true, can_collide = true,
+                                bloons_modifier_tooltip = {
                                     title = tooltip_title,
                                     text = tooltip_text,
                                     vars = tooltip_vars,
@@ -331,23 +331,23 @@ if saveTable and
         
         local loc_name = localize{type = 'name_text', set = 'Blind', key = G.GAME.blind.config.blind.key}
         
-        if G.GAME.bloons_blind_sticker and G.GAME.blind.boss then
-            local sticker_obj = SMODS.Stickers[G.GAME.bloons_blind_sticker]
+        if G.GAME.bloons_blind_modifier and G.GAME.blind.boss then
+            local modifier_obj = Bloonlatro.blind_modifiers[G.GAME.bloons_blind_modifier]
             
-            local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[sticker_obj.key]
+            local loc_data = G.localization and G.localization.descriptions and G.localization.descriptions.Other and G.localization.descriptions.Other[modifier_obj.key]
             
-            local tooltip_title = loc_data and loc_data.name or sticker_obj.name
-            local tooltip_text = loc_data and loc_data.text or {"Unknown sticker"}
-            local tooltip_vars = sticker_obj.loc_vars(sticker_obj) or {}
-            local tooltip_color = sticker_obj.badge_colour or G.C.WHITE
+            local tooltip_title = loc_data and loc_data.name or modifier_obj.name
+            local tooltip_text = loc_data and loc_data.text or {"Unknown modifier"}
+            local tooltip_vars = modifier_obj.loc_vars(modifier_obj) or {}
+            local tooltip_color = modifier_obj.colour or G.C.WHITE
             
             local new_row_def = {
                 n = G.UIT.R, 
                 config = {align = "cm"}, 
                 nodes = {
                     {n=G.UIT.O, config={object = DynaText({string = loc_name .. " ", colours = {G.C.UI.TEXT_LIGHT},shadow = true, rotate = true, silent = true, float = true, scale = 0.64, y_offset = -4}),id = 'HUD_blind_name'}},
-                    {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[sticker_obj.atlas], sticker_obj.pos), hover = true, can_collide = true,
-                        bloons_sticker_tooltip = {
+                    {n = G.UIT.O, config = {object = Sprite(0,0,0.64,0.64,G.ASSET_ATLAS[modifier_obj.atlas], modifier_obj.pos), hover = true, can_collide = true,
+                        bloons_modifier_tooltip = {
                             title = tooltip_title,
                             text = tooltip_text,
                             vars = tooltip_vars,
@@ -386,10 +386,10 @@ end
 '''
 position = 'after'
 payload = '''
-if self.config and self.config.bloons_sticker_tooltip then
-    self.config.h_popup = create_popup_UIBox_bloons_sticker_tooltip(self.config.bloons_sticker_tooltip)
-    local align = self.config.bloons_sticker_tooltip.in_blind and "bm" or "tm"
-    local offset = self.config.bloons_sticker_tooltip.in_blind and {x=0, y=0.1} or {x=0, y=-0.1}
+if self.config and self.config.bloons_modifier_tooltip then
+    self.config.h_popup = create_popup_UIBox_bloons_modifier_tooltip(self.config.bloons_modifier_tooltip)
+    local align = self.config.bloons_modifier_tooltip.in_blind and "bm" or "tm"
+    local offset = self.config.bloons_modifier_tooltip.in_blind and {x=0, y=0.1} or {x=0, y=-0.1}
     self.config.h_popup_config = {align=align, offset=offset, parent = self}
 end
 '''
@@ -401,7 +401,7 @@ target = 'functions/UI_definitions.lua'
 pattern = 'function create_UIBox_detailed_tooltip(_center)'
 position = 'before'
 payload = '''
-function create_popup_UIBox_bloons_sticker_tooltip(tooltip)
+function create_popup_UIBox_bloons_modifier_tooltip(tooltip)
     local title = tooltip.title or nil
     local text = tooltip.text or {}
     local color = tooltip.color or G.C.WHITE

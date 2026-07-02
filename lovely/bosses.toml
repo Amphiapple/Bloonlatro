@@ -10,23 +10,53 @@ target = 'functions/common_events.lua'
 pattern = "if G.FORCE_BOSS then return G.FORCE_BOSS end"
 position = 'after'
 payload = '''
-if G.GAME.selected_back.name == 'Psi Deck' and (G.GAME.round_resets.ante%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2) then
-    return "bl_psychic"
-elseif G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-    if G.GAME.modifiers.bloonarius1 then
-        return "bl_bloons_bloonarius"
-    elseif G.GAME.modifiers.lych1 then
-        return "bl_bloons_lych"
-    elseif G.GAME.modifiers.vortex1 then
-        return "bl_bloons_vortex"
-    elseif G.GAME.modifiers.dreadbloon1 then
-        return "bl_bloons_dreadbloon"
-    elseif G.GAME.modifiers.phayze1 then
-        return "bl_bloons_phayze"
-    elseif G.GAME.modifiers.blastapopoulos1 then
-        return "bl_bloons_blastapopoulos"
+local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and center and center.key == "b_bloons_boss_challenge" then
+    local boss = center.get_boss_blind and center:get_boss_blind()
+    if boss then
+        return boss.key
     end
 end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "function reset_blinds()"
+position = "after"
+payload = '''
+    local small = "bl_small"
+    local big = "bl_big"
+    local center = G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+    G.GAME.round_resets.blind_choices = G.GAME.round_resets.blind_choices or {}
+    if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and center and center.key == "b_bloons_boss_challenge" then
+        local segments = center.get_boss_segments and center:get_boss_segments() or {}
+        small = (segments[1] and segments[1].key) or small
+        big = (segments[2] and segments[2].key) or big
+    end
+    G.GAME.round_resets.blind_choices.Small = small
+    G.GAME.round_resets.blind_choices.Big = big
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+else
+'''
+position = 'at'
+payload = '''
+if G.GAME.blind_on_deck == "Small" then
+    G.GAME.round_resets.blind_states.Small = 'Defeated'
+elseif G.GAME.blind_on_deck == "Big" then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'
+else
 '''
 match_indent = true
 
@@ -48,14 +78,7 @@ pattern = '''
 '''
 position = 'before'
 payload = '''
-if 
-    self.name == 'bl_bloons_bloonarius' or
-    self.name == 'bl_bloons_lych' or
-    self.name == 'bl_bloons_vortex' or
-    self.name == 'bl_bloons_dreadbloon' or
-    self.name == 'bl_bloons_phayze' or
-    self.name == 'bl_bloons_blastapopoulos'
-then
+if G.GAME.round_resets.ante%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_bloons_boss_challenge" then
     self.loc_debuff_text = 'It has all led to this'
 else
 '''
@@ -69,6 +92,128 @@ pattern = '''
 '''
 position = 'after'
 payload = '''
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''
+        challenge.id and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})
+        or desc_from_rows(loc_nodes, true, min_dims*5)
+'''
+position = 'at'
+payload = '''
+        challenge.id and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})
+        or (self.effect.center.key == "b_bloons_boss_challenge" and {
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.1 },
+            nodes = (function()
+                local nodes = {}
+                local boss = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
+                local segments = self.effect.center.get_boss_segments and self.effect.center:get_boss_segments()
+                local blinds = segments or (boss and { boss }) or {}
+
+                for _, blind in ipairs(blinds) do
+                    nodes[#nodes + 1] = {
+                        n = G.UIT.O,
+                        config = {
+                            object = create_bloonlatro_boss_card(blind)
+                        }
+                    }
+                end
+
+                return nodes
+            end)()
+        })
+        or desc_from_rows(loc_nodes, true, min_dims*5)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''
+self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}
+'''
+position = 'at'
+payload = '''
+if (selected_back and selected_back.key == "b_bloons_boss_challenge") or
+   (new_back and new_back.key == "b_bloons_boss_challenge") then
+    local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
+    local deck_text = localize({ type = 'name_text', set = 'Back', key = 'b_bloons_boss_challenge' })
+    local blind_text = ""
+
+    if blind then
+        if blind.bloonlatro_boss and blind.bloonlatro_boss.parts then
+            blind_text = localize({type = "name_text", set = "Blind", key = blind.key}):match("^(.-)%s+%S+$")
+        else
+            blind_text = localize({type = "name_text", set = "Blind", key = blind.key})
+        end
+    end
+
+    local deck_suffix = deck_text:match("%S+$")
+
+    if blind_text ~= "" then
+        self.loc_name = blind_text .. " " .. deck_suffix
+    else
+        self.loc_name = deck_text
+    end
+else
+    self.loc_name = localize{type = 'name_text', set = 'Back', key = self.effect.center.key}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''
+self.pos.x = pos.x
+self.pos.y = pos.y
+'''
+position = 'after'
+payload = '''
+if (selected_back and selected_back.key == "b_bloons_boss_challenge") or
+   (new_back and new_back.key == "b_bloons_boss_challenge") then
+    local blind = self.effect.center.get_boss_blind and self.effect.center:get_boss_blind()
+    local index = blind and blind.bloonlatro_boss and blind.bloonlatro_boss.index
+    self.pos.x = index or 0
+    self.pos.y = 0
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if not G.GAME.used_vouchers[v.key] then 
+    local include = true
+'''
+position = 'after'
+payload = '''
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_bloons_boss_challenge" then
+    if v.key == "v_hieroglyph" or v.key == "v_petroglyph" then
+        include = false
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if (not v.requires or (G.P_CENTERS[v.requires] and G.P_CENTERS[v.requires].discovered)) and 
+    (not v.min_ante or v.min_ante <= G.GAME.round_resets.ante) then
+        add = true
+'''
+position = 'after'
+payload = '''
+if G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 and v.key == "tag_bloons_sabotage" then
+    add = false
 end
 '''
 match_indent = true

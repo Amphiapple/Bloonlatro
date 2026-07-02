@@ -12,6 +12,10 @@ position = 'after'
 payload = '''
 --Salvage sell cost
 self.sell_cost = self.sell_cost + 2 * #find_joker('Banana Salvage')
+--Trade Empire voucher discount
+if self.ability.set == 'Voucher' and #find_joker('Trade Empire') > 0 then
+    self.cost = math.floor(self.cost / 2.0)
+end
 --Monkey Wall Street booster discount
 if self.ability.set == 'Booster' and #find_joker('Monkey Wall Street') > 0 then
     self.cost = math.floor(self.cost / 2.0)
@@ -25,20 +29,21 @@ if #find_joker('Monkey Business') > 0 then
     end
 end
 --Primary expertise primary free discount
-if self.ability.set == 'Joker' and self.config.center.rarity == 1 and #find_joker('Primary Expertise') > 0 then
+if self.ability.set == 'Joker' and self.ability.tower_info and self.ability.tower_info.category == 'primary' and self.config.center.rarity == 1 and (#find_joker('Primary Mentoring') > 0 or #find_joker('Primary Expertise') > 0) then
     self.cost = 0
 end
 --VTSG discount
 local vtsgs = find_joker('Vengeful True Sun God')
 if #vtsgs > 0 then
-    local discount = 0
+    local total_discount = 0
     for k, v in pairs(vtsgs) do
-        discount = discount + v.ability.extra.discount * (v.ability.extra.sacrifices['econ'])
+        local discount = math.floor((v.ability.extra.sacrifices['support'] + 1) / 3)
+        total_discount = total_discount + v.ability.extra.discount * discount
     end
-    if discount > self.cost then
+    if total_discount > self.cost then
         self.cost = 0
     else
-        self.cost = self.cost - discount
+        self.cost = self.cost - total_discount
     end
 end
 '''
@@ -53,6 +58,21 @@ position = 'after'
 payload = '''
 if #find_joker('Energizer') > 0 then
     G.GAME.current_round.reroll_cost = math.floor(G.GAME.current_round.reroll_cost / 2.0)
+end
+'''
+match_indent = true
+
+# Clearance Sale and Liquidation adding to discount percent instead of setting it
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'G.GAME.discount_percent = center_table.extra'
+position = 'at'
+payload = '''
+if center_table.name == 'Liquidation' then
+    G.GAME.discount_percent = G.GAME.discount_percent + (center_table.extra / 2)
+elseif center_table.name == 'Clearance Sale' then
+    G.GAME.discount_percent = G.GAME.discount_percent + center_table.extra
 end
 '''
 match_indent = true

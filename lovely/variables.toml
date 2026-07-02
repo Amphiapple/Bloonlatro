@@ -1,0 +1,54 @@
+[manifest]
+dump_lua = true
+priority = 1
+version = "1.0.0"
+
+# gobal variables
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "blind_on_deck = nil,"
+position = 'after'
+payload = '''
+subcom_mult = 1,
+voucher_tally = 0,
+'''
+match_indent = true
+
+# current round variables
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "idol_card = {suit = 'Spades', rank = 'Ace'},"
+position = 'before'
+payload = '''
+desperado_card = {rank = 'Ace'},
+spike_factory_card = {suit = 'Spades', rank = 'Ace'},
+'''
+match_indent = true
+
+# Reset start of game variables
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "reset_idol_card()"
+position = 'after'
+payload = '''
+reset_desperado_card()
+reset_spike_factory_card()
+'''
+match_indent = true
+
+# Increase voucher tally
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+function Card:redeem()
+    if self.ability.set == "Voucher" then
+'''
+position = 'after'
+payload = '''
+G.GAME.voucher_tally = G.GAME.voucher_tally + 1
+'''
+match_indent = true

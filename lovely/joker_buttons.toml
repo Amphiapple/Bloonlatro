@@ -1,0 +1,75 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local sell = nil
+local use = nil
+'''
+position = "at"
+payload = '''
+    local sell, use, deck_button, joker_button = nil, nil, nil, nil
+
+    local deck = G.GAME and G.GAME.selected_back
+    local is_adora_deck =
+        deck
+        and deck.effect
+        and deck.effect.center
+        and deck.effect.center.original_key == 'adora'
+
+    if deck and deck.effect and deck.effect.config and deck.effect.config.button then
+        deck_button = build_button({
+            card = card,
+            can = 'can_deck_use',
+            ["function"] = 'deck_use',
+            text = deck.effect.config.button.text or 'Use',
+            colour = deck.effect.config.button.colour or G.C.GREEN
+        })
+    end
+
+    local center = card and card.config and card.config.center
+
+    if center and center.config and center.config.button then
+        local button = center.config.button
+
+        joker_button = build_button({
+            card = card,
+            can = 'can_joker_use',
+            ["function"] = 'joker_use',
+            text = button.text or 'Use',
+            colour = button.colour or G.C.GREEN
+        })
+    end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "if card.area and card.area.config.type == 'joker' then"
+position = "at"
+payload = "if card.area and card.area.config.type == 'joker' and not is_adora_deck then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  sell
+}},
+'''
+position = "after"
+payload = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  deck_button
+}},
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+  joker_button
+}},
+'''
+match_indent = true

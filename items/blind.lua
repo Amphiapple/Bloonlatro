@@ -4,180 +4,14 @@ SMODS.Atlas {
     px = 34,
     py = 34,
     atlas_table = 'ANIMATION_ATLAS',
-    frames = 21,
+    frames = 1,
 }
---[[
-SMODS.Blind {
-    name = 'The Red',
-    loc_txt = {
-        name = 'The Red',
-        text = {
-            '-#1# discard'
-        }
-    },
-    key = 'red',
-    atlas = 'Blind',
-    pos = { y = 0 },
-    dollars = 4,
-    mult = 1.5,
-    boss_colour = HEX("FF0000"),
-
-    loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-    collection_loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-    set_blind = function(self)
-        ease_discard(-1)
-    end,
-}
-
-SMODS.Blind {
-    name = 'The Blue',
-    loc_txt = {
-        name = 'The Blue',
-        text = {
-            '-#1# hand'
-        }
-    },
-    key = 'blue',
-    atlas = 'Blind',
-    pos = { y = 1 },
-    dollars = 4,
-    mult = 1.5,
-    boss_colour = HEX("7777FF"),
-
-    loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-    collection_loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-    set_blind = function(self)
-        ease_hands_played(-1)
-    end,
-}
-
-SMODS.Blind {
-    name = 'The Green',
-    loc_txt = {
-        name = 'The Green',
-        text = {
-            'Playing hands and',
-            'discarding costs $#1#'
-        }
-    },
-    key = 'green',
-    atlas = 'Blind',
-    pos = { y = 2 },
-    dollars = 4,
-    mult = 1.5,
-    boss_colour = HEX("77FF77"),
-
-    loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-    collection_loc_vars = function(self)
-        return { vars = { 1 } }
-    end,
-    press_play = function(self)
-        ease_dollars(-1)
-    end,
-    calculate = function (self, blind, context)
-        if context.pre_discard then
-            ease_dollars(-1)
-        end
-    end
-}
-
-SMODS.Blind {
-    name = 'The Dark',
-    loc_txt = {
-        name = 'The Dark',
-        text = {
-            'Base Chips are halved',
-            'for Spades or Clubs'
-        }
-    },
-    key = 'black',
-    atlas = 'Blind',
-    pos = { y = 5 },
-    dollars = 4,
-    mult = 1.5,
-    boss_colour = HEX("333333"),
-
-    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        for k, v in ipairs(cards) do
-            if v:is_suit('Spades', true) or v:is_suit('Clubs', true) then
-                return mult, math.max(math.floor(hand_chips * 0.5 + 0.5), 0), true
-            end
-        end
-        return mult, hand_chips, false
-    end
-}
-
-SMODS.Blind {
-    name = 'The Light',
-    loc_txt = {
-        name = 'The Light',
-        text = {
-            'Base Chips are halved',
-            'for Hearts or Diamonds'
-        }
-    },
-    key = 'white',
-    atlas = 'Blind',
-    pos = { y = 6 },
-    dollars = 4,
-    mult = 1.5,
-    boss_colour = HEX("cccccc"),
-
-    modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        for k, v in ipairs(cards) do
-            if v:is_suit('Hearts', true) or v:is_suit('Diamonds', true) then
-                return mult, math.max(math.floor(hand_chips * 0.5 + 0.5), 0), true
-            end
-        end
-        return mult, hand_chips, false
-    end
-}
-
-SMODS.Blind {
-    name = 'The Magic',
-    loc_txt = {
-        name = 'The Magic',
-        text = {
-            'Destroy all consumeables',
-        }
-    },
-    key = 'purple',
-    atlas = 'Blind',
-    pos = { y = 7 },
-    dollars = 4,
-    mult = 1.5,
-    boss_colour = HEX("9955bb"),
-
-    set_blind = function(self)
-        for k, v in ipairs(G.consumeables.cards) do
-            v:start_dissolve({G.C.RED}, nil)
-            v:remove_from_deck()
-        end
-    end,
-}
-]]
 
 SMODS.Blind {
     name = 'Massive MOAB',
-    loc_txt = {
-        name = 'Massive MOAB',
-        text = {
-            'Halve Hands and Discards',
-        }
-    },
     key = 'final_moab',
     atlas = 'Blind',
-    pos = { y = 12 },
+    pos = { y = 0 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -198,34 +32,33 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'Brutal Behemoth',
-    loc_txt = {
-        name = 'Brutal Behemoth',
-        text = {
-            'Disable the rightmost',
-            'Joker per hand played'
-        }
-    },
     key = 'final_bfb',
     atlas = 'Blind',
-    pos = { y = 13 },
+    pos = { y = 1 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
     boss_colour = HEX("d10705"),
 
     calculate = function(self, blind, context)
-        if context.final_scoring_step and not blind.disabled then
+        if context.after and not blind.disabled then
             local card = nil
             for _,joker in ipairs(G.jokers.cards) do
-                if not joker.debuff then
+                if not joker.debuff and not joker.debuffed_by_blind then
                     card = joker
                 end
             end
             if card then
-                card:set_debuff(true)
-                if card.debuff then
-                    card.debuffed_by_blind = true
-                end
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:set_debuff(true)
+                        if card.debuff then
+                            card.debuffed_by_blind = true
+                            card:juice_up()
+                        end
+                        return true
+                    end,
+                }))
             end
         end
     end,
@@ -243,32 +76,27 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'Dark Titan',
-    loc_txt = {
-        name = 'Dark Titan',
-        text = {
-            '#1# in 4 cards',
-            'are debuffed'
-        }
-    },
     key = 'final_ddt',
     atlas = 'Blind',
-    pos = { y = 14 },
+    pos = { y = 2 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
     boss_colour = HEX("4a4b4a"),
 
     loc_vars = function(self)
-        return { vars = { G.GAME.probabilities.normal or 1 } }
+        local n, d = SMODS.get_probability_vars(self, 1, 3, 'ddt')
+        return { vars = { n, d } }
     end,
     collection_loc_vars = function(self)
-        return { vars = { G.GAME.probabilities.normal or 1 } }
+        local n, d = SMODS.get_probability_vars(self, 1, 3, 'ddt')
+        return { vars = { n, d } }
     end,
 
     calculate = function(self, blind, context)
         if context.hand_drawn and not blind.disabled then
             for _, card in ipairs(context.hand_drawn) do
-                 if SMODS.pseudorandom_probability(G.GAME.blind, 'ddt', 1, 4) then
+                 if SMODS.pseudorandom_probability(G.GAME.blind, 'ddt', 1, 3) then
                     card:set_debuff(true)
                     if card.debuff then
                         card.debuffed_by_blind = true
@@ -291,16 +119,9 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'Green Gargantuan',
-    loc_txt = {
-        name = 'Green Gargantuan',
-        text = {
-            'All Jokers debuffed',
-            'until 1 Joker sold'
-        }
-    },
     key = 'final_zomg',
     atlas = 'Blind',
-    pos = { y = 15 },
+    pos = { y = 3 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -345,16 +166,9 @@ SMODS.Blind {
 
 SMODS.Blind {
     name = 'B.A.D',
-    loc_txt = {
-        name = 'B.A.D',
-        text = {
-            'X1.5 blind size',
-            'after each hand'
-        }
-    },
     key = 'final_bad',
     atlas = 'Blind',
-    pos = { y = 16 },
+    pos = { y = 4 },
     dollars = 8,
     mult = 2,
     boss = { showdown = true },
@@ -376,21 +190,16 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Bloonarius',
-        text = {
-            'Fills deck with random',
-            'cards until deck size',
-            'reaches #1# cards'
-        }
-    },
     key = 'bloonarius',
     atlas = 'Blind',
-    pos = { y = 17 },
+    pos = { y = 5 },
     dollars = 8,
-    mult = 100, -- 100x base score (5 million)
+    mult = 200, -- 200x base score (10 million)
     boss = { showdown = true },
     boss_colour = HEX("94D708"),
+    bloonlatro_boss = {
+        index = 1,
+    },
 
     loc_vars = function(self)
         return { vars = { 100 } }
@@ -401,7 +210,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_bloonarius'
+        return false -- This blind is added through bosses.toml
     end,
     set_blind = function(self)
         while #G.deck.cards < 100 do
@@ -418,26 +227,19 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Lych',
-        text = {
-            'Revives and resets hands once',
-            'Removes enhancements from all',
-            'played and held in hand cards',
-            'Heals back #2#',
-            '#3# enhancement removed'
-        }
-    },
     key = 'lych',
     atlas = 'Blind',
-    pos = { y = 18 },
+    pos = { y = 6 },
     dollars = 8,
     mult = 40, -- 40x base score (2 million)
     boss = { showdown = true },
     boss_colour = HEX("BA58BD"),
+    bloonlatro_boss = {
+        index = 2
+    },
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_lych'
+        return false -- This blind is added through bosses.toml
     end,
 
     loc_vars = function(self)
@@ -528,36 +330,35 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Vortex',
-        text = {
-            'Cards are stunned',
-            'when drawn to hand',
-            '-#1# hand'
-        }
-    },
     key = 'vortex',
     atlas = 'Blind',
-    pos = { y = 19 },
+    pos = { y = 7 },
     dollars = 8,
-    mult = 25, -- 25x base score (500k)
+    mult = 20, -- 20x base score (400k)
     boss = { showdown = true },
     boss_colour = HEX("63E0FF"),
+    bloonlatro_boss = {
+        index = 3,
+        challenge_params = {
+            win_ante = 6
+        }
+    },
+    config = { stage = 1 },
 
     loc_vars = function(self)
-        return { vars = { 1 } }
+        return { vars = { 2, 2, 0.25 * get_blind_amount(G.GAME.round_resets.ante) * 20 * G.GAME.starting_params.ante_scaling } }
     end,
 
     collection_loc_vars = function(self)
-        return { vars = { 1 } }
+        return { vars = { 2, 2, '25% of required' } }
     end,
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_vortex'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
-        ease_hands_played(-1)
+        ease_hands_played(-2)
     end,
 
     drawn_to_hand = function(self)
@@ -567,18 +368,81 @@ SMODS.Blind {
                 card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
             end
         end
+    end,
+
+    calculate = function(self, blind, context)
+        if context.after and (hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips >= to_big(G.GAME.blind.effect.stage / 4) then
+            ease_hands_played(2)
+            local jokers = {}
+            for k, v in ipairs(G.jokers.cards) do
+                if not v.debuff and not v.debuffed_by_blind then
+                    table.insert(jokers, v)
+                end
+            end
+            local joker = pseudorandom_element(jokers, pseudoseed('vortex'))
+            if joker then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.2,
+                    func = function()
+                        for k, v in ipairs(G.jokers.cards) do
+                            if v.debuffed_by_blind then
+                                v.debuffed_by_blind = nil
+                                v:set_debuff()
+                            end
+                        end
+                        joker:set_debuff(true)
+                        if joker.debuff then
+                            joker.debuffed_by_blind = true
+                            joker:juice_up()
+                        end
+                        return true
+                    end
+                }))
+            end
+            G.GAME.blind.effect.stage = math.ceil((hand_chips*mult + G.GAME.chips)/G.GAME.blind.chips * 4)
+        end
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff and not self.disabled
+    end,
+    disable = function(self)
+        for _,joker in ipairs(G.jokers.cards) do
+            if joker.debuffed_by_blind then
+                joker:set_debuff()
+            end
+        end
     end
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Dreadbloon',
-        text = {
-            'Score is capped at #1#',
-            'Halves base chips and mult',
-            'Debuffs Jokers by rarity',
-            'Debuffed rarity increases',
-            'after each hand played'
+    key = 'dreadbloon',
+    atlas = 'Blind',
+    pos = { y = 8 },
+    dollars = 8,
+    mult = 8, -- 8x base score (400k)
+    boss = { showdown = true },
+    boss_colour = HEX("FFDC3F"),
+    bloonlatro_boss = {
+        index = 4,
+        challenge_params = {
+            banned_ids = {
+                {id = 'j_burglar'},
+                {id = 'j_troubadour'},
+                {id = 'j_bloons_downdraft'},
+                {id = 'j_bloons_support_chinook'},
+                {id = 'j_bloons_moab_shove'},
+                {id = 'j_bloons_counter_espionage'},
+                {id = 'j_bloons_long_reach'},
+                {id = 'j_bloons_perma_spike'},
+                {id = 'j_bloons_grand_saboteur'},
+                {id = 'j_bloons_monkey_pirates'},
+                {id = 'j_bloons_pirate_lord'},
+                {id = 'v_grabber'},
+                {id = 'v_nacho_tong'},
+                {id = 'v_hieroglyph'},
+                {id = 'c_bloons_time_stop'},
+            }
         }
     },
 
@@ -590,16 +454,8 @@ SMODS.Blind {
         return { vars = { '30% of blind size' } }
     end,
 
-    key = 'dreadbloon',
-    atlas = 'Blind',
-    pos = { y = 20 },
-    dollars = 8,
-    mult = 8, -- 8x base score (400k)
-    boss = { showdown = true },
-    boss_colour = HEX("FFDC3F"),
-
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_dreadbloon'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
@@ -632,25 +488,22 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Phayze',
-        text = {
-            'Moves a random Joker to the leftmost',
-            'position when a hand is played',
-            'Debuffs all Jokers and cards',
-            'without an edition.'
-        }
-    },
     key = 'phayze',
     atlas = 'Blind',
-    pos = { y = 21 },
+    pos = { y = 9 },
     dollars = 8,
     mult = 20, -- 20x base score (1 million)
     boss = { showdown = true },
     boss_colour = HEX("000000"),
+    bloonlatro_boss = {
+        index = 5,
+        challenge_params = {
+            vouchers = { 'v_hone', 'v_glow_up' }
+        }
+    },
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_phayze'
+        return false -- This blind is added through bosses.toml
     end,
     press_play = function(self)
         if #G.jokers.cards > 1 then
@@ -672,24 +525,16 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    loc_txt = {
-        name = 'Blastapopoulos',
-        text = {
-            'Card draw adds a Meteor card to deck',
-            'Score is reduced by #1#% per heat point',
-            'Played scoring cards increase heat by #2#',
-            'Scoring Meteor cards increase heat by #3#',
-            'Held Frozen cards decrease heat by #4#'
-        }
-    },
     key = 'blastapopoulos',
     atlas = 'Blind',
-    pos = { y = 22 },
+    pos = { y = 10 },
     dollars = 8,
     mult = 60, -- 60x base score (3 million)
     boss = { showdown = true },
     boss_colour = HEX("FF862E"),
-
+    bloonlatro_boss = {
+        index = 6,
+    },
     loc_vars = function(self)
         return {
             vars = { 10, 1, 3, 3 }
@@ -703,7 +548,7 @@ SMODS.Blind {
     end,
 
     in_pool = function()
-        return G.GAME.challenge == 'c_bloons_blastapopoulos'
+        return false -- This blind is added through bosses.toml
     end,
 
     set_blind = function(self)
@@ -735,3 +580,176 @@ SMODS.Blind {
         draw_card(G.play,G.deck, 90,'up', nil)
     end,
 }
+
+SMODS.Blind {
+    key = 'diamondback_head',
+    atlas = 'Blind',
+    pos = { y = 11 },
+    dollars = 8,
+    mult = 100, -- 100x base score (5 million)
+    boss = { showdown = true },
+    boss_colour = HEX("D8AF48"),
+    defeated = false,
+    bloonlatro_boss = {
+        index = 7,
+        parts = {
+            main = "diamondback",
+            segment = "head",
+            order = 3
+        },
+        challenge_params = {
+            banned_ids = {
+                {id = 'j_bloons_glaive_dominus'}
+            }
+        }
+    },
+
+    debuff = {
+        is_face = 'face'
+    },
+
+    in_pool = function()
+        return false -- This blind is added through bosses.toml
+    end,
+
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_diamondback")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+        self.defeated = true
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+}
+
+SMODS.Blind {
+    key = 'diamondback_body',
+    atlas = 'Blind',
+    pos = { y = 12 },
+    dollars = 8,
+    mult = 100, -- 100x base score (5 million)
+    boss = { showdown = true },
+    boss_colour = HEX("D8AF48"),
+    defeated = false,
+    bloonlatro_boss = {
+        index = 7,
+        parts = {
+            main = "diamondback",
+            segment = "body",
+            order = 2
+        }
+    },
+
+    loc_vars = function(self)
+        return {
+            vars = { 5 }
+        }
+    end,
+
+    collection_loc_vars = function(self)
+        return {
+            vars = { 5 }
+        }
+    end,
+
+    in_pool = function()
+        return false -- This blind is added through bosses.toml
+    end,
+
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_diamondback")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+        self.defeated = true
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+
+    calculate = function(self, blind, context)
+        if context.before and not blind.disabled then
+            for i = 1, 5 do
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_' .. tostring(#G.deck.cards)))
+                SMODS.add_card({
+                    set = 'Playing Card',
+                    front = card_front,
+                    area = G.deck,
+                    skip_materialize = false,
+                    enhanced_poll = 1
+                })
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    key = 'diamondback_tail',
+    atlas = 'Blind',
+    pos = { y = 13 },
+    dollars = 8,
+    mult = 100, -- 100x base score (5 million)
+    boss = { showdown = true },
+    boss_colour = HEX("D8AF48"),
+    defeated = false,
+    bloonlatro_boss = {
+        index = 7,
+        parts = {
+            main = "diamondback",
+            segment = "tail",
+            order = 1
+        }
+    },
+
+    loc_vars = function(self)
+        return {
+            vars = { 200 }
+        }
+    end,
+
+    collection_loc_vars = function(self)
+        return {
+            vars = { 200 }
+        }
+    end,
+
+    in_pool = function()
+        return false -- This blind is added through bosses.toml
+    end,
+
+    set_blind = function(self)
+		SMODS.set_scoring_calculation("bloons_diamondback")
+	end,
+	defeat = function(self)
+		SMODS.set_scoring_calculation("multiply")
+        self.defeated = true
+	end,
+	disable = function(self)
+		SMODS.set_scoring_calculation("multiply")
+	end,
+
+    calculate = function(self, blind, context)
+        if context.final_scoring_step and not blind.disabled then
+            hand_chips = mod_chips(math.max(0, hand_chips - 200))
+            update_hand_text( { delay = 0 }, { chips = hand_chips } )
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					play_sound("timpani", 1)
+					attention_text({
+						scale = 1.4,
+						text = "Shielded",
+						hold = 0.45,
+						align = "cm",
+						offset = { x = 0, y = -2.7 },
+						major = G.play,
+					})
+					return true
+				end,
+			}))
+            delay(0.6)
+        end
+    end
+}
+

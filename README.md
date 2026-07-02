@@ -1,8 +1,12 @@
-# Bloonlatro
+# Bloonlatro v0.4.5
 
 A Balatro mod that incorporates Bloons Tower Defense into the base game
 
-Includes new Jokers, new Decks, new Challenges, and a variety of additional content
+# New Additions:
+
+We're finished with all of the Jokers!
+Diamondback has been introduced as a Boss!
+New consumables unique for every deck!
 
 ---
 
@@ -10,12 +14,13 @@ Huge thanks to the Ninja Kiwi team for the amazing game BTD6
 
 As well as all the contributors to this mod
 
-- Amphiapple
-- Birdz
-- Braces
-- Fireblazer
-- Geeph
-- Greenkookie56
-- Icicle
-- Kanjerlucas
-- Villain7
+- Amphiapple (Designer, Programmer, Artist)
+- Icicle (Designer, Artist)
+- Kanjerlucas (Designer, Programmer)
+- Fireblazer (Designer)
+- Birdz (Artist)
+- Braces (Artist)
+- Geeph (Artist)
+- Greenkookie56 (Artist)
+- Tisisrealnow (Artist)
+- Villain7 (Artist)

@@ -1,4 +1,3 @@
-
 --Skip tag effects
 G.FUNCS.skip_blind = function(e)
     stop_use()
@@ -17,7 +16,7 @@ G.FUNCS.skip_blind = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     G.GAME.skips = (G.GAME.skips or 0) + 1
     if _tag then 
-        if G.GAME.used_vouchers.v_bloons_quick_hands then
+        if G.GAME.used_vouchers.v_bloons_flanking_maneuvers then
             if G.GAME.used_vouchers.v_bloons_grand_prix_spree then
                 add_tag(Tag('tag_skip'))
             end
@@ -146,22 +145,32 @@ get_pack = function(_key, _type)
     return center
 end
 
---Mdom replay boss
-local end_round_old = end_round
-end_round = function()
-    local mdoms = find_joker('MOAB Domination')
-    if #mdoms > 0 then
-        local active = true
-        for k, v in pairs(mdoms) do
-            if v.ability.extra.active == false then
-                active = false
-            end
-        end 
-        if active then
-            local ret = end_round_new(mdoms)
-            return ret
+local localize_old = localize
+localize = function(args, misc_cat)
+    if args and args.type == "descriptions" and args.key == "j_bloons_nautic_siege_core" then
+        local submerged = args.vars and args.vars[1]
+        local joker = G.localization.descriptions.Joker.j_bloons_nautic_siege_core
+
+        local loc_target = submerged
+            and joker.submerged_text
+            or joker.text
+
+        local text_parsed = {}
+        for _, line in ipairs(loc_target) do
+            text_parsed[#text_parsed + 1] = loc_parse_string(line)
         end
+
+        args.AUT = args.AUT or {}
+        args.AUT.box_colours = {}
+        args.nodes = args.nodes or {}
+
+        for _, lines in ipairs(text_parsed) do
+            local final_line = SMODS.localize_box(lines, args)
+            args.nodes[#args.nodes + 1] = final_line
+        end
+
+        return args.nodes
     end
-    local ret = end_round_old()
-    return ret
+
+    return localize_old(args, misc_cat)
 end

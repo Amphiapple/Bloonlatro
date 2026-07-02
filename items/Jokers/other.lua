@@ -1,80 +1,15 @@
-SMODS.Joker { --Bloonprint
-    key = 'bloonprint',
-    name = 'Bloonprint',
-	loc_txt = {
-        name = 'Bloonprint',
-        text = {
-            'Copies ability of',
-            '{C:attention}Joker{} in position {C:attention}#1#{}',
-            '{S:0.8}position changes{}',
-            '{S:0.8}at end of round{}'
-        }
-    },
-	atlas = 'Joker',
-	pos = { x = 0, y = 25 },
-    rarity = 3,
-	cost = 10,
-    blueprint_compat = true,
-    config = {
-        base = 'other',
-        extra = {current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
-    },
-
-    loc_vars = function(self, info_queue, card)
-        if card.area and card.area == G.jokers then
-			local other_joker = G.jokers.cards[card.ability.extra.current]
-			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-			main_end = {{
-                n = G.UIT.C,
-                config = { align = "bm", minh = 0.4 },
-                nodes = {{
-                    n = G.UIT.C,
-                    config = {
-                        ref_table = card,
-                        align = "m",
-                        colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
-                        r = 0.05,
-                        padding = 0.06,
-                    },
-                    nodes = {{
-                        n = G.UIT.T,
-                        config = {
-                            text = " " .. localize("k_" .. (compatible and "compatible" or "incompatible")) .. " ",
-                            colour = G.C.UI.TEXT_LIGHT,
-                            scale = 0.32 * 0.8,
-                        }
-                    }}
-                }}
-			}}
-		end
-        return { vars = { card.ability.extra.current }, main_end = main_end }
-    end,
-    calculate = function(self, card, context)
-        if context.blind_defeated and not context.blueprint then
-            card.ability.extra.current = pseudorandom('bloonprint', 1, #G.jokers.cards)
-        end
-        return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
-    end
-}
+SMODS.Sound({key = "sentryexplode", path = "sentryexplode.ogg",})
 
 SMODS.Joker { --Marine
     key = 'marine',
     name = 'Marine',
-	loc_txt = {
-        name = 'Marine',
-        text = {
-            '{X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} hands'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 1, y = 25 },
+	pos = { x = 0, y = 25 },
     rarity = 3,
 	cost = 4,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        tower_info = { base = "Marine", category = "military" },
         extra = { Xmult = 2, slots = 1, hands = 6 } --Variables: retrigger = retrigger amount, slots = joker slots, hands = hands remaining
     },
 
@@ -100,22 +35,8 @@ SMODS.Joker { --Marine
             if card.ability.extra.hands <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
                         return true
                     end
                 }))
@@ -127,22 +48,13 @@ SMODS.Joker { --Marine
 SMODS.Joker { --Sentry
     key = 'sentry',
     name = 'Nail Sentry',
-	loc_txt = {
-        name = 'Nail Sentry',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot',
-            'Lasts {C:attention}#4#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 2, y = 25 },
+	pos = { x = 1, y = 25 },
     rarity = 1,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        tower_info = { base = "Sentry", category = "support" },
         extra = { chips = 20, mult = 2, slots = 1, rounds = 2 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -169,22 +81,8 @@ SMODS.Joker { --Sentry
             if card.ability.extra.rounds <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
                         return true
                     end
                 }))
@@ -196,22 +94,13 @@ SMODS.Joker { --Sentry
 SMODS.Joker { --Crushing Sentry
     key = 'crushing_sentry',
     name = 'Crushing Sentry',
-	loc_txt = {
-        name = 'Crushing Sentry',
-        text = {
-            'Played cards give',
-            '{C:mult}+#1#{} Mult when scored',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 3, y = 25 },
+	pos = { x = 2, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        tower_info = { base = "Sentry", category = "support" },
         extra = { mult = 4, slots = 1, rounds = 3 } --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
     },
 
@@ -237,22 +126,8 @@ SMODS.Joker { --Crushing Sentry
             if card.ability.extra.rounds <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
                         return true
                     end
                 }))
@@ -264,22 +139,13 @@ SMODS.Joker { --Crushing Sentry
 SMODS.Joker { --Boom Sentry
     key = 'boom_sentry',
     name = 'Boom Sentry',
-	loc_txt = {
-        name = 'Boom Sentry',
-        text = {
-            'First card held',
-            'in hand gives {X:mult,C:white}X#1#{} Mult',
-            '{C:dark_edition}+#2#{} Joker Slot',
-            'Lasts {C:attention}#3#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 4, y = 25 },
+	pos = { x = 3, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        tower_info = { base = "Sentry", category = "support" },
         extra = { Xmult = 1.5, slots = 1, rounds = 3 } --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
     },
 
@@ -312,22 +178,8 @@ SMODS.Joker { --Boom Sentry
             if card.ability.extra.rounds <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
                         return true
                     end
                 }))
@@ -339,22 +191,13 @@ SMODS.Joker { --Boom Sentry
 SMODS.Joker { --Cold Sentry
     key = 'cold_sentry',
     name = 'Cold Sentry',
-	loc_txt = {
-        name = 'Cold Sentry',
-        text = {
-            '{C:attention}Freeze{} and retrigger',
-            '{C:attention}first{} card held in hand',
-            '{C:dark_edition}+#1#{} Joker Slot',
-            'Lasts {C:attention}#2#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 5, y = 25 },
+	pos = { x = 4, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        tower_info = { base = "Sentry", category = "support" },
         extra = { retrigger = 1, slots = 1, rounds = 3 } --Variables: retrigger = retrigger amount, slots = joker slots, rounds = rounds remaining
     },
 
@@ -372,8 +215,11 @@ SMODS.Joker { --Cold Sentry
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
-        if context.before and G.hand.cards[1] and not context.blueprint then
-            G.hand.cards[1]:set_ability('m_bloons_frozen', nil, true)
+        if context.before and not context.blueprint then
+            local frozen_card = G.hand.cards[1]
+            if frozen_card and not frozen_card.debuff then
+                frozen_card:set_ability('m_bloons_frozen', nil, true)
+            end
         elseif context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.other_card.debuff then
             return {
                 message = localize('k_again_ex'),
@@ -384,22 +230,8 @@ SMODS.Joker { --Cold Sentry
             if card.ability.extra.rounds <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
                         return true
                     end
                 }))
@@ -411,22 +243,13 @@ SMODS.Joker { --Cold Sentry
 SMODS.Joker { --Energy Sentry
     key = 'energy_sentry',
     name = 'Energy Sentry',
-	loc_txt = {
-        name = 'Energy Sentry',
-        text = {
-            '{C:chips}+#1#{} Chips',
-            '{C:mult}+#2#{} Mult',
-            '{C:dark_edition}+#3#{} Joker Slot',
-            'Lasts {C:attention}#4#{} rounds'
-        }
-    },
 	atlas = 'Joker',
-	pos = { x = 6, y = 25 },
+	pos = { x = 5, y = 25 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        base = 'other',
+        tower_info = { base = "Sentry", category = "support" },
         extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -453,26 +276,428 @@ SMODS.Joker { --Energy Sentry
             if card.ability.extra.rounds <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.consumeables:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        })) 
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
                         return true
                     end
                 }))
             end
         end
+    end
+}
+
+SMODS.Joker { --Champion Sentry
+    key = 'champion_sentry',
+    name = 'Champion Sentry',
+	atlas = 'Joker',
+	pos = { x = 6, y = 25 },
+    rarity = 3,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { Xmult = 1.25, slots = 1, rounds = 3, percent = 40, max = 20000 } --Variables: slots = joker slots, rounds = rounds remaining, 
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds, card.ability.extra.percent, card.ability.extra.max } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        elseif context.selling_self then
+            local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+            local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+            if mp then
+                score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
+            end
+            if not mp then
+                G.E_MANAGER:add_event(Event({
+                    trigger = "immediate",
+                    func = function()
+                        if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                            G.GAME.current_round.semicolon = true
+                            G.STATE = G.STATES.HAND_PLAYED
+                            G.STATE_COMPLETE = true
+                            end_round()
+                            return true
+                        end
+                        return false
+                    end,
+                }), "other")
+            end
+            return {
+                score = score,
+                sound = 'bloons_sentryexplode',
+                volume = 0.5
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds - 1
+            if card.ability.extra.rounds <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        card:remove()
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Mega Green Sentry
+    key = 'mega_green_sentry',
+    name = 'Mega Green Sentry',
+	atlas = 'Joker',
+	pos = { x = 7, y = 25 },
+    rarity = 4,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { slots = 1, Xmult = 2, poker_hand = 'Straight', percent = 40, max = 40000 } --Variables: slots = joker slots,
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.slots,
+                card.ability.extra.Xmult,
+                localize(card.ability.extra.poker_hand, 'poker_hands'),
+                card.ability.extra.percent,
+                card.ability.extra.max
+            }
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
+        end
+        G.GAME.chips = G.GAME.chips + score
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('bloons_sentryexplode', 1, 0.5)
+                delay(0.1)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips,
+            delay = 0.5,
+            func = function(t)
+                return math.floor(t)
+            end
+        }))
+        if not mp then
+            G.E_MANAGER:add_event(Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }), "other")
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Mega Red Sentry
+    key = 'mega_red_sentry',
+    name = 'Mega Red Sentry',
+	atlas = 'Joker',
+	pos = { x = 8, y = 25 },
+    rarity = 4,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { slots = 1, Xmult = 2, poker_hand = 'Flush', percent = 40, max = 40000 } --Variables: slots = joker slots
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.slots,
+                card.ability.extra.Xmult,
+                localize(card.ability.extra.poker_hand, 'poker_hands'),
+                card.ability.extra.percent,
+                card.ability.extra.max
+            }
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
+        end
+        G.GAME.chips = G.GAME.chips + score
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('bloons_sentryexplode', 1, 0.5)
+                delay(0.1)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips,
+            delay = 0.5,
+            func = function(t)
+                return math.floor(t)
+            end
+        }))
+        if not mp then
+            G.E_MANAGER:add_event(Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }), "other")
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.poker_hands and next(context.poker_hands[card.ability.extra.poker_hand]) then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Mega Blue Sentry
+    key = 'mega_blue_sentry',
+    name = 'Mega Blue Sentry',
+	atlas = 'Joker',
+	pos = { x = 9, y = 25 },
+    rarity = 4,
+	cost = 1,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Sentry", category = "support" },
+        extra = { slots = 1, Xmult = 2, percent = 40, max = 40000 } --Variables: slots = joker slots,
+    },
+
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.slots,
+                card.ability.extra.Xmult,
+                card.ability.extra.percent,
+                card.ability.extra.max
+            }
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
+            score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
+        end
+        G.GAME.chips = G.GAME.chips + score
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('bloons_sentryexplode', 1, 0.5)
+                delay(0.1)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips,
+            delay = 0.5,
+            func = function(t)
+                return math.floor(t)
+            end
+        }))
+        if not mp then
+            G.E_MANAGER:add_event(Event({
+                trigger = "immediate",
+                func = function()
+                    if G.GAME.chips/G.GAME.blind.chips >= to_big(1) and G.STATE == G.STATES.SELECTING_HAND then
+                        G.GAME.current_round.semicolon = true
+                        G.STATE = G.STATES.HAND_PLAYED
+                        G.STATE_COMPLETE = true
+                        end_round()
+                        return true
+                    end
+                    return false
+                end,
+            }), "other")
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.blind.boss then
+            return {
+                x_mult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Bloonprint
+    key = 'bloonprint',
+    name = 'Bloonprint',
+	atlas = 'Joker',
+	pos = { x = 14, y = 25 },
+    rarity = 3,
+	cost = 10,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Bloonprint", category = "misc" },
+        extra = { current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
+    },
+
+    loc_vars = function(self, info_queue, card)
+        if card.area and card.area == G.jokers then
+			local other_joker = G.jokers.cards[card.ability.extra.current]
+			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+			main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
+            }
+		end
+        return { vars = { card.ability.extra.current }, main_end = main_end }
+    end,
+    calculate = function(self, card, context)
+        if context.blind_defeated and not context.blueprint then
+            card.ability.extra.current = pseudorandom('bloonprint'..G.GAME.round_resets.ante, 1, #G.jokers.cards)
+        end
+        return SMODS.blueprint_effect(card, G.jokers.cards[card.ability.extra.current], context)
+    end
+}
+
+SMODS.Joker { --Card Storm
+    key = 'card_storm',
+    name = 'Card Storm',
+	atlas = 'Joker',
+	pos = { x = 15, y = 25 },
+    rarity = 3,
+	cost = 10,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Card Storm", category = "misc" },
+        extra = { current = 1 } --Variables: current = current retrigger position, blueprint_compat = blueprint copyable
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local function process_var(pos)
+			if pos == 1 then
+				return 'rightmost'
+            end
+			return 'leftmost'
+		end
+        if card.area and card.area == G.jokers then
+            local other_joker = nil
+            if card.ability.extra.current == 1 then
+                other_joker = G.jokers.cards[#G.jokers.cards]
+            else
+                other_joker = G.jokers.cards[1]
+            end
+            local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+            main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
+            }
+        end
+        return { vars = { process_var(card.ability.extra.current) }, main_end = main_end }
+    end,
+    calculate = function(self, card, context)
+        if context.blind_defeated and not context.blueprint then
+            card.ability.extra.current = pseudorandom('card_storm'..G.GAME.round_resets.ante) > 0.5 and 1 or -1
+        end
+        local other_joker = nil
+        if card.ability.extra.current == 1 then
+            other_joker = G.jokers.cards[#G.jokers.cards]
+        else
+            other_joker = G.jokers.cards[1]
+        end
+        return SMODS.blueprint_effect(card, other_joker, context)
     end
 }
