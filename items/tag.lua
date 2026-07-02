@@ -22,9 +22,6 @@ SMODS.Tag {
 	in_pool = function (self, args)
 		return G.GAME.stake >= 4
 	end,
-	in_pool = function (self, args)
-		return G.GAME.stake >= 4
-	end,
     apply = function(self, tag, context)
         if context.type == 'immediate' then
 			local lock = tag.ID
