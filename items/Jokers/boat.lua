@@ -224,10 +224,20 @@ SMODS.Joker { --Carrier Flagship
         return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.joker_main then
