@@ -48,13 +48,16 @@ return {
             j_bloons_nautic_siege_core = {
                 name = 'Nautic Siege Core',
                 text = {
-                    '{X:mult,C:white}X#2#{} Mult',
+                    '{X:mult,C:white}X#1#{} Mult',
                     'Submerge to change effect{}',
                 },
-                submerged_text = {
-                    '{C:green}Rerolls{} cost {C:money}$#3#{} less',
-                    'Keep submerged for {C:attention}#4#{C:inactive} (#5#){}',
-                    'consecutive hands to give {X:mult,C:white}X#6#{} Mult',
+            },
+            j_bloons_nautic_siege_core_submerged = {
+                name = 'Nautic Siege Core',
+                text = {
+                    '{C:green}Rerolls{} cost {C:money}$#1#{} less',
+                    'Keep submerged for {C:attention}#2#{C:inactive} (#3#){}',
+                    'consecutive hands to give {X:mult,C:white}X#4#{} Mult',
                     'next hand once unsubmerged',
                     'Unsubmerge to change effect',
                 }

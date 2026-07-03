@@ -224,7 +224,15 @@ SMODS.Joker { --Nautic Siege Core
         button = { text = "SUB", colour = G.C.BLUE }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.submerged, card.ability.extra.Xmult, card.ability.extra.money, card.ability.extra.hands, card.ability.extra.charge, card.ability.extra.Xmult_nuke } }
+        local submerged = card.ability.extra.submerged
+        return { key = submerged and 'j_bloons_nautic_siege_core_submerged' or 'j_bloons_nautic_siege_core',
+            vars = {
+                submerged and card.ability.extra.money or card.ability.extra.Xmult,
+                card.ability.extra.hands,
+                card.ability.extra.charge,
+                card.ability.extra.Xmult_nuke
+            }
+        }
     end,
 
     can_use = function(card)

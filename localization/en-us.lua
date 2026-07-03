@@ -548,6 +548,16 @@ return {
                     '{s:0.8,C:inactive}Corvus power{}'
                 }
             },
+            c_bloons_dark_ritual_geraldo = {
+                name = 'Dark Ritual',
+                text = {
+                    'Retrigger all played',
+                    'cards next hand and',
+                    'create {C:attention}#1#{} {C:spectral}Spectral{} card',
+                    'after cards are scored',
+                    '{s:0.8,C:inactive}Corvus power{}'
+                }
+            },
             c_bloons_flight_boost = {
                 name = 'Flight Boost',
                 text = {

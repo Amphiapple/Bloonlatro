@@ -1454,58 +1454,6 @@ SMODS.Consumable { --Restock
             end
         end
         delay(0.6)
-    end,
-    calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and card.ability.active then
-            return {
-                message = localize('k_again_ex'),
-                repetitions = card.ability.retrigger
-            }
-        elseif context.individual and context.cardarea == G.play and card.ability.active and G.GAME.corvus_mana then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.corvus_mana.current_mana = G.GAME.corvus_mana.current_mana + card.ability.mana
-                    return true
-                end
-            }))
-        elseif context.joker_main and card.ability.active and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not G.GAME.corvus_mana then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                    local spectral = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil, 'dark_ritual')
-                    spectral:add_to_deck()
-                    G.consumeables:emplace(spectral)
-                    G.GAME.consumeable_buffer = 0
-                    return true
-                end)
-            }))
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
-        elseif context.after and card.ability.active then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.3,
-                        blockable = false,
-                        func = function()
-                            G.consumeables:remove_card(card)
-                            card:remove()
-                            card = nil
-                            return true;
-                        end
-                    }))
-                    return true
-                end
-            }))
-            delay(0.5)
-        end
     end
 }
 
@@ -1521,7 +1469,15 @@ SMODS.Consumable { --Dark Ritual
         return G.GAME.selected_back.name == 'Corvus Deck' or G.GAME.selected_back.name == 'Geraldo Deck'
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.retrigger, card.ability.mana } }
+        local geraldo = self.is_geraldo_deck()
+
+        return {
+            key = geraldo and "c_bloons_dark_ritual_geraldo" or "c_bloons_dark_ritual",
+            vars = {
+                geraldo and card.ability.spectral or card.ability.retrigger,
+                not geraldo and card.ability.mana
+            }
+        }
     end,
     can_use = function(self, card)
         return G.GAME.blind and to_big(G.GAME.blind.chips) > to_big(0) and not card.ability.active
@@ -1542,20 +1498,30 @@ SMODS.Consumable { --Dark Ritual
             juice_card_until(G.GAME.activated_card, eval, true)
         end
     end,
+
+    is_geraldo_deck = function()
+        local deck = G.GAME and G.GAME.selected_back
+        local deck_key = deck and deck.effect and deck.effect.center and deck.effect.center.original_key
+
+        if not deck or not deck_key then return false end
+
+        return deck_key == "geraldo"
+    end,
+
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and card.ability.active then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.retrigger
             }
-        elseif context.individual and context.cardarea == G.play and card.ability.active and G.GAME.corvus_mana then
+        elseif context.individual and context.cardarea == G.play and card.ability.active and G.GAME.corvus_mana and not self.is_geraldo_deck() then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.GAME.corvus_mana.current_mana = G.GAME.corvus_mana.current_mana + card.ability.mana
                     return true
                 end
             }))
-        elseif context.joker_main and card.ability.active and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not G.GAME.corvus_mana then
+        elseif context.joker_main and card.ability.active and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and self.is_geraldo_deck() then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
