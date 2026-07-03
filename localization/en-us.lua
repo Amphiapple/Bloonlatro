@@ -153,8 +153,8 @@ return {
             bl_bloons_final_bfb = {
                 name = 'Brutal Behemoth',
                 text = {
-                    'Disable the rightmost',
-                    'Joker per hand played',
+                    'Disable rightmost Jokers',
+                    'equal to hands played'
                 }
             },
             bl_bloons_final_ddt = {
