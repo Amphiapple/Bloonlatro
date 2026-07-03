@@ -412,6 +412,14 @@ SMODS.Joker { --Supply Drop
                         return true
                     end}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end
+                }))
                 return {
                     dollars = card.ability.extra.money,
                     colour = G.C.MONEY
@@ -470,6 +478,14 @@ SMODS.Joker { --Elite Sniper
                     end
                 }))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = '+1 Power', colour = G.C.YELLOW})
+
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end
+                }))
                 return {
                     dollars = card.ability.extra.money,
                     colour = G.C.MONEY

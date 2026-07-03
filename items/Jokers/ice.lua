@@ -108,6 +108,13 @@ SMODS.Joker { --Cold Snap
         if context.after then
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.name == 'Frozen Card' and not v.debuff then
+                    G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
                     ease_dollars(card.ability.extra.money)
                     card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.money,colour = G.C.MONEY, delay = 0.45})
                 end

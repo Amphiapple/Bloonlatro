@@ -16,9 +16,14 @@ SMODS.Joker { --Monkey Buccaneer
     end,
     calculate = function(self, card, context)
         if context.before then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end
@@ -43,9 +48,14 @@ SMODS.Joker { --Faster Shooting
     end,
     calculate = function(self, card, context)
         if context.before and SMODS.pseudorandom_probability(card, 'faster_shooting_buccaneer', card.ability.extra.num, card.ability.extra.denom, 'faster_shooting_buccaneer') then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end
@@ -83,15 +93,13 @@ SMODS.Joker { --Double Shot
             for k, v in pairs(card.ability.extra.pairs) do
                 if context.other_card == v then
                     G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            G.GAME.dollar_buffer = 0;
-                            return true
-                        end)
-                    }))
                     return {
                         dollars = card.ability.extra.money,
-                        colour = G.C.MONEY
+                        colour = G.C.MONEY,
+                        func = (function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end)
                     }
                 end
             end
@@ -134,11 +142,11 @@ SMODS.Joker { --Destroyer
                 sliced_card.getting_sliced = true
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({func = function()
-                    G.GAME.joker_buffer = 0
                     card.ability.extra.active = true
                     card:juice_up(0.8, 0.8)
                     sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
                     play_sound('slice1', 0.96+math.random()*0.08)
+                    G.GAME.joker_buffer = 0
                 return true end }))
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}}, colour = G.C.RED, no_juice = true})
             end
@@ -224,17 +232,25 @@ SMODS.Joker { --Carrier Flagship
         return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+                G.GAME.joker_slot_buffer = 0
                 return true
             end
         }))
     end,
     remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+                G.GAME.joker_slot_buffer = 0
                 return true
             end
         }))
@@ -343,10 +359,12 @@ SMODS.Joker { --Hot Shot
     calculate = function(self, card, context)
         if context.starting_shop and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'hot_shot', card.ability.extra.num, card.ability.extra.denom, 'hot_shot') then
+                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         SMODS.destroy_cards(card, nil, nil, true)
                         card:remove()
+                        G.GAME.joker_buffer = 0
                         return true
                     end
                 }))
@@ -493,9 +511,14 @@ SMODS.Joker { --Long Range
     end,
     calculate = function(self, card, context)
         if context.discard and context.other_card == context.full_hand[#context.full_hand] then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end
@@ -519,9 +542,14 @@ SMODS.Joker { --Crow's Nest
     end,
     calculate = function(self, card, context)
         if context.discard and #context.full_hand == 1 and context.other_card == context.full_hand[1] then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end

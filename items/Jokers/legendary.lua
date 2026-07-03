@@ -325,8 +325,13 @@ SMODS.Joker { --Navarch of the Seas
                     ref_table[ref_value] = initial + count
                 end,
             })
-            return{
-                dollars = card.ability.extra.money * count
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money * count
+            return {
+                dollars = card.ability.extra.money * count,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         elseif context.joker_main then
             for i = 1, card.ability.extra.planes do
@@ -393,8 +398,17 @@ SMODS.Joker { --Goliath Doomship
         end
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
             if context.cardarea == G.play then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
-                    p_dollars = card.ability.extra.money
+                    p_dollars = card.ability.extra.money,
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                G.GAME.dollar_buffer = 0
+                                return true
+                            end
+                        }))
+                    end
                 }
             end
         end
@@ -585,8 +599,13 @@ SMODS.Joker { --Root of All Nature
     end,
     calculate = function(self, card, context)
         if context.before then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
-                dollars = card.ability.extra.money
+                dollars = card.ability.extra.money,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         elseif context.joker_main and math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.rate) > 1 then
             return {
@@ -813,6 +832,7 @@ SMODS.Joker { --Vengeful True Sun God
             end
         end
         local _first_dissolve = nil
+        G.GAME.joker_buffer = G.GAME.joker_buffer - #deletable_jokers
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
             delay = 0.75,
@@ -820,6 +840,7 @@ SMODS.Joker { --Vengeful True Sun God
                 for k, v in pairs(deletable_jokers) do
                     v:start_dissolve(nil, _first_dissolve)
                 end
+                G.GAME.joker_buffer = 0
                 return true
             end
         }))

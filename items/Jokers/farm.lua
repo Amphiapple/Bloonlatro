@@ -231,6 +231,7 @@ SMODS.Joker { --Long Life Bananas
             if SMODS.pseudorandom_probability(card, 'long_life_bananas', card.ability.extra.num, card.ability.extra.denom, 'long_life_bananas') then
                 card.ability.extra.bananas = card.ability.extra.bananas - 1
                 if card.ability.extra.bananas <= 0 then
+                    G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
@@ -246,6 +247,7 @@ SMODS.Joker { --Long Life Bananas
                                     G.jokers:remove_card(card)
                                     card:remove()
                                     card = nil
+                                    G.GAME.joker_buffer = 0
                                     return true;
                                 end
                             })) 
@@ -253,9 +255,14 @@ SMODS.Joker { --Long Life Bananas
                         end
                     }))
                 end
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
                     dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             else
                 return {
@@ -311,9 +318,14 @@ SMODS.Joker { --Valuable Bananas
                         end
                     }))
                 end
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
                     dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             else
                 return {
@@ -359,6 +371,7 @@ SMODS.Joker { --Monkey Bank
                 }
             end
         elseif context.selling_self and to_big(card.sell_cost) >= to_big(card.ability.extra.sell_limit) and not context.blueprint then
+            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local card = create_card('j_bloons_monkey_bank', G.jokers, nil, nil, nil, nil, 'j_bloons_monkey_bank', 'monkey_bank')

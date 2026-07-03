@@ -196,6 +196,8 @@ SMODS.Joker { --Sun Temple
         end
         card.ability.extra.sacrificed = true
         local _first_dissolve = nil
+
+        G.GAME.joker_buffer = G.GAME.joker_buffer - #deletable_jokers
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
             delay = 0.75,
@@ -203,6 +205,7 @@ SMODS.Joker { --Sun Temple
                 for k, v in pairs(deletable_jokers) do
                     v:start_dissolve(nil, _first_dissolve)
                 end
+                G.GAME.joker_buffer = 0
                 return true
             end
         }))
@@ -351,6 +354,8 @@ SMODS.Joker { --True Sun God
         end
         card.ability.extra.sacrificed = true
         local _first_dissolve = nil
+
+        G.GAME.joker_buffer = G.GAME.joker_buffer - #deletable_jokers
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
             delay = 0.75,
@@ -358,6 +363,7 @@ SMODS.Joker { --True Sun God
                 for k, v in pairs(deletable_jokers) do
                     v:start_dissolve(nil, _first_dissolve)
                 end
+                G.GAME.joker_buffer = 0
                 return true
             end
         }))
@@ -622,13 +628,30 @@ SMODS.Joker { --Ultravision
         return { vars = { card.ability.extra.slots, card.ability.extra.discards } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer or 0
 
-        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer + card.ability.extra.slots
+        G.consumeables.config.card_limit = G.GAME.consumeable_slot_buffer + G.consumeables.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer - card.ability.extra.slots
+                return true
+            end
+        }))
+
         ease_discard(card.ability.extra.discards)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer or 0
+
+        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer - card.ability.extra.slots
+        G.consumeables.config.card_limit = G.GAME.consumeable_slot_buffer + G.consumeables.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer + card.ability.extra.slots
+                return true
+            end
+        }))
 
         G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
 

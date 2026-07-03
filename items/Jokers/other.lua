@@ -20,10 +20,28 @@ SMODS.Joker { --Marine
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.hands } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -65,10 +83,28 @@ SMODS.Joker { --Sentry
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -111,10 +147,28 @@ SMODS.Joker { --Crushing Sentry
         return { vars = { card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
@@ -156,10 +210,28 @@ SMODS.Joker { --Boom Sentry
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.end_of_round then
@@ -209,10 +281,28 @@ SMODS.Joker { --Cold Sentry
         return { vars = { card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -260,10 +350,28 @@ SMODS.Joker { --Energy Sentry
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -306,10 +414,28 @@ SMODS.Joker { --Champion Sentry
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds, card.ability.extra.percent, card.ability.extra.max } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -385,10 +511,29 @@ SMODS.Joker { --Mega Green Sentry
         }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
+
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
         local mp = G.GAME.blind.name == 'bl_mp_nemesis'
         if mp then
@@ -466,10 +611,29 @@ SMODS.Joker { --Mega Red Sentry
         }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
+
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
         local mp = G.GAME.blind.name == 'bl_mp_nemesis'
         if mp then
@@ -546,10 +710,29 @@ SMODS.Joker { --Mega Blue Sentry
         }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+
+        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_slot_buffer = 0
+                return true
+            end
+        }))
+
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
         local mp = G.GAME.blind.name == 'bl_mp_nemesis'
         if mp then
