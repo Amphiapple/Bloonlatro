@@ -137,18 +137,12 @@ SMODS.Joker { --Sun Temple
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             elseif pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             end
@@ -168,27 +162,13 @@ SMODS.Joker { --Sun Temple
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
             if pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
         end
         if sac_value > 0 then
@@ -290,18 +270,12 @@ SMODS.Joker { --True Sun God
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             elseif pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             end
@@ -326,27 +300,13 @@ SMODS.Joker { --True Sun God
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
             if pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
         end
         if sac_value > 0 then

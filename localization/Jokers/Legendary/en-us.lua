@@ -130,9 +130,28 @@ return {
             j_bloons_vengeful_true_sun_god = {
                 name = 'Vengeful True Sun God',
                 text = {
-                    'Sacrifice {C:attention}ALL{} other {C:attention}Jokers{}',
+                    '{C:chips}+#1#{} chips, {C:mult}+#2#{} Mult and {X:mult,C:white}x#3#{} Mult',
+                    'Retrigger all played scoring cards {C:attention}#4#{} additional times',
+                    'Creates {C:attention}#5#{} {C:dark_edition}Negative{} consumeables at end of {C:attention}shop{}',
+                    '{C:money}+$#6#{} at end of round and shop items cost {C:money}$#7#{} less',
+                    '{C:inactive}(#8# #9# #10# #11#){}'
+                }
+            },
+            j_bloons_vengeful_true_sun_god_no_sacrifice = {
+                name = 'Vengeful True Sun God',
+                text = {
+                    'Sacrifice {C:attention}ALL{} other {C:primary}Primary{},',
+                    '{C:military}Military{}, {C:magic}Magic{} and {C:support}Support{} {C:attention}Towers{}',
                     'to the {C:legendary,E:1,s:1.1}Vengeful True Sun God{}',
-                    '{C:inactive}(#1# #2# #3# #4#){}'
+                }
+            },
+            j_bloons_vengeful_true_sun_god_collection = {
+                name = 'Vengeful True Sun God',
+                text = {
+                    'Requires {C:attention}2{} special sacrifices',
+                    'offered to the {C:attention}True Sun God{} to',
+                    'obtain the {C:legendary,E:1,s:1.1}Vengeful True Sun God{}',
+                    '{s:0.8,C:inactive}Cannot be created through The Soul{}'
                 }
             },
 		}

@@ -9,7 +9,7 @@ SMODS.Joker { --Marine
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Marine", category = "military" },
+        tower_info = { base = "Marine", category = "misc" },
         extra = { Xmult = 2, slots = 1, hands = 6 } --Variables: retrigger = retrigger amount, slots = joker slots, hands = hands remaining
     },
 
@@ -72,7 +72,7 @@ SMODS.Joker { --Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { chips = 20, mult = 2, slots = 1, rounds = 2 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -136,7 +136,7 @@ SMODS.Joker { --Crushing Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { mult = 4, slots = 1, rounds = 3 } --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
     },
 
@@ -199,7 +199,7 @@ SMODS.Joker { --Boom Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { Xmult = 1.5, slots = 1, rounds = 3 } --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
     },
 
@@ -269,7 +269,7 @@ SMODS.Joker { --Cold Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { retrigger = 1, slots = 1, rounds = 3 } --Variables: retrigger = retrigger amount, slots = joker slots, rounds = rounds remaining
     },
 
@@ -339,7 +339,7 @@ SMODS.Joker { --Energy Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -403,7 +403,7 @@ SMODS.Joker { --Champion Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { Xmult = 1.25, slots = 1, rounds = 3, percent = 40, max = 20000 } --Variables: slots = joker slots, rounds = rounds remaining, 
     },
 
@@ -492,7 +492,7 @@ SMODS.Joker { --Mega Green Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { slots = 1, Xmult = 2, poker_hand = 'Straight', percent = 40, max = 40000 } --Variables: slots = joker slots,
     },
 
@@ -592,7 +592,7 @@ SMODS.Joker { --Mega Red Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { slots = 1, Xmult = 2, poker_hand = 'Flush', percent = 40, max = 40000 } --Variables: slots = joker slots
     },
 
@@ -692,7 +692,7 @@ SMODS.Joker { --Mega Blue Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { slots = 1, Xmult = 2, percent = 40, max = 40000 } --Variables: slots = joker slots,
     },
 

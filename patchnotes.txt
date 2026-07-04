@@ -12,6 +12,10 @@ Other content:
 - Even more challenges to fill in the spaces that were previously taken by Boss Challenges
 
 General Changes:
+- Sentries and Marine are now a part of the miscellaneous category
+- Vengeful True Sun God now shows different text when viewed in collection, when obtained and after towers have been sacrificed to it
+- Dark ritual now shows different text when current deck is Geraldo Deck
+- Brutal Behemoth's description and effect have been changed to be more understandable
 - All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
 - Reworked Boss Challenges to be a separate menu
 - Improvements to compatibility with Balatro Multiplayer
@@ -105,6 +109,9 @@ Balance Changes:
 - Cost reduction minimum is now $0 instead of $1
 
 Fixes:
+- Jokers adding joker slots or consumable slots should now apply the correct amount when multiple are obtained/removed at the same time
+- Added buffers to relevant places, allowing some Jokers to update values correctly
+- Shimmer info queue should now show negative consumable rather than negative joker
 - Triple Shot Joker Display should no longer crash
 - Bloon Crush should no longer give Xmult regardless of if stunned cards are held or not
 - Frag Bombs Joker Display should work correctly
@@ -134,4 +141,4 @@ Fixes:
 - Ascended Shadow should remove its effect from cards correctly after being played
 - Mega Sentries explode quieter
 - Legendary Jokers should now have Joker Display
-- Meteor Cards should corectly appear if you have Crucible of Steel and Flame
+- Meteor Cards should correctly appear if you have Crucible of Steel and Flame
