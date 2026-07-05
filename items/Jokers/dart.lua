@@ -368,28 +368,18 @@ SMODS.Joker { --Enhanced Eyesight
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer or 0
+        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra or 0
+        G.GAME.consumeable_slot_base = G.GAME.consumeable_slot_base or G.consumeables.config.card_limit
 
-        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer + card.ability.extra.slots
-        G.consumeables.config.card_limit = G.GAME.consumeable_slot_buffer + G.consumeables.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra + card.ability.extra.slots
+        G.consumeables.config.card_limit = G.GAME.consumeable_slot_base + G.GAME.consumeable_slot_extra
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer or 0
+        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra or 0
+        G.GAME.consumeable_slot_base = G.GAME.consumeable_slot_base or G.consumeables.config.card_limit
 
-        G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer - card.ability.extra.slots
-        G.consumeables.config.card_limit = G.GAME.consumeable_slot_buffer + G.consumeables.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.consumeable_slot_buffer = G.GAME.consumeable_slot_buffer + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra - card.ability.extra.slots
+        G.consumeables.config.card_limit = G.GAME.consumeable_slot_base + G.GAME.consumeable_slot_extra
     end,
 }
 

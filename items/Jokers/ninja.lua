@@ -17,28 +17,19 @@ SMODS.Joker { --Ninja Monkey
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -68,28 +59,19 @@ SMODS.Joker { --Ninja Discipline
         return { vars = { card.ability.extra.chips, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -119,28 +101,19 @@ SMODS.Joker { --Sharp Shurikens
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -271,28 +244,19 @@ SMODS.Joker { --Distraction
         return { vars = { n, d, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'distraction', card.ability.extra.num, card.ability.extra.denom, 'distraction') then
@@ -323,28 +287,19 @@ SMODS.Joker { --Counter Espionage
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and not context.blueprint then
@@ -536,28 +491,19 @@ SMODS.Joker { --Caltrops
         return { vars = { card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.current } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and not context.blueprint then

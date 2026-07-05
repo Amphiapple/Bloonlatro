@@ -232,28 +232,19 @@ SMODS.Joker { --Carrier Flagship
         return { vars = { n, d, card.ability.extra.Xmult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer + card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer or 0
 
-        G.GAME.joker_slot_buffer = G.GAME.joker_slot_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.GAME.joker_slot_buffer + G.jokers.config.card_limit
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.joker_slot_buffer = 0
-                return true
-            end
-        }))
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.joker_main then
