@@ -446,21 +446,19 @@ SMODS.Joker { --Seeking Shuriken
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra + card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
+
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.joker_buffer = G.GAME.joker_buffer - card.ability.extra.slots
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                
-            end
-        }))
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra or 0
+        G.GAME.joker_slot_base = G.GAME.joker_slot_base or G.jokers.config.card_limit
+
+        G.GAME.joker_slot_extra = G.GAME.joker_slot_extra - card.ability.extra.slots
+        G.jokers.config.card_limit = G.GAME.joker_slot_base + G.GAME.joker_slot_extra
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and not context.other_card.debuff then
