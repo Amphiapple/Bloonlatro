@@ -368,18 +368,10 @@ SMODS.Joker { --Enhanced Eyesight
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra or 0
-        G.GAME.consumeable_slot_base = G.GAME.consumeable_slot_base or G.consumeables.config.card_limit
-
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra + card.ability.extra.slots
-        G.consumeables.config.card_limit = G.GAME.consumeable_slot_base + G.GAME.consumeable_slot_extra
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra or 0
-        G.GAME.consumeable_slot_base = G.GAME.consumeable_slot_base or G.consumeables.config.card_limit
-
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra - card.ability.extra.slots
-        G.consumeables.config.card_limit = G.GAME.consumeable_slot_base + G.GAME.consumeable_slot_extra
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod - card.ability.extra.slots
     end,
 }
 

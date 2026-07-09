@@ -588,20 +588,12 @@ SMODS.Joker { --Ultravision
         return { vars = { card.ability.extra.slots, card.ability.extra.discards } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra or 0
-        G.GAME.consumeable_slot_base = G.GAME.consumeable_slot_base or G.consumeables.config.card_limit
-
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra + card.ability.extra.slots
-        G.consumeables.config.card_limit = G.GAME.consumeable_slot_base + G.GAME.consumeable_slot_extra
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod + card.ability.extra.slots
 
         ease_discard(card.ability.extra.discards)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra or 0
-        G.GAME.consumeable_slot_base = G.GAME.consumeable_slot_base or G.consumeables.config.card_limit
-
-        G.GAME.consumeable_slot_extra = G.GAME.consumeable_slot_extra - card.ability.extra.slots
-        G.consumeables.config.card_limit = G.GAME.consumeable_slot_base + G.GAME.consumeable_slot_extra
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod - card.ability.extra.slots
 
         G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
 
