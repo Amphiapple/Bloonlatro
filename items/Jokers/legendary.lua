@@ -125,6 +125,7 @@ SMODS.Joker { --Crucible of Steel and Flame
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_meteor
         return { vars = { card.ability.extra.number } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -169,6 +170,7 @@ SMODS.Joker { --Herald of Everfrost
     },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_frozen
         return { vars = { card.ability.extra.number, 100 - card.ability.extra.percent, card.ability.extra.hands, card.ability.extra.counter } }
     end,
     calculate = function(self, card, context)
@@ -925,11 +927,11 @@ SMODS.Joker { --Vengeful True Sun God
             for i = 1, card.ability.extra.consumables do
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local card = create_card('Consumeables', G.consumeables, nil, nil, nil, nil, nil,
+                        local consumable = create_card('Consumeables', G.consumeables, nil, nil, nil, nil, nil,
                             'vengeful_true_sun_god')
-                        card:set_edition({ negative = true }, true)
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
+                        consumable:set_edition({ negative = true }, true)
+                        consumable:add_to_deck()
+                        G.consumeables:emplace(consumable)
                         return true
                     end
                 }))

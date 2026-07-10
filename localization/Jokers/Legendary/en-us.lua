@@ -132,7 +132,7 @@ return {
                 text = {
                     '{C:chips}+#1#{} chips, {C:mult}+#2#{} Mult and {X:mult,C:white}x#3#{} Mult',
                     'Retrigger all played scoring cards {C:attention}#4#{} additional times',
-                    'Creates {C:attention}#5#{} {C:dark_edition}Negative{} consumeables at end of {C:attention}shop{}',
+                    'Creates {C:attention}#5#{} {C:dark_edition}Negative{} consumables at end of {C:attention}shop{}',
                     '{C:money}+$#6#{} at end of round and shop items cost {C:money}$#7#{} less',
                     '{C:inactive}(#8# #9# #10# #11#){}'
                 }
