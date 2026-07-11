@@ -129,7 +129,7 @@ return {
 				text = {
 					'This joker gains {C:mult}+#1#{} Mult',
 					'per discarded {V:1}#2#{}',
-					'{C:mult}-#3#{} Mult at end of round',
+					'{C:mult}-#3#{} Mult each hand',
 					'{s:0.8}Suit changes every round{}',
 					'{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)',
 				}
