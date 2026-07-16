@@ -310,12 +310,12 @@ SMODS.Joker { --Unstable Concoction
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        G.GAME.joker_buffer = 0
                         local seal = SMODS.poll_seal({type_key = 'unstable_concoction', guaranteed = true})
                         context.full_hand[1]:set_seal(seal, nil, true)
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
                         play_sound('tarot2', 0.96+math.random()*0.08)
+                        G.GAME.joker_buffer = 0
                         return true
                     end
                 }))
@@ -590,22 +590,26 @@ SMODS.Joker { --Bloon Master Alchemist
             for k, v in ipairs(context.scoring_hand) do
                 v:set_seal(SMODS.poll_seal({type_key = 'bloon_master_alchemist', guaranteed = true}), nil, true)
             end
+
             G.GAME.dollar_buffer = G.GAME.dollar_buffer or 0
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    G.GAME.dollar_buffer = 0
-                    return true
-                end
-            }))
-            return {
-                dollars = -G.GAME.dollars,
-                func = function()
-                    G.GAME.dollar_buffer = G.GAME.dollar_buffer - G.GAME.dollars
-                    return true
-                end,
-                colour = G.C.MONEY
-            }
+            if G.GAME.dollars + G.GAME.dollar_buffer ~= 0 then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end
+                }))
+                return {
+                    dollars = -G.GAME.dollars,
+                    func = function()
+                        G.GAME.dollar_buffer = G.GAME.dollar_buffer - G.GAME.dollars
+                        return true
+                    end,
+                    colour = G.C.MONEY
+                }
+            end
         end
     end
 }

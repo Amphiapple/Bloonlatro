@@ -137,18 +137,12 @@ SMODS.Joker { --Sun Temple
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             elseif pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             end
@@ -168,27 +162,13 @@ SMODS.Joker { --Sun Temple
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
             if pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" and joker.ability.tower_info.category ~= "misc" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
         end
         if sac_value > 0 then
@@ -196,6 +176,8 @@ SMODS.Joker { --Sun Temple
         end
         card.ability.extra.sacrificed = true
         local _first_dissolve = nil
+
+        G.GAME.joker_buffer = G.GAME.joker_buffer - #deletable_jokers
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
             delay = 0.75,
@@ -203,6 +185,7 @@ SMODS.Joker { --Sun Temple
                 for k, v in pairs(deletable_jokers) do
                     v:start_dissolve(nil, _first_dissolve)
                 end
+                G.GAME.joker_buffer = 0
                 return true
             end
         }))
@@ -287,18 +270,12 @@ SMODS.Joker { --True Sun God
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             elseif pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                local tower = joker.ability and joker.ability.tower_info
-                local base = tower and tower.base
-                local valid_base = not tower or base ~= "Sentry" and base ~= "Marine"
-                if valid_base then
+                if joker then
                     has_valid_target = true
                 end
             end
@@ -323,27 +300,13 @@ SMODS.Joker { --True Sun God
         if pos then
             if pos > 1 then
                 local joker = G.jokers.cards[pos - 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
             if pos < #G.jokers.cards then
                 local joker = G.jokers.cards[pos + 1]
-                if joker.ability.tower_info and joker.ability.tower_info.base and joker.ability.tower_info.category then
-                    if joker.ability.tower_info.base ~= "Sentry" and joker.ability.tower_info.base ~= "Marine" then
-                        sac_value = sac_value + joker.base_cost
-                        deletable_jokers[#deletable_jokers + 1] = joker
-                    end
-                elseif not joker.ability.tower_info then
-                    sac_value = sac_value + joker.base_cost
-                    deletable_jokers[#deletable_jokers + 1] = joker
-                end
+                sac_value = sac_value + joker.base_cost
+                deletable_jokers[#deletable_jokers + 1] = joker
             end
         end
         if sac_value > 0 then
@@ -351,6 +314,8 @@ SMODS.Joker { --True Sun God
         end
         card.ability.extra.sacrificed = true
         local _first_dissolve = nil
+
+        G.GAME.joker_buffer = G.GAME.joker_buffer - #deletable_jokers
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
             delay = 0.75,
@@ -358,6 +323,7 @@ SMODS.Joker { --True Sun God
                 for k, v in pairs(deletable_jokers) do
                     v:start_dissolve(nil, _first_dissolve)
                 end
+                G.GAME.joker_buffer = 0
                 return true
             end
         }))
@@ -622,13 +588,12 @@ SMODS.Joker { --Ultravision
         return { vars = { card.ability.extra.slots, card.ability.extra.discards } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod + card.ability.extra.slots
 
-        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
         ease_discard(card.ability.extra.discards)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod - card.ability.extra.slots
 
         G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
 
@@ -709,6 +674,7 @@ SMODS.Joker { --Legend of the Night
     },
 
     loc_vars =function (self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'e_negative_consumable', set = 'Edition', config = { extra = 1 } }
         info_queue[#info_queue+1] = G.P_CENTERS.c_black_hole
     end,
     calculate = function(self, card, context)

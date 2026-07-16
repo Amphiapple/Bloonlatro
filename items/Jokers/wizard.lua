@@ -432,7 +432,7 @@ SMODS.Joker { --Shimmer
     },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
+        info_queue[#info_queue + 1] = { key = 'e_negative_consumable', set = 'Edition', config = { extra = 1 } }
         info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
         local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'shimmer')
         return { vars = { n, d } }
@@ -515,12 +515,13 @@ SMODS.Joker { --Prince of Darkness
                 if G.jokers.cards[i] == card then my_pos = i; break end
             end
             if my_pos and G.jokers.cards[my_pos+1] and not SMODS.is_eternal(G.jokers.cards[my_pos+1], self) and not G.jokers.cards[my_pos+1].getting_sliced then
+                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+
                 local sliced_card = G.jokers.cards[my_pos+1]
                 sliced_card.getting_sliced = true
-                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+
                 G.E_MANAGER:add_event(Event(
                     {func = function()
-                        G.GAME.joker_buffer = 0
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
                         play_sound('tarot2', 0.96+math.random()*0.08)
@@ -535,6 +536,8 @@ SMODS.Joker { --Prince of Darkness
                         card:add_to_deck()
                         G.jokers:emplace(card)
                         card:start_materialize()
+
+                        G.GAME.joker_buffer = 0
                         return true
                     end
                 }))

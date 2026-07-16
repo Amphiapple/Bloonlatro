@@ -287,9 +287,14 @@ SMODS.Joker { --Heart of Oak
     end,
     calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == 'Planet' then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end
@@ -343,9 +348,16 @@ SMODS.Joker { --Jungle's Bounty
         for k, v in ipairs(G.consumeables.cards) do
             if v.ability.set == 'Planet' then
                 count = count + 1
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                 v:start_dissolve({G.C.RED}, nil)
             end
         end
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.consumeable_buffer = 0
+                return true
+            end
+        }))
         return card.ability.extra.money * count
     end
 }

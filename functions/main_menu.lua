@@ -128,9 +128,7 @@ function Bloonlatro.main_menu()
 
     create_bloonlatro_logo(MAX_LOGO_POS_X)
 
-    local card = create_bloonlatro_boss_button('main_menu')
-
-    local ui = UIBox {
+    local boss_ui = UIBox {
         definition = {
             n = G.UIT.ROOT,
             config = {
@@ -138,15 +136,33 @@ function Bloonlatro.main_menu()
                 colour = G.C.CLEAR
             },
             nodes = {
-                {
-                    n = G.UIT.O,
-                    config = { object = card }
-                }
+                { n = G.UIT.O, config = { object = create_bloonlatro_boss_button() } }
             }
         },
         config = {
             align = "cri",
             offset = { x = 10, y = -3.3 },
+            major = G.ROOM_ATTACH,
+            bond = "Weak"
+        }
+    }
+
+    G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial = false
+
+    local tutorial_ui = UIBox {
+        definition = {
+            n = G.UIT.ROOT,
+            config = {
+                align = "cm",
+                colour = G.C.CLEAR
+            },
+            nodes = {
+                { n = G.UIT.O, config = { object = create_bloonlatro_tutorial_button() } }
+            }
+        },
+        config = {
+            align = "cri",
+            offset = { x = 10, y = -1.3 },
             major = G.ROOM_ATTACH,
             bond = "Weak"
         }
@@ -158,9 +174,14 @@ function Bloonlatro.main_menu()
         blockable = false,
         blocking = false,
         func = function()
-            if ui and ui.alignment then
-                ui.alignment.offset.x = 0
-                ui:align_to_major()
+            if boss_ui and boss_ui.alignment then
+                boss_ui.alignment.offset.x = 0
+                boss_ui:align_to_major()
+            end
+
+            if tutorial_ui and tutorial_ui.alignment then
+                tutorial_ui.alignment.offset.x = 0
+                tutorial_ui:align_to_major()
             end
 
             return true

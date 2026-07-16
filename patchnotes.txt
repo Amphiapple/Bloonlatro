@@ -1,8 +1,14 @@
 General Changes:
-- 
+- Sentries and Marine are now a part of the miscellaneous category
+- Vengeful True Sun God now shows different text when viewed in collection, when obtained and after towers have been sacrificed to it
+- Dark ritual now shows different text when current deck is Geraldo Deck
+- Brutal Behemoth's description and effect have been changed to be more understandable
 
 Balance Changes:
 - 
 
 Fixes:
+- Jokers adding joker slots or consumable slots should now apply the correct amount when multiple are obtained/removed at the same time
+- Added buffers to relevant places, allowing some Jokers to update values correctly
+- Shimmer info queue should now show negative consumable rather than negative joker
 - Deadly Spikes text should say each hand instead of end of round

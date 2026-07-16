@@ -12,25 +12,14 @@ SMODS.Joker { --Ninja Monkey
         tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { mult = 4, slots = 1 } --Variables: mult = +mult, slots = extra joker slots
     },
-
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -60,20 +49,10 @@ SMODS.Joker { --Ninja Discipline
         return { vars = { card.ability.extra.chips, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -103,20 +82,10 @@ SMODS.Joker { --Sharp Shurikens
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -247,20 +216,10 @@ SMODS.Joker { --Distraction
         return { vars = { n, d, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and SMODS.pseudorandom_probability(card, 'distraction', card.ability.extra.num, card.ability.extra.denom, 'distraction') then
@@ -291,20 +250,10 @@ SMODS.Joker { --Counter Espionage
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and not context.blueprint then
@@ -451,20 +400,10 @@ SMODS.Joker { --Seeking Shuriken
         return { vars = { card.ability.extra.mult, card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[1] and not context.other_card.debuff then
@@ -495,20 +434,10 @@ SMODS.Joker { --Caltrops
         return { vars = { card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.current } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-                return true
-            end
-        }))
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and not context.blueprint then

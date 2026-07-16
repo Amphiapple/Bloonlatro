@@ -369,10 +369,10 @@ SMODS.Joker { --Support Chinook
         return { vars = { card.ability.extra.slots, card.ability.extra.hands } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not context.getting_sliced then

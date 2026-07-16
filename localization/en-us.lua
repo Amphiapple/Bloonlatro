@@ -153,8 +153,8 @@ return {
             bl_bloons_final_bfb = {
                 name = 'Brutal Behemoth',
                 text = {
-                    'Disable the rightmost',
-                    'Joker per hand played',
+                    'Disable rightmost Jokers',
+                    'equal to hands played'
                 }
             },
             bl_bloons_final_ddt = {
@@ -545,6 +545,16 @@ return {
                     'cards next hand and',
                     'gain {C:attention}#1#{} extra mana',
                     'per card scored',
+                    '{s:0.8,C:inactive}Corvus power{}'
+                }
+            },
+            c_bloons_dark_ritual_geraldo = {
+                name = 'Dark Ritual',
+                text = {
+                    'Retrigger all played',
+                    'cards next hand and',
+                    'create {C:attention}#1#{} {C:spectral}Spectral{} card',
+                    'after cards are scored',
                     '{s:0.8,C:inactive}Corvus power{}'
                 }
             },

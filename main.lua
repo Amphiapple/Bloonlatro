@@ -32,6 +32,7 @@ local functions = {
     'joker_buttons',
     'main_menu',
     'boss',
+    'tutorial',
 
     --Crossmod files
     'talisman',

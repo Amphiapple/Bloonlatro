@@ -17,14 +17,24 @@ SMODS.Joker { --Engineer Monkey
     calculate = function(self, card, context)
 		if context.before and context.poker_hands then
             if next(context.poker_hands['Straight Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money * 2
                 return {
                     dollars = card.ability.extra.money * 2,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             elseif next(context.poker_hands['Straight']) or next(context.poker_hands['Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
                     dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             end
         end
@@ -218,9 +228,14 @@ SMODS.Joker { --Larger Service Area
     end,
     calculate = function(self, card, context)
         if context.before and #context.scoring_hand == 5 then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end
@@ -316,10 +331,12 @@ SMODS.Joker { --Overclock
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
+                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         SMODS.destroy_cards(card, nil, nil, true)
                         card:remove()
+                        G.GAME.joker_buffer = 0
                         return true
                     end
                 }))
@@ -388,14 +405,24 @@ SMODS.Joker { --Oversize Nails
     calculate = function(self, card, context)
 		if context.before and context.poker_hands then
             if next(context.poker_hands['Straight Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money * 2
                 return {
                     dollars = card.ability.extra.money * 2,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             elseif next(context.poker_hands['Straight']) or next(context.poker_hands['Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
                     dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             end
         end
@@ -463,14 +490,12 @@ SMODS.Joker { --Double Gun
             for k, v in pairs(card.ability.extra.pairs) do
                 if context.other_card == v then
                     G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            G.GAME.dollar_buffer = 0;
-                            return true
-                        end)
-                    }))
                     return {
                         dollars = card.ability.extra.money,
+                        func = (function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end)
                     }
                 end
             end

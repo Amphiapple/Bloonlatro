@@ -517,12 +517,14 @@ SMODS.Joker { --Bomb Blitz
                     return true
                 end
             }))
+            G.GAME.joker_buffer = G.GAME.joker_buffer - 1
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand_text_area.blind_chips:juice_up()
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
                     card:start_dissolve({G.C.RED}, nil)
+                    G.GAME.joker_buffer = 0
                     return true
                 end
             }))
