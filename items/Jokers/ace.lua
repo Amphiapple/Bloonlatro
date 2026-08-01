@@ -146,6 +146,7 @@ SMODS.Joker { --Operation: Dart Storm
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Monkey Ace", category = "military" },
         extra = { chips = 6, current = 0 } --Variables: chips = chip gain, current = current chips
@@ -161,6 +162,9 @@ SMODS.Joker { --Operation: Dart Storm
                 scalar_value = "chips",
                 no_message = true
             })
+            return {
+                extra = {focus = card, message = localize('k_upgrade_ex')},
+            }
 		elseif context.joker_main then
             return {
                 chips = card.ability.extra.current

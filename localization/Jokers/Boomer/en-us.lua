@@ -29,8 +29,8 @@ return {
                 name = 'Glaive Ricochet',
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'for each card with a new',
-                    'rank in played {C:attention}poker hand{}',
+                    'when each card with equal rank',
+                    'to the previous card is scored',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },
@@ -38,17 +38,18 @@ return {
                 name = 'MOAR Glaives',
                 text = {
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'for each card with a new',
-                    'suit in played {C:attention}poker hand{}',
+                    'when each card with equal or consecutive',
+                    'rank to the previous card is scored',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },
             j_bloons_glaive_lord = {
                 name = 'Glaive Lord',
                 text = {
+                    "Allows {C:attention}Straights{} to be",
+                    "made with gaps of {C:attention}1 rank{}",
                     'This Joker gains {C:chips}+#1#{} Chips',
-                    'for each card with a new',
-                    'suit or rank in played {C:attention}poker hand{}',
+                    'for each gap within {C:attention}1 rank{}',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips{C:inactive}){}'
                 }
             },

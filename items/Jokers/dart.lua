@@ -9,7 +9,7 @@ SMODS.Joker { --Dart Monkey
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 2 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 20, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -42,7 +42,7 @@ SMODS.Joker { --Sharp Shots
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 4 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 20, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -68,7 +68,7 @@ SMODS.Joker { --Razor Sharp Shots
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 6 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 20, mult = 6 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -183,7 +183,7 @@ SMODS.Joker { --Quick Shots
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 45, mult = 2 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 40, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -329,7 +329,7 @@ SMODS.Joker { --Long Range Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 2, current_chips = 30, current_mult = 2 } --Variables: chips = +chips, mult = +mult, current_chips = chips if doubled, current_mult = mult if doubled
+        extra = { chips = 20, mult = 2, current_chips = 20, current_mult = 2 } --Variables: chips = +chips, mult = +mult, current_chips = chips if doubled, current_mult = mult if doubled
     },
 
     loc_vars = function(self, info_queue, card)

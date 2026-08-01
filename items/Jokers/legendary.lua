@@ -85,26 +85,31 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary" },
-        extra = { Xmult = 1.5 }
+        extra = { Xmult = 0.5, current = 1 }
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not SMODS.has_no_rank(context.other_card) then
-            local paired = false
-            local id = context.other_card:get_id()
-            for k, v in ipairs(context.scoring_hand) do
-                if id == v:get_id() and context.other_card ~= v and not SMODS.has_no_rank(v) and not v.debuff then
-                    paired = true
-                end
-            end
-            if paired then
-                return {
-                    x_mult = card.ability.extra.Xmult
-                }
-            end
+        if context.reroll_shop and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "current",
+                scalar_value = "Xmult",
+                message_colour = G.C.FILTER
+            })
+            return nil, true
+        elseif context.joker_main and card.ability.extra.current > 1 then
+            return {
+                Xmult = card.ability.extra.current
+            }
+        elseif context.end_of_round and not context.blueprint then
+            card.ability.extra.current = 1
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
     end
 }

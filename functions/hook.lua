@@ -144,3 +144,12 @@ get_pack = function(_key, _type)
     end
     return center
 end
+
+--Shortcut effect (SMODS)
+local shortcut_old = SMODS.shortcut
+SMODS.shortcut = function()
+    if next(SMODS.find_card('j_bloons_glaive_lord')) then
+        return true
+    end
+    return shortcut_old()
+end

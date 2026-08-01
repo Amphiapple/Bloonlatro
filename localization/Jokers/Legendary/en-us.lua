@@ -22,9 +22,9 @@ return {
             j_bloons_ballistic_obliteration_missile_bunker = {
                 name = 'Ballistic Obliteration Missile Bunker',
                 text = {
-                    'Played cards give {X:mult,C:white}X#1#{} Mult',
-                    'when scored if another card with',
-                    'the same rank is scored'
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'per {C:attention}reroll{} in the last shop',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} Mult)'
                 }
             },
             j_bloons_crucible_of_steel_and_flame = {

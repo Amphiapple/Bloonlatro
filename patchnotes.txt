@@ -2,12 +2,17 @@ General Changes:
 - Certin Jokers/objects can how have different descriptions if their effect changes depending on the situation
 
 Balance Changes:
-- 
+- Dart Monkey overall chips reduced
+
+- Reworked Glaive Ricochet, MOAR Glaives, and Glaive Lord
+
+- Ballistic Obliteration Missile Bunker reworked
 
 Fixes:
+- Operation Dart Storm should no longer be perishable compatible
 - Sentries and Marine are now a part of the miscellaneous category
+- Shimmer info queue should now show negative consumable rather than negative joker
+- Deadly Spikes text should say each hand instead of end of round
 - Brutal Behemoth's description and effect have been changed to be more understandable
 - Jokers adding joker slots or consumable slots should now apply the correct amount when multiple are obtained/removed at the same time
 - Added buffers to relevant places, allowing some Jokers to update values correctly
-- Shimmer info queue should now show negative consumable rather than negative joker
-- Deadly Spikes text should say each hand instead of end of round
