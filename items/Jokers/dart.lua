@@ -147,7 +147,7 @@ SMODS.Joker { --Ultra-Juggernaut
 	atlas = 'Joker',
 	pos = { x = 5, y = 0 },
     rarity = 3,
-	cost = 6,
+	cost = 7,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },

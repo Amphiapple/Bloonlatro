@@ -3,6 +3,7 @@ General Changes:
 
 Balance Changes:
 - Dart Monkey overall chips reduced
+- Ultra Juggernaut cost $6 > $7
 
 - Reworked Glaive Ricochet, MOAR Glaives, and Glaive Lord
 
