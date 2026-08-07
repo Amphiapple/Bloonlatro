@@ -256,8 +256,8 @@ return {
             bl_bloons_diamondback_body = {
                 name = 'Diamondback Body',
                 text = {
-                    'Adds #1# cards to your deck',
-                    'each hand played',
+                    'Adds #1# face cards to your',
+                    'deck each hand played',
                     'X1 score for each undefeated',
                     'Diamondback blind',
                 },

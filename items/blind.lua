@@ -694,7 +694,9 @@ SMODS.Blind {
     calculate = function(self, blind, context)
         if context.before and not blind.disabled then
             for i = 1, 5 do
-                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_' .. tostring(#G.deck.cards)))
+                local rank = pseudorandom_element({'J', 'Q', 'K'}, pseudoseed('diamondback_body'))
+                local suit = pseudorandom_element({'S','H','D','C'}, pseudoseed('diamondback_body'))
+                local card_front = suit..'_'..rank
                 SMODS.add_card({
                     set = 'Playing Card',
                     front = card_front,

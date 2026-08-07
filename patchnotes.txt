@@ -9,6 +9,8 @@ Balance Changes:
 
 - Ballistic Obliteration Missile Bunker reworked
 
+- Diamondback body now adds exclusively face cards
+
 Fixes:
 - Operation Dart Storm should no longer be perishable compatible
 - Sentries and Marine are now a part of the miscellaneous category
