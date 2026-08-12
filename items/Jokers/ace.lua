@@ -245,7 +245,7 @@ SMODS.Joker { --Exploding Pineapple
     end,
     calculate = function(self, card, context)
         if context.destroying_card and card.ability.extra.hands <= 1 and not context.blueprint then
-            return true
+            return {remove = true}
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then

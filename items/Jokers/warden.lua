@@ -76,7 +76,7 @@ SMODS.Joker { --Storm's Pulse
 
 SMODS.Joker { --Thundering Arc
     key = 'thundering_arc',
-    name = "Thundering Arc",
+    name = 'Thundering Arc',
     atlas = 'Joker',
 	pos = { x = 7, y = 20 },
     rarity = 1,
@@ -117,17 +117,20 @@ SMODS.Joker { --Thundering Arc
 
 SMODS.Joker { --Galvanic Conduit
     key = 'galvanic_conduit',
-    name = "Galvanic Conduit",
+    name = 'Galvanic Conduit',
     atlas = 'Joker',
-	pos = { x = 7, y = 20 },
+	pos = { x = 8, y = 20 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Skywarden", category = "magic" },
-        extra = { mult = 1, current = 0 } --Variables: mult_gain = +mult after each card, current = current mult
+        extra = { mult = 1, stun_limit = 5, current = 0 } --Variables: mult = +mult after each card, stun_limit = mult to stun card, current = current mult
     },
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.stun_limit, card.ability.extra.current } }
+    end,
     calculate = function (self, card, context)
         if context.individual then
             if context.cardarea == G.play then
@@ -139,8 +142,133 @@ SMODS.Joker { --Galvanic Conduit
                         no_message = true
                     })
                 end
+                if card.ability.extra.current >= card.ability.extra.stun_limit then
+                    context.other_card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
+                end
                 return {
                     mult = card.ability.extra.current
+                }
+            end
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current = 0
+        end
+    end
+}
+
+SMODS.Joker { --Thunder's Decree
+    key = 'thunders_decree',
+    name = "Thunder's Decree",
+    atlas = 'Joker',
+	pos = { x = 9, y = 20 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Skywarden", category = "magic" },
+        extra = {  } --Variables: 
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.current } }
+    end,
+    calculate = function (self, card, context)
+        
+    end
+}
+
+SMODS.Joker { --Shatterpoint
+    key = 'shatterpoint',
+    name = 'Shatterpoint',
+    atlas = 'Joker',
+	pos = { x = 11, y = 20 },
+    rarity = 1,
+	cost = 3,
+    blueprint_compat = true,
+    enhancement_gate = 'm_bloons_frozen',
+    config = {
+        tower_info = { base = "Skywarden", category = "magic" },
+        extra = { mult = 6, rank_limit = 6 } --Variables: mult = +mult, rank_limit = rank to destroy frozen
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.rank_limit } }
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        elseif context.destroy_card and not context.blueprint then
+            if context.destroy_card.ability.name == 'Frozen Card' and context.destroy_card:get_id() < card.ability.extra.rank_limit then
+                return {remove = true}
+            end
+        end
+    end
+}
+
+SMODS.Joker { --Icebore
+    key = 'icebore',
+    name = 'Icebore',
+    atlas = 'Joker',
+	pos = { x = 12, y = 20 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    enhancement_gate = 'm_bloons_frozen',
+    config = {
+        tower_info = { base = "Skywarden", category = "magic" },
+        extra = { mult = 6, frozen_mult = 6 } --Variables: mult = +mult, frozen_mult = mult for frozen cards
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.frozen_mult } }
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        elseif context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' and not context.end_of_round then
+            return {
+                mult = card.ability.extra.frozen_mult
+            }
+        end
+    end
+}
+
+SMODS.Joker { --Coldchain
+    key = 'coldchain',
+    name = 'Coldchain',
+    atlas = 'Joker',
+	pos = { x = 13, y = 20 },
+    rarity = 2,
+	cost = 5,
+    blueprint_compat = true,
+    enhancement_gate = 'm_bloons_frozen',
+    config = {
+        tower_info = { base = "Skywarden", category = "magic" },
+        extra = { chips = 6, freeze_limit = 30, current = 0 } --Variables: chips = +chips after each card, stun_limit = chips to stun card, current = current chips
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.freeze_limit , card.ability.extra.current } }
+    end,
+    calculate = function (self, card, context)
+        if context.individual then
+            if context.cardarea == G.play then
+                if not context.blueprint then
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "current",
+                        scalar_value = "chips",
+                        no_message = true
+                    })
+                end
+                if card.ability.extra.current >= card.ability.extra.freeze_limit then
+                    context.other_card:set_ability(G.P_CENTERS.m_bloons_frozen, nil, true)
+                end
+                return {
+                    chips = card.ability.extra.current
                 }
             end
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
