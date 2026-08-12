@@ -112,8 +112,8 @@ return {
                 name = 'Acid Pools',
                 text = {
                     'Create a {C:tarot}Tarot{} card',
-                    'at end of round if any',
-                    'hands are unused',
+                    'at end of round when any',
+                    '{C:attention}Booster Pack{} is skipped',
                     '{C:inactive}(Must have room){}'
                 }
             },

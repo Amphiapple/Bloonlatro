@@ -125,6 +125,9 @@ JokerDisplay.Definitions["j_bloons_spy_plane"] = { --Spy Plane
 }
 
 JokerDisplay.Definitions["j_bloons_bomber_ace"] = { --Bomber Ace
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        return playing_card:get_id() == 14 and joker_card.ability.extra.retrigger * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_ground_zero"] = { --Ground Zero

@@ -307,33 +307,16 @@ SMODS.Joker { --Bomber Ace
     blueprint_compat = false,
     config = {
         tower_info = { base = "Monkey Ace", category = "military" },
+        extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
     calculate = function(self, card, context)
-        if context.after and G.GAME.current_round.hands_left == 0 and not context.blueprint then
-            local destroyed_cards = {}
-            for k, v in ipairs(G.hand.cards) do
-                if v:get_id() == 14 or
-                        (k > 1 and G.hand.cards[k-1]:get_id() == 14) or
-                        (k < #G.hand.cards and G.hand.cards[k+1]:get_id() == 14) then
-                    destroyed_cards[#destroyed_cards+1] = v
-                end
-            end
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    for i=#destroyed_cards, 1, -1 do
-                        local card = destroyed_cards[i]
-                        if card.ability.name == 'Glass Card' then
-                            card:shatter()
-                        else
-                            card:start_dissolve(nil, i == #destroyed_cards)
-                        end
-                    end
-                    return true
-                end
-            }))
+        if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card:get_id() == 14 then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retrigger,
+                card = card
+            }
         end
     end
 }

@@ -503,7 +503,7 @@ SMODS.Joker { --Acid Pools
     },
 
     calculate = function(self, card, context)
-        if context.end_of_round and not context.individual and not context.repetition and G.GAME.current_round.hands_left > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if context.skipping_booster and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = (function()
@@ -588,7 +588,8 @@ SMODS.Joker { --Bloon Master Alchemist
     calculate = function(self, card, context)
         if context.before and G.GAME.current_round.hands_left == 0 then
             for k, v in ipairs(context.scoring_hand) do
-                v:set_seal(SMODS.poll_seal({type_key = 'bloon_master_alchemist', guaranteed = true}), nil, true)
+                local seal = SMODS.poll_seal({type_key = 'bloon_master_alchemist', guaranteed = true})
+                v:set_seal(seal, nil, true)
             end
 
             G.GAME.dollar_buffer = G.GAME.dollar_buffer or 0

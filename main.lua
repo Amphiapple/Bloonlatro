@@ -107,6 +107,7 @@ local jokers = {
     'alch',
     'druid',
     'merm',
+    'warden',
     'farm',
     'spac',
     'village',

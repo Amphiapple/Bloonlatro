@@ -9,6 +9,10 @@ Balance Changes:
 
 - Ballistic Obliteration Missile Bunker reworked
 
+- Bomber Ace reworked
+
+- Acid Pools reworked
+
 - Diamondback body now adds exclusively face cards
 
 Fixes:

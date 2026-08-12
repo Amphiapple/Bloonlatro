@@ -129,7 +129,12 @@ SMODS.Joker { --Juggernaut
         if context.individual then
 			if context.cardarea == G.play then
                 if not context.blueprint then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "current",
+                        scalar_value = "mult",
+                        no_message = true
+                    })
                 end
                 return {
                     mult = card.ability.extra.current
@@ -161,7 +166,12 @@ SMODS.Joker { --Ultra-Juggernaut
         if context.individual then
 			if context.cardarea == G.play then
                 if not context.blueprint then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "current",
+                        scalar_value = "Xmult",
+                        no_message = true
+                    })
                 end
                 return {
                     x_mult = card.ability.extra.current
