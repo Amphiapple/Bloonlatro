@@ -9,6 +9,48 @@ return {
                     'played this round',
 				}
 			},
+			j_bloons_aerial_attunement = {
+				name = "Aerial Attunement",
+				text = {
+					'{C:mult}+#1#{} Mult',
+					'{C:mult}+#2#{} Mult after each hand',
+                    'played this round',
+				}
+			},
+			j_bloons_zephyr_sense = {
+				name = 'Zephyr Sense',
+				text = {
+					'{C:mult}+#1#{} Mult',
+					'{C:mult}+#2#{} Mult after each card',
+                    'scored this round',
+				}
+			},
+            j_bloons_wind_weaver = {
+				name = 'Wind Weaver',
+				text = {
+					'Each played card this round',
+					'gives {C:mult}+#1#{} more Mult when scored',
+					'and retriggers above {C:mult}+#2#{} Mult',
+					'{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}'
+				}
+			},
+			j_bloons_galesage = {
+				name = 'Galesage',
+				text = {
+					'Retrigger all played',
+					'cards if scoring hand',
+                    'contains {C:attention}#1#{} cards',
+				}
+			},
+			j_bloons_farwind_seer = {
+				name = 'Farwind Seer',
+				text = {
+					'Retrigger all played',
+					'cards once for each',
+					'empty {C:attention}Joker{} slot',
+                    '{C:inactive}(Currently {C:attention}#1#{C:inactive} retriggers){}',
+				}
+			},
 			j_bloons_storms_pulse = {
 				name = "Storm's Pulse",
 				text = {
