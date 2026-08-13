@@ -1,4 +1,4 @@
-SMODS.Joker { --Dartling Gunner
+﻿SMODS.Joker { --Dartling Gunner
     key = 'dartling_gunner',
     name = 'Dartling Gunner',
 	atlas = 'Joker',
@@ -1160,3 +1160,5 @@ SMODS.Joker { --Bloon Exclusion Zone
 		end
     end
 }
+
+

@@ -1,4 +1,4 @@
-SMODS.Joker { --Bomb Shooter
+﻿SMODS.Joker { --Bomb Shooter
     key = 'bomb_shooter',
     name = 'Bomb Shooter',
 	atlas = 'Joker',
@@ -555,3 +555,4 @@ SMODS.Joker { --Bomb Blitz
         end
     end
 }
+

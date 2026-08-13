@@ -1,4 +1,4 @@
-SMODS.Joker { --Monkey Buccaneer
+﻿SMODS.Joker { --Monkey Buccaneer
     key = 'monkey_buccaneer',
     name = 'Monkey Buccaneer',
 	atlas = 'Joker',
@@ -619,3 +619,5 @@ SMODS.Joker { --Trade Empire
         recalc_all_costs()
     end
 }
+
+

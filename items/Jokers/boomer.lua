@@ -1,4 +1,4 @@
-SMODS.Joker { --Boomerang Monkey
+﻿SMODS.Joker { --Boomerang Monkey
     key = 'boomerang_monkey',
     name = 'Boomerang Monkey',
 	atlas = 'Joker',
@@ -501,3 +501,5 @@ SMODS.Joker { --MOAB Domination
         end
     end
 }
+
+

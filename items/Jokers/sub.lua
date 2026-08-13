@@ -1,4 +1,4 @@
-SMODS.Joker { --Monkey Sub
+﻿SMODS.Joker { --Monkey Sub
     key = 'monkey_sub',
     name = 'Monkey Sub',
 	atlas = 'Joker',
@@ -556,3 +556,5 @@ SMODS.Joker { --Sub Commander
         G.GAME.subcom_mult = G.GAME.subcom_mult / 2
     end
 }
+
+

@@ -1,4 +1,4 @@
-SMODS.Joker { --Druid
+﻿SMODS.Joker { --Druid
     key = 'druid',
     name = 'Druid',
     atlas = 'Joker',
@@ -549,3 +549,5 @@ SMODS.Joker { --Avatar of Wrath
         end
     end
 }
+
+

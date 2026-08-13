@@ -1,4 +1,4 @@
-SMODS.Joker { --Sniper Monkey
+﻿SMODS.Joker { --Sniper Monkey
     key = 'sniper_monkey',
     name = 'Sniper Monkey',
 	atlas = 'Joker',
@@ -693,3 +693,5 @@ SMODS.Joker { --Elite Defender
         end
     end
 }
+
+

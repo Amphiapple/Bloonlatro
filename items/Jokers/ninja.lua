@@ -1,4 +1,4 @@
-SMODS.Joker { --Ninja Monkey
+﻿SMODS.Joker { --Ninja Monkey
     key = 'ninja_monkey',
     name = 'Ninja Monkey',
 	atlas = 'Joker',
@@ -613,3 +613,5 @@ SMODS.Joker { --Master Bomber
         end
     end
 }
+
+

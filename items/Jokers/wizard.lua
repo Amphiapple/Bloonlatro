@@ -1,4 +1,4 @@
-SMODS.Joker { --Wizard Monkey
+﻿SMODS.Joker { --Wizard Monkey
     key = 'wizard_monkey',
     name = 'Wizard Monkey',
 	atlas = 'Joker',
@@ -546,3 +546,5 @@ SMODS.Joker { --Prince of Darkness
         end
     end
 }
+
+

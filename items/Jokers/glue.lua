@@ -1,4 +1,4 @@
-SMODS.Joker { --Glue Gunner
+﻿SMODS.Joker { --Glue Gunner
     key = 'glue_gunner',
     name = 'Glue Gunner',
 	atlas = 'Joker',
@@ -467,3 +467,5 @@ SMODS.Joker { --Super Glue
         end
     end
 }
+
+

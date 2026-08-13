@@ -1,4 +1,4 @@
-SMODS.Joker { --Monkey Ace
+﻿SMODS.Joker { --Monkey Ace
     key = 'monkey_ace',
     name = 'Monkey Ace',
 	atlas = 'Joker',
@@ -568,3 +568,5 @@ SMODS.Joker { --Flying Fortress
 		end
     end
 }
+
+

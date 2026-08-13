@@ -1,8 +1,8 @@
-SMODS.Joker { --Apex Plasma Master
+﻿SMODS.Joker { --Apex Plasma Master
     key = 'apex_plasma_master',
     name = 'Apex Plasma Master',
     atlas = 'Joker',
-    pos = { x = 0, y = 26 },
+    pos = { x = 0, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 0, y = 2 },
     rarity = 4,
@@ -36,7 +36,7 @@ SMODS.Joker { --Glaive Dominus
     key = 'glaive_dominus',
     name = 'Glaive Dominus',
     atlas = 'Joker',
-    pos = { x = 1, y = 26 },
+    pos = { x = 1, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 1, y = 2 },
     rarity = 4,
@@ -77,7 +77,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
     key = 'ballistic_obliteration_missile_bunker',
     name = 'Ballistic Obliteration Missile Bunker',
     atlas = 'Joker',
-    pos = { x = 2, y = 26 },
+    pos = { x = 2, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 2, y = 2 },
     rarity = 4,
@@ -118,7 +118,7 @@ SMODS.Joker { --Crucible of Steel and Flame
     key = 'crucible_of_steel_and_flame',
     name = 'Crucible of Steel and Flame',
     atlas = 'Joker',
-    pos = { x = 3, y = 26 },
+    pos = { x = 3, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 3, y = 2 },
     rarity = 4,
@@ -163,7 +163,7 @@ SMODS.Joker { --Herald of Everfrost
     key = 'herald_of_everfrost',
     name = 'Herald of Everfrost',
     atlas = 'Joker',
-    pos = { x = 4, y = 26 },
+    pos = { x = 4, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 4, y = 2 },
     rarity = 4,
@@ -220,7 +220,7 @@ SMODS.Joker { --Nautic Siege Core
     key = 'nautic_siege_core',
     name = 'Nautic Siege Core',
     atlas = 'Joker',
-    pos = { x = 8, y = 26 },
+    pos = { x = 8, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 8, y = 2 },
     rarity = 4,
@@ -253,7 +253,7 @@ SMODS.Joker { --Nautic Siege Core
         if not card or not card.children or not card.children.center then return end
         card.ability.extra.submerged = not card.ability.extra.submerged
         if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 26 })
+            card.children.center:set_sprite_pos({ x = 15, y = 27 })
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
@@ -263,7 +263,7 @@ SMODS.Joker { --Nautic Siege Core
                 end
             }))
         else
-            card.children.center:set_sprite_pos({ x = 8, y = 26 })
+            card.children.center:set_sprite_pos({ x = 8, y = 27 })
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
@@ -277,9 +277,9 @@ SMODS.Joker { --Nautic Siege Core
     set_sprites = function(self, card, front)
         if not card or not card.ability or not card.ability.extra then return end
         if card.ability.extra.submerged then
-            card.children.center:set_sprite_pos({ x = 15, y = 26 })
+            card.children.center:set_sprite_pos({ x = 15, y = 27 })
         else
-            card.children.center:set_sprite_pos({ x = 8, y = 26 })
+            card.children.center:set_sprite_pos({ x = 8, y = 27 })
         end
     end,
     calculate = function(self, card, context)
@@ -311,7 +311,7 @@ SMODS.Joker { --Navarch of the Seas
     key = 'navarch_of_the_seas',
     name = 'Navarch of the Seas',
     atlas = 'Joker',
-    pos = { x = 9, y = 26 },
+    pos = { x = 9, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 9, y = 2 },
     rarity = 4,
@@ -383,7 +383,7 @@ SMODS.Joker { --Goliath Doomship
     key = 'goliath_doomship',
     name = 'Goliath Doomship',
     atlas = 'Joker',
-    pos = { x = 10, y = 26 },
+    pos = { x = 10, y = 27 },
     soul_atlas = 'Soul',
     soul_pos = { x = 10, y = 2 },
     rarity = 4,
@@ -477,7 +477,7 @@ SMODS.Joker { --Magus Perfectus
     key = 'magus_perfectus',
     name = 'Magus Perfectus',
     atlas = 'Joker',
-    pos = { x = 0, y = 27 },
+    pos = { x = 0, y = 28 },
     soul_atlas = 'Soul',
     soul_pos = { x = 0, y = 4 },
     rarity = 4,
@@ -523,7 +523,7 @@ SMODS.Joker { --Ascended Shadow
     key = 'ascended_shadow',
     name = 'Ascended Shadow',
     atlas = 'Joker',
-    pos = { x = 2, y = 27 },
+    pos = { x = 2, y = 28 },
     soul_atlas = 'Soul',
     soul_pos = { x = 2, y = 4 },
     rarity = 4,
@@ -589,7 +589,7 @@ SMODS.Joker { --Root of All Nature
     key = 'root_of_all_nature',
     name = 'Root of All Nature',
     atlas = 'Joker',
-    pos = { x = 4, y = 27 },
+    pos = { x = 4, y = 28 },
     soul_atlas = 'Soul',
     soul_pos = { x = 4, y = 4 },
     rarity = 4,
@@ -638,7 +638,7 @@ SMODS.Joker { --Mega Massive Munitions Factory
     key = 'mega_massive_munitions_factory',
     name = 'Mega Massive Munitions Factory',
     atlas = 'Joker',
-    pos = { x = 7, y = 27 },
+    pos = { x = 7, y = 28 },
     soul_atlas = 'Soul',
     soul_pos = { x = 7, y = 4 },
     rarity = 4,
@@ -709,7 +709,7 @@ SMODS.Joker { --Master Builder
     key = 'master_builder',
     name = 'Master Builder',
     atlas = 'Joker',
-    pos = { x = 9, y = 27 },
+    pos = { x = 9, y = 28 },
     soul_atlas = 'Soul',
     soul_pos = { x = 9, y = 4 },
     rarity = 4,
@@ -785,7 +785,7 @@ SMODS.Joker { --Vengeful True Sun God
     key = 'vengeful_true_sun_god',
     name = 'Vengeful True Sun God',
     atlas = 'Joker',
-    pos = { x = 15, y = 27 },
+    pos = { x = 15, y = 28 },
     soul_atlas = 'Soul',
     soul_pos = { x = 15, y = 4 },
     rarity = 4,
@@ -954,3 +954,6 @@ SMODS.Joker { --Vengeful True Sun God
         return card.ability.extra.money
     end
 }
+
+
+

@@ -1,4 +1,4 @@
-SMODS.Joker { --Tack Shooter
+﻿SMODS.Joker { --Tack Shooter
     key = 'tack_shooter',
     name = 'Tack Shooter',
 	atlas = 'Joker',
@@ -548,3 +548,5 @@ SMODS.Joker { --The Tack Zone
         end
     end
 }
+
+

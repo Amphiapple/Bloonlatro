@@ -1,4 +1,4 @@
-SMODS.Joker { --Mortar Monkey
+﻿SMODS.Joker { --Mortar Monkey
     key = 'mortar_monkey',
     name = 'Mortar Monkey',
 	atlas = 'Joker',
@@ -578,3 +578,5 @@ SMODS.Joker { --Blooncineration
         end
     end
 }
+
+

@@ -1,4 +1,4 @@
-SMODS.Joker { --Mermonkey
+﻿SMODS.Joker { --Mermonkey
     key = 'mermonkey',
     name = 'Mermonkey',
 	atlas = 'Joker',
@@ -602,3 +602,4 @@ SMODS.Joker { --The Final Harmonic
         end
     end
 }
+

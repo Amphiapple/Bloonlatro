@@ -1,4 +1,4 @@
-SMODS.Joker { --Ice Monkey
+﻿SMODS.Joker { --Ice Monkey
     key = 'ice_monkey',
     name = 'Ice Monkey',
 	atlas = 'Joker',
@@ -711,3 +711,5 @@ SMODS.Joker { --Icicle Impale
         end
     end
 }
+
+

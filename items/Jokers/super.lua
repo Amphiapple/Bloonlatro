@@ -1,4 +1,4 @@
-SMODS.Joker { --Super Monkey
+﻿SMODS.Joker { --Super Monkey
     key = 'super_monkey',
     name = 'Super Monkey',
 	atlas = 'Joker',
@@ -704,3 +704,5 @@ SMODS.Joker { --Legend of the Night
         end
     end
 }
+
+

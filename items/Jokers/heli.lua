@@ -1,4 +1,4 @@
-SMODS.Joker { --Heli Pilot
+﻿SMODS.Joker { --Heli Pilot
     key = 'heli_pilot',
     name = 'Heli Pilot',
 	atlas = 'Joker',
@@ -636,3 +636,5 @@ SMODS.Joker { --Comanche Commander
         end
     end
 }
+
+

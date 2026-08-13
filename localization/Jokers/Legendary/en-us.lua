@@ -49,6 +49,9 @@ return {
                 name = 'Nautic Siege Core',
                 text = {
                     '{X:mult,C:white}X#1#{} Mult',
+                    'Submerge for {C:attention}#2#{C:inactive} (#3#){}',
+                    'consecutive hands to give {X:mult,C:white}X#4#{} Mult',
+                    'next hand once unsubmerged',
                     'Submerge to change effect{}',
                 },
             },

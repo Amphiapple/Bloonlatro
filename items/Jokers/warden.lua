@@ -194,7 +194,7 @@ SMODS.Joker { --Farwind Seer
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current } }
+        return { vars = { card.ability.extra.retrigger } }
     end,
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then

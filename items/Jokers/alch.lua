@@ -1,4 +1,4 @@
-SMODS.Joker { --Alchemist
+﻿SMODS.Joker { --Alchemist
     key = 'alchemist',
     name = 'Alchemist',
 	atlas = 'Joker',
@@ -614,3 +614,5 @@ SMODS.Joker { --Bloon Master Alchemist
         end
     end
 }
+
+

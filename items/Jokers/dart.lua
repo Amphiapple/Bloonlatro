@@ -1,4 +1,4 @@
-
+﻿
 SMODS.Joker { --Dart Monkey
     key = 'dart_monkey',
     name = 'Dart Monkey',
@@ -550,3 +550,4 @@ SMODS.Joker { --Crossbow Master
         end
     end
 }
+

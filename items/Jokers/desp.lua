@@ -1,4 +1,4 @@
-SMODS.Joker { --Desperado
+﻿SMODS.Joker { --Desperado
     key = 'desperado',
     name = 'Desperado',
     atlas = 'Joker',
@@ -600,3 +600,4 @@ SMODS.Joker { --The Desert Phantom
         end
     end
 }
+
