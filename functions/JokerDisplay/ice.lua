@@ -52,20 +52,40 @@ JokerDisplay.Definitions["j_bloons_cold_snap"] = { --Cold Snap
 
 JokerDisplay.Definitions["j_bloons_ice_shards"] = { --Ice Shards
     text = {
-        { text = "+", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "current" }
     },
+    text_config = { colour = G.C.MULT },
 }
 
 JokerDisplay.Definitions["j_bloons_embrittlement"] = { --Embrittlement
     text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+    extra = {
         {
-            border_nodes = {
-                { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
-            }
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
         }
     },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        local count = 0
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.ability.name == 'Frozen Card' then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
+            end
+        end
+        card.joker_display_values.mult = card.ability.extra.mult * count
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'embrittlement')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { n, d } }
+    end
 }
 
 JokerDisplay.Definitions["j_bloons_super_brittle"] = { --Super Brittle
@@ -162,6 +182,11 @@ JokerDisplay.Definitions["j_bloons_snowstorm"] = { --Snowstorm
 }
 
 JokerDisplay.Definitions["j_bloons_absolute_zero"] = { --Absolute Zero
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "counter" },
+        { text = " left)" },
+    },
 }
 
 JokerDisplay.Definitions["j_bloons_larger_radius"] = { --Larger Radius

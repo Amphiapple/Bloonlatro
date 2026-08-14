@@ -9,6 +9,9 @@ Balance Changes:
 
 - Ballistic Obliteration Missile Bunker reworked
 
+- Ice Shards no longer scales when destroying frozen cards
+- Embrittlement effect moved to Frozen Verdict
+
 - Bomber Ace reworked
 
 - Acid Pools reworked
