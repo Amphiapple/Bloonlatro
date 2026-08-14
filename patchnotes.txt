@@ -1,3 +1,6 @@
+Added Jokers:
+- Skywardens have been added to the game!
+
 General Changes:
 - Certin Jokers/objects can how have different descriptions if their effect changes depending on the situation
 
@@ -11,6 +14,7 @@ Balance Changes:
 
 - Ice Shards no longer scales when destroying frozen cards
 - Embrittlement effect moved to Frozen Verdict
+- Absolute Zero reworked
 
 - Bomber Ace reworked
 

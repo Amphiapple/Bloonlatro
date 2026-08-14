@@ -202,7 +202,7 @@ SMODS.Joker { --Farwind Seer
         end
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play then
+        if context.repetition and context.cardarea == G.play and card.ability.extra.retrigger > 0 then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retrigger,
