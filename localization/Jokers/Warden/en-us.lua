@@ -28,10 +28,10 @@ return {
             j_bloons_wind_weaver = {
 				name = 'Wind Weaver',
 				text = {
-					'Each played card this round',
-					'gives {C:mult}+#1#{} more Mult when scored',
-					'and retriggers above {C:mult}+#2#{} Mult',
-					'{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}'
+					'Retrigger all played cards ',
+					'after {C:attention}#1#{} cards are',
+					'scored this round',
+					'{C:inactive}(#2#)'
 				}
 			},
 			j_bloons_galesage = {

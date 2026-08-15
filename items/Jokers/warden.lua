@@ -122,27 +122,26 @@ SMODS.Joker { --Wind Weaver
     blueprint_compat = true,
     config = {
         tower_info = { base = "Skywarden", category = "magic" },
-        extra = { mult = 1, retrigger = 1, retrigger_limit = 5, current = 0 } --Variables: mult = +mult after each card, retrigger_limit = mult to retrigger card, current = current mult
+        extra = { retrigger = 1, retrigger_limit = 5, current = 0 } --Variables: retrigger_limit = mult to retrigger card, current = current mult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, card.ability.extra.retrigger_limit, card.ability.extra.current } }
+        local function process_var(count, cap)
+			if count >= cap then
+				return 'Active!'
+			end
+			return cap - count .. ' remaining'
+		end
+        return {
+            vars = {
+                card.ability.extra.retrigger_limit,
+                process_var(card.ability.extra.current, card.ability.extra.retrigger_limit)
+            }
+        }
     end,
     calculate = function (self, card, context)
-        if context.individual then
-            if context.cardarea == G.play then
-                if not context.blueprint then
-                    SMODS.scale_card(card, {
-                        ref_table = card.ability.extra,
-                        ref_value = "current",
-                        scalar_value = "mult",
-                        no_message = true
-                    })
-                end
-                return {
-                    mult = card.ability.extra.current
-                }
-            end
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            card.ability.extra.current = card.ability.extra.current + 1
         elseif context.repetition and context.cardarea == G.play and card.ability.extra.current >= card.ability.extra.retrigger_limit then
             return {
                 message = localize('k_again_ex'),
@@ -420,7 +419,7 @@ SMODS.Joker { --Shatterpoint
                 mult = card.ability.extra.mult
             }
         elseif context.destroy_card and not context.blueprint then
-            if context.destroy_card.ability.name == 'Frozen Card' and context.destroy_card:get_id() < card.ability.extra.rank_limit then
+            if context.destroy_card.ability.name == 'Frozen Card' and context.destroy_card.base.id < card.ability.extra.rank_limit then
                 return {remove = true}
             end
         end
@@ -559,7 +558,7 @@ SMODS.Joker { --Frozen Verdict
                                 return true
                             end
                         }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
                         return true
                     end
                 }))
@@ -600,7 +599,7 @@ SMODS.Joker { --Winter's Mercy
     calculate = function (self, card, context)
         if context.joker_main and card.ability.extra.current > 1 then
             return {
-                mult = card.ability.extra.current
+                Xmult = card.ability.extra.current
             }
         elseif context.cards_destroyed and not context.blueprint then
             local frozens = 0
@@ -614,11 +613,12 @@ SMODS.Joker { --Winter's Mercy
                     func = function()
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult*frozens
+                                card.ability.extra.destroyed = card.ability.extra.destroyed + frozens
+                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult_destroyed*frozens
                                 return true
                             end
                         }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult_destroyed*frozens}}})
                         return true
                     end
                 }))
@@ -635,11 +635,12 @@ SMODS.Joker { --Winter's Mercy
                     func = function()
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult*frozens
+                                card.ability.extra.destroyed = card.ability.extra.destroyed + frozens
+                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult_destroyed*frozens
                                 return true
                             end
                         }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult_destroyed*frozens}}})
                         return true
                     end
                 }))
