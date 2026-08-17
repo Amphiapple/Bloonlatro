@@ -21,6 +21,11 @@ Balance Changes:
 
 - Acid Pools reworked
 
+- Ball Lightning Reworked
+- Druid of the Jungle and Jungle's Bounty effects swapped, both > $6
+
+- Giant Condor reworked
+
 - Diamondback body now adds exclusively face cards
 
 Fixes:

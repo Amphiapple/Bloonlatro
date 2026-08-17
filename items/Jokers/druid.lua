@@ -163,36 +163,51 @@ SMODS.Joker { --Ball Lightning
     blueprint_compat = true,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
     loc_vars = function(self, info_queue, card)
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'ball_lightning')
-        return { vars = { n, d } }
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.current_round.hands_left == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and
-                SMODS.pseudorandom_probability(card, 'ball_lightning', card.ability.extra.num, card.ability.extra.denom, 'ball_lightning') then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                func = (function()
-                    local planet = nil
-                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                        if v.config.hand_type == context.scoring_name then
-                            planet = v.key
-                        end
-                    end
-                    local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, planet, 'druid_of_the_storm')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                    G.GAME.consumeable_buffer = 0
-                    return true
-                end)
-            }))
-            return {
-                message = localize('k_plus_planet'),
-                colour = G.C.SECONDARY_SET.Planet
-            }
+        if context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
+            if SMODS.has_enhancement(context.other_card, 'm_bloons_stunned') and context.stun and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'ball_lightning')
+                        card:add_to_deck()
+                        G.consumeables:emplace(card)
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                        
+                    end)
+                }))
+                return {
+                    message = localize('k_plus_planet'),
+                    colour = G.C.SECONDARY_SET.Planet
+                }
+            end
+        elseif context.after then
+            for k, v in ipairs(G.hand.cards) do
+                if SMODS.has_enhancement(v, 'm_bloons_frozen') and not v.debuff and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            local card = create_card('Planet', G.consumeables, nil, nil, nil, nil, nil, 'ball_lightning')
+                            card:add_to_deck()
+                            G.consumeables:emplace(card)
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                            
+                        end)
+                    }))
+                    return {
+                        message = localize('k_plus_planet'),
+                        colour = G.C.SECONDARY_SET.Planet
+                    }
+                end
+            end
         end
     end
 }
@@ -310,34 +325,7 @@ SMODS.Joker { --Druid of the Jungle
     blueprint_compat = false,
     config = {
         tower_info = { base = "Druid", category = "magic" },
-        extra = { money = 4 } --Variables: money = money per planet held
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money } }
-    end,
-    calc_dollar_bonus = function(self, card)
-        local count = 0
-        for k, v in ipairs(G.consumeables.cards) do
-            if v.ability.set == 'Planet' then
-                count = count + 1
-            end
-        end
-        return card.ability.extra.money * count
-    end
-}
-
-SMODS.Joker { --Jungle's Bounty
-    key = 'jungles_bounty',
-    name = "Jungle's Bounty",
-	atlas = 'Joker',
-	pos = { x = 9, y = 18 },
-    rarity = 2,
-	cost = 7,
-    blueprint_compat = false,
-    config = {
-        tower_info = { base = "Druid", category = "magic" },
-        extra = { money = 8 } --Variables: money = money per planet destroyed
+        extra = { money = 5 } --Variables: money = money per planet held
     },
 
     loc_vars = function(self, info_queue, card)
@@ -358,6 +346,33 @@ SMODS.Joker { --Jungle's Bounty
                 return true
             end
         }))
+        return card.ability.extra.money * count
+    end
+}
+
+SMODS.Joker { --Jungle's Bounty
+    key = 'jungles_bounty',
+    name = "Jungle's Bounty",
+	atlas = 'Joker',
+	pos = { x = 9, y = 18 },
+    rarity = 2,
+	cost = 7,
+    blueprint_compat = false,
+    config = {
+        tower_info = { base = "Druid", category = "magic" },
+        extra = { money = 5 } --Variables: money = money per planet destroyed
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        local count = 0
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability.set == 'Planet' then
+                count = count + 1
+            end
+        end
         return card.ability.extra.money * count
     end
 }

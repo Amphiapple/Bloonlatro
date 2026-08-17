@@ -248,7 +248,7 @@ SMODS.Joker { --Deadeye
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { Xmult = 1.5 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for desperado card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -275,7 +275,7 @@ SMODS.Joker { --Bounty Hunter
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { money = 3 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
+        extra = { money = 3 } --Variables: money = money for desperado card
     },
 
     loc_vars = function(self, info_queue, card)

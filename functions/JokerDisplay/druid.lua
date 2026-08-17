@@ -46,31 +46,17 @@ JokerDisplay.Definitions["j_bloons_ball_lightning"] = { --Ball Lightning
         { ref_table = "card.joker_display_values", ref_value = "planets" }
     },
     text_config = { colour = G.C.SECONDARY_SET.Planet },
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "poker_hand", colour = G.C.ORANGE },
-        { text = ")" }
-    },
-    extra = {
-        {
-            { text = "(" },
-            { ref_table = "card.joker_display_values", ref_value = "odds", retrigger_type = "mult" },
-            { text = ")" },
-        }
-    },
-    extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local planet = nil
-        for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-            if v.config.hand_type == JokerDisplay.evaluate_hand() then
-                planet = v.name
+        local playing_hand = next(G.play.cards)
+        local planets = 0
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and (SMODS.has_enhancement(playing_card, 'm_bloons_frozen') or SMODS.has_enhancement(playing_card, 'm_bloons_stunned')) then
+                    planets = planets + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
             end
         end
-        local active = G.GAME and (G.GAME.current_round.hands_left == 1 and not next(G.play.cards) or G.GAME.current_round.hands_left == 0 and next(G.play.cards))
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'ball_lightning')
-        card.joker_display_values.odds = n .. " in " .. d
-        card.joker_display_values.poker_hand = planet or 'None'
-        card.joker_display_values.planets = planet and active and 1 or 0
+        card.joker_display_values.planets = planets
     end
 }
 

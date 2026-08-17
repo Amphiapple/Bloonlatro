@@ -109,7 +109,7 @@ local inflated_cards = {
     {id = 'j_turtle_bean'},
     {id = 'j_bloons_arctic_wind'},
     {id = 'j_bloons_snowstorm'},
-    {id = 'j_bloons_giant_condor'},
+    {id = 'j_bloons_absolute_zero'},
     {id = 'v_paint_brush'},
     {id = 'v_palette'},
 }

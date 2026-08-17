@@ -294,16 +294,25 @@ JokerDisplay.Definitions["j_bloons_golden_eagle"] = { --Golden Eagle
 }
 
 JokerDisplay.Definitions["j_bloons_giant_condor"] = { --Giant Condor
-    extra = {
+    text = {
         {
-            { text = "(", colour = G.C.GREEN, scale = 0.3 },
-            { ref_table = "card.joker_display_values", ref_value = "odds", colour = G.C.GREEN, scale = 0.3 },
-            { text = ")", colour = G.C.GREEN, scale = 0.3 },
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+            }
         }
     },
     calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'condor')
-        card.joker_display_values.odds = numerator .. " in " .. denominator
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local count = 0
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if SMODS.has_enhancement(scoring_card, 'm_wild') and not scoring_card.debuff then
+                    count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                end
+            end
+        end
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
     end
 }
 

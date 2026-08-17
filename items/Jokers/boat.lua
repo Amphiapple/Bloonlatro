@@ -485,7 +485,7 @@ SMODS.Joker { --Long Range
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 1 } --Variables: money = dollars per hand
+        extra = { money = 1 } --Variables: money = dollars per discard
     },
 
     loc_vars = function(self, info_queue, card)
@@ -516,7 +516,7 @@ SMODS.Joker { --Crow's Nest
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military" },
-        extra = { money = 2 } --Variables: money = dollars per hand
+        extra = { money = 2 } --Variables: money = dollars per single card discard
     },
 
     loc_vars = function(self, info_queue, card)

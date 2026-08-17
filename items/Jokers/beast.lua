@@ -482,37 +482,26 @@ SMODS.Joker { --Giant Condor
     enhancement_gate = 'm_wild',
     config = {
         tower_info = { base = "Beast Handler", category = "support" },
-        extra = { num = 1, denom = 2, hand_size = 1 } --Variables: num/denom = probability fraction, hand_size = extra hand size
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giant_condor')
-        return { vars = { n, d, card.ability.extra.hand_size } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-			if context.other_card.ability.name == 'Wild Card' and SMODS.pseudorandom_probability(card, 'giant_condor', card.ability.extra.num, card.ability.extra.denom, 'giant_condor') then
-                G.hand:change_size(card.ability.extra.hand_size)
-                G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.hand_size
-                return {
-                    message = localize({ type = "variable", key = "a_handsize", vars = {card.ability.extra.hand_size}}),
-                    colour = G.C.FILTER,
-                }
-			end
-		elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Wild Card' then
             return {
-                message = localize('k_reset'),
-                colour = G.C.RED
+                Xmult = card.ability.extra.Xmult
             }
         end
     end
 }
-
-SMODS.Joker { --PouÄkai
+ 
+SMODS.Joker { --Pouākai
     key = 'pouakai',
-    name = 'PouÄkai',
+    name = 'Pouākai',
 	atlas = 'Joker',
 	pos = { x = 15, y = 25 },
     rarity = 3,
