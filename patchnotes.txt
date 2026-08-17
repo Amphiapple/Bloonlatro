@@ -1,5 +1,6 @@
-Added Jokers:
+Added Content:
 - Skywardens have been added to the game!
+- New Spectral card
 
 General Changes:
 - Certin Jokers/objects can how have different descriptions if their effect changes depending on the situation

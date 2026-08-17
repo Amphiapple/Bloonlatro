@@ -597,6 +597,15 @@ return {
                     'Adjacent cards become',
                     '{C:attention}Meteor{} cards'
                 }
+            },
+            c_bloons_thunder = {
+                name = 'Thunder',
+                text = {
+                    'Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
+                    'or {C:dark_edition}Polychrome{} effect to',
+                    '{C:attention}#1#{} random cards in hand',
+                    'and {C:attention}Stun{} them'
+                }
             }
         },
         Stake = {
