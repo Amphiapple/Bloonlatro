@@ -93,7 +93,8 @@ return {
                 name = 'Absolute Zero',
                 text = {
                     '{C:attention}+#1#{} hand size this round',
-                    'for every {C:attention}#2# {C:inactive}(#3#) {C:attention}Frozen Cards{} drawn',
+                    'for every {C:attention}#2# {C:inactive}(#3#)',
+                    '{C:attention}Frozen Cards{} drawn'
                 }
             },
             j_bloons_larger_radius = {
