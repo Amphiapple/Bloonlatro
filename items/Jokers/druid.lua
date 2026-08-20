@@ -165,6 +165,14 @@ SMODS.Joker { --Ball Lightning
         tower_info = { base = "Druid", category = "magic" },
     },
 
+    in_pool = function(self, args)
+        for k, v in pairs(G.playing_cards) do
+            if SMODS.has_enhancement(v, 'm_bloons_frozen') or SMODS.has_enhancement(v, 'm_bloons_stunned') then
+                return true
+            end
+        end
+        return false
+    end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
