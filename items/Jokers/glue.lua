@@ -229,7 +229,7 @@ SMODS.Joker { --Glue Splatter
             if not context.other_card.glued then
                 context.other_card.glued = true
             end
-        elseif context.joker_main then
+        elseif context.joker_main and G.GAME.current_round.hands_played == 0 then
             return {
                 mult = card.ability.extra.mult
             }

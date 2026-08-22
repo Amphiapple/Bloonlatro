@@ -22,6 +22,7 @@ Balance Changes:
 - Diamondback body now adds exclusively face cards
 
 Fixes:
+- Glue Splatter should no longer give mult outside first hand of round
 - Operation Dart Storm should no longer be perishable compatible
 - Sentries and Marine are now a part of the miscellaneous category
 - Shimmer info queue should now show negative consumable rather than negative joker
