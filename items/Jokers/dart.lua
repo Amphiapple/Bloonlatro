@@ -8,7 +8,7 @@ SMODS.Joker { --Dart Monkey
 	cost = 2,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 0, tier = 0 },
         extra = { chips = 20, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -41,7 +41,7 @@ SMODS.Joker { --Sharp Shots
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 1, tier = 1 },
         extra = { chips = 20, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -67,7 +67,7 @@ SMODS.Joker { --Razor Sharp Shots
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 1, tier = 2 },
         extra = { chips = 20, mult = 6 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -93,7 +93,7 @@ SMODS.Joker { --Spike-o-pult
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 1, tier = 3 },
         extra = { mult = 4 } --Variables: mult = +mult for each card scored
     },
 
@@ -118,7 +118,7 @@ SMODS.Joker { --Juggernaut
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 1, tier = 4 },
         extra = { mult = 2, current = 0 } --Variables: mult = +mult for each card scored, current = current +mult
     },
 
@@ -155,7 +155,7 @@ SMODS.Joker { --Ultra-Juggernaut
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 1, tier = 5 },
         extra = { Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult for each card scored, current = current Xmult
     },
 
@@ -192,7 +192,7 @@ SMODS.Joker { --Quick Shots
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 2, tier = 1 },
         extra = { chips = 40, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -218,7 +218,7 @@ SMODS.Joker { --Very Quick Shots
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 2, tier = 2 },
         extra = { chips = 60, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -244,7 +244,7 @@ SMODS.Joker { --Triple Shot
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 2, tier = 3 },
         extra = { chips = 60, mult = 12, number = 3 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -270,7 +270,7 @@ SMODS.Joker { --Super Monkey Fan Club
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 2, tier = 4 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for each transformed Dart
     },
 
@@ -304,7 +304,7 @@ SMODS.Joker { --Plasma Monkey Fan Club
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 2, tier = 5 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult for each transformed Dart
     },
 
@@ -338,7 +338,7 @@ SMODS.Joker { --Long Range Darts
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 3, tier = 1 },
         extra = { chips = 20, mult = 2, current_chips = 20, current_mult = 2 } --Variables: chips = +chips, mult = +mult, current_chips = chips if doubled, current_mult = mult if doubled
     },
 
@@ -370,7 +370,7 @@ SMODS.Joker { --Enhanced Eyesight
 	cost = 4,
     blueprint_compat = false,
     config = { 
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 3, tier = 2 },
         extra = { slots = 1 } --Variables: slots = extra consumable slots
     },
 
@@ -394,7 +394,7 @@ SMODS.Joker { --Crossbow
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 3, tier = 3 },
         extra = { chips = 60, mult = 12 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -420,7 +420,7 @@ SMODS.Joker { --Sharp Shooter
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 3, tier = 4 },
         extra = { mult = 40, limit = 10, counter = 1 } --Variables: mult = mult, limit = number of cards scored for mult, counter = card index
     },
 
@@ -490,7 +490,7 @@ SMODS.Joker { --Crossbow Master
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary" },
+        tower_info = { base = "Dart Monkey", category = "primary", path = 3, tier = 5 },
         extra = { Xmult = 3, limit = 5, counter = 1 } --Variables: Xmult = Xmult, limit = number of cards scored for Xmult, counter = card index
     },
 

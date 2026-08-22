@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 0, tier = 0 },
         extra = { mult = 10 } --Variables: mult = +mult
     },
 
@@ -38,7 +38,7 @@ SMODS.Joker { --Glue Soak
     blueprint_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 1, tier = 1 },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -60,7 +60,7 @@ SMODS.Joker { --Corrosive Glue
     perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 1, tier = 2 },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult for each glued card, current = current +mult
     },
 
@@ -93,7 +93,7 @@ SMODS.Joker { --Bloon Dissolver
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 1, tier = 3 },
         extra = { p_mult = 3 } --Variables: mult = permanent +mult
     },
 
@@ -123,7 +123,7 @@ SMODS.Joker { --Bloon Liquefier
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 1, tier = 4 },
         extra = { mult = 10, p_mult = 2 } --Variables: mult = permanent +mult
     },
 
@@ -153,7 +153,7 @@ SMODS.Joker { --The Bloon Solver
     perishable_compat = false,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 1, tier = 5 },
         extra = { Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult per glued card, current = current Xmult
     },
 
@@ -185,7 +185,7 @@ SMODS.Joker { --Bigger Globs
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 2, tier = 1 },
         extra = { number = 2, mult = 5 } --Variables: mult = +mult
     },
 
@@ -215,7 +215,7 @@ SMODS.Joker { --Glue Splatter
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 2, tier = 2 },
         extra = { mult = 10 },
     },
 
@@ -246,7 +246,7 @@ SMODS.Joker { --Glue Hose
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 2, tier = 3 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -280,7 +280,7 @@ SMODS.Joker { --Glue Strike
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 2, tier = 4 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -307,7 +307,7 @@ SMODS.Joker { --Glue Storm
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 2, tier = 5 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -334,7 +334,7 @@ SMODS.Joker { --Stickier Glue
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 3, tier = 1 },
         extra = { mult = 15 } --Variables: mult = +mult
     },
 
@@ -365,7 +365,7 @@ SMODS.Joker { --Stronger Glue
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 3, tier = 2 },
         extra = { mult = 10, money = 2 } --Variables: mult = +mult, money = new money loss
     },
 
@@ -391,7 +391,7 @@ SMODS.Joker { --MOAB Glue
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 3, tier = 3 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -424,7 +424,7 @@ SMODS.Joker { --Relentless Glue
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 3, tier = 4 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -451,7 +451,7 @@ SMODS.Joker { --Super Glue
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_glued',
     config = {
-        tower_info = { base = "Glue Gunner", category = "primary" },
+        tower_info = { base = "Glue Gunner", category = "primary", path = 3, tier = 5 },
         extra = { Xmult = 1.5, money = 3 } --Variables: retrigger = retrigger amount
     },
 

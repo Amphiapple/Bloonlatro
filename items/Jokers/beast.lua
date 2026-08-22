@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 0, tier = 0 },
         extra = { chips = 40 } --Variables: chips = +chips
     },
 
@@ -33,7 +33,7 @@ SMODS.Joker { --Piranha
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 1, tier = 1 },
         extra = { mult = 16 } --Variables: mult = +mult
     },
 
@@ -64,7 +64,7 @@ SMODS.Joker { --Barracuda
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 1, tier = 2 },
         extra = { mult = 8 } --Variables: mult = +mult per bonus card
     },
 
@@ -91,7 +91,7 @@ SMODS.Joker { --Great White
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 1, tier = 3 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -125,7 +125,7 @@ SMODS.Joker { --Orca
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 1, tier = 4 },
         extra = { Xmult = 3, limit = 7, number = 0 } --Variables: mult = +mult, limit = number of bonus required, number = number of bonus cards in deck
     },
 
@@ -163,7 +163,7 @@ SMODS.Joker { --Megalodon
     blueprint_compat = true,
     enhancement_gate = 'm_bonus',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 1, tier = 5 },
         extra = { Xmult = 2, num = 1, denom = 4 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
@@ -196,7 +196,7 @@ SMODS.Joker { --Microraptor
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 2, tier = 1 },
         extra = { chips = 60 } --Variables: chips = +chips
     },
 
@@ -227,7 +227,7 @@ SMODS.Joker { --Adasaurus
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 2, tier = 2 },
         extra = { chips = 30 } --Variables: chips = +chips per mult card
     },
 
@@ -254,7 +254,7 @@ SMODS.Joker { --Velociraptor
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 2, tier = 3 },
         extra = { number = 2 } --Variables: number = required mult cards for planet
     },
 
@@ -305,7 +305,7 @@ SMODS.Joker { --Tyrannosaurus Rex
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 2, tier = 4 },
         extra = { mult = 4 } --Variables: mult = permanent +mult
     },
 
@@ -335,7 +335,7 @@ SMODS.Joker { --Giganotosaurus
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 2, tier = 5 },
         extra = { Xmult1 = 1.5, Xmult2 = 2, num = 1, denom = 4 } --Variables: Xmult1 = Xmult, Xmult2 = chance Xmult, num/denom = probability fraction
     },
 
@@ -369,7 +369,7 @@ SMODS.Joker { --Gyrfalcon
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 3, tier = 1 },
         extra = {chips = 30, mult = 8 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -402,7 +402,7 @@ SMODS.Joker { --Horned Owl
     blueprint_compat = true,
     enhancement_gate = 'm_mult',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 3, tier = 2 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -445,7 +445,7 @@ SMODS.Joker { --Golden Eagle
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 3, tier = 3 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger count
     },
 
@@ -481,7 +481,7 @@ SMODS.Joker { --Giant Condor
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 3, tier = 4 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
@@ -509,7 +509,7 @@ SMODS.Joker { --Pouākai
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
-        tower_info = { base = "Beast Handler", category = "support" },
+        tower_info = { base = "Beast Handler", category = "support", path = 3, tier = 5 },
         extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult per handsize, current = current handsize
     },
 

@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 0, tier = 0 },
         extra = { mult = 2, current = 0 } --Variables: mult = +mult
     },
 
@@ -37,7 +37,7 @@ SMODS.Joker { --Trident Efficiency
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 1, tier = 1 },
         extra = { mult = 3, current = 0 } --Variables: mult = +mult
     },
 
@@ -67,7 +67,7 @@ SMODS.Joker { --Trident Swiftness
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 1, tier = 2 },
         extra = { mult = 5, current = 0 } --Variables: mult = +mult
     },
 
@@ -103,7 +103,7 @@ SMODS.Joker { --Abyss Dweller
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 1, tier = 3 },
         extra = { mult = 9 } --Variables: mult = +mult per adjacent joker
     },
     
@@ -142,7 +142,7 @@ SMODS.Joker { --Abyssal Warrior
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 1, tier = 4 },
         extra = { Xmult = 1.25 } --Variables: Xmult = Xmult and per adjacent joker
     },
 
@@ -181,7 +181,7 @@ SMODS.Joker { --Lord of the Abyss
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 1, tier = 5 },
         extra = { Xmult = 1.25 } --Variables: Xmult = Xmult and per adjacent joker
     },
 
@@ -233,7 +233,7 @@ SMODS.Joker { --Sharper Prongs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 2, tier = 1 },
         extra = { chips = 15, current = 0 } --Variables: mult = +mult
     },
 
@@ -263,7 +263,7 @@ SMODS.Joker { --Tidal Chill
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 2, tier = 2 },
         extra = { number = 2 } --Variables: number = number of cards to freeze
     },
 
@@ -303,7 +303,7 @@ SMODS.Joker { --Riptide Champion
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 2, tier = 3 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -352,7 +352,7 @@ SMODS.Joker { --Arctic Knight
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 2, tier = 4 },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -392,7 +392,7 @@ SMODS.Joker { --Popseidon
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 2, tier = 5 },
         extra = { chips = 40 } --Variables: chips = +chips per frozen card
     },
 
@@ -425,7 +425,7 @@ SMODS.Joker { --Echosense Precision
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 3, tier = 1 },
     },
 }
 
@@ -438,7 +438,7 @@ SMODS.Joker { --Echosense Network
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 3, tier = 2 },
         extra = { mult = 7, current = 0 } --Variables: mult = +mult per mermonkey
     },
 
@@ -475,7 +475,7 @@ SMODS.Joker { --Alluring Melody
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 3, tier = 3 },
         extra = { mult = 3, current = 0 } --Variables: mult = +mult per enhanced card, current = current mult
     },
 
@@ -534,7 +534,7 @@ SMODS.Joker { --Symphonic Resonance
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 3, tier = 4 },
         extra = { Xmult = 0.1, current = 1 } --Variables: mult = +mult per enhanced card, current = current mult
     },
 
@@ -589,7 +589,7 @@ SMODS.Joker { --The Final Harmonic
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mermonkey", category = "magic" },
+        tower_info = { base = "Mermonkey", category = "magic", path = 3, tier = 5 },
     },
 
     calculate = function(self, card, context)

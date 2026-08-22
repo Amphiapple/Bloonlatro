@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 0, tier = 0 },
         extra = { chips = 24, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -33,7 +33,7 @@ SMODS.Joker { --Faster Shooting
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 1 },
         extra = { chips = 48, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -59,7 +59,7 @@ SMODS.Joker { --Even Faster Shooting
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 2 },
         extra = { Xmult = 1.3 } --Variables: Xmult
     },
 
@@ -84,7 +84,7 @@ SMODS.Joker { --Hot Shots
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 3 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -106,7 +106,7 @@ SMODS.Joker { --Ring of Fire
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 4 },
         extra = { rate = 4 } --Variables: rate = meteor card rate
     },
 
@@ -140,7 +140,7 @@ SMODS.Joker { --Inferno Ring
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 5 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -183,7 +183,7 @@ SMODS.Joker { --Long Range Tacks
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 2, tier = 1 },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains 7, 8, 9, current = current +mult
     },
 
@@ -223,7 +223,7 @@ SMODS.Joker { --Super Range Tacks
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 2, tier = 2 },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if scoring hand contains an odd rank, current = current +mult
     },
 
@@ -263,7 +263,7 @@ SMODS.Joker { --Blade Shooter
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 2, tier = 3 },
         extra = { mult = 3, number = 3, current = 0 } --Variables: mult = +mult gain if scoring hand contains 3 odd ranks, current = current +mult
     },
 
@@ -303,7 +303,7 @@ SMODS.Joker { --Blade Maelstrom
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 2, tier = 4 },
         extra = { num = 1, denom = 2, Xmult = 1.5 } --Variables: num/denom = probability fraction, Xmult = Xmult
     },
 
@@ -332,7 +332,7 @@ SMODS.Joker { --Super Maelstrom
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 2, tier = 5 },
         extra = { Xmult = 1, current = 1, ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'} } --Variables: mult = +mult gain if scoring hand contains 3 numbers, current = current +mult
     },
 
@@ -397,7 +397,7 @@ SMODS.Joker { --More Tacks
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 1 },
         extra = { chips = 24, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -425,7 +425,7 @@ SMODS.Joker { --Even More Tacks
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 2 },
         extra = { chips = 24, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -456,7 +456,7 @@ SMODS.Joker { --Tack Sprayer
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 3 },
         extra = { chips = 24, mult = 8 } --Variables: chips = +chips, mult = +mult
     },
 
@@ -488,7 +488,7 @@ SMODS.Joker { --Overdrive
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 4 },
         extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult gain for each 8, current = current Xmult
     },
 
@@ -525,7 +525,7 @@ SMODS.Joker { --The Tack Zone
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary" },
+        tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 5 },
         extra = { Xmult = 4, sum = 32 } --Variables: Xmult = Xmult if target is hit, sum = target sum
     },
 

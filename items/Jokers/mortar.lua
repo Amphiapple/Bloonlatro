@@ -7,7 +7,7 @@
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 0, tier = 0 },
         extra = { num = 1, denom = 2, mult = 5 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
@@ -33,7 +33,7 @@ SMODS.Joker { --Bigger Blast
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 1, tier = 1 },
         extra = { num = 1, denom = 2, mult = 7 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
@@ -59,7 +59,7 @@ SMODS.Joker { --Bloon Buster
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 1, tier = 2 },
         extra = { num = 1, denom = 3, mult = 12 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
@@ -86,7 +86,7 @@ SMODS.Joker { --Shell Shock
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 1, tier = 3 },
         extra = { num = 1, denom = 2, mult = 10 } --Variables: num/denom = probability fraction 
     },
 
@@ -115,7 +115,7 @@ SMODS.Joker { --The Big One
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 1, tier = 4 },
         extra = { num = 1, denom = 2, mult = 40, active = false } --Variables: num/denom = probability fraction 
     },
 
@@ -154,7 +154,7 @@ SMODS.Joker { --The Biggest One
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 1, tier = 5 },
         extra = { num = 1, denom = 2, Xmult = 3, active = false } --Variables: num/denom = probability fraction 
     },
 
@@ -192,7 +192,7 @@ SMODS.Joker { --Faster Reload
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 2, tier = 1 },
         extra = { num = 2, denom = 3, mult = 5 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
@@ -218,7 +218,7 @@ SMODS.Joker { --Rapid Reload
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 2, tier = 2 },
         extra = { num = 3, denom = 4, mult = 5 } --Variables: num/denom = probability fraction, mult = +mult
     },
 
@@ -245,7 +245,7 @@ SMODS.Joker { --Heavy Shells
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_stunned',
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 2, tier = 3 },
         extra = { mult = 10, current = 0 } --Variables: mult = +mult for each stunned
     },
 
@@ -277,7 +277,7 @@ SMODS.Joker { --Artillery Battery
     perishable_compat = false,
     enhancement_gate = 'm_bloons_stunned',
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 2, tier = 4 },
         extra = { mult = 2, current = 0 } --Variables: mult = +mult for each stunned, current = current +mult
 
     },
@@ -315,7 +315,7 @@ SMODS.Joker { --Pop and Awe
     perishable_compat = false,
     enhancement_gate = 'm_bloons_stunned',
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 2, tier = 5 },
         extra = { Xmult = 0.2, current = 1 } --Variables: Xmult = Xmult for each stunned, current = current +mult
     },
 
@@ -357,7 +357,7 @@ SMODS.Joker { --Increased Accuracy
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 3, tier = 1 },
         extra = { num = 1, denom = 2, chips = 30 } --Variables: num/denom = probability fraction, chips = +chips
     },
 
@@ -383,7 +383,7 @@ SMODS.Joker { --Burny Stuff
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 3, tier = 2 },
         extra = { num = 1, denom = 4 } --Variables: num/denom = probability fraction 
     },
 
@@ -407,7 +407,7 @@ SMODS.Joker { --Signal Flare
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 3, tier = 3 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -498,7 +498,7 @@ SMODS.Joker { --Shattering Shells
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 3, tier = 4 },
         extra = { Xmult = 0.5 } --Variables: Xmult = Xmult
     },
 
@@ -550,7 +550,7 @@ SMODS.Joker { --Blooncineration
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Mortar Monkey", category = "military" },
+        tower_info = { base = "Mortar Monkey", category = "military", path = 3, tier = 5 },
         extra = { Xmult = 1 } --Variables: Xmult = Xmult
     },
 

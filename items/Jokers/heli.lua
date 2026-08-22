@@ -7,7 +7,7 @@
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 0, tier = 0 },
         extra = { mult = 4 } --Variables: mult = +mult
     },
 
@@ -32,7 +32,7 @@ SMODS.Joker { --Quad Darts
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 1, tier = 1 },
         extra = { mult = 6 } --Variables: mult = +mult
     },
 
@@ -57,7 +57,7 @@ SMODS.Joker { --Pursuit
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 1, tier = 2 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -91,7 +91,7 @@ SMODS.Joker { --Razor Rotors
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 1, tier = 3 },
         extra = { mult = 1, number = 4, loss = 1, current = 0 } --Variables: mult = +mult gain or loss, current = current +mult
     },
 
@@ -137,7 +137,7 @@ SMODS.Joker { --Apache Dartship
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 1, tier = 4 },
         extra = { mult = 10 } --Variables: mult = +mult
     },
 
@@ -164,7 +164,7 @@ SMODS.Joker { --Apache Prime
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 1, tier = 5 },
         extra = { Xmult1 = 1.2, Xmult2 = 1.3, Xmult3 = 1.5, Xmult4 = 1.7 } --Variables: Xmult = Xmult for each rank
     },
 
@@ -204,7 +204,7 @@ SMODS.Joker { --Bigger Jets
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 2, tier = 1 },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult gain if hand contains a face, current = current +mult
     },
 
@@ -249,7 +249,7 @@ SMODS.Joker { --IFR
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 2, tier = 2 },
     },
 
     calculate = function(self, card, context)
@@ -294,7 +294,7 @@ SMODS.Joker { --Downdraft
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 2, tier = 3 },
         extra = { ready = true, active = false, hands = 0, discards = 0 } --Variables: ready = ready to combine hands and discards, active = hands merged with discards, hands = added hands, discards = added discards
     },
 
@@ -361,7 +361,7 @@ SMODS.Joker { --Support Chinook
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 2, tier = 4 },
         extra = { slots = 1, hands = 1 } --Variables: slots = extra consumable slots, hands = extra hands
     },
 
@@ -395,7 +395,7 @@ SMODS.Joker { --Special Poperations
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 2, tier = 5 },
         extra = {marine = 5, cash = 9, counter = 0 } --Variables: hands = extra hands, marine = hands for marine, cash = hands for cash drop, current = current hands
     },
 
@@ -456,7 +456,7 @@ SMODS.Joker { --Faster Darts
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 1 },
         extra = { chips = 25 } --Variables: chips = +chips
     },
 
@@ -481,7 +481,7 @@ SMODS.Joker { --Faster Firing
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 2 },
         extra = { chips = 35 } --Variables: chips = +chips
     },
 
@@ -506,7 +506,7 @@ SMODS.Joker { --MOAB Shove
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 3 },
         extra = { hands = 3, counter = 0 } --Variables: hands = extra hands, scored_chips = chips for first hands, counter = amount of blowback hands left
     },
 
@@ -565,7 +565,7 @@ SMODS.Joker { --Comanche Defense
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 4 },
         extra = { number = 3, chips = 20, current = 0, counter = 0 } --Variables: numebr = max number of face cards, chips = +chips, current = current +chips
     },
 
@@ -606,7 +606,7 @@ SMODS.Joker { --Comanche Commander
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Heli Pilot", category = "military" },
+        tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 5 },
         extra = { number = 3, Xmult = 1.5, faces = {} } --Variables: number = number of cards retriggered, Xmult = Xmult per face
     },
 

@@ -7,7 +7,7 @@
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 0, tier = 0 },
         extra = { chips = 40, limit = 2, counter = 2 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
     },
 
@@ -66,7 +66,7 @@ SMODS.Joker { --Permafrost
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 1, tier = 1 },
         extra = { chips = 20 } --Variables: chips = +chips
     },
 
@@ -96,7 +96,7 @@ SMODS.Joker { --Cold Snap
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 1, tier = 2 },
         extra = { money = 2 } --Variables: money = dollars
     },
 
@@ -134,7 +134,7 @@ SMODS.Joker { --Ice Shards
     perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 1, tier = 3 },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult per thawed frozen card, current = current +mult
     },
 
@@ -183,7 +183,7 @@ SMODS.Joker { --Embrittlement
     perishable_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 1, tier = 4 },
         extra = { mult = 15, num = 1, denom = 6 } --Variables: mult = mult per destroyed frozen card, current = current mult
     },
 
@@ -223,7 +223,7 @@ SMODS.Joker { --Super Brittle
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 1, tier = 5 },
         extra = { Xmult = 1.5, num = 1, denom = 4 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
@@ -262,7 +262,7 @@ SMODS.Joker { --Enhanced Freeze
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 2, tier = 1 },
         extra = { chips = 80, limit = 2, counter = 2 } --Variables: chips = +chips, limit = number of hands for freeze, counter = hand index
     },
 
@@ -320,7 +320,7 @@ SMODS.Joker { --Deep Freeze
     blueprint_compat = false,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 2, tier = 2 },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -340,7 +340,7 @@ SMODS.Joker { --Arctic Wind
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 2, tier = 3 },
         h_size = 1, --Variables: h_size == hand size
     },
 
@@ -379,7 +379,7 @@ SMODS.Joker { --Snowstorm
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 2, tier = 4 },
         extra = { hand_size = 1 } --Variables: hand_size = extra hand size
     },
 
@@ -433,7 +433,7 @@ SMODS.Joker { --Absolute Zero
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 2, tier = 5 },
         extra = { hand_size = 1, number = 2, counter = 2 } --Variables: number = number of frozen cards for hand size
     },
 
@@ -470,7 +470,7 @@ SMODS.Joker { --Larger Radius
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 3, tier = 1 },
         extra = { mult = 10, limit = 2, counter = 2 } --Variables: mult = +mult, limit = number of hands for freeze, counter = hand index
     },
 
@@ -529,7 +529,7 @@ SMODS.Joker { --Re-freeze
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 3, tier = 2 },
         extra = { retrigger = 1 } --Variables = retrigger = retrigger amount
     },
 
@@ -555,7 +555,7 @@ SMODS.Joker { --Cryo Cannon
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 3, tier = 3 },
         extra = { mult = 10, num = 1, denom = 3 } --Variables: mult = +mult, num/denom = probability fraction
     },
 
@@ -588,7 +588,7 @@ SMODS.Joker { --Icicles
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 3, tier = 4 },
         extra = { Xmult = 1.3, num = 1, denom = 2 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 
@@ -621,7 +621,7 @@ SMODS.Joker { --Icicle Impale
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary" },
+        tower_info = { base = "Ice Monkey", category = "primary", path = 3, tier = 5 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult, num/denom = probability fraction
     },
 

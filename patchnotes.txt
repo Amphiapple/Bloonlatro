@@ -1,12 +1,5 @@
-Added Jokers:
-- Even more Paragons!
-- All remaining Mortar Monkeys
-- All remaining Druids
-- Sun Temple and True Sun God have been added
-   - Try for a secret sacrifice on the True Sun God
-
 General Changes:
-- Certin Jokers/objects can how have different descriptions if their effect changes depending on the situation
+- Upgrading towers have been added!
 
 Balance Changes:
 

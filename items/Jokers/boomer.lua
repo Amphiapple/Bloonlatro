@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 0, tier = 0 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -30,7 +30,7 @@ SMODS.Joker { --Improved Rangs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 1, tier = 1 },
         extra = { retrigger = 1, number = 2 } --Variables: retrigger = retrigger amount, number = number of cards retriggered
     },
 
@@ -57,7 +57,7 @@ SMODS.Joker { --Glaives
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 1, tier = 2 },
         extra = { chips = 1, current = 0 } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -85,7 +85,7 @@ SMODS.Joker { --Glaive Ricochet
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 1, tier = 3 },
         extra = { chips = 2, current = 0 } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -129,7 +129,7 @@ SMODS.Joker { --MOAR Glaives
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 1, tier = 4 },
         extra = { chips = 2, current = 0 } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -178,7 +178,7 @@ SMODS.Joker { --Glaive Lord
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 1, tier = 5 },
         extra = { chips = 2, current = 0 } --Variables: chips = +chips per continuing card, current = current +chips
     },
 
@@ -226,7 +226,7 @@ SMODS.Joker { --Faster Throwing
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 2, tier = 1 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -250,7 +250,7 @@ SMODS.Joker { --Faster Rangs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 2, tier = 2 },
         extra = { retrigger = 1, number = 2 } --Variables: retrigger = retrigger amount
     },
 
@@ -278,7 +278,7 @@ SMODS.Joker { --Bionic Boomerang
     blueprint_compat = true,
     enhancement_gate = 'm_steel',
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 2, tier = 3 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -305,7 +305,7 @@ SMODS.Joker { --Turbo Charge
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 2, tier = 4 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -332,7 +332,7 @@ SMODS.Joker { --Perma Charge
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 2, tier = 5 },
         extra = { retrigger = 3 } --Variables: retrigger = retrigger amount
     },
 
@@ -359,7 +359,7 @@ SMODS.Joker { --Long Range Rangs
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 3, tier = 1 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -382,7 +382,7 @@ SMODS.Joker { --Red Hot Rangs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 3, tier = 2 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -412,7 +412,7 @@ SMODS.Joker { --Kylie Boomerang
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 3, tier = 3 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -435,7 +435,7 @@ SMODS.Joker { --MOAB Press
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 3, tier = 4 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -458,7 +458,7 @@ SMODS.Joker { --MOAB Domination
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary" },
+        tower_info = { base = "Boomerang Monkey", category = "primary", path = 3, tier = 5 },
         extra = { retrigger = 1, Xmult = 2, exploded = nil } --Variables: retrigger = retrigger amount, Xmult = Xmult
     },
 

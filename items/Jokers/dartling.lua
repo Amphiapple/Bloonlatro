@@ -7,7 +7,7 @@
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 0, tier = 0 },
         extra = { min = 0, max = 150 } --Variables: min = min possible +chips, max = max possible +chips
     },
 
@@ -62,7 +62,7 @@ SMODS.Joker { --Focused Firing
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 1, tier = 1 },
         extra = { min = 0, max = 25 } --Variables: min = min possible +mult, max = max possible +mult
     },
 
@@ -117,7 +117,7 @@ SMODS.Joker { --Laser Shock
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 1, tier = 2 },
         extra = { min = 0, max = 25, mult = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult
     },
 
@@ -204,7 +204,7 @@ SMODS.Joker { --Laser Cannon
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 1, tier = 3 },
         extra = { min = 0, max = 12, mult = 0, saved = 0 } --Variables: max = max possible +mult, min = min possible +mult, mult = shock +mult, saved = saved shock +mult
     },
 
@@ -288,7 +288,7 @@ SMODS.Joker { --Plasma Accelerator
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 1, tier = 4 },
         extra = { mult = 12, ranks = {} } --Variables: mult = +mult, ranks = card ranks played
     },
 
@@ -327,7 +327,7 @@ SMODS.Joker { --Ray of Doom
 	cost = 10,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 1, tier = 5 },
         extra = { Xmult = 1.5, ranks = {} } --Variables: Xmult = Xmult, ranks = card ranks played
     },
     
@@ -366,7 +366,7 @@ SMODS.Joker { --Advanced Targeting
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 2, tier = 1 },
         extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: min = min possible +chips, q1,q3 = range for central values, max = max possible +chips
     },
 
@@ -436,7 +436,7 @@ SMODS.Joker { --Faster Barrel Spin
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 2, tier = 2 },
         extra = { min = 50, max = 150 } --Variables: min = min possible +chips, max = max possible +chips
     },
 
@@ -495,7 +495,7 @@ SMODS.Joker { --Hydra Rocket Pods
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 2, tier = 3 },
         extra = { min = 0, max = 11, current = 0 } --Variables: min = min possible chip gain, max = max possible chips gain, current = current chips
     },
 
@@ -577,7 +577,7 @@ SMODS.Joker { --Rocket Storm
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 2, tier = 4 },
         extra = { min = 0, max = 15, current = 1 } --Variables: max = max possible Xmult gain *100, min = min possible Xmult gain *100, current = current Xmult
     },
 
@@ -675,7 +675,7 @@ SMODS.Joker { --M.A.D
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 2, tier = 5 },
         extra = { min = 25, max = 100, current = 1 } --Variables: min = min possible Xmult gain *100, max = max possible Xmult gain *100, current = current Xmult
     },
 
@@ -761,7 +761,7 @@ SMODS.Joker { --Faster Swivel
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 3, tier = 1 },
         extra = { min = 0, q1 = 50, q3 = 100, max = 150 } --Variables: max = max possible +chips, q1-q3 = range for extreme values, min = min possible +chips
     },
 
@@ -833,7 +833,7 @@ SMODS.Joker { --Powerful Darts
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 3, tier = 2 },
         extra = { num = 1, denom = 2, min = 150, max = 300 } --Variables: num/denom = probabiltiy fraction, max = max possible +chips, min = min possible +chips
     },
 
@@ -894,7 +894,7 @@ SMODS.Joker { --Buckshot
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 3, tier = 3 },
         extra = { min = 10, max = 30 } --Variables: max = max possible Xmult *10, min = min possible Xmult *10
     },
 
@@ -955,7 +955,7 @@ SMODS.Joker { --Bloon Area Denial System
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 3, tier = 4 },
         extra = { min = 100, max = 150, cards = {} } --Variables: min = min possible Xmult *100, max = max possible Xmult *100
     },
 
@@ -1057,7 +1057,7 @@ SMODS.Joker { --Bloon Exclusion Zone
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dartling Gunner", category = "military" },
+        tower_info = { base = "Dartling Gunner", category = "military", path = 3, tier = 5 },
         extra = { min = 100, max = 150, cards = {} } --Variables: min = min possible Xmult *100, max = max possible Xmult *100
     },
 
