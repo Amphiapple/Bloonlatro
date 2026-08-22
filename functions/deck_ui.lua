@@ -282,13 +282,13 @@ function Game:start_run(args)
     local result = start_run_ref(self, args)
 
     local deck = G.GAME and G.GAME.selected_back
-    local deck_key = deck and deck.effect and deck.effect.center and deck.effect.center.original_key
+    local deck_key = deck and deck.effect and deck.effect.center and deck.effect.center.key
 
-    if deck_key == 'corvus' then
+    if deck_key == 'b_bloons_corvus' then
         generate_corvus_ui()
-    elseif deck_key == 'rosalia' then
+    elseif deck_key == 'b_bloons_rosalia' then
         generate_rosalia_ui()
-    elseif deck_key == 'psi' then
+    elseif deck_key == 'b_bloons_psi' then
         generate_psi_ui()
     end
 

@@ -50,6 +50,7 @@ local crash_of_the_titans_cards = {
     {id = 'j_bloons_bomb_blitz'},
     {id = 'j_bloons_ring_of_fire'},
     {id = 'j_bloons_inferno_ring'},
+    {id = 'j_bloons_embrittlement'},
     {id = 'j_bloons_super_brittle'},
     {id = 'j_bloons_exploding_pineapple'},
     {id = 'j_bloons_bomber_ace'},
@@ -109,7 +110,7 @@ local inflated_cards = {
     {id = 'j_turtle_bean'},
     {id = 'j_bloons_arctic_wind'},
     {id = 'j_bloons_snowstorm'},
-    {id = 'j_bloons_giant_condor'},
+    {id = 'j_bloons_absolute_zero'},
     {id = 'v_paint_brush'},
     {id = 'v_palette'},
 }

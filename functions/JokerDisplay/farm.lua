@@ -8,7 +8,7 @@ JokerDisplay.Definitions["j_bloons_banana_farm"] = { --Banana Farm
     }
 }
 
-JokerDisplay.Definitions["j_bloons_increased_product"] = { --Increased Production
+JokerDisplay.Definitions["j_bloons_increased_production"] = { --Increased Production
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },
@@ -18,7 +18,7 @@ JokerDisplay.Definitions["j_bloons_increased_product"] = { --Increased Productio
     }
 }
 
-JokerDisplay.Definitions["j_bloons_greater_product"] = { --Greater Production
+JokerDisplay.Definitions["j_bloons_greater_production"] = { --Greater Production
     text = {
         { text = "+$", colour = G.C.MONEY },
         { ref_table = "card.ability.extra", ref_value = "money", colour = G.C.MONEY },

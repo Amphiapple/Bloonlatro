@@ -118,10 +118,8 @@ return {
             j_bloons_giant_condor = {
                 name = 'Giant Condor',
                 text = {
-                    '{C:green}#1# in #2#{} chance to',
-                    'gain {C:red}+#3#{} hand size this',
-                    'round when each played',
-                    '{C:attention}Wild Card{} is scored',
+                    'Played {C:attention}Wild Cards{} give',
+                    '{X:mult,C:white}X#1#{} Mult when scored',
                 }
             },
             j_bloons_pouakai = {

@@ -153,8 +153,8 @@ return {
             bl_bloons_final_bfb = {
                 name = 'Brutal Behemoth',
                 text = {
-                    'Disable the rightmost',
-                    'Joker per hand played',
+                    'Disable rightmost Jokers',
+                    'equal to hands played'
                 }
             },
             bl_bloons_final_ddt = {
@@ -256,8 +256,8 @@ return {
             bl_bloons_diamondback_body = {
                 name = 'Diamondback Body',
                 text = {
-                    'Adds #1# cards to your deck',
-                    'each hand played',
+                    'Adds #1# face cards to your',
+                    'deck each hand played',
                     'X1 score for each undefeated',
                     'Diamondback blind',
                 },
@@ -548,6 +548,16 @@ return {
                     '{s:0.8,C:inactive}Corvus power{}'
                 }
             },
+            c_bloons_dark_ritual_geraldo = {
+                name = 'Dark Ritual',
+                text = {
+                    'Retrigger all played',
+                    'cards next hand and',
+                    'create {C:attention}#1#{} {C:spectral}Spectral{} card',
+                    'after cards are scored',
+                    '{s:0.8,C:inactive}Corvus power{}'
+                }
+            },
             c_bloons_flight_boost = {
                 name = 'Flight Boost',
                 text = {
@@ -586,6 +596,15 @@ return {
                     'card in hand',
                     'Adjacent cards become',
                     '{C:attention}Meteor{} cards'
+                }
+            },
+            c_bloons_thunder = {
+                name = 'Thunder',
+                text = {
+                    'Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},',
+                    'or {C:dark_edition}Polychrome{} effect to',
+                    '{C:attention}#1#{} random cards in hand',
+                    'and {C:attention}Stun{} them'
                 }
             }
         },

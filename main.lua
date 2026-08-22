@@ -32,6 +32,7 @@ local functions = {
     'joker_buttons',
     'main_menu',
     'boss',
+    'tutorial',
 
     --Crossmod files
     'talisman',
@@ -106,6 +107,7 @@ local jokers = {
     'alch',
     'druid',
     'merm',
+    'warden',
     'farm',
     'spac',
     'village',

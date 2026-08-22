@@ -1,8 +1,8 @@
-SMODS.Joker { --Engineer Monkey
+﻿SMODS.Joker { --Engineer Monkey
     key = 'engineer_monkey',
     name = 'Engineer Monkey',
 	atlas = 'Joker',
-	pos = { x = 0, y = 23 },
+	pos = { x = 0, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -17,14 +17,24 @@ SMODS.Joker { --Engineer Monkey
     calculate = function(self, card, context)
 		if context.before and context.poker_hands then
             if next(context.poker_hands['Straight Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money * 2
                 return {
                     dollars = card.ability.extra.money * 2,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             elseif next(context.poker_hands['Straight']) or next(context.poker_hands['Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
                     dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             end
         end
@@ -35,7 +45,7 @@ SMODS.Joker { --Sentry Gun
     key = 'sentry_gun',
     name = 'Sentry Gun',
     atlas = 'Joker',
-	pos = { x = 1, y = 23 },
+	pos = { x = 1, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -66,7 +76,7 @@ SMODS.Joker { --Faster Engineering
     key = 'faster_engineering',
     name = 'Faster Engineering',
     atlas = 'Joker',
-	pos = { x = 2, y = 23 },
+	pos = { x = 2, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -103,7 +113,7 @@ SMODS.Joker { --Sprockets
     key = 'sprockets',
     name = 'Sprockets',
     atlas = 'Joker',
-	pos = { x = 3, y = 23 },
+	pos = { x = 3, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -137,7 +147,7 @@ SMODS.Joker { --Sentry Expert
     key = 'sentry_expert',
     name = 'Sentry Expert',
 	atlas = 'Joker',
-	pos = { x = 4, y = 23 },
+	pos = { x = 4, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -173,7 +183,7 @@ SMODS.Joker { --Sentry Champion
     key = 'sentry_champion',
     name = 'Sentry Champion',
 	atlas = 'Joker',
-	pos = { x = 5, y = 23 },
+	pos = { x = 5, y = 24 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -204,7 +214,7 @@ SMODS.Joker { --Larger Service Area
     key = 'larger_service_area',
     name = 'Larger Service Area',
     atlas = 'Joker',
-	pos = { x = 6, y = 23 },
+	pos = { x = 6, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -218,9 +228,14 @@ SMODS.Joker { --Larger Service Area
     end,
     calculate = function(self, card, context)
         if context.before and #context.scoring_hand == 5 then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
             return {
                 dollars = card.ability.extra.money,
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         end
     end
@@ -230,7 +245,7 @@ SMODS.Joker { --Deconstruction
     key = 'deconstruction',
     name = 'Deconstruction',
     atlas = 'Joker',
-	pos = { x = 7, y = 23 },
+	pos = { x = 7, y = 24 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -263,7 +278,7 @@ SMODS.Joker { --Cleansing Foam
     key = 'cleansing_foam',
     name = 'Cleansing Foam',
     atlas = 'Joker',
-	pos = { x = 8, y = 23 },
+	pos = { x = 8, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -295,7 +310,7 @@ SMODS.Joker { --Overclock
     key = 'overclock',
     name = 'Overclock',
     atlas = 'Joker',
-	pos = { x = 9, y = 23 },
+	pos = { x = 9, y = 24 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
@@ -316,10 +331,12 @@ SMODS.Joker { --Overclock
         elseif context.after and not context.blueprint then
             card.ability.extra.hands = card.ability.extra.hands - 1
             if card.ability.extra.hands <= 0 then
+                G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         SMODS.destroy_cards(card, nil, nil, true)
                         card:remove()
+                        G.GAME.joker_buffer = 0
                         return true
                     end
                 }))
@@ -340,7 +357,7 @@ SMODS.Joker { --Ultraboost
     key = 'ultraboost',
     name = 'Ultraboost',
 	atlas = 'Joker',
-	pos = { x = 10, y = 23 },
+	pos = { x = 10, y = 24 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -373,7 +390,7 @@ SMODS.Joker { --Oversize Nails
     key = 'oversize_nails',
     name = 'Oversize Nails',
 	atlas = 'Joker',
-	pos = { x = 11, y = 23 },
+	pos = { x = 11, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -388,14 +405,24 @@ SMODS.Joker { --Oversize Nails
     calculate = function(self, card, context)
 		if context.before and context.poker_hands then
             if next(context.poker_hands['Straight Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money * 2
                 return {
                     dollars = card.ability.extra.money * 2,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             elseif next(context.poker_hands['Straight']) or next(context.poker_hands['Flush']) then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
                     dollars = card.ability.extra.money,
-                    colour = G.C.MONEY
+                    colour = G.C.MONEY,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             end
         end
@@ -406,7 +433,7 @@ SMODS.Joker { --Pin
     key = 'pin',
     name = 'Pin',
 	atlas = 'Joker',
-	pos = { x = 12, y = 23 },
+	pos = { x = 12, y = 24 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -435,7 +462,7 @@ SMODS.Joker { --Double Gun
     key = 'double_gun',
     name = 'Double Gun',
 	atlas = 'Joker',
-	pos = { x = 13, y = 23 },
+	pos = { x = 13, y = 24 },
     rarity = 2,
 	cost = 5,
     blueprint_compat = true,
@@ -463,14 +490,12 @@ SMODS.Joker { --Double Gun
             for k, v in pairs(card.ability.extra.pairs) do
                 if context.other_card == v then
                     G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            G.GAME.dollar_buffer = 0;
-                            return true
-                        end)
-                    }))
                     return {
                         dollars = card.ability.extra.money,
+                        func = (function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end)
                     }
                 end
             end
@@ -484,7 +509,7 @@ SMODS.Joker { --Bloon Trap
     key = 'bloon_trap',
     name = 'Bloon Trap',
 	atlas = 'Joker',
-	pos = { x = 14, y = 23 },
+	pos = { x = 14, y = 24 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = false,
@@ -526,7 +551,7 @@ SMODS.Joker { --XXXL Trap
     key = 'xxxl_trap',
     name = 'XXXL Trap',
 	atlas = 'Joker',
-	pos = { x = 15, y = 23 },
+	pos = { x = 15, y = 24 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = false,
@@ -564,3 +589,5 @@ SMODS.Joker { --XXXL Trap
         end
     end,
 }
+
+

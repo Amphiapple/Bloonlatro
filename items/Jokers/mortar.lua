@@ -1,4 +1,4 @@
-SMODS.Joker { --Mortar Monkey
+﻿SMODS.Joker { --Mortar Monkey
     key = 'mortar_monkey',
     name = 'Mortar Monkey',
 	atlas = 'Joker',
@@ -572,9 +572,11 @@ SMODS.Joker { --Blooncineration
             end
         elseif context.destroying_card and not context.blueprint then
             if context.destroying_card.config.center ~= G.P_CENTERS.c_base or context.destroying_card.edition or context.destroying_card.seal then
-                return true
+                return {remove = true}
             end
             return nil
         end
     end
 }
+
+

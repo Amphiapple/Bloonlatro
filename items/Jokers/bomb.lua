@@ -1,4 +1,4 @@
-SMODS.Joker { --Bomb Shooter
+﻿SMODS.Joker { --Bomb Shooter
     key = 'bomb_shooter',
     name = 'Bomb Shooter',
 	atlas = 'Joker',
@@ -129,7 +129,7 @@ SMODS.Joker { --Bloon Impact
             juice_card_until(card, eval, true)
         elseif context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
             if G.GAME.current_round.discards_used == 0 then
-                context.other_card:set_ability('m_bloons_stunned', nil, true)
+                context.other_card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
                 return {
                     message = 'Stunned!',
                     colour = G.C.RED,
@@ -178,7 +178,7 @@ SMODS.Joker { --Bloon Crush
             juice_card_until(card, eval, true)
         elseif context.discard and not context.hook and not context.other_card.debuff and not context.blueprint then
             if G.GAME.current_round.discards_used == 0 then
-                context.other_card:set_ability('m_bloons_stunned', nil, true)
+                context.other_card:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
                 return {
                     message = 'Stunned!',
                     colour = G.C.RED,
@@ -517,12 +517,14 @@ SMODS.Joker { --Bomb Blitz
                     return true
                 end
             }))
+            G.GAME.joker_buffer = G.GAME.joker_buffer - 1
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand_text_area.blind_chips:juice_up()
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
                     card:start_dissolve({G.C.RED}, nil)
+                    G.GAME.joker_buffer = 0
                     return true
                 end
             }))
@@ -553,3 +555,4 @@ SMODS.Joker { --Bomb Blitz
         end
     end
 }
+

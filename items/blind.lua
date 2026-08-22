@@ -42,23 +42,45 @@ SMODS.Blind {
 
     calculate = function(self, blind, context)
         if context.after and not blind.disabled then
-            local card = nil
-            for _,joker in ipairs(G.jokers.cards) do
-                if not joker.debuff and not joker.debuffed_by_blind then
-                    card = joker
+
+            local hands_played = G.GAME.current_round.hands_played
+            local jokers = G.jokers.cards
+
+            local debuff_set = {}
+
+            for i = 0, hands_played do
+                local idx = #jokers - i
+                if jokers[idx] then
+                    debuff_set[idx] = true
                 end
             end
-            if card then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card:set_debuff(true)
-                        if card.debuff then
-                            card.debuffed_by_blind = true
-                            card:juice_up()
+
+            for i = 1, #jokers do
+                local card = jokers[i]
+
+                if debuff_set[i] then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.2,
+                        func = function()
+                            if not card.debuff then
+                                card:set_debuff(true)
+                                card.debuffed_by_blind = true
+                                card:juice_up()
+                            end
+                            return true
                         end
-                        return true
-                    end,
-                }))
+                    }))
+                elseif card.debuffed_by_blind then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.2,
+                        func = function()
+                            card:set_debuff(false)
+                            return true
+                        end
+                    }))
+                end
             end
         end
     end,
@@ -672,7 +694,9 @@ SMODS.Blind {
     calculate = function(self, blind, context)
         if context.before and not blind.disabled then
             for i = 1, 5 do
-                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_' .. tostring(#G.deck.cards)))
+                local rank = pseudorandom_element({'J', 'Q', 'K'}, pseudoseed('diamondback_body'))
+                local suit = pseudorandom_element({'S','H','D','C'}, pseudoseed('diamondback_body'))
+                local card_front = suit..'_'..rank
                 SMODS.add_card({
                     set = 'Playing Card',
                     front = card_front,

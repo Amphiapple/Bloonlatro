@@ -63,7 +63,7 @@ return {
             j_bloons_glue_splatter = {
                 name = 'Glue Splatter',
                 text = {
-                    '{C:mult}+#1#{} Mult and',
+                    '{C:mult}+#1#{} Mult',
                     '{C:attention}Glue{} all cards in',
                     '{C:attention}first hand{} of round',
                 }

@@ -113,7 +113,7 @@ JokerDisplay.Definitions["j_bloons_super_range_tacks"] = { --Super Range Tacks
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
     },
     reminder_text = {
-        { text = "(Odd)" }
+        { text = "(3, 5, 7, 9)" }
     }
 }
 
@@ -123,9 +123,7 @@ JokerDisplay.Definitions["j_bloons_blade_shooter"] = { --Blade Shooter
         { ref_table = "card.ability.extra", ref_value = "current", colour = G.C.MULT }
     },
     reminder_text = {
-        { text = "(" },
-        { text = "3 Odd Cards", colour = G.C.ORANGE },
-        { text = ")" },
+        { text = "(3, 5, 7, 9)" }
     }
 }
 
@@ -244,7 +242,7 @@ JokerDisplay.Definitions["j_bloons_tack_sprayer"] = { --Tack Sprayer
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "(Even)" }
+        { text = "(2, 4, 6, 8, 10)" }
     },
     calc_function = function(card)
         local count = 0

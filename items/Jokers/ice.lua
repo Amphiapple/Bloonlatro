@@ -1,4 +1,4 @@
-SMODS.Joker { --Ice Monkey
+﻿SMODS.Joker { --Ice Monkey
     key = 'ice_monkey',
     name = 'Ice Monkey',
 	atlas = 'Joker',
@@ -108,6 +108,13 @@ SMODS.Joker { --Cold Snap
         if context.after then
             for k, v in ipairs(G.hand.cards) do
                 if v.ability.name == 'Frozen Card' and not v.debuff then
+                    G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
                     ease_dollars(card.ability.extra.money)
                     card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.money,colour = G.C.MONEY, delay = 0.45})
                 end
@@ -161,48 +168,6 @@ SMODS.Joker { --Ice Shards
                     end
                 }))
             end
-        elseif context.cards_destroyed and not context.blueprint then
-            local frozens = 0
-            for k, v in ipairs(context.glass_shattered) do
-                if v.ability.name == 'Frozen Card' then
-                    frozens = frozens + 1
-                end
-            end
-            if frozens > 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult*frozens
-                                return true
-                            end
-                        }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.mult*frozens}}})
-                        return true
-                    end
-                }))
-            end
-        elseif context.remove_playing_cards and not context.blueprint then
-            local frozens = 0
-            for k, v in ipairs(context.removed) do
-                if v.ability.name == 'Frozen Card' then
-                    frozens = frozens + 1
-                end
-            end
-            if frozens > 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult*frozens
-                                return true
-                            end
-                        }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.mult*frozens}}})
-                        return true
-                    end
-                }))
-            end
         end
     end
 }
@@ -219,60 +184,31 @@ SMODS.Joker { --Embrittlement
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult per destroyed frozen card, current = current Xmult
+        extra = { mult = 15, num = 1, denom = 6 } --Variables: mult = mult per destroyed frozen card, current = current mult
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
+        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'embrittlement')
+        return { vars = { card.ability.extra.mult, n, d } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' and not context.end_of_round then
             return {
-                x_mult = card.ability.extra.current
+                mult = card.ability.extra.mult
             }
-        elseif context.cards_destroyed and not context.blueprint then
-            local frozens = 0
-            for k, v in ipairs(context.glass_shattered) do
-                if v.ability.name == 'Frozen Card' then
-                    frozens = frozens + 1
-                end
-            end
-            if frozens > 0 then
+        elseif context.destroy_card and context.cardarea == G.hand and not context.blueprint then
+            if context.destroy_card.ability.name == 'Frozen Card' and not context.destroy_card.debuff and SMODS.pseudorandom_probability(card, 'embrittlement', card.ability.extra.num, card.ability.extra.denom, 'embrittlement') then
                 G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
                     func = function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult*frozens
-                                return true
-                            end
-                        }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
+                        context.destroy_card:shatter()
                         return true
                     end
                 }))
+                return {remove = true}
             end
-        elseif context.remove_playing_cards and not context.blueprint then
-            local frozens = 0
-            for k, v in ipairs(context.removed) do
-                if v.ability.name == 'Frozen Card' then
-                    frozens = frozens + 1
-                end
-            end
-            if frozens > 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult*frozens
-                                return true
-                            end
-                        }))
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current + card.ability.extra.Xmult*frozens}}})
-                        return true
-                    end
-                }))
-            end
+            return nil
         end
     end
 }
@@ -299,7 +235,7 @@ SMODS.Joker { --Super Brittle
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Frozen Card' and not context.end_of_round then
             return {
-                x_mult = card.ability.extra.Xmult
+                Xmult = card.ability.extra.Xmult
             }
         elseif context.destroy_card and context.cardarea == G.hand and not context.blueprint then
             if context.destroy_card.ability.name == 'Frozen Card' and not context.destroy_card.debuff and SMODS.pseudorandom_probability(card, 'super_brittle', card.ability.extra.num, card.ability.extra.denom, 'super_brittle') then
@@ -310,7 +246,7 @@ SMODS.Joker { --Super Brittle
                         return true
                     end
                 }))
-                return true
+                return {remove = true}
             end
             return nil
         end
@@ -498,20 +434,27 @@ SMODS.Joker { --Absolute Zero
     enhancement_gate = 'm_bloons_frozen',
     config = {
         tower_info = { base = "Ice Monkey", category = "primary" },
-        h_size = 1, --Variables: h_size == hand size
-        extra = { Xmult = 0.2 } --Variables: Xmult = Xmult gain
+        extra = { hand_size = 1, number = 2, counter = 2 } --Variables: number = number of frozen cards for hand size
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_frozen
-        return { vars = { card.ability.h_size, card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.hand_size, card.ability.extra.number, card.ability.extra.counter } }
     end,
     calculate = function(self, card, context)
-        if context.after then
-            for k, v in ipairs(G.hand.cards) do
-                if v.ability.name == 'Frozen Card' and not v.debuff then
-                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult or 1
-                    v.ability.perma_h_x_mult = v.ability.perma_h_x_mult + card.ability.extra.Xmult
+        if context.hand_drawn then
+            for k, v in ipairs(context.hand_drawn) do
+                if SMODS.has_enhancement(v, 'm_bloons_frozen') and not v.debuff then
+                    card.ability.extra.counter = card.ability.extra.counter - 1
+                    if card.ability.extra.counter == 0 then
+                        card.ability.extra.counter = 2
+                        G.hand:change_size(card.ability.extra.hand_size)
+                        G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.hand_size
+                        return {
+                            message = localize({ type = "variable", key = "a_handsize", vars = {card.ability.extra.hand_size}}),
+                            colour = G.C.FILTER,
+                        }
+                    end
                 end
             end
         end
@@ -704,3 +647,5 @@ SMODS.Joker { --Icicle Impale
         end
     end
 }
+
+

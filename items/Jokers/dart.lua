@@ -1,4 +1,4 @@
-
+﻿
 SMODS.Joker { --Dart Monkey
     key = 'dart_monkey',
     name = 'Dart Monkey',
@@ -9,7 +9,7 @@ SMODS.Joker { --Dart Monkey
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 2 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 20, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -42,7 +42,7 @@ SMODS.Joker { --Sharp Shots
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 4 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 20, mult = 4 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -68,7 +68,7 @@ SMODS.Joker { --Razor Sharp Shots
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 6 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 20, mult = 6 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -129,7 +129,12 @@ SMODS.Joker { --Juggernaut
         if context.individual then
 			if context.cardarea == G.play then
                 if not context.blueprint then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.mult
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "current",
+                        scalar_value = "mult",
+                        no_message = true
+                    })
                 end
                 return {
                     mult = card.ability.extra.current
@@ -147,7 +152,7 @@ SMODS.Joker { --Ultra-Juggernaut
 	atlas = 'Joker',
 	pos = { x = 5, y = 0 },
     rarity = 3,
-	cost = 6,
+	cost = 7,
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
@@ -161,7 +166,12 @@ SMODS.Joker { --Ultra-Juggernaut
         if context.individual then
 			if context.cardarea == G.play then
                 if not context.blueprint then
-                    card.ability.extra.current = card.ability.extra.current + card.ability.extra.Xmult
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "current",
+                        scalar_value = "Xmult",
+                        no_message = true
+                    })
                 end
                 return {
                     x_mult = card.ability.extra.current
@@ -183,7 +193,7 @@ SMODS.Joker { --Quick Shots
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 45, mult = 2 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 40, mult = 2 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -329,7 +339,7 @@ SMODS.Joker { --Long Range Darts
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary" },
-        extra = { chips = 30, mult = 2, current_chips = 30, current_mult = 2 } --Variables: chips = +chips, mult = +mult, current_chips = chips if doubled, current_mult = mult if doubled
+        extra = { chips = 20, mult = 2, current_chips = 20, current_mult = 2 } --Variables: chips = +chips, mult = +mult, current_chips = chips if doubled, current_mult = mult if doubled
     },
 
     loc_vars = function(self, info_queue, card)
@@ -368,10 +378,10 @@ SMODS.Joker { --Enhanced Eyesight
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+        G.consumeables.config.card_limits.mod = G.consumeables.config.card_limits.mod - card.ability.extra.slots
     end,
 }
 
@@ -540,3 +550,4 @@ SMODS.Joker { --Crossbow Master
         end
     end
 }
+

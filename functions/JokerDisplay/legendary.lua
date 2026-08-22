@@ -50,27 +50,10 @@ JokerDisplay.Definitions["j_bloons_ballistic_obliteration_missile_bunker"] = { -
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "Xmult", retrigger_type = "exp" }
+                { ref_table = "card.ability.extra", ref_value = "current", retrigger_type = "exp" }
             }
         }
-    },
-    calc_function = function(card)
-        local count = 0
-        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-        if text ~= "Unknown" then
-            for _, scoring_card in pairs(scoring_hand) do
-                if not SMODS.has_no_rank(scoring_card) and not scoring_card.debuff then
-                    for _, other_card in pairs(scoring_hand) do
-                        if scoring_card:get_id() == other_card:get_id() and scoring_card ~= other_card and not SMODS.has_no_rank(other_card) and not other_card.debuff then
-                            count = count + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
-                            break
-                        end
-                    end
-                end
-            end
-        end
-        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ count
-    end
+    }
 }
 
 JokerDisplay.Definitions["j_bloons_crucible_of_steel_and_flame"] = { --Crucible of Steel and Flame

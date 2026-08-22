@@ -1,4 +1,4 @@
-SMODS.Joker { --Desperado
+﻿SMODS.Joker { --Desperado
     key = 'desperado',
     name = 'Desperado',
     atlas = 'Joker',
@@ -248,7 +248,7 @@ SMODS.Joker { --Deadeye
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { Xmult = 1.5 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for desperado card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -275,7 +275,7 @@ SMODS.Joker { --Bounty Hunter
     blueprint_compat = true,
     config = {
         tower_info = { base = "Desperado", category = "primary" },
-        extra = { money = 3 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
+        extra = { money = 3 } --Variables: money = money for desperado card
     },
 
     loc_vars = function(self, info_queue, card)
@@ -284,8 +284,13 @@ SMODS.Joker { --Bounty Hunter
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:get_id() == G.GAME.current_round.desperado_card.id then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
                 return {
-                    dollars = card.ability.extra.money
+                    dollars = card.ability.extra.money,
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
                 }
             end
 		end
@@ -337,8 +342,13 @@ SMODS.Joker { --Golden Justice
             end
             return nil
         elseif context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card.ability.name == 'Glass Card' and not context.other_card.debuff and not context.blueprint then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.gold_money
             return {
-                dollars = card.ability.extra.gold_money
+                dollars = card.ability.extra.gold_money,
+                func = (function()
+                    G.GAME.dollar_buffer = 0
+                    return true
+                end)
             }
         elseif context.cards_destroyed and not context.blueprint then
             local glass = 0
@@ -348,6 +358,13 @@ SMODS.Joker { --Golden Justice
                 end
             end
             if glass > 0 then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.destroy_money*glass
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
+                }))
                 ease_dollars(card.ability.extra.destroy_money*glass)
                 card_eval_status_text(create_dynatext_pips, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_money*glass,colour = G.C.MONEY, delay = 0.45})
             end
@@ -359,6 +376,13 @@ SMODS.Joker { --Golden Justice
                 end
             end
             if glass > 0 then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.destroy_money*glass
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
+                }))
                 ease_dollars(card.ability.extra.destroy_money*glass)
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('$')..card.ability.extra.destroy_money*glass,colour = G.C.MONEY, delay = 0.45})
             end
@@ -576,3 +600,4 @@ SMODS.Joker { --The Desert Phantom
         end
     end
 }
+

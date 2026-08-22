@@ -67,13 +67,21 @@ SMODS.Enhancement ({ --Glued
         elseif context.discard and context.other_card == card then
             local free_glue = #find_joker('Glue Hose') > 0 or #find_joker('Glue Strike') > 0 or #find_joker('Glue Storm') > 0
 			if not free_glue then
+                local discard_cost = -card.ability.cost
                 if #find_joker('Super Glue') > 0 then
-                    ease_dollars(-3*card.ability.cost)
+                    discard_cost = -3 * card.ability.cost
                 elseif #find_joker('Stronger Glue') > 0 then
-                    ease_dollars(-2*card.ability.cost)
-                else
-                    ease_dollars(-1*card.ability.cost)
+                    discard_cost = -2 * card.ability.cost
                 end
+
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + discard_cost
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        G.GAME.dollar_buffer = 0
+                        return true
+                    end)
+                }))
+                ease_dollars(discard_cost)
             end
             delay(0.3)
         end

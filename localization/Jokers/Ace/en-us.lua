@@ -69,9 +69,8 @@ return {
             j_bloons_bomber_ace = {
                 name = 'Bomber Ace',
                 text = {
-                    'On {C:attention}final hand{} of round,',
-                    'Destroy all {C:attention}Aces{} and cards',
-                    'adjacent to them held in hand',
+                    'Retrigger all {C:attention}Aces{} played',
+                    'or held in hand',
                 }
             },
             j_bloons_ground_zero = {

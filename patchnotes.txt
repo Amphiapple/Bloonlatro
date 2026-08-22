@@ -6,12 +6,7 @@ Added Jokers:
    - Try for a secret sacrifice on the True Sun God
 
 General Changes:
-- All Joker Descriptions moved to a localization file! Make sure to remove all previous files as there may be conflicts with file names.
-- Reworked Boss Challenges to be a separate menu
-- Improvements to compatibility with Balatro Multiplayer
-- Nautic Siege Core now shows different text when submerged
-- Removed tutorial, as it was conflicting with other mods and often didn't work
-   - Tutorial will be added back in the next update with a complete redesign
+- Certin Jokers/objects can how have different descriptions if their effect changes depending on the situation
 
 Balance Changes:
 

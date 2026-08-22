@@ -37,10 +37,9 @@ return {
             j_bloons_ball_lightning = {
                 name = 'Ball Lightning',
                 text = {
-                    '{C:green}#1# in #2#{} chance to',
-					'create the {C:planet}Planet{} card',
-					'for played {C:attention}poker hand{} on',
-					'{C:attention}final hand{} of round',
+					'Create a {C:planet}Planet{} card',
+					'whenever a {C:attention}Frozen Card{} or',
+                    '{C:attention}Stunned Card{} wers off',
                     '{C:inactive}(Must have room)'
                 }
             },
@@ -71,17 +70,17 @@ return {
             j_bloons_druid_of_the_jungle = {
                 name = 'Druid of the Jungle',
                 text = {
-                    '{C:planet}Planet{} cards in your',
-                    '{C:attention}consumable{} area earn {C:money}$#1#{}',
+                    'Destroy all {C:planet}Planet{}',
+                    'cards in your {C:attention}consumable{}',
+                    'area and earn {C:money}$#1#{} for each',
                     'at end of round',
                 }
             },
             j_bloons_jungles_bounty = {
                 name = "Jungle's Bounty",
                 text = {
-                    'Destroy all {C:planet}Planet{}',
-                    'cards in your {C:attention}consumable{}',
-                    'area and earn {C:money}$#1#{} for each',
+                    '{C:planet}Planet{} cards in your',
+                    '{C:attention}consumable{} area earn {C:money}$#1#{}',
                     'at end of round',
                 }
             },

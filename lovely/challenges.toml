@@ -12,6 +12,7 @@ position = 'at'
 payload = "G.FUNCS.start_run(e, {stake = get_challenge_stake(e), challenge = G.CHALLENGES[e.config.id]})"
 match_indent = true
 
+# Crash of the Titans 5 scoring cards requirement
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
@@ -93,7 +94,7 @@ local amounts = {
 '''
 position = 'after'
 payload = '''
-if G.GAME.modifiers._2mp or G.GAME.modifiers._2mp_expert then
+if G.GAME.modifiers._2mp then
     amounts = {
         300,  1200,  5000,  18000,  60000,  180000,  450000,  1000000
     }

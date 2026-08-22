@@ -1,4 +1,4 @@
-SMODS.Joker { --Dartling Gunner
+﻿SMODS.Joker { --Dartling Gunner
     key = 'dartling_gunner',
     name = 'Dartling Gunner',
 	atlas = 'Joker',
@@ -895,7 +895,7 @@ SMODS.Joker { --Buckshot
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dartling Gunner", category = "military" },
-        extra = { max = 30, min = 10 } --Variables: max = max possible Xmult *10, min = min possible Xmult *10
+        extra = { min = 10, max = 30 } --Variables: max = max possible Xmult *10, min = min possible Xmult *10
     },
 
     loc_vars = function(self, info_queue, card)
@@ -1160,3 +1160,5 @@ SMODS.Joker { --Bloon Exclusion Zone
 		end
     end
 }
+
+

@@ -1,8 +1,8 @@
-SMODS.Joker { --Monkey Village
+﻿SMODS.Joker { --Monkey Village
     key = 'monkey_village',
     name = 'Monkey Village',
     atlas = 'Joker',
-	pos = { x = 0, y = 22 },
+	pos = { x = 0, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -15,7 +15,7 @@ SMODS.Joker { --Bigger Radius
     key = 'bigger_radius',
     name = 'Bigger Radius',
     atlas = 'Joker',
-	pos = { x = 1, y = 22 },
+	pos = { x = 1, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -28,7 +28,7 @@ SMODS.Joker { --Jungle Drums
     key = 'jungle_drums',
     name = 'Jungle Drums',
     atlas = 'Joker',
-	pos = { x = 2, y = 22 },
+	pos = { x = 2, y = 23 },
     rarity = 1,
 	cost = 6,
     blueprint_compat = true,
@@ -59,7 +59,7 @@ SMODS.Joker { --Primary Training
     key = 'primary_training',
     name = 'Primary Training',
     atlas = 'Joker',
-	pos = { x = 3, y = 22 },
+	pos = { x = 3, y = 23 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -90,7 +90,7 @@ SMODS.Joker { --Primary Mentoring
     key = 'primary_mentoring',
     name = 'Primary Mentoring',
     atlas = 'Joker',
-	pos = { x = 4, y = 22 },
+	pos = { x = 4, y = 23 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -121,7 +121,7 @@ SMODS.Joker { --Primary Expertise
     key = 'primary_expertise',
     name = 'Primary Expertise',
     atlas = 'Joker',
-	pos = { x = 5, y = 22 },
+	pos = { x = 5, y = 23 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -165,7 +165,7 @@ SMODS.Joker { --Grow Blocker
     key = 'grow_blocker',
     name = 'Grow Blocker',
     atlas = 'Joker',
-    pos = { x = 6, y = 22 },
+    pos = { x = 6, y = 23 },
     rarity = 1,
     cost = 5,
     blueprint_compat = false,
@@ -186,7 +186,7 @@ SMODS.Joker { --Radar Scanner
     key = 'radar_scanner',
     name = 'Radar Scanner',
     atlas = 'Joker',
-    pos = { x = 7, y = 22 },
+    pos = { x = 7, y = 23 },
     rarity = 1,
     cost = 6,
     blueprint_compat = false,
@@ -207,7 +207,7 @@ SMODS.Joker { --Monkey Intelligence Bureau
     key = 'monkey_intelligence_bureau',
     name = 'Monkey Intelligence Bureau',
     atlas = 'Joker',
-    pos = { x = 8, y = 22 },
+    pos = { x = 8, y = 23 },
     rarity = 2,
     cost = 7,
     blueprint_compat = false,
@@ -253,7 +253,7 @@ SMODS.Joker { --Call to Arms
     key = 'call_to_arms',
     name = 'Call to Arms',
     atlas = 'Joker',
-    pos = { x = 9, y = 22 },
+    pos = { x = 9, y = 23 },
     rarity = 2,
     cost = 8,
     blueprint_compat = true,
@@ -276,7 +276,7 @@ SMODS.Joker { --Homeland Defense
     key = 'homeland_defense',
     name = 'Homeland Defense',
     atlas = 'Joker',
-    pos = { x = 10, y = 22 },
+    pos = { x = 10, y = 23 },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -298,7 +298,7 @@ SMODS.Joker { --Monkey Business
     key = 'monkey_business',
     name = 'Monkey Business',
     atlas = 'Joker',
-	pos = { x = 11, y = 22 },
+	pos = { x = 11, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -322,7 +322,7 @@ SMODS.Joker { --Monkey Commerce
     key = 'monkey_commerce',
     name = 'Monkey Commerce',
     atlas = 'Joker',
-	pos = { x = 12, y = 22 },
+	pos = { x = 12, y = 23 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = false,
@@ -358,7 +358,7 @@ SMODS.Joker { --Monkey Town
     key = 'monkey_town',
     name = 'Monkey Town',
 	atlas = 'Joker',
-	pos = { x = 13, y = 22 },
+	pos = { x = 13, y = 23 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = false,
@@ -375,7 +375,7 @@ SMODS.Joker { --Monkey City
     key = 'monkey_city',
     name = 'Monkey City',
 	atlas = 'Joker',
-	pos = { x = 14, y = 22 },
+	pos = { x = 14, y = 23 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -418,7 +418,7 @@ SMODS.Joker { --Monkeyopolis
     key = 'monkeyopolis',
     name = 'Monkeyopolis',
 	atlas = 'Joker',
-	pos = { x = 15, y = 22 },
+	pos = { x = 15, y = 23 },
     rarity = 3,
 	cost = 1,
     blueprint_compat = false,
@@ -443,10 +443,10 @@ SMODS.Joker { --Monkeyopolis
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        G.GAME.joker_buffer = 0
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
                         play_sound('slice1', 0.96+math.random()*0.08)
+                        G.GAME.joker_buffer = 0
                         return true
                     end
                 }))
@@ -468,3 +468,5 @@ SMODS.Joker { --Monkeyopolis
         end
     end
 }
+
+

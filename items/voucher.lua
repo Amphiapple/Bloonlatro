@@ -94,6 +94,9 @@ SMODS.Voucher { --Flanking Maneuvers
 	atlas = 'Voucher',
 	pos = { x = 2, y = 0 },
 	cost = 10,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_TAGS.tag_double
+    end
 }
 
 SMODS.Voucher { --Grand Prix Spree
@@ -103,6 +106,9 @@ SMODS.Voucher { --Grand Prix Spree
 	pos = { x = 2, y = 1 },
 	cost = 10,
     requires = { 'v_bloons_flanking_maneuvers' },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_TAGS.tag_skip
+    end
 }
 
 SMODS.Voucher { --Big Bloon Sabotage

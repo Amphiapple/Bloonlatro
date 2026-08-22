@@ -1,8 +1,8 @@
-SMODS.Joker { --Beast Handler
+﻿SMODS.Joker { --Beast Handler
     key = 'beast_handler',
     name = 'Beast Handler',
 	atlas = 'Joker',
-	pos = { x = 0, y = 24 },
+	pos = { x = 0, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -27,7 +27,7 @@ SMODS.Joker { --Piranha
     key = 'piranha',
     name = 'Piranha',
 	atlas = 'Joker',
-	pos = { x = 1, y = 24 },
+	pos = { x = 1, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -58,7 +58,7 @@ SMODS.Joker { --Barracuda
     key = 'barracuda',
     name = 'Barracuda',
 	atlas = 'Joker',
-	pos = { x = 2, y = 24 },
+	pos = { x = 2, y = 25 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -85,7 +85,7 @@ SMODS.Joker { --Great White
     key = 'great_white',
     name = 'Great White',
 	atlas = 'Joker',
-	pos = { x = 3, y = 24 },
+	pos = { x = 3, y = 25 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -119,7 +119,7 @@ SMODS.Joker { --Orca
     key = 'orca',
     name = 'Orca',
     atlas = 'Joker',
-	pos = { x = 4, y = 24 },
+	pos = { x = 4, y = 25 },
     rarity = 2,
 	cost = 8,
     blueprint_compat = true,
@@ -157,7 +157,7 @@ SMODS.Joker { --Megalodon
     key = 'megalodon',
     name = 'Megalodon',
 	atlas = 'Joker',
-	pos = { x = 5, y = 24 },
+	pos = { x = 5, y = 25 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -190,7 +190,7 @@ SMODS.Joker { --Microraptor
     key = 'microraptor',
     name = 'Microraptor',
 	atlas = 'Joker',
-	pos = { x = 6, y = 24 },
+	pos = { x = 6, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -221,7 +221,7 @@ SMODS.Joker { --Adasaurus
     key = 'adasaurus',
     name = 'Adasaurus',
 	atlas = 'Joker',
-	pos = { x = 7, y = 24 },
+	pos = { x = 7, y = 25 },
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
@@ -248,7 +248,7 @@ SMODS.Joker { --Velociraptor
     key = 'velociraptor',
     name = 'Velociraptor',
 	atlas = 'Joker',
-	pos = { x = 8, y = 24 },
+	pos = { x = 8, y = 25 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -299,7 +299,7 @@ SMODS.Joker { --Tyrannosaurus Rex
     key = 'tyrannosaurus_rex',
     name = 'Tyrannosaurus Rex',
 	atlas = 'Joker',
-	pos = { x = 9, y = 24 },
+	pos = { x = 9, y = 25 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
@@ -329,7 +329,7 @@ SMODS.Joker { --Giganotosaurus
     key = 'giganotosaurus',
     name = 'Giganotosaurus',
 	atlas = 'Joker',
-	pos = { x = 10, y = 24 },
+	pos = { x = 10, y = 25 },
     rarity = 3,
 	cost = 9,
     blueprint_compat = true,
@@ -363,7 +363,7 @@ SMODS.Joker { --Gyrfalcon
     key = 'gyrfalcon',
     name = 'Gyrfalcon',
     atlas = 'Joker',
-	pos = { x = 11, y = 24 },
+	pos = { x = 11, y = 25 },
     rarity = 1,
 	cost = 3,
     blueprint_compat = true,
@@ -396,7 +396,7 @@ SMODS.Joker { --Horned Owl
     key = 'horned_owl',
     name = 'Horned Owl',
     atlas = 'Joker',
-	pos = { x = 12, y = 24 },
+	pos = { x = 12, y = 25 },
     rarity = 1,
 	cost = 5,
     blueprint_compat = true,
@@ -439,7 +439,7 @@ SMODS.Joker { --Golden Eagle
     key = 'golden_eagle',
     name = 'Golden Eagle',
     atlas = 'Joker',
-	pos = { x = 13, y = 24 },
+	pos = { x = 13, y = 25 },
     rarity = 2,
 	cost = 6,
     blueprint_compat = true,
@@ -475,46 +475,35 @@ SMODS.Joker { --Giant Condor
     key = 'giant_condor',
     name = 'Giant Condor',
 	atlas = 'Joker',
-	pos = { x = 14, y = 24 },
+	pos = { x = 14, y = 25 },
     rarity = 2,
 	cost = 7,
     blueprint_compat = true,
     enhancement_gate = 'm_wild',
     config = {
         tower_info = { base = "Beast Handler", category = "support" },
-        extra = { num = 1, denom = 2, hand_size = 1 } --Variables: num/denom = probability fraction, hand_size = extra hand size
+        extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-        local n, d = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.denom, 'giant_condor')
-        return { vars = { n, d, card.ability.extra.hand_size } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-			if context.other_card.ability.name == 'Wild Card' and SMODS.pseudorandom_probability(card, 'giant_condor', card.ability.extra.num, card.ability.extra.denom, 'giant_condor') then
-                G.hand:change_size(card.ability.extra.hand_size)
-                G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.hand_size
-                return {
-                    message = localize({ type = "variable", key = "a_handsize", vars = {card.ability.extra.hand_size}}),
-                    colour = G.C.FILTER,
-                }
-			end
-		elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Wild Card' then
             return {
-                message = localize('k_reset'),
-                colour = G.C.RED
+                Xmult = card.ability.extra.Xmult
             }
         end
     end
 }
-
+ 
 SMODS.Joker { --Pouākai
     key = 'pouakai',
-    name = 'Pouākai',
+    name = 'Pouākai',
 	atlas = 'Joker',
-	pos = { x = 15, y = 24 },
+	pos = { x = 15, y = 25 },
     rarity = 3,
 	cost = 8,
     blueprint_compat = true,
@@ -547,4 +536,6 @@ SMODS.Joker { --Pouākai
         end
     end
 }
+
+
 

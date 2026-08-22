@@ -30,19 +30,19 @@ return {
             j_bloons_ice_shards = {
                 name = 'Ice Shards',
                 text = {
-                    'This {C:attention}Joker{} gains {C:mult}+#1#{}',
-                    'Mult whenever a {C:attention}Frozen Card{}',
-                    'thaws out or is destroyed',
+                    'This {C:attention}Joker{} gains',
+                    '{C:mult}+#1#{} Mult whenever a',
+                    '{C:attention}Frozen Card{} thaws out',
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 }
             },
             j_bloons_embrittlement = {
                 name = 'Embrittlement',
                 text = {
-                    'This {C:attention}Joker{} gains',
-                    '{X:mult,C:white}X#1#{} Mult whenever a',
-                    '{C:attention}Frozen Card{} is destroyed',
-                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
+                    '{C:attention}Frozen Cards{} give',
+                    '{C:mult}+#1#{} Mult when',
+                    'held in hand and',
+                    '{C:green}#2# in #3#{} chance to be destroyed',
                 }
             },
             j_bloons_super_brittle = {
@@ -66,7 +66,7 @@ return {
             j_bloons_deep_freeze = {
                 name = 'Deep Freeze',
                 text = {
-                    '{C:attention}Frozen{} cards have',
+                    '{C:attention}Frozen Cards{} have',
                     'a {C:green}#1# in #2#{} chance',
                     'to remain {C:attention}Frozen{}',
                 }
@@ -92,10 +92,9 @@ return {
             j_bloons_absolute_zero = {
                 name = 'Absolute Zero',
                 text = {
-                    '{C:attention}+#1#{} hand size',
-                    '{C:attention}Frozen Cards{} permanently',
-                    'gain {X:mult,C:white}X#2#{} Mult',
-                    'when thawed out',
+                    '{C:attention}+#1#{} hand size this round',
+                    'for every {C:attention}#2# {C:inactive}(#3#)',
+                    '{C:attention}Frozen Cards{} drawn'
                 }
             },
             j_bloons_larger_radius = {

@@ -1,15 +1,15 @@
-SMODS.Sound({key = "sentryexplode", path = "sentryexplode.ogg",})
+﻿SMODS.Sound({key = "sentryexplode", path = "sentryexplode.ogg",})
 
 SMODS.Joker { --Marine
     key = 'marine',
     name = 'Marine',
 	atlas = 'Joker',
-	pos = { x = 0, y = 25 },
+	pos = { x = 0, y = 26 },
     rarity = 3,
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Marine", category = "military" },
+        tower_info = { base = "Marine", category = "misc" },
         extra = { Xmult = 2, slots = 1, hands = 6 } --Variables: retrigger = retrigger amount, slots = joker slots, hands = hands remaining
     },
 
@@ -20,10 +20,10 @@ SMODS.Joker { --Marine
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.hands } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -49,12 +49,13 @@ SMODS.Joker { --Sentry
     key = 'sentry',
     name = 'Nail Sentry',
 	atlas = 'Joker',
-	pos = { x = 1, y = 25 },
+	pos = { x = 1, y = 26 },
     rarity = 1,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
+        card_limit = 1,
         extra = { chips = 20, mult = 2, slots = 1, rounds = 2 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -63,12 +64,6 @@ SMODS.Joker { --Sentry
     end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -95,12 +90,12 @@ SMODS.Joker { --Crushing Sentry
     key = 'crushing_sentry',
     name = 'Crushing Sentry',
 	atlas = 'Joker',
-	pos = { x = 2, y = 25 },
+	pos = { x = 2, y = 26 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { mult = 4, slots = 1, rounds = 3 } --Variables: mult = +mult each card, slots = joker slots, rounds = rounds remaining
     },
 
@@ -111,10 +106,10 @@ SMODS.Joker { --Crushing Sentry
         return { vars = { card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
@@ -140,12 +135,12 @@ SMODS.Joker { --Boom Sentry
     key = 'boom_sentry',
     name = 'Boom Sentry',
 	atlas = 'Joker',
-	pos = { x = 3, y = 25 },
+	pos = { x = 3, y = 26 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { Xmult = 1.5, slots = 1, rounds = 3 } --Variables: Xmult = Xmult, slots = joker slots, rounds = rounds remaining
     },
 
@@ -156,10 +151,10 @@ SMODS.Joker { --Boom Sentry
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and context.other_card == G.hand.cards[1] and not context.end_of_round then
@@ -192,12 +187,12 @@ SMODS.Joker { --Cold Sentry
     key = 'cold_sentry',
     name = 'Cold Sentry',
 	atlas = 'Joker',
-	pos = { x = 4, y = 25 },
+	pos = { x = 4, y = 26 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { retrigger = 1, slots = 1, rounds = 3 } --Variables: retrigger = retrigger amount, slots = joker slots, rounds = rounds remaining
     },
 
@@ -209,10 +204,10 @@ SMODS.Joker { --Cold Sentry
         return { vars = { card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -244,12 +239,11 @@ SMODS.Joker { --Energy Sentry
     key = 'energy_sentry',
     name = 'Energy Sentry',
 	atlas = 'Joker',
-	pos = { x = 5, y = 25 },
+	pos = { x = 5, y = 26 },
     rarity = 2,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
         extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -260,10 +254,10 @@ SMODS.Joker { --Energy Sentry
         return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.slots, card.ability.extra.rounds } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -290,12 +284,12 @@ SMODS.Joker { --Champion Sentry
     key = 'champion_sentry',
     name = 'Champion Sentry',
 	atlas = 'Joker',
-	pos = { x = 6, y = 25 },
+	pos = { x = 6, y = 26 },
     rarity = 3,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { Xmult = 1.25, slots = 1, rounds = 3, percent = 40, max = 20000 } --Variables: slots = joker slots, rounds = rounds remaining, 
     },
 
@@ -306,10 +300,10 @@ SMODS.Joker { --Champion Sentry
         return { vars = { card.ability.extra.Xmult, card.ability.extra.slots, card.ability.extra.rounds, card.ability.extra.percent, card.ability.extra.max } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -361,12 +355,12 @@ SMODS.Joker { --Mega Green Sentry
     key = 'mega_green_sentry',
     name = 'Mega Green Sentry',
 	atlas = 'Joker',
-	pos = { x = 7, y = 25 },
+	pos = { x = 7, y = 26 },
     rarity = 4,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { slots = 1, Xmult = 2, poker_hand = 'Straight', percent = 40, max = 40000 } --Variables: slots = joker slots,
     },
 
@@ -385,10 +379,10 @@ SMODS.Joker { --Mega Green Sentry
         }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
         local mp = G.GAME.blind.name == 'bl_mp_nemesis'
         if mp then
@@ -442,12 +436,12 @@ SMODS.Joker { --Mega Red Sentry
     key = 'mega_red_sentry',
     name = 'Mega Red Sentry',
 	atlas = 'Joker',
-	pos = { x = 8, y = 25 },
+	pos = { x = 8, y = 26 },
     rarity = 4,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { slots = 1, Xmult = 2, poker_hand = 'Flush', percent = 40, max = 40000 } --Variables: slots = joker slots
     },
 
@@ -466,10 +460,10 @@ SMODS.Joker { --Mega Red Sentry
         }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
         local mp = G.GAME.blind.name == 'bl_mp_nemesis'
         if mp then
@@ -523,12 +517,12 @@ SMODS.Joker { --Mega Blue Sentry
     key = 'mega_blue_sentry',
     name = 'Mega Blue Sentry',
 	atlas = 'Joker',
-	pos = { x = 9, y = 25 },
+	pos = { x = 9, y = 26 },
     rarity = 4,
 	cost = 1,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sentry", category = "support" },
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { slots = 1, Xmult = 2, percent = 40, max = 40000 } --Variables: slots = joker slots,
     },
 
@@ -546,10 +540,10 @@ SMODS.Joker { --Mega Blue Sentry
         }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+        G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
         local mp = G.GAME.blind.name == 'bl_mp_nemesis'
         if mp then
@@ -603,7 +597,7 @@ SMODS.Joker { --Bloonprint
     key = 'bloonprint',
     name = 'Bloonprint',
 	atlas = 'Joker',
-	pos = { x = 14, y = 25 },
+	pos = { x = 14, y = 26 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -646,7 +640,7 @@ SMODS.Joker { --Card Storm
     key = 'card_storm',
     name = 'Card Storm',
 	atlas = 'Joker',
-	pos = { x = 15, y = 25 },
+	pos = { x = 15, y = 26 },
     rarity = 3,
 	cost = 10,
     blueprint_compat = true,
@@ -701,3 +695,5 @@ SMODS.Joker { --Card Storm
         return SMODS.blueprint_effect(card, other_joker, context)
     end
 }
+
+
