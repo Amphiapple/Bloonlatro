@@ -16,6 +16,7 @@ JokerTable = {
         ['neva_miss_targeting'] = { path = 3, tier = 3 },
         ['spectre'] = { path = 3, tier = 4 },
         ['flying_fortress'] = { path = 3, tier = 5 },
+        ['goliath_doomship'] = { path = 0, tier = 6 },
     },
     alch = {
         ['alchemist'] = { path = 0, tier = 0 },
@@ -70,6 +71,7 @@ JokerTable = {
         ['merchantman'] = { path = 3, tier = 3 },
         ['favored_trades'] = { path = 3, tier = 4 },
         ['trade_empire'] = { path = 3, tier = 5 },
+        ['navarch_of_the_seas'] = { path = 0, tier = 6 },
     },
     bomb = {
         ['bomb_shooter'] = { path = 0, tier = 0 },
@@ -88,6 +90,7 @@ JokerTable = {
         ['cluster_bombs'] = { path = 3, tier = 3 },
         ['recursive_cluster'] = { path = 3, tier = 4 },
         ['bomb_blitz'] = { path = 3, tier = 5 },
+        ['ballistic_obliteration_missile_bunker'] = { path = 0, tier = 6 },
     },
     boomer = {
         ['boomerang_monkey'] = { path = 0, tier = 0 },
@@ -106,6 +109,7 @@ JokerTable = {
         ['kylie_boomerang'] = { path = 3, tier = 3 },
         ['moab_press'] = { path = 3, tier = 4 },
         ['moab_domination'] = { path = 3, tier = 5 },
+        ['glaive_dominus'] = { path = 0, tier = 6 },
     },
     dart = {
         ['dart_monkey'] = { path = 0, tier = 0 },
@@ -124,6 +128,7 @@ JokerTable = {
         ['crossbow'] = { path = 3, tier = 3 },
         ['sharp_shooter'] = { path = 3, tier = 4 },
         ['crossbow_master'] = { path = 3, tier = 5 },
+        ['apex_plasma_master'] = { path = 0, tier = 6 },
     },
     dartling = {
         ['dartling_gunner'] = { path = 0, tier = 0 },
@@ -178,6 +183,7 @@ JokerTable = {
         ['druid_of_wrath'] = { path = 3, tier = 3 },
         ['poplust'] = { path = 3, tier = 4 },
         ['avatar_of_wrath'] = { path = 3, tier = 5 },
+        ['root_of_all_nature'] = { path = 0, tier = 6 },
     },
     engi = {
         ['engineer_monkey'] = { path = 0, tier = 0 },
@@ -196,6 +202,7 @@ JokerTable = {
         ['double_gun'] = { path = 3, tier = 3 },
         ['bloon_trap'] = { path = 3, tier = 4 },
         ['xxxl_trap'] = { path = 3, tier = 5 },
+        ['master_builder'] = { path = 0, tier = 6 },
     },
     farm = {
         ['banana_farm'] = { path = 0, tier = 0 },
@@ -268,6 +275,7 @@ JokerTable = {
         ['cryo_cannon'] = { path = 3, tier = 3 },
         ['icicles'] = { path = 3, tier = 4 },
         ['icicle_impale'] = { path = 3, tier = 5 },
+        ['herald_of_everfrost'] = { path = 0, tier = 6 },
     },
     merm = {
         ['mermonkey'] = { path = 0, tier = 0 },
@@ -322,6 +330,7 @@ JokerTable = {
         ['flash_bomb'] = { path = 3, tier = 3 },
         ['sticky_bomb'] = { path = 3, tier = 4 },
         ['master_bomber'] = { path = 3, tier = 5 },
+        ['ascended_shadow'] = { path = 0, tier = 6 },
     },
     sniper = {
         ['sniper_monkey'] = { path = 0, tier = 0 },
@@ -358,6 +367,7 @@ JokerTable = {
         ['long_life_spikes'] = { path = 3, tier = 3 },
         ['deadly_spikes'] = { path = 3, tier = 4 },
         ['perma_spike'] = { path = 3, tier = 5 },
+        ['mega_massive_munitions_factory'] = { path = 0, tier = 6 },
     },
     sub = {
         ['monkey_sub'] = { path = 0, tier = 0 },
@@ -376,6 +386,7 @@ JokerTable = {
         ['triple_guns'] = { path = 3, tier = 3 },
         ['armor_piercing_darts'] = { path = 3, tier = 4 },
         ['sub_commander'] = { path = 3, tier = 5 },
+        ['nautic_siege_core'] = { path = 0, tier = 6 },
     },
     super = {
         ['super_monkey'] = { path = 0, tier = 0 },
@@ -394,6 +405,7 @@ JokerTable = {
         ['dark_knight'] = { path = 3, tier = 3 },
         ['dark_champion'] = { path = 3, tier = 4 },
         ['legend_of_the_night'] = { path = 3, tier = 5 },
+        ['vengeful_true_sun_god'] = { path = 0, tier = 5 },
     },
     tack = {
         ['tack_shooter'] = { path = 0, tier = 0 },
@@ -412,6 +424,7 @@ JokerTable = {
         ['tack_sprayer'] = { path = 3, tier = 3 },
         ['overdrive'] = { path = 3, tier = 4 },
         ['the_tack_zone'] = { path = 3, tier = 5 },
+        ['crucible_of_steel_and_flame'] = { path = 0, tier = 6 },
     },
     village = {
         ['monkey_village'] = { path = 0, tier = 0 },
@@ -466,5 +479,6 @@ JokerTable = {
         ['shimmer'] = { path = 3, tier = 3 },
         ['necromancer'] = { path = 3, tier = 4 },
         ['prince_of_darkness'] = { path = 3, tier = 5 },
+        ['magus_perfectus'] = { path = 0, tier = 6 },
     },
 }
