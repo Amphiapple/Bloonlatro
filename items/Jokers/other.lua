@@ -244,6 +244,7 @@ SMODS.Joker { --Energy Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
