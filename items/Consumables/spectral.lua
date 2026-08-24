@@ -4,7 +4,7 @@ SMODS.Consumable { --Volcano
     set = 'Spectral',
     name = 'Volcano',
     atlas = 'Consumable',
-    pos = { x = 0, y = 7 },
+    pos = { x = 0, y = 5 },
     cost = 4,
     config = { max_highlighted = 1 },
 
@@ -67,7 +67,7 @@ SMODS.Consumable { --Thunder
     set = 'Spectral',
     name = 'Thunder',
     atlas = 'Consumable',
-    pos = { x = 1, y = 7 },
+    pos = { x = 1, y = 5 },
     cost = 4,
     config = { number = 3 },
 
