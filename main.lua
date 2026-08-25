@@ -22,24 +22,22 @@ SMODS.Atlas({
 })
 
 local functions = {
-    'base',
-    'calculate-score',
-    'config_tab',
-    'hook',
-    'deck_ui',
-    'collection',
     'badges',
+    'base',
+    'boss',
+    'calculate-score',
+    'collection',
+    'config_tab',
+    'deck_ui',
+    'hook',
     'joker_buttons',
     'main_menu',
-    'boss',
     'tutorial',
+    'upgrade',
 
     --Crossmod files
-    'talisman',
+    'amulet',
     'multiplayer',
-
-    --Main menu
-    'main_menu',
 }
 
 for k, v in ipairs(functions) do

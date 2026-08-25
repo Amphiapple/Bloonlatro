@@ -28,7 +28,7 @@ SMODS.Consumable { --Upgrade
     config = { max_highlighted = 1 },
 
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, 0, 1) ~= nil
     end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.max_highlighted } }
@@ -45,9 +45,12 @@ SMODS.Consumable { --Upgrade
         }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.4,
             func = function()
-                G.jokers.highlighted[1]:set_edition('e_polychrome', true)
+                local start_joker = G.jokers.highlighted[1]
+                local end_key = get_tower_upgrade(start_joker, nil, 0, 1)
+                if end_key then
+                    tower_upgrade(start_joker, end_key, nil)
+                end
                 return true
             end
         }))
