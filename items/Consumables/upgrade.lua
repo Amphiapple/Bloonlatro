@@ -38,21 +38,16 @@ SMODS.Consumable { --Upgrade
             trigger = 'after',
             delay = 0.4,
             func = function()
-                play_sound('tarot1')
-                card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            func = function()
                 local start_joker = G.jokers.highlighted[1]
                 local end_key = get_tower_upgrade(start_joker, nil, 0, 1)
                 if end_key then
                     tower_upgrade(start_joker, end_key, nil)
                 end
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
                 return true
             end
         }))
+        
     end
 }

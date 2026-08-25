@@ -463,6 +463,38 @@ return {
                     'to your consumables'
                 }
             },
+            p_bloons_upgrade_normal_1 = {
+                name = 'Power Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of {C:attention}#2#{}',
+                    '{C:upgrade}Upgrade{} cards to be',
+                    'used immediately'
+                }
+            },
+            p_bloons_upgrade_normal_2 = {
+                name = 'Power Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of {C:attention}#2#{}',
+                    '{C:upgrade}Upgrade{} cards to be',
+                    'used immediately'
+                }
+            },
+            p_bloons_upgrade_jumbo_1 = {
+                name = 'Jumbo Power Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of {C:attention}#2#{}',
+                    '{C:upgrade}Upgrade{} cards to be',
+                    'used immediately'
+                }
+            },
+            p_bloons_upgrade_mega_1 = {
+                name = 'Mega Power Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of {C:attention}#2#{}',
+                    '{C:upgrade}Upgrade{} cards to be',
+                    'used immediately'
+                }
+            },
             bloons_regrow = {
                 name = 'Regrow',
                 text = {
@@ -489,6 +521,7 @@ return {
     misc = {
         dictionary = {
             k_power_pack = 'Power Pack',
+            k_upgrade_pack = 'Upgrade Pack',
         },
         labels = {
             bloons_regrow = 'Regrow',

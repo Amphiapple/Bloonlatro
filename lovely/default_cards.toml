@@ -1,0 +1,18 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Thirteen Cards disable drawing cards
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+elseif _type == 'Joker' then _pool[#_pool + 1] = "j_joker"
+'''
+position = 'after'
+payload = '''
+elseif _type == 'Power' then _pool[#_pool + 1] = "c_bloons_super_monkey_storm"
+elseif _type == 'Upgrade' then _pool[#_pool + 1] = "c_bloons_upgrade_basic"
+'''
+match_indent = true
