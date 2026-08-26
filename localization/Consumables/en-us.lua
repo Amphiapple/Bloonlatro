@@ -300,15 +300,141 @@ return {
                     '{C:attention}#1#{} random cards in hand',
                     'and {C:attention}Stun{} them'
                 }
-            }
-        },
-        Upgrade = {
-            c_bloons_upgrade_basic = {
-                name = 'Upgrade!',
+            },
+            c_bloons_paragon = {
+                name = 'Paragon',
                 text = {
                     'Upgrade {C:attention}#1#{}',
                     'selected {C:attention}Joker{} to',
-                    'the next tier'
+                    'a {C:legendary,E:1}Paragon{}',
+                }
+            }
+        },
+        Upgrade = {
+            c_bloons_upgrade_top = {
+                name = 'Upgrade Skill',
+                text = {
+                    'Upgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} to',
+                    'the next tier on',
+                    'the {C:attention}top{} path'
+                }
+            },
+            c_bloons_upgrade_middle = {
+                name = 'Upgrade Ability',
+                text = {
+                    'Upgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} to',
+                    'the next tier on',
+                    'the {C:attention}middle{} path'
+                }
+            },
+            c_bloons_upgrade_bottom = {
+                name = 'Upgrade Specialty',
+                text = {
+                    'Upgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} to',
+                    'the next tier on',
+                    'the {C:attention}bottom{} path'
+                }
+            },
+            c_bloons_upgrade_primary = {
+                name = 'Primary Upgrade',
+                text = {
+                    'Upgrade {C:attention}#1#{} selected',
+                    '{C:primary}Primary {C:attention}Joker{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_upgrade_military = {
+                name = 'Military Upgrade',
+                text = {
+                    'Upgrade {C:attention}#1#{} selected',
+                    '{C:military}Military {C:attention}Joker{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_upgrade_magic = {
+                name = 'Magical Upgrade',
+                text = {
+                    'Upgrade {C:attention}#1#{} selected',
+                    '{C:magic}Magic {C:attention}Joker{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_upgrade_support = {
+                name = 'Supportive Upgrade',
+                text = {
+                    'Upgrade {C:attention}#1#{} selected',
+                    '{C:support}Support {C:attention}Joker{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_upgrade_random = {
+                name = 'Improvisation',
+                text = {
+                    'Upgrade {C:attention}#1#{}',
+                    'random {C:attention}Joker{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_upgrade_double_random = {
+                name = 'Risky Play',
+                text = {
+                    '{C:green}#1# in #2#{} chance to',
+                    'upgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} by',
+                    'up to {C:attention}#3#{} tiers',
+                }
+            },
+            c_bloons_upgrade_wheel = {
+                name = 'Spin the Wheel!',
+                text = {
+                    '{C:green}#1# in #2#{} chance to',
+                    'upgrade all {C:attention}Jokers{}',
+                    'to the next tier',
+                }
+            },
+            c_bloons_upgrade_select = {
+                name = 'Custom Construction',
+                text = {
+                    'Spend {C:money}$#1#{} to upgrade',
+                    '{C:attention}#2#{} selected {C:attention}Joker{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_upgrade_double_select = {
+                name = 'Premium Build',
+                text = {
+                    'Spend {C:money}$#1#{} to',
+                    'upgrade up to {C:attention}#2#{}',
+                    'selected {C:attention}Jokers{} to',
+                    'the next tier',
+                }
+            },
+            c_bloons_downgrade = {
+                name = 'Sell and Rebuy',
+                text = {
+                    'Downgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} to',
+                    'the previous tier',
+                }
+            },
+            c_bloons_upgrade_sacrifice = {
+                name = 'Full Sell',
+                text = {
+                    'Destroy {C:attention}#1#{} selected',
+                    '{C:attention}Joker{} to upgrade',
+                    '{C:attention}Joker{} to the right by',
+                    'up to {C:attention}#2#{} tiers',
+                }
+            },
+            c_bloons_upgrade_insta = {
+                name = 'Insta-Monkey',
+                text = {
+                    'Upgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} to',
+                    'the highest tier',
                 }
             },
         },

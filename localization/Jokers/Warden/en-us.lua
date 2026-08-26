@@ -133,7 +133,7 @@ return {
 				name = "Winter's Mercy",
 				text = {
                     '{X:mult,C:white}X#1#{} Mult for each',
-					'{C:attention}Frozen Cards{} in your {C:attention}full deck{}',
+					'{C:attention}Frozen Card{} in your {C:attention}full deck{}',
                     '{X:mult,C:white}X#2#{} Mult for each destroyed',
                     '{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)'
 				}

@@ -1,4 +1,4 @@
-
+--All upgradable towers
 JokerTable = {
     ['Monkey Ace'] = {
         [0] = {
@@ -692,7 +692,7 @@ JokerTable = {
     },
 }
 
-function get_tower_upgrade(card, paragon, path, tiers)
+function get_tower_upgrade(card, paragon, category, path, tiers)
     local start_base = card.ability.tower_info and card.ability.tower_info.base
     if not start_base or not JokerTable[start_base] then
         --Non upgradable joker
@@ -701,6 +701,11 @@ function get_tower_upgrade(card, paragon, path, tiers)
     if paragon then
         --No available paragon
         return JokerTable[start_base][0][6] or nil
+    end
+    local start_category = card.ability.tower_info.category
+    if category and start_category ~= category then
+        --Incorrect cateogry to upgrade
+        return nil
     end
     local start_path = card.ability.tower_info.path
     local start_tier = card.ability.tower_info.tier
@@ -721,6 +726,11 @@ function get_tower_upgrade(card, paragon, path, tiers)
         return nil
     end
     local to_tier = start_tier + tiers
+    if to_tier <= 0 then
+        --Stop downgrade at tier 0
+        start_path = 0
+        to_tier = 0
+    end
     if to_tier > 5 then
         --Stop upgrade at tier 5
         to_tier = 5

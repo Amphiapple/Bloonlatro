@@ -6,3 +6,4 @@ Balance Changes:
 - Brickell Deck reworked
 
 Fixes:
+- Text fixes

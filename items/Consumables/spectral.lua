@@ -4,8 +4,8 @@ SMODS.Consumable { --Volcano
     set = 'Spectral',
     name = 'Volcano',
     atlas = 'Consumable',
-    pos = { x = 0, y = 5 },
     cost = 4,
+    pos = { x = 0, y = 5 },
     config = { max_highlighted = 1 },
 
     loc_vars = function(self, info_queue, card)
@@ -67,8 +67,8 @@ SMODS.Consumable { --Thunder
     set = 'Spectral',
     name = 'Thunder',
     atlas = 'Consumable',
-    pos = { x = 1, y = 5 },
     cost = 4,
+    pos = { x = 1, y = 5 },
     config = { number = 3 },
 
     loc_vars = function(self, info_queue, card)
@@ -103,6 +103,42 @@ SMODS.Consumable { --Thunder
                     v:set_edition(edition, true)
                     v:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
                     end
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+    end
+}
+
+SMODS.Consumable { --Paragon
+    key = 'paragon',
+    set = 'Spectral',
+    name = 'Paragon',
+    atlas = 'Consumable',
+    cost = 4,
+    hidden = true,
+    soul_set = 'Upgrade',
+    soul_rate = .003,
+    pos = { x = 14, y = 5 },
+    config = { max_highlighted = 1 },
+
+    can_use = function(self, card)
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], true, nil, 0, 1) ~= nil
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.max_highlighted } }
+    end,
+    use = function(self, card, area)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                local start_joker = G.jokers.highlighted[1]
+                local end_key = get_tower_upgrade(start_joker, true, nil, 0, 1)
+                if end_key then
+                    tower_upgrade(start_joker, end_key, nil)
+                end
+                play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
                 return true
             end
