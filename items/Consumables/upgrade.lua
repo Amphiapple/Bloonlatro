@@ -364,7 +364,7 @@ SMODS.Consumable { --Double Upgrade Sacrifice
     config = { max_highlighted = 1, tiers = 2 },
 
     can_use = function(self, card)
-        local usable = 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted
+        local usable = 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not SMODS.is_eternal(G.jokers.highlighted[1], card)
         for k, v in ipairs(G.jokers.cards) do
             if v == G.jokers.highlighted[1] then
                 return usable and k < #G.jokers.cards and get_tower_upgrade(G.jokers.cards[k+1], nil, nil, 0, card.ability.tiers) ~= nil
@@ -376,14 +376,21 @@ SMODS.Consumable { --Double Upgrade Sacrifice
         return { vars = { card.ability.max_highlighted, card.ability.tiers } }
     end,
     use = function(self, card, area)
+        local start_joker
+        for k, v in ipairs(G.jokers.cards) do
+            if v == G.jokers.highlighted[1] then
+                start_joker = G.jokers.cards[k+1]
+            end
+        end
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local start_joker = G.jokers.highlighted[1]
                 local end_key = get_tower_upgrade(start_joker, nil, nil, 0, card.ability.tiers)
                 if end_key then
                     tower_upgrade(start_joker, end_key, nil)
+                    G.jokers.highlighted[1].getting_sliced = true
+                    G.jokers.highlighted[1]:start_dissolve()
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)

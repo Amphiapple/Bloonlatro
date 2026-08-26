@@ -709,10 +709,6 @@ function get_tower_upgrade(card, paragon, category, path, tiers)
     end
     local start_path = card.ability.tower_info.path
     local start_tier = card.ability.tower_info.tier
-    if start_tier >= 5 then
-        --Already fully upgraded
-        return nil
-    end
     if start_path == 0 then
         --Starting tower is unupgraded, default to path 1
         start_path = path == 0 and 1 or path
@@ -723,6 +719,10 @@ function get_tower_upgrade(card, paragon, category, path, tiers)
     end
     if start_path ~= path then
         --Incorrect path to upgrade
+        return nil
+    end
+    if (start_tier >= 5 and tiers > 0) or (start_tier == 0 and tiers < 0) then
+        --Already fully upgraded/downgraded
         return nil
     end
     local to_tier = start_tier + tiers
