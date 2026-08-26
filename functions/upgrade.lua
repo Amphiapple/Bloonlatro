@@ -699,8 +699,9 @@ function get_tower_upgrade(card, paragon, category, path, tiers)
         return nil
     end
     if paragon then
-        --No available paragon
-        return JokerTable[start_base][0][6] or nil
+        --No available paragon/already paragon
+        local start_tier = card.ability.tower_info.tier
+        return (start_tier ~= 6 and JokerTable[start_base][0][6]) or nil
     end
     local start_category = card.ability.tower_info.category
     if category and start_category ~= category then
@@ -809,7 +810,7 @@ function tower_backend_upgrade(card, to_key)
     end
     ]]
 
-    card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, SMODS.get_atlas(new_card.atlas or "Joker"), new_card.pos)
+    card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, SMODS.get_atlas(new_card.atlas or 'Joker'), new_card.pos)
     card.children.center.states.hover = card.states.hover
     card.children.center.states.click = card.states.click
     card.children.center.states.drag = card.states.drag
@@ -843,7 +844,7 @@ function tower_backend_upgrade(card, to_key)
     ]]
 
     if new_card.soul_pos then
-        card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, SMODS.get_atlas(new_card.atlas or "Joker"), new_card.soul_pos)
+        card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, SMODS.get_atlas(new_card.soul_atlas or 'Soul'), new_card.soul_pos)
         card.children.floating_sprite.role.draw_major = card
         card.children.floating_sprite.states.hover.can = false
         card.children.floating_sprite.states.click.can = false
@@ -860,7 +861,7 @@ function tower_backend_upgrade(card, to_key)
         if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
         if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
         if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
-        if card.edition.negative then play_sound('negative', 1.5, 0.4) end
+        if card.edition.negative then play_sound('negative', 1.5, 0.4) end 
     end
 
     if trigger_add then
