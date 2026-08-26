@@ -373,7 +373,7 @@ return {
             c_bloons_upgrade_random = {
                 name = 'Improvisation',
                 text = {
-                    'Upgrade {C:attention}#1#{}',
+                    'Upgrade a',
                     'random {C:attention}Joker{} to',
                     'the next tier',
                 }
@@ -382,13 +382,12 @@ return {
                 name = 'Risky Play',
                 text = {
                     '{C:green}#1# in #2#{} chance to',
-                    'upgrade {C:attention}#1#{}',
-                    'selected {C:attention}Joker{} by',
-                    'up to {C:attention}#3#{} tiers',
+                    'upgrade a random {C:attention}Joker{}',
+                    'by up to {C:attention}#3#{} tiers',
                 }
             },
             c_bloons_upgrade_wheel = {
-                name = 'Spin the Wheel!',
+                name = 'Spin the Wheel',
                 text = {
                     '{C:green}#1# in #2#{} chance to',
                     'upgrade all {C:attention}Jokers{}',

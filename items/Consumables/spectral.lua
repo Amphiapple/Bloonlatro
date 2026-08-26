@@ -118,15 +118,15 @@ SMODS.Consumable { --Paragon
     cost = 4,
     hidden = true,
     soul_set = 'Upgrade',
-    soul_rate = .003,
+    soul_rate = .01,
     pos = { x = 14, y = 5 },
     config = { max_highlighted = 1 },
 
-    can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], true, nil, 0, 1) ~= nil
-    end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.max_highlighted } }
+    end,
+    can_use = function(self, card)
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], true, nil, 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
