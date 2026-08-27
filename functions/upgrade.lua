@@ -692,14 +692,14 @@ JokerTable = {
     },
 }
 
-function get_tower_upgrade(card, paragon, category, path, tiers)
+function get_tower_upgrade(card, paragon, t5, category, path, tiers)
     local start_base = card.ability.tower_info and card.ability.tower_info.base
     if not start_base or not JokerTable[start_base] then
         --Non upgradable joker
         return nil
     end
     if paragon then
-        --No available paragon/already paragon
+        --Paragon upgrade check
         local start_tier = card.ability.tower_info.tier
         return (start_tier ~= 6 and JokerTable[start_base][0][6]) or nil
     end
@@ -711,8 +711,8 @@ function get_tower_upgrade(card, paragon, category, path, tiers)
     local start_path = card.ability.tower_info.path
     local start_tier = card.ability.tower_info.tier
     if start_path == 0 then
-        --Starting tower is unupgraded, default to path 1
-        start_path = path == 0 and 1 or path
+        --Starting tower is unupgraded, random path otherwise
+        start_path = path == 0 and pseudorandom('upgrade'..G.GAME.round_resets.ante, 1, 3) or path
     end
     if path == 0 then
         --Upgrade path is unspecified
@@ -722,8 +722,16 @@ function get_tower_upgrade(card, paragon, category, path, tiers)
         --Incorrect path to upgrade
         return nil
     end
-    if (start_tier >= 5 and tiers > 0) or (start_tier == 0 and tiers < 0) then
-        --Already fully upgraded/downgraded
+    if t5 then
+        --T5 upgrade check
+        return start_tier == 4 and JokerTable[start_base][start_path][5] or nil
+    end
+    if start_tier >= 4 and tiers > 0 then
+        --Already fully upgraded
+        return nil
+    end
+    if start_tier == 0 and tiers < 0 then
+        --Cannot downgrade
         return nil
     end
     local to_tier = start_tier + tiers
@@ -732,9 +740,9 @@ function get_tower_upgrade(card, paragon, category, path, tiers)
         start_path = 0
         to_tier = 0
     end
-    if to_tier > 5 then
-        --Stop upgrade at tier 5
-        to_tier = 5
+    if to_tier > 4 then
+        --Stop upgrade at tier 4
+        to_tier = 4
     end
     return JokerTable[start_base][start_path][to_tier]
 end

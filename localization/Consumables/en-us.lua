@@ -402,15 +402,6 @@ return {
                     'the next tier',
                 }
             },
-            c_bloons_upgrade_double_select = {
-                name = 'Premium Build',
-                text = {
-                    'Spend {C:money}$#1#{} to',
-                    'upgrade up to {C:attention}#2#{}',
-                    'selected {C:attention}Jokers{} to',
-                    'the next tier',
-                }
-            },
             c_bloons_downgrade = {
                 name = 'Sell and Rebuy',
                 text = {
@@ -426,6 +417,14 @@ return {
                     '{C:attention}Joker{} to upgrade',
                     '{C:attention}Joker{} to the right by',
                     'up to {C:attention}#2#{} tiers',
+                }
+            },
+            c_bloons_upgrade_ultimate = {
+                name = 'Ultimate Power',
+                text = {
+                    'Upgrade {C:attention}#1#{}',
+                    'selected {C:attention}Joker{} from',
+                    'tier {C:attention}4{} to tier {C:attention}5{}',
                 }
             },
             c_bloons_upgrade_insta = {

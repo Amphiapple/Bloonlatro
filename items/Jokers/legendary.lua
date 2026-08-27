@@ -104,7 +104,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
             return {
                 Xmult = card.ability.extra.current
             }
-        elseif context.end_of_round and not context.blueprint then
+        elseif context.end_of_round and card.ability.extra.current > 1 and not context.blueprint then
             card.ability.extra.current = 1
             return {
                 message = localize('k_reset'),
