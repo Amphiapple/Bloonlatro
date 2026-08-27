@@ -722,14 +722,6 @@ function get_tower_upgrade(card, paragon, t5, category, path, tiers)
         --Incorrect path to upgrade
         return nil
     end
-    if t5 then
-        --T5 upgrade check
-        return start_tier == 4 and JokerTable[start_base][start_path][5] or nil
-    end
-    if start_tier >= 4 and tiers > 0 then
-        --Already fully upgraded
-        return nil
-    end
     if start_tier == 0 and tiers < 0 then
         --Cannot downgrade
         return nil
@@ -740,11 +732,16 @@ function get_tower_upgrade(card, paragon, t5, category, path, tiers)
         start_path = 0
         to_tier = 0
     end
-    if to_tier > 4 then
+    if t5 then
+        if to_tier > 5 then
+            --Stop upgrade at tier 5
+            to_tier = 5
+        end
+    elseif to_tier > 4 then
         --Stop upgrade at tier 4
         to_tier = 4
     end
-    return JokerTable[start_base][start_path][to_tier]
+    return start_tier ~= to_tier and JokerTable[start_base][start_path][to_tier] or nil
 end
 
 function tower_upgrade(card, to_key, immediate)

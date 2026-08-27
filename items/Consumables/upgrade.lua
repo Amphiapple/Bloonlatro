@@ -307,7 +307,7 @@ SMODS.Consumable { --Random Double Upgrade
     use = function(self, card, area)
         if SMODS.pseudorandom_probability(card, 'upgrade_double_random', card.ability.num, card.ability.denom, 'upgrade_double_random') then
             local eligible_jokers = {}
-            for k, v in pairs(G.jokers.cards) do
+            for k, v in ipairs(G.jokers.cards) do
                 if get_tower_upgrade(v, nil, nil, nil, 0, card.ability.tiers) ~= nil then
                     table.insert(eligible_jokers, v)
                 end
@@ -316,7 +316,7 @@ SMODS.Consumable { --Random Double Upgrade
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    local start_joker = pseudorandom_element(card.eligible_jokers, 'upgrade_double_random')
+                    local start_joker = pseudorandom_element(eligible_jokers, 'upgrade_double_random')
                     local end_key = start_joker and get_tower_upgrade(start_joker, nil, nil, nil, 0, card.ability.tiers)
                     if end_key then
                         tower_upgrade(start_joker, end_key, nil)
@@ -593,7 +593,7 @@ SMODS.Consumable { --Upgrade Insta
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 0, 5) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, true, nil, 0, 5) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -601,7 +601,7 @@ SMODS.Consumable { --Upgrade Insta
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, 0, 5)
+                local end_key = get_tower_upgrade(start_joker, nil, true, nil, 0, 5)
                 if end_key then
                     tower_upgrade(start_joker, end_key, nil)
                 end
