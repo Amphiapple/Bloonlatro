@@ -736,6 +736,8 @@ function get_tower_upgrade(card, paragon, t5, category, path, tiers)
         if to_tier > 5 then
             --Stop upgrade at tier 5
             to_tier = 5
+        else
+            return nil
         end
     elseif to_tier > 4 then
         --Stop upgrade at tier 4

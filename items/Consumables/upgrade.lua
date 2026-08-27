@@ -261,7 +261,7 @@ SMODS.Consumable { --Random Upgrade
     end,
     use = function(self, card, area)
         local eligible_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
+        for k, v in ipairs(G.jokers.cards) do
             if get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
                 table.insert(eligible_jokers, v)
             end
@@ -270,7 +270,7 @@ SMODS.Consumable { --Random Upgrade
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local start_joker = pseudorandom_element(card.eligible_jokers, 'upgrade_random')
+                local start_joker = pseudorandom_element(eligible_jokers, 'upgrade_random')
                 local end_key = start_joker and get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
                 if end_key then
                     tower_upgrade(start_joker, end_key, nil)
@@ -384,7 +384,7 @@ SMODS.Consumable { --Wheel Upgrade
     use = function(self, card, area)
         if SMODS.pseudorandom_probability(card, 'upgrade_wheel', card.ability.num, card.ability.denom, 'upgrade_wheel') then
             local eligible_jokers = {}
-            for k, v in pairs(G.jokers.cards) do
+            for k, v in ipairs(G.jokers.cards) do
                 if get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
                     table.insert(eligible_jokers, v)
                 end
