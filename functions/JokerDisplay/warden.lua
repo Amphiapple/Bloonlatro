@@ -28,7 +28,7 @@ JokerDisplay.Definitions["j_bloons_wind_weaver"] = { --Wind Weaver
         if not next(G.play.cards) then
             joker_card.joker_display_values.count = joker_card.ability.extra.current
         end
-        local count = joker_card.joker_display_values.count
+        local count = joker_card.joker_display_values.count or 0
         local sorted_cards = JokerDisplay.sort_cards(scoring_hand)
         for k, v in ipairs(sorted_cards) do
             if v == playing_card then
@@ -82,7 +82,8 @@ JokerDisplay.Definitions["j_bloons_galvanic_conduit"] = { --Galvanic Conduit
         if not next(G.play.cards) then
             card.joker_display_values.count = card.ability.extra.current
         end
-        local current = card.joker_display_values.count + 1
+        local current = card.joker_display_values.count or 0
+        current = current + 1
         local mult = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
@@ -201,7 +202,8 @@ JokerDisplay.Definitions["j_bloons_coldchain"] = { --Coldchain
         if not next(G.play.cards) then
             card.joker_display_values.count = card.ability.extra.current
         end
-        local current = card.joker_display_values.count + 1
+        local current = card.joker_display_values.count or 0
+        current = current + 1
         local chips = 0
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
