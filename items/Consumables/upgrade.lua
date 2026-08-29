@@ -585,7 +585,7 @@ SMODS.Consumable { --Upgrade Insta
     atlas = 'Consumable',
     hidden = true,
     soul_set = 'Upgrade',
-    soul_rate = .01,
+    soul_rate = .006,
     pos = { x = 14, y = 4 },
     config = { max_highlighted = 1 },
 
