@@ -335,21 +335,11 @@ SMODS.Joker { --Monkey Commerce
         return { vars = { card.ability.extra.percent } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.discount_percent = G.GAME.discount_percent + card.ability.extra.percent
-                return true
-            end
-        }))
+        G.GAME.discount_percent = G.GAME.discount_percent + card.ability.extra.percent
         recalc_all_costs()
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.discount_percent = G.GAME.discount_percent - card.ability.extra.percent
-                return true
-            end
-        }))
+        G.GAME.discount_percent = G.GAME.discount_percent - card.ability.extra.percent
         recalc_all_costs()
     end,
 }

@@ -114,20 +114,10 @@ SMODS.Joker { --Ring of Fire
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.playing_card_rate = G.GAME.playing_card_rate + card.ability.extra.rate
-                return true
-            end
-        }))
+        G.GAME.playing_card_rate = G.GAME.playing_card_rate + card.ability.extra.rate
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.playing_card_rate = G.GAME.playing_card_rate - card.ability.extra.rate
-                return true
-            end
-        }))
+        G.GAME.playing_card_rate = G.GAME.playing_card_rate - card.ability.extra.rate
     end
 }
 

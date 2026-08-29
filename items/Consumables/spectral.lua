@@ -118,7 +118,7 @@ SMODS.Consumable { --Paragon
     cost = 4,
     hidden = true,
     soul_set = 'Upgrade',
-    soul_rate = .01,
+    soul_rate = .003,
     pos = { x = 14, y = 5 },
     config = { max_highlighted = 1 },
 
