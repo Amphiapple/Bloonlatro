@@ -722,7 +722,7 @@ function get_tower_upgrade(card, paragon, t5, category, path, tiers)
         --Incorrect path to upgrade
         return nil
     end
-    if start_tier == 0 and tiers < 0 then
+    if start_tier >= 6 or start_tier == 0 and tiers < 0 then
         --Cannot downgrade
         return nil
     end
