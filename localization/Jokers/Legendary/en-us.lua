@@ -153,8 +153,8 @@ return {
                 text = {
                     'Requires {C:attention}2{} special sacrifices',
                     'offered to the {C:attention}True Sun God{} to',
-                    'obtain the {C:legendary,E:1,s:1.1}Vengeful True Sun God{}',
-                    '{s:0.8,C:inactive}Cannot be created through The Soul{}'
+                    'obtain the {C:legendary,E:1}Vengeful True Sun God{}',
+                    '{s:0.8,C:inactive}Cannot be created through {C:spectral}The Soul{}'
                 }
             },
 		}
