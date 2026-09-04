@@ -30,3 +30,4 @@ Fixes:
 - Brutal Behemoth's description and effect have been changed to be more understandable
 - Jokers adding joker slots or consumable slots should now apply the correct amount when multiple are obtained/removed at the same time
 - Added buffers to relevant places, allowing some Jokers to update values correctly
+- Text fixes and clarifications

@@ -30,7 +30,7 @@ return {
 			j_bloons_sun_temple = {
 				name = 'Sun Temple',
 				text = {
-					'Sacrifice adjacent {C:attention}Jokers{}',
+					'Sacrifice adjacent {C:attention}Jokers{} once',
                     'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
 					'times the cost of sacrificed {C:attention}Jokers{}',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)',
@@ -39,7 +39,7 @@ return {
 			j_bloons_true_sun_god = {
 				name = 'True Sun God',
 				text = {
-					'Sacrifice adjacent {C:attention}Jokers{}',
+					'Sacrifice adjacent {C:attention}Jokers{} once',
                     'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
 					'times the cost of sacrificed {C:attention}Jokers{}',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)',
