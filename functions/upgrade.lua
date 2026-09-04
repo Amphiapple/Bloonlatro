@@ -694,41 +694,49 @@ JokerTable = {
 
 function get_tower_upgrade(card, paragon, t5, category, path, tiers)
     local start_base = card.ability.tower_info and card.ability.tower_info.base
+
+    --Non upgradable joke
     if not start_base or not JokerTable[start_base] then
-        --Non upgradable joker
         return nil
     end
-    if paragon then
-        --Paragon upgrade check
-        local start_tier = card.ability.tower_info.tier
-        return (start_tier ~= 6 and JokerTable[start_base][0][6]) or nil
-    end
+
     local start_category = card.ability.tower_info.category
-    if category and start_category ~= category then
-        --Incorrect cateogry to upgrade
-        return nil
-    end
     local start_path = card.ability.tower_info.path
     local start_tier = card.ability.tower_info.tier
+
+    --Paragon upgrade check
+    if paragon then
+        return (start_tier ~= 6 and JokerTable[start_base][0][6]) or nil
+    end
+
+    --Incorrect category to upgrade
+    if category and start_category ~= category then
+        return nil
+    end
+
+    --Starting tower is unupgraded, random path otherwise
     if start_path == 0 then
-        --Starting tower is unupgraded, random path otherwise
         start_path = path == 0 and pseudorandom('upgrade'..G.GAME.round_resets.ante, 1, 3) or path
     end
+
+    --Upgrade path is unspecified
     if path == 0 then
-        --Upgrade path is unspecified
         path = start_path
     end
+
+    --Incorrect path to upgrade
     if start_path ~= path then
-        --Incorrect path to upgrade
         return nil
     end
+
+    --Cannot downgrade
     if start_tier >= 6 or start_tier == 0 and tiers < 0 then
-        --Cannot downgrade
         return nil
     end
+
+    --upgrade tier limits
     local to_tier = start_tier + tiers
     if to_tier <= 0 then
-        --Stop downgrade at tier 0
         start_path = 0
         to_tier = 0
     end
@@ -736,25 +744,62 @@ function get_tower_upgrade(card, paragon, t5, category, path, tiers)
         return nil
     elseif t5 then
         if to_tier >= 5 then
-            --Stop upgrade at tier 5
             to_tier = 5
         else
             return nil
         end
     elseif to_tier > 4 then
-        --Stop upgrade at tier 4
         to_tier = 4
     end
-    return start_tier ~= to_tier and JokerTable[start_base][start_path][to_tier] or nil
+
+    --Check if card can be upgraded
+    if start_tier == to_tier then
+        return nil
+    end
+    return JokerTable[start_base][start_path][to_tier]
 end
 
 function tower_upgrade(card, to_key, immediate)
-    if immediate then
+
+    --Check for banned key
+    if G.GAME.banned_keys and G.GAME.banned_keys['j_bloons_'..to_key] then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                attention_text({
+                    text = localize('k_nope_ex'),
+                    scale = 1.3,
+                    hold = 1.4,
+                    major = card,
+                    backdrop_colour = G.C.PALE_GREEN,
+                    align = 'cm',
+                    offset = {x = 0, y = 2},
+                    silent = true
+                }) 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.06*G.SETTINGS.GAMESPEED,
+                    blockable = false,
+                    blocking = false,
+                    func = function()
+                        play_sound('tarot2', 0.76, 0.4);
+                        return true
+                    end
+                }))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+    elseif immediate then
         tower_backend_upgrade(card, to_key)
     else
+
+        --Upgrade card normally
         G.E_MANAGER:add_event(Event({
             func = function()
-                if G.P_CENTERS[to_key] == card.config.center then
+                if G.P_CENTERS['j_bloons_'..to_key] == card.config.center then
                     return true
                 end
                 G.E_MANAGER:add_event(Event({
@@ -787,13 +832,9 @@ function tower_upgrade(card, to_key, immediate)
 end
 
 function tower_backend_upgrade(card, to_key)
-    local custom_values_to_keep = {}
-    local has_custom_values_to_keep = nil
     local trigger_add = nil
     local new_card = G.P_CENTERS['j_bloons_'..to_key]
     if card.config.center == new_card then return end
-
-    local start_key = card.config.center.key
 
     --Reset perish tally
     if card.ability.perishable then
@@ -802,23 +843,7 @@ function tower_backend_upgrade(card, to_key)
         card.debuff = false
     end
 
-    --[[
-    local names_to_keep = {"targets", "rank", "id", "cards_scored", "cards_drawn", "energy_count", "c_energy_count", "e_limit_up", "form"}
-    local values_to_keep = copy_scaled_values(card)
-    if type(card.ability.extra) == "table" then
-        for _, k in pairs(names_to_keep) do
-        values_to_keep[k] = card.ability.extra[k]
-        end
-    end
-
-    if card.config.center.poke_custom_values_to_keep then
-        for k, v in pairs(card.config.center.poke_custom_values_to_keep) do
-        custom_values_to_keep[v] = card.ability.extra[v]
-        end
-        has_custom_values_to_keep = true
-    end
-    ]]
-
+    --Upgrade card
     card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, SMODS.get_atlas(new_card.atlas or 'Joker'), new_card.pos)
     card.children.center.states.hover = card.states.hover
     card.children.center.states.click = card.states.click
@@ -827,31 +852,6 @@ function tower_backend_upgrade(card, to_key)
     card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
     card:set_ability(new_card, true)
     card:set_cost()
-
-    --[[
-    if type(card.ability.extra) == "table" then
-        for k,v in pairs(values_to_keep) do
-        if card.ability.extra[k] or k == "energy_count" or k == "c_energy_count" or k == "e_limit_up" then
-            if type(card.ability.extra[k]) ~= "number" or (type(v) == "number" and v > card.ability.extra[k]) or k == "form" then
-            card.ability.extra[k] = v
-            end
-        end
-        end
-        if values_to_keep["form"] and type(new_card.set_ability) == 'function' then
-        new_card:set_ability(card)
-        end
-        if card.ability.extra.energy_count or card.ability.extra.c_energy_count then
-        energize(card, nil, true, true)
-        end
-    end
-
-    if has_custom_values_to_keep then
-        for k, v in pairs(custom_values_to_keep) do
-        card.ability.extra[k] = v
-        end
-    end
-    ]]
-
     if new_card.soul_pos then
         card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, SMODS.get_atlas(new_card.soul_atlas or 'Soul'), new_card.soul_pos)
         card.children.floating_sprite.role.draw_major = card
@@ -862,6 +862,7 @@ function tower_backend_upgrade(card, to_key)
         card.children.floating_sprite = nil
     end
 
+    --Play sound effects
     if not card.edition then
         card:juice_up()
         play_sound('generic1')
@@ -873,8 +874,9 @@ function tower_backend_upgrade(card, to_key)
         if card.edition.negative then play_sound('negative', 1.5, 0.4) end 
     end
 
+    --Trigger add to deck deffects
     if trigger_add then
         card:add_to_deck()
     end
-
 end
+

@@ -146,13 +146,12 @@ get_pack = function(_key, _type)
 end
 
 --Double click to show upgrade paths
-
 Bloonlatro.last_click = nil
 Bloonlatro.last_click_time = 0
 local card_click_old = Card.click
 function Card.click(self, ...)
     local ret = card_click_old(self, ...)
-    if not Bloonlatro.display_card(self) then -- BM.is_digimon_display_card(self)
+    if false and not Bloonlatro.display_card(self) then -- BM.is_digimon_display_card(self)
         Bloonlatro.last_click = nil
         Bloonlatro.last_click_time = 0
         return ret
