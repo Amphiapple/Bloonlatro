@@ -145,6 +145,43 @@ get_pack = function(_key, _type)
     return center
 end
 
+--Double click to show upgrade paths
+
+Bloonlatro.last_click = nil
+Bloonlatro.last_click_time = 0
+local card_click_old = Card.click
+function Card.click(self, ...)
+    local ret = card_click_old(self, ...)
+    if not Bloonlatro.display_card(self) then -- BM.is_digimon_display_card(self)
+        Bloonlatro.last_click = nil
+        Bloonlatro.last_click_time = 0
+        return ret
+    end
+    local time = love.timer.getTime()
+    local double_click = Bloonlatro.last_click == self and time - (Bloonlatro.last_click_time or 0) < 0.45
+    if double_click then
+        Bloonlatro.last_click = nil
+        Bloonlatro.last_click_time = 0
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.05,
+            func = function()
+                if not self or self.REMOVED then
+                    return true
+                end
+                if Bloonlatro.open_evolution_display then
+                    Bloonlatro.open_evolution_display(self)
+                end
+                return true
+            end
+        }))
+    else
+        Bloonlatro.last_click = self
+        Bloonlatro.last_click_time = time
+    end
+    return ret
+end
+
 --Shortcut effect (SMODS)
 local shortcut_old = SMODS.shortcut
 SMODS.shortcut = function()
