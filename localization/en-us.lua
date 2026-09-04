@@ -844,4 +844,17 @@ return {
             },
         },
     },
+    bloonlatro_tutorial = {
+        name = "Tutorial",
+        tabs = {
+            tower_information = {
+                name = "Tower Information",
+                order = 1,
+            },
+            upgrade_system = {
+                name = "Upgrade System",
+                order = 2,
+            }
+        }
+    }
 }
