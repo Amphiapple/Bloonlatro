@@ -1,3 +1,5 @@
+BTD = Bloonlatro
+
 --Skip tag effects
 G.FUNCS.skip_blind = function(e)
     stop_use()
@@ -146,21 +148,21 @@ get_pack = function(_key, _type)
 end
 
 --Double click to show upgrade paths
-Bloonlatro.last_click = nil
-Bloonlatro.last_click_time = 0
+BTD.last_click = nil
+BTD.last_click_time = 0
 local card_click_old = Card.click
 function Card.click(self, ...)
     local ret = card_click_old(self, ...)
-    if false and not Bloonlatro.display_card(self) then -- BM.is_digimon_display_card(self)
-        Bloonlatro.last_click = nil
-        Bloonlatro.last_click_time = 0
+    if not BTD.is_displayable_card(self) then
+        BTD.last_click = nil
+        BTD.last_click_time = 0
         return ret
     end
     local time = love.timer.getTime()
-    local double_click = Bloonlatro.last_click == self and time - (Bloonlatro.last_click_time or 0) < 0.45
+    local double_click = BTD.last_click == self and time - (BTD.last_click_time or 0) < 0.45
     if double_click then
-        Bloonlatro.last_click = nil
-        Bloonlatro.last_click_time = 0
+        BTD.last_click = nil
+        BTD.last_click_time = 0
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.05,
@@ -168,15 +170,15 @@ function Card.click(self, ...)
                 if not self or self.REMOVED then
                     return true
                 end
-                if Bloonlatro.open_evolution_display then
-                    Bloonlatro.open_evolution_display(self)
+                if BTD.display_upgrades then
+                    BTD.display_upgrades(self)
                 end
                 return true
             end
         }))
     else
-        Bloonlatro.last_click = self
-        Bloonlatro.last_click_time = time
+        BTD.last_click = self
+        BTD.last_click_time = time
     end
     return ret
 end

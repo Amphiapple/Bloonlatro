@@ -692,14 +692,37 @@ JokerTable = {
     },
 }
 
-function get_tower_upgrade(card, paragon, t5, category, path, tiers)
-    local start_base = card.ability.tower_info and card.ability.tower_info.base
+BTD = Bloonlatro
 
-    --Non upgradable joke
-    if not start_base or not JokerTable[start_base] then
+local function is_upgradable_card(card)
+    local base = card and card.ability and card.ability.tower_info and card.ability.tower_info.base
+    if base and JokerTable[base] then
+        return true
+    end
+    return false
+end
+
+function BTD.is_displayable_card(card)
+    if not is_upgradable_card(card) then
+        return false
+    end
+    if card.area then
+        if G.jokers and card.area == G.jokers or
+                G.shop and card.area == G.shop or
+                G.pack_cards and card.area == G.pack_cards or
+                card.area.config and card.area.config.collection then
+            return true
+        end
+    end
+    return false
+end
+
+function BTD.get_tower_upgrade(card, paragon, t5, category, path, tiers)
+    --Non upgradable joker
+    if not is_upgradable_card(card) then
         return nil
     end
-
+    local start_base = card.ability.tower_info and card.ability.tower_info.base
     local start_category = card.ability.tower_info.category
     local start_path = card.ability.tower_info.path
     local start_tier = card.ability.tower_info.tier
@@ -759,79 +782,7 @@ function get_tower_upgrade(card, paragon, t5, category, path, tiers)
     return JokerTable[start_base][start_path][to_tier]
 end
 
-function tower_upgrade(card, to_key, immediate)
-
-    --Check for banned key
-    if G.GAME.banned_keys and G.GAME.banned_keys['j_bloons_'..to_key] then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.4,
-            func = function()
-                attention_text({
-                    text = localize('k_nope_ex'),
-                    scale = 1.3,
-                    hold = 1.4,
-                    major = card,
-                    backdrop_colour = G.C.PALE_GREEN,
-                    align = 'cm',
-                    offset = {x = 0, y = 2},
-                    silent = true
-                }) 
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.06*G.SETTINGS.GAMESPEED,
-                    blockable = false,
-                    blocking = false,
-                    func = function()
-                        play_sound('tarot2', 0.76, 0.4);
-                        return true
-                    end
-                }))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-    elseif immediate then
-        tower_backend_upgrade(card, to_key)
-    else
-
-        --Upgrade card normally
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                if G.P_CENTERS['j_bloons_'..to_key] == card.config.center then
-                    return true
-                end
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                        card:flip()
-                        return true
-                    end
-                }))
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.5,
-                    func = function()
-                        tower_backend_upgrade(card, to_key)
-                        return true
-                    end
-                }))
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.5,
-                    func = function()
-                        card:flip()
-                        return true
-                    end
-                }))
-                return true
-            end
-        }))
-    end
-end
-
-function tower_backend_upgrade(card, to_key)
+local function tower_backend_upgrade(card, to_key)
     local trigger_add = nil
     local new_card = G.P_CENTERS['j_bloons_'..to_key]
     if card.config.center == new_card then return end
@@ -880,3 +831,80 @@ function tower_backend_upgrade(card, to_key)
     end
 end
 
+function BTD.upgrade_tower(card, to_key, immediate)
+    --Check for banned key
+    if G.GAME.banned_keys and G.GAME.banned_keys['j_bloons_'..to_key] then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                attention_text({
+                    text = localize('k_nope_ex'),
+                    scale = 1.3,
+                    hold = 1.4,
+                    major = card,
+                    backdrop_colour = G.C.PALE_GREEN,
+                    align = 'cm',
+                    offset = {x = 0, y = 2},
+                    silent = true
+                }) 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.06*G.SETTINGS.GAMESPEED,
+                    blockable = false,
+                    blocking = false,
+                    func = function()
+                        play_sound('tarot2', 0.76, 0.4);
+                        return true
+                    end
+                }))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+    elseif immediate then
+        tower_backend_upgrade(card, to_key)
+    else
+        --Upgrade card normally
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if G.P_CENTERS['j_bloons_'..to_key] == card.config.center then
+                    return true
+                end
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        card:flip()
+                        return true
+                    end
+                }))
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        tower_backend_upgrade(card, to_key)
+                        return true
+                    end
+                }))
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        card:flip()
+                        return true
+                    end
+                }))
+                return true
+            end
+        }))
+    end
+end
+
+function BTD.display_upgrades(card)
+    if not BTD.is_displayable_card(card) then
+        print("not upgradable")
+        return nil
+    end
+    print("display some upgrades")
+end

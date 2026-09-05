@@ -1,3 +1,5 @@
+BTD = Bloonlatro
+
 SMODS.ConsumableType { --Upgrade Cards
     key = 'Upgrade',
     primary_colour = HEX('339900'),
@@ -31,7 +33,7 @@ SMODS.Consumable { --Top Path Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 1, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 1, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -39,9 +41,9 @@ SMODS.Consumable { --Top Path Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 1, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 1, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -63,7 +65,7 @@ SMODS.Consumable { --Middle Path Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 2, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 2, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -71,9 +73,9 @@ SMODS.Consumable { --Middle Path Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 2, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 2, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -95,7 +97,7 @@ SMODS.Consumable { --Bottom Path Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 3, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 3, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -103,9 +105,9 @@ SMODS.Consumable { --Bottom Path Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 3, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 3, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -127,7 +129,7 @@ SMODS.Consumable { --Primary Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'primary', 0, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'primary', 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -135,9 +137,9 @@ SMODS.Consumable { --Primary Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, 'primary', 0, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, 'primary', 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -159,7 +161,7 @@ SMODS.Consumable { --Military Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'military', 0, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'military', 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -167,9 +169,9 @@ SMODS.Consumable { --Military Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, 'military', 0, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, 'military', 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -191,7 +193,7 @@ SMODS.Consumable { --Magic Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'magic', 0, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'magic', 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -199,9 +201,9 @@ SMODS.Consumable { --Magic Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, 'magic', 0, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, 'magic', 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -223,7 +225,7 @@ SMODS.Consumable { --Support Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, 'support', 0, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, 'support', 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -231,9 +233,9 @@ SMODS.Consumable { --Support Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, 'support', 0, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, 'support', 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -253,7 +255,7 @@ SMODS.Consumable { --Random Upgrade
     can_use = function(self, card)
         local usable = false
         for k, v in ipairs(G.jokers.cards) do
-            if get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
+            if BTD.get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
                 usable = true
             end
         end
@@ -262,7 +264,7 @@ SMODS.Consumable { --Random Upgrade
     use = function(self, card, area)
         local eligible_jokers = {}
         for k, v in ipairs(G.jokers.cards) do
-            if get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
+            if BTD.get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
                 table.insert(eligible_jokers, v)
             end
         end
@@ -271,9 +273,9 @@ SMODS.Consumable { --Random Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = pseudorandom_element(eligible_jokers, 'upgrade_random')
-                local end_key = start_joker and get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
+                local end_key = start_joker and BTD.get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -298,7 +300,7 @@ SMODS.Consumable { --Random Double Upgrade
     can_use = function(self, card)
         local usable = false
         for k, v in ipairs(G.jokers.cards) do
-            if get_tower_upgrade(v, nil, nil, nil, 0, card.ability.tiers) ~= nil then
+            if BTD.get_tower_upgrade(v, nil, nil, nil, 0, card.ability.tiers) ~= nil then
                 usable = true
             end
         end
@@ -308,7 +310,7 @@ SMODS.Consumable { --Random Double Upgrade
         if SMODS.pseudorandom_probability(card, 'upgrade_double_random', card.ability.num, card.ability.denom, 'upgrade_double_random') then
             local eligible_jokers = {}
             for k, v in ipairs(G.jokers.cards) do
-                if get_tower_upgrade(v, nil, nil, nil, 0, card.ability.tiers) ~= nil then
+                if BTD.get_tower_upgrade(v, nil, nil, nil, 0, card.ability.tiers) ~= nil then
                     table.insert(eligible_jokers, v)
                 end
             end
@@ -317,9 +319,9 @@ SMODS.Consumable { --Random Double Upgrade
                 delay = 0.4,
                 func = function()
                     local start_joker = pseudorandom_element(eligible_jokers, 'upgrade_double_random')
-                    local end_key = start_joker and get_tower_upgrade(start_joker, nil, nil, nil, 0, card.ability.tiers)
+                    local end_key = start_joker and BTD.get_tower_upgrade(start_joker, nil, nil, nil, 0, card.ability.tiers)
                     if end_key then
-                        tower_upgrade(start_joker, end_key, nil)
+                        BTD.upgrade_tower(start_joker, end_key, nil)
                     end
                     play_sound('tarot1')
                     card:juice_up(0.3, 0.5)
@@ -375,7 +377,7 @@ SMODS.Consumable { --Wheel Upgrade
     can_use = function(self, card)
         local usable = false
         for k, v in ipairs(G.jokers.cards) do
-            if get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
+            if BTD.get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
                 usable = true
             end
         end
@@ -385,7 +387,7 @@ SMODS.Consumable { --Wheel Upgrade
         if SMODS.pseudorandom_probability(card, 'upgrade_wheel', card.ability.num, card.ability.denom, 'upgrade_wheel') then
             local eligible_jokers = {}
             for k, v in ipairs(G.jokers.cards) do
-                if get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
+                if BTD.get_tower_upgrade(v, nil, nil, nil, 0, 1) ~= nil then
                     table.insert(eligible_jokers, v)
                 end
             end
@@ -394,9 +396,9 @@ SMODS.Consumable { --Wheel Upgrade
                 trigger = 'immediate',
                 func = function()
                     local start_joker = v
-                    local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
+                    local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
                     if end_key then
-                        tower_upgrade(start_joker, end_key, nil)
+                        BTD.upgrade_tower(start_joker, end_key, nil)
                     end
                     return true
                 end
@@ -448,7 +450,7 @@ SMODS.Consumable { --$5 Select Upgrade
         return { vars = { card.ability.money, card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 0, 1) ~= nil and G.GAME.dollars >= card.ability.money
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 0, 1) ~= nil and G.GAME.dollars >= card.ability.money
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -456,9 +458,9 @@ SMODS.Consumable { --$5 Select Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                     ease_dollars(-card.ability.money, true)
                 end
                 play_sound('tarot1')
@@ -481,7 +483,7 @@ SMODS.Consumable { --Downgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 0, -1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, nil, 0, -1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -489,9 +491,9 @@ SMODS.Consumable { --Downgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 0, -1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 0, -1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -516,7 +518,7 @@ SMODS.Consumable { --Double Upgrade Sacrifice
         local usable = 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and not SMODS.is_eternal(G.jokers.highlighted[1], card)
         for k, v in ipairs(G.jokers.cards) do
             if v == G.jokers.highlighted[1] then
-                return usable and k < #G.jokers.cards and get_tower_upgrade(G.jokers.cards[k+1], nil, nil, nil, 0, card.ability.tiers) ~= nil
+                return usable and k < #G.jokers.cards and BTD.get_tower_upgrade(G.jokers.cards[k+1], nil, nil, nil, 0, card.ability.tiers) ~= nil
             end
         end
         return false
@@ -532,9 +534,9 @@ SMODS.Consumable { --Double Upgrade Sacrifice
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local end_key = get_tower_upgrade(start_joker, nil, nil, nil, 0, card.ability.tiers)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, nil, nil, 0, card.ability.tiers)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                     G.jokers.highlighted[1].getting_sliced = true
                     G.jokers.highlighted[1]:start_dissolve()
                 end
@@ -558,7 +560,7 @@ SMODS.Consumable { --T5 Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, true, nil, 0, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, true, nil, 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -566,9 +568,9 @@ SMODS.Consumable { --T5 Upgrade
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, true, nil, 0, 1)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, true, nil, 0, 1)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
@@ -593,7 +595,7 @@ SMODS.Consumable { --Upgrade Insta
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and get_tower_upgrade(G.jokers.highlighted[1], nil, true, nil, 0, 5) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, true, nil, 0, 5) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
@@ -601,9 +603,9 @@ SMODS.Consumable { --Upgrade Insta
             delay = 0.4,
             func = function()
                 local start_joker = G.jokers.highlighted[1]
-                local end_key = get_tower_upgrade(start_joker, nil, true, nil, 0, 5)
+                local end_key = BTD.get_tower_upgrade(start_joker, nil, true, nil, 0, 5)
                 if end_key then
-                    tower_upgrade(start_joker, end_key, nil)
+                    BTD.upgrade_tower(start_joker, end_key, nil)
                 end
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
