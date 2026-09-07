@@ -1,5 +1,6 @@
 General Changes:
 - Upgrading towers have been added!
+- Double click on a Joker to view all of its possible upgrades
 
 Balance Changes:
 
