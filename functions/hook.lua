@@ -159,7 +159,7 @@ function Card.click(self, ...)
         return ret
     end
     local time = love.timer.getTime()
-    local double_click = BTD.last_click == self and time - (BTD.last_click_time or 0) < 0.45
+    local double_click = BTD.last_click == self and time - (BTD.last_click_time or 0) < 0.3
     if double_click then
         BTD.last_click = nil
         BTD.last_click_time = 0
