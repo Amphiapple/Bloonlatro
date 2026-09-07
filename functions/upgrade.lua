@@ -708,7 +708,7 @@ function BTD.is_displayable_card(card)
     end
     if card.area then
         if G.jokers and card.area == G.jokers or
-                G.shop and card.area == G.shop or
+                G.shop_jokers and card.area == G.shop_jokers or
                 G.pack_cards and card.area == G.pack_cards or
                 card.area.config and card.area.config.collection then
             return true
