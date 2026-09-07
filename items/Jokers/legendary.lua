@@ -405,7 +405,8 @@ SMODS.Joker { --Goliath Doomship
         if context.repetition and (context.cardarea == G.play or context.cardarea == G.hand) and context.other_card:get_id() == 14 and not context.blueprint then
             return {
                 message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retrigger
+                repetitions = card.ability.extra.retrigger,
+                card = card
             }
         end
         if context.individual and context.other_card:get_id() == 14 and not context.blueprint then
