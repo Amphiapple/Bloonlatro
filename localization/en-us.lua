@@ -464,7 +464,7 @@ return {
                 }
             },
             p_bloons_upgrade_normal_1 = {
-                name = 'Power Pack',
+                name = 'Upgrade Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:upgrade}Upgrade{} cards to be',
@@ -472,7 +472,7 @@ return {
                 }
             },
             p_bloons_upgrade_normal_2 = {
-                name = 'Power Pack',
+                name = 'Upgrade Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:upgrade}Upgrade{} cards to be',
@@ -480,7 +480,7 @@ return {
                 }
             },
             p_bloons_upgrade_jumbo_1 = {
-                name = 'Jumbo Power Pack',
+                name = 'Jumbo Upgrade Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:upgrade}Upgrade{} cards to be',
@@ -488,7 +488,7 @@ return {
                 }
             },
             p_bloons_upgrade_mega_1 = {
-                name = 'Mega Power Pack',
+                name = 'Mega Upgrade Pack',
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{}',
                     '{C:upgrade}Upgrade{} cards to be',
