@@ -263,7 +263,7 @@ SMODS.Joker { --Ballistic Missile
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Sub", category = "military" },
-        extra = { chips = 12, mult = 3, max_rank = 0 } --Variables: Xmult = Xmult
+        extra = { chips = 24, mult = 6, max_rank = 0 } --Variables: Xmult = Xmult
     },
 
     loc_vars = function(self, info_queue, card)

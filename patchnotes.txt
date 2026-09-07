@@ -13,6 +13,7 @@ Balance Changes:
 - Ice Shards no longer scales when destroying frozen cards
 - Embrittlement effect moved to Frozen Verdict
 - Absolute Zero reworked
+- Ballistic Missile chips 12 > 24, mult 3 > 6
 - Bomber Ace reworked
 - Acid Pools reworked
 - Ball Lightning Reworked

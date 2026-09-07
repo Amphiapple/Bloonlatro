@@ -382,7 +382,7 @@ SMODS.Back { --Silas
                     frozen_card:set_ability('m_bloons_frozen', nil, true)
                     for k, v in pairs(valid_cards) do
                         if v == frozen_card then
-                            table.remove(valid_cards, i)
+                            table.remove(valid_cards, k)
                             break
                         end
                     end
