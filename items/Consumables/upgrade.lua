@@ -225,7 +225,7 @@ SMODS.Consumable { --Support Upgrade
         return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card)
-        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, 'support', 0, 1) ~= nil
+        return 1 <= #G.jokers.highlighted and #G.jokers.highlighted <= card.ability.max_highlighted and BTD.get_tower_upgrade(G.jokers.highlighted[1], nil, nil, 'support', 0, 1) ~= nil
     end,
     use = function(self, card, area)
         G.E_MANAGER:add_event(Event({
