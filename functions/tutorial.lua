@@ -76,9 +76,8 @@ end
 -- Tab Buttons
 ----------------------------------------------------------
 
-local function build_list()
+local function build_list(selected_tab)
     local tabs = G.localization.bloonlatro_tutorial.tabs
-
     local sorted_tabs = {}
 
     for id, tab in pairs(tabs) do
@@ -121,16 +120,205 @@ local function build_list()
     return row
 end
 
+local function build_info()
+    return {
+        n = G.UIT.R,
+        config = {
+            align = "cm",
+            padding = 0.02,
+            minw = 16,
+            id = "bloonlatro_tutorial_info"
+        },
+        nodes = {}
+    }
+end
+
 ----------------------------------------------------------
 -- Tab Content
 ----------------------------------------------------------
 
 G.FUNCS.create_bloonlatro_tab_tower_information = function()
-    print("Creating Tower Information")
+    local dart_monkey = Card(
+        0,
+        0,
+        G.CARD_W,
+        G.CARD_H,
+        G.P_CARDS.empty,
+        G.P_CENTERS['j_bloons_dart_monkey']
+    )
+
+    dart_monkey.ability_UIBox_table = dart_monkey:generate_UIBox_ability_table()
+
+    local popup_definition = G.UIDEF.card_h_popup(dart_monkey)
+
+    local popup = UIBox {
+        definition = popup_definition,
+        config = {
+            offset = { x = 0, y = 0 }
+        }
+    }
+
+    dart_monkey:remove()
+
+    local desc_nodes = {
+        {
+            n = G.UIT.R,
+            config = {
+                align = "cm",
+                padding = 0.05
+            },
+            nodes = {
+                {
+                    n = G.UIT.T,
+                    config = {
+                        text = G.localization.bloonlatro_tutorial.tabs.tower_information.name,
+                        scale = 1,
+                        colour = G.C.UI.TEXT_DARK,
+                        shadow = false
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        align = "cm",
+                        minh = 0.3
+                    },
+                }
+            }
+        }
+    }
+    local loc_desc = G.localization.bloonlatro_tutorial.tabs.tower_information.description or nil
+    if loc_desc and type(loc_desc) == "table" and #loc_desc > 0 then
+        for i, desc_text in ipairs(loc_desc) do
+            desc_nodes[#desc_nodes + 1] = {
+                n = G.UIT.R,
+                config = {
+                    align = "cl",
+                    padding = 0.03,
+                    maxw = 16
+                },
+                nodes = SMODS.localize_box(
+                    loc_parse_string(desc_text),
+                    { scale = 1.2, text_colour = G.C.UI.TEXT_DARK, vars = { colours = {} } }
+                ),
+            }
+        end
+    else
+        desc_nodes[#desc_nodes + 1] = {
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.03 },
+            nodes = {
+                {
+                    n = G.UIT.O,
+                    config = {
+                        object = DynaText({
+                            string = { "None" },
+                            colours = { G.C.UI.TEXT_INACTIVE },
+                            scale = 0.4,
+                            maxw = 16,
+                        })
+                    }
+                }
+            }
+        }
+    end
+
+    return {
+        n = G.UIT.C,
+        config = {
+            align = "cm",
+            padding = 0.12,
+            r = 0.1,
+            colour = G.C.WHITE,
+            minw = 16
+        },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = {
+                    align = "cm",
+                    padding = 0.05
+                },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = {
+                            align = "cm",
+                            minw = 3.75
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.O,
+                                config = {
+                                    object = popup
+                                }
+                            }
+                        }
+                    },
+                    {
+                        n = G.UIT.C,
+                        config = {
+                            align = "lm",
+                            padding = 0.03,
+                            minw = 10.5
+                        },
+                        nodes = desc_nodes
+                    }
+                }
+            }
+        }
+    }
 end
 
 G.FUNCS.create_bloonlatro_tab_upgrade_system = function()
-    print("Creating Upgrade System")
+    return {
+        n = G.UIT.C,
+        config = {
+            align = "cm",
+            padding = 0.12,
+            r = 0.1,
+            colour = G.C.WHITE,
+            minw = 16,
+            minh = 4
+        },
+        nodes = {
+            {
+                n = G.UIT.T,
+                config = {
+                    text = "Coming Soon!",
+                    scale = 1.5,
+                    colour = G.C.UI.TEXT_DARK,
+                    shadow = false
+                }
+            }
+        }
+    }
+end
+
+local function set_bloonlatro_tutorial_info(tab)
+    local selected_tab = tab or "tower_information"
+
+    local info_e = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("bloonlatro_tutorial_info")
+    if not info_e or not info_e.children then
+        return
+    end
+
+    for i = #info_e.children, 1, -1 do
+        local child = info_e.children[i]
+        table.remove(info_e.children, i)
+        child:remove()
+    end
+
+    local func = G.FUNCS["create_bloonlatro_tab_" .. selected_tab]
+    if not func then
+        print("Tutorial tab '" .. selected_tab .. "' does not exist.")
+        return
+    end
+
+    local content = func()
+    if content then
+        G.OVERLAY_MENU:add_child(content, info_e)
+    end
 end
 
 ----------------------------------------------------------
@@ -139,26 +327,34 @@ end
 
 G.FUNCS.update_bloonlatro_tutorial_ui = function(e)
     local tab = type(e) == "table" and e.config and e.config.ref_table and e.config.ref_table.id or e
+    if not tab then
+        return
+    end
+
+    if not G.OVERLAY_MENU then
+        return
+    end
 
     local func = G.FUNCS["create_bloonlatro_tab_" .. tab]
-
     if not func then
         print("Tutorial tab '" .. tab .. "' does not exist.")
         return
     end
 
-    func()
+    set_bloonlatro_tutorial_info(tab)
 end
 
 ----------------------------------------------------------
 -- Tutorial UI
 ----------------------------------------------------------
 
-G.FUNCS.create_bloonlatro_tutorial_ui = function()
+G.FUNCS.create_bloonlatro_tutorial_ui = function(selected_tab)
     if G.OVERLAY_MENU then
         G.OVERLAY_MENU:remove()
         G.OVERLAY_MENU = nil
     end
+
+    local active_tab = selected_tab or "tower_information"
 
     local contents = {
         {
@@ -181,7 +377,8 @@ G.FUNCS.create_bloonlatro_tutorial_ui = function()
                     },
                     nodes = {
                         build_name(),
-                        build_list()
+                        build_list(active_tab),
+                        build_info()
                     }
                 }
             }
@@ -215,6 +412,7 @@ G.FUNCS.create_bloonlatro_tutorial_ui = function()
     }
 
     G.OVERLAY_MENU = ui
+    set_bloonlatro_tutorial_info(active_tab)
 
     G.E_MANAGER:add_event(Event({
         trigger = "immediate",
