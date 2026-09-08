@@ -1,8 +1,8 @@
 SMODS.Atlas {
     key = "bloons_tutorial",
     path = "tutorial.png",
-    px = 75,
-    py = 75
+    px = 34,
+    py = 34
 }
 
 ----------------------------------------------------------
@@ -17,15 +17,16 @@ function create_bloonlatro_tutorial_button()
     -- Change sprite depending on viewed_bloonlatro_tutorial
 
     local card = create_sprite_card({
-        w = 1.8,
-        h = 1.8,
+        w = Bloonlatro.MAIN_MENU_BUTTON_W,
+        h = Bloonlatro.MAIN_MENU_BUTTON_H,
         atlas = G.ASSET_ATLAS["bloons_tutorial"],
-        pos = { x = 0, y = 0 },
+        pos = { x = G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial and 0 or 1, y = 0 },
         no_ui = true
     })
 
     function card:click()
         G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial = true
+        card.children.center:set_sprite_pos({ x = G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial and 0 or 1, y = 0 })
         G.FUNCS.create_bloonlatro_tutorial_ui()
     end
 
