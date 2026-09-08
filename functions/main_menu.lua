@@ -149,6 +149,7 @@ function Bloonlatro.main_menu()
         }
     }
 
+    -- TODO remove
     G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial = false
 
     local tutorial_ui = UIBox {

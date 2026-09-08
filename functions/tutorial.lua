@@ -13,9 +13,6 @@ function create_bloonlatro_tutorial_button()
     G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial =
         G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial or false
 
-    -- TODO:
-    -- Change sprite depending on viewed_bloonlatro_tutorial
-
     local card = create_sprite_card({
         w = Bloonlatro.MAIN_MENU_BUTTON_W,
         h = Bloonlatro.MAIN_MENU_BUTTON_H,
