@@ -3,7 +3,7 @@ Added Content:
 - New Spectral card
 
 General Changes:
-- Certin Jokers/objects can how have different descriptions if their effect changes depending on the situation
+- Certain Jokers/objects can how have different descriptions if their effect changes depending on the situation
 
 Balance Changes:
 - Dart Monkey overall chips reduced
