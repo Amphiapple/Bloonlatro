@@ -10,7 +10,7 @@
     blueprint_compat = true,
     config = {
         tower_info = { base = "Dart Monkey", category = "primary", path = 0, tier = 6 },
-        extra = { Xmult_scaling = 0.1, Xmult = 0.1, current = 1, limit = 15, counter = 15 } --Variables = Xmult_scaling = scaling increase, Xmult = Xmult gain, current = current Xmult, limit = required card count, counter = current card count
+        extra = { Xmult_scaling = 0.1, Xmult = 0.1, current = 1, limit = 10, counter = 10 } --Variables = Xmult_scaling = scaling increase, Xmult = Xmult gain, current = current Xmult, limit = required card count, counter = current card count
     },
 
     loc_vars = function(self, info_queue, card)
@@ -85,7 +85,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
     blueprint_compat = true,
     config = {
         tower_info = { base = "Bomb Shooter", category = "primary", path = 0, tier = 6 },
-        extra = { Xmult = 0.5, current = 1 }
+        extra = { Xmult = 0.75, current = 1 }
     },
 
     loc_vars = function(self, info_queue, card)
