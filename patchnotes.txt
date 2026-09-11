@@ -9,7 +9,6 @@ Balance Changes:
 - Dart Monkey overall chips reduced
 - Ultra Juggernaut cost $6 > $7
 - Reworked Glaive Ricochet, MOAR Glaives, and Glaive Lord
-- Ballistic Obliteration Missile Bunker reworked
 - Ice Shards no longer scales when destroying frozen cards
 - Embrittlement effect moved to Frozen Verdict
 - Absolute Zero reworked
@@ -19,6 +18,8 @@ Balance Changes:
 - Ball Lightning Reworked
 - Druid of the Jungle and Jungle's Bounty effects swapped, both > $6
 - Giant Condor reworked
+- Apex Plasma Master scoring card requirement 15 > 10
+- Ballistic Obliteration Missile Bunker reworked
 
 - Diamondback body now adds exclusively face cards
 
