@@ -116,8 +116,8 @@ function create_bloonlatro_boss_button()
     end
 
     local card = create_sprite_card({
-        w = 1.8,
-        h = 1.8,
+        w = Bloonlatro.MAIN_MENU_BUTTON_W,
+        h = Bloonlatro.MAIN_MENU_BUTTON_H,
         atlas = G.ANIMATION_ATLAS["bloons_Blind"],
         pos = { x = 0, y = boss_icon_y },
         no_ui = true

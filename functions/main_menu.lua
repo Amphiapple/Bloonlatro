@@ -124,6 +124,8 @@ end
 -------------------------------------------------------
 
 function Bloonlatro.main_menu()
+    Bloonlatro.MAIN_MENU_BUTTON_W = 110/68
+    Bloonlatro.MAIN_MENU_BUTTON_H = 110/68
     local MAX_LOGO_POS_X = 8
 
     create_bloonlatro_logo(MAX_LOGO_POS_X)
@@ -147,6 +149,7 @@ function Bloonlatro.main_menu()
         }
     }
 
+    -- TODO remove
     G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial = false
 
     local tutorial_ui = UIBox {
@@ -162,7 +165,7 @@ function Bloonlatro.main_menu()
         },
         config = {
             align = "cri",
-            offset = { x = 10, y = -1.3 },
+            offset = { x = 10, y = -1.6 },
             major = G.ROOM_ATTACH,
             bond = "Weak"
         }
