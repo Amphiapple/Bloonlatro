@@ -853,9 +853,9 @@ return {
                 description = {
                     "The tower information badge is shown under the tower's rarity badge.",
                     "The base tower is shown by name and the category is shown by color.",
-                    "Categories include {C:primary}Primary{}, {C:military}Military{}, {C:magic}Magic{}, {C:support}Support{}, and {C:misc}Miscellaneous{}.",
                     "The base tower identifies which original tower this tower is based on.",
-                    "Some towers buff other towers based on their category or base tower."
+                    "Categories include {C:primary}Primary{}, {C:military}Military{}, {C:magic}Magic{}, {C:support}Support{}, and {C:misc}Miscellaneous{}.",
+                    "Some towers buff other towers based on their base tower or category."
                 }
             },
             upgrade_system = {
