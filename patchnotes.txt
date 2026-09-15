@@ -23,7 +23,7 @@ Balance Changes:
 - Ballistic Obliteration Missile Bunker reworked
 
 - Diamondback body now adds exclusively face cards
-- Student Loans debt requirement $4000 > $40000
+- Student Loans challenge debt requirement $4000 > $40000
 
 Fixes:
 - Glue Splatter should no longer give mult outside first hand of round
