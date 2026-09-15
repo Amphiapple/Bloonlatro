@@ -1,14 +1,38 @@
-Added Cards:
-- 15 different upgrade consumables found in 4 different booster packs
-- 1 special Spectral Card with a hidden effect
-- 2 new vouchers
+Added Content:
+- Skywardens have been added to the game!
+- New Spectral card
 
 General Changes:
-- Upgrading towers have been added!
-- Double click on a Joker to view all of its possible upgrades
+- Certain Jokers/objects can how have different descriptions if their effect changes depending on the situation
 
 Balance Changes:
-- Brickell Deck reworked
+- Dart Monkey overall chips reduced
+- Ultra Juggernaut cost $6 > $7
+- Reworked Glaive Ricochet, MOAR Glaives, and Glaive Lord
+- Ice Shards no longer scales when destroying frozen cards
+- Embrittlement effect moved to Frozen Verdict
+- Absolute Zero reworked
+- Ballistic Missile chips 12 > 24, mult 3 > 6
+- Bomber Ace reworked
+- Acid Pools reworked
+- Ball Lightning Reworked
+- Druid of the Jungle and Jungle's Bounty effects swapped, both > $6
+- IMF Loan bankrupt amount -$10 > -$15, no longer gains sell value
+- Giant Condor reworked
+- Apex Plasma Master scoring card requirement 15 > 10
+- Ballistic Obliteration Missile Bunker reworked
+
+- Diamondback body now adds exclusively face cards
+- Student Loans challenge debt requirement $4000 > $40000
 
 Fixes:
-- Text fixes
+- Glue Splatter should no longer give mult outside first hand of round
+- Operation Dart Storm should no longer be perishable compatible
+- Sentries and Marine are now a part of the miscellaneous category
+- Shimmer info queue should now show negative consumable rather than negative joker
+- Deadly Spikes text should say each hand instead of end of round
+- Goliath Doomship should no longer crash in multiplayer
+- Brutal Behemoth's description and effect have been changed to be more understandable
+- Jokers adding joker slots or consumable slots should now apply the correct amount when multiple are obtained/removed at the same time
+- Added buffers to relevant places, allowing some Jokers to update values correctly
+- Text fixes and clarifications

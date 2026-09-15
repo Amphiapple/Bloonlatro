@@ -7,7 +7,7 @@
 	cost = 4,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 0, tier = 0 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 2 } --Variables: money = current end of round dollars
     },
 
@@ -28,7 +28,7 @@ SMODS.Joker { --Increased Production
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 1, tier = 1 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 3 } --Variables: money = current end of round dollars
     },
 
@@ -49,7 +49,7 @@ SMODS.Joker { --Greater Production
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 1, tier = 2 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 4 } --Variables: money = current end of round dollars
     },
 
@@ -70,7 +70,7 @@ SMODS.Joker { --Banana Plantation
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 1, tier = 3 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { min = 1, max = 10 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
@@ -124,7 +124,7 @@ SMODS.Joker { --BRF
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 1, tier = 4 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { min = 1, max = 5, money = 2 } --Variables: max = max possible dollars, min = min possible dollars
     },
 
@@ -183,7 +183,7 @@ SMODS.Joker { --Banana Central
 	cost = 10,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 1, tier = 5 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 8, current = 0 } --Variables: money = dollars per farm
     },
 
@@ -218,7 +218,7 @@ SMODS.Joker { --Long Life Bananas
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 2, tier = 1 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { num = 1, denom = 3, money = 10, bananas = 2 } --Variables: money = dollars, bananas = bananas remaining
     },
 
@@ -283,7 +283,7 @@ SMODS.Joker { --Valuable Bananas
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 2, tier = 2 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { num = 1, denom = 4, money = 15, bananas = 3 } --Variables: money = dollars, bananas = bananas remaining
     },
 
@@ -346,7 +346,7 @@ SMODS.Joker { --Monkey Bank
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 2, tier = 3 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { sell_limit = 10, capacity = 20 } --Variables: sell_limit = required sell price to create bank, capacity = max sell price from interest
     },
 
@@ -397,12 +397,12 @@ SMODS.Joker { --IMF Loan
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 2, tier = 4 },
-        extra = { bankrupt = 10, money = 4 } --Variables: bankrupt = max amount of debt, money = sell value per round
+        tower_info = { base = "Banana Farm", category = "support" },
+        extra = { bankrupt = 15 } --Variables: bankrupt = max amount of debt
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.bankrupt, card.ability.extra.money } }
+        return { vars = { card.ability.extra.bankrupt } }
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.bankrupt_at = G.GAME.bankrupt_at - card.ability.extra.bankrupt
@@ -429,13 +429,6 @@ SMODS.Joker { --IMF Loan
                 end,
                 colour = G.C.MONEY
             }
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra_value = card.ability.extra_value + card.ability.extra.money
-            card:set_cost()
-            return {
-                message = localize('k_val_up'),
-                colour = G.C.MONEY
-            }
         end
     end
 }
@@ -449,7 +442,7 @@ SMODS.Joker { --Monkey-Nomics
 	cost = 10,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 2, tier = 5 },
+        tower_info = { base = "Banana Farm", category = "support" },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -483,7 +476,7 @@ SMODS.Joker { --EZ Collect
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 3, tier = 1 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 1, current = 0 } --Variables: money = dollars per joker, current = current end of round dollars
     },
 
@@ -514,7 +507,7 @@ SMODS.Joker { --Banana Salvage
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 3, tier = 2 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { cost = 2 } --Variables: cost = extra sell price
     },
 
@@ -545,7 +538,7 @@ SMODS.Joker { --Marketplace
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 3, tier = 3 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 1, rate = 3, current = 0 } --Variables: money = dollars per sell cost, rate = sell cost rate, current = current end of round dollars
     },
 
@@ -579,7 +572,7 @@ SMODS.Joker { --Central Market
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 3, tier = 4 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { money = 2, current = 0 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
     }, 
 
@@ -607,7 +600,7 @@ SMODS.Joker { --Monkey Wall Street
 	cost = 9,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Banana Farm", category = "support", path = 3, tier = 5 },
+        tower_info = { base = "Banana Farm", category = "support" },
         extra = { slots = 1 } --Variables: slots = extra booster slots, cost_multiplier = pack cost multiplier
     },
 

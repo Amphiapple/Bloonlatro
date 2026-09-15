@@ -19,3 +19,12 @@ if (v.type == 'Base' or v.type == 'Enhanced') and (rof_amount > 0) then
 end
 '''
 match_indent = true
+
+# Magic Trick adding to card rate instead of setting it
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'G.GAME.playing_card_rate = center_table.extra'
+position = 'before'
+payload = 'G.GAME.playing_card_rate = G.GAME.playing_card_rate + center_table.extra'
+match_indent = true

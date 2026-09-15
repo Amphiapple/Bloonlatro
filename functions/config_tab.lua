@@ -14,19 +14,7 @@ SMODS.current_mod.config_tab = function()
                     })
                 }
             },
-            {
-                n = G.UIT.R,
-                config = { padding = 0.2, align = "cm" },
-                nodes = {
-                    create_toggle({
-                        label = "Upgrading Towers",
-                        ref_table = Bloonlatro.config,
-                        ref_value = 'upgrading_towers',
-                    })
-                }
-            },
             { n = G.UIT.R, config = { minh = 0.1 } }
-            
         }
     }
 end
@@ -45,29 +33,6 @@ function Game:start_run(args)
 
         G.GAME.banned_keys = G.GAME.banned_keys or {}
         for _, v in ipairs(non_bloonlatro_jokers) do
-            G.GAME.banned_keys[v.id] = true
-            if v.ids then
-                for _, vv in ipairs(v.ids) do
-                    G.GAME.banned_keys[vv] = true
-                end
-            end
-        end
-    end
-
-    if not Bloonlatro.config.upgrading_towers then
-        local upgrade_cards = {}
-        for k, v in pairs(G.P_CENTERS) do
-            if k:sub(1,2) == "c_" and v.set == "Upgrade" then
-                table.insert(upgrade_cards, { id = k })
-            elseif k:sub(1,2) == "p_" and v.group_key == "k_upgrade_pack" then
-                table.insert(upgrade_cards, { id = k })
-            elseif k == "v_bloons_upgrade_merchant" or k == "v_bloons_upgrade_tycoon" then
-                table.insert(upgrade_cards, { id = k })
-            end
-        end
-
-        G.GAME.banned_keys = G.GAME.banned_keys or {}
-        for _, v in ipairs(upgrade_cards) do
             G.GAME.banned_keys[v.id] = true
             if v.ids then
                 for _, vv in ipairs(v.ids) do

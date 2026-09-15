@@ -19,6 +19,13 @@ SMODS.ConsumableType { --Power Cards
     shop_rate = 0,
 }
 
+SMODS.Atlas {
+    key = 'Consumable',
+    path = 'consumables.png',
+    px = 71,
+    py = 95,
+}
+
 SMODS.Consumable { --Super Monkey Storm
     key = 'super_monkey_storm',
     set = 'Power',
@@ -277,7 +284,7 @@ SMODS.Consumable { --Banana Farmer
     set = 'Power',
     name = 'Banana Farmer',
     atlas = 'Consumable',
-    pos = { x = 5, y = 0 },
+    pos = { x = 0, y = 1 },
     config = { money = 4, rounds = 5, current = 5 }, --Variables: money = dollars, rounds = total lifespan, current = lifespan remaining
 
     loc_vars = function(self, info_queue, card)
@@ -322,7 +329,7 @@ SMODS.Consumable { --Portable Lake
     set = 'Power',
     name = 'Portable Lake',
     atlas = 'Consumable',
-    pos = { x = 6, y = 0 },
+    pos = { x = 1, y = 1 },
     config = { slots = 1, active = false }, --Variables: slots = extra joker slots
 
     loc_vars = function(self, info_queue, card)
@@ -352,7 +359,7 @@ SMODS.Consumable { --Road Spikes
     set = 'Power',
     name = 'Road Spikes',
     atlas = 'Consumable',
-    pos = { x = 7, y = 0 },
+    pos = { x = 2, y = 1 },
     config = { retrigger = 1, spikes = 10 }, --Variables: retrigger = retrigger count, spikes = number of uses
 
     loc_vars = function(self, info_queue, card)
@@ -397,7 +404,7 @@ SMODS.Consumable { --Glue Trap
     set = 'Power',
     name = 'Glue Trap',
     atlas = 'Consumable',
-    pos = { x = 8, y = 0 },
+    pos = { x = 3, y = 1 },
     config = { mod_conv = "m_bloons_glued", max_highlighted = 5 },
 
     loc_vars = function(self, info_queue, card)
@@ -411,7 +418,7 @@ SMODS.Consumable { --Freezing Trap
     set = 'Power',
     name = 'Freezing Trap',
     atlas = 'Consumable',
-    pos = { x = 9, y = 0 },
+    pos = { x = 4, y = 1 },
     config = { mod_conv = "m_bloons_frozen", max_highlighted = 5 },
 
     loc_vars = function(self, info_queue, card)
@@ -425,7 +432,7 @@ SMODS.Consumable { --Camo Trap
     set = 'Power',
     name = 'Camo Trap',
     atlas = 'Consumable',
-    pos = { x = 10, y = 0 },
+    pos = { x = 0, y = 2 },
     config = { discards = 3 }, --Variables: discards = extra discards
 
     loc_vars = function(self, info_queue, card)
@@ -449,7 +456,7 @@ SMODS.Consumable { --Pontoon
     set = 'Power',
     name = 'Pontoon',
     atlas = 'Consumable',
-    pos = { x = 11, y = 0 },
+    pos = { x = 1, y = 2 },
     config = { slots = 1 }, --Variables: slots = extra joker slots
 
     in_pool = function (self, args)
@@ -490,7 +497,7 @@ SMODS.Consumable { --Tech Bot
     set = 'Power',
     name = 'Tech Bot',
     atlas = 'Consumable',
-    pos = { x = 12, y = 0 },
+    pos = { x = 2, y = 2 },
     config = { retrigger = 1, active = false }, --Variables: retrigger = retrigger count
 
     can_use = function(self, card)
@@ -546,7 +553,7 @@ SMODS.Consumable { --Energizing Totem
     set = 'Power',
     name = 'Energizing Totem',
     atlas = 'Consumable',
-    pos = { x = 13, y = 0 },
+    pos = { x = 3, y = 2 },
     config = { Xmult = 1.5, rounds = 5, current = 5 }, --Variables: Xmult = Xmult, rounds = total lifespan, current = lifespan remaining
 
     loc_vars = function(self, info_queue, card)
@@ -595,7 +602,7 @@ SMODS.Consumable { --Cave Monkey
     set = 'Power',
     name = 'Cave Monkey',
     atlas = 'Consumable',
-    pos = { x = 14, y = 0 },
+    pos = { x = 4, y = 2 },
 
     can_use = function(self, card)
         return true
@@ -629,7 +636,7 @@ SMODS.Consumable { --Storm of Arrows
     set = 'Power',
     name = 'Storm of Arrows',
     atlas = 'Consumable',
-    pos = { x = 0, y = 2 },
+    pos = { x = 0, y = 3 },
     config = { num = 1, denom = 2, Xmult = 2, rounds = 3, current = 3 }, --Variables: num/denom = probability fraction, Xmult = Xmult
 
     in_pool = function(self, args)
@@ -684,7 +691,7 @@ SMODS.Consumable { --Firestorm
     set = 'Power',
     name = 'Firestorm',
     atlas = 'Consumable',
-    pos = { x = 1, y = 2 },
+    pos = { x = 1, y = 3 },
     config = { Xmult = 1.25, active = false }, --Variables: Xmult = Xmult per card
 
     in_pool = function(self, args)
@@ -750,7 +757,7 @@ SMODS.Consumable { --Artillery Command
     set = 'Power',
     name = 'Artillery Command',
     atlas = 'Consumable',
-    pos = { x = 2, y = 2 },
+    pos = { x = 2, y = 3 },
     config = { cost = 0 }, --Variables: cost = new reroll cost
 
     in_pool = function(self, args)
@@ -790,7 +797,7 @@ SMODS.Consumable { --Wall of Trees
     set = 'Power',
     name = 'Wall of Trees',
     atlas = 'Consumable',
-    pos = { x = 3, y = 2 },
+    pos = { x = 3, y = 3 },
     config = { money = 1, percent = 5, capacity = 20 }, --Variables: money = money per percent, percent = percent of extra score, capacity = max money
 
     in_pool = function(self, args)
@@ -846,7 +853,7 @@ SMODS.Consumable { --MOAB Barrage
     set = 'Power',
     name = 'MOAB Barrage',
     atlas = 'Consumable',
-    pos = { x = 4, y = 2 },
+    pos = { x = 4, y = 3 },
     config = { mult = 5, shells = 16 }, --Variables: mult = +mult per card, shells = number of uses
 
     in_pool = function(self, args)
@@ -893,7 +900,7 @@ SMODS.Consumable { --Siphon Funding
     set = 'Power',
     name = 'Siphon Funding',
     atlas = 'Consumable',
-    pos = { x = 5, y = 2 },
+    pos = { x = 0, y = 4 },
     config = { max_highlighted = 4, money = 1 }, --Variables: money = permanent dollars when scored
 
     in_pool = function(self, args)
@@ -976,7 +983,7 @@ SMODS.Consumable { --MOAB Hex
     set = 'Power',
     name = 'MOAB Hex',
     atlas = 'Consumable',
-    pos = { x = 6, y = 2 },
+    pos = { x = 1, y = 4 },
     config = { max_highlighted = 1 },
 
     in_pool = function(self, args)
@@ -1017,7 +1024,7 @@ SMODS.Consumable { --Big Squeeze
     set = 'Power',
     name = 'Big Squeeze',
     atlas = 'Consumable',
-    pos = { x = 7, y = 2 },
+    pos = { x = 2, y = 4 },
     config = { hand_size = 2 }, --Variables: hand_size = extra temporary hand size
 
     in_pool = function(self, args)
@@ -1049,7 +1056,7 @@ SMODS.Consumable { --Blood Sacrifice
     set = 'Power',
     name = 'Blood Sacrifice',
     atlas = 'Consumable',
-    pos = { x = 8, y = 2 },
+    pos = { x = 3, y = 4 },
     config = { max_highlighted = 1 }, 
 
     in_pool = function(self, args)
@@ -1119,7 +1126,7 @@ SMODS.Consumable { --Mega Mine
     set = 'Power',
     name = 'Mega Mine',
     atlas = 'Consumable',
-    pos = { x = 9, y = 2 },
+    pos = { x = 4, y = 4 },
     config = { Xmult = 2, active = false }, --Variables: Xmult = Xmult
 
     in_pool = function(self, args)
@@ -1183,7 +1190,7 @@ SMODS.Consumable { --UCAV
     set = 'Power',
     name = 'UCAV',
     atlas = 'Consumable',
-    pos = { x = 10, y = 2 },
+    pos = { x = 0, y = 5 },
     config = { boosters = 2 }, --Variables: boosters = extra booster packs
 
     in_pool = function(self, args)
@@ -1222,7 +1229,7 @@ SMODS.Consumable { --Sword Charge
     set = 'Power',
     name = 'Sword Charge',
     atlas = 'Consumable',
-    pos = { x = 11, y = 2 },
+    pos = { x = 1, y = 5 },
     config = { chips = 40, sweeps = 1, active = false }, --Variables: chips = +chips per sweep, sweeps = chip multiplier
 
     in_pool = function(self, args)
@@ -1289,7 +1296,7 @@ SMODS.Consumable { --Psionic Scream
     set = 'Power',
     name = 'Psionic Scream',
     atlas = 'Consumable',
-    pos = { x = 12, y = 2 },
+    pos = { x = 2, y = 5 },
     config = { max_highlighted = 4 },
 
     in_pool = function(self, args)
@@ -1413,7 +1420,7 @@ SMODS.Consumable { --Restock
     set = 'Power',
     name = 'Restock',
     atlas = 'Consumable',
-    pos = { x = 13, y = 2 },
+    pos = { x = 3, y = 5 },
     config = { number = 2 }, --Variables: number = number of powers
 
     in_pool = function(self, args)
@@ -1455,7 +1462,7 @@ SMODS.Consumable { --Dark Ritual
     set = 'Power',
     name = 'Dark Ritual',
     atlas = 'Consumable',
-    pos = { x = 14, y = 2 },
+    pos = { x = 4, y = 5 },
     config = { retrigger = 1, mana = 1, active = false }, --Variables: retrigger = retrigger count, mana = mana per card
 
     in_pool = function(self, args)
@@ -1560,7 +1567,7 @@ SMODS.Consumable { --Flight Boost
     set = 'Power',
     name = 'Flight Boost',
     atlas = 'Consumable',
-    pos = { x = 0, y = 3 },
+    pos = { x = 0, y = 6 },
     config = { Xmult = 1.25, retrigger = 1, rounds = 5, current = 5 }, --Variables: Xmult = laser Xmult, retrigger = grenade retrigger amount
 
     in_pool = function(self, args)
@@ -1617,7 +1624,7 @@ SMODS.Consumable { --Frozen Burial
     set = 'Power',
     name = 'Frozen Burial',
     atlas = 'Consumable',
-    pos = { x = 1, y = 3 },
+    pos = { x = 1, y = 6 },
     config = { chips = 40 }, --Variables: chips = permanent hand chips per frozen card
 
     in_pool = function(self, args)
@@ -1663,7 +1670,7 @@ SMODS.Consumable { --Rabble Rouser
     set = 'Power',
     name = 'Rabble Rouser',
     atlas = 'Consumable',
-    pos = { x = 2, y = 3 },
+    pos = { x = 2, y = 6 },
     config = { Xmult = 1.5, hands = 3, current = 3 },
 
     in_pool = function(self, args)
@@ -1708,5 +1715,116 @@ SMODS.Consumable { --Rabble Rouser
                 }
             end
         end
+    end
+}
+
+SMODS.Consumable { --Volcano
+    key = 'volcano',
+    set = 'Spectral',
+    name = 'Volcano',
+    atlas = 'Consumable',
+    pos = { x = 0, y = 7 },
+    cost = 4,
+    config = { max_highlighted = 1 },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_meteor
+        return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+    end,
+    use = function(self, card, area)
+        local destroyed_card = G.hand.highlighted[1]
+        local volcano_cards = {}
+        for i = 1, #G.hand.cards do
+            if G.hand.cards[i] == destroyed_card then
+                if i > 1 then
+                    volcano_cards[#volcano_cards+1] = G.hand.cards[i-1]
+                end
+                if i < #G.hand.cards then
+                    volcano_cards[#volcano_cards+1] = G.hand.cards[i+1]
+                end
+            end
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                local card = destroyed_card
+                if SMODS.shatters(card) then
+                    card:shatter()
+                else
+                    card:start_dissolve()
+                end
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.9,
+            func = function()
+                for k, v in pairs(volcano_cards) do
+                    v:set_ability('m_bloons_meteor', nil, true)
+                    v:juice_up()
+                end
+                SMODS.calculate_context({ remove_playing_cards = true, removed = { destroyed_card } })
+                return true
+            end
+        }))
+    end
+}
+
+SMODS.Consumable { --Thunder
+    key = 'thunder',
+    set = 'Spectral',
+    name = 'Thunder',
+    atlas = 'Consumable',
+    pos = { x = 1, y = 7 },
+    cost = 4,
+    config = { number = 3 },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bloons_stunned
+        return { vars = { card.ability.number } }
+    end,
+    can_use = function(self, card)
+        return G.hand and #G.hand.cards > 0
+    end,
+    use = function(self, card, area)
+        local shocked_cards = {}
+        local temp_hand = {}
+        for k, v in ipairs(G.hand.cards) do
+            if not v.edition then
+                temp_hand[#temp_hand+1] = v
+            end
+        end
+        table.sort(temp_hand, function (a, b) return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card end)
+        pseudoshuffle(temp_hand, pseudoseed('thunder'))
+        for i = 1, card.ability.number do
+            shocked_cards[#shocked_cards+1] = temp_hand[i]
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                for k, v in ipairs(shocked_cards) do
+                    local edition = poll_edition('thunder', nil, true, true)
+                    v:set_edition(edition, true)
+                    v:set_ability(G.P_CENTERS.m_bloons_stunned, nil, true)
+                    end
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
     end
 }

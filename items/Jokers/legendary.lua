@@ -9,7 +9,7 @@
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Dart Monkey", category = "primary", path = 0, tier = 6 },
+        tower_info = { base = "Dart Monkey", category = "primary" },
         extra = { Xmult_scaling = 0.1, Xmult = 0.1, current = 1, limit = 10, counter = 10 } --Variables = Xmult_scaling = scaling increase, Xmult = Xmult gain, current = current Xmult, limit = required card count, counter = current card count
     },
 
@@ -43,7 +43,7 @@ SMODS.Joker { --Glaive Dominus
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Boomerang Monkey", category = "primary", path = 0, tier = 6 },
+        tower_info = { base = "Boomerang Monkey", category = "primary" },
         extra = { Xmult = 0.25, current = 1, active = true } --Variables = Xmult = Xmult per boss defeated the second time, current = current Xmult, active = if next boss will be repeated
     },
 
@@ -84,7 +84,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 0, tier = 6 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult = 0.75, current = 1 }
     },
 
@@ -104,7 +104,7 @@ SMODS.Joker { --Ballistic Obliteration Missile Bunker
             return {
                 Xmult = card.ability.extra.current
             }
-        elseif context.end_of_round and card.ability.extra.current > 1 and not context.blueprint then
+        elseif context.end_of_round and not context.blueprint then
             card.ability.extra.current = 1
             return {
                 message = localize('k_reset'),
@@ -125,7 +125,7 @@ SMODS.Joker { --Crucible of Steel and Flame
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Tack Shooter", category = "primary", path = 0, tier = 6 },
+        tower_info = { base = "Tack Shooter", category = "primary" },
         extra = { number = 2 } --Variables = number = meteor cards added
     },
 
@@ -170,7 +170,7 @@ SMODS.Joker { --Herald of Everfrost
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ice Monkey", category = "primary", path = 0, tier = 6 },
+        tower_info = { base = "Ice Monkey", category = "primary" },
         extra = { number = 2, percent = 80, hands = 3, counter = 3 } --Variables = number = nuimber of cards frozen, percent = blind requirement reduction percent, hands = hands required to disable blind, counter = hands until blind disabled
     },
 
@@ -228,7 +228,7 @@ SMODS.Joker { --Nautic Siege Core
     blueprint_compat = true,
 
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 0, tier = 6 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { submerged = false, Xmult = 2, money = 2, hands = 6, charge = 6, Xmult_nuke = 6 },
         button = { text = "SUB", colour = G.C.BLUE }
     },
@@ -319,7 +319,7 @@ SMODS.Joker { --Navarch of the Seas
     blueprint_compat = true,
 
     config = {
-        tower_info = { base = "Monkey Buccaneer", category = "military", path = 0, tier = 6 },
+        tower_info = { base = "Monkey Buccaneer", category = "military" },
         extra = { num = 1, denom = 3, Xmult = 1.5, money = 5, planes = 1 }
     },
     loc_vars = function(self, info_queue, card)
@@ -390,7 +390,7 @@ SMODS.Joker { --Goliath Doomship
     cost = 20,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military", path = 0, tier = 6 },
+        tower_info = { base = "Monkey Ace", category = "military" },
         extra = { retrigger = 1, money = 3 } --Variables: retrigger = retrigger amount (red), money = dollars (gold)
 
     },
@@ -485,7 +485,7 @@ SMODS.Joker { --Magus Perfectus
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Wizard Monkey", category = "magic", path = 0, tier = 6 },
+        tower_info = { base = "Wizard Monkey", category = "magic" },
     },
 
     calculate = function(self, card, context)
@@ -531,7 +531,7 @@ SMODS.Joker { --Ascended Shadow
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic", path = 0, tier = 6 },
+        tower_info = { base = "Ninja Monkey", category = "magic" },
         extra = { Xmult = 4 } --Variables: Xmult = Xmult, stickied = stickied card
     },
 
@@ -597,7 +597,7 @@ SMODS.Joker { --Root of All Nature
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic", path = 0, tier = 6 },
+        tower_info = { base = "Druid", category = "magic" },
         extra = { money = 3, Xmult = 0.1, rate = 5, current = 1 } --Variables: money = dollars per hand, Xmult = Xmult increase per rate
     },
     loc_vars = function(self, info_queue, card)
@@ -646,7 +646,7 @@ SMODS.Joker { --Mega Massive Munitions Factory
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support", path = 0, tier = 6 },
+        tower_info = { base = "Spike Factory", category = "support" },
         extra = { limit = 3, counter = 3, Xmult = 2, mines = 0 } --Variables: limit = hands required for mine, counter = current hands, Xmult = Xmult per mine, mines = mines stored
     },
 
@@ -717,7 +717,7 @@ SMODS.Joker { --Master Builder
     cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support", path = 0, tier = 6 },
+        tower_info = { base = "Engineer Monkey", category = "support" },
         extra = { sentries = { 'j_bloons_mega_green_sentry', 'j_bloons_mega_red_sentry', 'j_bloons_mega_blue_sentry' }, counter = 1, Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult gain, current = current Xmult
     },
 
@@ -796,7 +796,7 @@ SMODS.Joker { --Vengeful True Sun God
         return false
     end,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic", path = 0, tier = 5 },
+        tower_info = { base = "Super Monkey", category = "magic" },
         --Variables: chips = +chips, mult = +mult, Xmult = Xmult, consumables = consumable amount, discount = discount amount, Xmult support = other joker Xmult
         extra = { sacrifices = {}, chips = 20, mult = 5, Xmult = 0.25, retrigger = 1, consumables = 1, money = 3, discount = 1 },
         button = { text = "SAC", colour = HEX("383C76") }

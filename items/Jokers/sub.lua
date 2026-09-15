@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 0, tier = 0 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { mult = 2 } --Variables: mult = +mult
     },
 
@@ -39,7 +39,7 @@ SMODS.Joker { --Longer Range
 	cost = 3,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 1, tier = 1 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { slots = 1 } --Variables: slots = extra shop slots
     },
 
@@ -80,7 +80,7 @@ SMODS.Joker { --Advanced Intel
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 1, tier = 2 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { freerolls = 1 } --Variables: freerolls = free rerolls
     },
 
@@ -106,7 +106,7 @@ SMODS.Joker { --Submerge and Support
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 1, tier = 3 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { money = 2 } --Variables: money = reroll discount
     },
 
@@ -114,12 +114,22 @@ SMODS.Joker { --Submerge and Support
         return { vars = { card.ability.extra.money } }
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
-        G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.money)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.money
+                G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.money)
+                return true
+            end
+        }))
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
-        G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.money)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.money
+                G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.money)
+                return true
+            end
+        }))
     end
 }
 
@@ -133,7 +143,7 @@ SMODS.Joker { --Bloontonium Reactor
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 1, tier = 4 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { chips = 8, current = 0 } --Variables: chips = +chips per reroll, current = current +chips
     },
 
@@ -163,7 +173,7 @@ SMODS.Joker { --Energizer
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 1, tier = 5 },
+        tower_info = { base = "Monkey Sub", category = "military" },
     },
 
     add_to_deck = function(self, card, from_debuff)
@@ -188,7 +198,7 @@ SMODS.Joker { --Barbed Darts
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 2, tier = 1 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { mult = 3 } --Variables: mult = +mult
     },
 
@@ -220,7 +230,7 @@ SMODS.Joker { --Heat-tipped Darts
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 2, tier = 2 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { chips = 12 } --Variables: chips = +chips
     },
 
@@ -252,7 +262,7 @@ SMODS.Joker { --Ballistic Missile
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 2, tier = 3 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { chips = 24, mult = 6, max_rank = 0 } --Variables: Xmult = Xmult
     },
 
@@ -291,7 +301,7 @@ SMODS.Joker { --First Strike Capability
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 2, tier = 4 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { Xmult = 0.25, current = 1 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
     },
 
@@ -321,7 +331,7 @@ SMODS.Joker { --Pre-emptive Strike
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 2, tier = 5 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { Xmult = 3 } --Variables: Xmult = Xmult
     },
 
@@ -346,7 +356,7 @@ SMODS.Joker { --Twin Guns
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 3, tier = 1 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { mult = 10, pairs = {} } --Variables: mult = mult per held pair
     },
 
@@ -389,7 +399,7 @@ SMODS.Joker { --Airburst Darts
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 3, tier = 2 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { mult = 1, current = 0 } --Variables: mult = mult gain if pair is held, current = current mult
     },
 
@@ -440,7 +450,7 @@ SMODS.Joker { --Triple Guns
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 3, tier = 3 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { Xmult = 0.1, current = 1 } --Variables: Xmult = Xmult gain if 3oak is held, current = current Xmult
     },
 
@@ -490,7 +500,7 @@ SMODS.Joker { --Armor Piercing Darts
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 3, tier = 4 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { Xmult = 3, _3oaks = {} } --Variables: Xmult = Xmult if 3oak is held
     },
 
@@ -535,7 +545,7 @@ SMODS.Joker { --Sub Commander
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Sub", category = "military", path = 3, tier = 5 },
+        tower_info = { base = "Monkey Sub", category = "military" },
         extra = { multiplier = 2 } --Variables: multiplier = effect multiplier
     },
 

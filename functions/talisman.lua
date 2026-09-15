@@ -1,4 +1,4 @@
---Amulet compatability functions
+-- Talisman compatability functions
 to_big = to_big or function(x)
     return x
 end

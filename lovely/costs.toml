@@ -60,3 +60,18 @@ if #find_joker('Energizer') > 0 then
 end
 '''
 match_indent = true
+
+# Clearance Sale and Liquidation adding to discount percent instead of setting it
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'G.GAME.discount_percent = center_table.extra'
+position = 'at'
+payload = '''
+if center_table.name == 'Liquidation' then
+    G.GAME.discount_percent = G.GAME.discount_percent + (center_table.extra / 2)
+elseif center_table.name == 'Clearance Sale' then
+    G.GAME.discount_percent = G.GAME.discount_percent + center_table.extra
+end
+'''
+match_indent = true

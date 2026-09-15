@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 0, tier = 0 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { mult = 8, poker_hand = 'Pair' } --Variables: mult = +mult
     },
 
@@ -32,7 +32,7 @@ SMODS.Joker { --Bigger Bombs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 1, tier = 1 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { mult = 15, poker_hand = 'Three of a Kind' } --Variables: mult = +mult
     },
 
@@ -57,7 +57,7 @@ SMODS.Joker { --Heavy Bombs
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 1, tier = 2 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { mult = 20, poker_hand = 'Three of a Kind' } --Variables: mult = +mult
     },
 
@@ -82,7 +82,7 @@ SMODS.Joker { --Really Big Bombs
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 1, tier = 3 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult1 = 2, Xmult2 = 3, poker_hand1 = 'Three of a Kind', poker_hand2 = 'Four of a Kind' } --Variables: Xmult 1 = Xmult if 3oak, Xmult 2 = Xmult if 4oak
     },
 
@@ -113,7 +113,7 @@ SMODS.Joker { --Bloon Impact
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 1, tier = 4 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { mult = 25, active = false } --Variables: mult = +mult if any stunned
     },
 
@@ -162,7 +162,7 @@ SMODS.Joker { --Bloon Crush
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 1, tier = 5 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult = 3, active = false } --Variables: Xmult = Xmult if any stunned
     },
 
@@ -211,7 +211,7 @@ SMODS.Joker { --Faster Reload
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 2, tier = 1 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { mult = 12, poker_hand = 'Pair' } --Variables: mult = +mult
     },
 
@@ -236,7 +236,7 @@ SMODS.Joker { --Missile Launcher
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 2, tier = 2 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { mult = 15, poker_hand = 'Two Pair' } --Variables: mult = +mult
     },
 
@@ -261,7 +261,7 @@ SMODS.Joker { --MOAB Mauler
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 2, tier = 3 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -286,7 +286,7 @@ SMODS.Joker { --MOAB Assassin
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 2, tier = 4 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult = 3, limit = 2, counter = 2 } --Variables: Xmult = Xmult, limit = number of hands for tarot, counter = hand index
     },
 
@@ -332,7 +332,7 @@ SMODS.Joker { --MOAB Eliminator
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 2, tier = 5 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult1 = 4, Xmult2 = 0.75 } --Variables: Xmult1 = Xmult for bosses, Xmult2 = Xmult for non-bosses
     },
 
@@ -363,7 +363,7 @@ SMODS.Joker { --Extra Range
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 3, tier = 1 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { chips = 50, poker_hand = 'Pair' } --Variables: chips = +chips
     },
 
@@ -388,7 +388,7 @@ SMODS.Joker { --Frag Bombs
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 3, tier = 2 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { chips = 8, poker_hand = 'Pair' } --Variables: chips = +chips
     },
 
@@ -424,7 +424,7 @@ SMODS.Joker { --Cluster Bombs
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 3, tier = 3 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { chips = 100, poker_hand = '' } --Variables: chips = +chips, poker_hand = previous poker hand
     },
 
@@ -456,7 +456,7 @@ SMODS.Joker { --Recursive Cluster
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 3, tier = 4 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { Xmult = 2.5, poker_hands = {} } --Variables: Xmult = Xmult, poker_hand1 = previous poker hand
     },
 
@@ -502,7 +502,7 @@ SMODS.Joker { --Bomb Blitz
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Bomb Shooter", category = "primary", path = 3, tier = 5 },
+        tower_info = { base = "Bomb Shooter", category = "primary" },
         extra = { percent = 25 } --Variables: percent = percent of required chips scored
     },
 
