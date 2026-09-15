@@ -22,24 +22,22 @@ SMODS.Atlas({
 })
 
 local functions = {
-    'base',
-    'calculate-score',
-    'config_tab',
-    'hook',
-    'deck_ui',
-    'collection',
     'badges',
+    'base',
+    'boss',
+    'calculate-score',
+    'collection',
+    'config_tab',
+    'deck_ui',
+    'hook',
     'joker_buttons',
     'main_menu',
-    'boss',
     'tutorial',
+    'upgrade',
 
     --Crossmod files
-    'talisman',
+    'amulet',
     'multiplayer',
-
-    --Main menu
-    'main_menu',
 }
 
 for k, v in ipairs(functions) do
@@ -73,6 +71,28 @@ local items = {
 for k, v in ipairs(items) do
     local success, error_msg = pcall(function()
         local init, error = SMODS.load_file("items/" .. v .. ".lua")
+        if not error then
+            if init then
+                init()
+            end
+            sendDebugMessage("Loaded module: " .. v)
+        end
+    end)
+    if not success then
+        sendErrorMessage("Error in module " .. v .. ": " .. error_msg)
+    end
+end
+
+local consumables = {
+    'atlas',
+    'power',
+    'spectral',
+    'upgrade',
+}
+
+for k, v in ipairs(consumables) do
+    local success, error_msg = pcall(function()
+        local init, error = SMODS.load_file("items/consumables/" .. v .. ".lua")
         if not error then
             if init then
                 init()

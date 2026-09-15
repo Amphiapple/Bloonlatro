@@ -11,5 +11,3 @@ SMODS.Atlas {
     px = 71,
     py = 95,
 }
-
-

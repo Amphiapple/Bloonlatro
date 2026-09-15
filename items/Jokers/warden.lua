@@ -7,7 +7,7 @@ SMODS.Joker { --Skywarden
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 0, tier = 0 },
         extra = { starting_mult = 4, mult_gain = 2, current = 4 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each hand, current = current mult
     },
 
@@ -45,7 +45,7 @@ SMODS.Joker { --Aerial Attunement
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 1 },
         extra = { starting_mult = 8, mult_gain = 2, current = 8 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each hand, current = current mult
     },
 
@@ -83,7 +83,7 @@ SMODS.Joker { --Zephyr Sense
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 1 },
         extra = { starting_mult = 8, mult_gain = 2, current = 8 } --Variables: starting_mult = +mult at the start of ante, mult_gain = +mult after each hand, current = current mult
     },
 
@@ -121,7 +121,7 @@ SMODS.Joker { --Wind Weaver
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 3 },
         extra = { retrigger = 1, retrigger_limit = 5, current = 0 } --Variables: retrigger_limit = mult to retrigger card, current = current mult
     },
 
@@ -162,7 +162,7 @@ SMODS.Joker { --Galesage
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 4 },
         extra = { number = 5, retrigger = 1 } --Variables: number = required scoring cards, retrigger = retrigger amount
     },
 
@@ -188,7 +188,7 @@ SMODS.Joker { --Farwind Seer
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 5 },
         extra = { retrigger = 0 } --Variables: number = required scoring cards, retrigger = retrigger amount
     },
 
@@ -219,7 +219,7 @@ SMODS.Joker { --Storm's Pulse
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 2, tier = 1 },
         extra = { starting_mult = 4, mult_gain = 4, current = 4 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each hand, current = current mult
     },
 
@@ -257,7 +257,7 @@ SMODS.Joker { --Thundering Arc
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 2, tier = 2 },
         extra = { starting_mult = 4, mult_gain = 2, current = 4 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each card, current = current mult
     },
 
@@ -298,7 +298,7 @@ SMODS.Joker { --Galvanic Conduit
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 2, tier = 3 },
         extra = { mult = 1, stun_limit = 5, current = 0 } --Variables: mult = +mult after each card, stun_limit = mult to stun card, current = current mult
     },
 
@@ -338,7 +338,7 @@ SMODS.Joker { --Thunder's Decree
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 2, tier = 4 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for stunned cards
     },
 
@@ -369,7 +369,7 @@ SMODS.Joker { --Stormwrath Archon
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_stunned',
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 2, tier = 5 },
         extra = { Xmult = 2, mult = 10 } --Variables: Xmult = Xmult for stunned cards, mult = +mult for adjacent cards
     },
 
@@ -405,7 +405,7 @@ SMODS.Joker { --Shatterpoint
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 3, tier = 1 },
         extra = { mult = 6, rank_limit = 6 } --Variables: mult = +mult, rank_limit = rank to destroy frozen
     },
 
@@ -436,7 +436,7 @@ SMODS.Joker { --Icebore
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 3, tier = 2 },
         extra = { mult = 6, frozen_mult = 6 } --Variables: mult = +mult, frozen_mult = mult for frozen cards
     },
 
@@ -466,7 +466,7 @@ SMODS.Joker { --Coldchain
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 3, tier = 3 },
         extra = { chips = 6, freeze_limit = 30, current = 0 } --Variables: chips = +chips after each card, stun_limit = chips to stun card, current = current chips
     },
 
@@ -508,7 +508,7 @@ SMODS.Joker { --Frozen Verdict
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 3, tier = 4 },
         extra = { Xmult = 0.5, current = 1 } --Variables: chips = +chips after each card, stun_limit = chips to stun card, current = current chips
     },
 
@@ -577,7 +577,7 @@ SMODS.Joker { --Winter's Mercy
     blueprint_compat = true,
     enhancement_gate = 'm_bloons_frozen',
     config = {
-        tower_info = { base = "Skywarden", category = "magic" },
+        tower_info = { base = "Skywarden", category = "magic", path = 3, tier = 5 },
         extra = { Xmult_deck = 0.1, Xmult_destroyed = 0.5, destroyed = 0, current = 1 } --Variables: Xmult_deck = Xmult for frozens in deck = Xmult_destroyed = Xmult for frozens destroyed, destroyed = number destroyed, current = current Xmult
     },
 

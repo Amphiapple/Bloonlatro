@@ -99,7 +99,102 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = 'p_bloons_power_mega_2'
+            key_append = 'p_bloons_power_mega_1'
+        }
+    end
+}
+
+SMODS.Booster {
+    key = "upgrade_normal_1",
+    atlas = 'Booster',
+	pos = { x = 0, y = 1 },
+	cost = 4,
+	weight = 1.2,
+    kind = 'upgrade',
+    group_key = 'k_upgrade_pack',
+	config = { choose = 1, extra = 3 },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.choose, card.ability.extra } }
+    end,
+    create_card = function(self, card)
+        return SMODS.create_card {
+            set = 'Upgrade',
+            area = G.pack_cards,
+            skip_materialize = true,
+            key_append = 'p_bloons_upgrade_normal_1'
+        }
+    end
+}
+
+SMODS.Booster {
+    key = "upgrade_normal_2",
+    atlas = 'Booster',
+	pos = { x = 1, y = 1 },
+	cost = 4,
+	weight = 1.2,
+    kind = 'upgrade',
+    group_key = 'k_upgrade_pack',
+    config = { choose = 1, extra = 3 },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.choose, card.ability.extra } }
+    end,
+    create_card = function(self, card)
+        return SMODS.create_card {
+            set = 'Upgrade',
+            area = G.pack_cards,
+            skip_materialize = true,
+            soulable = true,
+            key_append = 'p_bloons_upgrade_normal_2'
+        }
+    end
+}
+
+SMODS.Booster {
+    key = "upgrade_jumbo_1",
+    atlas = 'Booster',
+	pos = { x = 2, y = 1 },
+	cost = 6,
+	weight = 0.6,
+    kind = 'upgrade',
+    group_key = 'k_upgrade_pack',
+    config = { choose = 1, extra = 5 },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.choose, card.ability.extra } }
+    end,
+    create_card = function(self, card)
+        return SMODS.create_card {
+            set = 'Upgrade',
+            area = G.pack_cards,
+            skip_materialize = true,
+            soulable = true,
+            key_append = 'p_bloons_upgrade_jumbo_1'
+        }
+    end
+}
+
+SMODS.Booster {
+    key = "upgrade_mega_1",
+    atlas = 'Booster',
+	pos = { x = 3, y = 1 },
+	cost = 8,
+	weight = 0.15,
+    kind = 'upgrade',
+    group_key = 'k_upgrade_pack',
+    config = { choose = 2, extra = 5 },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.choose, card.ability.extra } }
+    end,
+    create_card = function(self, card)
+        return SMODS.create_card {
+            set = 'Upgrade',
+            area = G.pack_cards,
+            skip_materialize = true,
+            soulable = true,
+            key_append = 'p_bloons_upgrade_mega_1'
         }
     end
 }

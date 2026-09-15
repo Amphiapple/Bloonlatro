@@ -200,7 +200,7 @@ JokerDisplay.Definitions["j_bloons_coldchain"] = { --Coldchain
     text_config = { colour = G.C.CHIPS },
     calc_function = function(card)
         if not next(G.play.cards) then
-            card.joker_display_values.count = card.ability.extra.current
+            card.joker_display_values.count = card.ability.extra.current or 0
         end
         local current = card.joker_display_values.count or 0
         current = current + 1

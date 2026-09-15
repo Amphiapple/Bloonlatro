@@ -39,7 +39,7 @@ return {
                 text = {
 					'Create a {C:planet}Planet{} card',
 					'whenever a {C:attention}Frozen Card{} or',
-                    '{C:attention}Stunned Card{} wers off',
+                    '{C:attention}Stunned Card{} wears off',
                     '{C:inactive}(Must have room)'
                 }
             },

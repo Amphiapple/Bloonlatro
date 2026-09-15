@@ -17,7 +17,7 @@ SMODS.Voucher { --Power Merchant
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.GAME.power_rate = card.ability.extra.rate
-                return true 
+                return true
             end
         }))
     end
@@ -39,7 +39,47 @@ SMODS.Voucher { --Power Tycoon
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.GAME.power_rate = card.ability.extra.rate
-                return true 
+                return true
+            end
+        }))
+    end
+}
+
+SMODS.Voucher { --Upgrade Merchant
+    key = 'upgrade_merchant',
+    name = 'Upgrade Merchant',
+	atlas = 'Voucher',
+	pos = { x = 0, y = 2 },
+	cost = 10,
+    config = { extra = { rate = 4 } }, --Variables: rate = upgrade card shop rate
+
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.upgrade_rate = card.ability.extra.rate
+                return true
+            end
+        }))
+    end
+}
+
+SMODS.Voucher { --Upgrade Tycoon
+    key = 'upgrade_tycoon',
+    name = 'Upgrade Tycoon',
+	atlas = 'Voucher',
+	pos = { x = 0, y = 3 },
+	cost = 10,
+    requires = { 'v_bloons_upgrade_merchant' },
+    config = { extra = { rate = 9.33, multiplier = 2 } }, --Variables: rate = upgrade card shop rate
+
+    loc_vars = function (self, info_queue, card)
+        return { vars = { card.ability.extra.multiplier } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.upgrade_rate = card.ability.extra.rate
+                return true
             end
         }))
     end

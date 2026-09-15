@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 0, tier = 0 },
         extra = { number = 2, mult = 3 } --Variables: number = number of cards, mult = +mult
     },
 
@@ -32,7 +32,7 @@ SMODS.Joker { --Quickdraw
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 1, tier = 1 },
         extra = { number = 2, mult = 3 } --Variables: number = number of cards, mult = +mult
     },
 
@@ -60,7 +60,7 @@ SMODS.Joker { --Standoff
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 1, tier = 2 },
         extra = { number = 2, mult = 4 } --Variables: number = number of cards, mult = +mult
     },
 
@@ -88,7 +88,7 @@ SMODS.Joker { --Big Iron
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 1, tier = 3 },
         extra = { mult = 24 } --Variables: Xmult = Xmult
     },
 
@@ -117,7 +117,7 @@ SMODS.Joker { --Twin Sixes
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 1, tier = 4 },
         extra = { Xmult = 3, number = 2 } --Variables: Xmult = Xmult, number = required 6s for Xmult
     },
 
@@ -152,7 +152,7 @@ SMODS.Joker { --The Blazing Sun
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 1, tier = 5 },
         extra = { Xmult1 = 1.25, Xmult2 = 2 } --Variables: Xmult = Xmult
     },
 
@@ -185,7 +185,7 @@ SMODS.Joker { --Eagle Eye
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 2, tier = 1 },
         extra = { number = 2, mult = 3, mark_mult = 6 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
     },
 
@@ -216,7 +216,7 @@ SMODS.Joker { --Bullseye
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 2, tier = 2 },
         extra = { number = 2, mult = 3, mark_mult = 12 } --Variables: number = number of cards, mult = +mult, mark_mult = mult for marked card
     },
 
@@ -247,7 +247,7 @@ SMODS.Joker { --Deadeye
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 2, tier = 3 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for desperado card
     },
 
@@ -274,7 +274,7 @@ SMODS.Joker { --Bounty Hunter
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 2, tier = 4 },
         extra = { money = 3 } --Variables: money = money for desperado card
     },
 
@@ -306,7 +306,7 @@ SMODS.Joker { --Golden Justice
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 2, tier = 5 },
         extra = { Xmult = 2, num = 1, denom = 4, gold_money = 3, destroy_money = 15 } --Variables = Xmult = glass Xmult, num/denom = probability fraction, gold_money = gold dollars, destroy money = dollars when destroyed
     },
 
@@ -399,7 +399,7 @@ SMODS.Joker { --Wanderer
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 3, tier = 1 },
         extra = { chips = 30, current = 0 } --Variables: chips = +chips
     },
 
@@ -433,7 +433,7 @@ SMODS.Joker { --Nomad
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 3, tier = 2 },
         extra = { chips = 4, current = 0, poker_hand = '' } --Variables: chips = +chips gain, current = current +chips, poker_hand = previous poker hand
     },
 
@@ -470,7 +470,7 @@ SMODS.Joker { --Enforcer
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 3, tier = 3 },
         extra = { Xmult = 0.1, number = 5, current = 1 } --Variables: Xmult = Xmult gain, number = required scoring cards, current = current Xmult
     },
 
@@ -503,7 +503,7 @@ SMODS.Joker { --Avenger
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 3, tier = 4 },
         extra = { Xmult = 0.1, current = 1, ranks = {} } --Variables: Xmult = Xmult gain, number = required scoring cards, current = current Xmult
     },
 
@@ -569,7 +569,7 @@ SMODS.Joker { --The Desert Phantom
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Desperado", category = "primary" },
+        tower_info = { base = "Desperado", category = "primary", path = 3, tier = 5 },
         extra = { spectral_rate = 2, Xmult = 0.25, current = 1 } --Variables: Xmult = Xmult gain, current = current Xmult
     },
 

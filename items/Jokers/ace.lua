@@ -7,7 +7,7 @@
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 0, tier = 0 },
         extra = { chips = 50 } --Variables: chips = +chips
     },
     loc_vars = function(self, info_queue, card)
@@ -38,7 +38,7 @@ SMODS.Joker { --Rapid Fire
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 1, tier = 1 },
         extra = { chips = 30 } --Variables: chips = +chips
     },
     loc_vars = function(self, info_queue, card)
@@ -62,7 +62,7 @@ SMODS.Joker { --Lots More Darts
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 1, tier = 2 },
         extra = { chips = 50 } --Variables: chips = +chips
     },
     loc_vars = function(self, info_queue, card)
@@ -86,7 +86,7 @@ SMODS.Joker { --Fighter Plane
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 1, tier = 3 },
     },
     calculate = function(self, card, context)
         if context.before and G.GAME.current_round.hands_played == 0 then
@@ -148,7 +148,7 @@ SMODS.Joker { --Operation: Dart Storm
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 1, tier = 4 },
         extra = { chips = 6, current = 0 } --Variables: chips = chip gain, current = current chips
     },
     loc_vars = function(self, info_queue, card)
@@ -183,7 +183,7 @@ SMODS.Joker { --Sky Shredder
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 1, tier = 5 },
         extra = { Xmult = 1, limit = 4, counter = 0, current = 1 } --Variables: Xmult = Xmult gain, limit = aces for next level, counter = aces scored, current = current Xmult
     },
 
@@ -236,7 +236,7 @@ SMODS.Joker { --Exploding Pineapple
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 2, tier = 1 },
         extra = { hands = 3 } --Variables: hands = hands remaining
     },
 
@@ -274,7 +274,7 @@ SMODS.Joker { --Spy Plane
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 2, tier = 2 },
         extra = { number = 3 } --Variables: number = number of cards revealed
     },
 
@@ -306,7 +306,7 @@ SMODS.Joker { --Bomber Ace
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 2, tier = 3 },
         extra = { retrigger = 1 } --Variables: retrigger = retrigger amount
     },
 
@@ -330,7 +330,7 @@ SMODS.Joker { --Ground Zero
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 2, tier = 4 },
         extra = { chips = 250 } --Variables: chips = +chips
     },
 
@@ -355,7 +355,7 @@ SMODS.Joker { --Tsar Bomba
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 2, tier = 5 },
         extra = { Xmult = 4 } --Variables: chips = +chips
     },
 
@@ -393,7 +393,7 @@ SMODS.Joker { --Sharper Darts
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 3, tier = 1 },
         extra = { mult = 11 } --Variables: mult = +mult
     },
     loc_vars = function(self, info_queue, card)
@@ -424,7 +424,7 @@ SMODS.Joker { --Centered Path
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 3, tier = 2 },
         extra = { percent_min = 40, percent_max = 60 } --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
     },
 
@@ -461,7 +461,7 @@ SMODS.Joker { --Neva-Miss Targeting
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 3, tier = 3 },
         extra = { percent_min = 75, percent_max = 125 } --Variables: percent_min = minimum percent of required chips scored, percent_max = maximum percent of required chips scored
     },
 
@@ -498,7 +498,7 @@ SMODS.Joker { --Spectre
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 3, tier = 4 },
         extra = { number = 3 } --Variables: number = required aces for spectral
     },
 
@@ -541,7 +541,7 @@ SMODS.Joker { --Flying Fortress
 	cost = 10,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Monkey Ace", category = "military" },
+        tower_info = { base = "Monkey Ace", category = "military", path = 3, tier = 5 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
     loc_vars = function(self, info_queue, card)
