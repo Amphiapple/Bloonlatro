@@ -1,9 +1,13 @@
+Added Cards:
+- 15 different upgrade consumables found in 4 different booster packs
+- 1 special Spectral Card with a hidden effect
+- 2 new vouchers
+
 General Changes:
 - Upgrading towers have been added!
 - Double click on a Joker to view all of its possible upgrades
 
 Balance Changes:
-
 - Brickell Deck reworked
 
 Fixes:

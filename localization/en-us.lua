@@ -381,6 +381,21 @@ return {
                     'in the shop'
                 }
             },
+            v_bloons_upgrade_merchant = {
+                name = 'Upgrade Merchant',
+                text = {
+                    '{C:upgrade}Upgrade{} cards may',
+                    'appear in the shop'
+                }
+            },
+            v_bloons_upgrade_tycoon = {
+                name = 'Upgrade Tycoon',
+                text = {
+                    '{C:upgrade}Upgrade{} cards appear',
+                    '{C:attention}#1#X{} more frequently',
+                    'in the shop'
+                }
+            },
             v_bloons_insider_trades = {
                 name = 'Insider Trades',
                 text = {
