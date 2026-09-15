@@ -70,8 +70,6 @@ return {
                     'Go up to {C:red}-$#1#{} in debt',
                     'When {C:attention}Blind{} is selected,',
                     'transfer debt to sell value',
-                    'Gains {C:money}$#2#{} of {C:attention}sell value{}',
-                    'at end of round',
                 }
             },
             j_bloons_monkey_nomics = {

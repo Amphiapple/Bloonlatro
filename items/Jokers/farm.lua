@@ -398,11 +398,11 @@ SMODS.Joker { --IMF Loan
     blueprint_compat = false,
     config = {
         tower_info = { base = "Banana Farm", category = "support" },
-        extra = { bankrupt = 10, money = 4 } --Variables: bankrupt = max amount of debt, money = sell value per round
+        extra = { bankrupt = 15 } --Variables: bankrupt = max amount of debt
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.bankrupt, card.ability.extra.money } }
+        return { vars = { card.ability.extra.bankrupt } }
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.bankrupt_at = G.GAME.bankrupt_at - card.ability.extra.bankrupt
@@ -427,13 +427,6 @@ SMODS.Joker { --IMF Loan
                     G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - G.GAME.dollars
                     return true
                 end,
-                colour = G.C.MONEY
-            }
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra_value = card.ability.extra_value + card.ability.extra.money
-            card:set_cost()
-            return {
-                message = localize('k_val_up'),
                 colour = G.C.MONEY
             }
         end

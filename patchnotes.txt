@@ -17,11 +17,13 @@ Balance Changes:
 - Acid Pools reworked
 - Ball Lightning Reworked
 - Druid of the Jungle and Jungle's Bounty effects swapped, both > $6
+- IMF Loan bankrupt amount -$10 > -$15, no longer gains sell value
 - Giant Condor reworked
 - Apex Plasma Master scoring card requirement 15 > 10
 - Ballistic Obliteration Missile Bunker reworked
 
 - Diamondback body now adds exclusively face cards
+- Student Loans debt requirement $4000 > $40000
 
 Fixes:
 - Glue Splatter should no longer give mult outside first hand of round

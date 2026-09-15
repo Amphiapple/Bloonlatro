@@ -822,7 +822,7 @@ return {
                 "Halve money when entering shop"
             },
             ch_c_student_loans = {
-                "Must be {C:red}-$4000{} in debt at the end of ante {C:attention}8{}"
+                "Must be {C:red}-$40000{} in debt at the end of ante {C:attention}8{}"
             },
             ch_c_sapper = {
                 "All {C:attention}Boss Blinds{} are {C:attention,T:bloons_fortified}Fortified{}"
