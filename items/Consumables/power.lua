@@ -35,8 +35,8 @@ SMODS.Consumable { --Super Monkey Storm
     end,
     use = function(self, card, area, copier)
         local score = math.min(card.ability.max, G.GAME.blind.chips * card.ability.percent / 100.0)
-        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
-        if mp then
+        local mp_nemesis = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp_nemesis then
             score = card.ability.max
         end
         G.GAME.chips = G.GAME.chips + score
@@ -58,7 +58,7 @@ SMODS.Consumable { --Super Monkey Storm
                 return true
             end
         }))
-        if not mp then
+        if not mp_nemesis then
             G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
