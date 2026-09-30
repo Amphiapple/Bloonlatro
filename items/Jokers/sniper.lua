@@ -7,7 +7,7 @@
 	cost = 3,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 0, tier = 0 },
         extra = { mult = 20, limit = 3, counter = 3 } --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
     },
 
@@ -53,7 +53,7 @@ SMODS.Joker { --Full Metal Jacket
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 1, tier = 1 },
         extra = { mult = 30, limit = 3, counter = 3 } --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
     },
 
@@ -99,7 +99,7 @@ SMODS.Joker { --Large Calibre
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 1, tier = 2 },
         extra = { chips = 30, mult = 30, limit = 3, counter = 3 } --Variables: chips = +chips, mult = +mult, limit = number of hands for +mult, counter = hand index
     },
 
@@ -147,7 +147,7 @@ SMODS.Joker { --Deadly Precision
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 1, tier = 3 },
         extra = { Xmult = 3, limit = 3, counter = 3 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -193,7 +193,7 @@ SMODS.Joker { --Maim MOAB
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 1, tier = 4 },
         extra = { Xmult = 2, Xmult_boss = 4, limit = 3, counter = 3 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -246,7 +246,7 @@ SMODS.Joker { --Cripple MOAB
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 1, tier = 5 },
         extra = { Xmult = 3, limit = 3, counter = 3 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -297,7 +297,7 @@ SMODS.Joker { --Night Vision Goggles
 	cost = 4,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 2, tier = 1 },
     },
 
     update = function(self, card, dt)
@@ -320,7 +320,7 @@ SMODS.Joker { --Shrapnel Shot
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 2, tier = 2 },
     },
 
     calculate = function(self, card, context)
@@ -344,7 +344,7 @@ SMODS.Joker { --Bouncing Bullet
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 2, tier = 3 },
     },
 
     calculate = function(self, card, context)
@@ -373,7 +373,7 @@ SMODS.Joker { --Supply Drop
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 2, tier = 4 },
         extra = { limit = 4, counter = 4, money = 4 } --Variables: limit = number of hands for tarot, counter = hand index, money = dollars
     },
 
@@ -438,7 +438,7 @@ SMODS.Joker { --Elite Sniper
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 2, tier = 5 },
         extra = { limit = 4, counter = 4, money = 4 } --Variables: limit = number of hands for money and spectral, counter = hand index, money = dollars
     },
 
@@ -504,7 +504,7 @@ SMODS.Joker { --Fast Firing
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 3, tier = 1 },
         extra = { mult = 20, limit = 2.5, counter = 2.5 } --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
     },
 
@@ -549,7 +549,7 @@ SMODS.Joker { --Even Faster Firing
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 3, tier = 2 },
         extra = { mult = 20, limit = 2, counter = 2 } --Variables: mult = +mult, limit = number of hands for +mult, counter = hand index
     },
 
@@ -595,7 +595,7 @@ SMODS.Joker { --Semi Automatic
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 3, tier = 3 },
         extra = { Xmult = 2, limit = 2, counter = 2 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -641,7 +641,7 @@ SMODS.Joker { --Full Auto Rifle
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 3, tier = 4 },
         extra = { Xmult = 2, limit = 2, counter = 2 } --Variables: Xmult = Xmult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -666,7 +666,7 @@ SMODS.Joker { --Elite Defender
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Sniper Monkey", category = "military" },
+        tower_info = { base = "Sniper Monkey", category = "military", path = 3, tier = 5 },
         extra = { Xmult1 = 1.5, Xmult2 = 2, Xmult3 = 4 } --Variables: Xmult1 = Xmult after first hand, Xmult2 = Xmult on final hand, Xmult3 = XMult if under 25%
     },
 

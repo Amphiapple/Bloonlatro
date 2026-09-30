@@ -7,7 +7,7 @@
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 0, tier = 0 },
     },
 
     calculate = function(self, card, context)
@@ -39,7 +39,7 @@ SMODS.Joker { --Hard Thorns
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 1, tier = 1 },
         extra = { number = 2 } --Variables: number = number of planets
     },
 
@@ -81,7 +81,7 @@ SMODS.Joker { --Heart of Thunder
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 1, tier = 2 },
     },
 
     calculate = function(self, card, context)
@@ -118,7 +118,7 @@ SMODS.Joker { --Druid of the Storm
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 1, tier = 3 },
         extra = { num = 1, denom = 4 } --Variables: num/denom = probability fraction
     },
 
@@ -162,7 +162,7 @@ SMODS.Joker { --Ball Lightning
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 1, tier = 4 },
     },
 
     in_pool = function(self, args)
@@ -229,7 +229,7 @@ SMODS.Joker { --Monarch of Storms
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 1, tier = 5 },
     },
 
     calculate = function(self, card, context)
@@ -269,7 +269,7 @@ SMODS.Joker { --Thorn Swarm
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 2, tier = 1 },
     },
 
     calculate = function(self, card, context)
@@ -301,7 +301,7 @@ SMODS.Joker { --Heart of Oak
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 2, tier = 2 },
         extra = { money = 2 } --Variables: money = money per used planet
     },
 
@@ -332,7 +332,7 @@ SMODS.Joker { --Druid of the Jungle
 	cost = 5,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 2, tier = 3 },
         extra = { money = 5 } --Variables: money = money per planet held
     },
 
@@ -367,7 +367,7 @@ SMODS.Joker { --Jungle's Bounty
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 2, tier = 4 },
         extra = { money = 5 } --Variables: money = money per planet destroyed
     },
 
@@ -394,7 +394,7 @@ SMODS.Joker { --Spirit of the Forest
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 2, tier = 5 },
         extra = { Xmult_match = 2, Xmult = 1.5 } --Variables: Xmult_match = Xmult if planet matches, Xmult = Xmult otherwise
     },
 
@@ -425,7 +425,7 @@ SMODS.Joker { --Druidic Reach
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 3, tier = 1 },
     },
 
     calculate = function(self, card, context)
@@ -457,7 +457,7 @@ SMODS.Joker { --Heart of Vengeance
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 3, tier = 2 },
         extra = { mult = 1 } --Variables: mult = +mult when using planet, current = current +mult
     },
 
@@ -489,7 +489,7 @@ SMODS.Joker { --Druid of Wrath
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 3, tier = 3 },
         extra = { Xmult = 0.05 } --Variables: Xmult per time hand is played
     },
 
@@ -515,7 +515,7 @@ SMODS.Joker { --Poplust
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 3, tier = 4 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult for each druid
     },
 
@@ -546,7 +546,7 @@ SMODS.Joker { --Avatar of Wrath
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Druid", category = "magic" },
+        tower_info = { base = "Druid", category = "magic", path = 3, tier = 5 },
         extra = { Xmult = 3, current = 3 } --Variables: Xmult = starting Xmult, current = current Xmult,
     },
 

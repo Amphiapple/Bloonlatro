@@ -7,7 +7,7 @@
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 0, tier = 0 },
         extra = {}
     },
 
@@ -37,7 +37,7 @@ SMODS.Joker { --Larger Potions
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 1, tier = 1 },
         extra = { num = 1, denom = 2, number = 2 } --Variables: number = number of tarots
     },
 
@@ -78,7 +78,7 @@ SMODS.Joker { --Acidic Mixture Dip
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 1, tier = 2 },
         extra = { num = 1, denom = 4 } --Variables: num/denom = probability fraction
     },
 
@@ -110,7 +110,7 @@ SMODS.Joker { --Berserker Brew
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 1, tier = 3 },
         eligible_jokers = {} --Variables: eligible_jokers = possible jokers to give polychrome
     },
 
@@ -153,7 +153,7 @@ SMODS.Joker { --Stronger Stimulant
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 1, tier = 4 },
         eligible_jokers = {} --Variables: eligible_jokers = possible jokers to give polychrome
     },
 
@@ -192,7 +192,7 @@ SMODS.Joker { --Permanent Brew
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 1, tier = 5 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -220,7 +220,7 @@ SMODS.Joker { --Stronger Acid
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 2, tier = 1 },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -268,7 +268,7 @@ SMODS.Joker { --Perishing Potions
     blueprint_compat = true,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 2, tier = 2 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -295,7 +295,7 @@ SMODS.Joker { --Unstable Concoction
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 2, tier = 3 },
     },
 
     calculate = function(self, card, context)
@@ -334,7 +334,7 @@ SMODS.Joker { --Transforming Tonic
 	cost = 7,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 2, tier = 4 },
     },
 
     calculate = function(self, card, context)
@@ -390,7 +390,7 @@ SMODS.Joker { --Total Transformation
     blueprint_compat = false,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 2, tier = 5 },
         extra = { rounds = 2, current = 0 } --Variables: rounds = rounds until active, current = current rounds
     },
 
@@ -470,7 +470,7 @@ SMODS.Joker { --Faster Throwing
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 3, tier = 1 },
     },
 
     calculate = function(self, card, context)
@@ -499,7 +499,7 @@ SMODS.Joker { --Acid Pools
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 3, tier = 2 },
     },
 
     calculate = function(self, card, context)
@@ -529,7 +529,7 @@ SMODS.Joker { --Lead to Gold
     blueprint_compat = false,
     enhancement_gate = 'm_steel',
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 3, tier = 3 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -552,7 +552,7 @@ SMODS.Joker { --Rubber to Gold
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 3, tier = 4 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -582,7 +582,7 @@ SMODS.Joker { --Bloon Master Alchemist
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Alchemist", category = "magic" },
+        tower_info = { base = "Alchemist", category = "magic", path = 3, tier = 5 },
     },
 
     calculate = function(self, card, context)

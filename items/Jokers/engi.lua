@@ -7,7 +7,7 @@
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 0, tier = 0 },
         extra = { money = 3 } --Variables: money = dollars
     },
 
@@ -50,7 +50,7 @@ SMODS.Joker { --Sentry Gun
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 1, tier = 1 },
     },
 
     loc_vars = function(self, info_queue, card)
@@ -81,7 +81,7 @@ SMODS.Joker { --Faster Engineering
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 1, tier = 2 },
         extra = { num = 1, denom = 2 } --Variables: num/denom = probability fraction
     },
 
@@ -118,7 +118,7 @@ SMODS.Joker { --Sprockets
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 1, tier = 3 },
         extra = { multiplier = 2 } --Variables: multiplier = sentry stat multiplier
     },
 
@@ -152,7 +152,7 @@ SMODS.Joker { --Sentry Expert
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 1, tier = 4 },
         extra = { sentries = { 'j_bloons_crushing_sentry', 'j_bloons_boom_sentry', 'j_bloons_cold_sentry', 'j_bloons_energy_sentry' } }
     },
 
@@ -188,7 +188,7 @@ SMODS.Joker { --Sentry Champion
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 1, tier = 5 },
     },
 
     loc_vars = function (self, info_queue, card)
@@ -219,7 +219,7 @@ SMODS.Joker { --Larger Service Area
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 2, tier = 1 },
         extra = { money = 3, number = 5 } --Variables: money = dollars, number = required cards
     },
 
@@ -250,7 +250,7 @@ SMODS.Joker { --Deconstruction
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 2, tier = 2 },
         extra = { mult = 4 } --Variables: mult = +mult
     },
 
@@ -283,7 +283,7 @@ SMODS.Joker { --Cleansing Foam
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 2, tier = 3 },
         extra = { poker_hand = 'Straight Flush' }
     },
 
@@ -316,7 +316,7 @@ SMODS.Joker { --Overclock
     blueprint_compat = true,
     eternal_compat = false,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 2, tier = 4 },
         extra = { Xmult = 3, hands = 10 } --Variables: Xmult = Xmult, hands = hands remaining
     },
 
@@ -362,7 +362,7 @@ SMODS.Joker { --Ultraboost
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 2, tier = 5 },
         extra = { Xmult = 0.1, Xmult_max = 1 } --Variables: Xmult = permanent Xmult on cards, Xmult_max = maximum Xmult,
     }, 
 
@@ -395,7 +395,7 @@ SMODS.Joker { --Oversize Nails
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 3, tier = 1 },
         extra = { money = 4 } --Variables: money = dollars
     },
 
@@ -438,7 +438,7 @@ SMODS.Joker { --Pin
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 3, tier = 2 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
@@ -467,7 +467,7 @@ SMODS.Joker { --Double Gun
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 3, tier = 3 },
         extra = { money = 1, pairs = {} } --Variables: money = dollars per held pair, pairs = held pairs
     },
 
@@ -514,7 +514,7 @@ SMODS.Joker { --Bloon Trap
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 3, tier = 4 },
         extra = { money = 4, current = 0 } --Variables: money = dollars per card, current = current collected money
     },
 
@@ -556,7 +556,7 @@ SMODS.Joker { --XXXL Trap
 	cost = 9,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Engineer Monkey", category = "support" },
+        tower_info = { base = "Engineer Monkey", category = "support", path = 3, tier = 5 },
         extra = { current = 0 } --Variables: current = current collected money
     },
 

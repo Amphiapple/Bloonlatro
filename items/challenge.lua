@@ -257,7 +257,7 @@ SMODS.Challenge {
     },
 
     calculate = function(self, context)
-        if context.end_of_round and context.beat_boss and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.dollars > -40000 and not context.individual and not context.repetition then
+        if context.end_of_round and context.beat_boss and G.GAME.round_resets.ante >= G.GAME.win_ante and G.GAME.dollars > -4000 and not context.individual and not context.repetition then
             G.STATE = G.STATES.GAME_OVER
             G:save_settings()
             G.FILE_HANDLER.force = true

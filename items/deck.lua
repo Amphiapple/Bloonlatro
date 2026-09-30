@@ -202,7 +202,7 @@ SMODS.Back { --Brickell
     name = "Brickell Deck",
     atlas = "Back",
     pos = { x = 4, y = 1 },
-    config = { extra = { ante = 0, discards = 0 }, hands = 1, },
+    config = { consumables = { 'c_bloons_mega_mine' }, extra = { ante = 0, discards = 0 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.ante, self.config.hands, self.config.extra.discards } }

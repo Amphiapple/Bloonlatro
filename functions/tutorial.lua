@@ -1,8 +1,13 @@
 SMODS.Atlas {
     key = "bloons_tutorial",
     path = "tutorial.png",
+<<<<<<< ours
     px = 34,
     py = 34
+=======
+    px = 75,
+    py = 75
+>>>>>>> theirs
 }
 
 ----------------------------------------------------------
@@ -12,6 +17,12 @@ SMODS.Atlas {
 function create_bloonlatro_tutorial_button()
     G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial =
         G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial or false
+<<<<<<< ours
+=======
+
+    -- TODO:
+    -- Change sprite depending on viewed_bloonlatro_tutorial
+>>>>>>> theirs
 
     local card = create_sprite_card({
         w = Bloonlatro.MAIN_MENU_BUTTON_W,
@@ -23,7 +34,10 @@ function create_bloonlatro_tutorial_button()
 
     function card:click()
         G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial = true
+<<<<<<< ours
         card.children.center:set_sprite_pos({ x = G.PROFILES[G.SETTINGS.profile].viewed_bloonlatro_tutorial and 0 or 1, y = 0 })
+=======
+>>>>>>> theirs
         G.FUNCS.create_bloonlatro_tutorial_ui()
     end
 
@@ -74,8 +88,14 @@ end
 -- Tab Buttons
 ----------------------------------------------------------
 
+<<<<<<< ours
 local function build_list(selected_tab)
     local tabs = G.localization.bloonlatro_tutorial.tabs
+=======
+local function build_list()
+    local tabs = G.localization.bloonlatro_tutorial.tabs
+
+>>>>>>> theirs
     local sorted_tabs = {}
 
     for id, tab in pairs(tabs) do
@@ -118,6 +138,7 @@ local function build_list(selected_tab)
     return row
 end
 
+<<<<<<< ours
 local function build_info()
     return {
         n = G.UIT.R,
@@ -131,11 +152,14 @@ local function build_info()
     }
 end
 
+=======
+>>>>>>> theirs
 ----------------------------------------------------------
 -- Tab Content
 ----------------------------------------------------------
 
 G.FUNCS.create_bloonlatro_tab_tower_information = function()
+<<<<<<< ours
     local dart_monkey = Card(
         0,
         0,
@@ -317,6 +341,13 @@ local function set_bloonlatro_tutorial_info(tab)
     if content then
         G.OVERLAY_MENU:add_child(content, info_e)
     end
+=======
+    print("Creating Tower Information")
+end
+
+G.FUNCS.create_bloonlatro_tab_upgrade_system = function()
+    print("Creating Upgrade System")
+>>>>>>> theirs
 end
 
 ----------------------------------------------------------
@@ -325,6 +356,7 @@ end
 
 G.FUNCS.update_bloonlatro_tutorial_ui = function(e)
     local tab = type(e) == "table" and e.config and e.config.ref_table and e.config.ref_table.id or e
+<<<<<<< ours
     if not tab then
         return
     end
@@ -334,26 +366,42 @@ G.FUNCS.update_bloonlatro_tutorial_ui = function(e)
     end
 
     local func = G.FUNCS["create_bloonlatro_tab_" .. tab]
+=======
+
+    local func = G.FUNCS["create_bloonlatro_tab_" .. tab]
+
+>>>>>>> theirs
     if not func then
         print("Tutorial tab '" .. tab .. "' does not exist.")
         return
     end
 
+<<<<<<< ours
     set_bloonlatro_tutorial_info(tab)
+=======
+    func()
+>>>>>>> theirs
 end
 
 ----------------------------------------------------------
 -- Tutorial UI
 ----------------------------------------------------------
 
+<<<<<<< ours
 G.FUNCS.create_bloonlatro_tutorial_ui = function(selected_tab)
+=======
+G.FUNCS.create_bloonlatro_tutorial_ui = function()
+>>>>>>> theirs
     if G.OVERLAY_MENU then
         G.OVERLAY_MENU:remove()
         G.OVERLAY_MENU = nil
     end
 
+<<<<<<< ours
     local active_tab = selected_tab or "tower_information"
 
+=======
+>>>>>>> theirs
     local contents = {
         {
             n = G.UIT.C,
@@ -375,8 +423,12 @@ G.FUNCS.create_bloonlatro_tutorial_ui = function(selected_tab)
                     },
                     nodes = {
                         build_name(),
+<<<<<<< ours
                         build_list(active_tab),
                         build_info()
+=======
+                        build_list()
+>>>>>>> theirs
                     }
                 }
             }
@@ -410,7 +462,10 @@ G.FUNCS.create_bloonlatro_tutorial_ui = function(selected_tab)
     }
 
     G.OVERLAY_MENU = ui
+<<<<<<< ours
     set_bloonlatro_tutorial_info(active_tab)
+=======
+>>>>>>> theirs
 
     G.E_MANAGER:add_event(Event({
         trigger = "immediate",

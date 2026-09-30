@@ -244,6 +244,7 @@ SMODS.Joker { --Energy Sentry
 	cost = 1,
     blueprint_compat = true,
     config = {
+        tower_info = { base = "Sentry", category = "misc" },
         extra = { chips = 40, mult = 4, slots = 1, rounds = 3 } --Variables: slots = joker slots, rounds = rounds remaining
     },
 
@@ -312,11 +313,11 @@ SMODS.Joker { --Champion Sentry
             }
         elseif context.selling_self then
             local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
-            local mp_nemesis = G.GAME.blind.name == 'bl_mp_nemesis'
-            if mp_nemesis then
+            local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+            if mp then
                 score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
             end
-            if not mp_nemesis then
+            if not mp then
                 G.E_MANAGER:add_event(Event({
                     trigger = "immediate",
                     func = function()
@@ -384,8 +385,8 @@ SMODS.Joker { --Mega Green Sentry
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
-        local mp_nemesis = G.GAME.blind.name == 'bl_mp_nemesis'
-        if mp_nemesis then
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
             score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
@@ -407,7 +408,7 @@ SMODS.Joker { --Mega Green Sentry
                 return math.floor(t)
             end
         }))
-        if not mp_nemesis then
+        if not mp then
             G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
@@ -465,8 +466,8 @@ SMODS.Joker { --Mega Red Sentry
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
-        local mp_nemesis = G.GAME.blind.name == 'bl_mp_nemesis'
-        if mp_nemesis then
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
             score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
@@ -488,7 +489,7 @@ SMODS.Joker { --Mega Red Sentry
                 return math.floor(t)
             end
         }))
-        if not mp_nemesis then
+        if not mp then
             G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()
@@ -545,8 +546,8 @@ SMODS.Joker { --Mega Blue Sentry
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limits.mod = G.jokers.config.card_limits.mod - card.ability.extra.slots
         local score = math.min(card.ability.extra.max, G.GAME.blind.chips * card.ability.extra.percent / 100.0)
-        local mp_nemesis = G.GAME.blind.name == 'bl_mp_nemesis'
-        if mp_nemesis then
+        local mp = G.GAME.blind.name == 'bl_mp_nemesis'
+        if mp then
             score = G.GAME.current_round.hands_left > 0 and card.ability.extra.max or 0
         end
         G.GAME.chips = G.GAME.chips + score
@@ -568,7 +569,7 @@ SMODS.Joker { --Mega Blue Sentry
                 return math.floor(t)
             end
         }))
-        if not mp_nemesis then
+        if not mp then
             G.E_MANAGER:add_event(Event({
                 trigger = "immediate",
                 func = function()

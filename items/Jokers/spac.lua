@@ -7,7 +7,7 @@
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 0, tier = 0 },
         extra = { chips = 25, current = 0 } --Variables: chips = +chips for each discard used, current = current +chips
     },
 
@@ -45,7 +45,7 @@ SMODS.Joker { --Bigger Stacks
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 1, tier = 1 },
         extra = { chips = 35, current = 0 } --Variables: chips = +chips for each discard used, current = current +chips
     },
 
@@ -83,7 +83,7 @@ SMODS.Joker { --White Hot Spikes
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 1, tier = 2 },
         extra = { chips = 90, discards = 0 } --Variables: chips = +chips, discards = discards left
     },
 
@@ -108,7 +108,7 @@ SMODS.Joker { --Spiked Balls
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 1, tier = 3 },
         extra = { chips = 10, current = 0 } --Variables: chips = +chips per discarded card, current = current chips
     },
 
@@ -146,7 +146,7 @@ SMODS.Joker { --Spiked Mines
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 1, tier = 4 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -176,7 +176,7 @@ SMODS.Joker { --Super Mines
 	cost = 10,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 1, tier = 5 },
         extra = { Xmult = 5, loss = 0.25, current = 5 } --Variables: Xmult = Xmult
     },
 
@@ -210,7 +210,7 @@ SMODS.Joker { --Faster Production
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 2, tier = 1 },
         extra = { mult = 5, current = 0 } --Variables: mult = +mult for each discard used, current = current +mult
     },
 
@@ -248,7 +248,7 @@ SMODS.Joker { --Even Faster Production
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 2, tier = 2 },
         extra = { mult = 7, current = 0 } --Variables: mult = +mult for each discard used, current = current +mult
     },
 
@@ -288,7 +288,7 @@ SMODS.Joker { --MOAB SHREDR
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 2, tier = 3 },
         extra = { Xmult = 0.25, Xmult_boss = 0.5, current = 1 } --Variables: Xmult = Xmult gain/loss, current = current Xmult
     },
 
@@ -338,7 +338,7 @@ SMODS.Joker { --Spike Storm
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 2, tier = 4 },
         extra = { limit = 3, counter = 3, Xmult = 1.25 } --Variables: limit = number of hands for Xmult, counter = hand index, Xmult = Xmult per card
     },
 
@@ -383,7 +383,7 @@ SMODS.Joker { --Carpet of Spikes
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 2, tier = 5 },
         extra = { Xmult = 1.25, discards = 0 } --Variables: Xmult = Xmult, discards = discards left
     },
 
@@ -408,7 +408,7 @@ SMODS.Joker { --Long Reach
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 3, tier = 1 },
         extra = { hands = 1 } --Variables: hands = hands gain and discard loss
     },
 
@@ -441,7 +441,7 @@ SMODS.Joker { --Smart Spikes
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 3, tier = 2 },
         extra = { mult = 1, current = 0 } --Variables: mult = +mult per unused hand, current = current +mult
     },
 
@@ -472,7 +472,7 @@ SMODS.Joker { --Long Life Spikes
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 3, tier = 3 },
         extra = { mult = 1, loss = 1, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult each hand
     },
 
@@ -523,7 +523,7 @@ SMODS.Joker { --Deadly Spikes
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 3, tier = 4 },
         extra = { mult = 2, loss = 3, current = 0 } --Variables: mult = +mult per spade discarded, current = current +mult, loss = -mult each hand
     },
 
@@ -573,7 +573,7 @@ SMODS.Joker { --Perma-Spike
 	cost = 8,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Spike Factory", category = "support" },
+        tower_info = { base = "Spike Factory", category = "support", path = 3, tier = 5 },
         extra = { hands = 5, current = 0 } --Variables: hands = max carryover hands, current = current hands
     },
 

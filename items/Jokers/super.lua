@@ -7,7 +7,7 @@
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 0, tier = 0 },
         extra = { mult = 12 } --Variables: mult = +mult
     },
 
@@ -32,7 +32,7 @@ SMODS.Joker { --Laser Blasts
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 1, tier = 1 },
         extra = { mult = 16 } --Variables: mult = +mult
     },
 
@@ -57,7 +57,7 @@ SMODS.Joker { --Plasma Blasts
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 1, tier = 2 },
         extra = { Xmult = 1.5 } --Variables: Xmult = Xmult
     },
 
@@ -82,7 +82,7 @@ SMODS.Joker { --Sun Avatar
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 1, tier = 3 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -115,7 +115,7 @@ SMODS.Joker { --Sun Temple
 	cost = 10,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 1, tier = 4 },
         extra = { Xmult = 0.2, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
         button = { text = "SAC", colour = G.C.ATTENTION }
     },
@@ -248,7 +248,7 @@ SMODS.Joker { --True Sun God
 	cost = 20,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 1, tier = 5 },
         extra = { Xmult = 0.3, current = 1, sacrificed = false }, --Variables: Xmult = Xmult
         button = { text = "SAC", colour = G.C.ATTENTION }
     },
@@ -348,7 +348,7 @@ SMODS.Joker { --Super Range
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 2, tier = 1 },
         extra = { slots = 1 } --Variables: slots = extra shop slots
     },
 
@@ -377,7 +377,7 @@ SMODS.Joker { --Epic Range
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 2, tier = 2 },
         extra = { booster_slots = 1 } --Variables: shop_slots = extra shop slots, booster_slots = reduced booster slots
     },
 
@@ -406,7 +406,7 @@ SMODS.Joker { --Robo Monkey
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 2, tier = 3 },
         extra = { copy = nil } --Variables: copy = copied joker
     },
 
@@ -444,7 +444,7 @@ SMODS.Joker { --Tech Terror
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 2, tier = 4 },
         extra = { copy = nil } --Variables: copy = copied joker
     },
 
@@ -485,7 +485,7 @@ SMODS.Joker { --The Anti-Bloon
 	cost = 10,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 2, tier = 5 },
         extra = { current = 1 } --Variables: copy = copied joker
     },
 
@@ -545,7 +545,7 @@ SMODS.Joker { --Knockback
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 3, tier = 1 },
         extra = { retrigger = 1, retriggered_cards = {} } --Variables: counter = card index
     },
 
@@ -580,7 +580,7 @@ SMODS.Joker { --Ultravision
 	cost = 6,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 3, tier = 2 },
         extra = { slots = 2 , discards = -1 } --Variables: slots = extra consumable slots, d_size = discard change
     },
 
@@ -612,7 +612,7 @@ SMODS.Joker { --Dark Knight
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 3, tier = 3 },
         extra = { Xmult = 2 } --Variables: Xmult = Xmult
     },
 
@@ -645,7 +645,7 @@ SMODS.Joker { --Dark Champion
 	cost = 9,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 3, tier = 4 },
         extra = { Xmult = 1.3 } --Variables: Xmult = Xmult
     },
 
@@ -670,7 +670,7 @@ SMODS.Joker { --Legend of the Night
 	cost = 10,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Super Monkey", category = "magic" },
+        tower_info = { base = "Super Monkey", category = "magic", path = 3, tier = 5 },
     },
 
     loc_vars =function (self, info_queue, card)

@@ -9,7 +9,7 @@
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 0, tier = 0 },
         extra = { mult = 4, slots = 1 } --Variables: mult = +mult, slots = extra joker slots
     },
     loc_vars = function(self, info_queue, card)
@@ -41,7 +41,7 @@ SMODS.Joker { --Ninja Discipline
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 1, tier = 1 },
         extra = { chips = 20, slots = 1 } --Variables: chips = +chips, slots = extra joker slots
     },
 
@@ -74,7 +74,7 @@ SMODS.Joker { --Sharp Shurikens
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 1, tier = 2 },
         extra = { chips = 20, mult = 4, slots = 1 } --Variables: chips = +chips, mult = +mult, slots = extra joker slots
     },
 
@@ -106,7 +106,7 @@ SMODS.Joker { --Double Shot
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 1, tier = 3 },
         extra = { Xmult = 2, number = 2 } --Variables: Xmult = Xmult, number = required diamonds for Xmult
     },
 
@@ -139,7 +139,7 @@ SMODS.Joker { --Bloonjitsu
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 1, tier = 4 },
         extra = { Xmult = 3, number = 3 } --Variables: Xmult = Xmult, number = required diamonds for Xmult
     },
 
@@ -172,7 +172,7 @@ SMODS.Joker { --Grandmaster Ninja
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 1, tier = 5 },
         extra = { Xmult = 0.5 }--Variables: Xmult = Xmult
     },
 
@@ -207,7 +207,7 @@ SMODS.Joker { --Distraction
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 2, tier = 1 },
         extra = { num = 1, denom = 2, slots = 1, retrigger = 1 } --Variables: num/denom = probability fraction, slots = extra joker slots, retrigger = retrigger count
     },
 
@@ -242,7 +242,7 @@ SMODS.Joker { --Counter Espionage
 	cost = 4,
     blueprint_compat = false,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 2, tier = 2 },
         extra = { slots = 1 } --Variables: slots = extra joker slots
     },
 
@@ -280,7 +280,7 @@ SMODS.Joker { --Shinobi Tactics
 	cost = 5,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 2, tier = 3 },
         extra = { Xmult = 1.25 } --Variables: Xmult = Xmult for each ninja
     },
 
@@ -311,7 +311,7 @@ SMODS.Joker { --Bloon Sabotage
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 2, tier = 4 },
         extra = { num = 1, denom = 2, discards = 1 } --Variables: num/denom = probability fraction, discards = number of discards gained
     },
 
@@ -347,7 +347,7 @@ SMODS.Joker { --Grand Saboteur
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 2, tier = 5 },
         extra = { num = 1, denom = 2, number = 2 } --Variables: num/denom = probability fraction, number = number of hearts for sabotage
     },
 
@@ -392,7 +392,7 @@ SMODS.Joker { --Seeking Shuriken
 	cost = 4,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 3, tier = 1 },
         extra = { mult = 4, slots = 1 } --Variables: num/denom = probability fraction slots = extra joker slots
     },
 
@@ -426,7 +426,7 @@ SMODS.Joker { --Caltrops
     blueprint_compat = true,
     perishable_compat = false,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 3, tier = 2 },
         extra = { mult = 1, current = 0, slots = 1 } --Variables: mult = +mult each round, current = current +mult, slots = extra joker slots
     },
 
@@ -462,7 +462,7 @@ SMODS.Joker { --Flash Bomb
 	cost = 6,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 3, tier = 3 },
         extra = { mult = 40, limit = 3, counter = 3 } --Variables: mult = +mult, limit = number of hands for Xmult, counter = hand index
     },
 
@@ -519,7 +519,7 @@ SMODS.Joker { --Sticky Bomb
 	cost = 7,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 3, tier = 4 },
         extra = { Xmult = 3, active = false } --Variables: Xmult = Xmult
     },
 
@@ -578,7 +578,7 @@ SMODS.Joker { --Master Bomber
 	cost = 8,
     blueprint_compat = true,
     config = {
-        tower_info = { base = "Ninja Monkey", category = "magic" },
+        tower_info = { base = "Ninja Monkey", category = "magic", path = 3, tier = 5 },
         extra = { Xmult = 1, current = 1 } --Variables: Xmult = Xmult per stickied, current = current stickied cards
     },
 
