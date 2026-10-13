@@ -510,7 +510,7 @@ SMODS.Joker { --Pouākai
     enhancement_gate = 'm_wild',
     config = {
         tower_info = { base = "Beast Handler", category = "support", path = 3, tier = 5 },
-        extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult per handsize, current = current handsize
+        extra = { Xmult = 0.5, current = 1 } --Variables: Xmult = Xmult per wild card, current = current Xmult
     },
 
     loc_vars = function(self, info_queue, card)
