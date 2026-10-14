@@ -11,4 +11,5 @@ Balance Changes:
 - Brickell Deck reworked
 
 Fixes:
+- MOAB Shove should correctly change mult to 0 if shoving
 - Text fixes

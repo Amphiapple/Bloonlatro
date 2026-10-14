@@ -532,9 +532,9 @@ SMODS.Joker { --MOAB Shove
             juice_card_until(card, eval, true)
         elseif context.final_scoring_step and card.ability.extra.counter > 0 and not context.blueprint then
             hand_chips = mod_chips(0)
-            hand_mult = mod_mult(0)
+            mult = mod_mult(0)
             card.ability.extra.counter = card.ability.extra.counter - 1
-            update_hand_text( { delay = 0 }, { chips = hand_chips, mult = hand_mult } )
+            update_hand_text( { delay = 0 }, { chips = hand_chips, mult = mult } )
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					play_sound("timpani", 1)
