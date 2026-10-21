@@ -269,6 +269,17 @@ G.FUNCS.create_bloonlatro_tab_tower_information = function()
 end
 
 G.FUNCS.create_bloonlatro_tab_upgrade_system = function()
+    local dart_monkey = Card(
+        0,
+        0,
+        G.CARD_W,
+        G.CARD_H,
+        G.P_CARDS.empty,
+        G.P_CENTERS['j_bloons_dart_monkey']
+    )
+
+    dart_monkey.ability.tower_info = { base = "Dart Monkey", category = "primary", path = 0, tier = 0 }
+    dart_monkey.tutorial_card = true
 
     local desc_nodes = {
         {
@@ -350,6 +361,21 @@ G.FUNCS.create_bloonlatro_tab_upgrade_system = function()
                     padding = 0.05
                 },
                 nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = {
+                            align = "cm",
+                            minw = 3.75
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.O,
+                                config = {
+                                    object = dart_monkey
+                                }
+                            }
+                        }
+                    },
                     {
                         n = G.UIT.C,
                         config = {
@@ -496,4 +522,12 @@ G.FUNCS.create_bloonlatro_tutorial_ui = function(selected_tab)
     }))
 
     return ui
+end
+
+----------------------------------------------------------
+-- Return func
+----------------------------------------------------------
+
+G.FUNCS.return_to_bloonlatro_upgrade_tutorial = function()
+    G.FUNCS.create_bloonlatro_tutorial_ui("upgrade_system")
 end
