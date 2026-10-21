@@ -60,7 +60,7 @@ SMODS.Joker { --Even Faster Shooting
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 2 },
-        extra = { Xmult = 1.3 } --Variables: Xmult
+        extra = { Xmult = 1.5 } --Variables: Xmult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -69,7 +69,7 @@ SMODS.Joker { --Even Faster Shooting
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 8 then
             return {
-                x_mult = card.ability.extra.Xmult,
+                Xmult = card.ability.extra.Xmult,
             }
         end
     end
@@ -447,11 +447,11 @@ SMODS.Joker { --Tack Sprayer
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 3 },
-        extra = { chips = 24, mult = 8 } --Variables: chips = +chips, mult = +mult
+        extra = { Xmult = 1.25 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -461,8 +461,7 @@ SMODS.Joker { --Tack Sprayer
                     context.other_card:get_id() == 8 or
                     context.other_card:get_id() == 10 then
                 return {
-                    chips = card.ability.extra.chips,
-                    mult = card.ability.extra.mult,
+                    Xmult = card.ability.extra.Xmult,
                 }
             end
         end

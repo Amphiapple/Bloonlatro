@@ -47,10 +47,10 @@ return {
 			j_bloons_super_mines = {
 				name = 'Super Mines',
 				text = {
-					'{X:mult,C:white}X#1#{} Mult',
-					'{C:mult}-{X:mult,C:white}X#2#{} Mult for each',
-					'card in your deck',
-					'{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult{}',
+					'Gives up to {X:mult,C:white}X#1#{}Mult',
+					'depending on the number',
+					'of cards you draw',
+					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult{}',
 				}
 			},
 			j_bloons_faster_production = {

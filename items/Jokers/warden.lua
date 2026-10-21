@@ -46,45 +46,7 @@ SMODS.Joker { --Aerial Attunement
     blueprint_compat = true,
     config = {
         tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 1 },
-        extra = { starting_mult = 8, mult_gain = 2, current = 8 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each hand, current = current mult
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.current, card.ability.extra.mult_gain } }
-    end,
-    calculate = function (self, card, context)
-        if context.joker_main then
-            return {
-                mult = card.ability.extra.current
-            }
-        elseif context.after and not context.blueprint then
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = "current",
-                scalar_value = "mult_gain",
-            })
-            return nil, true
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.starting_mult
-            return {
-                message = localize('k_reset'),
-                colour = G.C.RED
-            }
-        end
-    end
-}
-
-SMODS.Joker { --Zephyr Sense
-    key = 'zephyr_sense',
-    name = 'Zephyr Sense',
-    atlas = 'Joker',
-	pos = { x = 1, y = 20 },
-    rarity = 1,
-	cost = 4,
-    blueprint_compat = true,
-    config = {
-        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 1 },
-        extra = { starting_mult = 8, mult_gain = 2, current = 8 } --Variables: starting_mult = +mult at the start of ante, mult_gain = +mult after each hand, current = current mult
+        extra = { starting_mult = 4, mult_gain = 2, current = 4 } --Variables: starting_mult = +mult at the start of ante, mult_gain = +mult after each hand, current = current mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -108,6 +70,38 @@ SMODS.Joker { --Zephyr Sense
                 message = localize('k_reset'),
                 colour = G.C.RED
             }
+        end
+    end
+}
+
+SMODS.Joker { --Zephyr Sense
+    key = 'zephyr_sense',
+    name = 'Zephyr Sense',
+    atlas = 'Joker',
+	pos = { x = 1, y = 20 },
+    rarity = 1,
+	cost = 4,
+    blueprint_compat = true,
+    config = {
+        tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 2 },
+        extra = { mult = 4, mult_gain = 2, limit = 2 } --Variables: mult = +mult, mult_gain = +mult at end of round, limit = required hands for mult
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.mult_gain, card.ability.extra.limit } }
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        elseif context.end_of_round and G.GAME.current_round.hands_played >= card.ability.extra.limit and not context.individual and not context.repetition and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_gain",
+            })
+            return nil, true
         end
     end
 }

@@ -489,7 +489,15 @@ SMODS.Joker { --Giant Condor
         info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
         return { vars = { card.ability.extra.Xmult } }
     end,
-
+    update = function(self, card, dt)
+        if G.playing_cards then
+            for k, v in pairs(G.playing_cards) do
+                if v.ability.name == 'Wild Card' and v.debuff then
+                    v.debuff = false
+                end
+            end
+        end
+    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Wild Card' then
             return {

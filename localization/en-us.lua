@@ -600,14 +600,21 @@ return {
                 description = {
                     "The tower information badge is shown under the tower's rarity badge.",
                     "The base tower is shown by name and the category is shown by color.",
+                    "The base tower identifies the original tower this tower upgraded from.",
                     "Categories include {C:primary}Primary{}, {C:military}Military{}, {C:magic}Magic{}, {C:support}Support{}, and {C:misc}Miscellaneous{}.",
-                    "The base tower identifies which original tower this tower is based on.",
-                    "Some towers buff other towers based on their category or base tower."
+                    "Some towers interact with other towers' base tower or category."
                 }
             },
             upgrade_system = {
                 name = "Upgrade System",
                 order = 2,
+                description = {
+                    "Upgrading towers requires specific consumables found in Upgrade packs.",
+                    "Towers upgrade along their current path, or a random path for base towers.",
+                    "Upgrading towers is limited to tier {C:attention}4{} unless specified on the upgrade card.",
+                    "{C:attention}Eternal{} Jokers cannot upgrade. {C:attention}Perishable{} Jokers refresh when upgraded.",
+                    "Double click on a tower to view all possible upgrade paths for the tower."
+                }
             }
         }
     }

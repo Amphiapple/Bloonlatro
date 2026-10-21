@@ -177,25 +177,24 @@ SMODS.Joker { --Super Mines
     blueprint_compat = true,
     config = {
         tower_info = { base = "Spike Factory", category = "support", path = 1, tier = 5 },
-        extra = { Xmult = 5, loss = 0.25, current = 5 } --Variables: Xmult = Xmult
+        extra = { Xmult = 5, current = 1 } --Variables: Xmult = maximum Xmult, current = current Xmult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.loss, card.ability.extra.current } }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.current } }
     end,
     update = function(self, card, dt)
-        if G.deck and G.deck.cards then
-            if #G.deck.cards > 16 then
-                card.ability.extra.current = 1
-            else
-                card.ability.extra.current = card.ability.extra.Xmult - card.ability.extra.loss * #G.deck.cards
-            end
+        if G.deck and G.deck.cards and G.playing_cards then
+            local percent = (#G.playing_cards - #G.deck.cards) / #G.playing_cards
+            card.ability.extra.current = card.ability.extra.Xmult ^ percent
+        else
+            card.ability.extra.current = 1
         end
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.current > 1 then
             return {
-                x_mult = card.ability.extra.Xmult,
+                Xmult = card.ability.extra.current,
             }
         end
     end

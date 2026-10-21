@@ -719,7 +719,7 @@ end
 
 function BTD.get_tower_upgrade(card, paragon, t5, category, path, tiers)
     --Non upgradable joker
-    if not is_upgradable_card(card) then
+    if not is_upgradable_card(card) or SMODS.is_eternal(card) then
         return nil
     end
     local start_base = card.ability.tower_info and card.ability.tower_info.base

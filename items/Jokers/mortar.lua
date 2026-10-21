@@ -279,7 +279,6 @@ SMODS.Joker { --Artillery Battery
     config = {
         tower_info = { base = "Mortar Monkey", category = "military", path = 2, tier = 4 },
         extra = { mult = 2, current = 0 } --Variables: mult = +mult for each stunned, current = current +mult
-
     },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bloons_stunned

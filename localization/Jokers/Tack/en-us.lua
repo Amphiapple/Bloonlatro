@@ -113,9 +113,9 @@ return {
 			j_bloons_tack_sprayer = {
 				name = 'Tack Sprayer',
 				text = {
-					'Each played {C:attention}2{}, {C:attention}4{}, {C:attention}6{}, {C:attention}8{},',
-					'or {C:attention}10{} gives {C:chips}+#1#{} Chips and',
-					'{C:mult}+#2#{} Mult when scored',
+					'Each played {C:attention}2{}, {C:attention}4{}, {C:attention}6{},',
+					'{C:attention}8{}, or {C:attention}10{} gives',
+					'{X:mult,C:white}X#1#{} Mult when scored',
 				}
 			},
 			j_bloons_overdrive = {

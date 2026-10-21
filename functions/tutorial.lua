@@ -269,6 +269,70 @@ G.FUNCS.create_bloonlatro_tab_tower_information = function()
 end
 
 G.FUNCS.create_bloonlatro_tab_upgrade_system = function()
+
+    local desc_nodes = {
+        {
+            n = G.UIT.R,
+            config = {
+                align = "cm",
+                padding = 0.05
+            },
+            nodes = {
+                {
+                    n = G.UIT.T,
+                    config = {
+                        text = G.localization.bloonlatro_tutorial.tabs.upgrade_system.name,
+                        scale = 1,
+                        colour = G.C.UI.TEXT_DARK,
+                        shadow = false
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        align = "cm",
+                        minh = 0.3
+                    },
+                }
+            }
+        }
+    }
+    local loc_desc = G.localization.bloonlatro_tutorial.tabs.upgrade_system.description or nil
+    if loc_desc and type(loc_desc) == "table" and #loc_desc > 0 then
+        for i, desc_text in ipairs(loc_desc) do
+            desc_nodes[#desc_nodes + 1] = {
+                n = G.UIT.R,
+                config = {
+                    align = "cl",
+                    padding = 0.03,
+                    maxw = 16
+                },
+                nodes = SMODS.localize_box(
+                    loc_parse_string(desc_text),
+                    { scale = 1.2, text_colour = G.C.UI.TEXT_DARK, vars = { colours = {} } }
+                ),
+            }
+        end
+    else
+        desc_nodes[#desc_nodes + 1] = {
+            n = G.UIT.R,
+            config = { align = "cm", padding = 0.03 },
+            nodes = {
+                {
+                    n = G.UIT.O,
+                    config = {
+                        object = DynaText({
+                            string = { "None" },
+                            colours = { G.C.UI.TEXT_INACTIVE },
+                            scale = 0.4,
+                            maxw = 16,
+                        })
+                    }
+                }
+            }
+        }
+    end
+
     return {
         n = G.UIT.C,
         config = {
@@ -276,17 +340,25 @@ G.FUNCS.create_bloonlatro_tab_upgrade_system = function()
             padding = 0.12,
             r = 0.1,
             colour = G.C.WHITE,
-            minw = 16,
-            minh = 4
+            minw = 16
         },
         nodes = {
             {
-                n = G.UIT.T,
+                n = G.UIT.R,
                 config = {
-                    text = "Coming Soon!",
-                    scale = 1.5,
-                    colour = G.C.UI.TEXT_DARK,
-                    shadow = false
+                    align = "cm",
+                    padding = 0.05
+                },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = {
+                            align = "lm",
+                            padding = 0.03,
+                            minw = 10.5
+                        },
+                        nodes = desc_nodes
+                    }
                 }
             }
         }

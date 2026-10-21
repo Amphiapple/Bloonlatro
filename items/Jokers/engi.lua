@@ -468,7 +468,7 @@ SMODS.Joker { --Double Gun
     blueprint_compat = true,
     config = {
         tower_info = { base = "Engineer Monkey", category = "support", path = 3, tier = 3 },
-        extra = { money = 1, pairs = {} } --Variables: money = dollars per held pair, pairs = held pairs
+        extra = { money = 2, pairs = {} } --Variables: money = dollars per held pair, pairs = held pairs
     },
 
     loc_vars = function(self, info_queue, card)

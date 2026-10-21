@@ -5,24 +5,25 @@ return {
 				name = 'Skywarden',
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult after each hand',
-                    'played this round',
+					'{C:mult}+#2#{} Mult per hand',
+                    'this round only',
 				}
 			},
 			j_bloons_aerial_attunement = {
 				name = "Aerial Attunement",
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult after each hand',
-                    'played this round',
+					'{C:mult}+#2#{} Mult per hand',
+                    'this ante only',
 				}
 			},
 			j_bloons_zephyr_sense = {
 				name = 'Zephyr Sense',
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult after each hand',
-                    'played this ante',
+					'{C:mult}+#2#{} Mult at end of round',
+					'if you have played',
+					'at least {C:attention}#2#{} hands'
 				}
 			},
             j_bloons_wind_weaver = {
@@ -55,16 +56,16 @@ return {
 				name = "Storm's Pulse",
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult after each hand',
-                    'played this round',
+					'{C:mult}+#2#{} Mult per hand',
+                    'this round only',
 				}
 			},
 			j_bloons_thundering_arc = {
 				name = 'Thundering Arc',
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult after each card',
-                    'scored this round',
+					'{C:mult}+#2#{} Mult per card scored',
+                    'this round only',
 				}
 			},
             j_bloons_galvanic_conduit = {
