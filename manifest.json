@@ -1,0 +1,10 @@
+{
+	"name": "Bloonlatro",
+	"description": "Adds BTD6 into Balatro",
+	"website_url": "https://github.com/Amphiapple/Bloonlatro",
+	"version_number": "0.4.6",
+	"dependencies": [
+		"Steamodded-Steamodded-1.1814.0",
+		"Thunderstore-lovely-0.10.0"
+	]
+}

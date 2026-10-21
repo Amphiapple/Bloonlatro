@@ -584,7 +584,7 @@ return {
                 "Rerolls are disabled"
             },
             ch_c_no_negative_jokers = {
-                "Negative Jokers no longer appear in the shop"
+                "{C:dark_edition}Negative{C:attention} Jokers{} no longer appear"
             },
             ch_c__2mp = {
                 "Required score scales extremely fast for each {C:attention}Ante{}"
