@@ -17,7 +17,7 @@ JokerDisplay.Definitions["j_bloons_aerial_attunement"] = { --Aerial Attunement
 JokerDisplay.Definitions["j_bloons_zephyr_sense"] = { --Zephyr Sense
     text = {
         { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "current" }
+        { ref_table = "card.ability.extra", ref_value = "mult" }
     },
     text_config = { colour = G.C.MULT },
 }

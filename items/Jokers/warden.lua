@@ -82,6 +82,7 @@ SMODS.Joker { --Zephyr Sense
     rarity = 1,
 	cost = 4,
     blueprint_compat = true,
+    perishable_compat = false,
     config = {
         tower_info = { base = "Skywarden", category = "magic", path = 1, tier = 2 },
         extra = { mult = 4, mult_gain = 2, limit = 2 } --Variables: mult = +mult, mult_gain = +mult at end of round, limit = required hands for mult
