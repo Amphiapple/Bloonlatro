@@ -706,15 +706,17 @@ function BTD.is_displayable_card(card)
     if not is_upgradable_card(card) then
         return false
     end
-    if card.area then
+    if card.display_card then
+        return false
+    elseif card.tutorial_card then
+        return true
+    elseif card.area then
         if G.jokers and card.area == G.jokers or
                 G.shop_jokers and card.area == G.shop_jokers or
                 G.pack_cards and card.area == G.pack_cards or
                 card.area.config and card.area.config.collection then
             return true
         end
-    elseif card.tutorial_card then
-        return true
     end
     return false
 end
@@ -971,6 +973,7 @@ local function create_UIBox_upgrades(card, rows, args)
             if not center then break end
             local indent = 0
             local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
+            card.display_card = true
             if args.modify_card then args.modify_card(card, center, i, j) end
             if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
             G.your_collection[j]:emplace(card)
