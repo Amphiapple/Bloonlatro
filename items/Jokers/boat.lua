@@ -71,7 +71,7 @@ SMODS.Joker { --Double Shot
     blueprint_compat = true,
     config = {
         tower_info = { base = "Monkey Buccaneer", category = "military", path = 1, tier = 2 },
-        extra = { money = 2, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
+        extra = { money = 1, pairs = {} } --Variables: money = dollars per pair, pairs = played pairs
     },
 
     loc_vars = function(self, info_queue, card)
