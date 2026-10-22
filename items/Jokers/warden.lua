@@ -253,14 +253,16 @@ SMODS.Joker { --Thundering Arc
     blueprint_compat = true,
     config = {
         tower_info = { base = "Skywarden", category = "magic", path = 2, tier = 2 },
-        extra = { starting_mult = 4, mult_gain = 2, current = 4 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each card, current = current mult
+        extra = { starting_mult = 4, mult_gain = 2, count = 0, current = 4 } --Variables: starting_mult = +mult at the start of round, mult_gain = +mult after each card, current = current mult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.current, card.ability.extra.mult_gain } }
     end,
     calculate = function (self, card, context)
-        if context.joker_main then
+        if context.individual and context.cardarea == G.play then
+            card.ability.extra.count = card.ability.extra.count + 1
+        elseif context.joker_main then
             return {
                 mult = card.ability.extra.current
             }
@@ -270,9 +272,10 @@ SMODS.Joker { --Thundering Arc
                 ref_value = "current",
                 scalar_value = "mult_gain",
                 operation = function(ref_table, ref_value, initial, scaling)
-                    ref_table[ref_value] = initial + scaling*#context.scoring_hand
+                    ref_table[ref_value] = initial + scaling*card.ability.extra.count
                 end
             })
+            card.ability.extra.count = 0
             return nil, true
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.current = card.ability.extra.starting_mult

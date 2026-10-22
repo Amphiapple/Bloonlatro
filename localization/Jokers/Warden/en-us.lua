@@ -5,7 +5,7 @@ return {
 				name = 'Skywarden',
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult per hand',
+					'{C:mult}+#2#{} Mult after each hand',
                     'this round only',
 				}
 			},
@@ -13,7 +13,7 @@ return {
 				name = "Aerial Attunement",
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult per hand',
+					'{C:mult}+#2#{} Mult after each hand',
                     'this ante only',
 				}
 			},
@@ -56,7 +56,7 @@ return {
 				name = "Storm's Pulse",
 				text = {
 					'{C:mult}+#1#{} Mult',
-					'{C:mult}+#2#{} Mult per hand',
+					'{C:mult}+#2#{} Mult after each hand',
                     'this round only',
 				}
 			},

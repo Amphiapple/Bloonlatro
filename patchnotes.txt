@@ -20,4 +20,5 @@ Balance Changes:
 
 Fixes:
 - MOAB Shove should correctly change mult to 0 if shoving
+- Coldchain Joker Display should show the correct value for higher current chips
 - Text fixes
