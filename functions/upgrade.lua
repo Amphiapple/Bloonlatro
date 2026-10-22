@@ -713,6 +713,8 @@ function BTD.is_displayable_card(card)
                 card.area.config and card.area.config.collection then
             return true
         end
+    elseif card.tutorial_card then
+        return true
     end
     return false
 end
@@ -998,7 +1000,10 @@ function BTD.display_upgrades(card)
     if not BTD.is_displayable_card(card) then
         return nil
     end
-    local menu = card.area.config.collection and 'your_collection' or 'exit_overlay_menu'
+    local menu = card.tutorial_card and 'return_to_bloonlatro_upgrade_tutorial' or
+                 card.area.config.collection and 'your_collection' or
+                 'exit_overlay_menu'
+
     G.SETTINGS.paused = true
     G.FUNCS.overlay_menu {
         definition = create_UIBox_upgrades(card, {5,6,5}, {
