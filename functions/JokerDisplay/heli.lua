@@ -283,23 +283,6 @@ JokerDisplay.Definitions["j_bloons_faster_firing"] = { --Faster Firing
 }
 
 JokerDisplay.Definitions["j_bloons_moab_shove"] = { --MOAB Shove
-    reminder_text = {
-        { ref_table = "card.joker_display_values", ref_value = "active_text" },
-    },
-    calc_function = function(card)
-        local boss_active = G.GAME and G.GAME.blind and G.GAME.blind.get_type and G.GAME.blind:get_type() == 'Boss'
-        card.joker_display_values.active = boss_active and card.ability.extra.counter > 0
-        card.joker_display_values.active_text = boss_active and card.ability.extra.counter > 0 and "active" or boss_active and "inactive" or "no boss active"
-    end,
-    style_function = function(card, text, reminder_text, extra)
-        if reminder_text and reminder_text.children[1] and card.joker_display_values then
-            reminder_text.children[1].config.colour = card.joker_display_values.active and G.C.GREEN or
-                G.C.RED
-            reminder_text.children[1].config.scale = card.joker_display_values.active and 0.35 or 0.3
-            return true
-        end
-        return false
-    end
 }
 
 JokerDisplay.Definitions["j_bloons_comanche_defense"] = { --Comanche Defense

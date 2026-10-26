@@ -431,8 +431,8 @@ return {
                 name = 'Insta-Monkey',
                 text = {
                     'Upgrade {C:attention}#1#{}',
-                    'selected {C:attention}Joker{} to',
-                    'the highest tier',
+                    'selected {C:attention}Joker{}',
+                    'to tier {C:attention}5{}',
                 }
             },
         },

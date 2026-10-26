@@ -50,6 +50,15 @@ SMODS.Consumable { --Top Path Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -82,6 +91,15 @@ SMODS.Consumable { --Middle Path Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -114,6 +132,15 @@ SMODS.Consumable { --Bottom Path Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -146,6 +173,15 @@ SMODS.Consumable { --Primary Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -178,6 +214,15 @@ SMODS.Consumable { --Military Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -210,6 +255,15 @@ SMODS.Consumable { --Magic Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -242,6 +296,15 @@ SMODS.Consumable { --Support Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -468,6 +531,15 @@ SMODS.Consumable { --$5 Select Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -500,6 +572,15 @@ SMODS.Consumable { --Downgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -577,6 +658,15 @@ SMODS.Consumable { --T5 Upgrade
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }
 
@@ -612,5 +702,14 @@ SMODS.Consumable { --Upgrade Insta
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.jokers:unhighlight_all();
+                return true
+            end
+        }))
+        delay(0.5)
     end
 }

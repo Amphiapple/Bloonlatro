@@ -11,6 +11,8 @@ Balance Changes:
 - Even Faster Shooting Xmult 1.3 > 1.5
 - Tack Sprayer 40 chips 8 mult > X1.25 Mult
 - Double Shot $2 > $1
+- MOAB Shove no longer makes hands score 0 chips
+- Comanche Defense chips 20 > 25
 - Dark Champion Xmult 1.3 > 1.25
 - Zephyr Sense ability moved to Aerial Attunement
 - Zephyr Sense reworked

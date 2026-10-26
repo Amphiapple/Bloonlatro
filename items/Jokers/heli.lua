@@ -507,51 +507,21 @@ SMODS.Joker { --MOAB Shove
     blueprint_compat = true,
     config = {
         tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 3 },
-        extra = { hands = 3, counter = 0 } --Variables: hands = extra hands, scored_chips = chips for first hands, counter = amount of blowback hands left
+        extra = { hands = 3 } --Variables: hands = extra hands
     },
 
     loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.hands, card.ability.extra.counter } }
+		return { vars = { card.ability.extra.hands } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not card.getting_sliced then
-            if G.GAME.blind.boss then
-                card.ability.extra.counter = card.ability.extra.counter + card.ability.extra.hands
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        ease_hands_played(card.ability.extra.hands)
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
-                        return true
-                    end
-                }))
-            end
-        elseif context.first_hand_drawn and not context.blueprint then
-            local eval = function()
-                return (card.ability.extra.counter > 0 and not G.RESET_JIGGLES)
-            end
-            juice_card_until(card, eval, true)
-        elseif context.final_scoring_step and card.ability.extra.counter > 0 and not context.blueprint then
-            hand_chips = mod_chips(0)
-            mult = mod_mult(0)
-            card.ability.extra.counter = card.ability.extra.counter - 1
-            update_hand_text( { delay = 0 }, { chips = hand_chips, mult = mult } )
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					play_sound("timpani", 1)
-					attention_text({
-						scale = 1.4,
-						text = "Shoved",
-						hold = 0.45,
-						align = "cm",
-						offset = { x = 0, y = -2.7 },
-						major = G.play,
-					})
-					return true
-				end,
-			}))
-            delay(0.6)
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.counter = 0
+        if context.setting_blind and G.GAME.blind.boss and not card.getting_sliced then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_hands_played(card.ability.extra.hands)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
+                    return true
+                end
+            }))
         end
     end
 }
@@ -566,7 +536,7 @@ SMODS.Joker { --Comanche Defense
     blueprint_compat = true,
     config = {
         tower_info = { base = "Heli Pilot", category = "military", path = 3, tier = 4 },
-        extra = { number = 3, chips = 20, current = 0, counter = 0 } --Variables: numebr = max number of face cards, chips = +chips, current = current +chips
+        extra = { number = 3, chips = 25, current = 0, counter = 0 } --Variables: numebr = max number of face cards, chips = +chips, current = current +chips
     },
 
     loc_vars = function(self, info_queue, card)
