@@ -96,8 +96,6 @@ SMODS.Back { --Churchill
     end,
     calculate = function(self, back, context)
         if context.final_scoring_step and G.GAME.blind.boss then
-            mult = mod_mult(mult * self.config.extra.Xmult)
-            update_hand_text({ delay = 0 }, { mult = mult })
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound("multhit2", 1)
@@ -113,6 +111,9 @@ SMODS.Back { --Churchill
                     return true
                 end,
             }))
+            return {
+                Xmult = self.condig.extra.Xmult
+            }
         end
     end
 }
