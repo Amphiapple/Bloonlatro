@@ -402,7 +402,7 @@ SMODS.Joker { --IMF Loan
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.bankrupt, card.ability.extra.money } }
+        return { vars = { card.ability.extra.bankrupt } }
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.bankrupt_at = G.GAME.bankrupt_at - card.ability.extra.bankrupt
