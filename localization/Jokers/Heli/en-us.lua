@@ -113,8 +113,6 @@ return {
                 name = 'MOAB Shove',
                 text = {
                     '{C:blue}+#1#{} hands against {C:attention}Boss Blinds{}',
-                    'Extra hands score no chips',
-                    '{C:inactive}(#2# remaining{C:inactive})'
                 }
             },
             j_bloons_comanche_defense = {
