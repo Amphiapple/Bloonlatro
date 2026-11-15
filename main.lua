@@ -92,7 +92,7 @@ local consumables = {
 
 for k, v in ipairs(consumables) do
     local success, error_msg = pcall(function()
-        local init, error = SMODS.load_file("items/consumables/" .. v .. ".lua")
+        local init, error = SMODS.load_file("items/Consumables/" .. v .. ".lua")
         if not error then
             if init then
                 init()
@@ -139,7 +139,7 @@ local jokers = {
 
 for k, v in ipairs(jokers) do
     local success, error_msg = pcall(function()
-        local init, error = SMODS.load_file("items/jokers/" .. v .. ".lua")
+        local init, error = SMODS.load_file("items/Jokers/" .. v .. ".lua")
         if not error then
             if init then
                 init()
@@ -156,7 +156,7 @@ end
 if SMODS.Mods["JokerDisplay"] and SMODS.Mods["JokerDisplay"].can_load and JokerDisplay then
     for k, v in ipairs(jokers) do
         local success, error_msg = pcall(function()
-            local init, error = SMODS.load_file("functions/jokerdisplay/" .. v .. ".lua")
+            local init, error = SMODS.load_file("functions/JokerDisplay/" .. v .. ".lua")
             if not error then
                 if init then
                     init()
