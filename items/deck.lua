@@ -112,7 +112,7 @@ SMODS.Back { --Churchill
                 end,
             }))
             return {
-                Xmult = self.condig.extra.Xmult
+                Xmult = self.config.extra.Xmult
             }
         end
     end

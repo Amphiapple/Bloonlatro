@@ -8,3 +8,4 @@ Balance Changes:
 - MOAB shove no longer scores 0 chips on extra hands
 
 Fixes:
+- Adjustments to folder name capitalization so certain systems can load content
