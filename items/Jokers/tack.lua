@@ -34,7 +34,7 @@ SMODS.Joker { --Faster Shooting
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 1 },
-        extra = { chips = 48, mult = 2 } --Variables: chips = +chips, mult = +mult
+        extra = { chips = 32, mult = 5 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
@@ -60,16 +60,17 @@ SMODS.Joker { --Even Faster Shooting
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary", path = 1, tier = 2 },
-        extra = { Xmult = 1.5 } --Variables: Xmult
+        extra = { chips = 40, mult = 6 } --Variables: chips = +chips, mult = +mult
     },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 8 then
             return {
-                Xmult = card.ability.extra.Xmult,
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult,
             }
         end
     end
@@ -447,23 +448,17 @@ SMODS.Joker { --Tack Sprayer
     blueprint_compat = true,
     config = {
         tower_info = { base = "Tack Shooter", category = "primary", path = 3, tier = 3 },
-        extra = { Xmult = 1.25 } --Variables: chips = +chips, mult = +mult
+        extra = { Xmult = 1.5 } --Variables: Xmult
     },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 2 or
-                    context.other_card:get_id() == 4 or
-                    context.other_card:get_id() == 6 or
-                    context.other_card:get_id() == 8 or
-                    context.other_card:get_id() == 10 then
-                return {
-                    Xmult = card.ability.extra.Xmult,
-                }
-            end
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 8 then
+            return {
+                Xmult = card.ability.extra.Xmult,
+            }
         end
     end
 }

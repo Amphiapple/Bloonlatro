@@ -5,7 +5,11 @@ General Changes:
 
 
 Balance Changes:
+- Faster Shooting (Tack) chips 48 > 32, mult 4 > 5
+- Even Faster Shooting reworked: now gives 40 chips and 6 mult
+- Even Faster Shooting effect moved to Tack Sprayer
 - MOAB shove no longer scores 0 chips on extra hands
 
 Fixes:
+- Churchill deck no longer crashes the game
 - Adjustments to folder name capitalization so certain systems can load content
